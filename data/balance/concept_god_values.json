@@ -1,0 +1,103 @@
+{
+    "_meta":  {
+                  "status":  "已定稿",
+                  "version":  "v0.71",
+                  "description":  "概念神根据当前阵容非概念神字段最高值动态刷新；全概念神阵容进入MAX与游戏毕业状态。",
+                  "integerType":  "int32_signed",
+                  "integerMaximum":  2147483647
+              },
+    "dynamicFields":  [
+                          "ovr",
+                          "scoring",
+                          "rebound",
+                          "assist",
+                          "steal",
+                          "block"
+                      ],
+    "partialConceptLineup":  {
+                                 "condition":  "1 \u003c= conceptGodCountAfterLineupChange \u003c 12",
+                                 "conceptCountVariable":  "C = conceptGodCountAfterLineupChange",
+                                 "multiplierFormula":  "1 + 0.1 * C",
+                                 "baseValueFormula":  "max(field value among current lineup non-concept-god players)",
+                                 "conceptValueFormula":  "min(INT32_MAX, floor(baseFieldMax * (1 + 0.1 * C)))",
+                                 "eachFieldFindsItsOwnMaximum":  true,
+                                 "allConceptGodsShareSameValueForSameField":  true
+                             },
+    "fullConceptLineup":  {
+                              "condition":  "conceptGodCountAfterLineupChange == 12",
+                              "playerFieldValue":  2147483647,
+                              "teamOvrValue":  2147483647,
+                              "playerDisplay":  "MAX",
+                              "teamOvrDisplay":  "MAX",
+                              "skipPlayerOvrSum":  true,
+                              "skipHeadCoachMultiplier":  true,
+                              "gameGraduated":  true,
+                              "allMatchesAutoWin":  true,
+                              "skipOvrWinLossCheck":  true,
+                              "skipRandomResult":  true,
+                              "normalMatchBudgetRewardGranted":  true,
+                              "forcedWinAdAvailable":  false,
+                              "autoWinRequiresCurrentFullConceptLineup":  true
+                          },
+    "graduation":  {
+                       "condition":  "conceptGodCountAfterLineupChange == 12",
+                       "achievementId":  "full_concept_lineup_graduation",
+                       "achievementName":  "概念神全阵容·游戏毕业",
+                       "achievementRecordedPermanently":  true,
+                       "autoWinEffectActiveOnlyWhileConditionMet":  true,
+                       "leavingFullConceptLineupKeepsAchievement":  true,
+                       "leavingFullConceptLineupRemovesAutoWinEffect":  true
+                   },
+    "refresh":  {
+                    "triggers":  [
+                                     "lineup_player_added",
+                                     "lineup_player_replaced",
+                                     "lineup_player_removed",
+                                     "concept_god_added",
+                                     "concept_god_removed",
+                                     "save_loaded"
+                                 ],
+                    "order":  [
+                                  "apply_lineup_change",
+                                  "count_concept_gods",
+                                  "if_count_12_apply_max_state",
+                                  "otherwise_find_non_concept_max_per_field",
+                                  "refresh_all_concept_god_fields",
+                                  "recalculate_team_ovr"
+                              ],
+                    "newConceptGodAlwaysRefreshesAllConceptGods":  true,
+                    "leavingFullConceptLineupImmediatelyRemovesMaxState":  true
+                },
+    "teamOvr":  {
+                    "partialLineupFormula":  "min(INT32_MAX, floor(sum(lineupPlayerOvr) * (1 + headCoachBattleOvrBonus)))",
+                    "fullConceptLineupFormula":  "INT32_MAX",
+                    "saturatingArithmetic":  true
+                },
+    "display":  {
+                    "displayMaxWhenValueEquals":  2147483647,
+                    "maxLabel":  "MAX",
+                    "applyTo":  [
+                                    "conceptGodOvr",
+                                    "conceptGodFiveAttributes",
+                                    "teamOvr"
+                                ]
+                },
+    "examples":  [
+                     {
+                         "conceptGodCountAfterEntry":  1,
+                         "multiplier":  1.1
+                     },
+                     {
+                         "conceptGodCountAfterEntry":  2,
+                         "multiplier":  1.2
+                     },
+                     {
+                         "conceptGodCountAfterEntry":  11,
+                         "multiplier":  2.1
+                     },
+                     {
+                         "conceptGodCountAfterEntry":  12,
+                         "multiplier":  "MAX"
+                     }
+                 ]
+}

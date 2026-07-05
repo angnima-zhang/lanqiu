@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-06-26T09:08:27.944219+00:00",
+  "source_dataset": "sumitrodatta/nba-aba-baa-stats",
+  "source_url": "https://www.kaggle.com/datasets/sumitrodatta/nba-aba-baa-stats",
+  "raw_copy": "data\\raw\\nba-aba-baa-stats",
+  "outputs": [
+    "data\\nba_player_season_five_stats.csv",
+    "data\\nba_player_season_five_stats.json",
+    "data\\nba_player_season_five_stats_complete_1974_present.csv",
+    "data\\nba_player_season_five_stats_complete_1974_present.json"
+  ],
+  "row_grain": "one row per player per season; TOT row used for traded players",
+  "included_leagues": [
+    "NBA",
+    "BAA"
+  ],
+  "excluded_leagues": [
+    "ABA"
+  ],
+  "season_min": 1947,
+  "season_max": 2026,
+  "season_count": 80,
+  "row_count": 25753,
+  "player_count": 5105,
+  "complete_five_stat_season_min": 1974,
+  "complete_five_stat_season_max": 2026,
+  "complete_five_stat_row_count": 22105,
+  "stat_fields": [
+    "points_per_game",
+    "rebounds_per_game",
+    "assists_per_game",
+    "steals_per_game",
+    "blocks_per_game"
+  ],
+  "note": "Steals and blocks were not officially tracked before 1973-74, so early rows keep those fields blank."
+}

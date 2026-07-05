@@ -1,0 +1,1595 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>篮球放置挂机 · 竞品布局原型 v0.2</title>
+  <style>
+    :root {
+      --ink: #102b35;
+      --ink-2: #173c48;
+      --panel: #213d45;
+      --panel-line: #78929a;
+      --paper: #f1eadb;
+      --paper-2: #ded2ba;
+      --court: #d7a269;
+      --court-light: #e5b77f;
+      --line: rgba(255, 250, 232, .88);
+      --mint: #59cfad;
+      --mint-deep: #176d61;
+      --gold: #f3c24f;
+      --orange: #e67a3f;
+      --white: #fffdf5;
+      --red: #d85a4b;
+      --shadow: 0 5px 14px rgba(4, 20, 26, .26);
+      --touch: 48px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: #0b2029;
+      color: var(--ink);
+      font-family: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      font-size: 16px;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      min-height: 100dvh;
+    }
+
+    button {
+      min-width: var(--touch);
+      min-height: var(--touch);
+      border: 0;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:active { transform: translateY(1px) scale(.98); }
+
+    button:focus-visible,
+    [role="button"]:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    .app {
+      position: relative;
+      display: grid;
+      grid-template-rows: auto minmax(250px, 1fr) auto auto auto;
+      width: min(100vw, 430px);
+      height: min(100dvh, 900px);
+      min-height: 100dvh;
+      overflow: hidden;
+      background: var(--paper);
+      box-shadow: 0 0 40px rgba(0,0,0,.45);
+      isolation: isolate;
+    }
+
+    .module { position: relative; }
+
+    .module-label {
+      position: absolute;
+      z-index: 80;
+      display: none;
+      top: 3px;
+      left: 3px;
+      padding: 3px 6px;
+      border-radius: 5px;
+      color: white;
+      background: rgba(187, 45, 65, .92);
+      font-size: 14px;
+      font-weight: 900;
+      pointer-events: none;
+    }
+
+    body.show-labels .module-label { display: block; }
+
+    /* 模块：顶部球队信息
+       竞品对应：顶部头像、名称、战力条和少量状态。 */
+    .team-header {
+      z-index: 20;
+      display: grid;
+      grid-template-columns: 48px minmax(0, 1fr);
+      gap: 8px;
+      align-items: center;
+      min-height: 74px;
+      padding:
+        max(6px, env(safe-area-inset-top))
+        10px 6px;
+      color: var(--white);
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.05), transparent 55%),
+        var(--ink);
+      box-shadow: 0 3px 9px rgba(0,0,0,.28);
+    }
+
+    .team-avatar {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      color: var(--gold);
+      background: var(--ink-2);
+      font-size: 22px;
+      font-weight: 1000;
+    }
+
+    .team-copy { min-width: 0; }
+
+    .team-name {
+      overflow: hidden;
+      font-size: 17px;
+      font-weight: 1000;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .team-total {
+      margin-top: 3px;
+      overflow: hidden;
+      color: #ffe797;
+      font-size: 14px;
+      font-weight: 900;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .dev-toggle {
+      position: absolute;
+      z-index: 30;
+      top: max(7px, env(safe-area-inset-top));
+      right: 5px;
+      width: 48px;
+      min-width: 48px;
+      height: 48px;
+      min-height: 48px;
+      padding: 0;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 50%;
+      color: #b9ccd1;
+      background: rgba(255,255,255,.06);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    /* 模块：篮球场训练活景
+       竞品对应：仙树与角色占据的单一大活景。 */
+    .court-live {
+      position: relative;
+      min-height: 0;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(42,77,82,.9), rgba(12,31,38,.98));
+    }
+
+    .court-status {
+      position: absolute;
+      z-index: 12;
+      top: 8px;
+      left: 50%;
+      width: calc(100% - 20px);
+      min-height: 34px;
+      padding: 7px 8px;
+      transform: translateX(-50%);
+      border: 1px solid rgba(255,255,255,.54);
+      border-radius: 999px;
+      color: var(--white);
+      background: rgba(16,43,53,.7);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 1.35;
+      text-align: center;
+      text-shadow: 0 2px 3px rgba(0,0,0,.45);
+      white-space: normal;
+    }
+
+    .live-player-name {
+      font-weight: 1000;
+    }
+
+    .live-player-name.home {
+      color: #91f2d5;
+    }
+
+    .live-player-name.away {
+      color: #ffad91;
+    }
+
+    .full-court-lines {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      width: calc(100% - 20px);
+      aspect-ratio: 1.88 / 1;
+      transform: translateY(-50%);
+      border: 3px solid var(--line);
+      background:
+        linear-gradient(rgba(255,255,255,.08), transparent 26%),
+        repeating-linear-gradient(90deg,
+          rgba(255,255,255,.08) 0,
+          rgba(255,255,255,.08) 2px,
+          transparent 2px,
+          transparent 62px),
+        var(--court);
+    }
+
+    .midcourt-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 3px;
+      transform: translateX(-50%);
+      background: var(--line);
+    }
+
+    .center-circle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 72px;
+      height: 72px;
+      transform: translate(-50%, -50%);
+      border: 3px solid var(--line);
+      border-radius: 50%;
+    }
+
+    .backboard {
+      position: absolute;
+      top: 50%;
+      width: 6px;
+      height: 68px;
+      transform: translateY(-50%);
+      border-radius: 3px;
+      background: var(--line);
+    }
+
+    .backboard.left { left: 11px; }
+    .backboard.right { right: 11px; }
+
+    .rim {
+      position: absolute;
+      top: 50%;
+      width: 15px;
+      height: 31px;
+      transform: translateY(-50%);
+      border: 4px solid #db6538;
+    }
+
+    .rim.left {
+      left: 20px;
+      border-left: 0;
+      border-radius: 0 50% 50% 0;
+    }
+
+    .rim.right {
+      right: 20px;
+      border-right: 0;
+      border-radius: 50% 0 0 50%;
+    }
+
+    .paint {
+      position: absolute;
+      top: 50%;
+      width: 76px;
+      height: 108px;
+      transform: translateY(-50%);
+      border: 3px solid var(--line);
+      background: rgba(23,109,97,.1);
+    }
+
+    .paint.left {
+      left: 0;
+      border-left: 0;
+    }
+
+    .paint.right {
+      right: 0;
+      border-right: 0;
+    }
+
+    .three-arc {
+      position: absolute;
+      top: 50%;
+      width: 110px;
+      height: 170px;
+      transform: translateY(-50%);
+      border: 3px solid var(--line);
+    }
+
+    .three-arc.left {
+      left: 0;
+      border-left: 0;
+      border-radius: 0 85px 85px 0;
+    }
+
+    .three-arc.right {
+      right: 0;
+      border-right: 0;
+      border-radius: 85px 0 0 85px;
+    }
+
+    .player-token {
+      position: absolute;
+      z-index: 10;
+      left: var(--x);
+      top: var(--y);
+      width: 52px;
+      height: 52px;
+      transform: translate(-50%, -50%);
+      transition: left 520ms ease, top 520ms ease;
+      filter: drop-shadow(0 4px 5px rgba(0,0,0,.28));
+    }
+
+    .player-face {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border: 3px solid var(--mint);
+      border-radius: 50%;
+      color: var(--white);
+      background: var(--ink-2);
+      font-weight: 1000;
+    }
+
+    .player-token.away .player-face {
+      border-color: var(--red);
+      border-radius: 13px;
+    }
+
+    .player-token.away .number-badge {
+      background: #7d2f2a;
+    }
+
+    .player-face img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 16%;
+      background: #e5ece9;
+    }
+
+    .number-badge {
+      position: absolute;
+      z-index: 4;
+      right: -5px;
+      bottom: -4px;
+      display: grid;
+      place-items: center;
+      min-width: 25px;
+      height: 25px;
+      padding: 0 4px;
+      border: 2px solid var(--white);
+      border-radius: 50%;
+      color: var(--white);
+      background: var(--ink);
+      font-size: 14px;
+      font-weight: 1000;
+      text-shadow: 0 1px 2px #000;
+    }
+
+    .ball {
+      position: absolute;
+      z-index: 16;
+      left: 43%;
+      top: 62%;
+      width: 17px;
+      height: 17px;
+      transform: translate(-50%, -50%);
+      border: 2px solid #5c2916;
+      border-radius: 50%;
+      background:
+        linear-gradient(90deg, transparent 43%, #5c2916 44%, #5c2916 53%, transparent 54%),
+        #e86c2d;
+      box-shadow: 0 3px 5px rgba(0,0,0,.28);
+      transition: left 390ms ease, top 390ms ease, transform 390ms ease;
+    }
+
+    /* 模块：球队成长进度
+       竞品对应：境界标题与进度条。 */
+    .progression {
+      z-index: 16;
+      padding: 5px 10px 4px;
+      color: var(--white);
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.04), transparent),
+        var(--ink);
+      box-shadow: 0 -2px 8px rgba(0,0,0,.18);
+    }
+
+    .stage-title {
+      display: flex;
+      justify-content: center;
+      gap: 9px;
+      align-items: center;
+      min-height: 25px;
+      color: #f0dfba;
+      font-size: 15px;
+      font-weight: 1000;
+      text-align: center;
+    }
+
+    .stage-title::before,
+    .stage-title::after {
+      content: "";
+      width: 32px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #d1b884);
+    }
+
+    .stage-title::after {
+      background: linear-gradient(90deg, #d1b884, transparent);
+    }
+
+    .progress-line {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 7px;
+      align-items: center;
+      margin-top: 2px;
+    }
+
+    .morale-track {
+      position: relative;
+      height: 22px;
+      overflow: hidden;
+      border: 1px solid #92a9ad;
+      border-radius: 2px;
+      background: #152e36;
+    }
+
+    .morale-fill {
+      width: 67%;
+      height: 100%;
+      background: linear-gradient(90deg, #d97932, var(--gold));
+      transition: width 220ms ease;
+    }
+
+    .morale-text {
+      position: absolute;
+      z-index: 2;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 1000;
+      text-shadow: 0 1px 2px rgba(0,0,0,.8);
+      white-space: nowrap;
+    }
+
+    .upgrade-button {
+      min-width: 55px;
+      min-height: 44px;
+      height: 44px;
+      padding: 0 8px;
+      border: 1px solid #efcf7d;
+      border-radius: 3px;
+      color: #fff1bf;
+      background: #9b5729;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    /* 模块：阵容与管理层槽位
+       竞品对应：12装备槽 + 5长期养成槽，共17槽。 */
+    .slot-section {
+      z-index: 15;
+      min-height: 0;
+      padding: 5px 7px;
+      border-top: 2px solid #667f86;
+      border-bottom: 2px solid #667f86;
+      background:
+        linear-gradient(rgba(255,255,255,.025), transparent),
+        #18333c;
+    }
+
+    .slot-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: repeat(3, minmax(48px, 1fr));
+      gap: 4px;
+      height: 100%;
+    }
+
+    .slot {
+      position: relative;
+      min-width: 0;
+      min-height: 48px;
+      overflow: hidden;
+      padding: 2px;
+      border: 1px solid var(--panel-line);
+      border-radius: 2px;
+      color: #d8e4e5;
+      background: var(--panel);
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.24);
+      font-size: 14px;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .player-slot img {
+      width: 100%;
+      height: calc(100% - 17px);
+      min-height: 28px;
+      object-fit: cover;
+      object-position: 50% 15%;
+      border-radius: 1px;
+      background: #dce6e3;
+    }
+
+    .slot-caption {
+      position: absolute;
+      right: 1px;
+      bottom: 1px;
+      left: 1px;
+      overflow: hidden;
+      padding: 1px 2px;
+      color: var(--white);
+      background: rgba(13,34,41,.86);
+      font-size: 14px;
+      line-height: 15px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .management-slot {
+      display: grid;
+      place-items: center;
+      align-content: center;
+      gap: 2px;
+      color: #e3d7b6;
+      background:
+        radial-gradient(circle at 50% 35%, rgba(243,194,79,.14), transparent 45%),
+        #263e43;
+    }
+
+    .management-slot .slot-symbol {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border: 1px solid #d5bc7e;
+      border-radius: 50%;
+      color: var(--gold);
+      background: rgba(0,0,0,.16);
+      font-size: 15px;
+    }
+
+    .management-slot small {
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .media-slot { grid-column: 5 / 7; }
+
+    .slot-alert {
+      position: absolute;
+      z-index: 3;
+      top: 2px;
+      right: 2px;
+      width: 11px;
+      height: 11px;
+      border: 1px solid white;
+      border-radius: 50%;
+      background: var(--red);
+    }
+
+    /* 模块：底部导航与招募
+       中央招募按钮直接成为第3个一级入口。 */
+    .bottom-nav {
+      z-index: 28;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      align-items: stretch;
+      min-height: 88px;
+      padding: 2px 4px max(2px, env(safe-area-inset-bottom));
+      border-top: 1px solid #b8aa91;
+      background: var(--paper-2);
+    }
+
+    .nav-button {
+      min-width: 0;
+      min-height: 58px;
+      padding: 4px 2px;
+      border-radius: 5px;
+      color: #655846;
+      background: transparent;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .nav-button.active {
+      color: var(--mint-deep);
+      background: rgba(89,207,173,.12);
+    }
+
+    .nav-icon {
+      display: block;
+      margin-bottom: 1px;
+      font-size: 21px;
+      line-height: 1;
+    }
+
+    .nav-spacer { pointer-events: none; }
+
+    .recruit-nav {
+      display: grid;
+      grid-template-rows: 58px auto;
+      align-items: center;
+      justify-items: center;
+      min-width: 0;
+    }
+
+    .recruit-button {
+      width: 64px;
+      min-width: 64px;
+      height: 58px;
+      min-height: 58px;
+      padding: 4px;
+      border: 3px solid var(--paper);
+      border-radius: 50%;
+      color: #4a2f0c;
+      background:
+        radial-gradient(circle at 36% 27%, #fff6b6, transparent 22%),
+        linear-gradient(145deg, #ffe274, var(--gold) 58%, #d89427);
+      box-shadow:
+        0 4px 10px rgba(79,47,9,.3),
+        inset 0 -4px 0 rgba(122,73,8,.17);
+      font-size: 14px;
+      font-weight: 1000;
+      line-height: 1.05;
+    }
+
+    .nav-budget {
+      color: var(--mint-deep);
+      font-size: 14px;
+      font-weight: 1000;
+      white-space: nowrap;
+    }
+
+    /* 模块：功能弹窗 */
+    .modal-layer {
+      position: absolute;
+      z-index: 200;
+      display: none;
+      align-items: flex-end;
+      inset: 0;
+      padding: 14px;
+      background: rgba(4,17,22,.68);
+      backdrop-filter: blur(3px);
+    }
+
+    .modal-layer.open { display: flex; }
+
+    .sheet {
+      width: 100%;
+      max-height: 82%;
+      overflow: auto;
+      padding: 16px;
+      border: 2px solid rgba(255,255,255,.66);
+      border-radius: 20px;
+      background: var(--paper);
+      box-shadow: 0 18px 40px rgba(0,0,0,.4);
+      animation: sheet-in 220ms ease both;
+    }
+
+    @keyframes sheet-in {
+      from { opacity: 0; transform: translateY(22px) scale(.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .sheet-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .sheet-header h2 {
+      margin: 0;
+      font-size: 21px;
+    }
+
+    .close-button {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--paper-2);
+      font-size: 22px;
+      font-weight: 1000;
+    }
+
+    .sheet-copy {
+      margin: 10px 0 0;
+      color: #675a45;
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .recruit-card {
+      display: grid;
+      grid-template-columns: 106px 1fr;
+      gap: 14px;
+      margin-top: 14px;
+      padding: 14px;
+      border: 3px solid var(--gold);
+      border-radius: 14px;
+      color: var(--white);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(243,194,79,.25), transparent 34%),
+        var(--ink);
+    }
+
+    .recruit-card img {
+      width: 106px;
+      height: 130px;
+      object-fit: cover;
+      object-position: 50% 14%;
+      border: 3px solid var(--white);
+      border-radius: 12px;
+      background: #dce6e3;
+    }
+
+    .quality {
+      color: var(--gold);
+      font-size: 14px;
+      font-weight: 1000;
+    }
+
+    .recruit-name {
+      margin-top: 4px;
+      font-size: 19px;
+      font-weight: 1000;
+    }
+
+    .recruit-ovr {
+      margin-top: 8px;
+      font-size: 28px;
+      font-weight: 1000;
+    }
+
+    .compare {
+      margin-top: 5px;
+      color: #c7d9dd;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .positive { color: #80e2c8; font-weight: 1000; }
+    .negative { color: #ff9a86; font-weight: 1000; }
+
+    .sheet-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .secondary-action,
+    .primary-action {
+      min-height: 50px;
+      border-radius: 12px;
+      font-weight: 1000;
+    }
+
+    .secondary-action {
+      color: #655846;
+      background: var(--paper-2);
+    }
+
+    .primary-action {
+      color: var(--ink);
+      background: var(--gold);
+      box-shadow: inset 0 -4px 0 rgba(111,70,13,.18);
+    }
+
+    .info-card {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 13px;
+      align-items: center;
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 14px;
+      background: var(--white);
+      box-shadow: 0 4px 13px rgba(58,39,20,.1);
+    }
+
+    .info-icon {
+      display: grid;
+      place-items: center;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      color: var(--white);
+      background: var(--mint-deep);
+      font-size: 23px;
+      font-weight: 1000;
+    }
+
+    .info-card strong { font-size: 18px; }
+
+    .info-card span {
+      display: block;
+      margin-top: 4px;
+      color: #725f49;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .match-board {
+      margin-top: 14px;
+      overflow: hidden;
+      border-radius: 14px;
+      color: var(--white);
+      background: var(--ink);
+    }
+
+    .match-teams {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .team-score strong {
+      display: block;
+      margin-top: 3px;
+      font-size: 32px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .versus {
+      color: #8fa8b0;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .quarter-grid {
+      display: grid;
+      grid-template-columns: 66px repeat(4, 1fr);
+      border-top: 1px solid rgba(255,255,255,.14);
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .quarter-grid > div {
+      min-height: 37px;
+      padding: 8px 3px;
+      border-right: 1px solid rgba(255,255,255,.1);
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+
+    .quarter-grid .label {
+      color: #bfd0d5;
+      font-weight: 900;
+    }
+
+    .match-result {
+      min-height: 50px;
+      padding: 12px;
+      color: var(--gold);
+      font-size: 17px;
+      font-weight: 1000;
+      text-align: center;
+    }
+
+    .toast {
+      position: absolute;
+      z-index: 260;
+      left: 50%;
+      bottom: 138px;
+      display: none;
+      min-width: 210px;
+      padding: 11px 15px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      color: var(--white);
+      background: rgba(16,43,53,.95);
+      box-shadow: var(--shadow);
+      font-size: 14px;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .toast.show {
+      display: block;
+      animation: sheet-in 200ms ease both;
+    }
+
+    @media (max-height: 700px) {
+      .team-header {
+        min-height: 64px;
+        padding-top: max(4px, env(safe-area-inset-top));
+        padding-bottom: 4px;
+      }
+
+      .team-avatar {
+        width: 44px;
+        height: 44px;
+      }
+
+      .court-live { min-height: 200px; }
+      .court-status { top: 4px; }
+      .player-token { width: 46px; height: 46px; }
+      .progression { padding-top: 2px; padding-bottom: 2px; }
+      .stage-title { min-height: 21px; }
+      .slot-section { padding-top: 3px; padding-bottom: 3px; }
+      .slot-grid { grid-template-rows: repeat(3, 48px); }
+      .bottom-nav { min-height: 82px; }
+      .nav-button { min-height: 52px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app" id="app" aria-label="篮球放置挂机竖屏原型">
+    <!-- 模块：顶部球队信息 -->
+    <header class="team-header module" id="module-team-header">
+      <span class="module-label">顶部球队信息</span>
+      <div class="team-avatar" aria-hidden="true">篮</div>
+      <div class="team-copy">
+        <div class="team-name">大千篮球俱乐部</div>
+        <div class="team-total">球队总评 <span id="team-ovr">842</span></div>
+      </div>
+      <button class="dev-toggle" id="dev-toggle" type="button" aria-label="切换模块标注" aria-pressed="false">标注</button>
+    </header>
+
+    <!-- 模块：篮球场训练活景 -->
+    <section class="court-live module" id="module-court-live" role="button" tabindex="0" aria-label="篮球训练活景">
+      <span class="module-label">篮球场训练活景</span>
+      <div class="court-status" id="court-status" aria-live="polite">● <span class="live-player-name home">渡兰特</span>外线45度三分干拔！球进！我的三分剑，是地狱的火焰！</div>
+      <div class="full-court-lines">
+        <div class="midcourt-line"></div>
+        <div class="center-circle"></div>
+        <div class="backboard left"></div>
+        <div class="backboard right"></div>
+        <div class="rim left"></div>
+        <div class="rim right"></div>
+        <div class="paint left"></div>
+        <div class="paint right"></div>
+        <div class="three-arc left"></div>
+        <div class="three-arc right"></div>
+
+      <div class="player-token" data-player="0" style="--x:18%;--y:50%">
+        <div class="player-face"><span>詹</span><img src="../headshots_official/LeBron_James.png" alt="LeBron James"></div>
+        <span class="number-badge">23</span>
+      </div>
+      <div class="player-token" data-player="1" style="--x:30%;--y:30%">
+        <div class="player-face"><span>库</span><img src="../headshots_official/Stephen_Curry.png" alt="Stephen Curry"></div>
+        <span class="number-badge">30</span>
+      </div>
+      <div class="player-token" data-player="2" style="--x:30%;--y:70%">
+        <div class="player-face"><span>杜</span><img src="../headshots_official/Kevin_Durant.png" alt="Kevin Durant"></div>
+        <span class="number-badge">35</span>
+      </div>
+      <div class="player-token" data-player="3" style="--x:43%;--y:38%">
+        <div class="player-face"><span>乔</span><img src="../headshots_official/Michael_Jordan.png" alt="Michael Jordan"></div>
+        <span class="number-badge">23</span>
+      </div>
+      <div class="player-token" data-player="4" style="--x:43%;--y:62%">
+        <div class="player-face"><span>约</span><img src="../headshots_official/Nikola_Jokić.png" alt="Nikola Jokić"></div>
+        <span class="number-badge">15</span>
+      </div>
+
+      <div class="player-token away" data-player="5" style="--x:82%;--y:50%">
+        <div class="player-face"><span>科</span><img src="../headshots_official/Kobe_Bryant.png" alt="Kobe Bryant"></div>
+        <span class="number-badge">24</span>
+      </div>
+      <div class="player-token away" data-player="6" style="--x:70%;--y:30%">
+        <div class="player-face"><span>鲨</span><img src="../headshots_official/Shaquille_O'Neal.png" alt="Shaquille O'Neal"></div>
+        <span class="number-badge">34</span>
+      </div>
+      <div class="player-token away" data-player="7" style="--x:70%;--y:70%">
+        <div class="player-face"><span>戴</span><img src="../headshots_official/Anthony_Davis.png" alt="Anthony Davis"></div>
+        <span class="number-badge">3</span>
+      </div>
+      <div class="player-token away" data-player="8" style="--x:57%;--y:38%">
+        <div class="player-face"><span>哈</span><img src="../headshots_official/James_Harden.png" alt="James Harden"></div>
+        <span class="number-badge">13</span>
+      </div>
+      <div class="player-token away" data-player="9" style="--x:57%;--y:62%">
+        <div class="player-face"><span>姚</span><img src="../headshots_official/Yao_Ming.png" alt="Yao Ming"></div>
+        <span class="number-badge">11</span>
+      </div>
+      <div class="ball" id="ball" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- 模块：球队成长进度 -->
+    <section class="progression module" id="module-team-progression">
+      <span class="module-label">球队成长进度</span>
+      <div class="stage-title">球队3级 · 市值1级 · 新秀一阶</div>
+      <div class="progress-line">
+        <div class="morale-track" aria-label="斗志进度">
+          <div class="morale-fill" id="morale-fill"></div>
+          <span class="morale-text">斗志 <b id="morale-text">20/30</b></span>
+        </div>
+        <button class="upgrade-button" id="upgrade-button" type="button">待升级</button>
+      </div>
+    </section>
+
+    <!-- 模块：阵容与管理层槽位 -->
+    <section class="slot-section module" id="module-slot-grid" aria-label="12人阵容与5名管理层">
+      <span class="module-label">阵容与管理层槽位</span>
+      <div class="slot-grid">
+        <button class="slot player-slot" type="button" data-name="LeBron James" data-ovr="72"><img src="../headshots_official/LeBron_James.png" alt=""><span class="slot-caption">72</span></button>
+        <button class="slot player-slot" type="button" data-name="Stephen Curry" data-ovr="71"><img src="../headshots_official/Stephen_Curry.png" alt=""><span class="slot-caption">71</span></button>
+        <button class="slot player-slot" type="button" data-name="Kevin Durant" data-ovr="70"><img src="../headshots_official/Kevin_Durant.png" alt=""><span class="slot-caption">70</span></button>
+        <button class="slot player-slot" type="button" data-name="Michael Jordan" data-ovr="69"><img src="../headshots_official/Michael_Jordan.png" alt=""><span class="slot-caption">69</span></button>
+        <button class="slot management-slot" type="button" data-key="ops"><span class="slot-symbol">运</span><small>运营 Lv.3</small></button>
+        <button class="slot management-slot" type="button" data-key="coach"><span class="slot-symbol">教</span><small>教练 Lv.3</small></button>
+
+        <button class="slot player-slot" type="button" data-name="Nikola Jokić" data-ovr="68"><img src="../headshots_official/Nikola_Jokić.png" alt=""><span class="slot-caption">68</span></button>
+        <button class="slot player-slot" type="button" data-name="Yao Ming" data-ovr="67"><img src="../headshots_official/Yao_Ming.png" alt=""><span class="slot-caption">67</span></button>
+        <button class="slot player-slot" type="button" data-name="Devin Booker" data-ovr="66"><img src="../headshots_official/Devin_Booker.png" alt=""><span class="slot-caption">66</span></button>
+        <button class="slot player-slot" type="button" data-name="Jaylen Brown" data-ovr="65"><img src="../headshots_official/Jaylen_Brown.png" alt=""><span class="slot-caption">65</span></button>
+        <button class="slot management-slot" type="button" data-key="scout"><span class="slot-alert" aria-label="可升级"></span><span class="slot-symbol">探</span><small>球探 Lv.2</small></button>
+        <button class="slot management-slot" type="button" data-key="medical"><span class="slot-symbol">医</span><small>队医 Lv.3</small></button>
+
+        <button class="slot player-slot" type="button" data-name="Anthony Davis" data-ovr="64"><img src="../headshots_official/Anthony_Davis.png" alt=""><span class="slot-caption">64</span></button>
+        <button class="slot player-slot" type="button" data-name="James Harden" data-ovr="63"><img src="../headshots_official/James_Harden.png" alt=""><span class="slot-caption">63</span></button>
+        <button class="slot player-slot" type="button" data-name="Kobe Bryant" data-ovr="63"><img src="../headshots_official/Kobe_Bryant.png" alt=""><span class="slot-caption">63</span></button>
+        <button class="slot player-slot" id="lowest-player-slot" type="button" data-name="Shaquille O'Neal" data-ovr="62"><img src="../headshots_official/Shaquille_O'Neal.png" alt=""><span class="slot-caption">62</span></button>
+        <button class="slot management-slot media-slot" type="button" data-key="media"><span class="slot-symbol">媒</span><small>媒体团队 Lv.3</small></button>
+      </div>
+    </section>
+
+    <!-- 模块：底部导航与招募 -->
+    <nav class="bottom-nav module" id="module-bottom-nav" aria-label="主导航">
+      <span class="module-label">底部导航与招募</span>
+      <button class="nav-button nav-link" type="button" data-key="league"><span class="nav-icon">◆</span>联盟</button>
+      <button class="nav-button nav-link" type="button" data-key="arena"><span class="nav-icon">⌂</span>球馆</button>
+      <div class="recruit-nav">
+        <button class="recruit-button" id="recruit-button" type="button">招募<br>球员</button>
+        <span class="nav-budget">预算 <b id="budget-value">136</b></span>
+      </div>
+      <button class="nav-button nav-link" id="season-button" type="button" data-key="season"><span class="nav-icon">🏆</span>赛季</button>
+      <button class="nav-button nav-link" type="button" data-key="more"><span class="nav-icon">☷</span>更多</button>
+    </nav>
+
+    <!-- 模块：功能弹窗 -->
+    <section class="modal-layer module" id="info-modal" aria-hidden="true">
+      <span class="module-label">功能弹窗</span>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="info-title">
+        <div class="sheet-header">
+          <h2 id="info-title">功能说明</h2>
+          <button class="close-button" type="button" data-close="info-modal" aria-label="关闭">×</button>
+        </div>
+        <p class="sheet-copy" id="info-copy"></p>
+        <div id="info-extra"></div>
+      </div>
+    </section>
+
+    <section class="modal-layer module" id="recruit-modal" aria-hidden="true">
+      <span class="module-label">招募结果弹窗</span>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="recruit-title">
+        <div class="sheet-header">
+          <h2 id="recruit-title">招募结果</h2>
+          <button class="close-button" type="button" data-close="recruit-modal" aria-label="关闭">×</button>
+        </div>
+        <div class="recruit-card">
+          <img id="recruit-image" src="../headshots_official/Devin_Booker.png" alt="">
+          <div>
+            <div class="quality" id="recruit-quality">新秀品质</div>
+            <div class="recruit-name" id="recruit-name">Devin Booker</div>
+            <div class="recruit-ovr">OVR <span id="recruit-ovr">68</span></div>
+            <div class="compare" id="recruit-compare">比阵容最低球员高 6 OVR</div>
+          </div>
+        </div>
+        <p class="sheet-copy">本次招募已获得10斗志。新球员只与当前阵容最低OVR球员比较。</p>
+        <div class="sheet-actions">
+          <button class="secondary-action" id="release-button" type="button">解雇</button>
+          <button class="primary-action" id="lineup-button" type="button">上阵替换</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="modal-layer module" id="match-modal" aria-hidden="true">
+      <span class="module-label">比赛播报弹窗</span>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="match-title">
+        <div class="sheet-header">
+          <h2 id="match-title">第24场 · 比分播报</h2>
+          <button class="close-button" id="match-close" type="button" data-close="match-modal" aria-label="关闭">×</button>
+        </div>
+        <div class="match-board">
+          <div class="match-teams">
+            <div class="team-score">大千篮球<strong id="home-score">0</strong></div>
+            <div class="versus">VS</div>
+            <div class="team-score">新秀联队<strong id="away-score">0</strong></div>
+          </div>
+          <div class="quarter-grid">
+            <div class="label">节次</div><div>Q1</div><div>Q2</div><div>Q3</div><div>Q4</div>
+            <div class="label">我方</div><div id="h-q1">–</div><div id="h-q2">–</div><div id="h-q3">–</div><div id="h-q4">–</div>
+            <div class="label">对手</div><div id="a-q1">–</div><div id="a-q2">–</div><div id="a-q3">–</div><div id="a-q4">–</div>
+          </div>
+          <div class="match-result" id="match-result">比赛即将开始…</div>
+        </div>
+        <p class="sheet-copy">约2秒自动播放四节。胜利后结算预算并推进正式战绩；失败则停在当前场。</p>
+      </div>
+    </section>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </main>
+
+  <script>
+    const state = {
+      budget: 136,
+      morale: 20,
+      moraleMax: 30,
+      teamOvr: 842,
+      lowestOvr: 62,
+      wins: 23,
+      currentRecruit: null,
+      matchRunning: false,
+      trainingStep: 0
+    };
+
+    const $ = (selector, parent = document) => parent.querySelector(selector);
+    const $$ = (selector, parent = document) => [...parent.querySelectorAll(selector)];
+
+    const trainingRoutes = [
+      [["18%","50%"],["22%","44%"],["26%","52%"],["20%","56%"]],
+      [["30%","30%"],["34%","26%"],["38%","32%"],["32%","35%"]],
+      [["30%","70%"],["34%","74%"],["38%","68%"],["32%","65%"]],
+      [["43%","38%"],["46%","34%"],["40%","42%"],["44%","45%"]],
+      [["43%","62%"],["46%","66%"],["40%","58%"],["44%","55%"]],
+      [["82%","50%"],["78%","44%"],["74%","52%"],["80%","56%"]],
+      [["70%","30%"],["66%","26%"],["62%","32%"],["68%","35%"]],
+      [["70%","70%"],["66%","74%"],["62%","68%"],["68%","65%"]],
+      [["57%","38%"],["54%","34%"],["60%","42%"],["56%","45%"]],
+      [["57%","62%"],["54%","66%"],["60%","58%"],["56%","55%"]]
+    ];
+
+    const playerDisplayNames = {
+      "LeBron James": "瞻姆斯",
+      "Stephen Curry": "酷里",
+      "Kevin Durant": "渡兰特",
+      "Michael Jordan": "侨丹",
+      "Nikola Jokić": "约吉奇",
+      "Yao Ming": "尧明",
+      "Devin Booker": "步克",
+      "Jaylen Brown": "步朗",
+      "Anthony Davis": "戴维思",
+      "James Harden": "翰登",
+      "Kobe Bryant": "步莱恩特",
+      "Shaquille O'Neal": "傲尼尔"
+    };
+
+    const trainingReports = [
+      "{a}外线45度三分干拔！球进！我的三分剑，是地狱的火焰！",
+      "{a}呼叫{b}上前挡拆，力劈华山隔扣{c}！",
+      "{a}持球推进，胯下变向晃开{b}，急停跳投命中！",
+      "{a}弧顶送出击地妙传，{b}顺下双手暴扣！",
+      "{a}低位背打{b}，翻身后仰稳稳落袋！",
+      "{a}提前预判传球路线，飞身抢断后直奔前场！",
+      "{a}追身钉板大帽拒绝{b}，这球不讲道理！",
+      "{a}抢下前场篮板，顶着{b}强硬打成二次进攻！",
+      "{a}底角被完全放空，接{b}分球三分命中！",
+      "{a}从后场送出跨越半场的长传，{b}轻松上篮得分！",
+      "{a}连续变向杀入禁区，欧洲步躲过{b}上篮命中！",
+      "{a}面对{b}后撤一步，三分球应声入网！",
+      "{a}高位手递手找到{b}，后者迎着防守命中中投！",
+      "{a}吸引双人包夹后分球，{b}弱侧空切得手！",
+      "{a}强突篮下造成{b}犯规，这球还进！二加一！",
+      "{a}第一罚稳稳命中，第二罚故意不进，自己抢到篮板！",
+      "{a}空切接到{b}妙传，空中折叠躲开封盖打进！",
+      "{a}换防后单挑{b}，连续试探步后拔起命中！",
+      "{a}镇守篮下，正面封盖{b}的强攻！",
+      "{a}摘下防守篮板，转身一条龙推进完成暴扣！",
+      "{a}无球绕过{b}掩护，接球瞬间三分出手命中！",
+      "{a}突破吸引协防，脑后传球助攻{b}篮下得分！",
+      "{a}背后运球甩开{b}，抛投越过{c}指尖落入篮网！",
+      "{a}底线反跑骗过{b}，接球完成反身上篮！",
+      "{a}和{b}打出漂亮二过一，最后由{a}轻松放篮！",
+      "{a}连续点抢前场篮板，第三次起跳终于补篮命中！",
+      "{a}半场附近突然出手，超远三分空心入网！",
+      "{a}压低重心单防，逼得{b}运球砸在脚面出界！",
+      "{a}假投真传点飞{b}，助攻{c}底角三分命中！",
+      "{a}接球后没有任何调整，迎着{b}直接干拔命中！",
+      "{a}推进中突然加速，穿过两人夹击挑篮得分！",
+      "{a}低位遭遇夹击，转身把球分给空位的{b}！",
+      "{a}补防速度惊人，从弱侧杀出封掉{b}的上篮！",
+      "{a}抢断{b}后送出不看人传球，{c}跟进扣篮！",
+      "{a}借掩护兜到弧顶，接{b}传球命中追身三分！",
+      "{a}单手抓下篮板，落地前已经把球甩给{b}发动反击！",
+      "{a}背身碾入禁区，转身隔着{b}完成重扣！",
+      "{a}连续虚晃骗起{b}，擦板投篮命中并造成犯规！",
+      "{a}面对夹击冷静护球，最后一秒助攻{b}完成空接！",
+      "{a}底线发球直接找到{b}，后者空切篮下得分！",
+      "{a}在三分线外一步接球，毫不犹豫扬手命中！",
+      "{a}强行突破{b}，空中拉杆避开{c}封盖得分！",
+      "{a}和{b}连续传导撕开防线，最后由{c}完成终结！",
+      "{a}防守端紧贴{b}，成功干扰这次压哨出手！",
+      "{a}接到{b}高吊传球，空中接力把球砸进篮筐！",
+      "{a}节奏变化晃得{b}失去重心，随后中投命中！",
+      "{a}从身后追上{b}，在篮板前把球狠狠扇飞！",
+      "{a}最后五秒持球单打，迎着{b}命中压哨三分！",
+      "{a}快攻中把球抛向篮板，{b}跟进自抛自扣式终结！",
+      "{a}抢到球权发动反击，单手劈扣结束这个回合！"
+    ];
+
+    let reportDeck = [];
+
+    function showNextLiveReport() {
+      if (reportDeck.length === 0) {
+        reportDeck = trainingReports
+          .map((_, index) => index)
+          .sort(() => Math.random() - 0.5);
+      }
+      const reportIndex = reportDeck.pop();
+      const livePlayers = [...rosterPlayers]
+        .sort((a, b) => b.ovr - a.ovr)
+        .slice(0, 10)
+        .map((player, index) => ({
+          name: playerDisplayNames[player.name] || player.name,
+          side: index < 5 ? "home" : "away"
+        }))
+        .sort(() => Math.random() - 0.5)
+      const players = { a: livePlayers[0], b: livePlayers[1], c: livePlayers[2] };
+      const status = $("#court-status");
+      status.replaceChildren(document.createTextNode("● "));
+      trainingReports[reportIndex].split(/(\{[abc]\})/g).forEach(part => {
+        const placeholder = part.match(/^\{([abc])\}$/);
+        if (!placeholder) {
+          status.append(document.createTextNode(part));
+          return;
+        }
+        const player = players[placeholder[1]];
+        const name = document.createElement("span");
+        name.className = `live-player-name ${player.side}`;
+        name.textContent = player.name;
+        status.append(name);
+      });
+    }
+
+    const recruitPool = [
+      { name: "Devin Booker", image: "../headshots_official/Devin_Booker.png", quality: "新秀品质", ovr: 68 },
+      { name: "Jaylen Brown", image: "../headshots_official/Jaylen_Brown.png", quality: "饮水机品质", ovr: 64 },
+      { name: "Yao Ming", image: "../headshots_official/Yao_Ming.png", quality: "轮换品质", ovr: 73 },
+      { name: "Kevin Durant", image: "../headshots_official/Kevin_Durant.png", quality: "第六人品质", ovr: 76 }
+    ];
+
+    const rosterSlots = $$(".player-slot");
+    const rosterPlayers = rosterSlots.map(slot => ({
+      name: slot.dataset.name,
+      image: $("img", slot).getAttribute("src"),
+      ovr: Number(slot.dataset.ovr)
+    }));
+
+    const management = {
+      ops: { short: "运", name: "运营总裁", level: 3, effect: "在线、比赛和广告预算 +0.6%", note: "不影响离线收益。" },
+      coach: { short: "教", name: "主教练", level: 3, effect: "比赛球队OVR +0.15%", note: "只有主教练参与球队总评计算。" },
+      scout: { short: "探", name: "球探总监", level: 2, effect: "最高品质权重 +0.02", note: "不扣其他品质，最终权重可超过100。" },
+      medical: { short: "医", name: "队医团队", level: 3, effect: "新卡OVR随机更偏向上限", note: "不改变品质OVR区间。" },
+      media: { short: "媒", name: "媒体团队", level: 3, effect: "离线预算收益 +1.2%", note: "不影响在线、比赛与广告预算。" }
+    };
+
+    function updateHud() {
+      const budget = state.budget.toLocaleString("zh-CN");
+      $("#budget-value").textContent = budget;
+      $("#team-ovr").textContent = state.teamOvr.toLocaleString("zh-CN");
+      $("#morale-text").textContent = `${state.morale}/${state.moraleMax}`;
+      $("#morale-fill").style.width = `${Math.min(100, state.morale / state.moraleMax * 100)}%`;
+    }
+
+    function renderRosterSlots() {
+      rosterSlots.forEach((slot, index) => {
+        const player = rosterPlayers[index];
+        slot.dataset.name = player.name;
+        slot.dataset.ovr = player.ovr;
+        const image = $("img", slot);
+        image.src = player.image;
+        image.alt = player.name;
+        image.style.display = "";
+        $(".slot-caption", slot).textContent = String(player.ovr);
+      });
+    }
+
+    function syncTrainingScene() {
+      const topTen = [...rosterPlayers]
+        .sort((a, b) => b.ovr - a.ovr)
+        .slice(0, 10);
+      $$(".player-token").forEach((token, index) => {
+        const player = topTen[index];
+        const image = $("img", token);
+        image.src = player.image;
+        image.alt = player.name;
+        image.style.display = "";
+        $(".player-face > span", token).textContent = player.name.charAt(0);
+        $(".number-badge", token).textContent = String(player.ovr);
+        token.dataset.playerName = player.name;
+        token.dataset.ovr = player.ovr;
+      });
+    }
+
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      const focusTarget = modal.querySelector("button");
+      if (focusTarget) focusTarget.focus();
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+    }
+
+    function showToast(message) {
+      const toast = $("#toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => toast.classList.remove("show"), 1500);
+    }
+
+    function showInfo(title, copy, extra = "") {
+      $("#info-title").textContent = title;
+      $("#info-copy").textContent = copy;
+      $("#info-extra").innerHTML = extra;
+      openModal("info-modal");
+    }
+
+    function tickTraining() {
+      state.trainingStep = (state.trainingStep + 1) % 4;
+      const tokens = $$(".player-token");
+      tokens.forEach((token, index) => {
+        const [x, y] = trainingRoutes[index][state.trainingStep];
+        token.style.left = x;
+        token.style.top = y;
+      });
+      const receiver = state.trainingStep === 3 ? null : tokens[(state.trainingStep + 1) % tokens.length];
+      const ball = $("#ball");
+      if (receiver) {
+        ball.style.left = receiver.style.left;
+        ball.style.top = receiver.style.top;
+        ball.style.transform = "translate(-50%, -50%) scale(1)";
+      } else {
+        ball.style.left = "96%";
+        ball.style.top = "50%";
+        ball.style.transform = "translate(-50%, -50%) scale(.78)";
+      }
+    }
+
+    function recruit(isFree = false) {
+      if (!isFree && state.budget < 1) {
+        showToast("预算不足，可从球馆领取离线收益");
+        return;
+      }
+      if (!isFree) state.budget -= 1;
+      state.morale += 10;
+      if (state.morale >= state.moraleMax) {
+        state.morale -= state.moraleMax;
+        state.moraleMax += 10;
+        showToast("球队等级提升！");
+      }
+      const pick = recruitPool[Math.floor(Math.random() * recruitPool.length)];
+      state.currentRecruit = { ...pick };
+      $("#recruit-image").src = pick.image;
+      $("#recruit-image").alt = pick.name;
+      $("#recruit-quality").textContent = pick.quality;
+      $("#recruit-name").textContent = pick.name;
+      $("#recruit-ovr").textContent = pick.ovr;
+      const delta = pick.ovr - state.lowestOvr;
+      $("#recruit-compare").innerHTML = delta >= 0
+        ? `比阵容最低球员高 <span class="positive">+${delta} OVR</span>`
+        : `比阵容最低球员低 <span class="negative">${delta} OVR</span>`;
+      $("#lineup-button").textContent = delta >= 0 ? "上阵替换" : "仍然上阵";
+      updateHud();
+      openModal("recruit-modal");
+    }
+
+    function putInLineup() {
+      if (!state.currentRecruit) return;
+      const pick = state.currentRecruit;
+      const lowestIndex = rosterPlayers.reduce(
+        (lowest, player, index, players) => player.ovr < players[lowest].ovr ? index : lowest,
+        0
+      );
+      const replacedPlayer = rosterPlayers[lowestIndex];
+      const delta = pick.ovr - replacedPlayer.ovr;
+      rosterPlayers[lowestIndex] = {
+        name: pick.name,
+        image: pick.image,
+        ovr: pick.ovr
+      };
+      state.teamOvr += delta;
+      state.lowestOvr = Math.min(...rosterPlayers.map(player => player.ovr));
+      renderRosterSlots();
+      syncTrainingScene();
+      updateHud();
+      closeModal("recruit-modal");
+      showToast(delta >= 0 ? `上阵成功，球队OVR +${delta}` : "已按原型操作上阵");
+    }
+
+    const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+    async function runMatchBroadcast() {
+      if (state.matchRunning) return;
+      state.matchRunning = true;
+      openModal("match-modal");
+      $("#match-close").disabled = true;
+      $("#match-result").textContent = "比赛进行中…";
+      $("#home-score").textContent = "0";
+      $("#away-score").textContent = "0";
+      for (let q = 1; q <= 4; q += 1) {
+        $(`#h-q${q}`).textContent = "–";
+        $(`#a-q${q}`).textContent = "–";
+      }
+      const homeQuarters = [24, 27, 26, 29];
+      const awayQuarters = [20, 22, 25, 23];
+      let home = 0;
+      let away = 0;
+      for (let q = 1; q <= 4; q += 1) {
+        await wait(450);
+        home += homeQuarters[q - 1];
+        away += awayQuarters[q - 1];
+        $(`#h-q${q}`).textContent = homeQuarters[q - 1];
+        $(`#a-q${q}`).textContent = awayQuarters[q - 1];
+        $("#home-score").textContent = home;
+        $("#away-score").textContent = away;
+        $("#match-result").textContent = `第${q}节结束 · ${home}–${away}`;
+      }
+      state.budget += 1;
+      state.wins += 1;
+      updateHud();
+      $("#match-result").textContent = "胜利！正式战绩 +1 · 预算 +1";
+      $("#match-close").disabled = false;
+      state.matchRunning = false;
+    }
+
+    $("#dev-toggle").addEventListener("click", event => {
+      const visible = document.body.classList.toggle("show-labels");
+      event.currentTarget.setAttribute("aria-pressed", String(visible));
+      event.currentTarget.textContent = visible ? "隐藏" : "标注";
+    });
+
+    $("#recruit-button").addEventListener("click", () => recruit(false));
+    $("#lineup-button").addEventListener("click", putInLineup);
+    $("#release-button").addEventListener("click", () => {
+      closeModal("recruit-modal");
+      showToast("已解雇，本次招募仍保留10斗志");
+    });
+    $("#season-button").addEventListener("click", runMatchBroadcast);
+
+    $("#upgrade-button").addEventListener("click", () => {
+      showInfo("球队等级", "每次招募固定获得10斗志。斗志达到需求后自动升级；达到当前市值上限后需要夺冠才能提升市值。");
+    });
+
+    $("#module-court-live").addEventListener("click", () => {
+      showNextLiveReport();
+    });
+
+    $("#module-court-live").addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        event.currentTarget.click();
+      }
+    });
+
+    $$(".player-slot").forEach(slot => {
+      slot.addEventListener("click", () => {
+        showInfo(
+          slot.dataset.name,
+          `当前球员OVR ${slot.dataset.ovr}。阵容槽位不区分位置；招募新球员时只与阵容最低OVR球员比较。`
+        );
+      });
+    });
+
+    $$(".management-slot").forEach(slot => {
+      slot.addEventListener("click", () => {
+        const item = management[slot.dataset.key];
+        const extra = `
+          <div class="info-card">
+            <div class="info-icon">${item.short}</div>
+            <div>
+              <strong>${item.name} · Lv.${item.level}</strong>
+              <span>${item.effect}</span>
+              <span>${item.note}</span>
+            </div>
+          </div>
+          <div class="sheet-actions">
+            <button class="secondary-action" type="button" data-close="info-modal">稍后</button>
+            <button class="primary-action management-upgrade" type="button">升级 · 5预算</button>
+          </div>`;
+        showInfo(item.name, "管理层等级不能超过当前球队等级。", extra);
+        $(".management-upgrade").addEventListener("click", () => {
+          if (state.budget < 5) {
+            showToast("预算不足");
+            return;
+          }
+          state.budget -= 5;
+          updateHud();
+          closeModal("info-modal");
+          showToast(`${item.name}升级完成`);
+        });
+      });
+    });
+
+    $$(".nav-link").forEach(button => {
+      button.addEventListener("click", () => {
+        const key = button.dataset.key;
+        if (key === "season") return;
+        if (key === "arena") {
+          showInfo(
+            "球馆",
+            "球馆承载离线预算。当前可领取160预算。",
+            `<div class="sheet-actions"><button class="secondary-action" type="button" data-close="info-modal">稍后</button><button class="primary-action" id="claim-offline" type="button">领取160预算</button></div>`
+          );
+          $("#claim-offline").addEventListener("click", () => {
+            state.budget += 160;
+            updateHud();
+            closeModal("info-modal");
+            showToast("离线预算 +160");
+          });
+          return;
+        }
+        const copy = key === "league"
+          ? "联盟为后续社交入口，不占用主界面核心空间。"
+          : "更多页面收纳设置、成就记录和广告预算等低频功能。";
+        showInfo(button.textContent.trim(), copy);
+      });
+    });
+
+    document.addEventListener("click", event => {
+      const close = event.target.closest("[data-close]");
+      if (close) closeModal(close.dataset.close);
+      if (event.target.classList.contains("modal-layer")) closeModal(event.target.id);
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key.toLowerCase() === "l") $("#dev-toggle").click();
+      if (event.key === "Escape") {
+        const open = $(".modal-layer.open");
+        if (open && !state.matchRunning) closeModal(open.id);
+      }
+    });
+
+    $$("img").forEach(image => {
+      image.addEventListener("error", () => { image.style.display = "none"; });
+    });
+
+    renderRosterSlots();
+    syncTrainingScene();
+    updateHud();
+    showNextLiveReport();
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setInterval(tickTraining, 930);
+    }
+    setInterval(showNextLiveReport, 3000);
+  </script>
+</body>
+</html>

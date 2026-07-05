@@ -1,0 +1,2898 @@
+{
+    "_meta":  {
+                  "description":  "????????????????????4????????????????????????????????????????????????+1?",
+                  "status":  "?????",
+                  "marketValueLevelCount":  130,
+                  "teamLevelsPerMarketValue":  4,
+                  "totalTeamLevels":  520,
+                  "recruitWillpowerReward":  10,
+                  "willpowerPercentBonusEnabled":  false,
+                  "willpowerRequirementFormula":  "ceil_to_10(20 * 1.032^(marketValueLevel-1) * stageMultiplier)",
+                  "stageLabels":  [
+                                      "?????",
+                                      "?????",
+                                      "????",
+                                      "???"
+                                  ],
+                  "stageMultipliers":  [
+                                           1.1,
+                                           1.55,
+                                           2.2,
+                                           3.15
+                                       ],
+                  "rules":  [
+                                "????????10???????????",
+                                "????????4??????????????????????????????",
+                                "?????????????????????????",
+                                "???????????????",
+                                "??????????????????????????",
+                                "??????????????????1????????????",
+                                "?????????????"
+                            ],
+                  "version":  "v0.62",
+                  "managementLevelCapRule":  "eachManagementLevel \u003c= currentTeamLevel",
+                  "managementAbsoluteMaxLevel":  520
+              },
+    "marketValueLevels":  [
+                              {
+                                  "marketValueLevel":  1,
+                                  "teamLevelStart":  1,
+                                  "teamLevelCap":  4,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                30,
+                                                                40,
+                                                                50,
+                                                                70
+                                                            ],
+                                  "totalWillpowerToCap":  190,
+                                  "estimatedRecruitCountToCap":  19,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  4
+                              },
+                              {
+                                  "marketValueLevel":  2,
+                                  "teamLevelStart":  5,
+                                  "teamLevelCap":  8,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                30,
+                                                                40,
+                                                                50,
+                                                                70
+                                                            ],
+                                  "totalWillpowerToCap":  190,
+                                  "estimatedRecruitCountToCap":  19,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  8
+                              },
+                              {
+                                  "marketValueLevel":  3,
+                                  "teamLevelStart":  9,
+                                  "teamLevelCap":  12,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                30,
+                                                                40,
+                                                                50,
+                                                                70
+                                                            ],
+                                  "totalWillpowerToCap":  190,
+                                  "estimatedRecruitCountToCap":  19,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  12
+                              },
+                              {
+                                  "marketValueLevel":  4,
+                                  "teamLevelStart":  13,
+                                  "teamLevelCap":  16,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                30,
+                                                                40,
+                                                                50,
+                                                                70
+                                                            ],
+                                  "totalWillpowerToCap":  190,
+                                  "estimatedRecruitCountToCap":  19,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  16
+                              },
+                              {
+                                  "marketValueLevel":  5,
+                                  "teamLevelStart":  17,
+                                  "teamLevelCap":  20,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                30,
+                                                                40,
+                                                                50,
+                                                                80
+                                                            ],
+                                  "totalWillpowerToCap":  200,
+                                  "estimatedRecruitCountToCap":  20,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  20
+                              },
+                              {
+                                  "marketValueLevel":  6,
+                                  "teamLevelStart":  21,
+                                  "teamLevelCap":  24,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                30,
+                                                                40,
+                                                                60,
+                                                                80
+                                                            ],
+                                  "totalWillpowerToCap":  210,
+                                  "estimatedRecruitCountToCap":  21,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  24
+                              },
+                              {
+                                  "marketValueLevel":  7,
+                                  "teamLevelStart":  25,
+                                  "teamLevelCap":  28,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                30,
+                                                                40,
+                                                                60,
+                                                                80
+                                                            ],
+                                  "totalWillpowerToCap":  210,
+                                  "estimatedRecruitCountToCap":  21,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  28
+                              },
+                              {
+                                  "marketValueLevel":  8,
+                                  "teamLevelStart":  29,
+                                  "teamLevelCap":  32,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                30,
+                                                                40,
+                                                                60,
+                                                                80
+                                                            ],
+                                  "totalWillpowerToCap":  210,
+                                  "estimatedRecruitCountToCap":  21,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  32
+                              },
+                              {
+                                  "marketValueLevel":  9,
+                                  "teamLevelStart":  33,
+                                  "teamLevelCap":  36,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                30,
+                                                                40,
+                                                                60,
+                                                                90
+                                                            ],
+                                  "totalWillpowerToCap":  220,
+                                  "estimatedRecruitCountToCap":  22,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  36
+                              },
+                              {
+                                  "marketValueLevel":  10,
+                                  "teamLevelStart":  37,
+                                  "teamLevelCap":  40,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                30,
+                                                                50,
+                                                                60,
+                                                                90
+                                                            ],
+                                  "totalWillpowerToCap":  230,
+                                  "estimatedRecruitCountToCap":  23,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  40
+                              },
+                              {
+                                  "marketValueLevel":  11,
+                                  "teamLevelStart":  41,
+                                  "teamLevelCap":  44,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                40,
+                                                                50,
+                                                                70,
+                                                                90
+                                                            ],
+                                  "totalWillpowerToCap":  250,
+                                  "estimatedRecruitCountToCap":  25,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  44
+                              },
+                              {
+                                  "marketValueLevel":  12,
+                                  "teamLevelStart":  45,
+                                  "teamLevelCap":  48,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                40,
+                                                                50,
+                                                                70,
+                                                                90
+                                                            ],
+                                  "totalWillpowerToCap":  250,
+                                  "estimatedRecruitCountToCap":  25,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  48
+                              },
+                              {
+                                  "marketValueLevel":  13,
+                                  "teamLevelStart":  49,
+                                  "teamLevelCap":  52,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                40,
+                                                                50,
+                                                                70,
+                                                                100
+                                                            ],
+                                  "totalWillpowerToCap":  260,
+                                  "estimatedRecruitCountToCap":  26,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  52
+                              },
+                              {
+                                  "marketValueLevel":  14,
+                                  "teamLevelStart":  53,
+                                  "teamLevelCap":  56,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                40,
+                                                                50,
+                                                                70,
+                                                                100
+                                                            ],
+                                  "totalWillpowerToCap":  260,
+                                  "estimatedRecruitCountToCap":  26,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  56
+                              },
+                              {
+                                  "marketValueLevel":  15,
+                                  "teamLevelStart":  57,
+                                  "teamLevelCap":  60,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                40,
+                                                                50,
+                                                                70,
+                                                                100
+                                                            ],
+                                  "totalWillpowerToCap":  260,
+                                  "estimatedRecruitCountToCap":  26,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  60
+                              },
+                              {
+                                  "marketValueLevel":  16,
+                                  "teamLevelStart":  61,
+                                  "teamLevelCap":  64,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                40,
+                                                                50,
+                                                                80,
+                                                                110
+                                                            ],
+                                  "totalWillpowerToCap":  280,
+                                  "estimatedRecruitCountToCap":  28,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  64
+                              },
+                              {
+                                  "marketValueLevel":  17,
+                                  "teamLevelStart":  65,
+                                  "teamLevelCap":  68,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                40,
+                                                                60,
+                                                                80,
+                                                                110
+                                                            ],
+                                  "totalWillpowerToCap":  290,
+                                  "estimatedRecruitCountToCap":  29,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  68
+                              },
+                              {
+                                  "marketValueLevel":  18,
+                                  "teamLevelStart":  69,
+                                  "teamLevelCap":  72,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                40,
+                                                                60,
+                                                                80,
+                                                                110
+                                                            ],
+                                  "totalWillpowerToCap":  290,
+                                  "estimatedRecruitCountToCap":  29,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  72
+                              },
+                              {
+                                  "marketValueLevel":  19,
+                                  "teamLevelStart":  73,
+                                  "teamLevelCap":  76,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                40,
+                                                                60,
+                                                                80,
+                                                                120
+                                                            ],
+                                  "totalWillpowerToCap":  300,
+                                  "estimatedRecruitCountToCap":  30,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  76
+                              },
+                              {
+                                  "marketValueLevel":  20,
+                                  "teamLevelStart":  77,
+                                  "teamLevelCap":  80,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                50,
+                                                                60,
+                                                                90,
+                                                                120
+                                                            ],
+                                  "totalWillpowerToCap":  320,
+                                  "estimatedRecruitCountToCap":  32,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  80
+                              },
+                              {
+                                  "marketValueLevel":  21,
+                                  "teamLevelStart":  81,
+                                  "teamLevelCap":  84,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                50,
+                                                                60,
+                                                                90,
+                                                                120
+                                                            ],
+                                  "totalWillpowerToCap":  320,
+                                  "estimatedRecruitCountToCap":  32,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  84
+                              },
+                              {
+                                  "marketValueLevel":  22,
+                                  "teamLevelStart":  85,
+                                  "teamLevelCap":  88,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                50,
+                                                                70,
+                                                                90,
+                                                                130
+                                                            ],
+                                  "totalWillpowerToCap":  340,
+                                  "estimatedRecruitCountToCap":  34,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  88
+                              },
+                              {
+                                  "marketValueLevel":  23,
+                                  "teamLevelStart":  89,
+                                  "teamLevelCap":  92,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                50,
+                                                                70,
+                                                                90,
+                                                                130
+                                                            ],
+                                  "totalWillpowerToCap":  340,
+                                  "estimatedRecruitCountToCap":  34,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  92
+                              },
+                              {
+                                  "marketValueLevel":  24,
+                                  "teamLevelStart":  93,
+                                  "teamLevelCap":  96,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                50,
+                                                                70,
+                                                                100,
+                                                                140
+                                                            ],
+                                  "totalWillpowerToCap":  360,
+                                  "estimatedRecruitCountToCap":  36,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  96
+                              },
+                              {
+                                  "marketValueLevel":  25,
+                                  "teamLevelStart":  97,
+                                  "teamLevelCap":  100,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                50,
+                                                                70,
+                                                                100,
+                                                                140
+                                                            ],
+                                  "totalWillpowerToCap":  360,
+                                  "estimatedRecruitCountToCap":  36,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  100
+                              },
+                              {
+                                  "marketValueLevel":  26,
+                                  "teamLevelStart":  101,
+                                  "teamLevelCap":  104,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                50,
+                                                                70,
+                                                                100,
+                                                                140
+                                                            ],
+                                  "totalWillpowerToCap":  360,
+                                  "estimatedRecruitCountToCap":  36,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  104
+                              },
+                              {
+                                  "marketValueLevel":  27,
+                                  "teamLevelStart":  105,
+                                  "teamLevelCap":  108,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                50,
+                                                                80,
+                                                                100,
+                                                                150
+                                                            ],
+                                  "totalWillpowerToCap":  380,
+                                  "estimatedRecruitCountToCap":  38,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  108
+                              },
+                              {
+                                  "marketValueLevel":  28,
+                                  "teamLevelStart":  109,
+                                  "teamLevelCap":  112,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                60,
+                                                                80,
+                                                                110,
+                                                                150
+                                                            ],
+                                  "totalWillpowerToCap":  400,
+                                  "estimatedRecruitCountToCap":  40,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  112
+                              },
+                              {
+                                  "marketValueLevel":  29,
+                                  "teamLevelStart":  113,
+                                  "teamLevelCap":  116,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                60,
+                                                                80,
+                                                                110,
+                                                                160
+                                                            ],
+                                  "totalWillpowerToCap":  410,
+                                  "estimatedRecruitCountToCap":  41,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  116
+                              },
+                              {
+                                  "marketValueLevel":  30,
+                                  "teamLevelStart":  117,
+                                  "teamLevelCap":  120,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                60,
+                                                                80,
+                                                                110,
+                                                                160
+                                                            ],
+                                  "totalWillpowerToCap":  410,
+                                  "estimatedRecruitCountToCap":  41,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  120
+                              },
+                              {
+                                  "marketValueLevel":  31,
+                                  "teamLevelStart":  121,
+                                  "teamLevelCap":  124,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                60,
+                                                                80,
+                                                                120,
+                                                                170
+                                                            ],
+                                  "totalWillpowerToCap":  430,
+                                  "estimatedRecruitCountToCap":  43,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  124
+                              },
+                              {
+                                  "marketValueLevel":  32,
+                                  "teamLevelStart":  125,
+                                  "teamLevelCap":  128,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                60,
+                                                                90,
+                                                                120,
+                                                                170
+                                                            ],
+                                  "totalWillpowerToCap":  440,
+                                  "estimatedRecruitCountToCap":  44,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  128
+                              },
+                              {
+                                  "marketValueLevel":  33,
+                                  "teamLevelStart":  129,
+                                  "teamLevelCap":  132,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                70,
+                                                                90,
+                                                                130,
+                                                                180
+                                                            ],
+                                  "totalWillpowerToCap":  470,
+                                  "estimatedRecruitCountToCap":  47,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  132
+                              },
+                              {
+                                  "marketValueLevel":  34,
+                                  "teamLevelStart":  133,
+                                  "teamLevelCap":  136,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                70,
+                                                                90,
+                                                                130,
+                                                                180
+                                                            ],
+                                  "totalWillpowerToCap":  470,
+                                  "estimatedRecruitCountToCap":  47,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  136
+                              },
+                              {
+                                  "marketValueLevel":  35,
+                                  "teamLevelStart":  137,
+                                  "teamLevelCap":  140,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                70,
+                                                                100,
+                                                                130,
+                                                                190
+                                                            ],
+                                  "totalWillpowerToCap":  490,
+                                  "estimatedRecruitCountToCap":  49,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  140
+                              },
+                              {
+                                  "marketValueLevel":  36,
+                                  "teamLevelStart":  141,
+                                  "teamLevelCap":  144,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                70,
+                                                                100,
+                                                                140,
+                                                                190
+                                                            ],
+                                  "totalWillpowerToCap":  500,
+                                  "estimatedRecruitCountToCap":  50,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  144
+                              },
+                              {
+                                  "marketValueLevel":  37,
+                                  "teamLevelStart":  145,
+                                  "teamLevelCap":  148,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                70,
+                                                                100,
+                                                                140,
+                                                                200
+                                                            ],
+                                  "totalWillpowerToCap":  510,
+                                  "estimatedRecruitCountToCap":  51,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  148
+                              },
+                              {
+                                  "marketValueLevel":  38,
+                                  "teamLevelStart":  149,
+                                  "teamLevelCap":  152,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                80,
+                                                                100,
+                                                                150,
+                                                                210
+                                                            ],
+                                  "totalWillpowerToCap":  540,
+                                  "estimatedRecruitCountToCap":  54,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  152
+                              },
+                              {
+                                  "marketValueLevel":  39,
+                                  "teamLevelStart":  153,
+                                  "teamLevelCap":  156,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                80,
+                                                                110,
+                                                                150,
+                                                                210
+                                                            ],
+                                  "totalWillpowerToCap":  550,
+                                  "estimatedRecruitCountToCap":  55,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  156
+                              },
+                              {
+                                  "marketValueLevel":  40,
+                                  "teamLevelStart":  157,
+                                  "teamLevelCap":  160,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                80,
+                                                                110,
+                                                                160,
+                                                                220
+                                                            ],
+                                  "totalWillpowerToCap":  570,
+                                  "estimatedRecruitCountToCap":  57,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  160
+                              },
+                              {
+                                  "marketValueLevel":  41,
+                                  "teamLevelStart":  161,
+                                  "teamLevelCap":  164,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                80,
+                                                                110,
+                                                                160,
+                                                                230
+                                                            ],
+                                  "totalWillpowerToCap":  580,
+                                  "estimatedRecruitCountToCap":  58,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  164
+                              },
+                              {
+                                  "marketValueLevel":  42,
+                                  "teamLevelStart":  165,
+                                  "teamLevelCap":  168,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                90,
+                                                                120,
+                                                                170,
+                                                                230
+                                                            ],
+                                  "totalWillpowerToCap":  610,
+                                  "estimatedRecruitCountToCap":  61,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  168
+                              },
+                              {
+                                  "marketValueLevel":  43,
+                                  "teamLevelStart":  169,
+                                  "teamLevelCap":  172,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                90,
+                                                                120,
+                                                                170,
+                                                                240
+                                                            ],
+                                  "totalWillpowerToCap":  620,
+                                  "estimatedRecruitCountToCap":  62,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  172
+                              },
+                              {
+                                  "marketValueLevel":  44,
+                                  "teamLevelStart":  173,
+                                  "teamLevelCap":  176,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                90,
+                                                                130,
+                                                                180,
+                                                                250
+                                                            ],
+                                  "totalWillpowerToCap":  650,
+                                  "estimatedRecruitCountToCap":  65,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  176
+                              },
+                              {
+                                  "marketValueLevel":  45,
+                                  "teamLevelStart":  177,
+                                  "teamLevelCap":  180,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                90,
+                                                                130,
+                                                                180,
+                                                                260
+                                                            ],
+                                  "totalWillpowerToCap":  660,
+                                  "estimatedRecruitCountToCap":  66,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  180
+                              },
+                              {
+                                  "marketValueLevel":  46,
+                                  "teamLevelStart":  181,
+                                  "teamLevelCap":  184,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                100,
+                                                                130,
+                                                                190,
+                                                                260
+                                                            ],
+                                  "totalWillpowerToCap":  680,
+                                  "estimatedRecruitCountToCap":  68,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  184
+                              },
+                              {
+                                  "marketValueLevel":  47,
+                                  "teamLevelStart":  185,
+                                  "teamLevelCap":  188,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                100,
+                                                                140,
+                                                                190,
+                                                                270
+                                                            ],
+                                  "totalWillpowerToCap":  700,
+                                  "estimatedRecruitCountToCap":  70,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  188
+                              },
+                              {
+                                  "marketValueLevel":  48,
+                                  "teamLevelStart":  189,
+                                  "teamLevelCap":  192,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                100,
+                                                                140,
+                                                                200,
+                                                                280
+                                                            ],
+                                  "totalWillpowerToCap":  720,
+                                  "estimatedRecruitCountToCap":  72,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  192
+                              },
+                              {
+                                  "marketValueLevel":  49,
+                                  "teamLevelStart":  193,
+                                  "teamLevelCap":  196,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                100,
+                                                                150,
+                                                                200,
+                                                                290
+                                                            ],
+                                  "totalWillpowerToCap":  740,
+                                  "estimatedRecruitCountToCap":  74,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  196
+                              },
+                              {
+                                  "marketValueLevel":  50,
+                                  "teamLevelStart":  197,
+                                  "teamLevelCap":  200,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                110,
+                                                                150,
+                                                                210,
+                                                                300
+                                                            ],
+                                  "totalWillpowerToCap":  770,
+                                  "estimatedRecruitCountToCap":  77,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  200
+                              },
+                              {
+                                  "marketValueLevel":  51,
+                                  "teamLevelStart":  201,
+                                  "teamLevelCap":  204,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                110,
+                                                                150,
+                                                                220,
+                                                                310
+                                                            ],
+                                  "totalWillpowerToCap":  790,
+                                  "estimatedRecruitCountToCap":  79,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  204
+                              },
+                              {
+                                  "marketValueLevel":  52,
+                                  "teamLevelStart":  205,
+                                  "teamLevelCap":  208,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                110,
+                                                                160,
+                                                                220,
+                                                                320
+                                                            ],
+                                  "totalWillpowerToCap":  810,
+                                  "estimatedRecruitCountToCap":  81,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  208
+                              },
+                              {
+                                  "marketValueLevel":  53,
+                                  "teamLevelStart":  209,
+                                  "teamLevelCap":  212,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                120,
+                                                                160,
+                                                                230,
+                                                                330
+                                                            ],
+                                  "totalWillpowerToCap":  840,
+                                  "estimatedRecruitCountToCap":  84,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  212
+                              },
+                              {
+                                  "marketValueLevel":  54,
+                                  "teamLevelStart":  213,
+                                  "teamLevelCap":  216,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                120,
+                                                                170,
+                                                                240,
+                                                                340
+                                                            ],
+                                  "totalWillpowerToCap":  870,
+                                  "estimatedRecruitCountToCap":  87,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  216
+                              },
+                              {
+                                  "marketValueLevel":  55,
+                                  "teamLevelStart":  217,
+                                  "teamLevelCap":  220,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                130,
+                                                                170,
+                                                                250,
+                                                                350
+                                                            ],
+                                  "totalWillpowerToCap":  900,
+                                  "estimatedRecruitCountToCap":  90,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  220
+                              },
+                              {
+                                  "marketValueLevel":  56,
+                                  "teamLevelStart":  221,
+                                  "teamLevelCap":  224,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                130,
+                                                                180,
+                                                                250,
+                                                                360
+                                                            ],
+                                  "totalWillpowerToCap":  920,
+                                  "estimatedRecruitCountToCap":  92,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  224
+                              },
+                              {
+                                  "marketValueLevel":  57,
+                                  "teamLevelStart":  225,
+                                  "teamLevelCap":  228,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                130,
+                                                                190,
+                                                                260,
+                                                                370
+                                                            ],
+                                  "totalWillpowerToCap":  950,
+                                  "estimatedRecruitCountToCap":  95,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  228
+                              },
+                              {
+                                  "marketValueLevel":  58,
+                                  "teamLevelStart":  229,
+                                  "teamLevelCap":  232,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                140,
+                                                                190,
+                                                                270,
+                                                                380
+                                                            ],
+                                  "totalWillpowerToCap":  980,
+                                  "estimatedRecruitCountToCap":  98,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  232
+                              },
+                              {
+                                  "marketValueLevel":  59,
+                                  "teamLevelStart":  233,
+                                  "teamLevelCap":  236,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                140,
+                                                                200,
+                                                                280,
+                                                                400
+                                                            ],
+                                  "totalWillpowerToCap":  1020,
+                                  "estimatedRecruitCountToCap":  102,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  236
+                              },
+                              {
+                                  "marketValueLevel":  60,
+                                  "teamLevelStart":  237,
+                                  "teamLevelCap":  240,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                150,
+                                                                200,
+                                                                290,
+                                                                410
+                                                            ],
+                                  "totalWillpowerToCap":  1050,
+                                  "estimatedRecruitCountToCap":  105,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  240
+                              },
+                              {
+                                  "marketValueLevel":  61,
+                                  "teamLevelStart":  241,
+                                  "teamLevelCap":  244,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                150,
+                                                                210,
+                                                                300,
+                                                                420
+                                                            ],
+                                  "totalWillpowerToCap":  1080,
+                                  "estimatedRecruitCountToCap":  108,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  244
+                              },
+                              {
+                                  "marketValueLevel":  62,
+                                  "teamLevelStart":  245,
+                                  "teamLevelCap":  248,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                160,
+                                                                220,
+                                                                310,
+                                                                440
+                                                            ],
+                                  "totalWillpowerToCap":  1130,
+                                  "estimatedRecruitCountToCap":  113,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  248
+                              },
+                              {
+                                  "marketValueLevel":  63,
+                                  "teamLevelStart":  249,
+                                  "teamLevelCap":  252,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                160,
+                                                                220,
+                                                                320,
+                                                                450
+                                                            ],
+                                  "totalWillpowerToCap":  1150,
+                                  "estimatedRecruitCountToCap":  115,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  252
+                              },
+                              {
+                                  "marketValueLevel":  64,
+                                  "teamLevelStart":  253,
+                                  "teamLevelCap":  256,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                170,
+                                                                230,
+                                                                330,
+                                                                460
+                                                            ],
+                                  "totalWillpowerToCap":  1190,
+                                  "estimatedRecruitCountToCap":  119,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  256
+                              },
+                              {
+                                  "marketValueLevel":  65,
+                                  "teamLevelStart":  257,
+                                  "teamLevelCap":  260,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                170,
+                                                                240,
+                                                                340,
+                                                                480
+                                                            ],
+                                  "totalWillpowerToCap":  1230,
+                                  "estimatedRecruitCountToCap":  123,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  260
+                              },
+                              {
+                                  "marketValueLevel":  66,
+                                  "teamLevelStart":  261,
+                                  "teamLevelCap":  264,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                180,
+                                                                250,
+                                                                350,
+                                                                490
+                                                            ],
+                                  "totalWillpowerToCap":  1270,
+                                  "estimatedRecruitCountToCap":  127,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  264
+                              },
+                              {
+                                  "marketValueLevel":  67,
+                                  "teamLevelStart":  265,
+                                  "teamLevelCap":  268,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                180,
+                                                                250,
+                                                                360,
+                                                                510
+                                                            ],
+                                  "totalWillpowerToCap":  1300,
+                                  "estimatedRecruitCountToCap":  130,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  268
+                              },
+                              {
+                                  "marketValueLevel":  68,
+                                  "teamLevelStart":  269,
+                                  "teamLevelCap":  272,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                190,
+                                                                260,
+                                                                370,
+                                                                520
+                                                            ],
+                                  "totalWillpowerToCap":  1340,
+                                  "estimatedRecruitCountToCap":  134,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  272
+                              },
+                              {
+                                  "marketValueLevel":  69,
+                                  "teamLevelStart":  273,
+                                  "teamLevelCap":  276,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                190,
+                                                                270,
+                                                                380,
+                                                                540
+                                                            ],
+                                  "totalWillpowerToCap":  1380,
+                                  "estimatedRecruitCountToCap":  138,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  276
+                              },
+                              {
+                                  "marketValueLevel":  70,
+                                  "teamLevelStart":  277,
+                                  "teamLevelCap":  280,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                200,
+                                                                280,
+                                                                390,
+                                                                560
+                                                            ],
+                                  "totalWillpowerToCap":  1430,
+                                  "estimatedRecruitCountToCap":  143,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  280
+                              },
+                              {
+                                  "marketValueLevel":  71,
+                                  "teamLevelStart":  281,
+                                  "teamLevelCap":  284,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                200,
+                                                                290,
+                                                                400,
+                                                                580
+                                                            ],
+                                  "totalWillpowerToCap":  1470,
+                                  "estimatedRecruitCountToCap":  147,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  284
+                              },
+                              {
+                                  "marketValueLevel":  72,
+                                  "teamLevelStart":  285,
+                                  "teamLevelCap":  288,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                210,
+                                                                300,
+                                                                420,
+                                                                590
+                                                            ],
+                                  "totalWillpowerToCap":  1520,
+                                  "estimatedRecruitCountToCap":  152,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  288
+                              },
+                              {
+                                  "marketValueLevel":  73,
+                                  "teamLevelStart":  289,
+                                  "teamLevelCap":  292,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                220,
+                                                                300,
+                                                                430,
+                                                                610
+                                                            ],
+                                  "totalWillpowerToCap":  1560,
+                                  "estimatedRecruitCountToCap":  156,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  292
+                              },
+                              {
+                                  "marketValueLevel":  74,
+                                  "teamLevelStart":  293,
+                                  "teamLevelCap":  296,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                220,
+                                                                310,
+                                                                440,
+                                                                630
+                                                            ],
+                                  "totalWillpowerToCap":  1600,
+                                  "estimatedRecruitCountToCap":  160,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  296
+                              },
+                              {
+                                  "marketValueLevel":  75,
+                                  "teamLevelStart":  297,
+                                  "teamLevelCap":  300,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                230,
+                                                                320,
+                                                                460,
+                                                                650
+                                                            ],
+                                  "totalWillpowerToCap":  1660,
+                                  "estimatedRecruitCountToCap":  166,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  300
+                              },
+                              {
+                                  "marketValueLevel":  76,
+                                  "teamLevelStart":  301,
+                                  "teamLevelCap":  304,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                240,
+                                                                330,
+                                                                470,
+                                                                670
+                                                            ],
+                                  "totalWillpowerToCap":  1710,
+                                  "estimatedRecruitCountToCap":  171,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  304
+                              },
+                              {
+                                  "marketValueLevel":  77,
+                                  "teamLevelStart":  305,
+                                  "teamLevelCap":  308,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                250,
+                                                                340,
+                                                                490,
+                                                                700
+                                                            ],
+                                  "totalWillpowerToCap":  1780,
+                                  "estimatedRecruitCountToCap":  178,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  308
+                              },
+                              {
+                                  "marketValueLevel":  78,
+                                  "teamLevelStart":  309,
+                                  "teamLevelCap":  312,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                250,
+                                                                360,
+                                                                500,
+                                                                720
+                                                            ],
+                                  "totalWillpowerToCap":  1830,
+                                  "estimatedRecruitCountToCap":  183,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  312
+                              },
+                              {
+                                  "marketValueLevel":  79,
+                                  "teamLevelStart":  313,
+                                  "teamLevelCap":  316,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                260,
+                                                                370,
+                                                                520,
+                                                                740
+                                                            ],
+                                  "totalWillpowerToCap":  1890,
+                                  "estimatedRecruitCountToCap":  189,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  316
+                              },
+                              {
+                                  "marketValueLevel":  80,
+                                  "teamLevelStart":  317,
+                                  "teamLevelCap":  320,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                270,
+                                                                380,
+                                                                530,
+                                                                760
+                                                            ],
+                                  "totalWillpowerToCap":  1940,
+                                  "estimatedRecruitCountToCap":  194,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  320
+                              },
+                              {
+                                  "marketValueLevel":  81,
+                                  "teamLevelStart":  321,
+                                  "teamLevelCap":  324,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                280,
+                                                                390,
+                                                                550,
+                                                                790
+                                                            ],
+                                  "totalWillpowerToCap":  2010,
+                                  "estimatedRecruitCountToCap":  201,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  324
+                              },
+                              {
+                                  "marketValueLevel":  82,
+                                  "teamLevelStart":  325,
+                                  "teamLevelCap":  328,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                290,
+                                                                400,
+                                                                570,
+                                                                810
+                                                            ],
+                                  "totalWillpowerToCap":  2070,
+                                  "estimatedRecruitCountToCap":  207,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  328
+                              },
+                              {
+                                  "marketValueLevel":  83,
+                                  "teamLevelStart":  329,
+                                  "teamLevelCap":  332,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                300,
+                                                                420,
+                                                                590,
+                                                                840
+                                                            ],
+                                  "totalWillpowerToCap":  2150,
+                                  "estimatedRecruitCountToCap":  215,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  332
+                              },
+                              {
+                                  "marketValueLevel":  84,
+                                  "teamLevelStart":  333,
+                                  "teamLevelCap":  336,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                310,
+                                                                430,
+                                                                610,
+                                                                870
+                                                            ],
+                                  "totalWillpowerToCap":  2220,
+                                  "estimatedRecruitCountToCap":  222,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  336
+                              },
+                              {
+                                  "marketValueLevel":  85,
+                                  "teamLevelStart":  337,
+                                  "teamLevelCap":  340,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                320,
+                                                                440,
+                                                                630,
+                                                                890
+                                                            ],
+                                  "totalWillpowerToCap":  2280,
+                                  "estimatedRecruitCountToCap":  228,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  340
+                              },
+                              {
+                                  "marketValueLevel":  86,
+                                  "teamLevelStart":  341,
+                                  "teamLevelCap":  344,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                330,
+                                                                460,
+                                                                650,
+                                                                920
+                                                            ],
+                                  "totalWillpowerToCap":  2360,
+                                  "estimatedRecruitCountToCap":  236,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  344
+                              },
+                              {
+                                  "marketValueLevel":  87,
+                                  "teamLevelStart":  345,
+                                  "teamLevelCap":  348,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                340,
+                                                                470,
+                                                                670,
+                                                                950
+                                                            ],
+                                  "totalWillpowerToCap":  2430,
+                                  "estimatedRecruitCountToCap":  243,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  348
+                              },
+                              {
+                                  "marketValueLevel":  88,
+                                  "teamLevelStart":  349,
+                                  "teamLevelCap":  352,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                350,
+                                                                490,
+                                                                690,
+                                                                980
+                                                            ],
+                                  "totalWillpowerToCap":  2510,
+                                  "estimatedRecruitCountToCap":  251,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  352
+                              },
+                              {
+                                  "marketValueLevel":  89,
+                                  "teamLevelStart":  353,
+                                  "teamLevelCap":  356,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                360,
+                                                                500,
+                                                                710,
+                                                                1010
+                                                            ],
+                                  "totalWillpowerToCap":  2580,
+                                  "estimatedRecruitCountToCap":  258,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  356
+                              },
+                              {
+                                  "marketValueLevel":  90,
+                                  "teamLevelStart":  357,
+                                  "teamLevelCap":  360,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                370,
+                                                                520,
+                                                                730,
+                                                                1040
+                                                            ],
+                                  "totalWillpowerToCap":  2660,
+                                  "estimatedRecruitCountToCap":  266,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  360
+                              },
+                              {
+                                  "marketValueLevel":  91,
+                                  "teamLevelStart":  361,
+                                  "teamLevelCap":  364,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                380,
+                                                                530,
+                                                                750,
+                                                                1080
+                                                            ],
+                                  "totalWillpowerToCap":  2740,
+                                  "estimatedRecruitCountToCap":  274,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  364
+                              },
+                              {
+                                  "marketValueLevel":  92,
+                                  "teamLevelStart":  365,
+                                  "teamLevelCap":  368,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                390,
+                                                                550,
+                                                                780,
+                                                                1110
+                                                            ],
+                                  "totalWillpowerToCap":  2830,
+                                  "estimatedRecruitCountToCap":  283,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  368
+                              },
+                              {
+                                  "marketValueLevel":  93,
+                                  "teamLevelStart":  369,
+                                  "teamLevelCap":  372,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                400,
+                                                                570,
+                                                                800,
+                                                                1150
+                                                            ],
+                                  "totalWillpowerToCap":  2920,
+                                  "estimatedRecruitCountToCap":  292,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  372
+                              },
+                              {
+                                  "marketValueLevel":  94,
+                                  "teamLevelStart":  373,
+                                  "teamLevelCap":  376,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                420,
+                                                                590,
+                                                                830,
+                                                                1180
+                                                            ],
+                                  "totalWillpowerToCap":  3020,
+                                  "estimatedRecruitCountToCap":  302,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  376
+                              },
+                              {
+                                  "marketValueLevel":  95,
+                                  "teamLevelStart":  377,
+                                  "teamLevelCap":  380,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                430,
+                                                                600,
+                                                                850,
+                                                                1220
+                                                            ],
+                                  "totalWillpowerToCap":  3100,
+                                  "estimatedRecruitCountToCap":  310,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  380
+                              },
+                              {
+                                  "marketValueLevel":  96,
+                                  "teamLevelStart":  381,
+                                  "teamLevelCap":  384,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                440,
+                                                                620,
+                                                                880,
+                                                                1260
+                                                            ],
+                                  "totalWillpowerToCap":  3200,
+                                  "estimatedRecruitCountToCap":  320,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  384
+                              },
+                              {
+                                  "marketValueLevel":  97,
+                                  "teamLevelStart":  385,
+                                  "teamLevelCap":  388,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                460,
+                                                                640,
+                                                                910,
+                                                                1300
+                                                            ],
+                                  "totalWillpowerToCap":  3310,
+                                  "estimatedRecruitCountToCap":  331,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  388
+                              },
+                              {
+                                  "marketValueLevel":  98,
+                                  "teamLevelStart":  389,
+                                  "teamLevelCap":  392,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                470,
+                                                                660,
+                                                                940,
+                                                                1340
+                                                            ],
+                                  "totalWillpowerToCap":  3410,
+                                  "estimatedRecruitCountToCap":  341,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  392
+                              },
+                              {
+                                  "marketValueLevel":  99,
+                                  "teamLevelStart":  393,
+                                  "teamLevelCap":  396,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                490,
+                                                                680,
+                                                                970,
+                                                                1390
+                                                            ],
+                                  "totalWillpowerToCap":  3530,
+                                  "estimatedRecruitCountToCap":  353,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  396
+                              },
+                              {
+                                  "marketValueLevel":  100,
+                                  "teamLevelStart":  397,
+                                  "teamLevelCap":  400,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                500,
+                                                                710,
+                                                                1000,
+                                                                1430
+                                                            ],
+                                  "totalWillpowerToCap":  3640,
+                                  "estimatedRecruitCountToCap":  364,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  400
+                              },
+                              {
+                                  "marketValueLevel":  101,
+                                  "teamLevelStart":  401,
+                                  "teamLevelCap":  404,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                520,
+                                                                730,
+                                                                1030,
+                                                                1470
+                                                            ],
+                                  "totalWillpowerToCap":  3750,
+                                  "estimatedRecruitCountToCap":  375,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  404
+                              },
+                              {
+                                  "marketValueLevel":  102,
+                                  "teamLevelStart":  405,
+                                  "teamLevelCap":  408,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                530,
+                                                                750,
+                                                                1060,
+                                                                1520
+                                                            ],
+                                  "totalWillpowerToCap":  3860,
+                                  "estimatedRecruitCountToCap":  386,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  408
+                              },
+                              {
+                                  "marketValueLevel":  103,
+                                  "teamLevelStart":  409,
+                                  "teamLevelCap":  412,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                550,
+                                                                780,
+                                                                1100,
+                                                                1570
+                                                            ],
+                                  "totalWillpowerToCap":  4000,
+                                  "estimatedRecruitCountToCap":  400,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  412
+                              },
+                              {
+                                  "marketValueLevel":  104,
+                                  "teamLevelStart":  413,
+                                  "teamLevelCap":  416,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                570,
+                                                                800,
+                                                                1130,
+                                                                1620
+                                                            ],
+                                  "totalWillpowerToCap":  4120,
+                                  "estimatedRecruitCountToCap":  412,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  416
+                              },
+                              {
+                                  "marketValueLevel":  105,
+                                  "teamLevelStart":  417,
+                                  "teamLevelCap":  420,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                590,
+                                                                830,
+                                                                1170,
+                                                                1670
+                                                            ],
+                                  "totalWillpowerToCap":  4260,
+                                  "estimatedRecruitCountToCap":  426,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  420
+                              },
+                              {
+                                  "marketValueLevel":  106,
+                                  "teamLevelStart":  421,
+                                  "teamLevelCap":  424,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                610,
+                                                                850,
+                                                                1210,
+                                                                1730
+                                                            ],
+                                  "totalWillpowerToCap":  4400,
+                                  "estimatedRecruitCountToCap":  440,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  424
+                              },
+                              {
+                                  "marketValueLevel":  107,
+                                  "teamLevelStart":  425,
+                                  "teamLevelCap":  428,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                630,
+                                                                880,
+                                                                1250,
+                                                                1780
+                                                            ],
+                                  "totalWillpowerToCap":  4540,
+                                  "estimatedRecruitCountToCap":  454,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  428
+                              },
+                              {
+                                  "marketValueLevel":  108,
+                                  "teamLevelStart":  429,
+                                  "teamLevelCap":  432,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                640,
+                                                                910,
+                                                                1280,
+                                                                1840
+                                                            ],
+                                  "totalWillpowerToCap":  4670,
+                                  "estimatedRecruitCountToCap":  467,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  432
+                              },
+                              {
+                                  "marketValueLevel":  109,
+                                  "teamLevelStart":  433,
+                                  "teamLevelCap":  436,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                670,
+                                                                940,
+                                                                1330,
+                                                                1900
+                                                            ],
+                                  "totalWillpowerToCap":  4840,
+                                  "estimatedRecruitCountToCap":  484,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  436
+                              },
+                              {
+                                  "marketValueLevel":  110,
+                                  "teamLevelStart":  437,
+                                  "teamLevelCap":  440,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                690,
+                                                                970,
+                                                                1370,
+                                                                1960
+                                                            ],
+                                  "totalWillpowerToCap":  4990,
+                                  "estimatedRecruitCountToCap":  499,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  440
+                              },
+                              {
+                                  "marketValueLevel":  111,
+                                  "teamLevelStart":  441,
+                                  "teamLevelCap":  444,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                710,
+                                                                1000,
+                                                                1410,
+                                                                2020
+                                                            ],
+                                  "totalWillpowerToCap":  5140,
+                                  "estimatedRecruitCountToCap":  514,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  444
+                              },
+                              {
+                                  "marketValueLevel":  112,
+                                  "teamLevelStart":  445,
+                                  "teamLevelCap":  448,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                730,
+                                                                1030,
+                                                                1460,
+                                                                2080
+                                                            ],
+                                  "totalWillpowerToCap":  5300,
+                                  "estimatedRecruitCountToCap":  530,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  448
+                              },
+                              {
+                                  "marketValueLevel":  113,
+                                  "teamLevelStart":  449,
+                                  "teamLevelCap":  452,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                750,
+                                                                1060,
+                                                                1500,
+                                                                2150
+                                                            ],
+                                  "totalWillpowerToCap":  5460,
+                                  "estimatedRecruitCountToCap":  546,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  452
+                              },
+                              {
+                                  "marketValueLevel":  114,
+                                  "teamLevelStart":  453,
+                                  "teamLevelCap":  456,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                780,
+                                                                1090,
+                                                                1550,
+                                                                2220
+                                                            ],
+                                  "totalWillpowerToCap":  5640,
+                                  "estimatedRecruitCountToCap":  564,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  456
+                              },
+                              {
+                                  "marketValueLevel":  115,
+                                  "teamLevelStart":  457,
+                                  "teamLevelCap":  460,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                800,
+                                                                1130,
+                                                                1600,
+                                                                2290
+                                                            ],
+                                  "totalWillpowerToCap":  5820,
+                                  "estimatedRecruitCountToCap":  582,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  460
+                              },
+                              {
+                                  "marketValueLevel":  116,
+                                  "teamLevelStart":  461,
+                                  "teamLevelCap":  464,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                830,
+                                                                1170,
+                                                                1650,
+                                                                2360
+                                                            ],
+                                  "totalWillpowerToCap":  6010,
+                                  "estimatedRecruitCountToCap":  601,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  464
+                              },
+                              {
+                                  "marketValueLevel":  117,
+                                  "teamLevelStart":  465,
+                                  "teamLevelCap":  468,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                850,
+                                                                1200,
+                                                                1700,
+                                                                2440
+                                                            ],
+                                  "totalWillpowerToCap":  6190,
+                                  "estimatedRecruitCountToCap":  619,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  468
+                              },
+                              {
+                                  "marketValueLevel":  118,
+                                  "teamLevelStart":  469,
+                                  "teamLevelCap":  472,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                880,
+                                                                1240,
+                                                                1760,
+                                                                2520
+                                                            ],
+                                  "totalWillpowerToCap":  6400,
+                                  "estimatedRecruitCountToCap":  640,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  472
+                              },
+                              {
+                                  "marketValueLevel":  119,
+                                  "teamLevelStart":  473,
+                                  "teamLevelCap":  476,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                910,
+                                                                1280,
+                                                                1810,
+                                                                2600
+                                                            ],
+                                  "totalWillpowerToCap":  6600,
+                                  "estimatedRecruitCountToCap":  660,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  476
+                              },
+                              {
+                                  "marketValueLevel":  120,
+                                  "teamLevelStart":  477,
+                                  "teamLevelCap":  480,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                940,
+                                                                1320,
+                                                                1870,
+                                                                2680
+                                                            ],
+                                  "totalWillpowerToCap":  6810,
+                                  "estimatedRecruitCountToCap":  681,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  480
+                              },
+                              {
+                                  "marketValueLevel":  121,
+                                  "teamLevelStart":  481,
+                                  "teamLevelCap":  484,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                970,
+                                                                1360,
+                                                                1930,
+                                                                2760
+                                                            ],
+                                  "totalWillpowerToCap":  7020,
+                                  "estimatedRecruitCountToCap":  702,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  484
+                              },
+                              {
+                                  "marketValueLevel":  122,
+                                  "teamLevelStart":  485,
+                                  "teamLevelCap":  488,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                1000,
+                                                                1410,
+                                                                1990,
+                                                                2850
+                                                            ],
+                                  "totalWillpowerToCap":  7250,
+                                  "estimatedRecruitCountToCap":  725,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  488
+                              },
+                              {
+                                  "marketValueLevel":  123,
+                                  "teamLevelStart":  489,
+                                  "teamLevelCap":  492,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                1030,
+                                                                1450,
+                                                                2060,
+                                                                2940
+                                                            ],
+                                  "totalWillpowerToCap":  7480,
+                                  "estimatedRecruitCountToCap":  748,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  492
+                              },
+                              {
+                                  "marketValueLevel":  124,
+                                  "teamLevelStart":  493,
+                                  "teamLevelCap":  496,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                1060,
+                                                                1500,
+                                                                2120,
+                                                                3040
+                                                            ],
+                                  "totalWillpowerToCap":  7720,
+                                  "estimatedRecruitCountToCap":  772,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  496
+                              },
+                              {
+                                  "marketValueLevel":  125,
+                                  "teamLevelStart":  497,
+                                  "teamLevelCap":  500,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                1100,
+                                                                1550,
+                                                                2190,
+                                                                3140
+                                                            ],
+                                  "totalWillpowerToCap":  7980,
+                                  "estimatedRecruitCountToCap":  798,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  500
+                              },
+                              {
+                                  "marketValueLevel":  126,
+                                  "teamLevelStart":  501,
+                                  "teamLevelCap":  504,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                1130,
+                                                                1590,
+                                                                2260,
+                                                                3240
+                                                            ],
+                                  "totalWillpowerToCap":  8220,
+                                  "estimatedRecruitCountToCap":  822,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  504
+                              },
+                              {
+                                  "marketValueLevel":  127,
+                                  "teamLevelStart":  505,
+                                  "teamLevelCap":  508,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                1170,
+                                                                1650,
+                                                                2330,
+                                                                3340
+                                                            ],
+                                  "totalWillpowerToCap":  8490,
+                                  "estimatedRecruitCountToCap":  849,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  508
+                              },
+                              {
+                                  "marketValueLevel":  128,
+                                  "teamLevelStart":  509,
+                                  "teamLevelCap":  512,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                1210,
+                                                                1700,
+                                                                2410,
+                                                                3450
+                                                            ],
+                                  "totalWillpowerToCap":  8770,
+                                  "estimatedRecruitCountToCap":  877,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  512
+                              },
+                              {
+                                  "marketValueLevel":  129,
+                                  "teamLevelStart":  513,
+                                  "teamLevelCap":  516,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                1250,
+                                                                1750,
+                                                                2490,
+                                                                3560
+                                                            ],
+                                  "totalWillpowerToCap":  9050,
+                                  "estimatedRecruitCountToCap":  905,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  516
+                              },
+                              {
+                                  "marketValueLevel":  130,
+                                  "teamLevelStart":  517,
+                                  "teamLevelCap":  520,
+                                  "teamLevelsInStage":  4,
+                                  "playoffRoundStages":  [
+                                                             "?????",
+                                                             "?????",
+                                                             "????",
+                                                             "???"
+                                                         ],
+                                  "willpowerRequirements":  [
+                                                                1280,
+                                                                1810,
+                                                                2560,
+                                                                3670
+                                                            ],
+                                  "totalWillpowerToCap":  9320,
+                                  "estimatedRecruitCountToCap":  932,
+                                  "promotionCondition":  "team_level_cap_reached_and_win_championship",
+                                  "managementLevelCeilingAtStageEnd":  520
+                              }
+                          ]
+}

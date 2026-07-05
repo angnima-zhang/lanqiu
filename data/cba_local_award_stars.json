@@ -1,0 +1,30 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "description": "Mainland Chinese CBA award stars who won regular-season MVP or Finals MVP.",
+    "source_note": "Compiled from public CBA MVP/FMVP winner lists. Foreign-player winners and non-mainland Chinese winners are excluded.",
+    "count": 20
+  },
+  "players": [
+    {"id": "cba_huweidong", "name": "胡卫东", "position": "SG", "team": "江苏", "mvpSeasons": ["1995-96", "1996-97"], "fmvpSeasons": [], "tier": 14},
+    {"id": "cba_gongxiaobin", "name": "巩晓彬", "position": "PF", "team": "山东", "mvpSeasons": ["1997-98"], "fmvpSeasons": [], "tier": 13},
+    {"id": "cba_sunjun", "name": "孙军", "position": "SF", "team": "吉林", "mvpSeasons": ["1998-99", "2002-03"], "fmvpSeasons": [], "tier": 13},
+    {"id": "cba_wangzhizhi", "name": "王治郅", "position": "C", "team": "八一", "mvpSeasons": ["1999-00"], "fmvpSeasons": ["1999-00", "2006-07"], "tier": 15},
+    {"id": "cba_yaoming", "name": "姚明", "position": "C", "team": "上海", "mvpSeasons": ["2000-01"], "fmvpSeasons": ["2000-01"], "tier": 15},
+    {"id": "cba_liuyudong", "name": "刘玉栋", "position": "PF", "team": "八一", "mvpSeasons": ["2001-02"], "fmvpSeasons": ["2001-02", "2002-03"], "tier": 15},
+    {"id": "cba_tangzhengdong", "name": "唐正东", "position": "C", "team": "江苏", "mvpSeasons": ["2003-04", "2004-05", "2007-08"], "fmvpSeasons": [], "tier": 13},
+    {"id": "cba_bateer", "name": "巴特尔", "position": "C", "team": "北京/新疆", "mvpSeasons": ["2005-06", "2008-09", "2009-10", "2010-11"], "fmvpSeasons": [], "tier": 14},
+    {"id": "cba_zhufangyu", "name": "朱芳雨", "position": "SF", "team": "广东", "mvpSeasons": ["2006-07", "2011-12"], "fmvpSeasons": ["2004-05", "2007-08", "2008-09", "2009-10"], "tier": 15},
+    {"id": "cba_yijianlian", "name": "易建联", "position": "PF", "team": "广东", "mvpSeasons": ["2012-13", "2013-14", "2014-15", "2015-16", "2019-20"], "fmvpSeasons": ["2005-06", "2012-13", "2018-19"], "tier": 15},
+    {"id": "cba_dingyanyuhang", "name": "丁彦雨航", "position": "SF", "team": "山东", "mvpSeasons": ["2016-17", "2017-18"], "fmvpSeasons": [], "tier": 13},
+    {"id": "cba_wangzhelin", "name": "王哲林", "position": "C", "team": "福建/上海", "mvpSeasons": ["2018-19", "2022-23"], "fmvpSeasons": [], "tier": 13},
+    {"id": "cba_wuqian", "name": "吴前", "position": "PG", "team": "浙江", "mvpSeasons": ["2020-21"], "fmvpSeasons": [], "tier": 13},
+    {"id": "cba_hujinqiu", "name": "胡金秋", "position": "PF", "team": "广厦", "mvpSeasons": ["2021-22", "2024-25"], "fmvpSeasons": [], "tier": 13},
+    {"id": "cba_abdusalam", "name": "阿不都沙拉木", "position": "PF", "team": "新疆", "mvpSeasons": ["2023-24"], "fmvpSeasons": [], "tier": 13},
+    {"id": "cba_hexining", "name": "贺希宁", "position": "SG", "team": "深圳", "mvpSeasons": ["2025-26"], "fmvpSeasons": [], "tier": 13},
+    {"id": "cba_dufeng", "name": "杜锋", "position": "PF", "team": "广东", "mvpSeasons": [], "fmvpSeasons": ["2003-04"], "tier": 13},
+    {"id": "cba_wangshipeng", "name": "王仕鹏", "position": "SG", "team": "广东", "mvpSeasons": [], "fmvpSeasons": ["2010-11"], "tier": 13},
+    {"id": "cba_humingxuan", "name": "胡明轩", "position": "PG", "team": "广东", "mvpSeasons": [], "fmvpSeasons": ["2020-21"], "tier": 13},
+    {"id": "cba_zhaojiwei", "name": "赵继伟", "position": "PG", "team": "辽宁", "mvpSeasons": [], "fmvpSeasons": ["2021-22", "2022-23"], "tier": 13}
+  ]
+}

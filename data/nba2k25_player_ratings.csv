@@ -1,0 +1,840 @@
+﻿player_name,team,primary_position,secondary_position,overall,potential,years_in_nba,nationality_1,nationality_2,archetype,height_cm,weight_kg,dataset_group
+Nikola Jokic,Denver Nuggets,C,,98,99.0,11.0,Serbia,,2-Way 3-Level Point Center,211,128.0,current
+Luka Doncic,Los Angeles Lakers,PG,SG,95,99.0,7.0,Slovenia,,Playmaking Inside-Out Scorer,201,104.0,current
+LeBron James,Los Angeles Lakers,PF,PG,94,99.0,22.0,United States,,2-Way Inside-Out Point Forward,206,113.0,current
+Stephen Curry,Golden State Warriors,PG,SG,94,99.0,16.0,United States,,Offensive Architect,188,83.0,current
+Victor Wembanyama,San Antonio Spurs,C,PF,94,99.0,2.0,France,,3-Level Scoring Paint Beast,224,95.0,current
+Kevin Durant,Houston Rockets,PF,SF,93,99.0,18.0,United States,,Walking Bucket,211,108.0,current
+Shai Gilgeous-Alexander,Oklahoma City Thunder,PG,SG,98,98.0,7.0,Canada,,All-Around Star,198,88.0,current
+Giannis Antetokounmpo,Milwaukee Bucks,PF,C,97,98.0,12.0,Greece,Nigeria,2-Way Inside-The-Arc Playmaker,211,109.0,current
+Jayson Tatum,Boston Celtics,PF,SF,94,97.0,8.0,United States,,2-Way Inside-Out ISO Creator,203,95.0,current
+Evan Mobley,Cleveland Cavaliers,PF,C,89,97.0,4.0,United States,,2-Way Inside-Out Threat,211,97.0,current
+Cade Cunningham,Detroit Pistons,PG,SG,92,96.0,4.0,United States,,Playmaking Inside-Out Scorer,198,99.0,current
+Kawhi Leonard,Los Angeles Clippers,PF,SF,92,96.0,14.0,United States,,2-Way Scoring Phenom,201,101.0,current
+Ja Morant,Memphis Grizzlies,PG,,91,96.0,6.0,United States,,3-Level Playmaking Slasher,188,78.0,current
+Anthony Edwards,Minnesota Timberwolves,SG,SF,95,95.0,5.0,United States,,2-Way Inside-Out ISO Creator,193,101.0,current
+Anthony Davis,Dallas Mavericks,C,PF,93,95.0,13.0,United States,,2-Way Inside-The-Arc Menace,208,114.0,current
+Joel Embiid,Philadelphia 76ers,C,,92,95.0,11.0,Cameroon,United States,3-Level Scoring Paint Beast,213,126.0,current
+Chris Paul,Los Angeles Clippers,PG,,81,95.0,20.0,United States,,2-Way 3-Level Playmaker,183,79.0,current
+Donovan Mitchell,Cleveland Cavaliers,SG,PG,93,94.0,8.0,United States,,Inside-Out Combo Guard,191,97.0,current
+Devin Booker,Phoenix Suns,PG,SG,91,94.0,10.0,United States,,Offensive Architect,198,93.0,current
+Paolo Banchero,Orlando Magic,PF,SF,89,94.0,3.0,United States,Italy,Shot-Creating 3-Level Threat,208,113.0,current
+Chet Holmgren,Oklahoma City Thunder,C,PF,88,94.0,3.0,United States,,2-Way 3-Level Scoring Threat,216,88.0,current
+Damian Lillard,Portland Trail Blazers,PG,,88,94.0,13.0,United States,,3-Level Scoring Playmaker,188,88.0,current
+Jalen Brunson,New York Knicks,PG,,93,93.0,7.0,United States,,Offensive Architect,188,86.0,current
+Karl-Anthony Towns,New York Knicks,PF,C,92,93.0,10.0,Dominican Republic,United States,Inside-Out Board Hunter,213,112.0,current
+Jaylen Brown,Boston Celtics,SF,SG,90,93.0,9.0,United States,,2-Way Wing Creator,198,100.0,current
+James Harden,Los Angeles Clippers,PG,SG,89,93.0,16.0,United States,,Playmaking Inside-Out Scorer,196,99.0,current
+Jimmy Butler,Golden State Warriors,SF,PF,87,93.0,14.0,United States,,2-Way 3-Level Point Four,201,104.0,current
+Stephon Castle,San Antonio Spurs,SG,PG,82,93.0,1.0,United States,,Defensive Menace,198,92.0,current
+Jalen Williams,Oklahoma City Thunder,PF,SF,90,92.0,3.0,United States,,2-Way 3-Level Shot Creator,196,95.0,current
+Kyrie Irving,Dallas Mavericks,SG,PG,90,92.0,14.0,United States,Australia,Offensive Architect,188,88.0,current
+Amen Thompson,Houston Rockets,SG,SF,87,92.0,2.0,United States,,2-Way Rim Attacker,201,90.0,current
+LaMelo Ball,Charlotte Hornets,PG,SG,87,92.0,5.0,United States,,3-Level Scoring Playmaker,201,81.0,current
+Trae Young,Atlanta Hawks,PG,,90,91.0,7.0,United States,,Offense-Heavy Point,185,74.0,current
+Jaren Jackson Jr.,Memphis Grizzlies,C,PF,89,91.0,7.0,United States,,2-Way Inside-Out Scorer,208,109.0,current
+Tyrese Haliburton,Indiana Pacers,PG,SG,93,90.0,5.0,United States,,3-Level Scoring Playmaker,196,83.0,current
+Bam Adebayo,Miami Heat,C,,88,90.0,8.0,United States,,2-Way 3-Level Scoring Threat,206,115.0,current
+Zion Williamson,New Orleans Pelicans,PF,C,87,90.0,6.0,United States,,Rim Attacker,198,128.0,current
+Franz Wagner,Orlando Magic,SF,SG,86,90.0,4.0,Germany,,Shot-Creating 3-Level Threat,208,99.0,current
+Scottie Barnes,Toronto Raptors,PF,SF,85,90.0,4.0,United States,,2-Way Inside-the-Arc Creator,201,101.0,current
+Jalen Green,Phoenix Suns,SG,PG,83,90.0,4.0,United States,Philippines,Inside-Out ISO Specialist,193,84.0,current
+Brandon Miller,Charlotte Hornets,SF,SG,82,90.0,2.0,United States,,Shot-Creating 3-Level Threat,201,90.0,current
+Bradley Beal,Los Angeles Clippers,SG,PG,81,90.0,13.0,United States,,Inside-Out ISO Specialist,193,93.0,current
+Paul George,Philadelphia 76ers,SF,PF,81,90.0,15.0,United States,,2-Way Wing Creator,203,99.0,current
+Klay Thompson,Dallas Mavericks,SG,SF,80,90.0,14.0,United States,,3 & D Two Guard,198,99.0,current
+Alperen Sengun,Houston Rockets,C,,87,89.0,4.0,Turkey,,Inside The Arc Board Hunter,211,109.0,current
+Darius Garland,Cleveland Cavaliers,PG,SG,87,89.0,6.0,United States,,Playmaking Inside-Out Scorer,185,86.0,current
+Domantas Sabonis,Sacramento Kings,C,,87,89.0,9.0,Lithuania,United States,3-Level Scoring Playmaker,208,108.0,current
+Tyler Herro,Miami Heat,SG,PG,86,89.0,6.0,United States,,3-Level Scorer,196,92.0,current
+Tyrese Maxey,Philadelphia 76ers,PG,SG,86,89.0,5.0,United States,,2-Way Inside-Out ISO Creator,188,90.0,current
+DeMar DeRozan,Sacramento Kings,SF,PF,85,89.0,16.0,United States,,Shot-Creating 3-Level Threat,198,99.0,current
+De’Aaron Fox,San Antonio Spurs,PG,,85,89.0,8.0,United States,,2-Way Inside-The-Arc Playmaker,191,83.0,current
+Alexandre Sarr,Washington Wizards,PF,C,81,89.0,1.0,France,,Slashing Stretch Five,216,92.0,current
+Zaccharie Risacher,Atlanta Hawks,SF,SG,81,89.0,1.0,France,,Shot-Creating 3-Level Threat,208,92.0,current
+Pascal Siakam,Indiana Pacers,PF,C,89,88.0,9.0,Cameroon,,2-Way Slashing Stretch Four,203,104.0,current
+Derrick White,Boston Celtics,SG,PG,87,88.0,8.0,United States,,2-Way Inside-Out Combo Guard,193,86.0,current
+Ivica Zubac,Los Angeles Clippers,C,,87,88.0,9.0,Croatia,,Paint Beast,213,108.0,current
+Jamal Murray,Denver Nuggets,PG,SG,86,88.0,9.0,Canada,,Offensive Architect,193,97.0,current
+Kristaps Porzingis,Atlanta Hawks,C,PF,85,88.0,10.0,Latvia,,2-Way Inside-Out Scorer,218,108.0,current
+Zach LaVine,Sacramento Kings,SG,SF,85,88.0,11.0,United States,,Inside-Out ISO Specialist,196,90.0,current
+Brandon Ingram,Toronto Raptors,SF,PF,84,88.0,9.0,United States,,Mid-Range Slasher,203,86.0,current
+Dyson Daniels,Atlanta Hawks,PG,SG,83,88.0,3.0,Australia,,2-Way Inside-Out ISO Creator,201,90.0,current
+Draymond Green,Golden State Warriors,PF,C,81,88.0,13.0,United States,,2-Way Mid-Range Point Center,198,104.0,current
+Jalen Johnson,Atlanta Hawks,PF,SF,81,88.0,4.0,United States,,Inside the Arc Threat,203,99.0,current
+Jared McCain,Philadelphia 76ers,SG,SF,80,88.0,1.0,United States,,Shot-Creating 3-Level Threat,191,89.0,current
+Julius Randle,Minnesota Timberwolves,PF,C,86,87.0,11.0,United States,,Shot-Creating 3-Level Threat,203,113.0,current
+Austin Reaves,Los Angeles Lakers,SG,PG,85,87.0,4.0,United States,,Shot-Creating 3-Level Threat,196,89.0,current
+OG Anunoby,New York Knicks,SF,PF,85,87.0,8.0,United Kingdom,,2-Way Inside-Out Shot Creator,201,104.0,current
+Jarrett Allen,Cleveland Cavaliers,C,,84,87.0,8.0,United States,,Paint Beast,206,109.0,current
+Mikal Bridges,New York Knicks,SF,SG,84,87.0,7.0,United States,,2-Way Sharpshooter,198,94.0,current
+Norman Powell,Miami Heat,SG,SF,84,87.0,10.0,United States,,Shot-Creating 3-Level Threat,193,97.0,current
+Rudy Gobert,Minnesota Timberwolves,C,,84,87.0,12.0,France,,Defensive Anchor,216,116.0,current
+Desmond Bane,Orlando Magic,SG,SF,83,87.0,5.0,United States,,Shot-Creating 3-Level Threat,196,97.0,current
+C.J. McCollum,Washington Wizards,PG,SG,81,87.0,12.0,United States,,3-Level Slasher,191,86.0,current
+Jabari Smith Jr.,Houston Rockets,PF,C,81,87.0,3.0,United States,,Slashing Stretch Four,211,99.0,current
+Khris Middleton,Washington Wizards,SF,PF,81,87.0,13.0,United States,,2-Way 3-Level Shot Creator,201,100.0,current
+Bilal Coulibaly,Washington Wizards,SG,SF,80,87.0,2.0,France,,Defensive Menace,203,88.0,current
+Lauri Markkanen,Utah Jazz,SF,PF,84,86.0,8.0,Finland,,Inside-Out Scoring Threat,213,108.0,current
+Cameron Johnson,Denver Nuggets,PF,SF,83,86.0,6.0,United States,,Stretch Four,203,95.0,current
+Deni Avdija,Portland Trail Blazers,SF,PF,82,86.0,5.0,Israel,,3-Level Small Ball Four,206,95.0,current
+R.J. Barrett,Toronto Raptors,SF,SG,82,86.0,6.0,Canada,,2-Way 3-Level Shot Creator,198,96.0,current
+Walker Kessler,Utah Jazz,C,,82,86.0,3.0,United States,,Paint Beast,213,110.0,current
+Dejounte Murray,New Orleans Pelicans,SG,PG,81,86.0,9.0,United States,,2-Way Inside-Out Playmaker,196,81.0,current
+Jordan Poole,New Orleans Pelicans,PG,SG,81,86.0,6.0,United States,,Slashing Inside-Out Creator,193,87.0,current
+Jrue Holiday,Portland Trail Blazers,PG,SG,81,86.0,16.0,United States,,2-Way 3-Level Shot Creator,196,92.0,current
+Tari Eason,Houston Rockets,PF,SF,81,86.0,3.0,United States,,2-Way Inside-Out Threat,203,97.0,current
+Scoot Henderson,Portland Trail Blazers,PG,SG,80,86.0,2.0,United States,,3-Level Slasher,191,88.0,current
+Coby White,Chicago Bulls,PG,SG,83,85.0,6.0,United States,,Slashing Inside-Out Creator,196,88.0,current
+Isaiah Hartenstein,Oklahoma City Thunder,C,,82,85.0,8.0,Germany,United States,2-Way Inside-The-Arc Threat,213,113.0,current
+Jaden McDaniels,Minnesota Timberwolves,SF,PF,82,85.0,5.0,United States,,2-Way 3-Level Shot Creator,206,83.0,current
+Jalen Suggs,Orlando Magic,PG,SG,82,85.0,4.0,United States,,2-Way 3-Level Slasher,196,92.0,current
+John Collins,Los Angeles Clippers,C,PF,82,85.0,8.0,United States,,Inside-Out Scorer,206,102.0,current
+Josh Giddey,Chicago Bulls,SG,PG,82,85.0,4.0,Australia,,Playmaking Inside-Out Threat,203,97.0,current
+Michael Porter Jr.,Brooklyn Nets,SF,PF,82,85.0,7.0,United States,,Inside-Out Shot Creator,208,98.0,current
+Andrew Wiggins,Miami Heat,SF,PF,81,85.0,11.0,Canada,,Shot-Creating 3-Level Threat,201,89.0,current
+Dereck Lively II,Dallas Mavericks,C,,81,85.0,2.0,United States,,Paint Beast,216,104.0,current
+Josh Hart,New York Knicks,PF,SF,81,85.0,8.0,United States,,Swiss Army Knife,193,97.0,current
+Keegan Murray,Sacramento Kings,PF,SF,81,85.0,3.0,United States,,Inside-Out Scoring Threat,203,101.0,current
+Nic Claxton,Brooklyn Nets,C,,81,85.0,6.0,United States,U.S. Virgin Islands,2-Way Interior Threat,211,97.0,current
+Quentin Grimes,Philadelphia 76ers,SG,SF,81,85.0,4.0,United States,,2-Way 3-Level Shot Creator,196,95.0,current
+Shaedon Sharpe,Portland Trail Blazers,SG,SF,81,85.0,3.0,Canada,,Inside The Arc Menace,196,90.0,current
+Zach Edey,Memphis Grizzlies,C,,81,85.0,1.0,Canada,,2-Way Inside-Out Threat,226,137.0,current
+Clint Capela,Houston Rockets,C,,80,85.0,11.0,Switzerland,,Paint Beast,208,115.0,current
+Donovan Clingan,Portland Trail Blazers,C,,80,85.0,1.0,United States,,Defensive Anchor,221,119.0,current
+Kel’el Ware,Miami Heat,C,PF,80,85.0,1.0,United States,,Inside-Out Board Hunter,213,104.0,current
+Kyle Lowry,Philadelphia 76ers,PG,SG,75,85.0,19.0,United States,,Defensive Menace,183,88.0,current
+Myles Turner,Milwaukee Bucks,C,,83,84.0,10.0,United States,,2-Way 3-Level Scoring Threat,211,113.0,current
+Aaron Gordon,Denver Nuggets,PF,,82,84.0,11.0,United States,,2-Way 3-Level Scorer,203,106.0,current
+Jalen Duren,Detroit Pistons,C,,82,84.0,3.0,United States,,Interior Enforcer,208,113.0,current
+Naz Reid,Minnesota Timberwolves,C,PF,82,84.0,6.0,United States,,2-Way 3-Level Scoring Threat,206,119.0,current
+Nikola Vucevic,Chicago Bulls,C,,82,84.0,14.0,Montenegro,,Inside-Out Scorer,208,117.0,current
+Toumani Camara,Portland Trail Blazers,PF,SF,82,84.0,2.0,Belgium,,3 & D Wing,201,99.0,current
+Trey Murphy III,New Orleans Pelicans,SF,PF,82,84.0,4.0,United States,,2-Way 3-Level Scoring Threat,203,93.0,current
+Andrew Nembhard,Indiana Pacers,SG,PG,81,84.0,3.0,Canada,,2-Way 3-Level Shot Creator,193,86.0,current
+Anfernee Simons,Boston Celtics,SG,PG,81,84.0,7.0,United States,,Walking Bucket,191,81.0,current
+Ausar Thompson,Detroit Pistons,SF,PF,81,84.0,2.0,United States,,2-Way Rim Attacker,198,92.0,current
+Bennedict Mathurin,Indiana Pacers,SF,SF,81,84.0,3.0,Canada,,Inside-Out Shot Creator,196,95.0,current
+Cam Thomas,Brooklyn Nets,SG,SF,81,84.0,4.0,United States,,Score-First Two Guard,191,95.0,current
+Collin Sexton,Charlotte Hornets,SG,PG,81,84.0,7.0,United States,,Shot-Creating 3-Level Threat,191,86.0,current
+De’Andre Hunter,Cleveland Cavaliers,PF,SF,81,84.0,6.0,United States,,2-Way Catch & Shoot Ace,203,99.0,current
+Herbert Jones,New Orleans Pelicans,SG,SF,81,84.0,4.0,United States,,Wing Stopper,201,93.0,current
+Jakob Poeltl,Toronto Raptors,C,,81,84.0,9.0,Austria,,2-Way Inside-The-Arc Threat,213,110.0,current
+Jonas Valanciunas,Denver Nuggets,C,,81,84.0,14.0,Lithuania,,Inside The Arc Board Hunter,211,119.0,current
+Keyonte George,Utah Jazz,PG,SG,81,84.0,2.0,United States,,Playmaking Inside-Out Threat,193,83.0,current
+Miles Bridges,Charlotte Hornets,PF,SF,81,84.0,7.0,United States,,Rim Attacker,201,101.0,current
+Onyeka Okongwu,Atlanta Hawks,C,,81,84.0,5.0,United States,,2-Way Inside-The-Arc Menace,208,108.0,current
+Payton Pritchard,Boston Celtics,PG,,81,84.0,5.0,United States,,3-Level Scoring Threat,185,88.0,current
+Ty Jerome,Memphis Grizzlies,PG,SG,81,84.0,6.0,United States,,3-Level Scoring Playmaker,196,88.0,current
+Anthony Black,Orlando Magic,PG,SG,80,84.0,2.0,United States,,Defensive Menace,201,90.0,current
+Fred VanVleet,Houston Rockets,PG,,80,84.0,9.0,United States,,2-Way Perimeter Playmaker,183,89.0,current
+Kyle Kuzma,Milwaukee Bucks,PF,C,80,84.0,8.0,United States,,Perimeter Defender,206,99.0,current
+Yves Missi,New Orleans Pelicans,C,PF,80,84.0,1.0,Cameroon,Belgium,Defensive Anchor,213,95.0,current
+D’Angelo Russell,Dallas Mavericks,PG,,79,84.0,10.0,United States,,Playmaking Inside-Out Threat,191,87.0,current
+Gradey Dick,Toronto Raptors,SG,SF,79,84.0,2.0,United States,,Shot-Creating 3-Level Threat,198,92.0,current
+KyShawn George,Washington Wizards,SF,PF,79,84.0,1.0,Switzerland,,Slashing Stretch Four,203,88.0,current
+Jaylen Wells,Memphis Grizzlies,SF,PF,78,84.0,1.0,United States,,3 & D Threat,203,92.0,current
+Jarace Walker,Indiana Pacers,PF,C,76,84.0,2.0,United States,,3-Level Scoring Threat,201,106.0,current
+Nikola Topic,Oklahoma City Thunder,PG,SG,72,84.0,1.0,Serbia,,Rim Attacker,201,90.0,current
+Bobby Portis,Milwaukee Bucks,PF,C,81,83.0,10.0,United States,,3-Level Scoring Threat,208,113.0,current
+Brook Lopez,Los Angeles Clippers,C,,81,83.0,17.0,United States,,2-Way 3-Level Scoring Threat,216,127.0,current
+Christian Braun,Denver Nuggets,SF,SG,81,83.0,3.0,United States,,3-Level Scoring Threat,198,99.0,current
+Daniel Gafford,Dallas Mavericks,C,,81,83.0,6.0,United States,,Paint Beast,208,105.0,current
+Deandre Ayton,Los Angeles Lakers,C,,81,83.0,7.0,Bahamas,,2-Way Inside-The-Arc Menace,213,113.0,current
+Devin Vassell,San Antonio Spurs,SG,SF,81,83.0,5.0,United States,,2-Way Perimeter Shot Creator,196,90.0,current
+Dillon Brooks,Phoenix Suns,SF,PF,81,83.0,8.0,Canada,,2-Way Sharpshooter,198,101.0,current
+Immanuel Quickley,Toronto Raptors,PG,SG,81,83.0,5.0,United States,,All-Around Star,188,86.0,current
+Jaden Ivey,Detroit Pistons,SG,PG,81,83.0,3.0,United States,,Inside-Out ISO Specialist,193,88.0,current
+Malik Monk,Sacramento Kings,SG,,81,83.0,8.0,United States,,Shot-Creating 3-Level Threat,191,90.0,current
+Mark Williams,Phoenix Suns,C,,81,83.0,3.0,United States,,Defensive Anchor,213,108.0,current
+Robert Williams III,Portland Trail Blazers,C,PF,81,83.0,7.0,United States,,Paint Beast,206,107.0,current
+Tobias Harris,Detroit Pistons,PF,SF,81,83.0,14.0,United States,,Slashing Stretch Four,203,102.0,current
+Keldon Johnson,San Antonio Spurs,SF,PF,80,83.0,6.0,United States,,Shot-Creating 3-Level Threat,196,99.0,current
+Bub Carrington,Washington Wizards,PG,SG,79,83.0,1.0,United States,,Perimeter Shot Creator,196,81.0,current
+Jerami Grant,Portland Trail Blazers,SF,PF,79,83.0,11.0,United States,,2-Way 3-Level Shot Creator,201,95.0,current
+Jeremy Sochan,San Antonio Spurs,PF,PG,79,83.0,3.0,Poland,United States,Small Ball Four,203,104.0,current
+Matas Buzelis,Chicago Bulls,SF,PF,79,83.0,1.0,Lithuania,United States,Slashing Shot Creator,208,94.0,current
+Mike Conley,Minnesota Timberwolves,PG,,79,83.0,18.0,United States,,2-Way 3PT Playmaker,183,79.0,current
+Wendell Carter Jr.,Orlando Magic,C,,79,83.0,7.0,United States,,Inside the Arc Threat,208,122.0,current
+Cam Whitmore,Washington Wizards,SF,PF,78,83.0,2.0,United States,,Inside the Arc Shot Creator,201,104.0,current
+Davion Mitchell,Miami Heat,PG,SG,78,83.0,4.0,United States,,2-Way 3PT Shot Creator,183,91.0,current
+Lonzo Ball,Cleveland Cavaliers,PG,,78,83.0,8.0,United States,,2-Way 3PT Shot Creator,198,86.0,current
+Dalton Knecht,Los Angeles Lakers,SF,SG,77,83.0,1.0,United States,,Catch & Shoot Ace,198,92.0,current
+Nick Smith Jr.,Charlotte Hornets,PG,SG,77,83.0,2.0,United States,,Shot-Creating 3-Level Threat,188,83.0,current
+Steven Adams,Houston Rockets,C,,77,83.0,12.0,New Zealand,,Defensive Anchor,211,119.0,current
+Jaime Jaquez Jr.,Miami Heat,SF,PF,76,83.0,2.0,United States,,Rim Attacker,198,104.0,current
+Marcus Sasser,Detroit Pistons,PG,SG,76,83.0,2.0,United States,,3PT Shot Creator,188,88.0,current
+Ronald Holland II,Detroit Pistons,SF,PF,76,83.0,1.0,United States,,Rim Attacker,203,93.0,current
+Rob Dillingham,Minnesota Timberwolves,PG,SG,75,83.0,1.0,United States,,3PT Shot Creator,188,72.0,current
+Devin Carter,Sacramento Kings,PG,SF,74,83.0,1.0,United States,,Inside-Out Scoring Threat,191,88.0,current
+Jaylon Tyson,Cleveland Cavaliers,SF,PF,74,83.0,1.0,United States,,Perimeter Shot Creator,201,95.0,current
+Brandin Podziemski,Golden State Warriors,SG,PG,81,82.0,2.0,United States,,Shot-Creating 3-Level Threat,193,92.0,current
+Jonathan Kuminga,Golden State Warriors,PF,SF,81,82.0,4.0,DR Congo,,Versatile Defender,201,101.0,current
+Luguentz Dort,Oklahoma City Thunder,SF,PF,81,82.0,6.0,Canada,,2-Way 3-Level Shot Creator,193,99.0,current
+Obi Toppin,Indiana Pacers,PF,,81,82.0,5.0,United States,,Inside-Out Scoring Threat,206,99.0,current
+Rui Hachimura,Los Angeles Lakers,SF,PF,81,82.0,6.0,Japan,,Shot-Creating 3-Level Threat,203,104.0,current
+Alex Caruso,Oklahoma City Thunder,SG,SF,80,82.0,9.0,United States,,Wing Stopper,196,84.0,current
+Mitchell Robinson,New York Knicks,C,,80,82.0,7.0,United States,,Defensive Anchor,213,108.0,current
+Cason Wallace,Oklahoma City Thunder,PG,SG,79,82.0,2.0,United States,,Defensive Menace,191,88.0,current
+Isaiah Collier,Utah Jazz,PG,SG,79,82.0,1.0,United States,,Playmaking Point,193,87.0,current
+Marcus Smart,Los Angeles Lakers,PG,SG,79,82.0,11.0,United States,,2-Way Perimeter Threat,191,99.0,current
+Jusuf Nurkic,Utah Jazz,C,,78,82.0,11.0,Bosnia & Herzegovina,,2-Way Inside-The-Arc Threat,213,131.0,current
+Buddy Hield,Golden State Warriors,SG,SF,77,82.0,9.0,Bahamas,,3PT Shot Creator,193,99.0,current
+Ja’Kobe Walter,Toronto Raptors,SF,SG,77,82.0,1.0,United States,,3 & D Threat,196,81.0,current
+Ajay Mitchell,Oklahoma City Thunder,SG,PG,76,82.0,1.0,Belgium,United States,Perimeter Threat,196,86.0,current
+GG Jackson,Memphis Grizzlies,SF,SF,76,82.0,2.0,United States,,Rim Rocker,206,95.0,current
+Jonathan Mogbo,Toronto Raptors,PF,C,76,82.0,1.0,United States,,Interior Threat,203,97.0,current
+Julian Strawther,Denver Nuggets,SG,SF,76,82.0,2.0,Puerto Rico,United States,3 & D Threat,198,92.0,current
+Kevin Love,Utah Jazz,C,PF,76,82.0,17.0,United States,,Inside-Out Board Hunter,203,110.0,current
+Patrick Williams,Chicago Bulls,PF,,76,82.0,5.0,United States,,Stretch Four,201,97.0,current
+James Wiseman,Indiana Pacers,C,,75,82.0,5.0,United States,,Board-Hunting Lob Threat,211,108.0,current
+Terry Rozier III,Miami Heat,PG,SG,75,82.0,10.0,United States,,Inside the Arc Shot Creator,185,86.0,current
+Malaki Branham,Washington Wizards,SG,PG,74,82.0,3.0,United States,,Catch & Shoot Ace,193,81.0,current
+Ousmane Dieng,Oklahoma City Thunder,PF,SF,74,82.0,3.0,France,,Ball Hawk,206,83.0,current
+Jett Howard,Orlando Magic,SF,SG,73,82.0,2.0,United States,,Perimeter Shot Creator,198,97.0,current
+Kobe Bufkin,Atlanta Hawks,PG,SG,73,82.0,2.0,United States,,Inside the Arc Shot Creator,196,88.0,current
+Bronny James,Los Angeles Lakers,SG,PG,68,82.0,1.0,United States,,Rim Attacker,191,86.0,current
+Cam Christie,Los Angeles Clippers,SG,PG,68,82.0,1.0,United States,,Catch & Shoot Threat,198,86.0,current
+Aaron Nesmith,Indiana Pacers,SF,PF,81,81.0,5.0,United States,,3 & D Wing,196,97.0,current
+Naji Marshall,Dallas Mavericks,PF,SF,81,81.0,5.0,United States,,Inside the Arc Shot Creator,198,99.0,current
+P.J. Washington,Dallas Mavericks,PF,C,81,81.0,6.0,United States,,Catch & Shoot Ace,201,104.0,current
+Caris LeVert,Detroit Pistons,SG,SF,80,81.0,9.0,United States,,Inside-Out Shot Creator,198,92.0,current
+Jordan Clarkson,New York Knicks,SG,SF,80,81.0,11.0,United States,Philippines,Mid-Range Slasher,191,87.0,current
+Kyle Filipowski,Utah Jazz,C,PF,80,81.0,1.0,United States,,Inside-Out Scoring Threat,213,112.0,current
+Santi Aldama,Memphis Grizzlies,PF,SF,80,81.0,4.0,Spain,,Inside-Out Scoring Threat,213,97.0,current
+Cole Anthony,Milwaukee Bucks,PG,SG,79,81.0,5.0,United States,,Inside-Out Scoring Threat,188,83.0,current
+Harrison Barnes,San Antonio Spurs,SF,PF,79,81.0,13.0,United States,,Shot-Creating 3-Level Threat,203,101.0,current
+Spencer Dinwiddie,Charlotte Hornets,PG,SG,79,81.0,11.0,United States,,3-Level Scoring Playmaker,196,97.0,current
+Brice Sensabaugh,Utah Jazz,SF,SG,77,81.0,2.0,United States,,Perimeter Shot Creator,196,106.0,current
+Taylor Hendricks,Utah Jazz,PF,SF,76,81.0,2.0,United States,,3-Level Scoring Threat,206,97.0,current
+Terrence Shannon Jr.,Minnesota Timberwolves,SG,SF,75,81.0,1.0,United States,,Shot-Creating 3-Level Threat,198,97.0,current
+Tidjane Salaun,Charlotte Hornets,PF,SF,73,81.0,1.0,France,,Interior Threat,208,91.0,current
+Cody Williams,Utah Jazz,SF,PF,72,81.0,1.0,United States,,Rim Attacker,203,81.0,current
+Reed Sheppard,Houston Rockets,PG,SG,72,81.0,1.0,United States,,3 & D Threat,191,81.0,current
+Bogdan Bogdanovic,Los Angeles Clippers,SG,SF,80,80.0,11.0,Serbia,,Perimeter Shot Creator,196,101.0,current
+Brandon Clarke,Memphis Grizzlies,C,PF,80,80.0,6.0,Canada,,2-Way Inside-The-Arc Threat,203,97.0,current
+Kelly Oubre Jr.,Philadelphia 76ers,SF,SG,80,80.0,10.0,United States,,Rim Attacker,201,91.0,current
+T.J. McConnell,Indiana Pacers,PG,,80,80.0,10.0,United States,,2-Way Perimeter Playmaker,185,86.0,current
+Tim Hardaway Jr.,Denver Nuggets,SG,SF,80,80.0,12.0,United States,,Inside-Out Shot Creator,196,92.0,current
+Aaron Wiggins,Oklahoma City Thunder,PF,SF,79,80.0,4.0,United States,,Inside-Out Scoring Threat,196,86.0,current
+Derrick Jones Jr.,Los Angeles Clippers,SF,PF,79,80.0,9.0,United States,,2-Way 3-Level Scoring Threat,198,95.0,current
+Donte DiVincenzo,Minnesota Timberwolves,SG,SF,79,80.0,7.0,United States,,2-Way 3-Level Scoring Threat,193,91.0,current
+Gary Trent Jr.,Milwaukee Bucks,SG,SF,79,80.0,7.0,United States,,Shot-Creating 3-Level Threat,196,94.0,current
+Goga Bitadze,Orlando Magic,C,,79,80.0,6.0,Georgia,,Board-Hunting Lob Threat,211,113.0,current
+Max Strus,Cleveland Cavaliers,SF,SG,79,80.0,6.0,United States,,Catch & Shoot Ace,196,97.0,current
+Tre Jones,Chicago Bulls,PG,,79,80.0,5.0,United States,,Playmaking Inside-Out Threat,185,83.0,current
+Andre Drummond,Philadelphia 76ers,C,,78,80.0,13.0,United States,,Board-Hunting Lob Threat,211,126.0,current
+Dennis Schroder,Sacramento Kings,PG,SG,78,80.0,12.0,Germany,,3-Level Scoring Playmaker,185,77.0,current
+Jose Alvarado,New Orleans Pelicans,PG,SG,78,80.0,4.0,Puerto Rico,United States,2-Way 3-Level Scoring Threat,183,81.0,current
+Keon Ellis,Sacramento Kings,SG,PG,78,80.0,3.0,United States,,3 & D Point,191,79.0,current
+Miles McBride,New York Knicks,PG,SG,78,80.0,4.0,United States,,2-Way 3-Level Shot Creator,185,88.0,current
+Sandro Mamukelashvili,Toronto Raptors,PF,C,78,80.0,4.0,Georgia,United States,Stretch Five,206,108.0,current
+Peyton Watson,Denver Nuggets,PF,SF,77,80.0,3.0,United States,,Versatile Defender,201,90.0,current
+Ryan Dunn,Phoenix Suns,SF,PF,77,80.0,1.0,United States,,Versatile Stopper,203,94.0,current
+Saddiq Bey,New Orleans Pelicans,SF,PF,77,80.0,5.0,United States,,Perimeter Defender,201,97.0,current
+AJ Green,Milwaukee Bucks,SG,SF,76,80.0,3.0,United States,,Catch & Shoot Ace,193,86.0,current
+Bruce Brown,Denver Nuggets,PG,SG,76,80.0,7.0,United States,,3 & D Threat,193,91.0,current
+Trayce Jackson-Davis,Golden State Warriors,C,PF,76,80.0,2.0,United States,,Board-Hunting Lob Threat,206,110.0,current
+AJ Johnson,Washington Wizards,SG,PG,75,80.0,1.0,United States,,Inside the Arc Shot Creator,196,72.0,current
+Jaden Hardy,Dallas Mavericks,PG,SG,75,80.0,3.0,United States,,Inside-Out Scoring Threat,191,89.0,current
+Jaylen Clark,Minnesota Timberwolves,SG,,75,80.0,2.0,United States,,3 & D Wing,193,92.0,current
+Jordan Hawkins,New Orleans Pelicans,SG,PG,75,80.0,2.0,United States,,Shot-Creating 3-Level Threat,196,86.0,current
+Tristan da Silva,Orlando Magic,PF,C,75,80.0,1.0,Germany,Brazil,Catch & Shoot Threat,206,103.0,current
+Ben Sheppard,Indiana Pacers,SG,SF,74,80.0,2.0,United States,,Perimeter Shot Creator,198,86.0,current
+Noah Clowney,Brooklyn Nets,C,PF,74,80.0,2.0,United States,,Inside-Out Scoring Threat,208,95.0,current
+Olivier-Maxence Prosper,Dallas Mavericks,PF,SF,74,80.0,2.0,Canada,,Interior Threat,201,104.0,current
+Kris Murray,Portland Trail Blazers,SF,PF,73,80.0,2.0,United States,,Perimeter Defender,203,99.0,current
+Blake Wesley,Portland Trail Blazers,PG,SG,72,80.0,3.0,United States,,Rim Attacker,191,83.0,current
+Kobe Brown,Los Angeles Clippers,PF,SF,71,80.0,2.0,United States,,Rebounder,201,113.0,current
+Johnny Furphy,Indiana Pacers,PF,SF,70,80.0,1.0,Australia,,Catch & Shoot Threat,206,95.0,current
+Tyler Smith,Milwaukee Bucks,PF,SF,69,80.0,1.0,United States,,3-Level Scoring Threat,211,101.0,current
+Chris Boucher,Boston Celtics,C,PF,79,79.0,8.0,Saint Lucia,,3-Level Scoring Threat,206,90.0,current
+Corey Kispert,Washington Wizards,SG,SF,79,79.0,4.0,United States,,Catch & Shoot Ace,198,101.0,current
+Dante Exum,Dallas Mavericks,SF,SG,79,79.0,11.0,Australia,,3 & D Two Guard,196,96.0,current
+Guerschon Yabusele,New York Knicks,PF,C,79,79.0,9.0,France,,Inside-Out Scoring Threat,203,117.0,current
+Isaiah Joe,Oklahoma City Thunder,SG,PG,79,79.0,5.0,United States,,Inside-Out Shot Creator,191,74.0,current
+Jaylin Williams,Oklahoma City Thunder,C,,79,79.0,3.0,United States,,3-Level Scoring Threat,206,108.0,current
+Kelly Olynyk,San Antonio Spurs,C,PF,79,79.0,12.0,Canada,,Inside-Out Scoring Threat,211,108.0,current
+Kevin Huerter,Chicago Bulls,SG,SF,79,79.0,7.0,United States,,Inside-Out Shot Creator,201,89.0,current
+Kevin Porter Jr.,Milwaukee Bucks,PG,SG,79,79.0,6.0,United States,,Balanced Point,193,91.0,current
+Moritz Wagner,Orlando Magic,C,PF,79,79.0,7.0,Germany,,3-Level Scoring Threat,211,110.0,current
+Moses Moody,Golden State Warriors,SF,SG,79,79.0,4.0,United States,,2-Way Inside-Out Shot Creator,196,95.0,current
+Nickeil Alexander-Walker,Atlanta Hawks,SG,SF,79,79.0,6.0,Canada,,2-Way 3-Level Shot Creator,196,92.0,current
+Scotty Pippen Jr.,Memphis Grizzlies,PG,,79,79.0,3.0,United States,,Playmaking Inside-Out Threat,185,77.0,current
+Tre Mann,Charlotte Hornets,SG,PG,79,79.0,4.0,United States,,3-Level Scoring Threat,191,80.0,current
+Zach Collins,Chicago Bulls,C,,79,79.0,8.0,United States,,Inside the Arc Threat,211,113.0,current
+Ayo Dosunmu,Chicago Bulls,SG,PG,78,79.0,4.0,United States,,Shot-Creating 3-Level Threat,196,90.0,current
+Jalen Smith,Chicago Bulls,C,PF,78,79.0,5.0,United States,,Inside-Out Board Hunter,206,97.0,current
+Justin Champagnie,Washington Wizards,SF,SG,78,79.0,4.0,United States,,Stretch Four,198,93.0,current
+Karlo Matkovic,New Orleans Pelicans,PF,C,78,79.0,3.0,Bosnia & Herzegovina,,Rim Protector,208,104.0,current
+Kris Dunn,Los Angeles Clippers,SG,SF,78,79.0,9.0,United States,,2-Way Perimeter Shot Creator,191,92.0,current
+Nick Richards,Phoenix Suns,C,,78,79.0,5.0,Jamaica,,Inside The Arc Board Hunter,213,110.0,current
+Adem Bona,Philadelphia 76ers,C,,77,79.0,1.0,Nigeria,Turkey,Interior Threat,208,110.0,current
+Gabe Vincent,Los Angeles Lakers,PG,SG,77,79.0,7.0,Nigeria,United States,3-Level Scoring Threat,188,90.0,current
+Grayson Allen,Phoenix Suns,SF,SG,77,79.0,7.0,United States,,Inside-Out Shot Creator,193,89.0,current
+Isaac Okoro,Chicago Bulls,SF,SG,77,79.0,5.0,United States,,Versatile Stopper,196,101.0,current
+Isaiah Stewart,Detroit Pistons,PF,C,77,79.0,5.0,United States,,Rim Protector,203,113.0,current
+Jarred Vanderbilt,Los Angeles Lakers,PF,C,77,79.0,7.0,United States,,Defensive Anchor,203,96.0,current
+Justin Edwards,Philadelphia 76ers,SF,SG,77,79.0,1.0,United States,,3-Level Scoring Threat,203,91.0,current
+Kyle Anderson,Utah Jazz,PF,SF,77,79.0,11.0,United States,China,2-Way Skilled Stretch,206,104.0,current
+Luke Kennard,Atlanta Hawks,SG,PG,77,79.0,8.0,United States,,Sharpshooter,196,93.0,current
+Nikola Jovic,Miami Heat,PF,C,77,79.0,3.0,Serbia,,Inside-Out Scoring Threat,208,108.0,current
+Quinten Post,Golden State Warriors,C,,77,79.0,1.0,Netherlands,,3-Level Scoring Threat,213,110.0,current
+Tyus Jones,Orlando Magic,PG,,77,79.0,10.0,United States,,Playmaking Inside-Out Threat,185,88.0,current
+Ziaire Williams,Brooklyn Nets,SF,SG,77,79.0,4.0,United States,,Inside-Out Shot Creator,206,83.0,current
+Isaiah Jackson,Indiana Pacers,C,PF,76,79.0,4.0,United States,,Board-Hunting Lob Threat,206,92.0,current
+Jake LaRavia,Los Angeles Lakers,PF,SF,76,79.0,3.0,United States,,Catch & Shoot Ace,201,106.0,current
+Jamal Shead,Toronto Raptors,PG,SG,76,79.0,1.0,United States,,3PT Shot Creator,185,88.0,current
+Jonathan Isaac,Orlando Magic,PF,,76,79.0,8.0,United States,,2-Way Rim Attacker,208,104.0,current
+Mason Plumlee,Charlotte Hornets,C,,76,79.0,12.0,United States,,Board-Hunting Lob Threat,208,114.0,current
+Neemias Queta,Boston Celtics,C,,76,79.0,4.0,Portugal,,Interior Threat,213,112.0,current
+Ochai Agbaji,Toronto Raptors,PF,SF,76,79.0,3.0,United States,,2-Way 3-Level Shot Creator,196,97.0,current
+Caleb Martin,Dallas Mavericks,PF,SF,75,79.0,6.0,United States,,Inside-Out Scoring Threat,196,95.0,current
+Marvin Bagley III,Washington Wizards,C,PF,75,79.0,7.0,United States,,Board-Hunting Lob Threat,208,106.0,current
+Matisse Thybulle,Portland Trail Blazers,SF,SG,75,79.0,6.0,United States,Australia,3 & D Wing,196,90.0,current
+Craig Porter,Cleveland Cavaliers,PG,,74,79.0,2.0,United States,,Sharpshooter,185,81.0,current
+KJ Simpson,Charlotte Hornets,PG,,74,79.0,1.0,United States,,Steady Playmaker,188,84.0,current
+Lindy Waters III,San Antonio Spurs,SG,SF,74,79.0,5.0,United States,,3 & D Threat,198,95.0,current
+Oso Ighodaro,Phoenix Suns,PF,C,74,79.0,1.0,United States,,Interior Threat,211,101.0,current
+Tyler Kolek,New York Knicks,PG,SG,74,79.0,1.0,United States,,Perimeter Threat,191,86.0,current
+Jae’Sean Tate,Houston Rockets,SF,PF,73,79.0,7.0,United States,,Inside-Out Shot Creator,193,104.0,current
+Dariq Whitehead,Brooklyn Nets,SF,SG,72,79.0,2.0,United States,,Shot-Creating 3-Level Threat,198,99.0,current
+Dwight Powell,Dallas Mavericks,C,,72,79.0,11.0,Canada,,Inside-Out Scoring Threat,208,108.0,current
+Baylor Scheierman,Boston Celtics,SG,SF,71,79.0,1.0,United States,,Perimeter Shot Creator,201,92.0,current
+DaRon Holmes II,Denver Nuggets,PF,C,71,79.0,1.0,United States,,Stretch Four,208,106.0,current
+Hunter Tyson,Denver Nuggets,PF,SF,70,79.0,2.0,United States,,Mid-Range Scoring Threat,203,97.0,current
+Bobi Klintman,Detroit Pistons,PF,SF,69,79.0,1.0,Sweden,,Promising Prospect,208,101.0,current
+Pacome Dadiet,New York Knicks,SF,PF,69,79.0,1.0,France,,Perimeter Shot Creator,203,95.0,current
+Jaxson Hayes,Los Angeles Lakers,C,PF,78,78.0,6.0,United States,,2-Way Interior Scorer,213,99.0,current
+Kenrich Williams,Oklahoma City Thunder,PF,C,78,78.0,7.0,United States,,Stretch Four,198,95.0,current
+Luke Kornet,San Antonio Spurs,C,,78,78.0,8.0,United States,,Board-Hunting Paint Protector,218,113.0,current
+Sam Hauser,Boston Celtics,SF,PF,78,78.0,4.0,United States,,Catch & Shoot Ace,201,98.0,current
+Day’Ron Sharpe,Brooklyn Nets,C,,77,78.0,4.0,United States,,Inside The Arc Board Hunter,206,119.0,current
+Drew Eubanks,Sacramento Kings,C,,77,78.0,7.0,United States,,Inside-Out Scoring Threat,208,110.0,current
+Duncan Robinson,Detroit Pistons,SG,SF,77,78.0,7.0,United States,,Catch & Shoot Ace,201,97.0,current
+Josh Okogie,Houston Rockets,SF,SG,77,78.0,7.0,Nigeria,,Wing Stopper,193,96.0,current
+Larry Nance Jr.,Cleveland Cavaliers,C,PF,77,78.0,10.0,United States,,3-Level Scoring Threat,203,110.0,current
+Max Christie,Dallas Mavericks,SG,SF,77,78.0,3.0,United States,,Defensive Menace,196,86.0,current
+Royce O’Neale,Phoenix Suns,SF,PF,77,78.0,10.0,United States,,2-Way Stretch Four,198,102.0,current
+Dorian Finney-Smith,Houston Rockets,PF,C,76,78.0,9.0,United States,,2-Way Inside-Out Threat,201,99.0,current
+Jabari Walker,Philadelphia 76ers,PF,SF,76,78.0,3.0,United States,,Stretch Four,201,90.0,current
+Haywood Highsmith,Brooklyn Nets,PF,SF,75,78.0,7.0,United States,,3 & D Threat,196,99.0,current
+KJ Martin,Utah Jazz,PF,SF,75,78.0,5.0,United States,,Rim Rocker,198,97.0,current
+Tristan Vukcevic,Washington Wizards,C,PF,75,78.0,2.0,Serbia,,Stretch Five,208,99.0,current
+Zeke Nnaji,Denver Nuggets,C,PF,75,78.0,5.0,United States,,Stretch Five,206,108.0,current
+Andre Jackson Jr.,Milwaukee Bucks,SF,PG,74,78.0,2.0,United States,,2-Way Inside-Out Threat,198,94.0,current
+Caleb Houstan,Atlanta Hawks,SG,SF,74,78.0,3.0,Canada,,3 & D Wing,203,92.0,current
+Colby Jones,Detroit Pistons,SG,SF,74,78.0,2.0,United States,,Perimeter Defender,198,93.0,current
+Dalen Terry,Chicago Bulls,SG,SF,74,78.0,3.0,United States,,Inside-Out Shot Creator,201,88.0,current
+Christian Koloko,Los Angeles Lakers,C,,72,78.0,3.0,Cameroon,,Paint Protector,213,104.0,current
+Terence Davis,Sacramento Kings,SF,SG,71,78.0,6.0,United States,,Perimeter Shot Creator,193,90.0,current
+Jordan Walsh,Boston Celtics,PF,SF,70,78.0,2.0,United States,,Perimeter Defender,201,92.0,current
+Leonard Miller,Minnesota Timberwolves,PF,SF,70,78.0,2.0,Canada,,Interior Threat,208,95.0,current
+Xavier Tillman,Boston Celtics,C,,70,78.0,5.0,United States,,Versatile Defender,201,110.0,current
+Harrison Ingram,San Antonio Spurs,PF,SF,69,78.0,1.0,United States,,Promising Prospect,201,104.0,current
+Keshad Johnson,Miami Heat,PF,SF,69,78.0,1.0,United States,,Promising Prospect,201,101.0,current
+Kevin McCullar,New York Knicks,SG,SF,69,78.0,1.0,United States,,Perimeter Defender,201,95.0,current
+Pete Nance,Milwaukee Bucks,PF,C,67,78.0,2.0,United States,,Stretch Four,208,104.0,current
+Brandon Williams,Dallas Mavericks,PG,SG,77,77.0,4.0,United States,,3-Level Scoring Threat,185,86.0,current
+Georges Niang,Utah Jazz,PF,,77,77.0,9.0,United States,,Stretch Four,201,104.0,current
+Jock Landale,Memphis Grizzlies,C,,77,77.0,7.0,Australia,,Inside The Arc Board Hunter,211,115.0,current
+Keon Johnson,Brooklyn Nets,SG,SF,77,77.0,4.0,United States,,Shot-Creating 3-Level Threat,191,83.0,current
+Kevon Looney,New Orleans Pelicans,C,,77,77.0,10.0,United States,,Board-Hunting Paint Protector,206,100.0,current
+Ryan Rollins,Milwaukee Bucks,PG,SG,77,77.0,3.0,United States,,Perimeter Threat,191,81.0,current
+Terance Mann,Brooklyn Nets,SG,SF,77,77.0,6.0,United States,,Shot-Creating 3-Level Threat,196,97.0,current
+Grant Williams,Charlotte Hornets,PF,C,76,77.0,6.0,United States,,Stretch Four,198,106.0,current
+Orlando Robinson,Orlando Magic,C,,76,77.0,3.0,United States,,Stretch Five,208,110.0,current
+Tyrese Martin,Brooklyn Nets,SF,SG,76,77.0,3.0,United States,,Catch & Shoot Threat,198,97.0,current
+A.J. Lawson,Toronto Raptors,SG,SF,75,77.0,4.0,Canada,,Catch & Shoot Threat,198,81.0,current
+Julian Champagnie,San Antonio Spurs,SF,SG,75,77.0,3.0,United States,,3 & D Threat,201,98.0,current
+Pelle Larsson,Miami Heat,SG,SF,75,77.0,1.0,Sweden,,3 & D Threat,196,97.0,current
+Dario Saric,Sacramento Kings,PF,C,74,77.0,11.0,Croatia,,Versatile Defender,208,101.0,current
+Isaac Jones,Sacramento Kings,PF,C,74,77.0,1.0,United States,,Rim Protector,203,110.0,current
+Javonte Green,Detroit Pistons,PF,SF,74,77.0,10.0,United States,,Versatile Defender,196,92.0,current
+Nicolas Batum,Los Angeles Clippers,PF,SF,74,77.0,17.0,France,,Stretch Four,203,104.0,current
+Pat Connaughton,Charlotte Hornets,SG,SF,74,77.0,10.0,United States,,Rim Attacker,196,94.0,current
+Antonio Reeves,Charlotte Hornets,SG,SF,73,77.0,1.0,United States,,Catch & Shoot Ace,191,88.0,current
+Joe Ingles,Minnesota Timberwolves,SF,PF,73,77.0,16.0,Australia,,3 & D Wing,206,99.0,current
+Rayan Rupert,Portland Trail Blazers,SG,SF,72,77.0,2.0,France,,Rim Attacker,198,83.0,current
+Bryce McGowens,New Orleans Pelicans,SF,SG,71,77.0,3.0,United States,,Shot-Creating 3-Level Threat,198,79.0,current
+Dillon Jones,Washington Wizards,PF,SF,69,77.0,1.0,United States,,Perimeter Defender,198,106.0,current
+Enrique Freeman,Minnesota Timberwolves,PF,C,69,77.0,1.0,United States,,Interior Threat,201,96.0,current
+Cam Spencer,Memphis Grizzlies,SG,SF,68,77.0,1.0,United States,,Catch & Shoot Threat,193,93.0,current
+PJ Hall,Memphis Grizzlies,C,PF,68,77.0,1.0,United States,,Promising Prospect,208,110.0,current
+Trentyn Flowers,Los Angeles Clippers,SF,PF,68,77.0,1.0,United States,,Inside-Out Scoring Threat,206,81.0,current
+Tristen Newton,Minnesota Timberwolves,PG,SG,68,77.0,,United States,,Steady Playmaker,196,86.0,current
+Ulrich Chomche,Toronto Raptors,C,PF,68,77.0,1.0,Cameroon,,Rebounder,211,99.0,current
+Jalen Wilson,Brooklyn Nets,SF,PF,76,76.0,2.0,United States,,Mid-Range Scoring Threat,198,99.0,current
+Jay Huff,Indiana Pacers,C,,76,76.0,4.0,United States,,Stretch Five,216,108.0,current
+Jordan Goodwin,Phoenix Suns,SG,PG,76,76.0,4.0,United States,,Ball Hawk,193,90.0,current
+Kentavious Caldwell-Pope,Memphis Grizzlies,SG,SF,76,76.0,12.0,United States,,2-Way Perimeter Shot Creator,196,92.0,current
+Moussa Diabate,Charlotte Hornets,C,PF,76,76.0,3.0,France,,Board-Hunting Lob Threat,206,95.0,current
+Taurean Prince,Milwaukee Bucks,SF,PF,76,76.0,9.0,United States,,Catch & Shoot Ace,198,98.0,current
+Thomas Bryant,Indiana Pacers,C,,76,76.0,8.0,United States,,Inside the Arc Threat,208,115.0,current
+Trendon Watford,Philadelphia 76ers,PF,C,76,76.0,4.0,United States,,Interior Threat,203,107.0,current
+Vit Krejci,Atlanta Hawks,SF,SG,76,76.0,5.0,Czech Republic,,Catch & Shoot Ace,203,88.0,current
+Aaron Holiday,Houston Rockets,PG,SG,75,76.0,7.0,United States,,Sharpshooting Shot Creator,183,83.0,current
+Eric Gordon,Philadelphia 76ers,SG,SF,75,76.0,17.0,Bahamas,United States,Perimeter Shot Creator,191,97.0,current
+Gui Santos,Golden State Warriors,PF,SF,75,76.0,3.0,Brazil,,3 & D Threat,201,83.0,current
+Jared Butler,Phoenix Suns,PG,,75,76.0,4.0,United States,,Playmaking Perimeter Threat,191,87.0,current
+Josh Green,Charlotte Hornets,SF,SG,75,76.0,5.0,Australia,,Catch & Shoot Ace,201,90.0,current
+Vince Williams Jr.,Memphis Grizzlies,SF,SG,75,76.0,3.0,United States,,Wing Stopper,193,92.0,current
+Collin Gillespie,Phoenix Suns,PG,,74,76.0,3.0,United States,,Perimeter Threat,185,88.0,current
+Dean Wade,Cleveland Cavaliers,PF,SF,74,76.0,6.0,United States,,Stretch Four,206,103.0,current
+Jeff Green,Houston Rockets,PF,C,74,76.0,18.0,United States,,Balanced 2-Way Threat,203,106.0,current
+Mouhamed Gueye,Atlanta Hawks,PF,C,74,76.0,2.0,Senegal,,Interior Threat,208,95.0,current
+Simone Fontecchio,Miami Heat,SF,PF,74,76.0,8.0,Italy,,Catch & Shoot Threat,201,94.0,current
+John Konchar,Memphis Grizzlies,SG,SF,73,76.0,6.0,United States,,Perimeter Shot Creator,196,95.0,current
+Gary Harris,Milwaukee Bucks,SG,SF,72,76.0,11.0,United States,,2-Way 3-Level Shot Creator,193,95.0,current
+Jericho Sims,Milwaukee Bucks,C,,72,76.0,4.0,United States,,Board-Hunting Interior Scorer,208,113.0,current
+Josh Minott,Boston Celtics,SF,PF,72,76.0,3.0,United States,Jamaica,Inside the Arc Threat,203,92.0,current
+Maxi Kleber,Los Angeles Lakers,PF,C,72,76.0,11.0,Germany,,Versatile Defender,208,108.0,current
+Svi Mykhailiuk,Utah Jazz,SG,SF,72,76.0,7.0,Ukraine,,Catch & Shoot Threat,201,92.0,current
+Doug McDermott,Sacramento Kings,PF,SF,71,76.0,11.0,United States,,Catch & Shoot Ace,198,101.0,current
+Sidy Cissoko,Portland Trail Blazers,SF,PF,70,76.0,2.0,France,,Ball Hawk,198,90.0,current
+JD Davison,Houston Rockets,PG,SG,69,76.0,3.0,United States,,Rim Attacker,185,88.0,current
+Luke Travers,Cleveland Cavaliers,SF,PF,69,76.0,3.0,Australia,,Promising Prospect,201,93.0,current
+N’Faly Dante,Atlanta Hawks,C,PF,68,76.0,1.0,Mali,,Interior Threat,211,104.0,current
+Jacob Toppin,Atlanta Hawks,PF,SF,67,76.0,2.0,United States,,Interior Threat,203,90.0,current
+Duop Reath,Portland Trail Blazers,C,,75,75.0,7.0,Australia,South Sudan,Stretch Five,206,110.0,current
+Kessler Edwards,Denver Nuggets,SF,PF,75,75.0,4.0,United States,,Stretch Five Paint Protector,201,91.0,current
+Sam Merrill,Cleveland Cavaliers,SG,PG,75,75.0,5.0,United States,,Perimeter Shot Creator,193,92.0,current
+Jamison Battle,Toronto Raptors,SF,PF,74,75.0,1.0,United States,,Catch & Shoot Ace,201,99.0,current
+Paul Reed,Detroit Pistons,C,PF,74,75.0,5.0,United States,,Inside the Arc Threat,206,95.0,current
+Jordan Miller,Los Angeles Clippers,SF,SG,73,75.0,2.0,United States,,High Flyer,196,87.0,current
+Julian Phillips,Chicago Bulls,SF,PF,73,75.0,2.0,United States,,Inside-Out Scoring Threat,203,89.0,current
+Jalen McDaniels,New Orleans Pelicans,PF,SF,72,75.0,6.0,United States,,Mid-Range Scoring Threat,206,92.0,current
+Jalen Pickett,Denver Nuggets,PG,SG,72,75.0,2.0,United States,,3PT Shot Creator,188,91.0,current
+Keaton Wallace,Atlanta Hawks,SG,PG,72,75.0,4.0,United States,,3PT Shot Creator,191,88.0,current
+Tony Bradley,Indiana Pacers,C,,72,75.0,8.0,United States,,Board-Hunting Lob Threat,208,112.0,current
+Drew Timme,Brooklyn Nets,C,PF,71,75.0,2.0,United States,,Stretch Five,208,106.0,current
+Oscar Tshiebwe,Utah Jazz,C,PF,71,75.0,2.0,Congo,,Board-Hunting Paint Protector,203,115.0,current
+TyTy Washington,Los Angeles Clippers,PG,,71,75.0,3.0,United States,,Mid-Range Shot Creator,191,88.0,current
+Trey Alexander,New Orleans Pelicans,SG,PG,68,75.0,1.0,United States,,Mid-Range Shot Creator,193,86.0,current
+DaQuan Jeffries,Charlotte Hornets,SF,SG,74,74.0,6.0,United States,,Catch & Shoot Threat,196,100.0,current
+Jevon Carter,Chicago Bulls,PG,SG,74,74.0,7.0,United States,,Perimeter Threat,185,90.0,current
+Isaiah Livers,Phoenix Suns,PF,SF,72,74.0,4.0,United States,,Mid-Range Specialist,198,104.0,current
+Tyson Etienne,Brooklyn Nets,PG,PG,71,74.0,3.0,United States,,Perimeter Threat,188,90.0,current
+Chris Livingston,Milwaukee Bucks,PF,SF,69,74.0,2.0,United States,,Interior Threat,198,99.0,current
+Reece Beekman,Denver Nuggets,PG,SG,69,74.0,1.0,United States,,Steady Playmaker,191,88.0,current
+Dominick Barlow,Philadelphia 76ers,C,PF,73,73.0,3.0,United States,,Rim Protector,206,97.0,current
+Dru Smith,Miami Heat,PG,SG,73,73.0,4.0,United States,,Perimeter Threat,188,90.0,current
+Luka Garza,Boston Celtics,C,,72,73.0,4.0,United States,Bosnia & Herzegovina,Rebounder,208,109.0,current
+Tosan Evbuomwan,Brooklyn Nets,PF,SF,72,73.0,2.0,United Kingdom,,Secondary Ball-Handler,201,98.0,current
+Garrett Temple,Toronto Raptors,SG,SF,70,73.0,16.0,United States,,Perimeter Defender,196,88.0,current
+Isaiah Crawford,Houston Rockets,SF,SG,68,73.0,1.0,United States,,Catch & Shoot Threat,196,99.0,current
+Drew  Peterson,Charlotte Hornets,SF,PF,70,72.0,2.0,United States,,Catch & Shoot Threat,206,92.0,current
+Daeqwon Plowden,Sacramento Kings,SF,SG,68,72.0,3.0,United States,,Perimeter Defender,198,97.0,current
+Emanuel Miller,Chicago Bulls,SF,PF,68,72.0,1.0,Canada,,Interior Threat,201,97.0,current
+Elijah Harkless,Utah Jazz,PG,SG,67,72.0,2.0,United States,,3 & D Threat,191,83.0,current
+Jamaree Bouyea,Milwaukee Bucks,PG,SG,67,72.0,3.0,United States,,Steady Playmaker,188,81.0,current
+RayJ Dennis,Indiana Pacers,PG,SG,67,72.0,1.0,United States,,Ball Hawk,188,81.0,current
+Riley Minix,San Antonio Spurs,SF,PF,67,72.0,,United States,,Catch & Shoot Threat,201,104.0,current
+Tolu Smith,Detroit Pistons,PF,C,67,72.0,1.0,United States,,Rebounder,211,110.0,current
+Branden Carlson,Oklahoma City Thunder,C,,71,71.0,1.0,United States,,Stretch Five,213,99.0,current
+Jamal Cain,Orlando Magic,SF,PF,71,71.0,3.0,United States,,Perimeter Defender,201,95.0,current
+Ariel Hukporti,New York Knicks,C,PF,70,71.0,1.0,Germany,Togo,Rim Protector,213,113.0,current
+Nae’Qwan Tomlin,Cleveland Cavaliers,PF,,68,71.0,1.0,United States,,Rim Attacker,208,95.0,current
+Spencer Jones,Denver Nuggets,SF,SG,67,71.0,1.0,United States,,Catch & Shoot Threat,201,101.0,current
+Taran Armstrong,Golden State Warriors,SG,PG,67,71.0,1.0,Australia,,Steady Playmaker,196,86.0,current
+Isaiah Stevens,Sacramento Kings,PG,SG,68,70.0,1.0,United States,,Steady Playmaker,183,83.0,current
+Jackson Rowe,Golden State Warriors,SF,SG,68,70.0,5.0,Canada,,Ball Hawk,201,95.0,current
+Kevon Harris,Houston Rockets,SF,SG,68,70.0,5.0,United States,,Catch & Shoot Threat,196,97.0,current
+Daniss Jenkins,Detroit Pistons,PG,SG,67,70.0,1.0,United States,,Ball Hawk,193,81.0,current
+Yuki  Kawamura,Chicago Bulls,PG,,67,70.0,2.0,Japan,,Steady Playmaker,173,72.0,current
+Cooper Flagg,Dallas Mavericks,SF,,82,,0.0,United States,,,206,92.0,current
+Dylan Harper,San Antonio Spurs,SG,PG,78,,0.0,United States,Philippines,,198,97.0,current
+Ace Bailey,Utah Jazz,SF,SG,77,,0.0,United States,,,206,90.0,current
+VJ Edgecombe,Philadelphia 76ers,SG,,76,,0.0,Bahamas,,,196,81.0,current
+Kon Knueppel,Charlotte Hornets,SG,SF,75,,0.0,United States,,,201,97.0,current
+Tre Johnson,Washington Wizards,SG,,75,,0.0,United States,,,198,86.0,current
+Khaman Maluach,Phoenix Suns,C,,74,,0.0,South Sudan,,,218,113.0,current
+Jeremiah Fears,New Orleans Pelicans,PG,SG,73,,0.0,United States,,,193,86.0,current
+Collin Murray-Boyles,Toronto Raptors,PF,C,72,,0.0,United States,,,201,110.0,current
+Egor Demin,Brooklyn Nets,SF,SG,72,,0.0,Russia,,,206,90.0,current
+Yang Hansen,Portland Trail Blazers,C,,70,,0.0,China,,,218,116.0,current
+Javon Small,Memphis Grizzlies,PG,,69,,0.0,United States,,,191,86.0,current
+Jahmai Mashack,Memphis Grizzlies,PG,SG,68,,0.0,United States,,,193,91.0,current
+Rocco Zikarsky,Minnesota Timberwolves,C,,68,,0.0,Australia,,,221,,current
+Hakeem Olajuwon,All-Time Houston Rockets,C,PF,99,99.0,,Nigeria,,2-Way Inside-The-Arc Menace,213,115.0,all_time
+Kareem Abdul-Jabbar,All-Time Milwaukee Bucks,C,PF,99,99.0,,United States,,Paint Beast,218,101.0,all_time
+Kobe Bryant,All-Time Los Angeles Lakers,SG,SF,99,99.0,,United States,,All-Around Star,198,92.0,all_time
+Larry Bird,All-Time Boston Celtics,SF,PF,99,99.0,,United States,,All-Around Star,206,99.0,all_time
+LeBron James,All-Time Cleveland Cavaliers,SF,PF,99,99.0,,United States,,2-Way 3-Level Point Forward,203,113.0,all_time
+Magic Johnson,All-Time Los Angeles Lakers,PG,SG,99,99.0,,United States,,Demigod,206,99.0,all_time
+Michael Jordan,All-Time Chicago Bulls,SG,SF,99,99.0,,United States,,All-Around Star,198,88.0,all_time
+Wilt Chamberlain,All-Time Golden State Warriors,C,PF,99,99.0,,United States,,Paint Beast,216,124.0,all_time
+Victor Wembanyama,All-Time San Antonio Spurs,C,PF,86,99.0,2.0,France,,Defensive Anchor,224,95.0,all_time
+Bill Russell,All-Time Boston Celtics,C,PF,98,98.0,,United States,,Diming Paint Beast,208,97.0,all_time
+Dirk Nowitzki,All-Time Dallas Mavericks,PF,C,98,98.0,,Germany,,2-Way 3-Level Scorer,216,110.0,all_time
+Kevin Garnett,All-Time Minnesota Timberwolves,PF,C,98,98.0,,United States,,2-Way Inside-The-Arc Menace,211,99.0,all_time
+Shaquille O’Neal,All-Time Los Angeles Lakers,C,PF,98,98.0,,United States,,Paint Beast,216,146.0,all_time
+Stephen Curry,All-Time Golden State Warriors,PG,,98,98.0,16.0,United States,,All-Around Star,191,86.0,all_time
+Tim Duncan,All-Time San Antonio Spurs,PF,C,98,98.0,,U.S. Virgin Islands,,2-Way 3-Level Interior Force,211,115.0,all_time
+Oscar Robertson,All-Time Sacramento Kings,PG,SG,97,98.0,,United States,,All-Around Star,196,95.0,all_time
+Kawhi Leonard,All-Time Toronto Raptors,SF,PF,96,98.0,14.0,United States,,All-Around Star,201,104.0,all_time
+Kevin Durant,All-Time Brooklyn Nets,PF,SF,96,98.0,18.0,United States,,All-Around Star,208,108.0,all_time
+Chris Paul,All-Time New Orleans Pelicans,PG,,97,97.0,20.0,United States,,All-Around Star,183,79.0,all_time
+Dwyane Wade,All-Time Miami Heat,SG,,97,97.0,,United States,,2-Way 3-Level Combo Guard,193,99.0,all_time
+Giannis Antetokounmpo,All-Time Milwaukee Bucks,SF,SG,97,97.0,12.0,Greece,Nigeria,2-Way Inside-The-Arc Playmaker,211,100.0,all_time
+Jerry West,All-Time Los Angeles Lakers,PG,SG,97,97.0,,United States,,All-Around Star,188,79.0,all_time
+John Stockton,All-Time Utah Jazz,PG,SG,97,97.0,,United States,,All-Around Star,185,77.0,all_time
+Julius Erving,All-Time Brooklyn Nets,SF,SG,97,97.0,,United States,,2-Way 3-Level Point Forward,198,90.0,all_time
+Karl Malone,All-Time Utah Jazz,PF,C,97,97.0,,United States,,2-Way Diming 3-Level Threat,206,113.0,all_time
+Moses Malone,All-Time Houston Rockets,C,PF,97,97.0,,United States,,Paint Beast,208,117.0,all_time
+Nikola Jokic,All-Time Denver Nuggets,C,,97,97.0,11.0,Serbia,,3-Level Scoring Point Center,213,113.0,all_time
+Scottie Pippen,All-Time Chicago Bulls,SF,SG,97,97.0,,United States,,All-Around Star,203,95.0,all_time
+Walt Frazier,All-Time New York Knicks,PG,SG,97,97.0,,United States,,2-Way 3-Level Playmaker,193,90.0,all_time
+Allen Iverson,All-Time Philadelphia 76ers,SG,PG,96,97.0,,United States,,All-Around Star,183,74.0,all_time
+Clyde Drexler,All-Time Portland Trail Blazers,SG,SF,96,97.0,,United States,,2-Way Mid-Range Slasher,201,95.0,all_time
+Shai Gilgeous-Alexander,All-Time Oklahoma City Thunder,PG,SG,93,97.0,7.0,Canada,,2-Way 3-Level Playmaker,198,88.0,all_time
+Bob Cousy,All-Time Boston Celtics,PG,,96,96.0,,United States,,All-Around Star,185,79.0,all_time
+David Robinson,All-Time San Antonio Spurs,C,PF,96,96.0,,United States,,2-Way Inside-The-Arc Menace,216,106.0,all_time
+Elgin Baylor,All-Time Los Angeles Lakers,SF,PF,96,96.0,,United States,,All-Around Star,196,101.0,all_time
+John Havlicek,All-Time Boston Celtics,SF,SG,96,96.0,,United States,,All-Around Star,196,91.0,all_time
+Steve Nash,All-Time Phoenix Suns,PG,,96,96.0,,Canada,,All-Around Star,191,88.0,all_time
+Vince Carter,All-Time Toronto Raptors,SF,SG,96,96.0,27.0,United States,,2-Way Scoring Phenom,198,99.0,all_time
+Isiah Thomas,All-Time Detroit Pistons,PG,SG,95,96.0,,United States,,2-Way 3-Level Playmaker,185,81.0,all_time
+James Harden,All-Time Houston Rockets,SG,PG,95,96.0,16.0,United States,,Offensive Architect,196,99.0,all_time
+George Gervin,All-Time San Antonio Spurs,SF,SG,94,96.0,,United States,,2-Way Mid-Range Slasher,201,83.0,all_time
+Ray Allen,All-Time Oklahoma City Thunder,SG,SF,94,96.0,,United States,,2-Way 3-Level Combo Guard,196,92.0,all_time
+Gilbert Arenas,All-Time Washington Wizards,PG,SG,93,96.0,,United States,,All-Around Star,191,86.0,all_time
+Jayson Tatum,All-Time Boston Celtics,SF,PF,92,96.0,,United States,,2-Way 3-Level Shot Creator,203,95.0,all_time
+Cliff Hagan,All-Time Atlanta Hawks,SF,SG,91,96.0,,United States,,2-Way 3-Level Shot Creator,193,95.0,all_time
+Louie Dampier,All-Time San Antonio Spurs,PG,SG,89,96.0,,United States,,2-Way 3-Level Playmaker,183,77.0,all_time
+Zion Williamson,All-Time New Orleans Pelicans,PF,,88,96.0,6.0,United States,,Rim Attacker,201,128.0,all_time
+Geoff Petrie,All-Time Portland Trail Blazers,SG,PG,87,96.0,,United States,,Shot-Creating 3-Level Threat,193,86.0,all_time
+Bill Walton,All-Time Portland Trail Blazers,C,PF,95,95.0,,United States,,Playmaking Paint Beast,211,95.0,all_time
+Bob Pettit,All-Time Atlanta Hawks,PF,C,95,95.0,,United States,,2-Way 3-Level Scorer,206,92.0,all_time
+Carmelo Anthony,All-Time Denver Nuggets,SF,PF,95,95.0,22.0,United States,,All-Around Star,203,108.0,all_time
+Dave Cowens,All-Time Boston Celtics,C,PF,95,95.0,,United States,,3-Level Scoring Paint Beast,206,104.0,all_time
+David Thompson,All-Time Denver Nuggets,SG,SF,95,95.0,,United States,,2-Way 3-Level Combo Guard,193,88.0,all_time
+Derrick Rose,All-Time Chicago Bulls,PG,,95,95.0,17.0,United States,,2-Way 3-Level Playmaker,191,86.0,all_time
+Dominique Wilkins,All-Time Atlanta Hawks,SF,SG,95,95.0,,United States,,2-Way Mid-Range Slasher,201,90.0,all_time
+Gary Payton,All-Time Oklahoma City Thunder,PG,SG,95,95.0,,United States,,2-Way 3-Level Playmaker,193,81.0,all_time
+James Worthy,All-Time Los Angeles Lakers,SF,PF,95,95.0,,United States,,All-Around Star,206,101.0,all_time
+Jason Kidd,All-Time Brooklyn Nets,PG,SG,95,95.0,,United States,,2-Way 3-Level Playmaker,193,92.0,all_time
+Jerry Lucas,All-Time Sacramento Kings,PF,C,95,95.0,,United States,,2-Way 3-Level Scorer,203,104.0,all_time
+Joel Embiid,All-Time Philadelphia 76ers,C,,95,95.0,11.0,Cameroon,United States,3-Level Scoring Paint Beast,213,113.0,all_time
+Kevin McHale,All-Time Boston Celtics,PF,C,95,95.0,,United States,,2-Way 3-Level Interior Force,208,95.0,all_time
+Patrick Ewing,All-Time New York Knicks,C,PF,95,95.0,,United States,,2-Way Inside-The-Arc Menace,213,108.0,all_time
+Rick Barry,All-Time Golden State Warriors,SF,PF,95,95.0,,United States,,All-Around Star,201,92.0,all_time
+Russell Westbrook,All-Time Oklahoma City Thunder,PG,,95,95.0,17.0,United States,,2-Way 3-Level Playmaker,191,90.0,all_time
+Tony Parker,All-Time San Antonio Spurs,PG,,95,95.0,,France,,All-Around Star,188,83.0,all_time
+Tracy McGrady,All-Time Orlando Magic,SG,PG,95,95.0,,United States,,All-Around Star,203,95.0,all_time
+Elvin Hayes,All-Time Washington Wizards,PF,C,94,95.0,,United States,,Interior Force,206,106.0,all_time
+George Mikan,All-Time Los Angeles Lakers,C,,94,95.0,,United States,,3-Level Scoring Paint Beast,208,110.0,all_time
+Pete Maravich,All-Time Utah Jazz,SG,PG,94,95.0,,United States,,All-Around Star,196,89.0,all_time
+Brandon Roy,All-Time Portland Trail Blazers,SG,,91,95.0,,United States,,2-Way 3-Level Shot Creator,198,103.0,all_time
+Earl Monroe,All-Time Washington Wizards,PG,SG,89,95.0,,United States,,2-Way 3-Level Playmaker,191,83.0,all_time
+Tyrese Haliburton,All-Time Indiana Pacers,PG,SG,88,95.0,5.0,United States,,Offensive Architect,196,83.0,all_time
+Alonzo Mourning,All-Time Miami Heat,C,PF,94,94.0,,United States,,Paint Beast,208,110.0,all_time
+Anthony Davis,All-Time Los Angeles Lakers,PF,C,94,94.0,13.0,United States,,3-Level Scoring Paint Beast,208,114.0,all_time
+Bob McAdoo,All-Time Los Angeles Clippers,C,PF,94,94.0,,United States,,2-Way Inside-The-Arc Menace,206,95.0,all_time
+Chris Mullin,All-Time Golden State Warriors,SF,SG,94,94.0,,United States,,2-Way 3-Level Point Forward,201,90.0,all_time
+Damian Lillard,All-Time Portland Trail Blazers,PG,,94,94.0,13.0,United States,,Offensive Architect,191,88.0,all_time
+Dennis Johnson,All-Time Phoenix Suns,PG,SG,94,94.0,,United States,,2-Way Inside-The-Arc Playmaker,193,83.0,all_time
+Dolph Schayes,All-Time Philadelphia 76ers,PF,C,94,94.0,,United States,,2-Way 3-Level Shot Creator,203,99.0,all_time
+Dwight Howard,All-Time Orlando Magic,C,,94,94.0,,United States,,Paint Beast,211,119.0,all_time
+Jo Jo White,All-Time Boston Celtics,PG,,94,94.0,,United States,,2-Way 3-Level Playmaker,191,86.0,all_time
+Kyrie Irving,All-Time Cleveland Cavaliers,PG,SG,94,94.0,14.0,United States,Australia,Offensive Architect,191,87.0,all_time
+Mitch Richmond,All-Time Sacramento Kings,SG,SF,94,94.0,,United States,,2-Way 3-Level Shot Creator,196,97.0,all_time
+Nate Archibald,All-Time Sacramento Kings,PG,,94,94.0,,United States,,Inside the Arc Playmaker,185,68.0,all_time
+Paul Pierce,All-Time Boston Celtics,SF,PF,94,94.0,,United States,,2-Way 3-Level Shot Creator,201,106.0,all_time
+Penny Hardaway,All-Time Orlando Magic,PG,SG,94,94.0,,United States,,All-Around Star,201,88.0,all_time
+Sidney Moncrief,All-Time Milwaukee Bucks,SG,PG,94,94.0,,United States,,2-Way 3-Level Combo Guard,191,81.0,all_time
+Wes Unseld,All-Time Washington Wizards,C,PF,94,94.0,,United States,,2-Way 3-Level Point Center,201,110.0,all_time
+Willis Reed,All-Time New York Knicks,C,PF,94,94.0,,United States,,2-Way Inside-The-Arc Menace,206,106.0,all_time
+Luka Doncic,All-Time Dallas Mavericks,SG,PG,93,94.0,7.0,Slovenia,,Offensive Architect,201,98.0,all_time
+Marques Johnson,All-Time Milwaukee Bucks,SF,SG,92,94.0,,United States,,2-Way Mid-Range Slasher,201,98.0,all_time
+Kevin Johnson,All-Time Phoenix Suns,PG,,89,94.0,,United States,,3-Level Playmaking Slasher,185,95.0,all_time
+Alex English,All-Time Denver Nuggets,SF,PF,93,93.0,,United States,,2-Way Mid-Range Slasher,201,86.0,all_time
+Artis Gilmore,All-Time Chicago Bulls,C,,93,93.0,,United States,,Paint Beast,218,108.0,all_time
+Billy Cunningham,All-Time Philadelphia 76ers,SF,PF,93,93.0,,United States,,2-Way Slashing Combo Forward,198,95.0,all_time
+Bob Lanier,All-Time Detroit Pistons,C,,93,93.0,,United States,,2-Way Inside-The-Arc Menace,211,113.0,all_time
+Chauncey Billups,All-Time Detroit Pistons,PG,SG,93,93.0,,United States,,All-Around Star,191,91.0,all_time
+Chris Webber,All-Time Sacramento Kings,PF,C,93,93.0,,United States,,2-Way Inside-The-Arc Menace,206,110.0,all_time
+Dennis Rodman,All-Time Chicago Bulls,PF,SF,93,93.0,,United States,,Interior Force,201,99.0,all_time
+Grant Hill,All-Time Detroit Pistons,SF,SG,93,93.0,,United States,,2-Way Inside-The-Arc Playmaker,203,101.0,all_time
+Jimmy Butler,All-Time Miami Heat,SF,SG,93,93.0,14.0,United States,,2-Way 3-Level Point Forward,201,99.0,all_time
+Joe Dumars,All-Time Detroit Pistons,SG,PG,93,93.0,,United States,,2-Way 3-Level Combo Guard,191,86.0,all_time
+Marc Gasol,All-Time Memphis Grizzlies,C,PF,93,93.0,18.0,Spain,,2-Way 3-Level Scorer,216,119.0,all_time
+Mark Price,All-Time Cleveland Cavaliers,PG,SG,93,93.0,,United States,,Offensive Architect,183,77.0,all_time
+Paul George,All-Time Indiana Pacers,SF,SG,93,93.0,15.0,United States,,2-Way Inside-Out ISO Creator,206,99.0,all_time
+Robert Parish,All-Time Boston Celtics,C,PF,93,93.0,,United States,,Paint Beast,213,104.0,all_time
+Charlie Scott,All-Time Phoenix Suns,PG,SG,89,93.0,,United States,,2-Way 3-Level Playmaker,196,79.0,all_time
+Freddie Lewis,All-Time Indiana Pacers,PG,SG,89,93.0,,United States,,2-Way 3-Level Playmaker,183,79.0,all_time
+Trae Young,All-Time Atlanta Hawks,PG,,88,93.0,7.0,United States,,Offense- Heavy Point,185,81.0,all_time
+Lamar Odom,All-Time Los Angeles Clippers,C,SF,82,93.0,,United States,,Versatile Defender,208,104.0,all_time
+Amar’e Stoudemire,All-Time Phoenix Suns,PF,C,92,92.0,,United States,,2-Way 3-Level Interior Force,208,110.0,all_time
+Baron Davis,All-Time New Orleans Pelicans,PG,SG,92,92.0,,United States,,2-Way 3-Level Playmaker,191,88.0,all_time
+Bill Sharman,All-Time Boston Celtics,SG,PG,92,92.0,,United States,,All-Around Star,185,79.0,all_time
+Dan Issel,All-Time Denver Nuggets,PF,C,92,92.0,,United States,,2-Way Inside-The-Arc Menace,206,109.0,all_time
+Dave Debusschere,All-Time New York Knicks,PF,SF,92,92.0,,United States,,2-Way 3-Level Board Hunter,198,99.0,all_time
+Devin Booker,All-Time Phoenix Suns,SG,PG,92,92.0,10.0,United States,,Offensive Architect,198,95.0,all_time
+Dikembe Mutombo,All-Time Atlanta Hawks,C,PF,92,92.0,,DR Congo,,Paint Beast,218,113.0,all_time
+Fat Lever,All-Time Denver Nuggets,PG,SG,92,92.0,,United States,,2-Way 3-Level Playmaker,191,77.0,all_time
+Mel Daniels,All-Time Indiana Pacers,C,PF,92,92.0,,United States,,Paint Beast,206,99.0,all_time
+Nate Thurmond,All-Time Golden State Warriors,C,,92,92.0,,United States,,Paint Beast,211,101.0,all_time
+Pau Gasol,All-Time Memphis Grizzlies,C,,92,92.0,24.0,Spain,,2-Way Inside-The-Arc Menace,216,113.0,all_time
+Richie Guerin,All-Time New York Knicks,SG,PG,92,92.0,,United States,,2-Way 3-Level Combo Guard,193,88.0,all_time
+Adrian Dantley,All-Time Utah Jazz,SF,,91,92.0,,United States,,2-Way Inside-The-Arc Menace,196,94.0,all_time
+Anthony Edwards,All-Time Minnesota Timberwolves,SG,SF,91,92.0,5.0,United States,,2-Way Inside-Out ISO Creator,193,101.0,all_time
+Paul Arizin,All-Time Golden State Warriors,SF,SG,91,92.0,,United States,,2-Way 3-Level Shot Creator,191,88.0,all_time
+Ja Morant,All-Time Memphis Grizzlies,PG,,89,92.0,6.0,United States,,3-Level Scoring Playmaker,191,79.0,all_time
+Scott Skiles,All-Time Orlando Magic,PG,,84,92.0,,United States,,3-Level Scoring Playmaker,185,81.0,all_time
+Calvin Murphy,All-Time Houston Rockets,PG,SG,91,91.0,,United States,,2-Way Inside-The-Arc Playmaker,175,83.0,all_time
+Jaylen Brown,All-Time Boston Celtics,SF,SG,91,91.0,9.0,United States,,2-Way Scoring Phenom,198,100.0,all_time
+Jermaine O’Neal,All-Time Indiana Pacers,PF,C,91,91.0,,United States,,2-Way Inside-The-Arc Menace,211,115.0,all_time
+Kevin Love,All-Time Minnesota Timberwolves,PF,C,91,91.0,17.0,United States,,2-Way 3-Level Scorer,208,109.0,all_time
+Klay Thompson,All-Time Golden State Warriors,SG,SF,91,91.0,14.0,United States,,2-Way 3-Level Shot Creator,201,97.0,all_time
+Lou Hudson,All-Time Atlanta Hawks,SF,SG,91,91.0,,United States,,All-Around Star,196,95.0,all_time
+Shawn Marion,All-Time Phoenix Suns,SF,PF,91,91.0,,United States,,2-Way 3-Level Scoring Threat,201,99.0,all_time
+Yao Ming,All-Time Houston Rockets,C,,91,91.0,,China,,2-Way Inside-The-Arc Menace,229,140.0,all_time
+Chris Bosh,All-Time Toronto Raptors,PF,C,90,91.0,,United States,,2-Way 3-Level Interior Force,211,106.0,all_time
+Fred Brown,All-Time Oklahoma City Thunder,PG,SG,88,91.0,,United States,,Offensive Architect,191,87.0,all_time
+Ben Simmons,All-Time Philadelphia 76ers,PG,PF,86,91.0,9.0,Australia,,2-Way Slashing Playmaker,208,104.0,all_time
+Blake Griffin,All-Time Los Angeles Clippers,PF,C,90,90.0,16.0,United States,,Playmaking 3-Level Threat,208,113.0,all_time
+Bobby Jones,All-Time Philadelphia 76ers,SF,PF,90,90.0,,United States,,Switchable Lockdown Defender,206,95.0,all_time
+Brad Daugherty,All-Time Cleveland Cavaliers,C,PF,90,90.0,,United States,,Paint Beast,213,110.0,all_time
+Dave Bing,All-Time Detroit Pistons,PG,SG,90,90.0,,United States,,All-Around Star,191,81.0,all_time
+DeMarcus Cousins,All-Time Sacramento Kings,C,,90,90.0,15.0,United States,,3-Level Scoring Paint Beast,211,122.0,all_time
+Drazen Petrovic,All-Time Brooklyn Nets,SG,SF,90,90.0,,Croatia,,2-Way 3-Level Shot Creator,196,88.0,all_time
+Elton Brand,All-Time Los Angeles Clippers,PF,C,90,90.0,,United States,,2-Way Inside-The-Arc Menace,206,114.0,all_time
+Glen Rice,All-Time Charlotte Hornets,SF,,90,90.0,,United States,,Score-First Wing,201,97.0,all_time
+John Wall,All-Time Washington Wizards,PG,,90,90.0,15.0,United States,,2-Way 3-Level Playmaker,193,88.0,all_time
+Manu Ginobili,All-Time San Antonio Spurs,SG,,90,90.0,,Argentina,,All-Around Star,198,92.0,all_time
+Maurice Lucas,All-Time Portland Trail Blazers,PF,C,90,90.0,,United States,,2-Way Inside-The-Arc Threat,206,104.0,all_time
+Rajon Rondo,All-Time Boston Celtics,PG,,90,90.0,19.0,United States,,2-Way 3-Level Playmaker,185,77.0,all_time
+Shawn Kemp,All-Time Oklahoma City Thunder,PF,C,90,90.0,,United States,,2-Way Inside-The-Arc Threat,208,104.0,all_time
+Tim Hardaway,All-Time Golden State Warriors,PG,SG,90,90.0,,United States,,All-Around Star,183,79.0,all_time
+Walter Davis,All-Time Phoenix Suns,SG,SF,90,90.0,,United States,,2-Way Mid-Range Slasher,198,87.0,all_time
+Wayne Embry,All-Time Sacramento Kings,C,PF,90,90.0,,United States,,Slashing Paint Beast,203,108.0,all_time
+Gail Goodrich,All-Time Los Angeles Lakers,SG,PG,89,90.0,,United States,,All-Around Star,185,77.0,all_time
+Dick Van Arsdale,All-Time Phoenix Suns,SG,SF,88,90.0,,United States,,2-Way 3-Level Shot Creator,196,95.0,all_time
+Rudy Tomjanovich,All-Time Houston Rockets,SF,PF,88,90.0,,United States,,2-Way Catch & Shoot Ace,203,98.0,all_time
+Brian Winters,All-Time Milwaukee Bucks,SG,,86,90.0,,United States,,2-Way 3-Level Shot Creator,193,83.0,all_time
+Kelly Tripucka,All-Time Detroit Pistons,SG,SF,86,90.0,,United States,,Shot-Creating 3-Level Threat,198,99.0,all_time
+LaMelo Ball,All-Time Charlotte Hornets,PG,SG,86,90.0,5.0,United States,,3-Level Scoring Playmaker,201,81.0,all_time
+Scottie Barnes,All-Time Toronto Raptors,SF,PF,86,90.0,4.0,United States,,2-Way 3-Level Shot Creator,203,101.0,all_time
+Bryant Reeves,All-Time Memphis Grizzlies,C,,84,90.0,,United States,,Inside the Arc Threat,213,124.0,all_time
+Allan Houston,All-Time New York Knicks,SG,SF,89,89.0,,United States,,2-Way Sharpshooter,198,90.0,all_time
+Andrei Kirilenko,All-Time Utah Jazz,PF,SF,89,89.0,,Russia,,2-Way 3-Level Board Hunter,206,106.0,all_time
+Ben Wallace,All-Time Detroit Pistons,C,PF,89,89.0,,United States,,Defensive Anchor,206,108.0,all_time
+Bernard King,All-Time New York Knicks,SF,,89,89.0,,United States,,Inside The Arc Menace,201,92.0,all_time
+Bob Love,All-Time Chicago Bulls,PF,SF,89,89.0,,United States,,2-Way Inside-The-Arc Menace,203,108.0,all_time
+Bradley Beal,All-Time Washington Wizards,SG,SF,89,89.0,13.0,United States,,Walking Bucket,196,93.0,all_time
+Byron Beck,All-Time Denver Nuggets,PF,SF,89,89.0,,United States,,2-Way Inside-The-Arc Threat,206,101.0,all_time
+DeMar DeRozan,All-Time Toronto Raptors,SG,SF,89,89.0,16.0,United States,,2-Way Inside-The-Arc Menace,201,99.0,all_time
+Derek Harper,All-Time Dallas Mavericks,PG,SG,89,89.0,,United States,,2-Way 3-Level Playmaker,193,83.0,all_time
+Draymond Green,All-Time Golden State Warriors,PF,C,89,89.0,13.0,United States,,2-Way Stretch Point Four,201,104.0,all_time
+Eddie Jones,All-Time Charlotte Hornets,SG,SF,89,89.0,,United States,,2-Way 3-Level Shot Creator,198,86.0,all_time
+George McGinnis,All-Time Indiana Pacers,PF,C,89,89.0,,United States,,2-Way 3-Level Interior Force,203,106.0,all_time
+Gus Williams,All-Time Oklahoma City Thunder,PG,,89,89.0,,United States,,2-Way Inside-The-Arc Playmaker,188,79.0,all_time
+Jack Sikma,All-Time Oklahoma City Thunder,C,,89,89.0,,United States,,2-Way 3-Level Board Hunter,211,104.0,all_time
+Jamal Mashburn,All-Time New Orleans Pelicans,SF,PF,89,89.0,,United States,,2-Way 3-Level Shot Creator,203,108.0,all_time
+Jerry Sloan,All-Time Chicago Bulls,SG,SF,89,89.0,,United States,,Swiss Army Knife,196,81.0,all_time
+Jerry Stackhouse,All-Time Detroit Pistons,SG,SF,89,89.0,,United States,,2-Way Mid-Range Slasher,198,98.0,all_time
+Joe Johnson,All-Time Atlanta Hawks,SF,SG,89,89.0,,United States,,Walking Bucket,201,108.0,all_time
+Karl-Anthony Towns,All-Time Minnesota Timberwolves,C,PF,89,89.0,10.0,Dominican Republic,United States,Inside-Out Board Hunter,213,110.0,all_time
+Kemba Walker,All-Time Charlotte Hornets,PG,,89,89.0,14.0,United States,,3-Level Scoring Playmaker,185,83.0,all_time
+Kiki Vandeweghe,All-Time Denver Nuggets,SF,PF,89,89.0,,Germany,,Shot-Creating 3-Level Threat,203,99.0,all_time
+Kyle Lowry,All-Time Toronto Raptors,PG,,89,89.0,19.0,United States,,2-Way Inside-Out Playmaker,183,92.0,all_time
+LaMarcus Aldridge,All-Time Portland Trail Blazers,PF,C,89,89.0,19.0,United States,,2-Way 3-Level Interior Force,211,108.0,all_time
+Mahmoud Abdul-Rauf,All-Time Denver Nuggets,PG,SG,89,89.0,,United States,,3-Level Scoring Playmaker,185,73.0,all_time
+Mark Eaton,All-Time Utah Jazz,C,,89,89.0,,United States,,Defensive Anchor,224,124.0,all_time
+Micheal Ray Richardson,All-Time New York Knicks,PG,SG,89,89.0,,United States,,2-Way Inside-The-Arc Playmaker,196,85.0,all_time
+Ralph Sampson,All-Time Houston Rockets,C,PF,89,89.0,,United States,,Paint Beast,224,103.0,all_time
+Rashard Lewis,All-Time Oklahoma City Thunder,PF,SF,89,89.0,,United States,,Shot-Creating 3-Level Threat,208,97.0,all_time
+Richard Hamilton,All-Time Detroit Pistons,SG,SF,89,89.0,,United States,,2-Way 3-Level Shot Creator,198,83.0,all_time
+Ron Harper,All-Time Los Angeles Clippers,PG,SG,89,89.0,,United States,,2-Way 3-Level Playmaker,198,83.0,all_time
+Spencer Haywood,All-Time Oklahoma City Thunder,PF,,89,89.0,,United States,,2-Way Inside-The-Arc Menace,203,101.0,all_time
+Tom Chambers,All-Time Phoenix Suns,PF,SF,89,89.0,,United States,,2-Way 3-Level Interior Force,208,99.0,all_time
+Tom Heinsohn,All-Time Boston Celtics,PF,C,89,89.0,,United States,,2-Way 3-Level Board Hunter,201,98.0,all_time
+Tyrese Maxey,All-Time Philadelphia 76ers,SG,PG,89,89.0,5.0,United States,,Offensive Architect,188,90.0,all_time
+World B. Free,All-Time Los Angeles Clippers,PG,SG,89,89.0,,United States,,3-Level Scoring Playmaker,188,83.0,all_time
+Zach Randolph,All-Time Memphis Grizzlies,PF,,89,89.0,24.0,United States,,Inside The Arc Board Hunter,206,117.0,all_time
+Bailey Howell,All-Time Detroit Pistons,PF,SF,88,89.0,,United States,,Inside The Arc Board Hunter,201,95.0,all_time
+Joe Caldwell,All-Time Atlanta Hawks,SG,SF,88,89.0,,United States,,2-Way 3-Level Slasher,196,88.0,all_time
+Deron Williams,All-Time Utah Jazz,PG,,87,89.0,,United States,,3-Level Scoring Playmaker,191,94.0,all_time
+Paolo Banchero,All-Time Orlando Magic,PF,SF,87,89.0,3.0,United States,Italy,Shot-Creating 3-Level Threat,208,113.0,all_time
+Jeff Malone,All-Time Washington Wizards,SG,SF,86,89.0,,United States,,Inside The Arc Menace,193,92.0,all_time
+Pascal Siakam,All-Time Toronto Raptors,PF,C,86,89.0,9.0,Cameroon,,2-Way 3-Level Scoring Threat,206,104.0,all_time
+Purvis Short,All-Time Golden State Warriors,SF,SG,86,89.0,,United States,,Mid-Range Slasher,201,95.0,all_time
+Andrea Bargnani,All-Time Toronto Raptors,C,,84,89.0,14.0,Italy,,2-Way 3-Level Scoring Threat,213,113.0,all_time
+Andre Iguodala,All-Time Philadelphia 76ers,SF,PF,88,88.0,21.0,United States,,2-Way Floor-Spacing Slasher,198,93.0,all_time
+Antonio McDyess,All-Time Denver Nuggets,PF,C,88,88.0,,United States,,2-Way Inside-The-Arc Menace,206,101.0,all_time
+Arvydas Sabonis,All-Time Portland Trail Blazers,C,PF,88,88.0,,Lithuania,,2-Way 3-Level Playmaker,221,126.0,all_time
+Bob Dandridge,All-Time Milwaukee Bucks,SF,SG,88,88.0,,United States,,2-Way 3-Level Point Forward,198,88.0,all_time
+Bob Netolicky,All-Time Indiana Pacers,PF,C,88,88.0,,United States,,2-Way Inside-The-Arc Threat,206,99.0,all_time
+Buck Williams,All-Time Brooklyn Nets,PF,C,88,88.0,,United States,,2-Way Inside-The-Arc Threat,203,97.0,all_time
+Carlos Boozer,All-Time Utah Jazz,PF,,88,88.0,,Germany,,Inside The Arc Board Hunter,206,120.0,all_time
+Caron Butler,All-Time Washington Wizards,SF,,88,88.0,,United States,,Shot-Creating 3-Level Threat,201,103.0,all_time
+Dale Ellis,All-Time Oklahoma City Thunder,SG,SG,88,88.0,,United States,,Shot-Creating 3-Level Threat,201,92.0,all_time
+Dan Majerle,All-Time Phoenix Suns,SG,SF,88,88.0,,United States,,2-Way 3-Level Shot Creator,198,97.0,all_time
+Danny Granger,All-Time Indiana Pacers,SF,PF,88,88.0,,United States,,Shot-Creating 3-Level Threat,206,103.0,all_time
+David West,All-Time New Orleans Pelicans,PF,C,88,88.0,,United States,,2-Way Inside-The-Arc Menace,206,113.0,all_time
+Derrick Coleman,All-Time Brooklyn Nets,PF,PF,88,88.0,,United States,,2-Way 3-Level Interior Force,208,104.0,all_time
+Domantas Sabonis,All-Time Sacramento Kings,PF,C,88,88.0,9.0,Lithuania,United States,Inside The Arc Board Hunter,211,108.0,all_time
+Donovan Mitchell,All-Time Utah Jazz,SG,PG,88,88.0,8.0,United States,,2-Way Inside-Out ISO Creator,191,97.0,all_time
+Gordon Hayward,All-Time Utah Jazz,SF,PF,88,88.0,15.0,United States,,2-Way Inside-Out Combo Guard,201,101.0,all_time
+Hal Greer,All-Time Philadelphia 76ers,PG,SG,88,88.0,,United States,,All-Around Star,188,81.0,all_time
+Jim Jackson,All-Time Dallas Mavericks,SG,,88,88.0,,United States,,2-Way Mid-Range Slasher,198,99.0,all_time
+John Starks,All-Time New York Knicks,SG,PG,88,88.0,,United States,,2-Way 3-Level Combo Guard,191,81.0,all_time
+Kenny Anderson,All-Time Brooklyn Nets,PG,,88,88.0,,United States,,Offensive Architect,183,76.0,all_time
+Khris Middleton,All-Time Milwaukee Bucks,SF,SG,88,88.0,13.0,United States,,2-Way 3-Level Shot Creator,201,100.0,all_time
+Larry Johnson,All-Time Charlotte Hornets,PF,SF,88,88.0,,United States,,3-Level Scoring Board Hunter,198,116.0,all_time
+Larry Kenon,All-Time San Antonio Spurs,SF,,88,88.0,,United States,,2-Way Slashing Shot Creator,206,92.0,all_time
+Larry Nance,All-Time Cleveland Cavaliers,SF,PF,88,88.0,,United States,,2-Way Inside-The-Arc Threat,208,92.0,all_time
+Mark Aguirre,All-Time Dallas Mavericks,SF,PF,88,88.0,,United States,,2-Way Mid-Range Slasher,198,104.0,all_time
+Michael Finley,All-Time Dallas Mavericks,SF,SG,88,88.0,,United States,,Score-First Wing,201,97.0,all_time
+Michael Redd,All-Time Milwaukee Bucks,SG,SF,88,88.0,,United States,,Shot-Creating 3-Level Scorer,198,99.0,all_time
+Mike Bibby,All-Time Sacramento Kings,PG,,88,88.0,,United States,,Offensive Architect,185,86.0,all_time
+Mike Conley,All-Time Memphis Grizzlies,PG,,88,88.0,18.0,United States,,2-Way 3-Level Playmaker,185,79.0,all_time
+Paul Westphal,All-Time Phoenix Suns,SG,PG,88,88.0,,United States,,2-Way 3-Level Combo Guard,193,89.0,all_time
+Peja Stojakovic,All-Time Sacramento Kings,SF,,88,88.0,,Serbia,,Sharpshooting Wing,206,99.0,all_time
+Phil Chenier,All-Time Washington Wizards,SG,PG,88,88.0,,United States,,2-Way 3-Level Combo Guard,191,81.0,all_time
+Rolando Blackman,All-Time Dallas Mavericks,SG,,88,88.0,,United States,,2-Way 3-Level Shot Creator,198,86.0,all_time
+Ron Artest,All-Time Indiana Pacers,SF,,88,88.0,,United States,,3 & D Wing,198,110.0,all_time
+Rudy Gobert,All-Time Utah Jazz,C,,88,88.0,12.0,France,,Defensive Anchor,216,110.0,all_time
+Sam Cassell,All-Time Minnesota Timberwolves,PG,SG,88,88.0,,United States,,Playmaking Inside-Out Scorer,191,83.0,all_time
+Sleepy Floyd,All-Time Golden State Warriors,PG,SG,88,88.0,,United States,,Offensive Architect,191,77.0,all_time
+Steve Francis,All-Time Houston Rockets,PG,SG,88,88.0,,United States,,2-Way 3-Level Slasher,191,88.0,all_time
+Tom Gugliotta,All-Time Minnesota Timberwolves,PF,SF,88,88.0,,United States,,2-Way 3-Level Interior Force,208,108.0,all_time
+Victor Oladipo,All-Time Indiana Pacers,SG,PG,88,88.0,12.0,United States,,2-Way 3-Level Combo Guard,193,95.0,all_time
+Vlade Divac,All-Time Sacramento Kings,C,PF,88,88.0,,Serbia,,Playmaking Paint Beast,216,109.0,all_time
+Zydrunas Ilgauskas,All-Time Cleveland Cavaliers,C,,88,88.0,,Lithuania,,2-Way Inside-The-Arc Menace,221,107.0,all_time
+Vin Baker,All-Time Milwaukee Bucks,PF,,87,88.0,,United States,,2-Way Inside-The-Arc Threat,208,101.0,all_time
+Jaren Jackson Jr.,All-Time Memphis Grizzlies,PF,C,86,88.0,7.0,United States,,2-Way 3-Level Scoring Threat,211,109.0,all_time
+Jason Terry,All-Time Dallas Mavericks,PG,SG,86,88.0,,United States,,Walking Bucket,188,81.0,all_time
+Brandon Ingram,All-Time New Orleans Pelicans,SF,PF,85,88.0,9.0,United States,,Shot-Creating 3-Level Threat,201,86.0,all_time
+Tyler Herro,All-Time Miami Heat,SG,PG,83,88.0,6.0,United States,,Shot-Creating 3-Level Threat,196,88.0,all_time
+Antawn Jamison,All-Time Washington Wizards,PF,SF,87,87.0,,United States,,3-Level Scoring Board Hunter,203,100.0,all_time
+B.J. Armstrong,All-Time Chicago Bulls,PG,SG,87,87.0,,United States,,3-Level Scoring Playmaker,188,79.0,all_time
+Bill Laimbeer,All-Time Detroit Pistons,C,PF,87,87.0,,United States,,2-Way 3-Level Board Hunter,211,110.0,all_time
+Brook Lopez,All-Time Brooklyn Nets,C,,87,87.0,17.0,United States,,3-Level Scoring Paint Beast,213,124.0,all_time
+Chris Kaman,All-Time Los Angeles Clippers,C,,87,87.0,,United States,,Paint Beast,213,119.0,all_time
+Chuck Person,All-Time Indiana Pacers,SF,PF,87,87.0,,United States,,2-Way 3-Level Shot Creator,203,99.0,all_time
+Danny Manning,All-Time Los Angeles Clippers,PF,,87,87.0,,United States,,2-Way Inside-The-Arc Threat,208,110.0,all_time
+Darrel Griffith,All-Time Utah Jazz,SG,SF,87,87.0,,United States,,2-Way Inside-Out Combo Guard,193,83.0,all_time
+DeAndre Jordan,All-Time Los Angeles Clippers,C,,87,87.0,17.0,United States,,Paint Beast,211,119.0,all_time
+Detlef Schrempf,All-Time Oklahoma City Thunder,SF,PF,87,87.0,,Germany,,Catch & Shoot Ace,206,96.0,all_time
+Dick Barnett,All-Time New York Knicks,SG,SF,87,87.0,,United States,,2-Way 3-Level Shot Creator,193,86.0,all_time
+Don Buse,All-Time Indiana Pacers,PG,SG,87,87.0,,United States,,2-Way Perimeter Playmaker,193,86.0,all_time
+Don Ohl,All-Time Washington Wizards,PG,SG,87,87.0,,United States,,2-Way 3-Level Shot Creator,191,86.0,all_time
+Doug Collins,All-Time Philadelphia 76ers,SG,SF,87,87.0,,United States,,2-Way 3-Level Shot Creator,198,81.0,all_time
+Glenn Robinson,All-Time Milwaukee Bucks,SF,,87,87.0,,United States,,All-Around Star,201,101.0,all_time
+Hersey Hawkins,All-Time Philadelphia 76ers,SG,PG,87,87.0,,United States,,Shot-Creating 3-Level Threat,191,86.0,all_time
+Jamaal Wilkes,All-Time Los Angeles Lakers,SF,SG,87,87.0,,United States,,2-Way Slashing Shot Creator,198,86.0,all_time
+Jamal Murray,All-Time Denver Nuggets,PG,SG,87,87.0,9.0,Canada,,Playmaking Inside-Out Scorer,193,93.0,all_time
+Jason Richardson,All-Time Golden State Warriors,SG,SF,87,87.0,,United States,,Score-First Two Guard,198,101.0,all_time
+Jeff Ruland,All-Time Washington Wizards,C,PF,87,87.0,,United States,,Inside The Arc Board Hunter,208,108.0,all_time
+Jerome Kersey,All-Time Portland Trail Blazers,SF,PF,87,87.0,,United States,,2-Way Inside-The-Arc Menace,201,97.0,all_time
+Joakim Noah,All-Time Chicago Bulls,C,,87,87.0,18.0,France,United States,Defensive Anchor,211,104.0,all_time
+Junior Bridgeman,All-Time Milwaukee Bucks,SF,SG,87,87.0,,United States,,2-Way Wing Creator,196,95.0,all_time
+Kenny Smith,All-Time Houston Rockets,PG,SG,87,87.0,,United States,,3-Level Scoring Playmaker,191,77.0,all_time
+Kenyon Martin,All-Time Brooklyn Nets,PF,C,87,87.0,,United States,,2-Way 3-Level Interior Force,206,101.0,all_time
+Kevin Willis,All-Time Atlanta Hawks,PF,C,87,87.0,,United States,,2-Way Inside-The-Arc Threat,213,99.0,all_time
+Otis Birdsong,All-Time Sacramento Kings,SG,,87,87.0,,United States,,2-Way Inside-The-Arc Playmaker,191,86.0,all_time
+Richard Jefferson,All-Time Brooklyn Nets,SF,SG,87,87.0,,United States,,2-Way 3-Level Shot Creator,201,104.0,all_time
+Rik Smits,All-Time Indiana Pacers,C,,87,87.0,,Netherlands,,2-Way Interior Threat,224,113.0,all_time
+Sean Elliott,All-Time San Antonio Spurs,SF,SG,87,87.0,,United States,,2-Way 3-Level Scoring Threat,203,92.0,all_time
+Sidney Wicks,All-Time Portland Trail Blazers,PF,SF,87,87.0,,United States,,2-Way Inside-The-Arc Threat,203,101.0,all_time
+Stephon Marbury,All-Time Minnesota Timberwolves,PG,,87,87.0,,United States,,3-Level Scoring Playmaker,191,86.0,all_time
+Steve Smith,All-Time Atlanta Hawks,SG,SF,87,87.0,,United States,,2-Way Sharpshooter,201,90.0,all_time
+Terrell Brandon,All-Time Cleveland Cavaliers,PG,,87,87.0,,United States,,Offensive Architect,180,81.0,all_time
+Terry Cummings,All-Time Milwaukee Bucks,PF,C,87,87.0,,United States,,Inside The Arc Board Hunter,206,99.0,all_time
+Terry Porter,All-Time Portland Trail Blazers,PG,SG,87,87.0,,United States,,2-Way 3-Level Playmaker,191,88.0,all_time
+Xavier McDaniel,All-Time Oklahoma City Thunder,SF,PF,87,87.0,,United States,,2-Way Inside-The-Arc Menace,201,97.0,all_time
+Andre Drummond,All-Time Detroit Pistons,C,,86,87.0,13.0,United States,,Defensive Anchor,211,126.0,all_time
+Byron Scott,All-Time Los Angeles Lakers,SG,PG,86,87.0,,United States,,2-Way Playmaking Sharpshooter,191,88.0,all_time
+Julius Randle,All-Time New York Knicks,PF,C,86,87.0,11.0,United States,,Slashing Stretch Four,203,113.0,all_time
+Kevin Martin,All-Time Sacramento Kings,SG,SF,86,87.0,,United States,,3-Level Scoring Combo Guard,201,83.0,all_time
+Doug West,All-Time Minnesota Timberwolves,SG,SF,85,87.0,,United States,,Mid-Range Slasher,198,90.0,all_time
+Marcus Camby,All-Time Denver Nuggets,C,,85,87.0,,United States,,Defensive Anchor,211,99.0,all_time
+Austin Carr,All-Time Cleveland Cavaliers,SG,,86,86.0,,United States,,Shot-Creating 3-Level Threat,193,86.0,all_time
+Bam Adebayo,All-Time Miami Heat,C,,86,86.0,8.0,United States,,2-Way Inside-The-Arc Threat,206,115.0,all_time
+Bruce Bowen,All-Time San Antonio Spurs,SF,SG,86,86.0,,United States,,2-Way Sharpshooter,201,99.0,all_time
+C.J. McCollum,All-Time Portland Trail Blazers,SG,PG,86,86.0,12.0,United States,,Shot-Creating 3-Level Threat,193,90.0,all_time
+Campy Russell,All-Time Cleveland Cavaliers,SF,,86,86.0,,United States,,Inside-Out Shot Creator,203,97.0,all_time
+Charles Oakley,All-Time New York Knicks,PF,C,86,86.0,,United States,,2-Way Board-Hunting Stretch,203,101.0,all_time
+Corey Maggette,All-Time Los Angeles Clippers,SF,SG,86,86.0,,United States,,2-Way 3-Level Shot Creator,198,98.0,all_time
+Damon Stoudamire,All-Time Toronto Raptors,PG,,86,86.0,,United States,,3-Level Scoring Playmaker,178,77.0,all_time
+Doc Rivers,All-Time Atlanta Hawks,PG,SG,86,86.0,,United States,,2-Way 3-Level Playmaker,193,83.0,all_time
+Eddie Johnson,All-Time Sacramento Kings,SG,SF,86,86.0,,United States,,Defensive Menace,201,97.0,all_time
+Hedo Turkoglu,All-Time Orlando Magic,SF,PF,86,86.0,,Turkey,,Shot-Creating 3-Level Threat,208,99.0,all_time
+Jack Marin,All-Time Washington Wizards,SF,SG,86,86.0,,United States,,2-Way Wing Creator,201,90.0,all_time
+James Silas,All-Time San Antonio Spurs,SG,,86,86.0,,United States,,2-Way 3-Level Combo Guard,185,81.0,all_time
+Josh Smith,All-Time Atlanta Hawks,PF,SF,86,86.0,,United States,,2-Way Inside-The-Arc Threat,206,101.0,all_time
+Jrue Holiday,All-Time New Orleans Pelicans,SG,SF,86,86.0,16.0,United States,,2-Way 3-Level Combo Guard,193,92.0,all_time
+Juwan Howard,All-Time Washington Wizards,C,,86,86.0,,United States,,2-Way Inside-The-Arc Threat,206,100.0,all_time
+Keith Van Horn,All-Time Brooklyn Nets,SF,PF,86,86.0,,United States,,Shot-Creating 3-Level Threat,208,99.0,all_time
+Maurice Cheeks,All-Time Philadelphia 76ers,PG,SG,86,86.0,,United States,,2-Way Inside-The-Arc Playmaker,185,81.0,all_time
+Michael Cooper,All-Time Los Angeles Lakers,SG,PG,86,86.0,,United States,,2-Way 3-Level Shot Creator,196,77.0,all_time
+Nikola Vucevic,All-Time Orlando Magic,C,,86,86.0,14.0,Montenegro,,3-Level Scoring Board Hunter,213,113.0,all_time
+Norm Nixon,All-Time Los Angeles Clippers,PG,,86,86.0,,United States,,3-Level Playmaking Slasher,188,77.0,all_time
+Otis Thorpe,All-Time Houston Rockets,PF,C,86,86.0,,United States,,2-Way Inside-The-Arc Threat,208,112.0,all_time
+Reggie Theus,All-Time Chicago Bulls,PG,SG,86,86.0,,United States,,Inside the Arc Playmaker,201,88.0,all_time
+Rony Seikaly,All-Time Miami Heat,C,,86,86.0,,United States,,Paint Beast,211,104.0,all_time
+Roy Hibbert,All-Time Indiana Pacers,C,,86,86.0,17.0,United States,Jamaica,Paint Beast,218,126.0,all_time
+Shareef Abdur-Rahim,All-Time Memphis Grizzlies,PF,SF,86,86.0,,United States,,2-Way 3-Level Scorer,206,101.0,all_time
+Thurl Bailey,All-Time Utah Jazz,PF,SF,86,86.0,,United States,,Inside the Arc Shot Creator,211,97.0,all_time
+Truck Robinson,All-Time Utah Jazz,PF,,86,86.0,,United States,,2-Way Inside-The-Arc Threat,201,101.0,all_time
+Zach LaVine,All-Time Chicago Bulls,SG,SF,86,86.0,11.0,United States,,Walking Bucket,198,81.0,all_time
+Hot Rod Williams,All-Time Cleveland Cavaliers,PF,C,85,86.0,,United States,,Defensive Anchor,211,110.0,all_time
+Toni Kukoc,All-Time Chicago Bulls,SF,PF,85,86.0,,Croatia,,Catch & Shoot Ace,208,86.0,all_time
+Brad Davis,All-Time Dallas Mavericks,PG,,84,86.0,,United States,,3-Level Scoring Playmaker,191,81.0,all_time
+Hassan Whiteside,All-Time Miami Heat,C,,84,86.0,15.0,United States,,2-Way Inside-The-Arc Threat,213,119.0,all_time
+Al Horford,All-Time Atlanta Hawks,C,,85,85.0,18.0,United States,,2-Way 3-Level Scoring Threat,208,113.0,all_time
+Alvan Adams,All-Time Phoenix Suns,C,PF,85,85.0,,United States,,2-Way Inside-The-Arc Menace,206,95.0,all_time
+Antonio Davis,All-Time Toronto Raptors,C,PF,85,85.0,,United States,,Paint Beast,206,97.0,all_time
+Christian Laettner,All-Time Minnesota Timberwolves,PF,C,85,85.0,,United States,,2-Way Inside-The-Arc Threat,211,106.0,all_time
+Dell Curry,All-Time Charlotte Hornets,SG,SF,85,85.0,,United States,,Sharpshooting Combo Guard,196,95.0,all_time
+Goran Dragic,All-Time Miami Heat,PG,,85,85.0,17.0,Slovenia,,Playmaking 3-Level Scorer,191,86.0,all_time
+Horace Grant,All-Time Chicago Bulls,PF,C,85,85.0,,United States,,2-Way Inside-The-Arc Threat,208,97.0,all_time
+James Donaldson,All-Time Dallas Mavericks,C,,85,85.0,,United States,,Defensive Anchor,218,124.0,all_time
+Jeff Teague,All-Time Atlanta Hawks,PG,SG,85,85.0,16.0,United States,,3-Level Scoring Playmaker,191,84.0,all_time
+Jim Paxson,All-Time Portland Trail Blazers,SG,PG,85,85.0,,United States,,2-Way Inside-The-Arc Playmaker,198,90.0,all_time
+Kendall Gill,All-Time Charlotte Hornets,SG,SF,85,85.0,,United States,,2-Way Slashing Shot Creator,196,90.0,all_time
+Kevin Duckworth,All-Time Portland Trail Blazers,C,PF,85,85.0,,United States,,Paint Beast,213,124.0,all_time
+Mark Jackson,All-Time Indiana Pacers,PG,,85,85.0,,United States,,2-Way 3-Level Playmaker,185,81.0,all_time
+Morris Peterson,All-Time Toronto Raptors,SG,SF,85,85.0,,United States,,2-Way 3-Level Shot Creator,201,97.0,all_time
+Muggsy Bogues,All-Time Charlotte Hornets,PG,SG,85,85.0,,United States,,Playmaking Sharpshooter,160,65.0,all_time
+Nick Anderson,All-Time Orlando Magic,SG,SF,85,85.0,,United States,,2-Way 3-Level Shot Creator,198,92.0,all_time
+Ricky Rubio,All-Time Minnesota Timberwolves,PG,,85,85.0,16.0,Spain,,2-Way Slashing Playmaker,193,81.0,all_time
+Shane Battier,All-Time Memphis Grizzlies,SF,SG,85,85.0,,United States,,2-Way 3-Level Shot Creator,203,99.0,all_time
+Tony Allen,All-Time Memphis Grizzlies,SG,SF,85,85.0,,United States,,Defensive Menace,193,96.0,all_time
+Wally Szczerbiak,All-Time Minnesota Timberwolves,SF,SG,85,85.0,,United States,,Shot-Creating 3-Level Threat,201,110.0,all_time
+Jim Chones,All-Time Cleveland Cavaliers,C,PF,84,85.0,,United States,,2-Way Inside-The-Arc Threat,211,99.0,all_time
+Paul Pressey,All-Time Milwaukee Bucks,SG,SF,84,85.0,,United States,,2-Way Slashing Shot Creator,196,83.0,all_time
+Andrew Wiggins,All-Time Minnesota Timberwolves,SF,SG,83,85.0,11.0,Canada,,High Flyer,203,90.0,all_time
+Jameer Nelson,All-Time Orlando Magic,PG,,83,85.0,,United States,,3-Level Scoring Playmaker,183,86.0,all_time
+Anderson Varejao,All-Time Cleveland Cavaliers,C,PF,84,84.0,,Brazil,,2-Way Inside-The-Arc Threat,211,104.0,all_time
+Bingo Smith,All-Time Cleveland Cavaliers,SG,SF,84,84.0,,United States,,Shot-Creating 3-Level Scorer,196,97.0,all_time
+David Wesley,All-Time New Orleans Pelicans,SG,,84,84.0,,United States,,2-Way 3-Level Combo Guard,183,86.0,all_time
+Dennis Scott,All-Time Orlando Magic,SF,SG,84,84.0,,United States,,Catch & Shoot Ace,203,103.0,all_time
+Doug Christie,All-Time Toronto Raptors,SG,SF,84,84.0,,United States,,2-Way Sharpshooter,198,90.0,all_time
+Gerald Wallace,All-Time Charlotte Hornets,SF,PF,84,84.0,,United States,,2-Way 3-Level Shot Creator,201,99.0,all_time
+Isaiah Rider,All-Time Minnesota Timberwolves,SG,,84,84.0,,United States,,Shot-Creating 3-Level Scorer,196,97.0,all_time
+Jason Williams,All-Time Memphis Grizzlies,PG,,84,84.0,,United States,,2-Way 3-Level Playmaker,185,86.0,all_time
+Jeff Hornacek,All-Time Utah Jazz,SG,PG,84,84.0,,United States,,2-Way Perimeter Combo Guard,191,86.0,all_time
+Johnny Moore,All-Time San Antonio Spurs,PG,,84,84.0,,United States,,3-Level Scoring Playmaker,193,79.0,all_time
+Swen Nater,All-Time Los Angeles Clippers,C,PF,84,84.0,,United States,,Paint Beast,211,108.0,all_time
+Udonis Haslem,All-Time Miami Heat,PF,C,84,84.0,22.0,United States,,Inside The Arc Board Hunter,203,104.0,all_time
+Lonzo Ball,All-Time New Orleans Pelicans,PG,SG,82,84.0,8.0,United States,,2-Way Playmaking 3PT Threat,198,86.0,all_time
+Darrell Armstrong,All-Time Orlando Magic,PG,,83,83.0,,United States,,3-Level Scoring Playmaker,183,79.0,all_time
+Fred VanVleet,All-Time Toronto Raptors,PG,,83,83.0,9.0,United States,,2-Way Perimeter Playmaker,183,88.0,all_time
+JJ Redick,All-Time Los Angeles Clippers,SG,,83,83.0,19.0,United States,,2-Way Sharpshooter,193,86.0,all_time
+Latrell Sprewell,All-Time Minnesota Timberwolves,SF,,83,83.0,,United States,,2-Way Slashing Shot Creator,196,86.0,all_time
+P.J. Brown,All-Time Charlotte Hornets,C,,83,83.0,,United States,,2-Way Inside-The-Arc Threat,211,108.0,all_time
+Rudy Gay,All-Time Memphis Grizzlies,SF,,83,83.0,19.0,United States,,Shot-Creating 3-Level Threat,203,104.0,all_time
+Stephen Jackson,All-Time Charlotte Hornets,SF,,83,83.0,,United States,,3-Level Scoring Point Forward,203,104.0,all_time
+Tyson Chandler,All-Time New Orleans Pelicans,C,,83,83.0,24.0,United States,,Defensive Anchor,216,108.0,all_time
+Vernon Maxwell,All-Time Houston Rockets,SG,SF,83,83.0,,United States,,2-Way 3-Level Combo Guard,193,86.0,all_time
+Avery Johnson,All-Time San Antonio Spurs,PG,SG,82,83.0,,United States,,,178,79.0,all_time
+Jonas Valanciunas,All-Time Memphis Grizzlies,C,,82,83.0,14.0,Lithuania,,3-Level Scoring Board Hunter,211,115.0,all_time
+Mike Miller,All-Time Memphis Grizzlies,SG,,82,83.0,,United States,,Sharpshooter,203,98.0,all_time
+Shawn Bradley,All-Time Dallas Mavericks,C,,82,83.0,,Germany,,Paint Beast,229,106.0,all_time
+Kirk Hinrich,All-Time Chicago Bulls,PG,SG,82,82.0,,United States,,2-Way 3-Level Playmaker,193,86.0,all_time
+Eric Gordon,All-Time New Orleans Pelicans,SG,PF,81,81.0,17.0,Bahamas,United States,Perimeter Shot Creator,193,97.0,all_time
+Greg Anthony,All-Time Memphis Grizzlies,PG,SG,81,81.0,,United States,,Playmaking Shot Creator,183,79.0,all_time

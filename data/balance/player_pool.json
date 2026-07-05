@@ -1,0 +1,21 @@
+{
+  "_meta": {
+    "status": "已定稿",
+    "description": "球员配置池数量和联盟构成。"
+  },
+  "qualityCount": 13,
+  "cardsPerQuality": 100,
+  "nbaCardsPerQuality": 80,
+  "cbaCardsPerQuality": 20,
+  "totalCards": 1300,
+  "chineseSpecialRules": {
+    "availableInAllQualities": true,
+    "goatAttributes": {
+      "scoring": 1000,
+      "rebound": 550,
+      "assist": 300,
+      "steal": 110,
+      "block": 170
+    }
+  }
+}

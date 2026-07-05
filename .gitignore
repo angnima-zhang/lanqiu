@@ -1,0 +1,23 @@
+# Local planning and agent state
+task_plan.md
+findings.md
+progress.md
+.planning/
+.agents/
+.codex/
+
+# Archived or disposable project material
+可清理/
+
+# Generated caches and local work
+__pycache__/
+*.py[cod]
+node_modules/
+.firecrawl/
+tmp/
+*.tmp
+*.log
+
+# Windows metadata
+Thumbs.db
+Desktop.ini

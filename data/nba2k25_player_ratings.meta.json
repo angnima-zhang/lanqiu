@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-06-26T09:40:46.720656+00:00",
+  "source_dataset": "reinerjasin/nba-2k25-player-complete-dataset",
+  "source_url": "https://www.kaggle.com/datasets/reinerjasin/nba-2k25-player-complete-dataset",
+  "outputs": [
+    "data\\nba2k25_player_ratings.csv",
+    "data\\nba2k25_player_ratings.json"
+  ],
+  "row_count": 839,
+  "current_player_count": 457,
+  "all_time_player_count": 382,
+  "fields_used_for_game": [
+    "overall",
+    "potential"
+  ]
+}
