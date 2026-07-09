@@ -2,7 +2,7 @@
   "ver": "1.0.27",
   "importer": "image",
   "imported": true,
-  "uuid": "edbba67f-e619-4d46-ab8c-516006e41ef6",
+  "uuid": "8fd32d06-fc60-419e-ad58-fbb7a639e1a6",
   "files": [
     ".json",
     ".png"
@@ -10,14 +10,14 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "edbba67f-e619-4d46-ab8c-516006e41ef6@6c48a",
-      "displayName": "basketball82-logo-transparent",
+      "uuid": "8fd32d06-fc60-419e-ad58-fbb7a639e1a6@6c48a",
+      "displayName": "像素风比赛结算_失败_v1",
       "id": "6c48a",
       "name": "texture",
       "userData": {
         "wrapModeS": "clamp-to-edge",
         "wrapModeT": "clamp-to-edge",
-        "imageUuidOrDatabaseUri": "edbba67f-e619-4d46-ab8c-516006e41ef6",
+        "imageUuidOrDatabaseUri": "8fd32d06-fc60-419e-ad58-fbb7a639e1a6",
         "isUuid": true,
         "visible": false,
         "minfilter": "linear",
@@ -34,21 +34,21 @@
     },
     "f9941": {
       "importer": "sprite-frame",
-      "uuid": "edbba67f-e619-4d46-ab8c-516006e41ef6@f9941",
-      "displayName": "basketball82-logo-transparent",
+      "uuid": "8fd32d06-fc60-419e-ad58-fbb7a639e1a6@f9941",
+      "displayName": "像素风比赛结算_失败_v1",
       "id": "f9941",
       "name": "spriteFrame",
       "userData": {
         "trimThreshold": 1,
         "rotated": false,
-        "offsetX": 60.5,
-        "offsetY": -9.5,
-        "trimX": 121,
-        "trimY": 19,
-        "width": 1653,
-        "height": 868,
-        "rawWidth": 1774,
-        "rawHeight": 887,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 0,
+        "trimY": 0,
+        "width": 390,
+        "height": 844,
+        "rawWidth": 390,
+        "rawHeight": 844,
         "borderTop": 0,
         "borderBottom": 0,
         "borderLeft": 0,
@@ -60,17 +60,17 @@
         "meshType": 0,
         "vertices": {
           "rawPosition": [
-            -826.5,
-            -434,
+            -195.0,
+            -422.0,
             0,
-            826.5,
-            -434,
+            195.0,
+            -422.0,
             0,
-            -826.5,
-            434,
+            -195.0,
+            422.0,
             0,
-            826.5,
-            434,
+            195.0,
+            422.0,
             0
           ],
           "indexes": [
@@ -82,38 +82,38 @@
             3
           ],
           "uv": [
-            121,
-            868,
-            1774,
-            868,
-            121,
             0,
-            1774,
+            844,
+            390,
+            844,
+            0,
+            0,
+            390,
             0
           ],
           "nuv": [
-            0.06820744081172492,
+            0,
             0,
             1,
             0,
-            0.06820744081172492,
-            0.9785794813979707,
+            0,
             1,
-            0.9785794813979707
+            1,
+            1
           ],
           "minPos": [
-            -826.5,
-            -434,
+            -195.0,
+            -422.0,
             0
           ],
           "maxPos": [
-            826.5,
-            434,
+            195.0,
+            422.0,
             0
           ]
         },
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "edbba67f-e619-4d46-ab8c-516006e41ef6@6c48a",
+        "imageUuidOrDatabaseUri": "8fd32d06-fc60-419e-ad58-fbb7a639e1a6@6c48a",
         "atlasUuid": "",
         "trimType": "auto"
       },
@@ -129,6 +129,6 @@
     "type": "sprite-frame",
     "hasAlpha": true,
     "fixAlphaTransparencyArtifacts": false,
-    "redirect": "edbba67f-e619-4d46-ab8c-516006e41ef6@6c48a"
+    "redirect": "8fd32d06-fc60-419e-ad58-fbb7a639e1a6@6c48a"
   }
 }
