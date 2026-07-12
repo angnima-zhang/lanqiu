@@ -21,3 +21,6 @@ tmp/
 # Windows metadata
 Thumbs.db
 Desktop.ini
+
+# Nested Cocos Creator repository
+篮球CocosProject/
