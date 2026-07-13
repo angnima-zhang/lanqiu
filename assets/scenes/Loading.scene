@@ -52,7 +52,7 @@
     },
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 38
+      "__id__": 39
     },
     "_id": "a0a358c7-ff82-4472-8f0a-2071acb3cae6"
   },
@@ -91,6 +91,9 @@
       },
       {
         "__id__": 37
+      },
+      {
+        "__id__": 38
       }
     ],
     "_prefab": null,
@@ -650,12 +653,12 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "657042f1-bdcb-458c-876f-9a427f91fc5d@f9941",
+      "__uuid__": "0264da3c-90eb-4435-bd1b-b4fa3274cf6a@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -708,7 +711,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "0d4ea172-0099-4993-b60b-d2eabcbc4934@f9941",
+      "__uuid__": "aaad732c-7a0e-4f57-817f-690dfa42b5a7@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 1,
@@ -908,7 +911,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 291.6748046875,
+      "width": 483.3332214355469,
       "height": 63
     },
     "_anchorPoint": {
@@ -938,7 +941,7 @@
       "b": 255,
       "a": 255
     },
-    "_string": "球员热身中...",
+    "_string": "正在加载游戏资源...",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 50,
@@ -947,8 +950,11 @@
     "_lineHeight": 50,
     "_overflow": 0,
     "_enableWrapText": true,
-    "_font": null,
-    "_isSystemFontUsed": true,
+    "_font": {
+      "__uuid__": "e6426d6f-f81f-4e6e-90de-7c041cb0c92a",
+      "__expectedType__": "cc.TTFFont"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_isItalic": false,
     "_isBold": true,
@@ -1001,7 +1007,7 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 73.091,
+      "x": 172.413,
       "y": 0,
       "z": 0
     },
@@ -1040,7 +1046,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 127.880859375,
+      "width": 116.6666259765625,
       "height": 63
     },
     "_anchorPoint": {
@@ -1079,8 +1085,11 @@
     "_lineHeight": 50,
     "_overflow": 0,
     "_enableWrapText": true,
-    "_font": null,
-    "_isSystemFontUsed": true,
+    "_font": {
+      "__uuid__": "e6426d6f-f81f-4e6e-90de-7c041cb0c92a",
+      "__expectedType__": "cc.TTFFont"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_isItalic": false,
     "_isBold": true,
@@ -1249,7 +1258,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 560,
+      "width": 603.333251953125,
       "height": 170.39999999999998
     },
     "_anchorPoint": {
@@ -1288,8 +1297,11 @@
     "_lineHeight": 40,
     "_overflow": 0,
     "_enableWrapText": true,
-    "_font": null,
-    "_isSystemFontUsed": true,
+    "_font": {
+      "__uuid__": "e6426d6f-f81f-4e6e-90de-7c041cb0c92a",
+      "__expectedType__": "cc.TTFFont"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_isItalic": false,
     "_isBold": false,
@@ -1420,30 +1432,51 @@
     "_id": "941vhu3j9PmLaHxGzqDnwE"
   },
   {
+    "__type__": "920dbfH201DRKPGS01ijUDH",
+    "_name": "",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "node": {
+      "__id__": 2
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "progressBar": {
+      "__id__": 17
+    },
+    "progressLabel": {
+      "__id__": 27
+    },
+    "statusLabel": {
+      "__id__": 24
+    },
+    "_id": "24WREQfMRAKJduBP+hnXYg"
+  },
+  {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 39
-    },
-    "shadows": {
       "__id__": 40
     },
-    "_skybox": {
+    "shadows": {
       "__id__": 41
     },
-    "fog": {
+    "_skybox": {
       "__id__": 42
     },
-    "octree": {
+    "fog": {
       "__id__": 43
     },
-    "skin": {
+    "octree": {
       "__id__": 44
     },
-    "lightProbeInfo": {
+    "skin": {
       "__id__": 45
     },
-    "postSettings": {
+    "lightProbeInfo": {
       "__id__": 46
+    },
+    "postSettings": {
+      "__id__": 47
     },
     "bakedWithStationaryMainLight": false,
     "bakedWithHighpLightmap": false
