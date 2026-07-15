@@ -11,6 +11,7 @@ import {
     Tween,
     Vec3,
 } from 'cc';
+import { RosterSlotView } from './RosterSlotView';
 
 const { ccclass, property } = _decorator;
 
@@ -1579,7 +1580,8 @@ export class CourtSimulationController extends Component {
         }
         return this.rosterContainer.children.map((slot, index) => {
             const ovrText = slot.getChildByName('ovr')?.getComponent(Label)?.string ?? '0';
-            const number = Number(ovrText.replace(/[^\d.-]/g, ''));
+            const slotView = slot.getComponent(RosterSlotView);
+            const number = slotView?.getOverall() ?? Number(ovrText.replace(/[^\d.-]/g, ''));
             const slotNumber = slot.name.match(/\d+/)?.[0] ?? String(index + 1);
             return {
                 id: slot.uuid,

@@ -1,0 +1,123 @@
+{
+    "_meta":  {
+                  "status":  "已定稿",
+                  "version":  "v0.69",
+                  "description":  "概念神通过累计招募GOAT触发下一次招募保底。",
+                  "baseGoatRequirement":  100,
+                  "maximumLineupConceptGodCount":  12
+              },
+    "formula":  {
+                    "lockedX":  "conceptGodCountInLineupAtCycleStart + 1",
+                    "requiredGoatResults":  "100 * lockedX",
+                    "counterIncrementCondition":  "recruitedQuality == GOAT",
+                    "guaranteeTrigger":  "goatCounter \u003e= requiredGoatResults",
+                    "guaranteedResultTiming":  "next_recruit_after_threshold",
+                    "counterResetTiming":  "after_guaranteed_concept_god_result_is_resolved"
+                },
+    "rules":  {
+                  "lockXAtCycleStart":  true,
+                  "lineupChangesDoNotAlterCurrentCycleThreshold":  true,
+                  "paidRecruitGoatCounts":  true,
+                  "freeAdRecruitGoatCounts":  true,
+                  "thresholdGoatCardIsGrantedNormally":  true,
+                  "guaranteedConceptGodDoesNotCountAsGoat":  true,
+                  "normalRecruitCostOrFreeMethodStillApplies":  true,
+                  "affectedByNormalQualityWeights":  false,
+                  "affectedByScoutingDirector":  false,
+                  "drawPool":  "data/concept_god_pool.json",
+                  "drawMethod":  "equal_weight_among_eligible_concept_gods",
+                  "excludeSameConceptGodCurrentlyInLineup":  true,
+                  "dismissedConceptGodCanReappear":  true,
+                  "resultHandling":  "compare_with_lowest_ovr_then_lineup_or_dismiss",
+                  "inventoryEnabled":  false,
+                  "counterActiveWhen":  "GOAT quality is recruitable at current market value level",
+                  "guaranteedConceptGodRecruitGrantsWillpower":  true,
+                  "willpowerReward":  10
+              },
+    "frontend":  {
+                     "progressText":  "概念神保底：{goatCounter}/{requiredGoatResults}张GOAT",
+                     "showLockedX":  true,
+                     "showGuaranteeReadyState":  true,
+                     "visibleWhen":  "GOAT quality is recruitable"
+                 },
+    "thresholdsByCurrentLineupCount":  [
+                                           {
+                                               "currentLineupConceptGodCount":  0,
+                                               "lockedX":  1,
+                                               "requiredGoatResults":  100,
+                                               "cumulativeGoatResultsToBuildFromZero":  100
+                                           },
+                                           {
+                                               "currentLineupConceptGodCount":  1,
+                                               "lockedX":  2,
+                                               "requiredGoatResults":  200,
+                                               "cumulativeGoatResultsToBuildFromZero":  300
+                                           },
+                                           {
+                                               "currentLineupConceptGodCount":  2,
+                                               "lockedX":  3,
+                                               "requiredGoatResults":  300,
+                                               "cumulativeGoatResultsToBuildFromZero":  600
+                                           },
+                                           {
+                                               "currentLineupConceptGodCount":  3,
+                                               "lockedX":  4,
+                                               "requiredGoatResults":  400,
+                                               "cumulativeGoatResultsToBuildFromZero":  1000
+                                           },
+                                           {
+                                               "currentLineupConceptGodCount":  4,
+                                               "lockedX":  5,
+                                               "requiredGoatResults":  500,
+                                               "cumulativeGoatResultsToBuildFromZero":  1500
+                                           },
+                                           {
+                                               "currentLineupConceptGodCount":  5,
+                                               "lockedX":  6,
+                                               "requiredGoatResults":  600,
+                                               "cumulativeGoatResultsToBuildFromZero":  2100
+                                           },
+                                           {
+                                               "currentLineupConceptGodCount":  6,
+                                               "lockedX":  7,
+                                               "requiredGoatResults":  700,
+                                               "cumulativeGoatResultsToBuildFromZero":  2800
+                                           },
+                                           {
+                                               "currentLineupConceptGodCount":  7,
+                                               "lockedX":  8,
+                                               "requiredGoatResults":  800,
+                                               "cumulativeGoatResultsToBuildFromZero":  3600
+                                           },
+                                           {
+                                               "currentLineupConceptGodCount":  8,
+                                               "lockedX":  9,
+                                               "requiredGoatResults":  900,
+                                               "cumulativeGoatResultsToBuildFromZero":  4500
+                                           },
+                                           {
+                                               "currentLineupConceptGodCount":  9,
+                                               "lockedX":  10,
+                                               "requiredGoatResults":  1000,
+                                               "cumulativeGoatResultsToBuildFromZero":  5500
+                                           },
+                                           {
+                                               "currentLineupConceptGodCount":  10,
+                                               "lockedX":  11,
+                                               "requiredGoatResults":  1100,
+                                               "cumulativeGoatResultsToBuildFromZero":  6600
+                                           },
+                                           {
+                                               "currentLineupConceptGodCount":  11,
+                                               "lockedX":  12,
+                                               "requiredGoatResults":  1200,
+                                               "cumulativeGoatResultsToBuildFromZero":  7800
+                                           },
+                                           {
+                                               "currentLineupConceptGodCount":  12,
+                                               "lockedX":  13,
+                                               "requiredGoatResults":  1300,
+                                               "cumulativeGoatResultsToBuildFromZero":  null
+                                           }
+                                       ]
+}

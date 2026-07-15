@@ -1,0 +1,780 @@
+{
+    "_meta":  {
+                  "status":  "待审核草案",
+                  "version":  "v0.71",
+                  "description":  "13档品质赛季固定难度表；GOAT赛季98-0后进入无常规赛/季后赛区分的概念神无限赛程。",
+                  "difficultyUnit":  "team_ovr",
+                  "difficultyMode":  "fixed_quality_season_lookup",
+                  "runtimeRule":  "按currentSeasonNumber读取seasonDifficultyBySeason；赛季难度不再由marketValueLevel决定，也不根据玩家阵容动态重算。",
+                  "roundRatios":  {
+                                      "regularSeasonStart":  0.58,
+                                      "regularSeasonEnd":  0.82,
+                                      "playoffFirstRound":  0.85,
+                                      "playoffSecondRound":  0.9,
+                                      "conferenceFinals":  0.95,
+                                      "finals":  1
+                                  },
+                  "difficultyPurpose":  "undefeated_breakthrough_distance_validation",
+                  "breakthroughDistanceRule":  "失败停在当前场；强化后重打；98-0夺冠后赛季序号+1并进入下一品质难度。",
+                  "scoreRuleStatus":  "已定稿"
+              },
+    "regularSeasonGames":  82,
+    "playoffRounds":  4,
+    "playoffSeriesFormat":  "forced_sweep_4_official_wins_per_round",
+    "playoffWinsRequiredPerRound":  4,
+    "leagueTeamCount":  30,
+    "matchRules":  {
+                       "resultPriority":  [
+                                              "full_concept_lineup_auto_win",
+                                              "ovr_ratio_result"
+                                          ],
+                       "fullConceptLineupAutoWin":  true,
+                       "fullConceptLineupCondition":  "conceptGodCountInCurrentLineup == 12",
+                       "fullConceptLineupSkipsOvrAndRandomResult":  true,
+                       "autoWinThreshold":  1.1,
+                       "autoLoseThreshold":  0.9,
+                       "uncertainWinRate":  0.5
+                   },
+    "scoreRules":  {
+                       "status":  "已定稿",
+                       "resultOrder":  "decide_winner_first_then_generate_score",
+                       "scoreScaleMode":  "active_five_equivalent_attribute_matched_unbounded",
+                       "scoreUnit":  "basketball_points_scaled_by_scoring_attribute",
+                       "teamRawScoreFormula":  "floor((teamScoringAttributeSum / activeRosterSize) * onCourtPlayerCount * scoringToPointsMultiplier * random(1 - scoringVolatilityPercent, 1 + scoringVolatilityPercent))",
+                       "scoringToPointsMultiplier":  0.1,
+                       "scoringVolatilityPercent":  0.1,
+                       "scoreBounds":  {
+                                           "minTeamScore":  0,
+                                           "hasUpperBound":  false,
+                                           "notes":  "比分不设置现实篮球100分附近的上下限；按12人得分属性平均值折算场上5人并乘0.1，可随GOAT与概念神数值自然膨胀。"
+                                       },
+                       "marginRules":  {
+                                           "ovrGapRatioFormula":  "abs(playerTeamOvr - opponentTeamOvr) / max(playerTeamOvr, opponentTeamOvr)",
+                                           "marginFormula":  "ceil(max(1, winnerRawScore * (baseMarginPercent + ovrGapRatio * gapToMarginPercentMultiplier + random(0, randomMarginPercentMax))))",
+                                           "baseMarginPercent":  0.01,
+                                           "gapToMarginPercentMultiplier":  0.25,
+                                           "randomMarginPercentMax":  0.03,
+                                           "uncertainBandMaxMarginPercent":  0.12,
+                                           "notes":  "分差随双方OVR差距扩大；五五开区间的分差不超过胜方原始得分的12%。"
+                                       },
+                       "resultEnforcement":  {
+                                                 "winnerScoreFormula":  "max(winnerRawScore, loserRawScore + requiredMargin)",
+                                                 "loserScoreFormula":  "loserRawScore",
+                                                 "winnerScoreMustBeGreaterThanLoserScore":  true,
+                                                 "scoreDoesNotChangeMatchResult":  true,
+                                                 "notes":  "先按12人平均得分折算场上5人生成原始比分，再按已判定胜负将胜方得分提升到败方得分+所需分差。"
+                                             },
+                       "quarterDistribution":  {
+                                                   "baseShare":  0.25,
+                                                   "shareVolatility":  0.07,
+                                                   "method":  "generate_four_weights_then_normalize_and_round_to_total",
+                                                   "minQuarterPoints":  0,
+                                                   "notes":  "四节先生成25%附近的随机权重，归一化后四舍五入，并回填尾差以保证分节总和等于全场比分。"
+                                               },
+                       "outputValidation":  {
+                                                "winnerScoreMustBeGreaterThanLoserScore":  true,
+                                                "quarterScoresMustSumToFinalScore":  true,
+                                                "scoreDoesNotChangeMatchResult":  true,
+                                                "scoreMayBeExtremelyLarge":  true
+                                            },
+                       "activeRosterSize":  12,
+                       "onCourtPlayerCount":  5,
+                       "playerAndTeamValueIntegerMaximum":  2147483647
+                   },
+    "opponentOvrProgression":  {
+                                   "progressionType":  "fixed_by_season_quality_table",
+                                   "regularSeasonGameInterpolation":  "linear_from_game_1_to_game_82",
+                                   "table":  "seasonDifficultyBySeason",
+                                   "allStarBreak":  {
+                                                        "afterGame":  41,
+                                                        "preAllStarGames":  "1-41",
+                                                        "postAllStarGames":  "42-82",
+                                                        "difficultyReset":  false
+                                                    },
+                                   "crossSeasonMinimumRule":  "nextSeasonGame1Ovr \u003e previousSeasonFinalsOvr"
+                               },
+    "seasonInteractionRules":  {
+                                   "progressionMode":  "undefeated_checkpoint_challenge",
+                                   "officialRegularSeasonWinsRequired":  82,
+                                   "officialPlayoffWinsRequired":  16,
+                                   "officialSeasonWinsRequired":  98,
+                                   "officialLossesAllowed":  0,
+                                   "winAdvancesSchedule":  true,
+                                   "lossAdvancesSchedule":  false,
+                                   "lossCountsInOfficialRecord":  false,
+                                   "lossGrantsMatchReward":  false,
+                                   "lossAutoPausesAtCurrentMatch":  true,
+                                   "retryCurrentMatchAllowed":  true,
+                                   "rosterGrowthRequiredToRetry":  false,
+                                   "autoContinueAfterWin":  true,
+                                   "pauseMode":  "pause_after_current_match",
+                                   "operationsAllowedWhilePaused":  [
+                                                                        "recruit",
+                                                                        "replace_lineup",
+                                                                        "upgrade_management"
+                                                                    ],
+                                   "failureFeedback":  [
+                                                           "playerTeamOvr",
+                                                           "opponentTeamOvr",
+                                                           "ovrRatio",
+                                                           "resultBand",
+                                                           "ovrGapToGuaranteedWin"
+                                                       ],
+                                   "saveCheckpoint":  [
+                                                          "currentSeasonNumber",
+                                                          "current_unbeaten_match",
+                                                          "conceptGodEndlessMatchIndex"
+                                                      ],
+                                   "championshipStartsNextSeason":  true,
+                                   "nextSeasonResets":  [
+                                                            "official_record",
+                                                            "schedule_progress"
+                                                        ],
+                                   "nextSeasonPreserves":  [
+                                                               "roster",
+                                                               "budget",
+                                                               "willpower",
+                                                               "team_level",
+                                                               "market_value",
+                                                               "management"
+                                                           ],
+                                   "adForcedWin":  {
+                                                       "enabled":  true,
+                                                       "unlimited":  true,
+                                                       "cooldownSeconds":  0,
+                                                       "resultOverride":  "force_player_win",
+                                                       "countsAsOfficialWin":  true,
+                                                       "advancesCurrentMatch":  true,
+                                                       "rewardCanBeSettledOncePerMatch":  true,
+                                                       "playsScorePresentation":  true,
+                                                       "triggerTiming":  "after_uncertain_band_random_loss",
+                                                       "eligibilityFormula":  "originalResult == loss \u0026\u0026 playerTeamOvr \u003e opponentTeamOvr * 0.9 \u0026\u0026 playerTeamOvr \u003c opponentTeamOvr * 1.1",
+                                                       "availableInAutoLoseBand":  false,
+                                                       "availableInUncertainBand":  true,
+                                                       "availableInAutoWinBand":  false,
+                                                       "availableForFullConceptLineup":  false,
+                                                       "grantsNormalBudgetReward":  true
+                                                   }
+                               },
+    "playoffEligibility":  {
+                               "mode":  "clear_regular_season_82_0",
+                               "requiredWins":  82,
+                               "requiredLosses":  0,
+                               "entersAsSeed":  1,
+                               "rankingEnabled":  false
+                           },
+    "targetDailyActiveMinutes":  {
+                                     "min":  5,
+                                     "max":  10
+                                 },
+    "targetSeasonActiveMinutes":  30,
+    "targetSeasonRealDays":  {
+                                 "min":  1,
+                                 "max":  2
+                             },
+    "regularSeasonSimulationSeconds":  null,
+    "_notes_regulationSeason":  "常规赛82场逐一进行，不可跳过或扫荡；失败不计战绩并停在当前场，强化后重打；82胜0负后进入季后赛；每场约2秒动画",
+    "matchAnimationSeconds":  2,
+    "seasonProgression":  {
+                              "startSeasonNumber":  1,
+                              "startDifficultyQuality":  "新秀",
+                              "advanceTrigger":  "undefeated_98_win_championship",
+                              "advanceAmount":  1,
+                              "difficultyIndependentOfMarketValue":  true,
+                              "configuredSeasonCount":  13,
+                              "finalConfiguredDifficultyQuality":  "GOAT",
+                              "afterFinalConfiguredSeason":  "enter_concept_god_endless_mode",
+                              "crossSeasonDifficultyReset":  false,
+                              "finalSeasonTransitionTrigger":  "clear_goat_season_98_0"
+                          },
+    "seasonDifficultyQualitySequence":  [
+                                            {
+                                                "seasonNumber":  1,
+                                                "qualityId":  3,
+                                                "qualityName":  "新秀"
+                                            },
+                                            {
+                                                "seasonNumber":  2,
+                                                "qualityId":  4,
+                                                "qualityName":  "饮水机"
+                                            },
+                                            {
+                                                "seasonNumber":  3,
+                                                "qualityId":  5,
+                                                "qualityName":  "轮换"
+                                            },
+                                            {
+                                                "seasonNumber":  4,
+                                                "qualityId":  6,
+                                                "qualityName":  "第六人"
+                                            },
+                                            {
+                                                "seasonNumber":  5,
+                                                "qualityId":  7,
+                                                "qualityName":  "首发"
+                                            },
+                                            {
+                                                "seasonNumber":  6,
+                                                "qualityId":  8,
+                                                "qualityName":  "核心"
+                                            },
+                                            {
+                                                "seasonNumber":  7,
+                                                "qualityId":  9,
+                                                "qualityName":  "全明星"
+                                            },
+                                            {
+                                                "seasonNumber":  8,
+                                                "qualityId":  10,
+                                                "qualityName":  "最佳阵容"
+                                            },
+                                            {
+                                                "seasonNumber":  9,
+                                                "qualityId":  11,
+                                                "qualityName":  "MVP"
+                                            },
+                                            {
+                                                "seasonNumber":  10,
+                                                "qualityId":  12,
+                                                "qualityName":  "FMVP"
+                                            },
+                                            {
+                                                "seasonNumber":  11,
+                                                "qualityId":  13,
+                                                "qualityName":  "名人堂"
+                                            },
+                                            {
+                                                "seasonNumber":  12,
+                                                "qualityId":  14,
+                                                "qualityName":  "传奇"
+                                            },
+                                            {
+                                                "seasonNumber":  13,
+                                                "qualityId":  15,
+                                                "qualityName":  "GOAT"
+                                            }
+                                        ],
+    "seasonDifficultyBySeason":  [
+                                     {
+                                         "seasonNumber":  1,
+                                         "difficultyQualityId":  3,
+                                         "difficultyQualityName":  "新秀",
+                                         "qualitySingleCardOvrRange":  {
+                                                                           "min":  1,
+                                                                           "max":  100
+                                                                       },
+                                         "finalsTeamOvrBasis":  "quality_max_single_card_ovr_x_12",
+                                         "regularSeasonOpponentOvr":  {
+                                                                          "start":  696,
+                                                                          "end":  984,
+                                                                          "progressionType":  "linear_by_game_index_1_to_82",
+                                                                          "segments":  [
+                                                                                           {
+                                                                                               "segment":  "pre_all_star",
+                                                                                               "gameStart":  1,
+                                                                                               "gameEnd":  41,
+                                                                                               "startOvr":  696,
+                                                                                               "endOvr":  838
+                                                                                           },
+                                                                                           {
+                                                                                               "segment":  "post_all_star",
+                                                                                               "gameStart":  42,
+                                                                                               "gameEnd":  82,
+                                                                                               "startOvr":  842,
+                                                                                               "endOvr":  984
+                                                                                           }
+                                                                                       ]
+                                                                      },
+                                         "playoffOpponentOvrByRound":  {
+                                                                           "firstRound":  1020,
+                                                                           "secondRound":  1080,
+                                                                           "conferenceFinals":  1140,
+                                                                           "finals":  1200
+                                                                       }
+                                     },
+                                     {
+                                         "seasonNumber":  2,
+                                         "difficultyQualityId":  4,
+                                         "difficultyQualityName":  "饮水机",
+                                         "qualitySingleCardOvrRange":  {
+                                                                           "min":  95,
+                                                                           "max":  261
+                                                                       },
+                                         "finalsTeamOvrBasis":  "quality_max_single_card_ovr_x_12",
+                                         "regularSeasonOpponentOvr":  {
+                                                                          "start":  1817,
+                                                                          "end":  2568,
+                                                                          "progressionType":  "linear_by_game_index_1_to_82",
+                                                                          "segments":  [
+                                                                                           {
+                                                                                               "segment":  "pre_all_star",
+                                                                                               "gameStart":  1,
+                                                                                               "gameEnd":  41,
+                                                                                               "startOvr":  1817,
+                                                                                               "endOvr":  2188
+                                                                                           },
+                                                                                           {
+                                                                                               "segment":  "post_all_star",
+                                                                                               "gameStart":  42,
+                                                                                               "gameEnd":  82,
+                                                                                               "startOvr":  2197,
+                                                                                               "endOvr":  2568
+                                                                                           }
+                                                                                       ]
+                                                                      },
+                                         "playoffOpponentOvrByRound":  {
+                                                                           "firstRound":  2662,
+                                                                           "secondRound":  2819,
+                                                                           "conferenceFinals":  2975,
+                                                                           "finals":  3132
+                                                                       }
+                                     },
+                                     {
+                                         "seasonNumber":  3,
+                                         "difficultyQualityId":  5,
+                                         "difficultyQualityName":  "轮换",
+                                         "qualitySingleCardOvrRange":  {
+                                                                           "min":  248,
+                                                                           "max":  681
+                                                                       },
+                                         "finalsTeamOvrBasis":  "quality_max_single_card_ovr_x_12",
+                                         "regularSeasonOpponentOvr":  {
+                                                                          "start":  4740,
+                                                                          "end":  6701,
+                                                                          "progressionType":  "linear_by_game_index_1_to_82",
+                                                                          "segments":  [
+                                                                                           {
+                                                                                               "segment":  "pre_all_star",
+                                                                                               "gameStart":  1,
+                                                                                               "gameEnd":  41,
+                                                                                               "startOvr":  4740,
+                                                                                               "endOvr":  5708
+                                                                                           },
+                                                                                           {
+                                                                                               "segment":  "post_all_star",
+                                                                                               "gameStart":  42,
+                                                                                               "gameEnd":  82,
+                                                                                               "startOvr":  5733,
+                                                                                               "endOvr":  6701
+                                                                                           }
+                                                                                       ]
+                                                                      },
+                                         "playoffOpponentOvrByRound":  {
+                                                                           "firstRound":  6946,
+                                                                           "secondRound":  7355,
+                                                                           "conferenceFinals":  7763,
+                                                                           "finals":  8172
+                                                                       }
+                                     },
+                                     {
+                                         "seasonNumber":  4,
+                                         "difficultyQualityId":  6,
+                                         "difficultyQualityName":  "第六人",
+                                         "qualitySingleCardOvrRange":  {
+                                                                           "min":  647,
+                                                                           "max":  1778
+                                                                       },
+                                         "finalsTeamOvrBasis":  "quality_max_single_card_ovr_x_12",
+                                         "regularSeasonOpponentOvr":  {
+                                                                          "start":  12375,
+                                                                          "end":  17496,
+                                                                          "progressionType":  "linear_by_game_index_1_to_82",
+                                                                          "segments":  [
+                                                                                           {
+                                                                                               "segment":  "pre_all_star",
+                                                                                               "gameStart":  1,
+                                                                                               "gameEnd":  41,
+                                                                                               "startOvr":  12375,
+                                                                                               "endOvr":  14904
+                                                                                           },
+                                                                                           {
+                                                                                               "segment":  "post_all_star",
+                                                                                               "gameStart":  42,
+                                                                                               "gameEnd":  82,
+                                                                                               "startOvr":  14967,
+                                                                                               "endOvr":  17496
+                                                                                           }
+                                                                                       ]
+                                                                      },
+                                         "playoffOpponentOvrByRound":  {
+                                                                           "firstRound":  18136,
+                                                                           "secondRound":  19202,
+                                                                           "conferenceFinals":  20269,
+                                                                           "finals":  21336
+                                                                       }
+                                     },
+                                     {
+                                         "seasonNumber":  5,
+                                         "difficultyQualityId":  7,
+                                         "difficultyQualityName":  "首发",
+                                         "qualitySingleCardOvrRange":  {
+                                                                           "min":  1690,
+                                                                           "max":  4642
+                                                                       },
+                                         "finalsTeamOvrBasis":  "quality_max_single_card_ovr_x_12",
+                                         "regularSeasonOpponentOvr":  {
+                                                                          "start":  32308,
+                                                                          "end":  45677,
+                                                                          "progressionType":  "linear_by_game_index_1_to_82",
+                                                                          "segments":  [
+                                                                                           {
+                                                                                               "segment":  "pre_all_star",
+                                                                                               "gameStart":  1,
+                                                                                               "gameEnd":  41,
+                                                                                               "startOvr":  32308,
+                                                                                               "endOvr":  38910
+                                                                                           },
+                                                                                           {
+                                                                                               "segment":  "post_all_star",
+                                                                                               "gameStart":  42,
+                                                                                               "gameEnd":  82,
+                                                                                               "startOvr":  39075,
+                                                                                               "endOvr":  45677
+                                                                                           }
+                                                                                       ]
+                                                                      },
+                                         "playoffOpponentOvrByRound":  {
+                                                                           "firstRound":  47348,
+                                                                           "secondRound":  50134,
+                                                                           "conferenceFinals":  52919,
+                                                                           "finals":  55704
+                                                                       }
+                                     },
+                                     {
+                                         "seasonNumber":  6,
+                                         "difficultyQualityId":  8,
+                                         "difficultyQualityName":  "核心",
+                                         "qualitySingleCardOvrRange":  {
+                                                                           "min":  4410,
+                                                                           "max":  12115
+                                                                       },
+                                         "finalsTeamOvrBasis":  "quality_max_single_card_ovr_x_12",
+                                         "regularSeasonOpponentOvr":  {
+                                                                          "start":  84320,
+                                                                          "end":  119212,
+                                                                          "progressionType":  "linear_by_game_index_1_to_82",
+                                                                          "segments":  [
+                                                                                           {
+                                                                                               "segment":  "pre_all_star",
+                                                                                               "gameStart":  1,
+                                                                                               "gameEnd":  41,
+                                                                                               "startOvr":  84320,
+                                                                                               "endOvr":  101551
+                                                                                           },
+                                                                                           {
+                                                                                               "segment":  "post_all_star",
+                                                                                               "gameStart":  42,
+                                                                                               "gameEnd":  82,
+                                                                                               "startOvr":  101981,
+                                                                                               "endOvr":  119212
+                                                                                           }
+                                                                                       ]
+                                                                      },
+                                         "playoffOpponentOvrByRound":  {
+                                                                           "firstRound":  123573,
+                                                                           "secondRound":  130842,
+                                                                           "conferenceFinals":  138111,
+                                                                           "finals":  145380
+                                                                       }
+                                     },
+                                     {
+                                         "seasonNumber":  7,
+                                         "difficultyQualityId":  9,
+                                         "difficultyQualityName":  "全明星",
+                                         "qualitySingleCardOvrRange":  {
+                                                                           "min":  11510,
+                                                                           "max":  31623
+                                                                       },
+                                         "finalsTeamOvrBasis":  "quality_max_single_card_ovr_x_12",
+                                         "regularSeasonOpponentOvr":  {
+                                                                          "start":  220096,
+                                                                          "end":  311170,
+                                                                          "progressionType":  "linear_by_game_index_1_to_82",
+                                                                          "segments":  [
+                                                                                           {
+                                                                                               "segment":  "pre_all_star",
+                                                                                               "gameStart":  1,
+                                                                                               "gameEnd":  41,
+                                                                                               "startOvr":  220096,
+                                                                                               "endOvr":  265071
+                                                                                           },
+                                                                                           {
+                                                                                               "segment":  "post_all_star",
+                                                                                               "gameStart":  42,
+                                                                                               "gameEnd":  82,
+                                                                                               "startOvr":  266195,
+                                                                                               "endOvr":  311170
+                                                                                           }
+                                                                                       ]
+                                                                      },
+                                         "playoffOpponentOvrByRound":  {
+                                                                           "firstRound":  322555,
+                                                                           "secondRound":  341528,
+                                                                           "conferenceFinals":  360502,
+                                                                           "finals":  379476
+                                                                       }
+                                     },
+                                     {
+                                         "seasonNumber":  8,
+                                         "difficultyQualityId":  10,
+                                         "difficultyQualityName":  "最佳阵容",
+                                         "qualitySingleCardOvrRange":  {
+                                                                           "min":  30042,
+                                                                           "max":  82540
+                                                                       },
+                                         "finalsTeamOvrBasis":  "quality_max_single_card_ovr_x_12",
+                                         "regularSeasonOpponentOvr":  {
+                                                                          "start":  574478,
+                                                                          "end":  812194,
+                                                                          "progressionType":  "linear_by_game_index_1_to_82",
+                                                                          "segments":  [
+                                                                                           {
+                                                                                               "segment":  "pre_all_star",
+                                                                                               "gameStart":  1,
+                                                                                               "gameEnd":  41,
+                                                                                               "startOvr":  574478,
+                                                                                               "endOvr":  691869
+                                                                                           },
+                                                                                           {
+                                                                                               "segment":  "post_all_star",
+                                                                                               "gameStart":  42,
+                                                                                               "gameEnd":  82,
+                                                                                               "startOvr":  694803,
+                                                                                               "endOvr":  812194
+                                                                                           }
+                                                                                       ]
+                                                                      },
+                                         "playoffOpponentOvrByRound":  {
+                                                                           "firstRound":  841908,
+                                                                           "secondRound":  891432,
+                                                                           "conferenceFinals":  940956,
+                                                                           "finals":  990480
+                                                                       }
+                                     },
+                                     {
+                                         "seasonNumber":  9,
+                                         "difficultyQualityId":  11,
+                                         "difficultyQualityName":  "MVP",
+                                         "qualitySingleCardOvrRange":  {
+                                                                           "min":  78413,
+                                                                           "max":  215443
+                                                                       },
+                                         "finalsTeamOvrBasis":  "quality_max_single_card_ovr_x_12",
+                                         "regularSeasonOpponentOvr":  {
+                                                                          "start":  1499483,
+                                                                          "end":  2119959,
+                                                                          "progressionType":  "linear_by_game_index_1_to_82",
+                                                                          "segments":  [
+                                                                                           {
+                                                                                               "segment":  "pre_all_star",
+                                                                                               "gameStart":  1,
+                                                                                               "gameEnd":  41,
+                                                                                               "startOvr":  1499483,
+                                                                                               "endOvr":  1805891
+                                                                                           },
+                                                                                           {
+                                                                                               "segment":  "post_all_star",
+                                                                                               "gameStart":  42,
+                                                                                               "gameEnd":  82,
+                                                                                               "startOvr":  1813551,
+                                                                                               "endOvr":  2119959
+                                                                                           }
+                                                                                       ]
+                                                                      },
+                                         "playoffOpponentOvrByRound":  {
+                                                                           "firstRound":  2197519,
+                                                                           "secondRound":  2326784,
+                                                                           "conferenceFinals":  2456050,
+                                                                           "finals":  2585316
+                                                                       }
+                                     },
+                                     {
+                                         "seasonNumber":  10,
+                                         "difficultyQualityId":  12,
+                                         "difficultyQualityName":  "FMVP",
+                                         "qualitySingleCardOvrRange":  {
+                                                                           "min":  204671,
+                                                                           "max":  562341
+                                                                       },
+                                         "finalsTeamOvrBasis":  "quality_max_single_card_ovr_x_12",
+                                         "regularSeasonOpponentOvr":  {
+                                                                          "start":  3913893,
+                                                                          "end":  5533435,
+                                                                          "progressionType":  "linear_by_game_index_1_to_82",
+                                                                          "segments":  [
+                                                                                           {
+                                                                                               "segment":  "pre_all_star",
+                                                                                               "gameStart":  1,
+                                                                                               "gameEnd":  41,
+                                                                                               "startOvr":  3913893,
+                                                                                               "endOvr":  4713667
+                                                                                           },
+                                                                                           {
+                                                                                               "segment":  "post_all_star",
+                                                                                               "gameStart":  42,
+                                                                                               "gameEnd":  82,
+                                                                                               "startOvr":  4733661,
+                                                                                               "endOvr":  5533435
+                                                                                           }
+                                                                                       ]
+                                                                      },
+                                         "playoffOpponentOvrByRound":  {
+                                                                           "firstRound":  5735878,
+                                                                           "secondRound":  6073283,
+                                                                           "conferenceFinals":  6410687,
+                                                                           "finals":  6748092
+                                                                       }
+                                     },
+                                     {
+                                         "seasonNumber":  11,
+                                         "difficultyQualityId":  13,
+                                         "difficultyQualityName":  "名人堂",
+                                         "qualitySingleCardOvrRange":  {
+                                                                           "min":  534224,
+                                                                           "max":  1467799
+                                                                       },
+                                         "finalsTeamOvrBasis":  "quality_max_single_card_ovr_x_12",
+                                         "regularSeasonOpponentOvr":  {
+                                                                          "start":  10215881,
+                                                                          "end":  14443142,
+                                                                          "progressionType":  "linear_by_game_index_1_to_82",
+                                                                          "segments":  [
+                                                                                           {
+                                                                                               "segment":  "pre_all_star",
+                                                                                               "gameStart":  1,
+                                                                                               "gameEnd":  41,
+                                                                                               "startOvr":  10215881,
+                                                                                               "endOvr":  12303417
+                                                                                           },
+                                                                                           {
+                                                                                               "segment":  "post_all_star",
+                                                                                               "gameStart":  42,
+                                                                                               "gameEnd":  82,
+                                                                                               "startOvr":  12355606,
+                                                                                               "endOvr":  14443142
+                                                                                           }
+                                                                                       ]
+                                                                      },
+                                         "playoffOpponentOvrByRound":  {
+                                                                           "firstRound":  14971550,
+                                                                           "secondRound":  15852229,
+                                                                           "conferenceFinals":  16732909,
+                                                                           "finals":  17613588
+                                                                       }
+                                     },
+                                     {
+                                         "seasonNumber":  12,
+                                         "difficultyQualityId":  14,
+                                         "difficultyQualityName":  "传奇",
+                                         "qualitySingleCardOvrRange":  {
+                                                                           "min":  1394410,
+                                                                           "max":  3831187
+                                                                       },
+                                         "finalsTeamOvrBasis":  "quality_max_single_card_ovr_x_12",
+                                         "regularSeasonOpponentOvr":  {
+                                                                          "start":  26665062,
+                                                                          "end":  37698880,
+                                                                          "progressionType":  "linear_by_game_index_1_to_82",
+                                                                          "segments":  [
+                                                                                           {
+                                                                                               "segment":  "pre_all_star",
+                                                                                               "gameStart":  1,
+                                                                                               "gameEnd":  41,
+                                                                                               "startOvr":  26665062,
+                                                                                               "endOvr":  32113861
+                                                                                           },
+                                                                                           {
+                                                                                               "segment":  "post_all_star",
+                                                                                               "gameStart":  42,
+                                                                                               "gameEnd":  82,
+                                                                                               "startOvr":  32250081,
+                                                                                               "endOvr":  37698880
+                                                                                           }
+                                                                                       ]
+                                                                      },
+                                         "playoffOpponentOvrByRound":  {
+                                                                           "firstRound":  39078107,
+                                                                           "secondRound":  41376820,
+                                                                           "conferenceFinals":  43675532,
+                                                                           "finals":  45974244
+                                                                       }
+                                     },
+                                     {
+                                         "seasonNumber":  13,
+                                         "difficultyQualityId":  15,
+                                         "difficultyQualityName":  "GOAT",
+                                         "qualitySingleCardOvrRange":  {
+                                                                           "min":  3639628,
+                                                                           "max":  10000000
+                                                                       },
+                                         "finalsTeamOvrBasis":  "quality_max_single_card_ovr_x_12",
+                                         "regularSeasonOpponentOvr":  {
+                                                                          "start":  69600000,
+                                                                          "end":  98400000,
+                                                                          "progressionType":  "linear_by_game_index_1_to_82",
+                                                                          "segments":  [
+                                                                                           {
+                                                                                               "segment":  "pre_all_star",
+                                                                                               "gameStart":  1,
+                                                                                               "gameEnd":  41,
+                                                                                               "startOvr":  69600000,
+                                                                                               "endOvr":  83822222
+                                                                                           },
+                                                                                           {
+                                                                                               "segment":  "post_all_star",
+                                                                                               "gameStart":  42,
+                                                                                               "gameEnd":  82,
+                                                                                               "startOvr":  84177778,
+                                                                                               "endOvr":  98400000
+                                                                                           }
+                                                                                       ]
+                                                                      },
+                                         "playoffOpponentOvrByRound":  {
+                                                                           "firstRound":  102000000,
+                                                                           "secondRound":  108000000,
+                                                                           "conferenceFinals":  114000000,
+                                                                           "finals":  120000000
+                                                                       }
+                                     }
+                                 ],
+    "conceptGodEndlessMode":  {
+                                  "modeId":  "concept_god_endless",
+                                  "unlockRequirement":  "clear_goat_season_98_0",
+                                  "scheduleStructure":  "continuous_endless_matches",
+                                  "hasSeasonNumber":  false,
+                                  "hasRegularSeason":  false,
+                                  "hasAllStarBreak":  false,
+                                  "hasPlayoffs":  false,
+                                  "hasSeries":  false,
+                                  "hasFinals":  false,
+                                  "hasChampionship":  false,
+                                  "hasSeasonReset":  false,
+                                  "matchIndexStart":  1,
+                                  "matchIndexMax":  null,
+                                  "winAdvancesMatchIndex":  true,
+                                  "lossAdvancesMatchIndex":  false,
+                                  "lossCountsInOfficialRecord":  false,
+                                  "lossGrantsMatchReward":  false,
+                                  "lossAutoPausesAtCurrentMatch":  true,
+                                  "retryCurrentMatchAllowed":  true,
+                                  "difficultyFormulaStatus":  "pending_growth_formula_to_int32_max",
+                                  "difficultyFormula":  null,
+                                  "startOpponentOvr":  null,
+                                  "seasonSettlementEnabled":  false,
+                                  "rewardMode":  "match_win_reward_only",
+                                  "milestoneRewardsStatus":  "pending_design",
+                                  "adForcedWinEnabled":  true,
+                                  "adForcedWinEligibility":  "same_uncertain_band_random_loss_rule",
+                                  "fullConceptLineupGraduated":  true,
+                                  "fullConceptLineupAutoWin":  true,
+                                  "fullConceptLineupSkipsOvrAndRandomResult":  true,
+                                  "fullConceptLineupWinAdvancesMatchIndex":  true,
+                                  "fullConceptLineupWinGrantsNormalMatchReward":  true,
+                                  "fullConceptLineupForcedWinAdAvailable":  false,
+                                  "difficultyMustStrictlyIncreaseUntilMax":  true,
+                                  "maximumOpponentOvr":  2147483647,
+                                  "opponentOvrDisplayAtMaximum":  "MAX",
+                                  "difficultyBehaviorAtMaximum":  "remain_at_INT32_MAX_while_match_index_continues",
+                                  "fullConceptLineupPlayerTeamOvr":  2147483647
+                              }
+}
