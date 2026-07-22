@@ -1197,10 +1197,7 @@ export class CourtSimulationController extends Component {
         this.placeBallRetrievers();
 
         if (this.currentMode === 'scrimmage') {
-            for (const actor of this.actors) {
-                actor.modePosition = actor.homePosition.clone();
-            }
-            this.restoreActorsHome();
+            this.placeScrimmageStartingFormation();
             return;
         }
 
@@ -1221,6 +1218,38 @@ export class CourtSimulationController extends Component {
             if (this.currentMode === 'free-throw') {
                 const shooter = this.freeThrowQueues[team][0];
                 this.setBallOwner(this.basketballs[team], shooter);
+            }
+        }
+        this.sortActorDepth();
+    }
+
+    private placeScrimmageStartingFormation(): void {
+        const teamFormations: ReadonlyArray<ReadonlyArray<readonly [number, number]>> = [
+            [
+                [0.18, 0.24],
+                [0.18, 0.76],
+                [0.32, 0.16],
+                [0.32, 0.50],
+                [0.32, 0.84],
+            ],
+            [
+                [0.82, 0.24],
+                [0.82, 0.76],
+                [0.68, 0.16],
+                [0.68, 0.50],
+                [0.68, 0.84],
+            ],
+        ];
+
+        for (let team = 0; team < 2; team += 1) {
+            const teamActors = this.getTeamActors(team);
+            const formation = teamFormations[team];
+            for (let index = 0; index < teamActors.length; index += 1) {
+                const actor = teamActors[index];
+                const [u, v] = formation[index] ?? formation[formation.length - 1];
+                actor.modePosition = this.pointInCourt(u, v);
+                actor.node.setWorldPosition(actor.modePosition);
+                this.applyPerspectiveScale(actor, actor.modePosition);
             }
         }
         this.sortActorDepth();
