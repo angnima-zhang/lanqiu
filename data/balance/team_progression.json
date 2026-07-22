@@ -1,18 +1,20 @@
 {
     "_meta":  {
-                  "description":  "????????????????????4????????????????????????????????????????????????+1?",
-                  "status":  "?????",
+                  "description":  "球队市值共130级，每级包含4个球队等级；招募积累斗志，满足需求后由玩家点击按钮逐级升级；达到阶段上限并夺冠后市值+1。",
+                  "status":  "已定稿",
                   "marketValueLevelCount":  130,
                   "teamLevelsPerMarketValue":  4,
                   "totalTeamLevels":  520,
                   "recruitWillpowerReward":  10,
                   "willpowerPercentBonusEnabled":  false,
+                  "upgradeMode":  "manual_button",
+                  "overflowWillpowerRetained":  true,
                   "willpowerRequirementFormula":  "ceil_to_10(20 * 1.032^(marketValueLevel-1) * stageMultiplier)",
                   "stageLabels":  [
-                                      "?????",
-                                      "?????",
-                                      "????",
-                                      "???"
+                                      "季后赛首轮",
+                                      "季后赛次轮",
+                                      "分区决赛",
+                                      "总决赛"
                                   ],
                   "stageMultipliers":  [
                                            1.1,
@@ -21,15 +23,15 @@
                                            3.15
                                        ],
                   "rules":  [
-                                "????????10???????????",
-                                "????????4??????????????????????????????",
-                                "?????????????????????????",
-                                "???????????????",
-                                "??????????????????????????",
-                                "??????????????????1????????????",
-                                "?????????????"
+                                "每次普通招募或免费招募固定获得10斗志，不受百分比加成。",
+                                "斗志满足当前等级需求后升级按钮亮起，玩家每次点击只提升1级。",
+                                "升级扣除本级所需斗志，多余斗志保留。",
+                                "普通球队等级提升不要求比赛。",
+                                "达到当前市值等级上限且斗志满足需求后进入待夺冠状态。",
+                                "夺得总冠军后球队市值提升1级并解锁下一组球队等级。",
+                                "市值提升后球队等级不重置。"
                             ],
-                  "version":  "v0.62",
+                  "version":  "v0.74",
                   "managementLevelCapRule":  "eachManagementLevel \u003c= currentTeamLevel",
                   "managementAbsoluteMaxLevel":  520
               },
@@ -40,10 +42,10 @@
                                   "teamLevelCap":  4,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 30,
@@ -62,10 +64,10 @@
                                   "teamLevelCap":  8,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 30,
@@ -84,10 +86,10 @@
                                   "teamLevelCap":  12,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 30,
@@ -106,10 +108,10 @@
                                   "teamLevelCap":  16,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 30,
@@ -128,10 +130,10 @@
                                   "teamLevelCap":  20,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 30,
@@ -150,10 +152,10 @@
                                   "teamLevelCap":  24,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 30,
@@ -172,10 +174,10 @@
                                   "teamLevelCap":  28,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 30,
@@ -194,10 +196,10 @@
                                   "teamLevelCap":  32,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 30,
@@ -216,10 +218,10 @@
                                   "teamLevelCap":  36,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 30,
@@ -238,10 +240,10 @@
                                   "teamLevelCap":  40,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 30,
@@ -260,10 +262,10 @@
                                   "teamLevelCap":  44,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 40,
@@ -282,10 +284,10 @@
                                   "teamLevelCap":  48,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 40,
@@ -304,10 +306,10 @@
                                   "teamLevelCap":  52,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 40,
@@ -326,10 +328,10 @@
                                   "teamLevelCap":  56,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 40,
@@ -348,10 +350,10 @@
                                   "teamLevelCap":  60,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 40,
@@ -370,10 +372,10 @@
                                   "teamLevelCap":  64,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 40,
@@ -392,10 +394,10 @@
                                   "teamLevelCap":  68,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 40,
@@ -414,10 +416,10 @@
                                   "teamLevelCap":  72,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 40,
@@ -436,10 +438,10 @@
                                   "teamLevelCap":  76,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 40,
@@ -458,10 +460,10 @@
                                   "teamLevelCap":  80,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 50,
@@ -480,10 +482,10 @@
                                   "teamLevelCap":  84,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 50,
@@ -502,10 +504,10 @@
                                   "teamLevelCap":  88,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 50,
@@ -524,10 +526,10 @@
                                   "teamLevelCap":  92,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 50,
@@ -546,10 +548,10 @@
                                   "teamLevelCap":  96,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 50,
@@ -568,10 +570,10 @@
                                   "teamLevelCap":  100,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 50,
@@ -590,10 +592,10 @@
                                   "teamLevelCap":  104,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 50,
@@ -612,10 +614,10 @@
                                   "teamLevelCap":  108,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 50,
@@ -634,10 +636,10 @@
                                   "teamLevelCap":  112,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 60,
@@ -656,10 +658,10 @@
                                   "teamLevelCap":  116,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 60,
@@ -678,10 +680,10 @@
                                   "teamLevelCap":  120,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 60,
@@ -700,10 +702,10 @@
                                   "teamLevelCap":  124,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 60,
@@ -722,10 +724,10 @@
                                   "teamLevelCap":  128,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 60,
@@ -744,10 +746,10 @@
                                   "teamLevelCap":  132,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 70,
@@ -766,10 +768,10 @@
                                   "teamLevelCap":  136,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 70,
@@ -788,10 +790,10 @@
                                   "teamLevelCap":  140,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 70,
@@ -810,10 +812,10 @@
                                   "teamLevelCap":  144,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 70,
@@ -832,10 +834,10 @@
                                   "teamLevelCap":  148,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 70,
@@ -854,10 +856,10 @@
                                   "teamLevelCap":  152,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 80,
@@ -876,10 +878,10 @@
                                   "teamLevelCap":  156,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 80,
@@ -898,10 +900,10 @@
                                   "teamLevelCap":  160,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 80,
@@ -920,10 +922,10 @@
                                   "teamLevelCap":  164,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 80,
@@ -942,10 +944,10 @@
                                   "teamLevelCap":  168,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 90,
@@ -964,10 +966,10 @@
                                   "teamLevelCap":  172,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 90,
@@ -986,10 +988,10 @@
                                   "teamLevelCap":  176,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 90,
@@ -1008,10 +1010,10 @@
                                   "teamLevelCap":  180,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 90,
@@ -1030,10 +1032,10 @@
                                   "teamLevelCap":  184,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 100,
@@ -1052,10 +1054,10 @@
                                   "teamLevelCap":  188,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 100,
@@ -1074,10 +1076,10 @@
                                   "teamLevelCap":  192,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 100,
@@ -1096,10 +1098,10 @@
                                   "teamLevelCap":  196,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 100,
@@ -1118,10 +1120,10 @@
                                   "teamLevelCap":  200,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 110,
@@ -1140,10 +1142,10 @@
                                   "teamLevelCap":  204,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 110,
@@ -1162,10 +1164,10 @@
                                   "teamLevelCap":  208,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 110,
@@ -1184,10 +1186,10 @@
                                   "teamLevelCap":  212,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 120,
@@ -1206,10 +1208,10 @@
                                   "teamLevelCap":  216,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 120,
@@ -1228,10 +1230,10 @@
                                   "teamLevelCap":  220,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 130,
@@ -1250,10 +1252,10 @@
                                   "teamLevelCap":  224,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 130,
@@ -1272,10 +1274,10 @@
                                   "teamLevelCap":  228,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 130,
@@ -1294,10 +1296,10 @@
                                   "teamLevelCap":  232,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 140,
@@ -1316,10 +1318,10 @@
                                   "teamLevelCap":  236,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 140,
@@ -1338,10 +1340,10 @@
                                   "teamLevelCap":  240,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 150,
@@ -1360,10 +1362,10 @@
                                   "teamLevelCap":  244,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 150,
@@ -1382,10 +1384,10 @@
                                   "teamLevelCap":  248,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 160,
@@ -1404,10 +1406,10 @@
                                   "teamLevelCap":  252,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 160,
@@ -1426,10 +1428,10 @@
                                   "teamLevelCap":  256,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 170,
@@ -1448,10 +1450,10 @@
                                   "teamLevelCap":  260,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 170,
@@ -1470,10 +1472,10 @@
                                   "teamLevelCap":  264,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 180,
@@ -1492,10 +1494,10 @@
                                   "teamLevelCap":  268,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 180,
@@ -1514,10 +1516,10 @@
                                   "teamLevelCap":  272,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 190,
@@ -1536,10 +1538,10 @@
                                   "teamLevelCap":  276,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 190,
@@ -1558,10 +1560,10 @@
                                   "teamLevelCap":  280,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 200,
@@ -1580,10 +1582,10 @@
                                   "teamLevelCap":  284,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 200,
@@ -1602,10 +1604,10 @@
                                   "teamLevelCap":  288,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 210,
@@ -1624,10 +1626,10 @@
                                   "teamLevelCap":  292,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 220,
@@ -1646,10 +1648,10 @@
                                   "teamLevelCap":  296,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 220,
@@ -1668,10 +1670,10 @@
                                   "teamLevelCap":  300,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 230,
@@ -1690,10 +1692,10 @@
                                   "teamLevelCap":  304,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 240,
@@ -1712,10 +1714,10 @@
                                   "teamLevelCap":  308,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 250,
@@ -1734,10 +1736,10 @@
                                   "teamLevelCap":  312,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 250,
@@ -1756,10 +1758,10 @@
                                   "teamLevelCap":  316,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 260,
@@ -1778,10 +1780,10 @@
                                   "teamLevelCap":  320,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 270,
@@ -1800,10 +1802,10 @@
                                   "teamLevelCap":  324,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 280,
@@ -1822,10 +1824,10 @@
                                   "teamLevelCap":  328,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 290,
@@ -1844,10 +1846,10 @@
                                   "teamLevelCap":  332,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 300,
@@ -1866,10 +1868,10 @@
                                   "teamLevelCap":  336,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 310,
@@ -1888,10 +1890,10 @@
                                   "teamLevelCap":  340,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 320,
@@ -1910,10 +1912,10 @@
                                   "teamLevelCap":  344,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 330,
@@ -1932,10 +1934,10 @@
                                   "teamLevelCap":  348,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 340,
@@ -1954,10 +1956,10 @@
                                   "teamLevelCap":  352,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 350,
@@ -1976,10 +1978,10 @@
                                   "teamLevelCap":  356,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 360,
@@ -1998,10 +2000,10 @@
                                   "teamLevelCap":  360,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 370,
@@ -2020,10 +2022,10 @@
                                   "teamLevelCap":  364,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 380,
@@ -2042,10 +2044,10 @@
                                   "teamLevelCap":  368,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 390,
@@ -2064,10 +2066,10 @@
                                   "teamLevelCap":  372,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 400,
@@ -2086,10 +2088,10 @@
                                   "teamLevelCap":  376,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 420,
@@ -2108,10 +2110,10 @@
                                   "teamLevelCap":  380,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 430,
@@ -2130,10 +2132,10 @@
                                   "teamLevelCap":  384,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 440,
@@ -2152,10 +2154,10 @@
                                   "teamLevelCap":  388,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 460,
@@ -2174,10 +2176,10 @@
                                   "teamLevelCap":  392,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 470,
@@ -2196,10 +2198,10 @@
                                   "teamLevelCap":  396,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 490,
@@ -2218,10 +2220,10 @@
                                   "teamLevelCap":  400,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 500,
@@ -2240,10 +2242,10 @@
                                   "teamLevelCap":  404,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 520,
@@ -2262,10 +2264,10 @@
                                   "teamLevelCap":  408,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 530,
@@ -2284,10 +2286,10 @@
                                   "teamLevelCap":  412,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 550,
@@ -2306,10 +2308,10 @@
                                   "teamLevelCap":  416,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 570,
@@ -2328,10 +2330,10 @@
                                   "teamLevelCap":  420,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 590,
@@ -2350,10 +2352,10 @@
                                   "teamLevelCap":  424,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 610,
@@ -2372,10 +2374,10 @@
                                   "teamLevelCap":  428,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 630,
@@ -2394,10 +2396,10 @@
                                   "teamLevelCap":  432,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 640,
@@ -2416,10 +2418,10 @@
                                   "teamLevelCap":  436,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 670,
@@ -2438,10 +2440,10 @@
                                   "teamLevelCap":  440,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 690,
@@ -2460,10 +2462,10 @@
                                   "teamLevelCap":  444,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 710,
@@ -2482,10 +2484,10 @@
                                   "teamLevelCap":  448,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 730,
@@ -2504,10 +2506,10 @@
                                   "teamLevelCap":  452,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 750,
@@ -2526,10 +2528,10 @@
                                   "teamLevelCap":  456,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 780,
@@ -2548,10 +2550,10 @@
                                   "teamLevelCap":  460,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 800,
@@ -2570,10 +2572,10 @@
                                   "teamLevelCap":  464,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 830,
@@ -2592,10 +2594,10 @@
                                   "teamLevelCap":  468,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 850,
@@ -2614,10 +2616,10 @@
                                   "teamLevelCap":  472,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 880,
@@ -2636,10 +2638,10 @@
                                   "teamLevelCap":  476,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 910,
@@ -2658,10 +2660,10 @@
                                   "teamLevelCap":  480,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 940,
@@ -2680,10 +2682,10 @@
                                   "teamLevelCap":  484,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 970,
@@ -2702,10 +2704,10 @@
                                   "teamLevelCap":  488,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 1000,
@@ -2724,10 +2726,10 @@
                                   "teamLevelCap":  492,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 1030,
@@ -2746,10 +2748,10 @@
                                   "teamLevelCap":  496,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 1060,
@@ -2768,10 +2770,10 @@
                                   "teamLevelCap":  500,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 1100,
@@ -2790,10 +2792,10 @@
                                   "teamLevelCap":  504,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 1130,
@@ -2812,10 +2814,10 @@
                                   "teamLevelCap":  508,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 1170,
@@ -2834,10 +2836,10 @@
                                   "teamLevelCap":  512,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 1210,
@@ -2856,10 +2858,10 @@
                                   "teamLevelCap":  516,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 1250,
@@ -2878,10 +2880,10 @@
                                   "teamLevelCap":  520,
                                   "teamLevelsInStage":  4,
                                   "playoffRoundStages":  [
-                                                             "?????",
-                                                             "?????",
-                                                             "????",
-                                                             "???"
+                                                             "季后赛首轮",
+                                                             "季后赛次轮",
+                                                             "分区决赛",
+                                                             "总决赛"
                                                          ],
                                   "willpowerRequirements":  [
                                                                 1280,

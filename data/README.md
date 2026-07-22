@@ -27,4 +27,4 @@
 
 ## 头像
 
-当前头像范围以 `player_config_fame_v3.json` 的唯一 `sourcePlayerName` 为准；本地文件和官方来源状态见 `headshots_official/manifest.csv`。
+球员在游戏中的显示名以 `篮球CocosProject/assets/resources/images/头像` 内头像文件名下划线前的中文为准；`player_config_fame_v3.json/csv` 的 `displayName` 必须与其保持一致。头像范围和官方来源状态见 `headshots_official/manifest.csv`。

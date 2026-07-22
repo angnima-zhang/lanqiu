@@ -76,6 +76,38 @@ CHINESE_NAME_BY_PLAYER = {
     "Kyle Anderson": "李凯尔",
 }
 
+# Approved in-game names are taken from the Chinese prefix of the matching
+# avatar filename under 篮球CocosProject/assets/resources/images/头像.
+DISPLAY_NAME_OVERRIDES = {
+    "Amar'e Stoudemire": "司塔德迈尔",
+    "Antawn Jamison": "假米森",
+    "Anthony Edwards": "爱得划兹",
+    "Chauncey Billups": "比炉普斯",
+    "Chris Mullin": "木林",
+    "Cui Yongxi": "崔勇熙",
+    "DeMarcus Cousins": "烤辛斯",
+    "Dylan Harper": "哈魄",
+    "Greg Oden": "傲登",
+    "J.R. Smith": "JR史秘司",
+    "James Harden": "哈灯",
+    "Joe Dumars": "杜码斯",
+    "John Wall": "我尔",
+    "Kevin Johnson": "越翰逊",
+    "Kobe Bryant": "颗比",
+    "Magic Johnson": "魔术师",
+    "Patrick Ewing": "游因",
+    "Rajon Rondo": "胧多",
+    "Russell Westbrook": "维司布鲁克",
+    "Shai Gilgeous-Alexander": "鸭梨山大",
+    "Toni Kukoč": "库颗奇",
+    "Tracy McGrady": "卖迪",
+    "Tyrese Haliburton": "哈里搏顿",
+    "Victor Wembanyama": "文般亚玛",
+    "Vlade Divac": "迪瓦慈",
+    "Zion Williamson": "锡暗",
+    "巩晓彬": "汞小彬",
+}
+
 CHINESE_SPECIAL_IDS = set(CHINESE_NAME_BY_PLAYER)
 
 RECENT_ROOKIE_KEEP_NAMES = {
@@ -629,15 +661,20 @@ def spoof_name(player_name: str) -> tuple[str, str, str]:
         surname = clean_surname(player_name)
         real_cn = SURNAME_CN.get(surname) or SURNAME_CN.get(ascii_name(surname)) or fallback_cn_surname(surname)
 
-    chars = list(real_cn)
-    for idx, ch in enumerate(chars):
-        if ch in HOMOPHONE:
-            chars[idx] = HOMOPHONE[ch]
-            break
-    return "".join(chars), real_cn, clean_surname(player_name)
+    display_name = DISPLAY_NAME_OVERRIDES.get(player_name)
+    if display_name is None:
+        chars = list(real_cn)
+        for idx, ch in enumerate(chars):
+            if ch in HOMOPHONE:
+                chars[idx] = HOMOPHONE[ch]
+                break
+        display_name = "".join(chars)
+    return display_name, real_cn, clean_surname(player_name)
 
 
 def spoof_chinese_name(name: str) -> str:
+    if name in DISPLAY_NAME_OVERRIDES:
+        return DISPLAY_NAME_OVERRIDES[name]
     chars = list(name)
     for idx, ch in enumerate(chars):
         if ch in HOMOPHONE:
@@ -1406,7 +1443,7 @@ def main() -> None:
                 else ("2.0-alltime-priority" if args.alltime_priority else "1.0")
             ),
             "description": "Real NBA player card config. Every remaining quality contains 100 real-player cards. Pre-rookie qualities were removed.",
-            "name_rule": "Display names use the player's real surname translated to Chinese, then one character is replaced with a near-homophone to reduce IP risk.",
+            "name_rule": "Display names use the approved Chinese prefix from the matching avatar filename; fallback generation replaces one character of the translated surname with a near-homophone.",
             "quality_rule": "Quality is a game rarity tier. High quality pools prioritize active stars, NBA 75, strong non-selected stars, and Hall-of-Fame level players.",
             "nba2k_rule": "NBA 2K25 overall/potential is used as an additional high-ceiling signal. Potential 95+ players can enter high-quality pools; 90+ young players are promoted in starter-to-best-lineup pools.",
             "alltime_reference_rule": (

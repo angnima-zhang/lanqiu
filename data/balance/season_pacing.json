@@ -16,7 +16,7 @@
                                   },
                   "difficultyPurpose":  "undefeated_breakthrough_distance_validation",
                   "breakthroughDistanceRule":  "失败停在当前场；强化后重打；98-0夺冠后赛季序号+1并进入下一品质难度。",
-                  "scoreRuleStatus":  "?????"
+                  "scoreRuleStatus":  "已定稿"
               },
     "regularSeasonGames":  82,
     "playoffRounds":  4,
@@ -36,7 +36,7 @@
                        "uncertainWinRate":  0.5
                    },
     "scoreRules":  {
-                       "status":  "?????",
+                       "status":  "已定稿",
                        "resultOrder":  "decide_winner_first_then_generate_score",
                        "scoreScaleMode":  "active_five_equivalent_attribute_matched_unbounded",
                        "scoreUnit":  "basketball_points_scaled_by_scoring_attribute",
@@ -46,7 +46,7 @@
                        "scoreBounds":  {
                                            "minTeamScore":  0,
                                            "hasUpperBound":  false,
-                                           "notes":  "??????????100???????12???????????5????0.1???????????????GOAT?????????????????"
+                                           "notes":  "比分不设置现实篮球100分附近的上下限；按12人得分属性平均值折算场上5人并乘0.1，可随GOAT与概念神数值自然膨胀。"
                                        },
                        "marginRules":  {
                                            "ovrGapRatioFormula":  "abs(playerTeamOvr - opponentTeamOvr) / max(playerTeamOvr, opponentTeamOvr)",
@@ -55,21 +55,21 @@
                                            "gapToMarginPercentMultiplier":  0.25,
                                            "randomMarginPercentMax":  0.03,
                                            "uncertainBandMaxMarginPercent":  0.12,
-                                           "notes":  "????????????????????????????12%??????????????"
+                                           "notes":  "分差随双方OVR差距扩大；五五开区间的分差不超过胜方原始得分的12%。"
                                        },
                        "resultEnforcement":  {
                                                  "winnerScoreFormula":  "max(winnerRawScore, loserRawScore + requiredMargin)",
                                                  "loserScoreFormula":  "loserRawScore",
                                                  "winnerScoreMustBeGreaterThanLoserScore":  true,
                                                  "scoreDoesNotChangeMatchResult":  true,
-                                                 "notes":  "?????12??????5??????????????????????????+???????????????"
+                                                 "notes":  "先按12人平均得分折算场上5人生成原始比分，再按已判定胜负将胜方得分提升到败方得分+所需分差。"
                                              },
                        "quarterDistribution":  {
                                                    "baseShare":  0.25,
                                                    "shareVolatility":  0.07,
                                                    "method":  "generate_four_weights_then_normalize_and_round_to_total",
                                                    "minQuarterPoints":  0,
-                                                   "notes":  "????????????????????????????????????????????"
+                                                   "notes":  "四节先生成25%附近的随机权重，归一化后四舍五入，并回填尾差以保证分节总和等于全场比分。"
                                                },
                        "outputValidation":  {
                                                 "winnerScoreMustBeGreaterThanLoserScore":  true,
