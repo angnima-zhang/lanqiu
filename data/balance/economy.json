@@ -2,7 +2,7 @@
     "_meta":  {
                   "description":  "预算为唯一通用货币；招募、在线/离线收益、比赛奖励、广告奖励和管理层升级共用本表。",
                   "status":  "已定稿",
-                  "version":  "v0.72",
+                  "version":  "v0.73",
                   "principles":  [
                                      "招募消耗预算并固定获得10斗志。",
                                      "解雇球员不产生货币或预算返还。",
@@ -87,7 +87,9 @@
                                         "countsAsOfficialWin":  true,
                                         "advancesScheduleOrEndlessMatchIndex":  true,
                                         "playsMatchResultAnimation":  true,
-                                        "matchAnimationSeconds":  2,
+                                        "matchAnimationSeconds":  120,
+                                        "supportsDoubleSpeed":  true,
+                                        "supportsImmediateSkipToPreparedResult":  true,
                                         "grantsNormalMatchBudgetReward":  true,
                                         "rewardCanBeClaimedOncePerMatch":  true,
                                         "operationPresidentBonusAppliesToBudget":  true,
@@ -128,6 +130,37 @@
                                            "operationPresidentBonusApplies":  true,
                                            "maximumRewardAtLevel520AndMaxOperationPresident":  10608,
                                            "grantsWillpower":  false
+                                       },
+                      "managementFreeUpgrade":  {
+                                                       "unlimited":  true,
+                                                       "dailyLimit":  null,
+                                                       "cooldownSeconds":  0,
+                                                       "levelGain":  1,
+                                                       "budgetCost":  0,
+                                                       "requiresCompletedVideo":  true,
+                                                       "respectsTeamLevelCap":  true,
+                                                       "maximumManagementLevel":  520
+                                                   },
+                      "victoryRewardDouble":  {
+                                                    "unlimited":  true,
+                                                    "dailyLimit":  null,
+                                                    "cooldownSeconds":  0,
+                                                    "additionalRewardMultiplier":  1,
+                                                    "maximumSuccessfulUsesPerMatch":  1,
+                                                    "requiresCompletedVideo":  true,
+                                                    "doesNotAdvanceScheduleAgain":  true
+                                                },
+                      "failureBonusRetry":  {
+                                                  "unlimited":  true,
+                                                  "dailyLimit":  null,
+                                                  "cooldownSeconds":  0,
+                                                  "temporaryTeamOvrBonusPercentMin":  1,
+                                                  "temporaryTeamOvrBonusPercentMax":  20,
+                                                  "bonusIsIntegerPercent":  true,
+                                                  "bonusCanStack":  false,
+                                                  "restartsFromFirstQuarter":  true,
+                                                  "writesPlayerAttributes":  false,
+                                                  "requiresCompletedVideo":  true
                                        }
                   },
     "managementUpgradeCost":  {
