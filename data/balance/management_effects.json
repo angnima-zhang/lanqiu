@@ -1,9 +1,9 @@
 {
     "_meta":  {
                   "status":  "待审核草案",
-                  "version":  "v0.63",
-                  "description":  "五个管理层1-520级线性效果表；各管理层当前等级不得超过当前球队等级。",
-                  "minimumLevel":  1,
+                  "version":  "v0.64",
+                  "description":  "五个管理层0-520级线性效果表；各管理层当前等级不得超过当前球队等级。",
+                  "minimumLevel":  0,
                   "maximumLevel":  520,
                   "levelCapSource":  "current_team_level"
               },
@@ -61,6 +61,14 @@
                                        }
                      },
     "levelEffects":  [
+                         {
+                             "managementLevel":  0,
+                             "operationPresidentBudgetBonus":  0,
+                             "headCoachBattleOvrBonus":  0,
+                             "scoutingDirectorHighestQualityWeightBonus":  0,
+                             "medicalTeamOvrRollPercentileShift":  0,
+                             "mediaTeamOfflineBudgetBonus":  0
+                         },
                          {
                              "managementLevel":  1,
                              "operationPresidentBudgetBonus":  0.002,

@@ -1,20 +1,20 @@
 {
     "_meta":  {
-                  "status":  "结构与动态数值规则已配置，视觉待定",
-                  "version":  "v0.70",
-                  "description":  "48个概念神等权保底招募池。",
+                  "status":  "GOAT广告升级资格已配置，视觉待定",
+                  "version":  "v0.76",
+                  "description":  "48个概念神原型用于判断GOAT是否具备广告升级资格。",
                   "conceptGodCount":  48,
                   "uniqueSourcePlayerCount":  47,
                   "normalRosterSourceRequired":  false,
                   "categoryIsPowerTier":  false,
-                  "ovrStatus":  "dynamic_lineup_formula",
-                  "valueConfig":  "balance/concept_god_values.json"
+                  "ovrStatus":  "rewarded_goat_upgrade_formula",
+                  "valueConfig":  "balance/concept_god_upgrade.json"
               },
     "rules":  {
                   "normalRecruitWeight":  0,
-                  "onlyAppearsWhenConceptGodGuaranteeIsReady":  true,
-                  "equalDrawWeight":  true,
-                  "sameConceptGodCanRepeatInCurrentLineup":  false,
+                  "onlyAvailableFromEligibleGoatRewardedUpgrade":  true,
+                  "equalDrawWeight":  false,
+                  "sameConceptGodCanRepeatInCurrentLineup":  true,
                   "dismissedConceptGodCanReappear":  true,
                   "inventoryEnabled":  false,
                   "resultHandling":  "lineup_or_dismiss_immediately"

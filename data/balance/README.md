@@ -11,9 +11,10 @@
 | `economy.json` | 招募、预算来源、广告与管理层升级成本 | 已配置 |
 | `match_rewards.json` | 13个品质赛季共1274场逐场奖励 | 已配置 |
 | `season_achievements.json` | 13枚98–0全胜冠军成就 | 已配置 |
-| `concept_god_recruitment.json` | GOAT计数保底及0–12名概念神门槛 | 已定稿 |
-| `concept_god_values.json` | 概念神动态数值、MAX与毕业必胜 | 已定稿 |
-| `management_effects.json` | 五管理层1–520级效果 | 已配置 |
+| `concept_god_upgrade.json` | GOAT广告升级概念神、累计数量倍率与属性强化 | 已定稿 |
+| `concept_god_recruitment.json` | 旧GOAT计数保底规则 | 已废弃 |
+| `concept_god_values.json` | 旧阵容动态数值规则 | 已废弃 |
+| `management_effects.json` | 五管理层0–520级效果 | 已配置 |
 | `season_pacing.json` | 赛季难度、比分、赛程与概念神无限模式 | 部分待定 |
 | `player_pool.json` | 每品质卡量和NBA/CBA构成 | 已定稿 |
 

@@ -2,7 +2,7 @@
     "_meta":  {
                   "description":  "预算为唯一通用货币；招募、在线/离线收益、比赛奖励、广告奖励和管理层升级共用本表。",
                   "status":  "已定稿",
-                  "version":  "v0.71",
+                  "version":  "v0.72",
                   "principles":  [
                                      "招募消耗预算并固定获得10斗志。",
                                      "解雇球员不产生货币或预算返还。",
@@ -10,6 +10,7 @@
                                      "媒体团队只加成离线预算，不加成在线、比赛和广告预算。"
                                  ]
               },
+    "initialBudget":  100,
     "budgetDisplay":  {
                           "displayAsInteger":  true,
                           "allowHiddenFractionalAccumulation":  true,
@@ -55,7 +56,7 @@
                                           }
                       },
     "adRewards":  {
-                      "freeRecruit":  {
+                                      "freeRecruit":  {
                                           "unlimited":  true,
                                           "dailyLimit":  null,
                                           "cooldownSeconds":  0,
@@ -65,6 +66,19 @@
                                           "grantsWillpower":  true,
                                           "willpowerReward":  10
                                       },
+                      "recruitResultUpgrade":  {
+                                                   "unlimited":  true,
+                                                   "dailyLimit":  null,
+                                                   "cooldownSeconds":  0,
+                                                   "maxSuccessfulUsesPerRecruitResult":  1,
+                                                   "availableWhileRecruitResultOpen":  true,
+                                                   "normalQualityUpgradeLevels":  1,
+                                                   "eligibleGoatCanBecomeConceptGod":  true,
+                                                   "ineligibleGoatCanUpgradeRandomAttribute":  true,
+                                                   "conceptGodCanUpgradeRandomAttribute":  true,
+                                                   "config":  "concept_god_upgrade.json",
+                                                   "requiresCompletedVideo":  true
+                                               },
                       "forcedWin":  {
                                         "unlimited":  true,
                                         "dailyLimit":  null,
@@ -128,6 +142,11 @@
                                                               "mediaTeam":  1.0
                                                           },
                                   "upgradeCostToNextLevel":  [
+                                                                 {
+                                                                     "fromLevel":  0,
+                                                                     "toLevel":  1,
+                                                                     "budgetCost":  5
+                                                                 },
                                                                  {
                                                                      "fromLevel":  1,
                                                                      "toLevel":  2,
@@ -2724,10 +2743,10 @@
                                                                      "budgetCost":  11179
                                                                  }
                                                              ],
-                                  "minimumLevel":  1,
+                                  "minimumLevel":  0,
                                   "levelCapSource":  "current_team_level",
                                   "levelCapFormula":  "min(currentTeamLevel, 520)",
-                                  "totalBudgetCostPerRole":  756339,
-                                  "totalBudgetCostAllFiveRoles":  3781695
+                                  "totalBudgetCostPerRole":  756344,
+                                  "totalBudgetCostAllFiveRoles":  3781720
                               }
 }
