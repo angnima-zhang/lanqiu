@@ -1,8 +1,8 @@
 {
     "_meta":  {
-                  "status":  "已定稿",
-                  "version":  "v0.71",
-                  "description":  "概念神根据当前阵容非概念神字段最高值动态刷新；全概念神阵容进入MAX与游戏毕业状态。",
+                  "status":  "已废弃",
+                  "version":  "v0.76-deprecated",
+                  "description":  "旧阵容动态数值规则已废弃；现行规则见concept_god_upgrade.json。",
                   "integerType":  "int32_signed",
                   "integerMaximum":  2147483647
               },

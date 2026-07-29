@@ -1,9 +1,19 @@
 import { _decorator, Color, Component, Label, Node, sys } from 'cc';
+import {
+    calculateTeamOverall,
+    GAME_STATE_EVENT_ROSTER_CHANGED,
+    GAME_STATE_EVENT_TEAM_IDENTITY_CHANGED,
+    gameStateEvents,
+    getManagementEffects,
+    getTeamAbbreviation,
+    INT32_MAX,
+    loadRoster,
+    TEAM_ABBREVIATION_STORAGE_KEY,
+    TEAM_NAME_STORAGE_KEY,
+} from './GameState';
 
 const { ccclass, property } = _decorator;
 
-const TEAM_NAME_STORAGE_KEY = 'basketball.team.name';
-const TEAM_ABBREVIATION_STORAGE_KEY = 'basketball.team.abbreviation';
 const OVERALL_ANIMATION_SECONDS = 0.45;
 
 @ccclass('TopTeamInfoController')
@@ -55,6 +65,29 @@ export class TopTeamInfoController extends Component {
         if (this.teamNameLabel && this.teamAbbreviationLabel && this.teamOverallLabel) {
             this.refreshTeamInfo(this.hasRenderedOverall);
         }
+        gameStateEvents.on(
+            GAME_STATE_EVENT_ROSTER_CHANGED,
+            this.onRosterChanged,
+            this,
+        );
+        gameStateEvents.on(
+            GAME_STATE_EVENT_TEAM_IDENTITY_CHANGED,
+            this.onTeamIdentityChanged,
+            this,
+        );
+    }
+
+    protected onDisable(): void {
+        gameStateEvents.off(
+            GAME_STATE_EVENT_ROSTER_CHANGED,
+            this.onRosterChanged,
+            this,
+        );
+        gameStateEvents.off(
+            GAME_STATE_EVENT_TEAM_IDENTITY_CHANGED,
+            this.onTeamIdentityChanged,
+            this,
+        );
     }
 
     protected update(deltaTime: number): void {
@@ -83,22 +116,31 @@ export class TopTeamInfoController extends Component {
         }
 
         const teamName = sys.localStorage.getItem(TEAM_NAME_STORAGE_KEY)?.trim() || this.defaultTeamName;
-        const abbreviation = sys.localStorage.getItem(TEAM_ABBREVIATION_STORAGE_KEY)?.trim()
-            || this.defaultTeamAbbreviation;
+        const abbreviation = getTeamAbbreviation(
+            teamName,
+            this.defaultTeamAbbreviation,
+        );
 
         this.teamNameLabel.string = teamName;
-        this.teamAbbreviationLabel.string = Array.from(abbreviation).slice(0, 3).join('');
-        this.setLineupOverall(this.calculateLineupOverall(), animateOverall);
+        this.teamAbbreviationLabel.string = abbreviation;
+        sys.localStorage.setItem(TEAM_ABBREVIATION_STORAGE_KEY, abbreviation);
+        void this.refreshOverallFromRoster(animateOverall);
     }
 
-    public setTeamIdentity(teamName: string, abbreviation: string): void {
+    public setTeamIdentity(teamName: string): void {
         const safeName = teamName.trim() || this.defaultTeamName;
-        const safeAbbreviation = Array.from(abbreviation.trim() || this.defaultTeamAbbreviation)
-            .slice(0, 3)
-            .join('');
+        const safeAbbreviation = getTeamAbbreviation(
+            safeName,
+            this.defaultTeamAbbreviation,
+        );
 
         sys.localStorage.setItem(TEAM_NAME_STORAGE_KEY, safeName);
         sys.localStorage.setItem(TEAM_ABBREVIATION_STORAGE_KEY, safeAbbreviation);
+        gameStateEvents.emit(
+            GAME_STATE_EVENT_TEAM_IDENTITY_CHANGED,
+            safeName,
+            safeAbbreviation,
+        );
 
         if (this.teamNameLabel) {
             this.teamNameLabel.string = safeName;
@@ -108,8 +150,12 @@ export class TopTeamInfoController extends Component {
         }
     }
 
-    public refreshOverallFromRoster(): void {
-        this.setLineupOverall(this.calculateLineupOverall(), true);
+    public async refreshOverallFromRoster(animate = true): Promise<void> {
+        const effects = await getManagementEffects();
+        this.setLineupOverall(
+            calculateTeamOverall(loadRoster(), effects.headCoachBattleOvrBonus),
+            animate,
+        );
     }
 
     public setLineupOverall(overall: number, animate = true): void {
@@ -137,23 +183,10 @@ export class TopTeamInfoController extends Component {
             : new Color(235, 92, 92, 255);
     }
 
-    private calculateLineupOverall(): number {
-        if (!this.rosterContainer) {
-            return 0;
-        }
-
-        return this.rosterContainer
-            .getComponentsInChildren(Label)
-            .filter((label) => label.node.activeInHierarchy && label.node.name.toLowerCase() === 'ovr')
-            .reduce((total, label) => total + this.parseOverall(label.string), 0);
-    }
-
-    private parseOverall(value: string): number {
-        const parsed = Number(value.replace(/[^\d.-]/g, ''));
-        return Number.isFinite(parsed) ? Math.max(0, parsed) : 0;
-    }
-
     private formatOverall(value: number): string {
+        if (value >= INT32_MAX) {
+            return 'MAX';
+        }
         if (value >= 100_000_000) {
             return `${this.formatUnit(value / 100_000_000)}亿`;
         }
@@ -165,5 +198,13 @@ export class TopTeamInfoController extends Component {
 
     private formatUnit(value: number): string {
         return value.toFixed(2).replace(/\.00$/, '').replace(/(\.\d)0$/, '$1');
+    }
+
+    private onRosterChanged(): void {
+        void this.refreshOverallFromRoster(true);
+    }
+
+    private onTeamIdentityChanged(): void {
+        this.refreshTeamInfo(false);
     }
 }

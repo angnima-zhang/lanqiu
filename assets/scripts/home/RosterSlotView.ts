@@ -1,17 +1,34 @@
 import {
     _decorator,
     Button,
+    Color,
     Component,
+    EffectAsset,
     Label,
+    Material,
     Sprite,
     SpriteFrame,
     resources,
+    UITransform,
+    Vec4,
 } from 'cc';
+import {
+    forgetGrowingNumber,
+    setGrowingNumber,
+} from './NumberGrowthAnimator';
 
 const { ccclass, property } = _decorator;
 
 const FULL_OVR_DISPLAY_LIMIT = 10_000;
 const QUALITY_FRAME_ROOT = 'images/UI/球员/头像框-方';
+const SLOT_GLOW_EFFECT_PATH = 'effects/recruit-button-glow';
+const NEW_PLAYER_GLOW_SECONDS = 2;
+
+interface SlotGlowBinding {
+    sprite: Sprite;
+    originalMaterial: Material | null;
+    glowMaterial: Material;
+}
 
 const OVR_UNITS = [
     { divisor: 1_000, suffix: 'K' },
@@ -30,6 +47,7 @@ const OVR_UNIT_MULTIPLIER: Readonly<Record<string, number>> = {
 };
 
 const QUALITY_FRAME_INDEX_BY_ID: Readonly<Record<number, number>> = {
+    16: 0,
     3: 1,
     4: 1,
     5: 2,
@@ -103,6 +121,8 @@ export class RosterSlotView extends Component {
     public selectButton: Button | null = null;
 
     private qualityFrameRequestVersion = 0;
+    private newPlayerGlowRequestVersion = 0;
+    private newPlayerGlowBindings: SlotGlowBinding[] = [];
     private currentOverall = 0;
 
     protected onLoad(): void {
@@ -124,6 +144,8 @@ export class RosterSlotView extends Component {
 
     protected onDestroy(): void {
         this.qualityFrameRequestVersion += 1;
+        this.newPlayerGlowRequestVersion += 1;
+        this.clearNewPlayerHighlight();
     }
 
     public setup(
@@ -139,10 +161,18 @@ export class RosterSlotView extends Component {
     }
 
     public setOverall(ovr: number): void {
+        const previousOverall = this.currentOverall;
         this.currentOverall = Math.max(0, Math.round(Number.isFinite(ovr) ? ovr : 0));
-        if (this.ovrLabel) {
-            this.ovrLabel.string = formatPlayerOverall(this.currentOverall);
-        }
+        setGrowingNumber(
+            this.ovrLabel,
+            this.currentOverall,
+            (value) => formatPlayerOverall(Math.floor(value)),
+            {
+                animateGrowth: previousOverall > 0
+                    && this.currentOverall > previousOverall,
+                from: previousOverall,
+            },
+        );
     }
 
     public getOverall(): number {
@@ -172,13 +202,97 @@ export class RosterSlotView extends Component {
         });
     }
 
+    public playNewPlayerHighlight(
+        durationSeconds = NEW_PLAYER_GLOW_SECONDS,
+    ): void {
+        const requestVersion = ++this.newPlayerGlowRequestVersion;
+        this.clearNewPlayerHighlight();
+        resources.load(SLOT_GLOW_EFFECT_PATH, EffectAsset, (error, effectAsset) => {
+            if (
+                requestVersion !== this.newPlayerGlowRequestVersion
+                || !this.node.isValid
+            ) {
+                return;
+            }
+            if (error || !effectAsset) {
+                console.warn('[RosterSlotView] New player glow is unavailable.', error);
+                return;
+            }
+
+            const bindings: SlotGlowBinding[] = [];
+            for (const sprite of this.node.getComponentsInChildren(Sprite)) {
+                const transform = sprite.node.getComponent(UITransform);
+                if (!sprite.spriteFrame || !transform) {
+                    continue;
+                }
+                const material = new Material();
+                material.initialize({
+                    effectAsset,
+                    defines: {
+                        IS_GRAY: false,
+                        USE_TEXTURE: true,
+                    },
+                });
+                material.setProperty(
+                    'spriteRect',
+                    new Vec4(
+                        transform.width,
+                        transform.height,
+                        transform.anchorPoint.x,
+                        transform.anchorPoint.y,
+                    ),
+                );
+                material.setProperty(
+                    'shineColor',
+                    new Color(255, 255, 255, 255),
+                );
+                material.setProperty(
+                    'sweepParams',
+                    new Vec4(0.28, 0.7, 0.32, 1),
+                );
+                material.setProperty(
+                    'pulseParams',
+                    new Vec4(0.3, 0.5, 0, 0),
+                );
+                bindings.push({
+                    sprite,
+                    originalMaterial: sprite.customMaterial,
+                    glowMaterial: material,
+                });
+                sprite.customMaterial = material;
+            }
+            this.newPlayerGlowBindings = bindings;
+            this.scheduleOnce(() => {
+                if (requestVersion === this.newPlayerGlowRequestVersion) {
+                    this.clearNewPlayerHighlight();
+                }
+            }, Math.max(0, durationSeconds));
+        });
+    }
+
     public clear(): void {
         this.qualityFrameRequestVersion += 1;
+        this.newPlayerGlowRequestVersion += 1;
+        this.clearNewPlayerHighlight();
         this.currentOverall = 0;
         if (this.ovrLabel) {
+            forgetGrowingNumber(this.ovrLabel);
             this.ovrLabel.string = '';
         }
         this.setPortrait(null);
         this.setQuality(0);
+    }
+
+    private clearNewPlayerHighlight(): void {
+        for (const binding of this.newPlayerGlowBindings) {
+            if (
+                binding.sprite.isValid
+                && binding.sprite.customMaterial === binding.glowMaterial
+            ) {
+                binding.sprite.customMaterial = binding.originalMaterial;
+            }
+            binding.glowMaterial.destroy();
+        }
+        this.newPlayerGlowBindings = [];
     }
 }

@@ -12,10 +12,11 @@ import {
     Tween,
     Vec3,
 } from 'cc';
+import { setGrowingNumber } from './NumberGrowthAnimator';
 
 const { ccclass, property } = _decorator;
 
-const TEAM_PROGRESSION_STORAGE_KEY = 'basketball.team.progression.v1';
+export const TEAM_PROGRESSION_STORAGE_KEY = 'basketball.team.progression.v1';
 const DEFAULT_PROGRESSION_RESOURCE_PATH = 'data/balance/team_progression';
 const SAVE_VERSION = 1;
 
@@ -25,6 +26,22 @@ export const TEAM_PROGRESSION_EVENT_MARKET_VALUE_CHANGED = 'team-progression-mar
 export const TEAM_PROGRESSION_EVENT_CHAMPIONSHIP_REQUESTED = 'team-progression-championship-requested';
 
 export const teamProgressionEvents = new EventTarget();
+
+export function getStoredMarketValueLevel(fallback = 1): number {
+    const serialized = sys.localStorage.getItem(TEAM_PROGRESSION_STORAGE_KEY);
+    if (!serialized) {
+        return Math.max(1, Math.floor(fallback));
+    }
+    try {
+        const parsed = JSON.parse(serialized) as Partial<TeamProgressionSaveData>;
+        const level = Number(parsed.marketValueLevel);
+        return Number.isFinite(level)
+            ? Math.min(520, Math.max(1, Math.floor(level)))
+            : Math.max(1, Math.floor(fallback));
+    } catch {
+        return Math.max(1, Math.floor(fallback));
+    }
+}
 
 interface TeamLevelStageConfig {
     marketValueLevel: number;
@@ -326,10 +343,23 @@ export class TeamLevelController extends Component {
             ? 1
             : Math.max(0, Math.min(1, this.state.willpower / requirement));
 
-        this.teamLevelLabel!.string = String(this.state.teamLevel);
-        this.willpowerLabel!.string = maximumLevel
-            ? 'MAX'
-            : `${this.state.willpower} / ${requirement}`;
+        setGrowingNumber(
+            this.teamLevelLabel,
+            this.state.teamLevel,
+            (value) => String(Math.floor(value)),
+            { animateGrowth: animateProgress },
+        );
+        setGrowingNumber(
+            this.willpowerLabel,
+            this.state.willpower,
+            (value) => maximumLevel
+                ? 'MAX'
+                : `${Math.floor(value)} / ${requirement}`,
+            {
+                animateGrowth: animateProgress,
+                duration: this.progressAnimationDuration,
+            },
+        );
 
         Tween.stopAllByTarget(this.willpowerProgress!);
         if (animateProgress) {

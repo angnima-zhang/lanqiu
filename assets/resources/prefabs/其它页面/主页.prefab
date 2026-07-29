@@ -3492,7 +3492,7 @@
     "propertyPath": [
       "_name"
     ],
-    "value": "球员-阵容槽位-012"
+    "value": "球员-阵容槽位-000"
   },
   {
     "__type__": "cc.TargetInfo",
@@ -12068,7 +12068,7 @@
       "b": 207,
       "a": 255
     },
-    "_string": "999K",
+    "_string": "100",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 28,

@@ -6,12 +6,20 @@ import {
     Label,
     Node,
     resources,
+    Sprite,
     sys,
     tween,
     Tween,
     Vec3,
 } from 'cc';
-import { RosterSlotView } from './RosterSlotView';
+import {
+    loadRoster,
+    PlayerCard,
+} from './GameState';
+import {
+    loadPlayerPortrait,
+    loadRoundQualityFrame,
+} from './PlayerAssets';
 
 const { ccclass, property } = _decorator;
 
@@ -30,6 +38,7 @@ interface RosterPlayer {
     name: string;
     ovr: number;
     originalIndex: number;
+    card: PlayerCard;
 }
 
 interface BallAnchorSet {
@@ -217,6 +226,7 @@ export class CourtSimulationController extends Component {
     private scrimmageMovementSteps = new Map<CourtActor, number>();
     private activeReboundPlan: ReboundPlan | null = null;
     private scrimmageActionActors = new Set<CourtActor>();
+    private boundVisualPlayerIds = new Map<Node, string>();
     private modeRound = 0;
     private modeElapsedSeconds = 0;
     private drillTurns = [0, 0];
@@ -280,7 +290,7 @@ export class CourtSimulationController extends Component {
     }
 
     public refreshRosterBindings(): void {
-        if (!this.rosterContainer || this.actors.length < 10) {
+        if (this.actors.length < 10) {
             return;
         }
 
@@ -294,6 +304,12 @@ export class CourtSimulationController extends Component {
             .sort((a, b) => a.ovr - b.ovr || a.originalIndex - b.originalIndex)
             .slice(0, 2);
         this.ballRetrieverPlayers = [bottomPlayers[0] ?? null, bottomPlayers[1] ?? null];
+        for (let index = 0; index < this.ballRetrievers.length; index += 1) {
+            this.bindPlayerVisual(
+                this.ballRetrievers[index],
+                this.ballRetrieverPlayers[index]?.card ?? null,
+            );
+        }
         const teams: RosterPlayer[][] = [[], []];
         const totals = [0, 0];
 
@@ -313,12 +329,21 @@ export class CourtSimulationController extends Component {
                 actor.team = team;
                 actor.facing = team === 0 ? 'right' : 'left';
                 actor.player = player;
+                actor.node.active = Boolean(player);
+                this.bindPlayerVisual(actor.node, player?.card ?? null);
             }
         }
     }
 
     public restartSimulation(): void {
         if (!this.simulationReady) {
+            return;
+        }
+        if (
+            this.actors.some((actor) => !actor.player)
+            || this.ballRetrieverPlayers.some((player) => !player)
+        ) {
+            this.showWaitingForRoster();
             return;
         }
         this.stopAnimations();
@@ -347,9 +372,8 @@ export class CourtSimulationController extends Component {
                 this.commentaryById.set(entry.id, entry);
             }
             this.simulationReady = true;
-            this.startNextMode();
-            this.runNextEvent();
-            this.schedule(this.runNextEvent, this.actionIntervalSeconds);
+            this.refreshRosterBindings();
+            this.restartSimulation();
         });
     }
 
@@ -1604,21 +1628,58 @@ export class CourtSimulationController extends Component {
     }
 
     private readRosterPlayers(): RosterPlayer[] {
-        if (!this.rosterContainer) {
-            return [];
+        return loadRoster()
+            .map((card, index): RosterPlayer | null => card ? {
+                id: card.instanceId,
+                name: card.displayName,
+                ovr: card.overall,
+                originalIndex: index,
+                card,
+            } : null)
+            .filter((player): player is RosterPlayer => Boolean(player));
+    }
+
+    private bindPlayerVisual(node: Node, card: PlayerCard | null): void {
+        const playerId = card?.instanceId ?? '';
+        if (this.boundVisualPlayerIds.get(node) === playerId) {
+            return;
         }
-        return this.rosterContainer.children.map((slot, index) => {
-            const ovrText = slot.getChildByName('ovr')?.getComponent(Label)?.string ?? '0';
-            const slotView = slot.getComponent(RosterSlotView);
-            const number = slotView?.getOverall() ?? Number(ovrText.replace(/[^\d.-]/g, ''));
-            const slotNumber = slot.name.match(/\d+/)?.[0] ?? String(index + 1);
-            return {
-                id: slot.uuid,
-                name: `${Number(slotNumber)}号球员`,
-                ovr: Number.isFinite(number) ? Math.max(0, number) : 0,
-                originalIndex: Number(slotNumber) || index + 1,
-            };
+        this.boundVisualPlayerIds.set(node, playerId);
+        const portrait = node.getChildByName('头像')?.getComponent(Sprite) ?? null;
+        const qualityFrame = node.getChildByName('边框')?.getComponent(Sprite) ?? null;
+        if (!card) {
+            if (portrait) {
+                portrait.spriteFrame = null;
+            }
+            return;
+        }
+
+        void Promise.all([
+            loadPlayerPortrait(card),
+            loadRoundQualityFrame(card.qualityId),
+        ]).then(([portraitFrame, qualityFrameAsset]) => {
+            if (this.boundVisualPlayerIds.get(node) === card.instanceId) {
+                if (portrait) {
+                    portrait.spriteFrame = portraitFrame;
+                }
+                if (qualityFrame && qualityFrameAsset) {
+                    qualityFrame.spriteFrame = qualityFrameAsset;
+                }
+            }
         });
+    }
+
+    private showWaitingForRoster(): void {
+        this.eventToken += 1;
+        this.scrimmagePossessionActive = false;
+        this.unschedule(this.runNextEvent);
+        this.stopAnimations();
+        this.clearBallOwners();
+        this.setBasketballCount(0);
+        for (const retriever of this.ballRetrievers) {
+            retriever.active = false;
+        }
+        this.setCommentary('暂无足够球员，请先完成招募');
     }
 
     private resolveReferenceNodes(): boolean {

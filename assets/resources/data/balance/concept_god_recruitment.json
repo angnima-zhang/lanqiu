@@ -1,8 +1,8 @@
 {
     "_meta":  {
-                  "status":  "已定稿",
-                  "version":  "v0.69",
-                  "description":  "概念神通过累计招募GOAT触发下一次招募保底。",
+                  "status":  "已废弃",
+                  "version":  "v0.76-deprecated",
+                  "description":  "旧GOAT计数保底规则已废弃；现行规则见concept_god_upgrade.json。",
                   "baseGoatRequirement":  100,
                   "maximumLineupConceptGodCount":  12
               },

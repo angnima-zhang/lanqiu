@@ -1,0 +1,98 @@
+{
+  "_meta": {
+    "status": "已定稿",
+    "version": "v0.76",
+    "description": "概念神只能由具备概念神资格的GOAT球员观看激励视频升级获得。"
+  },
+  "quality": {
+    "goatQualityId": 15,
+    "conceptGodQualityId": 16,
+    "conceptGodQualityName": "概念神"
+  },
+  "valueRange": {
+    "baseRangeSource": "player_ovr_ranges.json GOAT",
+    "cumulativeCountVariable": "X = lifetime acquired concept god count including the current conversion",
+    "multiplierFormula": "1 + 0.01 * X",
+    "minOvrFormula": "floor(goatMinOvr * (1 + 0.01 * X))",
+    "maxOvrFormula": "floor(goatMaxOvr * (1 + 0.01 * X))",
+    "distribution": "uniform_integer"
+  },
+  "attributeUpgrade": {
+    "randomAttributeCount": 1,
+    "increasePercent": 0.01,
+    "minimumIncrease": 1,
+    "overallIncrease": "same_as_attribute_increase",
+    "integerMaximum": 2147483647
+  },
+  "frontend": {
+    "normalQualityButtonLabel": "升级新球员品质",
+    "eligibleGoatButtonLabel": "升级新球员为概念神",
+    "attributeButtonLabel": "升级新球员属性",
+    "ineligibleGoatUsesAttributeUpgrade": true,
+    "attributeButtonDisabledWhenAllAttributesAtMaximum": true,
+    "maxSuccessfulUsesPerRecruitResult": 1
+  },
+  "rules": {
+    "onlyRewardWhenVideoCompleted": true,
+    "conceptGodAcquisitionCountIncludesDismissed": true,
+    "preservePlayerNameAndPortrait": true,
+    "normalQualityUpgradePreservesRangePercentile": true
+  },
+  "fullConceptLineup": {
+    "condition": "current lineup contains 12 concept god players",
+    "teamOvrValue": 2147483647,
+    "gameGraduated": true,
+    "allMatchesAutoWin": true
+  },
+  "eligibleSourcePlayerNames": [
+    "Michael Jordan",
+    "Klay Thompson",
+    "Russell Westbrook",
+    "James Harden",
+    "Allen Iverson",
+    "Ben Simmons",
+    "Andrew Wiggins",
+    "LeBron James",
+    "Anthony Davis",
+    "Kobe Bryant",
+    "Tracy McGrady",
+    "Paul Pierce",
+    "Dirk Nowitzki",
+    "Stephen Curry",
+    "Shaquille O'Neal",
+    "Derrick Rose",
+    "Grant Hill",
+    "Greg Oden",
+    "Deandre Ayton",
+    "Carmelo Anthony",
+    "Damian Lillard",
+    "Chris Paul",
+    "Tim Duncan",
+    "Yao Ming",
+    "Jimmy Butler",
+    "Zach LaVine",
+    "Paul George",
+    "Kevin Durant",
+    "朱芳雨",
+    "Zhu Fangyu",
+    "Zhou Qi",
+    "Kawhi Leonard",
+    "Manu Ginóbili",
+    "Zion Williamson",
+    "Magic Johnson",
+    "J.R. Smith",
+    "Fred VanVleet",
+    "Nick Young",
+    "Steve Nash",
+    "Dwyane Wade",
+    "Kyrie Irving",
+    "Dwight Howard",
+    "易建联",
+    "Yi Jianlian",
+    "Luka Dončić",
+    "巩晓彬",
+    "Gong Xiaobin",
+    "王仕鹏",
+    "Wang Shipeng"
+  ]
+}

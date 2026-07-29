@@ -5538,10 +5538,10 @@
                               }
                           ],
     "conceptGodGuarantee":  {
-                                "enabled":  true,
-                                "config":  "concept_god_recruitment.json",
+                                "enabled":  false,
+                                "config":  "concept_god_upgrade.json",
                                 "separateFromNormalQualityWeights":  true,
                                 "conceptGodNormalWeight":  0,
-                                "goatResultsIncrementGuaranteeCounter":  true
+                                "goatResultsIncrementGuaranteeCounter":  false
                             }
 }
