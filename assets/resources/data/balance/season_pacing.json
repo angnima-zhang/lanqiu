@@ -1,7 +1,7 @@
 {
     "_meta":  {
                   "status":  "待审核草案",
-                  "version":  "v0.71",
+                  "version":  "v0.72",
                   "description":  "13档品质赛季固定难度表；GOAT赛季98-0后进入无常规赛/季后赛区分的概念神无限赛程。",
                   "difficultyUnit":  "team_ovr",
                   "difficultyMode":  "fixed_quality_season_lookup",
@@ -35,6 +35,21 @@
                        "autoLoseThreshold":  0.9,
                        "uncertainWinRate":  0.5
                    },
+    "matchPresentationRules":  {
+                                           "quarterCount":  4,
+                                           "secondsPerQuarter":  30,
+                                           "normalMatchSeconds":  120,
+                                           "commentaryIntervalMatchSeconds":  3,
+                                           "doubleSpeedMultiplier":  2,
+                                           "doubleSpeedRealSeconds":  60,
+                                           "doubleSpeedAffects":  [
+                                                                      "clock",
+                                                                      "commentary",
+                                                                      "court_simulation"
+                                                                  ],
+                                           "skipShowsPreparedResultImmediately":  true,
+                                           "skipChangesPreparedResult":  false
+                                       },
     "scoreRules":  {
                        "status":  "已定稿",
                        "resultOrder":  "decide_winner_first_then_generate_score",
@@ -172,9 +187,9 @@
                                  "min":  1,
                                  "max":  2
                              },
-    "regularSeasonSimulationSeconds":  null,
-    "_notes_regulationSeason":  "常规赛82场逐一进行，不可跳过或扫荡；失败不计战绩并停在当前场，强化后重打；82胜0负后进入季后赛；每场约2秒动画",
-    "matchAnimationSeconds":  2,
+    "regularSeasonSimulationSeconds":  120,
+    "_notes_regulationSeason":  "常规赛82场逐一进行；失败不计战绩并停在当前场，强化后重打；82胜0负后进入季后赛；四节各30秒，支持二倍速和立即展示预生成赛果的跳过按钮",
+    "matchAnimationSeconds":  120,
     "seasonProgression":  {
                               "startSeasonNumber":  1,
                               "startDifficultyQuality":  "新秀",
@@ -751,15 +766,30 @@
                                   "hasSeasonReset":  false,
                                   "matchIndexStart":  1,
                                   "matchIndexMax":  null,
+                                  "runtimeEnabled":  false,
+                                  "runtimeLockedMessage":  "概念神赛程待开放",
                                   "winAdvancesMatchIndex":  true,
                                   "lossAdvancesMatchIndex":  false,
                                   "lossCountsInOfficialRecord":  false,
                                   "lossGrantsMatchReward":  false,
                                   "lossAutoPausesAtCurrentMatch":  true,
                                   "retryCurrentMatchAllowed":  true,
-                                  "difficultyFormulaStatus":  "pending_growth_formula_to_int32_max",
+                                  "difficultyFormulaStatus":  "theme_and_mixed_team_structure_confirmed_growth_formula_pending",
                                   "difficultyFormula":  null,
                                   "startOpponentOvr":  null,
+                                  "confirmedOpponentStructure":  {
+                                                                           "conceptGodFormCount":  48,
+                                                                           "basePlayerCount":  47,
+                                                                           "themeTeamMatchRange":  "1-48",
+                                                                           "themeTeamRosterSize":  12,
+                                                                           "themeTeamRule":  "match_i_uses_12_players_of_concept_god_form_i",
+                                                                           "themeTeamConceptRangeX":  "X = matchIndex",
+                                                                           "themeTeamPlayerOvrBand":  "99%-100% of that match concept-god upper bound",
+                                                                           "mixedTeamStartsAtMatch":  49,
+                                                                           "mixedTeamMaxPlayerCount":  "deterministic_random_integer_1_to_12",
+                                                                           "mixedTeamMaxPlayerOvr":  2147483647,
+                                                                           "mixedTeamOtherPlayers":  "use_full_concept_god_range_for_current_match"
+                                                                       },
                                   "seasonSettlementEnabled":  false,
                                   "rewardMode":  "match_win_reward_only",
                                   "milestoneRewardsStatus":  "pending_design",

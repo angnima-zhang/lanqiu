@@ -7,6 +7,9 @@ export const GAME_STATE_EVENT_BUDGET_CHANGED = 'game-state-budget-changed';
 export const GAME_STATE_EVENT_ROSTER_CHANGED = 'game-state-roster-changed';
 export const GAME_STATE_EVENT_TEAM_IDENTITY_CHANGED = 'game-state-team-identity-changed';
 export const GAME_STATE_EVENT_PLAYER_DETAILS_REQUESTED = 'game-state-player-details-requested';
+export const GAME_STATE_EVENT_MANAGEMENT_CHANGED = 'game-state-management-changed';
+export const GAME_STATE_EVENT_SEASON_CHANGED = 'game-state-season-changed';
+export const GAME_STATE_EVENT_MATCH_SETTLED = 'game-state-match-settled';
 
 export const gameStateEvents = new EventTarget();
 
@@ -23,7 +26,12 @@ const SEASON_STORAGE_KEY = 'basketball.season.v1';
 const DEFAULT_BUDGET = 100;
 const SAVE_VERSION = 1;
 const ROSTER_SAVE_VERSION = 2;
-const PLAYER_HISTORY_SAVE_VERSION = 3;
+const PLAYER_HISTORY_SAVE_VERSION = 4;
+const SEASON_SAVE_VERSION = 2;
+const MAX_MANAGEMENT_LEVEL = 520;
+const MAX_STANDARD_SEASON = 13;
+const MATCHES_PER_SEASON = 98;
+const REGULAR_SEASON_MATCHES = 82;
 const BUDGET_PRECISION = 1_000_000;
 
 export const ATTRIBUTE_KEYS = ['scoring', 'rebound', 'assist', 'steal', 'block'] as const;
@@ -60,6 +68,37 @@ export interface ManagementLevels {
     scoutingDirector: number;
     medicalTeam: number;
     mediaTeam: number;
+}
+
+export type ManagementRole = keyof ManagementLevels;
+
+export type ManagementUpgradeReason =
+    | 'ok'
+    | 'team-level-cap'
+    | 'max-level'
+    | 'insufficient-budget'
+    | 'invalid-role';
+
+export interface ManagementUpgradeResult {
+    success: boolean;
+    reason: ManagementUpgradeReason;
+    levels: ManagementLevels;
+    previousLevel: number;
+    newLevel: number;
+    budgetCost: number;
+}
+
+interface ManagementUpgradeCostRow {
+    fromLevel: number;
+    toLevel: number;
+    budgetCost: number;
+}
+
+interface EconomyConfig {
+    managementUpgradeCost: {
+        maxLevel: number;
+        upgradeCostToNextLevel: ManagementUpgradeCostRow[];
+    };
 }
 
 export interface ManagementEffectRow {
@@ -101,12 +140,32 @@ export interface SeasonState {
     seasonNumber: number;
     matchNumber: number;
     officialWins: number;
+    schedulePhase: SeasonSchedulePhase;
+    playoffRound: number;
+    playoffWinsInRound: number;
+    goatCompleted: boolean;
+    lastSettledMatchId: string | null;
+    lastBaseRewardMatchId: string | null;
+    lastAdRewardMatchId: string | null;
+    lastAdvancedMatchId: string | null;
+}
+
+export type SeasonSchedulePhase = 'regular-season' | 'playoffs' | 'goat-complete';
+
+export interface MatchSettlementEvent {
+    matchId: string;
+    won: boolean;
+    baseReward: number;
+    adReward: number;
+    advanced: boolean;
+    seasonState: SeasonState;
 }
 
 interface PlayerHistorySaveData {
     version: number;
     acquiredCounts: Record<string, number>;
     conceptGodAcquiredCount: number;
+    serviceDurationMsByDisplayName: Record<string, number>;
 }
 
 const ZERO_MANAGEMENT_LEVELS: ManagementLevels = {
@@ -126,6 +185,7 @@ const ZERO_MANAGEMENT_EFFECTS: ManagementEffectSnapshot = {
 };
 
 let managementEffectsPromise: Promise<ManagementEffectsConfig> | null = null;
+let economyConfigPromise: Promise<EconomyConfig> | null = null;
 
 export function getBudget(initialBudget = DEFAULT_BUDGET): number {
     const serialized = sys.localStorage.getItem(BUDGET_STORAGE_KEY);
@@ -207,9 +267,13 @@ function writeRoster(
     cards: ReadonlyArray<PlayerCard | null>,
     emitChange: boolean,
 ): void {
+    const now = Date.now();
     const normalizedCards = Array<PlayerCard | null>(ROSTER_SLOT_COUNT)
         .fill(null)
         .map((_, index) => cards[index] ? clonePlayerCard(cards[index]!) : null);
+    if (emitChange) {
+        reconcileRosterServiceHistory(normalizedCards, now);
+    }
     const data: RosterSaveData = {
         version: ROSTER_SAVE_VERSION,
         cards: normalizedCards,
@@ -247,6 +311,25 @@ export function getPlayerAcquisitionCount(displayName: string): number {
     );
 }
 
+export function getPlayerServiceDurationMs(
+    displayName: string,
+    roster: ReadonlyArray<PlayerCard | null> = loadRoster(),
+    now = Date.now(),
+): number {
+    const historyKey = getPlayerHistoryKey(displayName);
+    const historyDuration = sanitizeDuration(
+        loadPlayerHistory().serviceDurationMsByDisplayName[historyKey],
+    );
+    return roster.reduce((total, card) => {
+        if (!card || getPlayerHistoryKey(card.displayName) !== historyKey) {
+            return total;
+        }
+        const startedAtMs = card.lineupSinceMs ?? card.acquiredAtMs;
+        const currentDuration = Math.max(0, now - startedAtMs);
+        return Math.min(Number.MAX_SAFE_INTEGER, total + currentDuration);
+    }, historyDuration);
+}
+
 export function recordConceptGodAcquisition(): number {
     const history = loadPlayerHistory();
     history.version = PLAYER_HISTORY_SAVE_VERSION;
@@ -277,6 +360,7 @@ export function migratePlayerHistoryToDisplayNames(
         ]),
     );
     const migratedCounts: Record<string, number> = {};
+    const migratedServiceDurationMs: Record<string, number> = {};
     for (const [key, rawCount] of Object.entries(history.acquiredCounts)) {
         const count = sanitizeInteger(rawCount, 0);
         if (count <= 0) {
@@ -297,10 +381,22 @@ export function migratePlayerHistoryToDisplayNames(
             activeCount,
         );
     }
+    for (const [key, rawDuration] of Object.entries(
+        history.serviceDurationMsByDisplayName,
+    )) {
+        const migratedKey = displayNameByTemplateId.get(key)
+            ?? getPlayerHistoryKey(key);
+        migratedServiceDurationMs[migratedKey] = Math.min(
+            Number.MAX_SAFE_INTEGER,
+            sanitizeDuration(migratedServiceDurationMs[migratedKey])
+                + sanitizeDuration(rawDuration),
+        );
+    }
     savePlayerHistory({
         version: PLAYER_HISTORY_SAVE_VERSION,
         acquiredCounts: migratedCounts,
         conceptGodAcquiredCount: history.conceptGodAcquiredCount,
+        serviceDurationMsByDisplayName: migratedServiceDurationMs,
     });
 }
 
@@ -308,7 +404,7 @@ export function loadManagementLevels(): ManagementLevels {
     const defaults = { ...ZERO_MANAGEMENT_LEVELS };
     const serialized = sys.localStorage.getItem(MANAGEMENT_STORAGE_KEY);
     if (!serialized) {
-        saveManagementLevels(defaults);
+        writeManagementLevels(defaults, false);
         return defaults;
     }
 
@@ -321,15 +417,19 @@ export function loadManagementLevels(): ManagementLevels {
             medicalTeam: sanitizeLevel(parsed.medicalTeam),
             mediaTeam: sanitizeLevel(parsed.mediaTeam),
         };
-        saveManagementLevels(levels);
+        writeManagementLevels(levels, false);
         return levels;
     } catch {
-        saveManagementLevels(defaults);
+        writeManagementLevels(defaults, false);
         return defaults;
     }
 }
 
 export function saveManagementLevels(levels: ManagementLevels): void {
+    writeManagementLevels(levels, true);
+}
+
+function writeManagementLevels(levels: ManagementLevels, emitChange: boolean): void {
     const data: ManagementLevels = {
         operationPresident: sanitizeLevel(levels.operationPresident),
         headCoach: sanitizeLevel(levels.headCoach),
@@ -338,6 +438,124 @@ export function saveManagementLevels(levels: ManagementLevels): void {
         mediaTeam: sanitizeLevel(levels.mediaTeam),
     };
     sys.localStorage.setItem(MANAGEMENT_STORAGE_KEY, JSON.stringify(data));
+    if (emitChange) {
+        gameStateEvents.emit(GAME_STATE_EVENT_MANAGEMENT_CHANGED, { ...data });
+    }
+}
+
+export async function getManagementUpgradeCost(level: number): Promise<number> {
+    const config = await loadEconomyConfig();
+    const safeLevel = sanitizeLevel(level);
+    if (safeLevel >= getManagementMaxLevel(config)) {
+        return 0;
+    }
+    return getManagementCostRow(config, safeLevel)?.budgetCost ?? 0;
+}
+
+export async function upgradeManagementWithBudget(
+    role: ManagementRole,
+    teamLevel: number,
+): Promise<ManagementUpgradeResult> {
+    let levels = loadManagementLevels();
+    if (!isManagementRole(role)) {
+        return createManagementUpgradeResult(
+            false,
+            'invalid-role',
+            levels,
+            0,
+            0,
+        );
+    }
+
+    const config = await loadEconomyConfig();
+    levels = loadManagementLevels();
+    const previousLevel = levels[role];
+    const maxLevel = getManagementMaxLevel(config);
+    if (previousLevel >= maxLevel) {
+        return createManagementUpgradeResult(
+            false,
+            'max-level',
+            levels,
+            previousLevel,
+            0,
+        );
+    }
+
+    const cost = getManagementCostRow(config, previousLevel)?.budgetCost ?? 0;
+    if (previousLevel >= sanitizeTeamLevel(teamLevel)) {
+        return createManagementUpgradeResult(
+            false,
+            'team-level-cap',
+            levels,
+            previousLevel,
+            cost,
+        );
+    }
+    if (cost <= 0 || !trySpendBudget(cost)) {
+        return createManagementUpgradeResult(
+            false,
+            'insufficient-budget',
+            levels,
+            previousLevel,
+            cost,
+        );
+    }
+
+    levels[role] = previousLevel + 1;
+    saveManagementLevels(levels);
+    return createManagementUpgradeResult(
+        true,
+        'ok',
+        levels,
+        previousLevel,
+        cost,
+    );
+}
+
+export function upgradeManagementWithAd(
+    role: ManagementRole,
+    teamLevel: number,
+): ManagementUpgradeResult {
+    const levels = loadManagementLevels();
+    if (!isManagementRole(role)) {
+        return createManagementUpgradeResult(
+            false,
+            'invalid-role',
+            levels,
+            0,
+            0,
+        );
+    }
+
+    const previousLevel = levels[role];
+    if (previousLevel >= MAX_MANAGEMENT_LEVEL) {
+        return createManagementUpgradeResult(
+            false,
+            'max-level',
+            levels,
+            previousLevel,
+            0,
+        );
+    }
+    if (previousLevel >= sanitizeTeamLevel(teamLevel)) {
+        return createManagementUpgradeResult(
+            false,
+            'team-level-cap',
+            levels,
+            previousLevel,
+            0,
+        );
+    }
+
+    levels[role] = previousLevel + 1;
+    saveManagementLevels(levels);
+    return createManagementUpgradeResult(
+        true,
+        'ok',
+        levels,
+        previousLevel,
+        0,
+    );
 }
 
 export function loadManagementEffectsConfig(): Promise<ManagementEffectsConfig> {
@@ -350,6 +568,21 @@ export function loadManagementEffectsConfig(): Promise<ManagementEffectsConfig> 
         return config;
     });
     return managementEffectsPromise;
+}
+
+function loadEconomyConfig(): Promise<EconomyConfig> {
+    economyConfigPromise ??= loadJson<EconomyConfig>(
+        'data/balance/economy',
+    ).then((config) => {
+        if (
+            !config.managementUpgradeCost
+            || !Array.isArray(config.managementUpgradeCost.upgradeCostToNextLevel)
+        ) {
+            throw new Error('Invalid management upgrade cost configuration.');
+        }
+        return config;
+    });
+    return economyConfigPromise;
 }
 
 export async function getManagementEffects(): Promise<ManagementEffectSnapshot> {
@@ -482,28 +715,84 @@ export function saveIdleState(state: IdleState): void {
 }
 
 export function loadSeasonState(): SeasonState {
-    const defaults: SeasonState = {
-        version: SAVE_VERSION,
-        seasonNumber: 1,
-        matchNumber: 1,
-        officialWins: 0,
-    };
+    const defaults = createDefaultSeasonState();
     const serialized = sys.localStorage.getItem(SEASON_STORAGE_KEY);
     if (!serialized) {
-        sys.localStorage.setItem(SEASON_STORAGE_KEY, JSON.stringify(defaults));
+        writeSeasonState(defaults, false);
         return defaults;
     }
     try {
         const parsed = JSON.parse(serialized) as Partial<SeasonState>;
-        return {
-            version: SAVE_VERSION,
-            seasonNumber: Math.max(1, sanitizeInteger(parsed.seasonNumber, 1)),
-            matchNumber: Math.max(1, sanitizeInteger(parsed.matchNumber, 1)),
-            officialWins: Math.max(0, sanitizeInteger(parsed.officialWins, 0)),
-        };
+        const state = normalizeSeasonState(parsed);
+        writeSeasonState(state, false);
+        return state;
     } catch {
         return defaults;
     }
+}
+
+export function saveSeasonState(state: SeasonState): SeasonState {
+    const normalized = normalizeSeasonState(state);
+    writeSeasonState(normalized, true);
+    return normalized;
+}
+
+export function getCurrentMatchId(state: SeasonState = loadSeasonState()): string {
+    return `${state.seasonNumber}-${state.matchNumber}`;
+}
+
+export function settleBaseMatchReward(matchId: string, amount: number): boolean {
+    return settleMatchReward(matchId, amount, 'base');
+}
+
+export function settleAdMatchReward(matchId: string, amount: number): boolean {
+    return settleMatchReward(matchId, amount, 'ad');
+}
+
+export function advanceSeasonAfterWin(matchId: string): boolean {
+    const state = loadSeasonState();
+    if (
+        !isCurrentMatchId(state, matchId)
+        || state.goatCompleted
+        || state.lastAdvancedMatchId === matchId
+    ) {
+        return false;
+    }
+
+    state.lastAdvancedMatchId = matchId;
+    state.officialWins = Math.min(INT32_MAX, state.officialWins + 1);
+    if (state.matchNumber < MATCHES_PER_SEASON) {
+        state.matchNumber += 1;
+    } else if (state.seasonNumber < MAX_STANDARD_SEASON) {
+        state.seasonNumber += 1;
+        state.matchNumber = 1;
+    } else {
+        state.goatCompleted = true;
+    }
+    saveSeasonState(state);
+    return true;
+}
+
+export function emitMatchSettled(
+    settlement: Omit<MatchSettlementEvent, 'seasonState'>,
+): void {
+    const matchId = normalizeMatchId(settlement.matchId);
+    if (!matchId) {
+        return;
+    }
+    const state = loadSeasonState();
+    if (state.lastSettledMatchId !== matchId) {
+        state.lastSettledMatchId = matchId;
+        saveSeasonState(state);
+    }
+    const event: MatchSettlementEvent = {
+        ...settlement,
+        matchId,
+        baseReward: normalizeBudget(settlement.baseReward),
+        adReward: normalizeBudget(settlement.adReward),
+        seasonState: { ...loadSeasonState() },
+    };
+    gameStateEvents.emit(GAME_STATE_EVENT_MATCH_SETTLED, event);
 }
 
 export function loadJson<T>(path: string): Promise<T> {
@@ -516,6 +805,200 @@ export function loadJson<T>(path: string): Promise<T> {
             resolve(asset.json as T);
         });
     });
+}
+
+function createManagementUpgradeResult(
+    success: boolean,
+    reason: ManagementUpgradeReason,
+    levels: ManagementLevels,
+    previousLevel: number,
+    budgetCost: number,
+): ManagementUpgradeResult {
+    return {
+        success,
+        reason,
+        levels: { ...levels },
+        previousLevel,
+        newLevel: success ? previousLevel + 1 : previousLevel,
+        budgetCost: normalizeBudget(budgetCost),
+    };
+}
+
+function isManagementRole(value: unknown): value is ManagementRole {
+    return typeof value === 'string'
+        && Object.prototype.hasOwnProperty.call(ZERO_MANAGEMENT_LEVELS, value);
+}
+
+function getManagementMaxLevel(config: EconomyConfig): number {
+    return Math.min(
+        MAX_MANAGEMENT_LEVEL,
+        Math.max(0, sanitizeInteger(
+            config.managementUpgradeCost.maxLevel,
+            MAX_MANAGEMENT_LEVEL,
+        )),
+    );
+}
+
+function getManagementCostRow(
+    config: EconomyConfig,
+    fromLevel: number,
+): ManagementUpgradeCostRow | null {
+    const row = config.managementUpgradeCost.upgradeCostToNextLevel.find(
+        (entry) => sanitizeInteger(entry.fromLevel, -1) === fromLevel
+            && sanitizeInteger(entry.toLevel, -1) === fromLevel + 1,
+    );
+    if (!row || !Number.isFinite(Number(row.budgetCost))) {
+        return null;
+    }
+    return {
+        fromLevel,
+        toLevel: fromLevel + 1,
+        budgetCost: normalizeBudget(Number(row.budgetCost)),
+    };
+}
+
+function createDefaultSeasonState(): SeasonState {
+    return {
+        version: SEASON_SAVE_VERSION,
+        seasonNumber: 1,
+        matchNumber: 1,
+        officialWins: 0,
+        schedulePhase: 'regular-season',
+        playoffRound: 0,
+        playoffWinsInRound: 0,
+        goatCompleted: false,
+        lastSettledMatchId: null,
+        lastBaseRewardMatchId: null,
+        lastAdRewardMatchId: null,
+        lastAdvancedMatchId: null,
+    };
+}
+
+function normalizeSeasonState(value: Partial<SeasonState>): SeasonState {
+    const seasonNumber = Math.min(
+        MAX_STANDARD_SEASON,
+        Math.max(1, sanitizeInteger(value.seasonNumber, 1)),
+    );
+    const goatCompleted = Boolean(value.goatCompleted)
+        && seasonNumber === MAX_STANDARD_SEASON;
+    const matchNumber = goatCompleted
+        ? MATCHES_PER_SEASON
+        : Math.min(
+            MATCHES_PER_SEASON,
+            Math.max(1, sanitizeInteger(value.matchNumber, 1)),
+        );
+    const completedSeasonWins = (seasonNumber - 1) * MATCHES_PER_SEASON;
+    const currentSeasonWins = goatCompleted
+        ? MATCHES_PER_SEASON
+        : matchNumber - 1;
+    const fallbackOfficialWins = completedSeasonWins + currentSeasonWins;
+    const storedOfficialWins = Math.max(
+        0,
+        sanitizeInteger(value.officialWins, fallbackOfficialWins),
+    );
+    const officialWins = Math.min(
+        INT32_MAX,
+        Math.max(fallbackOfficialWins, storedOfficialWins),
+    );
+    const schedule = getSeasonSchedule(matchNumber, goatCompleted);
+    return {
+        version: SEASON_SAVE_VERSION,
+        seasonNumber,
+        matchNumber,
+        officialWins,
+        ...schedule,
+        goatCompleted,
+        lastSettledMatchId: normalizeMatchId(value.lastSettledMatchId),
+        lastBaseRewardMatchId: normalizeMatchId(value.lastBaseRewardMatchId),
+        lastAdRewardMatchId: normalizeMatchId(value.lastAdRewardMatchId),
+        lastAdvancedMatchId: normalizeMatchId(value.lastAdvancedMatchId),
+    };
+}
+
+function getSeasonSchedule(
+    matchNumber: number,
+    goatCompleted: boolean,
+): Pick<SeasonState, 'schedulePhase' | 'playoffRound' | 'playoffWinsInRound'> {
+    if (goatCompleted) {
+        return {
+            schedulePhase: 'goat-complete',
+            playoffRound: 4,
+            playoffWinsInRound: 4,
+        };
+    }
+    if (matchNumber <= REGULAR_SEASON_MATCHES) {
+        return {
+            schedulePhase: 'regular-season',
+            playoffRound: 0,
+            playoffWinsInRound: 0,
+        };
+    }
+    const playoffIndex = matchNumber - REGULAR_SEASON_MATCHES - 1;
+    return {
+        schedulePhase: 'playoffs',
+        playoffRound: Math.min(4, Math.floor(playoffIndex / 4) + 1),
+        playoffWinsInRound: playoffIndex % 4,
+    };
+}
+
+function writeSeasonState(state: SeasonState, emitChange: boolean): void {
+    const snapshot = normalizeSeasonState(state);
+    sys.localStorage.setItem(SEASON_STORAGE_KEY, JSON.stringify(snapshot));
+    if (emitChange) {
+        gameStateEvents.emit(GAME_STATE_EVENT_SEASON_CHANGED, { ...snapshot });
+    }
+}
+
+function settleMatchReward(
+    matchId: string,
+    amount: number,
+    rewardType: 'base' | 'ad',
+): boolean {
+    const normalizedMatchId = normalizeMatchId(matchId);
+    const reward = normalizeBudget(amount);
+    if (!normalizedMatchId || reward <= 0) {
+        return false;
+    }
+    const state = loadSeasonState();
+    if (
+        !isRecentMatchId(state, normalizedMatchId)
+        || (
+            rewardType === 'base'
+                ? state.lastBaseRewardMatchId === normalizedMatchId
+                : state.lastAdRewardMatchId === normalizedMatchId
+        )
+    ) {
+        return false;
+    }
+
+    if (rewardType === 'base') {
+        state.lastBaseRewardMatchId = normalizedMatchId;
+    } else {
+        state.lastAdRewardMatchId = normalizedMatchId;
+    }
+    saveSeasonState(state);
+    addBudget(reward);
+    return true;
+}
+
+function isCurrentMatchId(state: SeasonState, matchId: string): boolean {
+    const normalizedMatchId = normalizeMatchId(matchId);
+    return Boolean(normalizedMatchId)
+        && getCurrentMatchId(state) === normalizedMatchId;
+}
+
+function isRecentMatchId(state: SeasonState, matchId: string): boolean {
+    return isCurrentMatchId(state, matchId)
+        || state.lastAdvancedMatchId === matchId
+        || state.lastSettledMatchId === matchId;
+}
+
+function normalizeMatchId(value: unknown): string | null {
+    if (typeof value !== 'string') {
+        return null;
+    }
+    const normalized = value.trim();
+    return normalized ? normalized : null;
 }
 
 function normalizePlayerCard(value: unknown, now: number): PlayerCard | null {
@@ -570,6 +1053,7 @@ function loadPlayerHistory(): PlayerHistorySaveData {
         version: PLAYER_HISTORY_SAVE_VERSION,
         acquiredCounts: {},
         conceptGodAcquiredCount: 0,
+        serviceDurationMsByDisplayName: {},
     };
     const serialized = sys.localStorage.getItem(PLAYER_HISTORY_STORAGE_KEY);
     if (!serialized) {
@@ -586,6 +1070,10 @@ function loadPlayerHistory(): PlayerHistorySaveData {
                 0,
                 sanitizeInteger(parsed.conceptGodAcquiredCount, 0),
             ),
+            serviceDurationMsByDisplayName: parsed.serviceDurationMsByDisplayName
+                && typeof parsed.serviceDurationMsByDisplayName === 'object'
+                ? sanitizeDurationMap(parsed.serviceDurationMsByDisplayName)
+                : {},
         };
     } catch {
         return defaults;
@@ -593,12 +1081,23 @@ function loadPlayerHistory(): PlayerHistorySaveData {
 }
 
 function savePlayerHistory(history: PlayerHistorySaveData): void {
-    sys.localStorage.setItem(PLAYER_HISTORY_STORAGE_KEY, JSON.stringify(history));
+    const data: PlayerHistorySaveData = {
+        version: PLAYER_HISTORY_SAVE_VERSION,
+        acquiredCounts: { ...history.acquiredCounts },
+        conceptGodAcquiredCount: Math.max(
+            0,
+            sanitizeInteger(history.conceptGodAcquiredCount, 0),
+        ),
+        serviceDurationMsByDisplayName: sanitizeDurationMap(
+            history.serviceDurationMsByDisplayName,
+        ),
+    };
+    sys.localStorage.setItem(PLAYER_HISTORY_STORAGE_KEY, JSON.stringify(data));
 }
 
 function ensureCurrentRosterHistory(roster: ReadonlyArray<PlayerCard | null>): void {
     const history = loadPlayerHistory();
-    if (history.version < PLAYER_HISTORY_SAVE_VERSION) {
+    if (history.version < 3) {
         return;
     }
     const activeCounts = countRosterPlayersByDisplayName(roster);
@@ -611,6 +1110,61 @@ function ensureCurrentRosterHistory(roster: ReadonlyArray<PlayerCard | null>): v
     }
     if (changed) {
         savePlayerHistory(history);
+    }
+}
+
+function reconcileRosterServiceHistory(
+    nextRoster: Array<PlayerCard | null>,
+    now: number,
+): void {
+    const previousRoster = readStoredRoster(now);
+    const nextInstanceIds = new Set(
+        nextRoster.flatMap((card) => card ? [card.instanceId] : []),
+    );
+    const previousInstanceIds = new Set(
+        previousRoster.flatMap((card) => card ? [card.instanceId] : []),
+    );
+    const history = loadPlayerHistory();
+    let historyChanged = false;
+
+    for (const card of previousRoster) {
+        if (!card || nextInstanceIds.has(card.instanceId)) {
+            continue;
+        }
+        const historyKey = getPlayerHistoryKey(card.displayName);
+        const startedAtMs = card.lineupSinceMs ?? card.acquiredAtMs;
+        const segmentDuration = Math.max(0, now - startedAtMs);
+        history.serviceDurationMsByDisplayName[historyKey] = Math.min(
+            Number.MAX_SAFE_INTEGER,
+            sanitizeDuration(history.serviceDurationMsByDisplayName[historyKey])
+                + segmentDuration,
+        );
+        historyChanged = true;
+    }
+
+    for (const card of nextRoster) {
+        if (card && !previousInstanceIds.has(card.instanceId)) {
+            card.lineupSinceMs = now;
+        }
+    }
+
+    if (historyChanged) {
+        savePlayerHistory(history);
+    }
+}
+
+function readStoredRoster(now: number): Array<PlayerCard | null> {
+    const serialized = sys.localStorage.getItem(ROSTER_STORAGE_KEY);
+    if (!serialized) {
+        return [];
+    }
+    try {
+        const parsed = JSON.parse(serialized) as Partial<RosterSaveData>;
+        return Array.isArray(parsed.cards)
+            ? parsed.cards.map((card) => normalizePlayerCard(card, now))
+            : [];
+    } catch {
+        return [];
     }
 }
 
@@ -632,6 +1186,28 @@ function getPlayerHistoryKey(displayName: string): string {
     return displayName.trim();
 }
 
+function sanitizeDurationMap(value: Record<string, number>): Record<string, number> {
+    const result: Record<string, number> = {};
+    for (const [key, rawDuration] of Object.entries(value)) {
+        const historyKey = getPlayerHistoryKey(key);
+        if (!historyKey) {
+            continue;
+        }
+        result[historyKey] = Math.min(
+            Number.MAX_SAFE_INTEGER,
+            sanitizeDuration(result[historyKey]) + sanitizeDuration(rawDuration),
+        );
+    }
+    return result;
+}
+
+function sanitizeDuration(value: unknown): number {
+    const numericValue = Number(value);
+    return Number.isFinite(numericValue)
+        ? Math.min(Number.MAX_SAFE_INTEGER, Math.max(0, Math.floor(numericValue)))
+        : 0;
+}
+
 function getEffectRow(config: ManagementEffectsConfig, level: number): ManagementEffectRow {
     return config.levelEffects[Math.min(sanitizeLevel(level), config.levelEffects.length - 1)]
         ?? config.levelEffects[0];
@@ -649,7 +1225,14 @@ function sanitizeInteger(value: unknown, fallback: number): number {
 }
 
 function sanitizeLevel(value: unknown): number {
-    return Math.min(520, Math.max(0, sanitizeInteger(value, 0)));
+    return Math.min(MAX_MANAGEMENT_LEVEL, Math.max(0, sanitizeInteger(value, 0)));
+}
+
+function sanitizeTeamLevel(value: unknown): number {
+    return Math.min(
+        MAX_MANAGEMENT_LEVEL,
+        Math.max(1, sanitizeInteger(value, 1)),
+    );
 }
 
 function sanitizeTimestamp(value: unknown, fallback: number): number {

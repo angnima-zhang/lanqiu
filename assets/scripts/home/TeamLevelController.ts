@@ -43,6 +43,22 @@ export function getStoredMarketValueLevel(fallback = 1): number {
     }
 }
 
+export function getStoredTeamLevel(fallback = 1): number {
+    const serialized = sys.localStorage.getItem(TEAM_PROGRESSION_STORAGE_KEY);
+    if (!serialized) {
+        return Math.min(520, Math.max(1, Math.floor(fallback)));
+    }
+    try {
+        const parsed = JSON.parse(serialized) as Partial<TeamProgressionSaveData>;
+        const level = Number(parsed.teamLevel);
+        return Number.isFinite(level)
+            ? Math.min(520, Math.max(1, Math.floor(level)))
+            : Math.min(520, Math.max(1, Math.floor(fallback)));
+    } catch {
+        return Math.min(520, Math.max(1, Math.floor(fallback)));
+    }
+}
+
 interface TeamLevelStageConfig {
     marketValueLevel: number;
     teamLevelStart: number;

@@ -2,14 +2,19 @@ import {
     _decorator,
     Button,
     Component,
+    director,
+    find,
     Label,
     Node,
+    Size,
     Sprite,
     sys,
+    UITransform,
 } from 'cc';
 import {
     ATTRIBUTE_KEYS,
     calculateTeamOverall,
+    GAME_STATE_EVENT_MANAGEMENT_CHANGED,
     GAME_STATE_EVENT_PLAYER_DETAILS_REQUESTED,
     GAME_STATE_EVENT_ROSTER_CHANGED,
     GAME_STATE_EVENT_TEAM_IDENTITY_CHANGED,
@@ -23,9 +28,17 @@ import {
     PlayerCard,
     TEAM_NAME_STORAGE_KEY,
 } from './GameState';
-import { loadPlayerPortrait, loadQualityFrame } from './PlayerAssets';
+import { loadPlayerPortrait } from './PlayerAssets';
 import { formatPlayerOverall } from './RosterSlotView';
-import { playFullScreenEntrance } from './FullScreenEntrance';
+import {
+    playFullScreenEntrance,
+    stopFullScreenEntrance,
+} from './FullScreenEntrance';
+import { MatchController } from './MatchController';
+import {
+    MatchSessionSnapshot,
+    setCurrentMatchSession,
+} from './MatchSession';
 
 const { ccclass } = _decorator;
 
@@ -74,6 +87,9 @@ export class PreMatchController extends Component {
     private cardRenderVersion = 0;
     private pageRequestVersion = 0;
     private playerCardButtons: Array<{ button: Button; callback: () => void }> = [];
+    private preparedMatch: MatchSessionSnapshot | null = null;
+    private startingMatch = false;
+    private readonly portraitBounds = new WeakMap<UITransform, Size>();
 
     protected onLoad(): void {
         PreMatchController.instance = this;
@@ -89,6 +105,7 @@ export class PreMatchController extends Component {
 
     protected onEnable(): void {
         this.returnButton?.node.on(Button.EventType.CLICK, this.closePage, this);
+        this.startButton?.node.on(Button.EventType.CLICK, this.startMatch, this);
         gameStateEvents.on(
             GAME_STATE_EVENT_ROSTER_CHANGED,
             this.onDataChanged,
@@ -96,6 +113,11 @@ export class PreMatchController extends Component {
         );
         gameStateEvents.on(
             GAME_STATE_EVENT_TEAM_IDENTITY_CHANGED,
+            this.onDataChanged,
+            this,
+        );
+        gameStateEvents.on(
+            GAME_STATE_EVENT_MANAGEMENT_CHANGED,
             this.onDataChanged,
             this,
         );
@@ -104,6 +126,7 @@ export class PreMatchController extends Component {
 
     protected onDisable(): void {
         this.returnButton?.node.off(Button.EventType.CLICK, this.closePage, this);
+        this.startButton?.node.off(Button.EventType.CLICK, this.startMatch, this);
         gameStateEvents.off(
             GAME_STATE_EVENT_ROSTER_CHANGED,
             this.onDataChanged,
@@ -111,6 +134,11 @@ export class PreMatchController extends Component {
         );
         gameStateEvents.off(
             GAME_STATE_EVENT_TEAM_IDENTITY_CHANGED,
+            this.onDataChanged,
+            this,
+        );
+        gameStateEvents.off(
+            GAME_STATE_EVENT_MANAGEMENT_CHANGED,
             this.onDataChanged,
             this,
         );
@@ -138,7 +166,15 @@ export class PreMatchController extends Component {
         await this.ensureDataLoaded();
         await this.refreshPage();
         if (requestVersion === this.pageRequestVersion) {
-            void playFullScreenEntrance(this.page);
+            void playFullScreenEntrance(this.page, {
+                backgroundNodes: this.namedChildren(['bg']),
+                moduleGroups: [
+                    { nodes: this.namedChildren(['顶部']), order: 0 },
+                    { nodes: this.namedChildren(['双方阵容']), order: 1 },
+                    { nodes: this.namedChildren(['管理层加成']), order: 2 },
+                    { nodes: this.namedChildren(['底部按钮']), order: 3 },
+                ],
+            });
         }
     }
 
@@ -146,6 +182,7 @@ export class PreMatchController extends Component {
         this.pageRequestVersion += 1;
         this.cardRenderVersion += 1;
         if (this.page) {
+            stopFullScreenEntrance(this.page);
             this.page.active = false;
         }
     };
@@ -197,17 +234,21 @@ export class PreMatchController extends Component {
         );
         const teamName = sys.localStorage.getItem(TEAM_NAME_STORAGE_KEY)?.trim()
             || '我的球队';
+        const occupiedRosterCount = roster.filter(Boolean).length;
+        const goatCompleted = Boolean(seasonState.goatCompleted);
 
         this.setLabel(
             '顶部/赛程',
-            `${season.difficultyQualityName}赛季 第${match.matchNumber}场`,
+            goatCompleted
+                ? '概念神赛程待开放'
+                : `${season.difficultyQualityName}赛季 第${match.matchNumber}场`,
         );
         this.setLabel(
             '双方阵容/球队总览/我方球队/球队总评/球队名',
             teamName,
         );
         this.setLabel(
-            '双方阵容/球队总览/我方球队/球队总评/ovr',
+            '双方阵容/球队总览/我方球队/球队总评/球队总评',
             this.formatOverall(playerOverall),
         );
         this.setLabel(
@@ -215,7 +256,7 @@ export class PreMatchController extends Component {
             `${season.difficultyQualityName}对手`,
         );
         this.setLabel(
-            '双方阵容/球队总览/对方球队/球队总评/ovr',
+            '双方阵容/球队总览/对方球队/球队总评/球队总评',
             this.formatOverall(match.opponentOvr),
         );
         this.setLabel(
@@ -226,7 +267,25 @@ export class PreMatchController extends Component {
             '管理层加成/教练/数值',
             `+${(effects.headCoachBattleOvrBonus * 100).toFixed(2)}%`,
         );
-        this.startButton && (this.startButton.interactable = false);
+        this.preparedMatch = goatCompleted ? null : {
+            matchId: `${seasonState.seasonNumber}-${seasonState.matchNumber}`,
+            seasonNumber: seasonState.seasonNumber,
+            matchNumber: seasonState.matchNumber,
+            difficultyQualityName: season.difficultyQualityName,
+            playerTeamName: teamName,
+            opponentTeamName: `${season.difficultyQualityName}对手`,
+            playerRoster: roster,
+            opponentRoster,
+            playerOverall,
+            opponentOverall: match.opponentOvr,
+            operationPresidentBonus: effects.operationPresidentBudgetBonus,
+            temporaryBonusPercent: 0,
+        };
+        if (this.startButton) {
+            this.startButton.interactable = occupiedRosterCount >= 5
+                && !this.startingMatch
+                && Boolean(this.preparedMatch);
+        }
 
         const playerCardNodes = this.playerTeamCardsRoot?.children ?? [];
         const opponentCardNodes = this.opponentTeamCardsRoot?.children ?? [];
@@ -288,15 +347,11 @@ export class PreMatchController extends Component {
         renderVersion: number,
     ): Promise<void> {
         const portrait = root.getChildByName('头像')?.getComponent(Sprite) ?? null;
-        const frame = root.getChildByName('边框')?.getComponent(Sprite) ?? null;
         const nameLabel = root.getChildByName('名字')?.getComponent(Label) ?? null;
         const overallLabel = root.getChildByName('总评')?.getComponent(Label) ?? null;
         if (!card) {
             if (portrait) {
                 portrait.spriteFrame = null;
-            }
-            if (frame) {
-                frame.spriteFrame = null;
             }
             if (nameLabel) {
                 nameLabel.string = '空缺';
@@ -313,19 +368,44 @@ export class PreMatchController extends Component {
         if (overallLabel) {
             overallLabel.string = this.formatOverall(card.overall);
         }
-        const [portraitFrame, qualityFrame] = await Promise.all([
-            loadPlayerPortrait(card),
-            loadQualityFrame(card.qualityId),
-        ]);
+        const portraitFrame = await loadPlayerPortrait(card);
         if (renderVersion !== this.cardRenderVersion) {
             return;
         }
         if (portrait) {
-            portrait.spriteFrame = portraitFrame;
+            this.setPortraitFramePreservingAspect(portrait, portraitFrame);
         }
-        if (frame && qualityFrame) {
-            frame.spriteFrame = qualityFrame;
+    }
+
+    private setPortraitFramePreservingAspect(
+        portrait: Sprite,
+        spriteFrame: Sprite['spriteFrame'],
+    ): void {
+        const transform = portrait.getComponent(UITransform);
+        if (!transform) {
+            portrait.spriteFrame = spriteFrame;
+            return;
         }
+        let bounds = this.portraitBounds.get(transform);
+        if (!bounds) {
+            bounds = transform.contentSize.clone();
+            this.portraitBounds.set(transform, bounds);
+        }
+        portrait.sizeMode = Sprite.SizeMode.CUSTOM;
+        portrait.spriteFrame = spriteFrame;
+        const sourceSize = spriteFrame?.originalSize;
+        if (!sourceSize || sourceSize.width <= 0 || sourceSize.height <= 0) {
+            transform.setContentSize(bounds);
+            return;
+        }
+        const scale = Math.min(
+            bounds.width / sourceSize.width,
+            bounds.height / sourceSize.height,
+        );
+        transform.setContentSize(
+            sourceSize.width * scale,
+            sourceSize.height * scale,
+        );
     }
 
     private bindPlayerCardButtons(): void {
@@ -350,6 +430,39 @@ export class PreMatchController extends Component {
             void this.ensureDataLoaded().then(() => this.refreshPage());
         }
     }
+
+    private startMatch = (): void => {
+        if (
+            this.startingMatch
+            || !this.preparedMatch
+            || loadRoster().filter(Boolean).length < 5
+        ) {
+            return;
+        }
+        this.startingMatch = true;
+        if (this.startButton) {
+            this.startButton.interactable = false;
+        }
+        setCurrentMatchSession(this.preparedMatch);
+        director.loadScene('Match', (error) => {
+            if (error) {
+                console.error('[PreMatchController] Failed to load Match scene.', error);
+                this.startingMatch = false;
+                if (this.startButton) {
+                    this.startButton.interactable = true;
+                }
+                return;
+            }
+            const canvas = find('Canvas');
+            if (!canvas) {
+                console.error('[PreMatchController] Match scene is missing Canvas.');
+                return;
+            }
+            if (!canvas.getComponent(MatchController)) {
+                canvas.addComponent(MatchController);
+            }
+        });
+    };
 
     private allocateAttributes(
         overall: number,
@@ -433,5 +546,15 @@ export class PreMatchController extends Component {
             }
         }
         return current;
+    }
+
+    private namedChildren(names: readonly string[]): Node[] {
+        if (!this.page) {
+            return [];
+        }
+        return names.flatMap((name) => {
+            const node = this.page!.getChildByName(name);
+            return node ? [node] : [];
+        });
     }
 }

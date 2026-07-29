@@ -248,6 +248,10 @@ export class CourtSimulationController extends Component {
         this.rosterContainer ??= simulationRoot?.parent
             ?.getChildByName('球队')
             ?.getChildByName('阵容槽位') ?? null;
+        if (!this.rosterContainer) {
+            this.enabled = false;
+            return;
+        }
 
         if (!this.resolveReferenceNodes()) {
             this.enabled = false;
@@ -274,11 +278,10 @@ export class CourtSimulationController extends Component {
     }
 
     protected onDestroy(): void {
-        this.stopSimulation();
-        this.clearBallOwners();
-        for (const ball of this.basketballs.slice(1)) {
-            ball.destroy();
-        }
+        this.eventToken += 1;
+        this.unscheduleAllCallbacks();
+        this.stopAnimations();
+        this.ballOwners.clear();
     }
 
     protected lateUpdate(): void {

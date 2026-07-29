@@ -15,14 +15,17 @@ import {
     ATTRIBUTE_KEYS,
     calculateTeamOverall,
     GAME_STATE_EVENT_PLAYER_DETAILS_REQUESTED,
+    GAME_STATE_EVENT_MANAGEMENT_CHANGED,
     GAME_STATE_EVENT_ROSTER_CHANGED,
     GAME_STATE_EVENT_TEAM_IDENTITY_CHANGED,
     gameStateEvents,
     getManagementEffects,
     getPlayerAcquisitionCount,
+    getPlayerServiceDurationMs,
     getTeamAbbreviation,
     INT32_MAX,
     loadGameSettings,
+    loadManagementLevels,
     loadRoster,
     loadSeasonState,
     PlayerCard,
@@ -48,6 +51,11 @@ import { TopTeamInfoController } from './TopTeamInfoController';
 import { PreMatchController } from './PreMatchController';
 import { applyGameFont } from '../loading/GameFont';
 import { playFullScreenEntrance } from './FullScreenEntrance';
+import { stopFullScreenEntrance } from './FullScreenEntrance';
+import { ManagementController } from './ManagementController';
+import { ManagerSlotView } from './ManagerSlotView';
+import { consumeHomepageReturnTarget } from './MatchSession';
+import { ManagementRole } from './GameState';
 
 const { ccclass } = _decorator;
 
@@ -71,6 +79,7 @@ export class HomeUiController extends Component {
     private settingsPage: Node | null = null;
     private playerDetailsPage: Node | null = null;
     private managementPage: Node | null = null;
+    private managementController: ManagementController | null = null;
     private topTeamInfoController: TopTeamInfoController | null = null;
     private rosterSlots: RosterSlotView[] = [];
     private boundButtons: BoundButton[] = [];
@@ -82,7 +91,6 @@ export class HomeUiController extends Component {
     private teamInfoRequestVersion = 0;
     private buttonVisualBindings: ButtonVisualBinding[] = [];
     private recruitButtonWithPressedSprite: Button | null = null;
-    private managementPageWasActive = false;
 
     protected onLoad(): void {
         this.resolveSceneReferences();
@@ -101,7 +109,8 @@ export class HomeUiController extends Component {
         this.teamInfoPage.active = false;
         this.settingsPage.active = false;
         this.playerDetailsPage.active = false;
-        this.managementPageWasActive = this.managementPage?.active ?? false;
+        this.managementController = this.node.getComponent(ManagementController)
+            ?? this.node.addComponent(ManagementController);
         this.recruitButtonWithPressedSprite = this.findByPath(
             this.homeRoot,
             '底部按钮/招募/招募',
@@ -115,7 +124,12 @@ export class HomeUiController extends Component {
 
     protected lateUpdate(): void {
         this.syncDisabledButtonVisuals(false);
-        this.syncManagementPageEntrance();
+    }
+
+    protected start(): void {
+        if (consumeHomepageReturnTarget() === 'pre-match') {
+            this.scheduleOnce(this.openPreMatchPage, 0);
+        }
     }
 
     protected onEnable(): void {
@@ -133,6 +147,11 @@ export class HomeUiController extends Component {
         gameStateEvents.on(
             GAME_STATE_EVENT_PLAYER_DETAILS_REQUESTED,
             this.openPlayerDetails,
+            this,
+        );
+        gameStateEvents.on(
+            GAME_STATE_EVENT_MANAGEMENT_CHANGED,
+            this.onManagementChanged,
             this,
         );
         teamProgressionEvents.on(
@@ -160,6 +179,11 @@ export class HomeUiController extends Component {
         gameStateEvents.off(
             GAME_STATE_EVENT_PLAYER_DETAILS_REQUESTED,
             this.openPlayerDetails,
+            this,
+        );
+        gameStateEvents.off(
+            GAME_STATE_EVENT_MANAGEMENT_CHANGED,
+            this.onManagementChanged,
             this,
         );
         teamProgressionEvents.off(
@@ -225,6 +249,7 @@ export class HomeUiController extends Component {
         this.rosterSlots.forEach((slot, index) => {
             this.bindButton(slot.selectButton, () => this.openPlayerDetails(index));
         });
+        this.bindManagementEntrypoints();
     }
 
     private bindButton(
@@ -244,6 +269,7 @@ export class HomeUiController extends Component {
         void this.refreshTeamInfoPage().then(() => {
             if (requestVersion === this.teamInfoRequestVersion) {
                 this.bringToFront(this.teamInfoPage);
+                this.playTeamInfoEntrance();
             }
         });
     };
@@ -252,6 +278,7 @@ export class HomeUiController extends Component {
         this.teamInfoRequestVersion += 1;
         this.cancelTeamNameEdit();
         if (this.teamInfoPage) {
+            stopFullScreenEntrance(this.teamInfoPage);
             this.teamInfoPage.active = false;
         }
     };
@@ -348,6 +375,7 @@ export class HomeUiController extends Component {
             this.playerDetailsPage.active = false;
         }
         PreMatchController.instance?.closePage();
+        this.managementController?.closeManagement();
     };
 
     private async refreshTeamInfoPage(): Promise<void> {
@@ -479,7 +507,9 @@ export class HomeUiController extends Component {
         );
         this.setLabel(
             '效力时长/累计效力时长数值',
-            this.formatServiceDuration(card.lineupSinceMs ?? card.acquiredAtMs),
+            this.formatServiceDuration(
+                getPlayerServiceDurationMs(card.displayName),
+            ),
             root,
         );
 
@@ -603,6 +633,91 @@ export class HomeUiController extends Component {
         }
     }
 
+    private onManagementChanged(): void {
+        this.refreshManagementSlotLevels();
+        if (this.teamInfoPage?.active) {
+            void this.refreshTeamInfoPage();
+        }
+    }
+
+    private bindManagementEntrypoints(): void {
+        const root = this.findByPath(this.homeRoot, '球队/管理层');
+        if (!root) {
+            return;
+        }
+        const bindings: Array<[string, ManagementRole]> = [
+            ['运营', 'operationPresident'],
+            ['教练', 'headCoach'],
+            ['球探', 'scoutingDirector'],
+            ['队医', 'medicalTeam'],
+            ['管理层-长方', 'mediaTeam'],
+        ];
+        for (const [nodeName, role] of bindings) {
+            const slotRoot = this.findDescendantByName(root, nodeName);
+            const slot = slotRoot?.getComponent(ManagerSlotView)
+                ?? slotRoot?.getComponentInChildren(ManagerSlotView)
+                ?? null;
+            const button = slot?.openButton
+                ?? slotRoot?.getComponent(Button)
+                ?? slotRoot?.getComponentInChildren(Button)
+                ?? null;
+            this.bindButton(button, () => {
+                this.closeFullScreenPages();
+                this.managementController?.openManagement(role);
+            });
+        }
+        this.refreshManagementSlotLevels();
+    }
+
+    private refreshManagementSlotLevels(): void {
+        const root = this.findByPath(this.homeRoot, '球队/管理层');
+        if (!root) {
+            return;
+        }
+        const levels = loadManagementLevels();
+        const bindings: Array<[string, ManagementRole]> = [
+            ['运营', 'operationPresident'],
+            ['教练', 'headCoach'],
+            ['球探', 'scoutingDirector'],
+            ['队医', 'medicalTeam'],
+            ['管理层-长方', 'mediaTeam'],
+        ];
+        for (const [nodeName, role] of bindings) {
+            const slotRoot = this.findDescendantByName(root, nodeName);
+            const slot = slotRoot?.getComponent(ManagerSlotView)
+                ?? slotRoot?.getComponentInChildren(ManagerSlotView)
+                ?? null;
+            slot?.setup(`Lv.${levels[role]}`);
+        }
+    }
+
+    private playTeamInfoEntrance(): void {
+        if (!this.teamInfoPage) {
+            return;
+        }
+        void playFullScreenEntrance(this.teamInfoPage, {
+            backgroundNodes: [
+                this.teamInfoPage.getChildByName('遮罩'),
+                this.teamInfoPage.getChildByName('bg'),
+                this.teamInfoPage.getChildByName('内容背景'),
+            ].filter((node): node is Node => Boolean(node)),
+            moduleGroups: [
+                {
+                    nodes: [
+                        this.teamInfoPage.getChildByName('球队信息'),
+                        this.teamInfoPage.getChildByName('关闭'),
+                    ].filter((node): node is Node => Boolean(node)),
+                    order: 0,
+                },
+                { nodes: this.namedChildren(this.teamInfoPage, ['球队名']), order: 1 },
+                { nodes: this.namedChildren(this.teamInfoPage, ['球队总评']), order: 2 },
+                { nodes: this.namedChildren(this.teamInfoPage, ['最佳球员']), order: 3 },
+                { nodes: this.namedChildren(this.teamInfoPage, ['累计胜场']), order: 4 },
+                { nodes: this.namedChildren(this.teamInfoPage, ['保存并关闭']), order: 5 },
+            ],
+        });
+    }
+
     private prepareAllButtonVisuals(root: Node): void {
         for (const button of root.getComponents(Button)) {
             const targetSprite = button.target?.getComponent(Sprite)
@@ -666,10 +781,6 @@ export class HomeUiController extends Component {
             trainingButton.interactable = false;
         }
 
-        const managementRoot = this.findByPath(this.homeRoot, '球队/管理层');
-        for (const button of managementRoot?.getComponentsInChildren(Button) ?? []) {
-            button.interactable = false;
-        }
     }
 
     private bringToFront(page: Node | null, animateEntrance = false): void {
@@ -687,14 +798,6 @@ export class HomeUiController extends Component {
         }
     }
 
-    private syncManagementPageEntrance(): void {
-        const active = this.managementPage?.active ?? false;
-        if (active && !this.managementPageWasActive && this.managementPage) {
-            void playFullScreenEntrance(this.managementPage);
-        }
-        this.managementPageWasActive = active;
-    }
-
     private setLabel(path: string, value: string, root: Node | null): void {
         const label = this.findByPath(root, path)?.getComponent(Label);
         if (label) {
@@ -706,10 +809,10 @@ export class HomeUiController extends Component {
         return value >= INT32_MAX ? 'MAX' : formatPlayerOverall(value);
     }
 
-    private formatServiceDuration(startedAtMs: number): string {
+    private formatServiceDuration(durationMs: number): string {
         const elapsedMinutes = Math.max(
             0,
-            Math.floor((Date.now() - startedAtMs) / 60_000),
+            Math.floor(durationMs / 60_000),
         );
         const days = Math.floor(elapsedMinutes / 1440);
         const hours = Math.floor((elapsedMinutes % 1440) / 60);
@@ -744,6 +847,26 @@ export class HomeUiController extends Component {
                     { numeric: true },
                 ))
             : [];
+    }
+
+    private namedChildren(root: Node, names: readonly string[]): Node[] {
+        return names.flatMap((name) => {
+            const node = root.getChildByName(name);
+            return node ? [node] : [];
+        });
+    }
+
+    private findDescendantByName(root: Node, name: string): Node | null {
+        if (root.name === name) {
+            return root;
+        }
+        for (const child of root.children) {
+            const result = this.findDescendantByName(child, name);
+            if (result) {
+                return result;
+            }
+        }
+        return null;
     }
 
     private findByPath(root: Node | null, path: string): Node | null {

@@ -23,6 +23,10 @@ import {
 } from './TeamLevelController';
 import { setGrowingNumber } from './NumberGrowthAnimator';
 import { showRewardedVideo } from './RewardedAdService';
+import {
+    playFullScreenEntrance,
+    stopFullScreenEntrance,
+} from './FullScreenEntrance';
 
 const { ccclass } = _decorator;
 
@@ -281,8 +285,27 @@ export class IdleIncomeController extends Component {
         if (parent) {
             this.page.setSiblingIndex(parent.children.length - 1);
         }
-        this.page.active = true;
         this.refreshPage(true);
+        void playFullScreenEntrance(this.page, {
+            backgroundNodes: [
+                this.page.getChildByName('遮罩'),
+                this.page.getChildByName('bg'),
+            ].filter((node): node is Node => Boolean(node)),
+            moduleGroups: [
+                {
+                    nodes: [
+                        this.page.getChildByName('标题'),
+                        this.page.getChildByName('关闭'),
+                    ].filter((node): node is Node => Boolean(node)),
+                    order: 0,
+                },
+                { nodes: this.namedChildren(['计时']), order: 1 },
+                { nodes: this.namedChildren(['基础收益']), order: 2 },
+                { nodes: this.namedChildren(['媒体团队加成']), order: 3 },
+                { nodes: this.namedChildren(['领取']), order: 4 },
+                { nodes: this.namedChildren(['看广告双倍领取']), order: 5 },
+            ],
+        });
     }
 
     private openPageForNewOfflineIncome(): void {
@@ -296,6 +319,7 @@ export class IdleIncomeController extends Component {
 
     private closePage(): void {
         if (this.page) {
+            stopFullScreenEntrance(this.page);
             this.page.active = false;
         }
     }
@@ -430,5 +454,15 @@ export class IdleIncomeController extends Component {
             }
         }
         return current;
+    }
+
+    private namedChildren(names: readonly string[]): Node[] {
+        if (!this.page) {
+            return [];
+        }
+        return names.flatMap((name) => {
+            const node = this.page!.getChildByName(name);
+            return node ? [node] : [];
+        });
     }
 }
