@@ -2,10 +2,10 @@
     "_meta":  {
                   "status":  "GOAT广告升级资格已配置，视觉待定",
                   "version":  "v0.76",
-                  "description":  "48个概念神原型用于判断GOAT是否具备广告升级资格。",
-                  "conceptGodCount":  48,
-                  "uniqueSourcePlayerCount":  47,
-                  "normalRosterSourceRequired":  false,
+                  "description":  "49个概念神原型用于判断GOAT是否具备广告升级资格。",
+                  "conceptGodCount":  49,
+                  "uniqueSourcePlayerCount":  48,
+                  "normalRosterSourceRequired":  true,
                   "categoryIsPowerTier":  false,
                   "ovrStatus":  "rewarded_goat_upgrade_formula",
                   "valueConfig":  "balance/concept_god_upgrade.json"
@@ -669,8 +669,8 @@
                             "index":  47,
                             "displayName":  "第一大前马",
                             "sourcePlayerName":  "马健",
-                            "rosterSourcePlayerName":  null,
-                            "sourceInNormalRoster":  false,
+                            "rosterSourcePlayerName":  "马健",
+                            "sourceInNormalRoster":  true,
                             "category":  "十、v3 球员补充概念神",
                             "categoryIsPowerTier":  false,
                             "lore":  "自封「中国历史第一大前锋」，经典怼：「谁公认的？」",
@@ -678,19 +678,33 @@
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
                         },
-                        {
-                            "conceptGodId":  "concept_god_048",
+        {
+            "conceptGodId":  "concept_god_048",
                             "index":  48,
                             "displayName":  "布莱恩特张",
                             "sourcePlayerName":  "张卫平",
-                            "rosterSourcePlayerName":  null,
-                            "sourceInNormalRoster":  false,
+                            "rosterSourcePlayerName":  "张卫平",
+                            "sourceInNormalRoster":  true,
                             "category":  "十、v3 球员补充概念神",
                             "categoryIsPowerTier":  false,
                             "lore":  "前国手+CCTV解说，对科比无条件吹捧，球迷戏称「卫平·布莱恩特」，经典口头禅「这球合理！」",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
-                            "valueConfig":  "balance/concept_god_values.json"
-                        }
+            "valueConfig":  "balance/concept_god_values.json"
+        },
+        {
+            "conceptGodId":  "concept_god_049",
+            "index":  49,
+            "displayName":  "2K蓝姆",
+            "sourcePlayerName":  "Jeremy Lamb",
+            "rosterSourcePlayerName":  "Jeremy Lamb",
+            "sourceInNormalRoster":  true,
+            "category":  "十、v3 球员补充概念神",
+            "categoryIsPowerTier":  false,
+            "lore":  "《NBA 2K14》里的杰里米·兰姆被玩家戏称为数值怪物；当现实球员带着游戏里的异常能力值上场，就是2K蓝姆。",
+            "drawWeight":  1,
+            "ovrStatus":  "dynamic_lineup_formula",
+            "valueConfig":  "balance/concept_god_values.json"
+        }
                     ]
 }

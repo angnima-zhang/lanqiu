@@ -4,12 +4,12 @@
 
 | 文件 | 用途 |
 |---|---|
-| `player_config_fame_v3.json` | 程序读取的正式球员卡模板，13品质×100张 |
+| `player_config_fame_v3.json` | 程序读取的正式球员卡模板；各品质卡量见 `balance/player_pool.json` |
 | `player_config_fame_v3.csv` | 正式球员卡模板的人工检查表 |
 | `balance/*.json` | 游戏数值配置 |
 | `concept_god_pool.json` | 48张概念神结构化卡池 |
 | `nba_concept_gods.md` | 概念神原始梗素材 |
-| `cba_local_award_stars.json` | 20名CBA大陆MVP/FMVP球员池 |
+| `cba_local_award_stars.json` | 19名CBA大陆MVP/FMVP球员及2名概念神原型球员 |
 
 ## 球员配置生成输入
 

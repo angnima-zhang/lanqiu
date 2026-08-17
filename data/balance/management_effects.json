@@ -1,14 +1,14 @@
 {
     "_meta":  {
                   "status":  "待审核草案",
-                  "version":  "v0.64",
-                  "description":  "五个管理层0-520级线性效果表；各管理层当前等级不得超过当前球队等级。",
+                  "version":  "v1.00",
+                  "description":  "五个管理层0-100级线性效果表；各管理层当前等级不得超过当前球队等级。",
                   "minimumLevel":  0,
-                  "maximumLevel":  520,
+                  "maximumLevel":  100,
                   "levelCapSource":  "current_team_level"
               },
     "rules":  {
-                  "levelCapFormula":  "min(currentTeamLevel, 520)",
+                  "levelCapFormula":  "min(currentTeamLevel, 100)",
                   "teamLevelIncreaseOnlyUnlocksCap":  true,
                   "teamLevelIncreaseDoesNotAutoUpgradeManagement":  true,
                   "rolesUpgradeIndependently":  true,
@@ -20,7 +20,7 @@
                                                     "effect":  "online_match_and_ad_budget_bonus",
                                                     "formula":  "managementLevel * 0.002",
                                                     "unit":  "decimal_multiplier_bonus",
-                                                    "maxAt520":  1.04,
+                                                    "maxAt100":  0.2,
                                                     "excluded":  [
                                                                      "offline_budget",
                                                                      "season_settlement_budget"
@@ -30,13 +30,13 @@
                                            "effect":  "battle_team_ovr_bonus",
                                            "formula":  "managementLevel * 0.0005",
                                            "unit":  "decimal_multiplier_bonus",
-                                           "maxAt520":  0.26
+                                                    "maxAt100":  0.05
                                        },
                          "scoutingDirector":  {
                                                   "effect":  "highest_recruitable_quality_weight_bonus",
                                                   "formula":  "managementLevel * 0.01",
                                                   "unit":  "weight",
-                                                  "maxAt520":  5.2,
+                                                    "maxAt100":  1.0,
                                                   "deductsFromLowerQualities":  false,
                                                   "finalWeightSumMayExceed100":  true
                                               },
@@ -44,7 +44,7 @@
                                              "effect":  "new_card_ovr_roll_percentile_shift",
                                              "formula":  "managementLevel * 0.0005",
                                              "unit":  "roll_percentile_decimal_shift",
-                                             "maxAt520":  0.26,
+                                             "maxAt100":  0.05,
                                              "applicationFormula":  "min(1, baseUniformRollPercentile + bonus)",
                                              "changesQualityOvrBounds":  false
                                          },
@@ -52,7 +52,7 @@
                                            "effect":  "offline_budget_bonus",
                                            "formula":  "managementLevel * 0.004",
                                            "unit":  "decimal_multiplier_bonus",
-                                           "maxAt520":  2.08,
+                                           "maxAt100":  0.4,
                                            "excluded":  [
                                                             "online_budget",
                                                             "match_budget",

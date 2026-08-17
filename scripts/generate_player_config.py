@@ -87,16 +87,22 @@ DISPLAY_NAME_OVERRIDES = {
     "Cui Yongxi": "崔勇熙",
     "DeMarcus Cousins": "烤辛斯",
     "Dylan Harper": "哈魄",
+    "George Gervin": "格雯",
+    "George Mikan": "麦垦",
     "Greg Oden": "傲登",
     "J.R. Smith": "JR史秘司",
     "James Harden": "哈灯",
+    "Jeremy Lamb": "蓝姆",
+    "Jeremy Lin": "林书皓",
     "Joe Dumars": "杜码斯",
     "John Wall": "我尔",
     "Kevin Johnson": "越翰逊",
+    "LaMarcus Aldridge": "阿尔德里齐",
     "Kobe Bryant": "颗比",
     "Magic Johnson": "魔术师",
     "Patrick Ewing": "游因",
     "Rajon Rondo": "胧多",
+    "Reggie Miller": "米乐",
     "Russell Westbrook": "维司布鲁克",
     "Shai Gilgeous-Alexander": "鸭梨山大",
     "Toni Kukoč": "库颗奇",
@@ -177,7 +183,7 @@ SURNAME_CN = {
     "Edwards": "爱德华兹",
     "Embiid": "恩比德",
     "English": "英格利什",
-    "Erving": "欧文",
+    "Erving": "殴文",
     "Ewing": "尤因",
     "Fox": "福克斯",
     "Flagg": "弗拉格",
@@ -202,7 +208,7 @@ SURNAME_CN = {
     "Holiday": "霍勒迪",
     "Howard": "霍华德",
     "Ingram": "英格拉姆",
-    "Irving": "欧文",
+    "Irving": "殴文",
     "Iverson": "艾弗森",
     "Jackson": "杰克逊",
     "James": "詹姆斯",
@@ -218,10 +224,13 @@ SURNAME_CN = {
     "LaVine": "拉文",
     "Leonard": "伦纳德",
     "Lillard": "利拉德",
+    "Lamb": "兰姆",
+    "Lin": "林",
     "Love": "乐福",
     "Lowry": "洛瑞",
     "Lucas": "卢卡斯",
     "Malone": "马龙",
+    "Mikan": "麦肯",
     "Maravich": "马拉维奇",
     "Maxey": "马克西",
     "McAdoo": "麦卡杜",
@@ -548,6 +557,21 @@ FAME_PLAYER_REPLACEMENTS = {
     "Mike Miller": ("DeMarcus Cousins", (6,)),
     "Lamar Odom": ("John Wall", (6,)),
     "Mark Price": ("Jaylen Brown", (4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15)),
+    "Kevin Johnson": ("Reggie Miller", (3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)),
+    "Arvydas Sabonis": ("George Gervin", (4, 5)),
+    "Jalen Green": ("LaMarcus Aldridge", (3,)),
+    "Scottie Barnes": ("George Mikan", (3,)),
+    "Antawn Jamison": ("Jeremy Lin", (6,)),
+    "Joe Dumars": ("Jeremy Lamb", (4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15)),
+}
+
+# These players are intentionally unavailable in the final recruitment pool.
+# Keep their raw statistics and profile source data intact for reproducibility,
+# but exclude them whenever the fame-priority runtime configuration is rebuilt.
+FAME_PLAYER_EXCLUSIONS = {
+    "Adrian Dantley",
+    "Alex English",
+    "Sidney Moncrief",
 }
 
 LETTER_CN = {
@@ -758,9 +782,12 @@ def make_cba_card(player: dict, quality: int, index: int) -> dict:
         "nba2kOverall": None,
         "nba2kPotential": None,
         "nba2kPotentialRuleApplied": False,
-        "specialQualityReason": "CBA大陆MVP/FMVP球星，开放新秀及以上所有品质",
+        "specialQualityReason": player.get(
+            "reason",
+            "CBA大陆MVP/FMVP球星，开放新秀及以上所有品质",
+        ),
         "goatAttributeOverrideApplied": False,
-        "profileSourceGroup": "CBAAwardLocal",
+        "profileSourceGroup": player.get("profileSourceGroup", "CBAAwardLocal"),
         "cbaAwardProfile": {
             "mvpSeasons": player.get("mvpSeasons", []),
             "fmvpSeasons": player.get("fmvpSeasons", []),
@@ -778,15 +805,24 @@ def apply_cba_replacements(
     if not cba_players:
         return cards
 
+    replacement_players = [
+        player for player in cba_players if not player.get("appendToPool")
+    ]
+    appended_players = [
+        player for player in cba_players if player.get("appendToPool")
+    ]
+
     cards_by_quality = defaultdict(list)
     for idx, card in enumerate(cards):
         cards_by_quality[card["quality"]].append((idx, card))
 
     replaced_indices = set()
-    cba_ids = {p["id"] for p in cba_players}
+    cba_ids = {p["id"] for p in replacement_players}
     protected_ids_by_quality = protected_ids_by_quality or {}
     for quality in QUALITY_NAMES:
-        eligible = [p for p in cba_players if quality in cba_quality_levels(p)]
+        eligible = [
+            p for p in replacement_players if quality in cba_quality_levels(p)
+        ]
         if not eligible:
             continue
 
@@ -836,6 +872,11 @@ def apply_cba_replacements(
             idx, _old_card = candidate
             cards[idx] = make_cba_card(player, quality, replace_no)
             replaced_indices.add(idx)
+
+    for quality in QUALITY_NAMES:
+        for append_no, player in enumerate(appended_players, start=1):
+            if quality in cba_quality_levels(player):
+                cards.append(make_cba_card(player, quality, append_no))
 
     return cards
 
@@ -1022,6 +1063,9 @@ def main() -> None:
     nba2k = pd.read_csv(nba2k_path) if nba2k_path.exists() else pd.DataFrame()
     cba_path = DATA / "cba_local_award_stars.json"
     cba_players = json.loads(cba_path.read_text(encoding="utf-8"))["players"] if cba_path.exists() else []
+    concept_gods = json.loads(
+        (DATA / "concept_god_pool.json").read_text(encoding="utf-8")
+    )["conceptGods"]
 
     profile_by_id = {p["player_id"]: p for p in profiles["players"]}
     star_ids = set(profile_by_id)
@@ -1242,6 +1286,18 @@ def main() -> None:
 
     forced_ids = [pid for pid in chinese_ids if pid in set(summary["player_id"])]
     id_by_name = {row["player_name"]: row["player_id"] for _, row in summary.iterrows()}
+    concept_goat_ids = list(
+        dict.fromkeys(
+            id_by_name[source_name]
+            for concept in concept_gods
+            if (
+                source_name := (
+                    concept.get("rosterSourcePlayerName")
+                    or concept["sourcePlayerName"]
+                )
+            ) in id_by_name
+        )
+    )
     special_include_by_quality = defaultdict(list)
     special_exclude_by_quality = defaultdict(set)
     special_reason_by_id = {}
@@ -1290,6 +1346,15 @@ def main() -> None:
     fame_include_by_quality = defaultdict(list)
     fame_exclude_by_quality = defaultdict(set)
     if args.fame_priority:
+        excluded_fame_ids = set(
+            summary.loc[
+                summary["player_name"].isin(FAME_PLAYER_EXCLUSIONS),
+                "player_id",
+            ]
+        )
+        for quality in QUALITY_NAMES:
+            fame_exclude_by_quality[quality].update(excluded_fame_ids)
+
         recent_cutoff = 2024
         fame_exclude_by_quality[3].update(
             summary[
@@ -1373,6 +1438,12 @@ def main() -> None:
             prefer_alltime=args.alltime_priority,
             prefer_fame=fame_mode,
         )
+        if quality == 15:
+            player_ids.extend(
+                player_id
+                for player_id in concept_goat_ids
+                if player_id not in player_ids
+            )
         for index, player_id in enumerate(player_ids, start=1):
             row = season_rows[quality].loc[player_id]
             player_name = str(row["player_name"])
@@ -1423,15 +1494,34 @@ def main() -> None:
                 }
             )
 
+    protected_ids_by_quality = {
+        quality: set(player_ids)
+        for quality, player_ids in fame_include_by_quality.items()
+    }
+    protected_ids_by_quality.setdefault(15, set()).update(concept_goat_ids)
     cards = apply_cba_replacements(
         cards,
         cba_players,
         preserve_alltime=args.alltime_priority or args.fame_priority,
-        protected_ids_by_quality={
-            quality: set(player_ids)
-            for quality, player_ids in fame_include_by_quality.items()
-        },
+        protected_ids_by_quality=protected_ids_by_quality,
     )
+
+    goat_source_names = {
+        card["sourcePlayerName"] for card in cards if card["quality"] == 15
+    }
+    missing_concept_goat_sources = [
+        concept.get("rosterSourcePlayerName") or concept["sourcePlayerName"]
+        for concept in concept_gods
+        if (
+            concept.get("rosterSourcePlayerName")
+            or concept["sourcePlayerName"]
+        ) not in goat_source_names
+    ]
+    if missing_concept_goat_sources:
+        raise ValueError(
+            "Concept-god sources missing GOAT templates: "
+            + ", ".join(missing_concept_goat_sources)
+        )
 
     count_by_quality = Counter(card["qualityName"] for card in cards)
     source_league_counts = Counter(card.get("sourceLeague", "NBA") for card in cards)
@@ -1442,7 +1532,7 @@ def main() -> None:
                 if args.fame_priority
                 else ("2.0-alltime-priority" if args.alltime_priority else "1.0")
             ),
-            "description": "Real NBA player card config. Every remaining quality contains 100 real-player cards. Pre-rookie qualities were removed.",
+            "description": "Real-player card config for all remaining qualities. Designated concept-god source players may be appended without replacing existing cards. Pre-rookie qualities were removed.",
             "name_rule": "Display names use the approved Chinese prefix from the matching avatar filename; fallback generation replaces one character of the translated surname with a near-homophone.",
             "quality_rule": "Quality is a game rarity tier. High quality pools prioritize active stars, NBA 75, strong non-selected stars, and Hall-of-Fame level players.",
             "nba2k_rule": "NBA 2K25 overall/potential is used as an additional high-ceiling signal. Potential 95+ players can enter high-quality pools; 90+ young players are promoted in starter-to-best-lineup pools.",
@@ -1457,7 +1547,7 @@ def main() -> None:
                 else ""
             ),
             "special_quality_rules": SPECIAL_QUALITY_RULES,
-            "cba_replacement_rule": "Mainland Chinese CBA regular-season MVP and Finals MVP stars replace selected NBA cards in every remaining quality pool.",
+            "cba_replacement_rule": "Mainland Chinese CBA regular-season MVP and Finals MVP stars replace selected NBA cards in every remaining quality pool; designated concept-god source players are appended without replacing existing cards.",
             "chinese_special_rule": "Chinese-national special players are included in every quality. Their GOAT cards use full attributes.",
             "count": len(cards),
             "count_by_quality": dict(sorted(count_by_quality.items())),

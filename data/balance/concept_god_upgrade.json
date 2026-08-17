@@ -35,7 +35,7 @@
   "rules": {
     "onlyRewardWhenVideoCompleted": true,
     "conceptGodAcquisitionCountIncludesDismissed": true,
-    "preservePlayerNameAndPortrait": true,
+    "preservePlayerNameAndPortraitByDefault": true,
     "normalQualityUpgradePreservesRangePercentile": true
   },
   "fullConceptLineup": {
@@ -43,6 +43,9 @@
     "teamOvrValue": 2147483647,
     "gameGraduated": true,
     "allMatchesAutoWin": true
+  },
+  "conceptGodDisplayNameOverrides": {
+    "Jeremy Lamb": "2K蓝姆"
   },
   "eligibleSourcePlayerNames": [
     "Michael Jordan",
@@ -93,6 +96,9 @@
     "巩晓彬",
     "Gong Xiaobin",
     "王仕鹏",
-    "Wang Shipeng"
+    "Wang Shipeng",
+    "马健",
+    "张卫平",
+    "Jeremy Lamb"
   ]
 }

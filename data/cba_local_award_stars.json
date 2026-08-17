@@ -1,9 +1,9 @@
 {
   "_meta": {
     "version": "1.0",
-    "description": "Mainland Chinese CBA award stars who won regular-season MVP or Finals MVP.",
-    "source_note": "Compiled from public CBA MVP/FMVP winner lists. Foreign-player winners and non-mainland Chinese winners are excluded.",
-    "count": 20
+    "description": "Mainland Chinese CBA award stars plus designated Chinese-basketball concept-god source players.",
+    "source_note": "The main list is compiled from public CBA MVP/FMVP winner lists; designated concept-god source players are explicitly marked and appended without replacing existing cards.",
+    "count": 21
   },
   "players": [
     {"id": "cba_huweidong", "name": "胡卫东", "position": "SG", "team": "江苏", "mvpSeasons": ["1995-96", "1996-97"], "fmvpSeasons": [], "tier": 14},
@@ -24,7 +24,8 @@
     {"id": "cba_hexining", "name": "贺希宁", "position": "SG", "team": "深圳", "mvpSeasons": ["2025-26"], "fmvpSeasons": [], "tier": 13},
     {"id": "cba_dufeng", "name": "杜锋", "position": "PF", "team": "广东", "mvpSeasons": [], "fmvpSeasons": ["2003-04"], "tier": 13},
     {"id": "cba_wangshipeng", "name": "王仕鹏", "position": "SG", "team": "广东", "mvpSeasons": [], "fmvpSeasons": ["2010-11"], "tier": 13},
-    {"id": "cba_humingxuan", "name": "胡明轩", "position": "PG", "team": "广东", "mvpSeasons": [], "fmvpSeasons": ["2020-21"], "tier": 13},
-    {"id": "cba_zhaojiwei", "name": "赵继伟", "position": "PG", "team": "辽宁", "mvpSeasons": [], "fmvpSeasons": ["2021-22", "2022-23"], "tier": 13}
+    {"id": "cba_zhaojiwei", "name": "赵继伟", "position": "PG", "team": "辽宁", "mvpSeasons": [], "fmvpSeasons": ["2021-22", "2022-23"], "tier": 13},
+    {"id": "cba_majian", "name": "马健", "position": "PF", "team": "中国篮球", "mvpSeasons": [], "fmvpSeasons": [], "tier": 13, "appendToPool": true, "profileSourceGroup": "CBAConceptGodSource", "reason": "概念神原型，加入全部品质球员池以开放GOAT广告升级"},
+    {"id": "cba_zhangweiping", "name": "张卫平", "position": "PF", "team": "中国篮球", "mvpSeasons": [], "fmvpSeasons": [], "tier": 13, "appendToPool": true, "profileSourceGroup": "CBAConceptGodSource", "reason": "概念神原型，加入全部品质球员池以开放GOAT广告升级"}
   ]
 }
