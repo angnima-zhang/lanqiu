@@ -1,0 +1,258 @@
+{
+    "_meta":  {
+                  "status":  "已配置",
+                  "version":  "v0.69",
+                  "description":  "13个品质赛季各一枚98-0全胜冠军成就。",
+                  "achievementCount":  13,
+                  "resourceRewardsEnabled":  false
+              },
+    "achievements":  [
+                         {
+                             "achievementId":  "undefeated_champion_quality_3",
+                             "seasonNumber":  1,
+                             "difficultyQualityId":  3,
+                             "difficultyQualityName":  "新秀",
+                             "displayName":  "新秀·98–0全胜冠军",
+                             "requirement":  {
+                                                 "officialWins":  98,
+                                                 "officialLosses":  0,
+                                                 "championshipRequired":  true
+                                             },
+                             "grantedOnce":  true,
+                             "resourceRewards":  {
+                                                     "budget":  0,
+                                                     "willpower":  0
+                                                 },
+                             "unlocks":  "next_quality_season",
+                             "nextDifficultyQuality":  "饮水机"
+                         },
+                         {
+                             "achievementId":  "undefeated_champion_quality_4",
+                             "seasonNumber":  2,
+                             "difficultyQualityId":  4,
+                             "difficultyQualityName":  "饮水机",
+                             "displayName":  "饮水机·98–0全胜冠军",
+                             "requirement":  {
+                                                 "officialWins":  98,
+                                                 "officialLosses":  0,
+                                                 "championshipRequired":  true
+                                             },
+                             "grantedOnce":  true,
+                             "resourceRewards":  {
+                                                     "budget":  0,
+                                                     "willpower":  0
+                                                 },
+                             "unlocks":  "next_quality_season",
+                             "nextDifficultyQuality":  "轮换"
+                         },
+                         {
+                             "achievementId":  "undefeated_champion_quality_5",
+                             "seasonNumber":  3,
+                             "difficultyQualityId":  5,
+                             "difficultyQualityName":  "轮换",
+                             "displayName":  "轮换·98–0全胜冠军",
+                             "requirement":  {
+                                                 "officialWins":  98,
+                                                 "officialLosses":  0,
+                                                 "championshipRequired":  true
+                                             },
+                             "grantedOnce":  true,
+                             "resourceRewards":  {
+                                                     "budget":  0,
+                                                     "willpower":  0
+                                                 },
+                             "unlocks":  "next_quality_season",
+                             "nextDifficultyQuality":  "第六人"
+                         },
+                         {
+                             "achievementId":  "undefeated_champion_quality_6",
+                             "seasonNumber":  4,
+                             "difficultyQualityId":  6,
+                             "difficultyQualityName":  "第六人",
+                             "displayName":  "第六人·98–0全胜冠军",
+                             "requirement":  {
+                                                 "officialWins":  98,
+                                                 "officialLosses":  0,
+                                                 "championshipRequired":  true
+                                             },
+                             "grantedOnce":  true,
+                             "resourceRewards":  {
+                                                     "budget":  0,
+                                                     "willpower":  0
+                                                 },
+                             "unlocks":  "next_quality_season",
+                             "nextDifficultyQuality":  "首发"
+                         },
+                         {
+                             "achievementId":  "undefeated_champion_quality_7",
+                             "seasonNumber":  5,
+                             "difficultyQualityId":  7,
+                             "difficultyQualityName":  "首发",
+                             "displayName":  "首发·98–0全胜冠军",
+                             "requirement":  {
+                                                 "officialWins":  98,
+                                                 "officialLosses":  0,
+                                                 "championshipRequired":  true
+                                             },
+                             "grantedOnce":  true,
+                             "resourceRewards":  {
+                                                     "budget":  0,
+                                                     "willpower":  0
+                                                 },
+                             "unlocks":  "next_quality_season",
+                             "nextDifficultyQuality":  "核心"
+                         },
+                         {
+                             "achievementId":  "undefeated_champion_quality_8",
+                             "seasonNumber":  6,
+                             "difficultyQualityId":  8,
+                             "difficultyQualityName":  "核心",
+                             "displayName":  "核心·98–0全胜冠军",
+                             "requirement":  {
+                                                 "officialWins":  98,
+                                                 "officialLosses":  0,
+                                                 "championshipRequired":  true
+                                             },
+                             "grantedOnce":  true,
+                             "resourceRewards":  {
+                                                     "budget":  0,
+                                                     "willpower":  0
+                                                 },
+                             "unlocks":  "next_quality_season",
+                             "nextDifficultyQuality":  "全明星"
+                         },
+                         {
+                             "achievementId":  "undefeated_champion_quality_9",
+                             "seasonNumber":  7,
+                             "difficultyQualityId":  9,
+                             "difficultyQualityName":  "全明星",
+                             "displayName":  "全明星·98–0全胜冠军",
+                             "requirement":  {
+                                                 "officialWins":  98,
+                                                 "officialLosses":  0,
+                                                 "championshipRequired":  true
+                                             },
+                             "grantedOnce":  true,
+                             "resourceRewards":  {
+                                                     "budget":  0,
+                                                     "willpower":  0
+                                                 },
+                             "unlocks":  "next_quality_season",
+                             "nextDifficultyQuality":  "最佳阵容"
+                         },
+                         {
+                             "achievementId":  "undefeated_champion_quality_10",
+                             "seasonNumber":  8,
+                             "difficultyQualityId":  10,
+                             "difficultyQualityName":  "最佳阵容",
+                             "displayName":  "最佳阵容·98–0全胜冠军",
+                             "requirement":  {
+                                                 "officialWins":  98,
+                                                 "officialLosses":  0,
+                                                 "championshipRequired":  true
+                                             },
+                             "grantedOnce":  true,
+                             "resourceRewards":  {
+                                                     "budget":  0,
+                                                     "willpower":  0
+                                                 },
+                             "unlocks":  "next_quality_season",
+                             "nextDifficultyQuality":  "MVP"
+                         },
+                         {
+                             "achievementId":  "undefeated_champion_quality_11",
+                             "seasonNumber":  9,
+                             "difficultyQualityId":  11,
+                             "difficultyQualityName":  "MVP",
+                             "displayName":  "MVP·98–0全胜冠军",
+                             "requirement":  {
+                                                 "officialWins":  98,
+                                                 "officialLosses":  0,
+                                                 "championshipRequired":  true
+                                             },
+                             "grantedOnce":  true,
+                             "resourceRewards":  {
+                                                     "budget":  0,
+                                                     "willpower":  0
+                                                 },
+                             "unlocks":  "next_quality_season",
+                             "nextDifficultyQuality":  "FMVP"
+                         },
+                         {
+                             "achievementId":  "undefeated_champion_quality_12",
+                             "seasonNumber":  10,
+                             "difficultyQualityId":  12,
+                             "difficultyQualityName":  "FMVP",
+                             "displayName":  "FMVP·98–0全胜冠军",
+                             "requirement":  {
+                                                 "officialWins":  98,
+                                                 "officialLosses":  0,
+                                                 "championshipRequired":  true
+                                             },
+                             "grantedOnce":  true,
+                             "resourceRewards":  {
+                                                     "budget":  0,
+                                                     "willpower":  0
+                                                 },
+                             "unlocks":  "next_quality_season",
+                             "nextDifficultyQuality":  "名人堂"
+                         },
+                         {
+                             "achievementId":  "undefeated_champion_quality_13",
+                             "seasonNumber":  11,
+                             "difficultyQualityId":  13,
+                             "difficultyQualityName":  "名人堂",
+                             "displayName":  "名人堂·98–0全胜冠军",
+                             "requirement":  {
+                                                 "officialWins":  98,
+                                                 "officialLosses":  0,
+                                                 "championshipRequired":  true
+                                             },
+                             "grantedOnce":  true,
+                             "resourceRewards":  {
+                                                     "budget":  0,
+                                                     "willpower":  0
+                                                 },
+                             "unlocks":  "next_quality_season",
+                             "nextDifficultyQuality":  "传奇"
+                         },
+                         {
+                             "achievementId":  "undefeated_champion_quality_14",
+                             "seasonNumber":  12,
+                             "difficultyQualityId":  14,
+                             "difficultyQualityName":  "传奇",
+                             "displayName":  "传奇·98–0全胜冠军",
+                             "requirement":  {
+                                                 "officialWins":  98,
+                                                 "officialLosses":  0,
+                                                 "championshipRequired":  true
+                                             },
+                             "grantedOnce":  true,
+                             "resourceRewards":  {
+                                                     "budget":  0,
+                                                     "willpower":  0
+                                                 },
+                             "unlocks":  "next_quality_season",
+                             "nextDifficultyQuality":  "GOAT"
+                         },
+                         {
+                             "achievementId":  "undefeated_champion_quality_15",
+                             "seasonNumber":  13,
+                             "difficultyQualityId":  15,
+                             "difficultyQualityName":  "GOAT",
+                             "displayName":  "GOAT·98–0全胜冠军",
+                             "requirement":  {
+                                                 "officialWins":  98,
+                                                 "officialLosses":  0,
+                                                 "championshipRequired":  true
+                                             },
+                             "grantedOnce":  true,
+                             "resourceRewards":  {
+                                                     "budget":  0,
+                                                     "willpower":  0
+                                                 },
+                             "unlocks":  "concept_god_endless_mode",
+                             "nextDifficultyQuality":  null
+                         }
+                     ]
+}

@@ -1,0 +1,25 @@
+{
+  "_meta": {
+    "status": "已定稿",
+    "distribution": "uniform_integer",
+    "maxAdjacentOverlapPercent": 5,
+    "teamBaseOvrFormula": "sum(activePlayerOvr)",
+    "teamFinalOvrFormula": "teamBaseOvr * (1 + sum(managementContributionPercent))",
+    "managementAdjustedTeamOvrHasCap": false
+  },
+  "ranges": [
+    {"qualityId": 3, "qualityName": "新秀", "minOvr": 1, "maxOvr": 100},
+    {"qualityId": 4, "qualityName": "饮水机", "minOvr": 95, "maxOvr": 261},
+    {"qualityId": 5, "qualityName": "轮换", "minOvr": 248, "maxOvr": 681},
+    {"qualityId": 6, "qualityName": "第六人", "minOvr": 647, "maxOvr": 1778},
+    {"qualityId": 7, "qualityName": "首发", "minOvr": 1690, "maxOvr": 4642},
+    {"qualityId": 8, "qualityName": "核心", "minOvr": 4410, "maxOvr": 12115},
+    {"qualityId": 9, "qualityName": "全明星", "minOvr": 11510, "maxOvr": 31623},
+    {"qualityId": 10, "qualityName": "最佳阵容", "minOvr": 30042, "maxOvr": 82540},
+    {"qualityId": 11, "qualityName": "MVP", "minOvr": 78413, "maxOvr": 215443},
+    {"qualityId": 12, "qualityName": "FMVP", "minOvr": 204671, "maxOvr": 562341},
+    {"qualityId": 13, "qualityName": "名人堂", "minOvr": 534224, "maxOvr": 1467799},
+    {"qualityId": 14, "qualityName": "传奇", "minOvr": 1394410, "maxOvr": 3831187},
+    {"qualityId": 15, "qualityName": "GOAT", "minOvr": 3639628, "maxOvr": 10000000}
+  ]
+}

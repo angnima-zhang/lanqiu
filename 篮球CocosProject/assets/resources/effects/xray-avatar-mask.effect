@@ -1,0 +1,122 @@
+CCEffect %{
+  techniques:
+  - passes:
+    - vert: xray-avatar-vs:vert
+      frag: xray-avatar-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        sweepProgress: { value: 0.0, target: sweepParams.x }
+        sweepWidth: { value: 0.03, target: sweepParams.y }
+        dimness: { value: 0.6, target: sweepParams.z }
+        glowWidth: { value: 0.02, target: sweepParams.w }
+        xrayTint: { value: [0.05, 0.12, 0.4, 1.0], editor: { type: color } }
+        glowColor: { value: [0.4, 0.8, 1.0, 1.0], editor: { type: color } }
+}%
+
+CCProgram xray-avatar-vs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #if USE_LOCAL
+    #include <builtin/uniforms/cc-local>
+  #endif
+  #if SAMPLE_FROM_RT
+    #include <common/common-define>
+  #endif
+
+  in vec3 a_position;
+  in vec2 a_texCoord;
+  in vec4 a_color;
+
+  out vec4 color;
+  out vec2 uv0;
+
+  vec4 vert () {
+    vec4 pos = vec4(a_position, 1.0);
+
+    #if USE_LOCAL
+      pos = cc_matWorld * pos;
+    #endif
+
+    #if USE_PIXEL_ALIGNMENT
+      pos = cc_matView * pos;
+      pos.xyz = floor(pos.xyz);
+      pos = cc_matProj * pos;
+    #else
+      pos = cc_matViewProj * pos;
+    #endif
+
+    uv0 = a_texCoord;
+    #if SAMPLE_FROM_RT
+      CC_HANDLE_RT_SAMPLE_FLIP(uv0);
+    #endif
+
+    color = a_color;
+    return pos;
+  }
+}%
+
+CCProgram xray-avatar-fs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #include <builtin/internal/embedded-alpha>
+  #include <builtin/internal/alpha-test>
+
+  in vec4 color;
+  in vec2 uv0;
+
+  #pragma builtin(local)
+  layout(set = 2, binding = 12) uniform sampler2D cc_spriteTexture;
+
+  uniform XRay {
+    vec4 sweepParams;  // x: progress(0-1), y: edgeWidth, z: dimness(0-1), w: glowFalloff
+    vec4 xrayTint;
+    vec4 glowColor;
+  };
+
+  vec4 frag () {
+    vec4 o = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+    // sweepParams.x = reveal progress (0=all dimmed, 1=all revealed, sweeps left→right)
+    // sweepParams.y = edge band width
+    // sweepParams.z = dimness (0=full brightness, 1=black)
+    // sweepParams.w = glow falloff
+
+    float progress = sweepParams.x;
+    float edgeWidth = max(sweepParams.y, 0.001);
+    float dimness = sweepParams.z;
+    float falloff = max(sweepParams.w, 0.001);
+
+    // Reveal: 0.0 = fully dimmed, 1.0 = fully revealed
+    // Use smoothstep at the reveal boundary so the edge isn't a hard cut
+    float reveal = smoothstep(progress - edgeWidth, progress + edgeWidth, uv0.x);
+
+    // Dim the unrevealed (right) side
+    float brightness = 1.0 - dimness;
+    vec3 dimmed = o.rgb * brightness;
+
+    // Blend between dimmed (right) and full reveal (left)
+    o.rgb = mix(dimmed, o.rgb, reveal);
+
+    // Xray blue tint applied to dimmed area
+    o.rgb = mix(xrayTint.rgb * brightness, o.rgb, reveal);
+
+    // Glowing scan edge — strongest right at the boundary
+    float distToEdge = abs(uv0.x - progress);
+    float edgeGlow = exp(-distToEdge / falloff) * (1.0 - smoothstep(0.0, falloff * 10.0, distToEdge));
+    o.rgb += glowColor.rgb * edgeGlow * glowColor.a;
+
+    ALPHA_TEST(o);
+    o *= color;
+    return o;
+  }
+}%

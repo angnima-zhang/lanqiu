@@ -1,0 +1,680 @@
+{
+  "rules": [
+    {
+      "id": "lin_layup",
+      "priority": 600,
+      "action": "layup",
+      "outcome": "made",
+      "actors": ["Jeremy Lin"],
+      "texts": ["{{player}}借掩护杀入禁区，林疯狂的记忆被点亮。", "{{player}}第一步过掉防守，篮下擦板命中。"]
+    },
+    {
+      "id": "lin_pick_and_roll",
+      "priority": 600,
+      "outcome": "made",
+      "actors": ["Jeremy Lin"],
+      "tactics": ["pick-and-roll"],
+      "texts": ["{{player}}把挡拆拆开，空位自然出现。", "{{player}}借掩护吸走协防，队友舒服得分。"]
+    },
+    {
+      "id": "lamb_three",
+      "priority": 600,
+      "action": "three",
+      "outcome": "made",
+      "actors": ["Jeremy Lamb"],
+      "texts": ["{{player}}按下出手键，这评分像被偷偷调高。", "2K里的能力值，跑到现实球场了。"]
+    },
+    {
+      "id": "lamb_jumper",
+      "priority": 600,
+      "action": "jumper",
+      "outcome": "made",
+      "actors": ["Jeremy Lamb"],
+      "texts": ["{{player}}中距离一抬手，游戏里的数值怪物上线。", "{{player}}这次出手，防守人像被按了暂停。"]
+    },
+    {
+      "id": "vs_kd_three_lebron_zhan",
+      "priority": 1000,
+      "action": "three",
+      "outcome": "made",
+      "actors": ["Kevin Durant"],
+      "opponentHasAll": ["LeBron James"],
+      "texts": ["斩！"]
+    },
+    {
+      "id": "combo_curry_klay_three",
+      "priority": 800,
+      "action": "three",
+      "outcome": "made",
+      "actors": ["Stephen Curry", "Klay Thompson"],
+      "teamHasAll": ["Stephen Curry", "Klay Thompson"],
+      "texts": ["水花又开了！", "两道水花，打湿了记分牌。"]
+    },
+    {
+      "id": "combo_curry_green_assist",
+      "priority": 800,
+      "action": "three",
+      "outcome": "made",
+      "actors": ["Stephen Curry"],
+      "passerMustBe": ["Draymond Green"],
+      "texts": ["一人发牌，一人开火。", "高位的手递手，又把火点着了。"]
+    },
+    {
+      "id": "combo_james_wade",
+      "priority": 800,
+      "action": "layup",
+      "outcome": "made",
+      "actors": ["LeBron James", "Dwyane Wade"],
+      "teamHasAll": ["LeBron James", "Dwyane Wade"],
+      "passerMustBe": ["LeBron James", "Dwyane Wade"],
+      "texts": ["詹韦连线！", "迈阿密的闪电，又划过球场。"]
+    },
+    {
+      "id": "combo_gdp",
+      "priority": 800,
+      "outcome": "made",
+      "actors": ["Tim Duncan", "Tony Parker", "Manu Ginóbili"],
+      "teamHasAll": ["Tim Duncan", "Tony Parker", "Manu Ginóbili"],
+      "texts": ["GDP 的齿轮又转了一格。", "马刺的老配方，依旧好用。"]
+    },
+    {
+      "id": "combo_stockton_malone",
+      "priority": 800,
+      "action": "dunk",
+      "outcome": "made",
+      "actors": ["Karl Malone"],
+      "passerMustBe": ["John Stockton"],
+      "texts": ["一传一顺，挡拆课代表交卷。", "盐湖城的挡拆，复习一遍。"]
+    },
+    {
+      "id": "combo_ok_shaqlowpost",
+      "priority": 800,
+      "action": "dunk",
+      "outcome": "made",
+      "actors": ["Shaquille O'Neal"],
+      "teamHasAll": ["Shaquille O'Neal", "Kobe Bryant"],
+      "texts": ["OK 的压迫感扑面而来。", "紫金双星，一内一外都亮了。"]
+    },
+    {
+      "id": "combo_yaomai_clutch",
+      "priority": 800,
+      "outcome": "made",
+      "actors": ["Yao Ming", "Tracy McGrady"],
+      "teamHasAll": ["Yao Ming", "Tracy McGrady"],
+      "clutch": true,
+      "texts": ["火箭红色记忆开始读秒。", "姚麦同框，丰田中心的回声来了。"]
+    },
+    {
+      "id": "combo_yaomai_cn_clutch",
+      "priority": 800,
+      "outcome": "made",
+      "actors": ["姚明", "Tracy McGrady"],
+      "teamHasAll": ["姚明", "Tracy McGrady"],
+      "clutch": true,
+      "texts": ["火箭红色记忆开始读秒。", "姚麦同框，丰田中心的回声来了。"]
+    },
+    {
+      "id": "combo_jordan_pippen_transition",
+      "priority": 800,
+      "action": "dunk",
+      "outcome": "made",
+      "actors": ["Michael Jordan", "Scottie Pippen"],
+      "teamHasAll": ["Michael Jordan", "Scottie Pippen"],
+      "texts": ["公牛双翼一展开，快攻就有了。"]
+    },
+    {
+      "id": "combo_yi_yao",
+      "priority": 800,
+      "outcome": "made",
+      "actors": ["Yi Jianlian"],
+      "teamHasAll": ["Yi Jianlian", "Yao Ming"],
+      "texts": ["中国内线的高度，同时写进记分牌。"]
+    },
+    {
+      "id": "combo_yi_yao_cn",
+      "priority": 800,
+      "outcome": "made",
+      "actors": ["易建联"],
+      "teamHasAll": ["易建联", "姚明"],
+      "texts": ["中国内线的高度，同时写进记分牌。"]
+    },
+    {
+      "id": "curry_three",
+      "priority": 600,
+      "action": "three",
+      "outcome": "made",
+      "actors": ["Stephen Curry"],
+      "texts": ["{{player}}跑出空位，库有引力已经生效。", "这不是三分线，是{{player}}的起跑线。", "{{player}}一过半场就进入射程。"]
+    },
+    {
+      "id": "klay_three",
+      "priority": 600,
+      "action": "three",
+      "outcome": "made",
+      "actors": ["Klay Thompson"],
+      "texts": ["{{player}}接球，点火，开炮。", "{{player}}不需要运球，他只需要半秒。", "佛光普照，外线命中。"]
+    },
+    {
+      "id": "durant_jumper",
+      "priority": 600,
+      "action": "jumper",
+      "outcome": "made",
+      "actors": ["Kevin Durant"],
+      "texts": ["{{player}}把出手点举到云层上。", "死神抬手，两分带走。", "防守已经封到脸上，{{player}}还是看得见篮筐。"]
+    },
+    {
+      "id": "james_transition",
+      "priority": 600,
+      "action": "dunk",
+      "outcome": "made",
+      "actors": ["LeBron James"],
+      "texts": ["{{player}}发动全场快攻，列车进站。", "{{player}}从后场起速，篮筐要让路。", "追身封盖没来，快攻两分已到账。"]
+    },
+    {
+      "id": "james_assist",
+      "priority": 600,
+      "outcome": "made",
+      "actors": ["LeBron James"],
+      "tactics": ["horns", "four-out-one-in"],
+      "texts": ["{{player}}阅读完防守，把答案交给队友。", "球场像棋盘，{{player}}先走了一步。"]
+    },
+    {
+      "id": "harden_stepback",
+      "priority": 600,
+      "action": "three",
+      "outcome": "made",
+      "actors": ["James Harden"],
+      "texts": ["{{player}}后撤一步，防守人已在回放里。", "后撤拉开距离，胡子一抖就是三分。", "节奏一变，{{player}}把空间拿走。"]
+    },
+    {
+      "id": "westbrook_dunk",
+      "priority": 600,
+      "action": "dunk",
+      "outcome": "made",
+      "actors": ["Russell Westbrook"],
+      "texts": ["天空是蔚蓝色，窗外是{{player}}！", "{{player}}起飞，这球扣得很有风声。", "油门到底，篮筐遭殃。"]
+    },
+    {
+      "id": "kyrie_layup",
+      "priority": 600,
+      "action": "layup",
+      "outcome": "made",
+      "actors": ["Kyrie Irving"],
+      "texts": ["{{player}}把篮筐当成了魔术道具。", "这上篮拐了三个弯，还是进了。", "手活儿太细，补防只剩叹气。"]
+    },
+    {
+      "id": "luka_three",
+      "priority": 600,
+      "action": "three",
+      "outcome": "made",
+      "actors": ["Luka Dončić"],
+      "texts": ["{{player}}后撤一步，时间像被按慢放。", "{{player}}不快，但防守总是慢半拍。", "节奏归{{player}}管。"]
+    },
+    {
+      "id": "lillard_clutch",
+      "priority": 600,
+      "action": "three",
+      "outcome": "made",
+      "actors": ["Damian Lillard"],
+      "clutch": true,
+      "texts": ["{{player}}看了看表：时间到了。", "表针指到关键时刻，{{player}}开始发言。", "这球距离很远，故事很近。"]
+    },
+    {
+      "id": "cp3_pickroll",
+      "priority": 600,
+      "action": "jumper",
+      "outcome": "made",
+      "actors": ["Chris Paul"],
+      "tactics": ["pick-and-roll"],
+      "texts": ["{{player}}把挡拆拆成了说明书。", "中距离的答案，{{player}}早就背熟了。"]
+    },
+    {
+      "id": "iverson_layup",
+      "priority": 600,
+      "action": "layup",
+      "outcome": "made",
+      "actors": ["Allen Iverson"],
+      "texts": ["{{player}}个子不大，禁区胆子很大。", "{{player}}穿过人群，把球送进篮筐。"]
+    },
+    {
+      "id": "rose_layup",
+      "priority": 600,
+      "action": "layup",
+      "outcome": "made",
+      "actors": ["Derrick Rose"],
+      "texts": ["{{player}}变向进花园，篮下得分。", "第一步留下残影，{{player}}已经上篮。"]
+    },
+    {
+      "id": "parker_layup",
+      "priority": 600,
+      "action": "layup",
+      "outcome": "made",
+      "actors": ["Tony Parker"],
+      "texts": ["{{player}}的小抛投，还是那么难封。", "{{player}}绕进禁区，轻轻一点。"]
+    },
+    {
+      "id": "jordan_clutch",
+      "priority": 600,
+      "action": "jumper",
+      "outcome": "made",
+      "actors": ["Michael Jordan"],
+      "clutch": true,
+      "texts": ["最后一舞继续。", "{{player}}在关键时刻，还是那个答案。"]
+    },
+    {
+      "id": "kobe_clutch",
+      "priority": 600,
+      "action": "jumper",
+      "outcome": "made",
+      "actors": ["Kobe Bryant"],
+      "clutch": true,
+      "texts": ["曼巴模式。", "{{player}}把难度调满，还是要自己来。", "防守知道要投，也阻止不了。"]
+    },
+    {
+      "id": "mcgrady_clutch",
+      "priority": 600,
+      "action": "three",
+      "outcome": "made",
+      "actors": ["Tracy McGrady"],
+      "clutch": true,
+      "texts": ["35 秒？够用。", "时间不多？{{player}}说够了。"]
+    },
+    {
+      "id": "vince_dunk",
+      "priority": 600,
+      "action": "dunk",
+      "outcome": "made",
+      "actors": ["Vince Carter"],
+      "texts": ["{{player}}把篮筐扣得有点委屈。", "飞人起飞，禁区清场。"]
+    },
+    {
+      "id": "melo_jumper",
+      "priority": 600,
+      "action": "jumper",
+      "outcome": "made",
+      "actors": ["Carmelo Anthony"],
+      "texts": ["{{player}}背身要位，甜点区开门。", "进攻万花筒，翻到中距离这一页。"]
+    },
+    {
+      "id": "kawhi_clutch",
+      "priority": 600,
+      "action": "jumper",
+      "outcome": "made",
+      "actors": ["Kawhi Leonard"],
+      "clutch": true,
+      "texts": ["{{player}}面无表情，把球投进。", "机器人完成了关键指令。"]
+    },
+    {
+      "id": "giannis_dunk",
+      "priority": 600,
+      "action": "dunk",
+      "outcome": "made",
+      "actors": ["Giannis Antetokounmpo"],
+      "texts": ["{{player}}跑起来，禁区像在后退。", "两步跨进油漆区，篮筐又受罪。"]
+    },
+    {
+      "id": "edwards_dunk",
+      "priority": 600,
+      "action": "dunk",
+      "outcome": "made",
+      "actors": ["Anthony Edwards"],
+      "texts": ["{{player}}把禁区当成了海报背景。", "年轻人起飞，篮筐要加固。"]
+    },
+    {
+      "id": "draymond_assist",
+      "priority": 600,
+      "outcome": "made",
+      "actors": ["Draymond Green"],
+      "tactics": ["horns", "pick-and-roll"],
+      "texts": ["{{player}}在高位发牌，射手开始跑位。", "球不过{{player}}的手，勇士就少一层变化。"]
+    },
+    {
+      "id": "shaq_dunk",
+      "priority": 600,
+      "action": "dunk",
+      "outcome": "made",
+      "actors": ["Shaquille O'Neal"],
+      "texts": ["{{player}}低位一坐，禁区开始摇晃。", "大鲨鱼转身，篮筐被迫营业。", "这不是扣篮，是拆迁。"]
+    },
+    {
+      "id": "hakeem_lowpost",
+      "priority": 600,
+      "action": "jumper",
+      "outcome": "made",
+      "actors": ["Hakeem Olajuwon"],
+      "tactics": ["low-post"],
+      "texts": ["{{player}}梦幻脚步一摆，防守人找不到方向。", "低位像跳舞，最后还是两分。"]
+    },
+    {
+      "id": "kareem_jumper",
+      "priority": 600,
+      "action": "jumper",
+      "outcome": "made",
+      "actors": ["Kareem Abdul-Jabbar"],
+      "texts": ["天勾升空。", "这记勾手高得像要越过时代。"]
+    },
+    {
+      "id": "duncan_jumper",
+      "priority": 600,
+      "action": "jumper",
+      "outcome": "made",
+      "actors": ["Tim Duncan"],
+      "texts": ["打板，朴实但致命。", "{{player}}不讲花活，只讲两分。"]
+    },
+    {
+      "id": "dirk_jumper",
+      "priority": 600,
+      "action": "jumper",
+      "outcome": "made",
+      "actors": ["Dirk Nowitzki"],
+      "texts": ["金鸡独立。", "{{player}}单脚一抬，防守人只剩仰望。", "这条腿撑起了达拉斯的回忆。"]
+    },
+    {
+      "id": "jokic_horns",
+      "priority": 600,
+      "outcome": "made",
+      "actors": ["Nikola Jokić"],
+      "tactics": ["horns", "four-out-one-in"],
+      "texts": ["{{player}}摸一下球，队友就有空位。", "{{player}}把中锋位置打成了控卫。", "防守夹得越紧，{{player}}的传球越快。"]
+    },
+    {
+      "id": "embiid_lowpost",
+      "priority": 600,
+      "action": "dunk",
+      "outcome": "made",
+      "actors": ["Joel Embiid"],
+      "tactics": ["low-post"],
+      "texts": ["{{player}}低位接球，禁区要交税。", "身体一压，{{player}}把两分拿走。"]
+    },
+    {
+      "id": "yao_lowpost",
+      "priority": 600,
+      "action": "jumper",
+      "outcome": "made",
+      "actors": ["Yao Ming", "姚明"],
+      "tactics": ["low-post"],
+      "texts": ["{{player}}低位一靠，勾手柔和命中。", "小巨人在篮下转身，分数稳稳入账。"]
+    },
+    {
+      "id": "yi_dunk",
+      "priority": 600,
+      "action": "dunk",
+      "outcome": "made",
+      "actors": ["Yi Jianlian", "易建联"],
+      "texts": ["{{player}}起跳，把球放进太空轨道。", "太空易起飞，篮筐收到信号。"]
+    },
+    {
+      "id": "wangzhizhi_jumper",
+      "priority": 600,
+      "action": "jumper",
+      "outcome": "made",
+      "actors": ["Wang Zhizhi", "王治郅"],
+      "texts": ["{{player}}脚步一晃，篮下拿分。", "大郅的手感，内外都能接通。"]
+    },
+    {
+      "id": "wuxian_three",
+      "priority": 600,
+      "action": "three",
+      "outcome": "made",
+      "actors": ["吴前"],
+      "texts": ["{{player}}外线一抬手，国产库里的味道来了。"]
+    },
+    {
+      "id": "liu_yudong_jumper",
+      "priority": 600,
+      "action": "jumper",
+      "outcome": "made",
+      "actors": ["刘玉栋"],
+      "texts": ["战神中距离，依旧不讲道理。"]
+    },
+    {
+      "id": "zhang_weiping_layup",
+      "priority": 600,
+      "action": "layup",
+      "outcome": "made",
+      "actors": ["张卫平"],
+      "texts": ["这球合理吗？太合理了！"]
+    },
+    {
+      "id": "black_klay_three_miss",
+      "priority": 600,
+      "action": "three",
+      "outcome": "missed",
+      "actors": ["Klay Thompson"],
+      "texts": ["这次佛光没照到篮筐。"]
+    },
+    {
+      "id": "black_jr_miss",
+      "priority": 600,
+      "outcome": "missed",
+      "actors": ["J.R. Smith"],
+      "texts": ["{{player}}这球的想法，比传球快了一步。"]
+    },
+    {
+      "id": "rayallen_clutch_three",
+      "priority": 600,
+      "action": "three",
+      "outcome": "made",
+      "actors": ["Ray Allen"],
+      "clutch": true,
+      "texts": ["底角的{{player}}，从不浪费机会。", "球转到底角，答案已经写好了。"]
+    },
+    {
+      "id": "nickyoung_three",
+      "priority": 600,
+      "action": "three",
+      "outcome": "made",
+      "actors": ["Nick Young"],
+      "texts": ["{{player}}出手后的自信，比篮球先到篮筐。", "杨少侠已经转身，球还在路上。"]
+    },
+    {
+      "id": "jr_three",
+      "priority": 600,
+      "action": "three",
+      "outcome": "made",
+      "actors": ["J.R. Smith"],
+      "texts": ["{{player}}手感一来，谁都别劝。", "神经刀今天磨得很亮。"]
+    },
+    {
+      "id": "nash_pickroll",
+      "priority": 600,
+      "action": "jumper",
+      "outcome": "made",
+      "actors": ["Steve Nash"],
+      "tactics": ["pick-and-roll"],
+      "texts": ["{{player}}绕一圈，空位就自己出现。", "{{player}}把快攻传成了艺术展。"]
+    },
+    {
+      "id": "trae_layup",
+      "priority": 600,
+      "action": "layup",
+      "outcome": "made",
+      "actors": ["Trae Young"],
+      "texts": ["{{player}}把高个子骗到半空，再把球点进。", "{{player}}的抛投又飘起来了。"]
+    },
+    {
+      "id": "shai_layup",
+      "priority": 600,
+      "action": "layup",
+      "outcome": "made",
+      "actors": ["Shai Gilgeous-Alexander"],
+      "texts": ["{{player}}的节奏像停顿键，防守人跟着失拍。", "一步一顿，{{player}}还是钻进了禁区。"]
+    },
+    {
+      "id": "wade_layup",
+      "priority": 600,
+      "action": "layup",
+      "outcome": "made",
+      "actors": ["Dwyane Wade"],
+      "texts": ["{{player}}闪电切入，篮下打进。", "{{player}}从缝里钻出来，球也跟着进了。"]
+    },
+    {
+      "id": "booker_jumper",
+      "priority": 600,
+      "action": "jumper",
+      "outcome": "made",
+      "actors": ["Devin Booker"],
+      "texts": ["{{player}}中距离一抬手，阳光正好。", "{{player}}把防守带到甜点区，再拿走两分。"]
+    },
+    {
+      "id": "tatum_three",
+      "priority": 600,
+      "action": "three",
+      "outcome": "made",
+      "actors": ["Jayson Tatum"],
+      "texts": ["{{player}}把对位拉开，抬手就是答案。", "关键回合，{{player}}要自己解决。"]
+    },
+    {
+      "id": "pg_jumper",
+      "priority": 600,
+      "action": "jumper",
+      "outcome": "made",
+      "actors": ["Paul George"],
+      "texts": ["{{player}}的跳投，像把球挂在半空。", "干拔出手，丝滑落网。"]
+    },
+    {
+      "id": "butler_clutch_layup",
+      "priority": 600,
+      "action": "layup",
+      "outcome": "made",
+      "actors": ["Jimmy Butler"],
+      "clutch": true,
+      "texts": ["季后赛气氛一到，{{player}}开始加班。", "{{player}}把强度拉到另一个档位。"]
+    },
+    {
+      "id": "pierce_clutch_jumper",
+      "priority": 600,
+      "action": "jumper",
+      "outcome": "made",
+      "actors": ["Paul Pierce"],
+      "clutch": true,
+      "texts": ["{{player}}步子不急，关键球很急。", "真理落笔，分差改写。"]
+    },
+    {
+      "id": "rodman_rebound_miss",
+      "priority": 600,
+      "outcome": "missed",
+      "actors": ["Dennis Rodman"],
+      "texts": ["{{player}}不看得分，他只追篮板。", "球弹向哪里，{{player}}就出现在哪里。"]
+    },
+    {
+      "id": "dwight_dunk",
+      "priority": 600,
+      "action": "dunk",
+      "outcome": "made",
+      "actors": ["Dwight Howard"],
+      "texts": ["{{player}}吃饼起飞，篮筐作响。", "魔兽升空，这球没人拦得住。"]
+    },
+    {
+      "id": "ad_dunk",
+      "priority": 600,
+      "action": "dunk",
+      "outcome": "made",
+      "actors": ["Anthony Davis"],
+      "texts": ["{{player}}顺下吃饼，长臂把球放进篮筐。", "{{player}}在禁区升起，两分轻松入账。"]
+    },
+    {
+      "id": "wemby_dunk",
+      "priority": 600,
+      "action": "dunk",
+      "outcome": "made",
+      "actors": ["Victor Wembanyama"],
+      "texts": ["{{player}}站在篮下，篮筐好像变矮了。", "长臂一伸，{{player}}把球放进。"]
+    },
+    {
+      "id": "zhaojiwei_assist",
+      "priority": 600,
+      "outcome": "made",
+      "actors": ["赵继伟"],
+      "tactics": ["pick-and-roll", "horns"],
+      "texts": ["{{player}}把这次挡拆喂得明明白白。", "{{player}}看准空当，送出舒服的传球。"]
+    },
+    {
+      "id": "wangshipeng_clutch_three",
+      "priority": 600,
+      "action": "three",
+      "outcome": "made",
+      "actors": ["王仕鹏"],
+      "clutch": true,
+      "texts": ["{{player}}站到关键时刻，出手很坚决。", "终场前的外线，{{player}}一点不手软。"]
+    },
+    {
+      "id": "huw_dong_jumper",
+      "priority": 600,
+      "action": "jumper",
+      "outcome": "made",
+      "actors": ["胡卫东"],
+      "texts": ["{{player}}一停一抬，外线防守来不及。", "{{player}}的急停跳投，又准又稳。"]
+    },
+    {
+      "id": "base_three_made",
+      "priority": 200,
+      "action": "three",
+      "outcome": "made",
+      "texts": ["{{player}}外线埋伏，接球便是三分。", "传球刚到，{{player}}已经完成出手。", "空位出现得很短，{{player}}抓得很准。", "{{player}}推进中急停，三分有了。", "一个节奏差，防守人只能目送。", "{{player}}离三分线还有一步，照样敢投。"]
+    },
+    {
+      "id": "base_three_miss",
+      "priority": 200,
+      "action": "three",
+      "outcome": "missed",
+      "texts": ["{{player}}外线出手，篮球弹框而出。", "{{player}}刚摆脱防守，外线这次差了点准星。", "{{player}}超远距离试手，没能落袋。"]
+    },
+    {
+      "id": "base_jumper_made",
+      "priority": 200,
+      "action": "jumper",
+      "outcome": "made",
+      "texts": ["{{player}}转身后仰，篮球划出高弧线。", "防守贴得很紧，{{player}}还是把球送进。", "{{player}}把出手点抬得很高，两分命中。", "{{player}}借板取分，朴实但致命。"]
+    },
+    {
+      "id": "base_jumper_miss",
+      "priority": 200,
+      "action": "jumper",
+      "outcome": "missed",
+      "texts": ["{{player}}中距离出手，篮球涮筐而出。", "{{player}}转身后仰，差了点手感。", "{{player}}想借板取分，角度稍大。"]
+    },
+    {
+      "id": "base_layup_made",
+      "priority": 200,
+      "action": "layup",
+      "outcome": "made",
+      "texts": ["{{player}}加速切进禁区，挑篮得手。", "第一步甩开防守，{{player}}直取篮筐。", "协防赶到时，球已经擦板入网。", "{{player}}空中换手，篮下得分。"]
+    },
+    {
+      "id": "base_layup_miss",
+      "priority": 200,
+      "action": "layup",
+      "outcome": "missed",
+      "texts": ["{{player}}突破到篮下，协防干扰了终结。", "{{player}}高难度上篮，皮球没能落袋。", "{{player}}杀到篮下，最后一步被补到。"]
+    },
+    {
+      "id": "base_dunk_made",
+      "priority": 200,
+      "action": "dunk",
+      "outcome": "made",
+      "texts": ["{{player}}快下起飞，篮筐发出警报。", "前场一片开阔，{{player}}直接升空。", "{{player}}把快攻终结成了扣篮。", "{{player}}低位吃到深位，转身重扣。"]
+    },
+    {
+      "id": "base_dunk_miss",
+      "priority": 200,
+      "action": "dunk",
+      "outcome": "missed",
+      "texts": ["{{player}}起飞想完成暴扣，篮球砸在篮筐前沿。", "气氛已经飞上屋顶，篮球却临时取消了行程。"]
+    },
+    {
+      "id": "base_turnover",
+      "priority": 200,
+      "action": "turnover",
+      "outcome": "turnover",
+      "texts": ["{{player}}的传球被识破，对手完成抢断。", "{{player}}处理球慢了半拍，球权转换。", "防守阅读到了路线，{{player}}这次没能送出去。"]
+    },
+    {
+      "id": "base_free_throw",
+      "priority": 200,
+      "action": "free-throw",
+      "outcome": "free-throw",
+      "texts": ["{{player}}站上罚球线，稳稳把分数收下。", "{{player}}深呼吸后罚球命中。"]
+    }
+  ]
+}

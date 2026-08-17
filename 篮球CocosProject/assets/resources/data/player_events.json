@@ -1,0 +1,205 @@
+{
+  "triggerProbability": 0.3,
+  "defaultPlayerTraits": {
+    "health": 0.6,
+    "age": 28,
+    "training": 0.5,
+    "bond": 0.5
+  },
+  "playerTraitOverrides": {
+    "LeBron James": { "health": 0.92, "age": 41, "training": 0.95, "bond": 0.85 },
+    "Joel Embiid": { "health": 0.22, "age": 32, "training": 0.72, "bond": 0.5 },
+    "Anthony Davis": { "health": 0.28, "age": 33, "training": 0.7, "bond": 0.55 },
+    "Tim Duncan": { "health": 0.8, "age": 40, "training": 0.62, "bond": 0.96 },
+    "Tony Parker": { "health": 0.72, "age": 38, "training": 0.7, "bond": 0.94 },
+    "Manu Ginóbili": { "health": 0.62, "age": 39, "training": 0.78, "bond": 0.94 },
+    "Stephen Curry": { "health": 0.78, "age": 38, "training": 0.94, "bond": 0.82 },
+    "Klay Thompson": { "health": 0.6, "age": 36, "training": 0.82, "bond": 0.88 },
+    "Draymond Green": { "health": 0.7, "age": 36, "training": 0.74, "bond": 0.86 },
+    "Dwyane Wade": { "health": 0.58, "age": 35, "training": 0.76, "bond": 0.9 },
+    "Chris Bosh": { "health": 0.45, "age": 35, "training": 0.7, "bond": 0.84 },
+    "Kevin Garnett": { "health": 0.72, "age": 39, "training": 0.86, "bond": 0.84 },
+    "Paul Pierce": { "health": 0.66, "age": 38, "training": 0.68, "bond": 0.86 },
+    "Ray Allen": { "health": 0.7, "age": 38, "training": 0.88, "bond": 0.86 },
+    "Yao Ming": { "health": 0.38, "age": 35, "training": 0.76, "bond": 0.86 },
+    "Tracy McGrady": { "health": 0.42, "age": 35, "training": 0.8, "bond": 0.88 },
+    "John Stockton": { "health": 0.9, "age": 40, "training": 0.74, "bond": 0.84 },
+    "Karl Malone": { "health": 0.86, "age": 40, "training": 0.82, "bond": 0.82 },
+    "Jeremy Lin": { "health": 0.68, "age": 38, "training": 0.82, "bond": 0.82 },
+    "Jeremy Lamb": { "health": 0.74, "age": 34, "training": 0.67, "bond": 0.52 }
+  },
+  "playerEventDescriptionVariants": {
+    "John Wall": {
+      "injury": [
+        "{{player}}在家洗澡时不慎滑倒，伤到脚踝；接下来{{matches}}场比赛中总评暂时下降{{value}}。",
+        "{{player}}一次日常活动后感到膝盖不适，队医建议暂时休养；接下来{{matches}}场比赛中总评暂时下降{{value}}。"
+      ]
+    },
+    "Michael Jordan": {
+      "injury": [
+        "{{player}}赛前食物中毒，伴随高烧和脱水；接下来{{matches}}场比赛中总评暂时下降{{value}}。"
+      ]
+    },
+    "Dirk Nowitzki": {
+      "injury": [
+        "{{player}}咳嗽发烧仍坚持训练，赛后检查需要休养；接下来{{matches}}场比赛中总评暂时下降{{value}}。"
+      ]
+    },
+    "Derrick Rose": {
+      "injury": [
+        "{{player}}一次变向落地后膝盖出现不适；接下来{{matches}}场比赛中总评暂时下降{{value}}。"
+      ]
+    },
+    "Yao Ming": {
+      "injury": [
+        "{{player}}连续征战后脚部负荷过高，队医安排休养；接下来{{matches}}场比赛中总评暂时下降{{value}}。"
+      ]
+    },
+    "Joel Embiid": {
+      "injury": [
+        "{{player}}强攻内线落地不稳，膝盖需要观察；接下来{{matches}}场比赛中总评暂时下降{{value}}。"
+      ]
+    },
+    "Anthony Davis": {
+      "injury": [
+        "{{player}}冲抢篮板时踩到队友脚面，扭伤脚踝；接下来{{matches}}场比赛中总评暂时下降{{value}}。"
+      ]
+    },
+    "Kawhi Leonard": {
+      "injury": [
+        "{{player}}在负荷管理后的训练中感觉膝盖不适；接下来{{matches}}场比赛中总评暂时下降{{value}}。"
+      ]
+    }
+  },
+  "events": [
+    {
+      "id": "injury",
+      "iconPath": "images/UI/事件/伤病/spriteFrame",
+      "title": "伤病来袭",
+      "description": "{{player}}在训练中感到不适，接下来{{matches}}场比赛中总评暂时下降{{value}}。",
+      "descriptionVariants": [
+        "{{player}}在对抗训练上篮落地时踩到队友的脚，扭伤脚踝；接下来{{matches}}场比赛中总评暂时下降{{value}}。",
+        "{{player}}比赛中抢球与对手相撞，手指骨折；接下来{{matches}}场比赛中总评暂时下降{{value}}。",
+        "{{player}}连续加练后膝盖出现炎症，需要接受治疗；接下来{{matches}}场比赛中总评暂时下降{{value}}。",
+        "{{player}}快攻急停时拉伤大腿后侧；接下来{{matches}}场比赛中总评暂时下降{{value}}。",
+        "{{player}}防守横移时小腿拉伤，队医叫停了训练；接下来{{matches}}场比赛中总评暂时下降{{value}}。",
+        "{{player}}篮下争抢时落地不稳，腰部扭伤；接下来{{matches}}场比赛中总评暂时下降{{value}}。",
+        "{{player}}季前体测中旧伤复发，需进行观察；接下来{{matches}}场比赛中总评暂时下降{{value}}。",
+        "{{player}}赛后冰敷检查发现脚底筋膜不适；接下来{{matches}}场比赛中总评暂时下降{{value}}。",
+        "{{player}}高强度训练后肩部拉伤；接下来{{matches}}场比赛中总评暂时下降{{value}}。",
+        "{{player}}主场热身中手腕挫伤，暂时不能全力出战；接下来{{matches}}场比赛中总评暂时下降{{value}}。"
+      ],
+      "tone": "negative",
+      "confirmLabel": "这也是篮球的一部分",
+      "adLabel": "我是铁人！",
+      "overallPercent": -0.06,
+      "minimumOverallDelta": 2,
+      "recoveryMatches": 2
+    },
+    {
+      "id": "retirement",
+      "iconPath": "images/UI/事件/退役/spriteFrame",
+      "title": "告别赛场",
+      "description": "{{player}}想把更多时间留给生活，决定结束球员生涯。",
+      "descriptionVariants": [
+        "{{player}}在个人社媒发布长文宣布退役，球队将为他安排告别仪式。",
+        "{{player}}的经纪团队向媒体发出公告：他决定结束球员生涯，下一站想走进管理层。",
+        "{{player}}在赛后采访中宣布退役，并与对手交换球衣作别。",
+        "{{player}}召开新闻发布会告别赛场，希望未来以教练身份回到篮球世界。",
+        "{{player}}完成退役巡演的最后一站，在球迷送别声中离开球场。",
+        "{{player}}把最后一双球鞋留在更衣室，宣布退役后会先陪伴家人。",
+        "{{player}}在纪录片首映礼上宣布退役，期待未来有一天入选名人堂。",
+        "{{player}}赛后绕场向球迷致意，俱乐部表示将考虑为他举办球衣退役仪式。",
+        "{{player}}在发布会上感谢队友和球迷，退役后计划尝试解说与球队管理工作。"
+      ],
+      "tone": "negative",
+      "confirmLabel": "生活大于篮球",
+      "adLabel": "孩子们我回来了！"
+    },
+    {
+      "id": "training",
+      "iconPath": "images/UI/事件/训练/spriteFrame",
+      "title": "训练突破",
+      "description": "{{player}}在训练中状态火热，总评提升{{value}}。",
+      "descriptionVariants": [
+        "{{player}}加练定点三分，手感明显提升，总评提升{{value}}。",
+        "{{player}}反复打磨抛投节奏，进攻选择更从容，总评提升{{value}}。",
+        "{{player}}和教练组拆解对手录像，战术阅读更成熟，总评提升{{value}}。",
+        "{{player}}苦练低位背身和转身脚步，总评提升{{value}}。",
+        "{{player}}针对挡拆后的出球选择进行了专项训练，总评提升{{value}}。",
+        "{{player}}在力量房完成高强度核心训练，对抗更扎实，总评提升{{value}}。",
+        "{{player}}加练防守横移和协防轮转，总评提升{{value}}。",
+        "{{player}}连续完成罚球和关键球模拟训练，总评提升{{value}}。",
+        "{{player}}重点练习篮板卡位与二次起跳，总评提升{{value}}。",
+        "{{player}}把训练时间留给中距离脚步，节奏感更出色，总评提升{{value}}。"
+      ],
+      "tone": "positive",
+      "confirmLabel": "厉害嗷",
+      "adLabel": "凌晨四点再加练",
+      "overallPercent": 0.05,
+      "minimumOverallDelta": 2
+    },
+    {
+      "id": "recruitment",
+      "iconPath": "images/UI/事件/招募/spriteFrame",
+      "title": "羁绊招募",
+      "description": "{{player}}发出邀请，{{recruit}}将免费加入球队！",
+      "descriptionVariants": [
+        "{{player}}赛后在球员通道主动搭话，几句交流后，{{recruit}}决定免费加入球队！",
+        "{{player}}在一场商业活动中与{{recruit}}重逢，顺势发出邀请，{{recruit}}决定免费加入球队！",
+        "{{player}}给{{recruit}}发了一条真诚的短信，{{recruit}}决定免费加入球队！",
+        "{{player}}深夜打来一通电话，{{recruit}}听完计划后决定免费加入球队！",
+        "{{player}}通过同一位经纪人牵线，{{recruit}}决定免费加入球队！",
+        "{{player}}请共同好友代为联系，{{recruit}}决定免费加入球队！",
+        "{{player}}在休赛期合练时发出邀请，{{recruit}}决定免费加入球队！",
+        "{{player}}用一顿饭聊出了默契，{{recruit}}决定免费加入球队！",
+        "{{player}}把球队计划讲给{{recruit}}听，{{recruit}}决定免费加入球队！"
+      ],
+      "tone": "positive",
+      "confirmLabel": "这不是抱团",
+      "adLabel": "我要NBA队友！"
+    }
+  ],
+  "recruitmentCombos": [
+    {
+      "requiredSourcePlayerNames": ["Tim Duncan", "Tony Parker"],
+      "recruitSourcePlayerName": "Manu Ginóbili"
+    },
+    {
+      "requiredSourcePlayerNames": ["Tim Duncan", "Manu Ginóbili"],
+      "recruitSourcePlayerName": "Tony Parker"
+    },
+    {
+      "requiredSourcePlayerNames": ["Tony Parker", "Manu Ginóbili"],
+      "recruitSourcePlayerName": "Tim Duncan"
+    },
+    {
+      "requiredSourcePlayerNames": ["Stephen Curry", "Klay Thompson"],
+      "recruitSourcePlayerName": "Draymond Green"
+    },
+    {
+      "requiredSourcePlayerNames": ["Stephen Curry", "Draymond Green"],
+      "recruitSourcePlayerName": "Klay Thompson"
+    },
+    {
+      "requiredSourcePlayerNames": ["Klay Thompson", "Draymond Green"],
+      "recruitSourcePlayerName": "Stephen Curry"
+    },
+    {
+      "requiredSourcePlayerNames": ["LeBron James", "Dwyane Wade"],
+      "recruitSourcePlayerName": "Chris Bosh"
+    },
+    {
+      "requiredSourcePlayerNames": ["Kevin Garnett", "Paul Pierce"],
+      "recruitSourcePlayerName": "Ray Allen"
+    },
+    {
+      "requiredSourcePlayerNames": ["Yao Ming"],
+      "recruitSourcePlayerName": "Tracy McGrady"
+    },
+    {
+      "requiredSourcePlayerNames": ["John Stockton"],
+      "recruitSourcePlayerName": "Karl Malone"
+    }
+  ]
+}

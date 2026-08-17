@@ -22,5 +22,15 @@ tmp/
 Thumbs.db
 Desktop.ini
 
-# Nested Cocos Creator repository
-篮球CocosProject/
+# Local automation state
+.playwright-cli/
+.workbuddy/
+
+# Cocos Creator generated files and local extensions
+篮球CocosProject/.playwright-cli/
+篮球CocosProject/build/
+篮球CocosProject/extensions/
+篮球CocosProject/library/
+篮球CocosProject/logs/
+篮球CocosProject/output/
+篮球CocosProject/temp/

@@ -1,0 +1,33 @@
+{
+  "status": "已定稿",
+  "version": "v1.00",
+  "description": "单赛季100场主线，82场常规赛加季中杯、全明星赛共84场，季后赛四轮各4胜。100级后进入概念神无限赛程。",
+  "standardMatchCount": 100,
+  "regularSeason": {
+    "matchCount": 82,
+    "cupAfterRegularSeasonMatch": 26,
+    "allStarAfterRegularSeasonMatch": 41
+  },
+  "playoffs": {
+    "roundCount": 4,
+    "winsPerRound": 4,
+    "totalMatchCount": 16
+  },
+  "teamLevel": {
+    "start": 0,
+    "maximum": 100,
+    "qualifiedWinRequired": true,
+    "willpowerOverflowEnabled": false
+  },
+  "endless": {
+    "startsAfterStandardMatch": 100,
+    "teamLevelStopsAt": 100,
+    "goatProbabilityBonusPerWin": 0.005,
+    "conceptGodUpgradeUnlockWins": 11
+  },
+  "matchSimulation": {
+    "quarterSeconds": 30,
+    "commentaryIntervalSeconds": 3,
+    "doubleSpeedMultiplier": 2
+  }
+}

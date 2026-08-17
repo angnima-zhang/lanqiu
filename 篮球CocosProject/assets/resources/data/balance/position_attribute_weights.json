@@ -1,0 +1,26 @@
+{
+  "_meta": {
+    "status": "属性权重暂定，位置比赛规则已定稿",
+    "description": "OVR反向分配至五项属性时的初始位置模板。",
+    "unit": "percent",
+    "battleEngineReadsPosition": false,
+    "positionOnlyAffectsCardAttributeGeneration": true
+  },
+  "battlePositionRules": {
+    "lineupPositionRestrictionEnabled": false,
+    "positionBalanceBonusEnabled": false,
+    "positionMismatchBonusEnabled": false,
+    "samePositionPenaltyEnabled": false,
+    "maximumSamePositionPlayers": 12,
+    "winLossUsesPosition": false,
+    "winLossUsesFiveAttributes": false,
+    "displayScoreUsesScoringAttribute": true
+  },
+  "positions": [
+    {"position": "PG", "scoring": 20, "rebound": 5, "assist": 40, "steal": 25, "block": 10},
+    {"position": "SG", "scoring": 40, "rebound": 10, "assist": 20, "steal": 20, "block": 10},
+    {"position": "SF", "scoring": 30, "rebound": 20, "assist": 15, "steal": 15, "block": 20},
+    {"position": "PF", "scoring": 20, "rebound": 35, "assist": 10, "steal": 10, "block": 25},
+    {"position": "C", "scoring": 15, "rebound": 35, "assist": 5, "steal": 10, "block": 35}
+  ]
+}

@@ -1,0 +1,171 @@
+CCEffect %{
+  techniques:
+  - passes:
+    - vert: starry-night-bg-vs:vert
+      frag: starry-night-bg-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        starIterations: { value: 3, target: starParams.x }
+        sizeStar: { value: 100.0, target: starParams.y }
+        frequencyStar: { value: 0.1, target: starParams.z }
+        brightnessStar: { value: 3.0, target: starParams.w }
+        shineFrequencyStar: { value: 8.0, target: shineParams.x }
+        transparencyStar: { value: 0.0, target: shineParams.y }
+        horizontalMovement: { value: 0.1, target: shineParams.z }
+        verticalMovement: { value: 0.1, target: shineParams.w }
+        frequencyBgStar: { value: 0.996, target: bgStarParams.x }
+        shineFreqBgStar: { value: 1.0, target: bgStarParams.y }
+        transparencyBgStar: { value: 0.0, target: bgStarParams.z }
+        seed: { value: 0.0, target: bgStarParams.w }
+        colorBackground: { value: [0.05, 0.04, 0.20, 1.0], editor: { type: color } }
+        nodeWidth: { value: 512, target: nodeSize.x }
+        nodeHeight: { value: 512, target: nodeSize.y }
+        gradientA: { value: white, editor: { type: texture } }
+        gradientB: { value: white, editor: { type: texture } }
+}%
+
+CCProgram starry-night-bg-vs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #if USE_LOCAL
+    #include <builtin/uniforms/cc-local>
+  #endif
+  #if SAMPLE_FROM_RT
+    #include <common/common-define>
+  #endif
+
+  in vec3 a_position;
+  in vec2 a_texCoord;
+  in vec4 a_color;
+
+  out vec4 color;
+  out vec2 uv0;
+
+  vec4 vert () {
+    vec4 pos = vec4(a_position, 1.0);
+
+    #if USE_LOCAL
+      pos = cc_matWorld * pos;
+    #endif
+
+    #if USE_PIXEL_ALIGNMENT
+      pos = cc_matView * pos;
+      pos.xyz = floor(pos.xyz);
+      pos = cc_matProj * pos;
+    #else
+      pos = cc_matViewProj * pos;
+    #endif
+
+    uv0 = a_texCoord;
+    #if SAMPLE_FROM_RT
+      CC_HANDLE_RT_SAMPLE_FLIP(uv0);
+    #endif
+
+    color = a_color;
+    return pos;
+  }
+}%
+
+CCProgram starry-night-bg-fs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #include <builtin/internal/embedded-alpha>
+  #include <builtin/internal/alpha-test>
+
+  in vec4 color;
+  in vec2 uv0;
+
+  #pragma builtin(local)
+  layout(set = 2, binding = 12) uniform sampler2D cc_spriteTexture;
+
+  uniform StarryNight {
+    vec4 starParams;     // x: iterations, y: size, z: frequency, w: brightness
+    vec4 shineParams;    // x: shineFreq, y: transparency, z: horzMove, w: vertMove
+    vec4 bgStarParams;   // x: freqBg, y: shineFreqBg, z: transparencyBg, w: seed
+    vec4 colorBackground;
+    vec4 nodeSize;  // xy = pixel width/height
+  };
+
+  uniform sampler2D gradientA;
+  uniform sampler2D gradientB;
+
+  float rand(vec2 st) {
+    return fract(sin(dot(st.xy, vec2(bgStarParams.w + 12.9898, 78.233))) * 43758.5453123);
+  }
+
+  float remap(float prob, float starValue) {
+    return (starValue - prob) / (1.0 - prob);
+  }
+
+  vec4 frag() {
+    vec4 base = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+    // ---- Starry overlay ----
+    vec4 overlay = vec4(0.0);
+
+    // ---- Main stars (multi-resolution cross-shaped stars) ----
+    float prob = 1.0 - starParams.z;
+    float travelx = cc_time.x * shineParams.z;
+    float travely = cc_time.x * shineParams.w;
+    vec2 fragCoord = uv0 * nodeSize.xy;
+    int iterations = int(starParams.x);
+
+    for (int i = 1; i < 11; i++) {
+      if (i > iterations) break;
+
+      float sz = starParams.y / float(i);
+      vec2 pos = vec2(
+        floor(fragCoord.x / sz + travelx),
+        floor(fragCoord.y / sz + travely)
+      );
+      float starValue = rand(pos);
+
+      if (starValue > prob) {
+        vec2 center = sz * pos + vec2(sz, sz) * 0.5;
+        float t = 0.9 + 0.2
+          * sin(cc_time.x * shineParams.x + (starValue - prob) / (1.0 - prob) * 45.0);
+        vec2 mc = vec2(fragCoord.x + travelx * sz, fragCoord.y + travely * sz);
+
+        // Cross-shaped star glow
+        float c = 1.0 - distance(mc, center) / (0.5 * sz);
+        c = t * t * starParams.w / float(i)
+          / clamp(distance(mc.y, center.y), 0.5, sz / 2.0 - 1.0)
+          / clamp(distance(mc.x, center.x), 0.5, sz / 2.0 - 1.0);
+
+        vec4 cmap = texture(gradientA, vec2(remap(prob, starValue), 0.5));
+        overlay.rgb += cmap.rgb * c * (1.0 - shineParams.y);
+      }
+    }
+
+    // ---- Background stars (random scattered tiny stars) ----
+    if (rand(uv0 / 20.0) > bgStarParams.x) {
+      float r = rand(uv0);
+      float c = r * (0.85
+        * sin(cc_time.x * bgStarParams.y * (r * 5.0) + 720.0 * r) + 0.95);
+      vec4 cmap = texture(gradientB, vec2(r, 0.5));
+      overlay.rgb += c * cmap.rgb * (1.0 - bgStarParams.z);
+    }
+
+    // Blend overlay on top of original sprite texture
+    // colorBackground.a controls how much of the dark sky tint covers the base image.
+    // Stars are always added at full brightness, unaffected by alpha.
+    vec3 skyTint = colorBackground.rgb * colorBackground.a;
+    vec4 o;
+    o.rgb = base.rgb + skyTint * 0.8 + overlay.rgb;
+    o.a = base.a;
+
+    ALPHA_TEST(o);
+    o *= color;
+    return o;
+  }
+}%

@@ -1,0 +1,46 @@
+{
+  "_meta": {
+    "description": "单赛季100场主线的对手总评、预算奖励与特殊赛程倍率。常规赛82场加季中杯、全明星赛共84场，随后四轮季后赛各4场。",
+    "status": "已定稿",
+    "version": "v1.00",
+    "standardMatchCount": 100,
+    "regularSeasonMatchCount": 82,
+    "playoffWinsPerRound": 4,
+    "baseBudgetFormula": "max(1, ceil(opponentTeamOvr / 696))",
+    "operationPresidentBonusAppliedAfterBaseReward": true
+  },
+  "difficultyAnchors": [
+    { "matchNumber": 1, "opponentOvr": 696, "difficultyQualityId": 3, "difficultyQualityName": "新秀" },
+    { "matchNumber": 21, "opponentOvr": 5045, "difficultyQualityId": 4, "difficultyQualityName": "饮水机" },
+    { "matchNumber": 42, "opponentOvr": 40370, "difficultyQualityId": 5, "difficultyQualityName": "轮换" },
+    { "matchNumber": 63, "opponentOvr": 323061, "difficultyQualityId": 6, "difficultyQualityName": "第六人" },
+    { "matchNumber": 84, "opponentOvr": 2585316, "difficultyQualityId": 11, "difficultyQualityName": "MVP" },
+    { "matchNumber": 88, "opponentOvr": 6748092, "difficultyQualityId": 12, "difficultyQualityName": "FMVP" },
+    { "matchNumber": 92, "opponentOvr": 17613588, "difficultyQualityId": 13, "difficultyQualityName": "名人堂" },
+    { "matchNumber": 96, "opponentOvr": 45974244, "difficultyQualityId": 14, "difficultyQualityName": "传奇" },
+    { "matchNumber": 100, "opponentOvr": 120000000, "difficultyQualityId": 15, "difficultyQualityName": "GOAT" }
+  ],
+  "specialMatches": {
+    "cup": {
+      "matchNumber": 27,
+      "displayName": "季中杯",
+      "opponentOvrMultiplier": 1.3,
+      "budgetRewardMultiplier": 2
+    },
+    "allStar": {
+      "matchNumber": 43,
+      "displayName": "全明星赛",
+      "opponentOvrMultiplier": 1.5,
+      "budgetRewardMultiplier": 3
+    }
+  },
+  "playoffRoundRewardMultipliers": [1, 1.1, 1.25, 1.5],
+  "endless": {
+    "baseOpponentOvr": 120000000,
+    "opponentOvrGrowthPerWin": 1.08,
+    "budgetRewardMultiplier": 1,
+    "goatProbabilityBonusPerWin": 0.005,
+    "goatProbabilityMaximum": 0.5,
+    "conceptGodUpgradeUnlockWins": 11
+  }
+}

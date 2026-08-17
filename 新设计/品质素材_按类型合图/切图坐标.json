@@ -1,0 +1,1199 @@
+{
+  "qualityIndexOrder": {
+    "0": "概念神",
+    "1": "新秀 / 饮水机",
+    "2": "轮换 / 第六人",
+    "3": "首发 / 核心",
+    "4": "全明星 / 最佳阵容",
+    "5": "MVP / FMVP",
+    "6": "名人堂",
+    "7": "传奇",
+    "8": "GOAT"
+  },
+  "note": "Production sheets have transparent backgrounds and no baked labels.",
+  "sheets": [
+    {
+      "family": "招募背景",
+      "file": "01_招募背景_9品质合图.png",
+      "background": "transparent",
+      "order": "row-major, quality index 00 to 08",
+      "sheetSize": {
+        "width": 972,
+        "height": 972
+      },
+      "cellSize": {
+        "width": 324,
+        "height": 324
+      },
+      "entries": [
+        {
+          "index": 0,
+          "quality": "概念神",
+          "source": "新设计\\品质素材_9档\\00_概念神\\招募背景00.png",
+          "cell": {
+            "x": 0,
+            "y": 0,
+            "width": 324,
+            "height": 324
+          },
+          "asset": {
+            "x": 12,
+            "y": 12,
+            "width": 300,
+            "height": 300
+          }
+        },
+        {
+          "index": 1,
+          "quality": "新秀 / 饮水机",
+          "source": "新设计\\品质素材_9档\\01_新秀_饮水机\\招募背景01.png",
+          "cell": {
+            "x": 324,
+            "y": 0,
+            "width": 324,
+            "height": 324
+          },
+          "asset": {
+            "x": 336,
+            "y": 12,
+            "width": 300,
+            "height": 300
+          }
+        },
+        {
+          "index": 2,
+          "quality": "轮换 / 第六人",
+          "source": "新设计\\品质素材_9档\\02_轮换_第六人\\招募背景02.png",
+          "cell": {
+            "x": 648,
+            "y": 0,
+            "width": 324,
+            "height": 324
+          },
+          "asset": {
+            "x": 660,
+            "y": 12,
+            "width": 300,
+            "height": 300
+          }
+        },
+        {
+          "index": 3,
+          "quality": "首发 / 核心",
+          "source": "新设计\\品质素材_9档\\03_首发_核心\\招募背景03.png",
+          "cell": {
+            "x": 0,
+            "y": 324,
+            "width": 324,
+            "height": 324
+          },
+          "asset": {
+            "x": 12,
+            "y": 336,
+            "width": 300,
+            "height": 300
+          }
+        },
+        {
+          "index": 4,
+          "quality": "全明星 / 最佳阵容",
+          "source": "新设计\\品质素材_9档\\04_全明星_最佳阵容\\招募背景04.png",
+          "cell": {
+            "x": 324,
+            "y": 324,
+            "width": 324,
+            "height": 324
+          },
+          "asset": {
+            "x": 336,
+            "y": 336,
+            "width": 300,
+            "height": 300
+          }
+        },
+        {
+          "index": 5,
+          "quality": "MVP / FMVP",
+          "source": "新设计\\品质素材_9档\\05_MVP_FMVP\\招募背景05.png",
+          "cell": {
+            "x": 648,
+            "y": 324,
+            "width": 324,
+            "height": 324
+          },
+          "asset": {
+            "x": 660,
+            "y": 336,
+            "width": 300,
+            "height": 300
+          }
+        },
+        {
+          "index": 6,
+          "quality": "名人堂",
+          "source": "新设计\\品质素材_9档\\06_名人堂\\招募背景06.png",
+          "cell": {
+            "x": 0,
+            "y": 648,
+            "width": 324,
+            "height": 324
+          },
+          "asset": {
+            "x": 12,
+            "y": 660,
+            "width": 300,
+            "height": 300
+          }
+        },
+        {
+          "index": 7,
+          "quality": "传奇",
+          "source": "新设计\\品质素材_9档\\07_传奇\\招募背景07.png",
+          "cell": {
+            "x": 324,
+            "y": 648,
+            "width": 324,
+            "height": 324
+          },
+          "asset": {
+            "x": 336,
+            "y": 660,
+            "width": 300,
+            "height": 300
+          }
+        },
+        {
+          "index": 8,
+          "quality": "GOAT",
+          "source": "新设计\\品质素材_9档\\08_GOAT\\招募背景08.png",
+          "cell": {
+            "x": 648,
+            "y": 648,
+            "width": 324,
+            "height": 324
+          },
+          "asset": {
+            "x": 660,
+            "y": 660,
+            "width": 300,
+            "height": 300
+          }
+        }
+      ]
+    },
+    {
+      "family": "方头像框",
+      "file": "02_方头像框_9品质合图.png",
+      "background": "transparent",
+      "order": "row-major, quality index 00 to 08",
+      "sheetSize": {
+        "width": 651,
+        "height": 669
+      },
+      "cellSize": {
+        "width": 217,
+        "height": 223
+      },
+      "entries": [
+        {
+          "index": 0,
+          "quality": "概念神",
+          "source": "新设计\\品质素材_9档\\00_概念神\\头像框0-方.png",
+          "cell": {
+            "x": 0,
+            "y": 0,
+            "width": 217,
+            "height": 223
+          },
+          "asset": {
+            "x": 12,
+            "y": 12,
+            "width": 193,
+            "height": 199
+          }
+        },
+        {
+          "index": 1,
+          "quality": "新秀 / 饮水机",
+          "source": "新设计\\品质素材_9档\\01_新秀_饮水机\\头像框1-方.png",
+          "cell": {
+            "x": 217,
+            "y": 0,
+            "width": 217,
+            "height": 223
+          },
+          "asset": {
+            "x": 229,
+            "y": 12,
+            "width": 193,
+            "height": 199
+          }
+        },
+        {
+          "index": 2,
+          "quality": "轮换 / 第六人",
+          "source": "新设计\\品质素材_9档\\02_轮换_第六人\\头像框2-方.png",
+          "cell": {
+            "x": 434,
+            "y": 0,
+            "width": 217,
+            "height": 223
+          },
+          "asset": {
+            "x": 446,
+            "y": 12,
+            "width": 193,
+            "height": 199
+          }
+        },
+        {
+          "index": 3,
+          "quality": "首发 / 核心",
+          "source": "新设计\\品质素材_9档\\03_首发_核心\\头像框3-方.png",
+          "cell": {
+            "x": 0,
+            "y": 223,
+            "width": 217,
+            "height": 223
+          },
+          "asset": {
+            "x": 12,
+            "y": 235,
+            "width": 193,
+            "height": 199
+          }
+        },
+        {
+          "index": 4,
+          "quality": "全明星 / 最佳阵容",
+          "source": "新设计\\品质素材_9档\\04_全明星_最佳阵容\\头像框4-方.png",
+          "cell": {
+            "x": 217,
+            "y": 223,
+            "width": 217,
+            "height": 223
+          },
+          "asset": {
+            "x": 229,
+            "y": 235,
+            "width": 193,
+            "height": 199
+          }
+        },
+        {
+          "index": 5,
+          "quality": "MVP / FMVP",
+          "source": "新设计\\品质素材_9档\\05_MVP_FMVP\\头像框5-方.png",
+          "cell": {
+            "x": 434,
+            "y": 223,
+            "width": 217,
+            "height": 223
+          },
+          "asset": {
+            "x": 446,
+            "y": 235,
+            "width": 193,
+            "height": 199
+          }
+        },
+        {
+          "index": 6,
+          "quality": "名人堂",
+          "source": "新设计\\品质素材_9档\\06_名人堂\\头像框6-方.png",
+          "cell": {
+            "x": 0,
+            "y": 446,
+            "width": 217,
+            "height": 223
+          },
+          "asset": {
+            "x": 12,
+            "y": 458,
+            "width": 193,
+            "height": 199
+          }
+        },
+        {
+          "index": 7,
+          "quality": "传奇",
+          "source": "新设计\\品质素材_9档\\07_传奇\\头像框7-方.png",
+          "cell": {
+            "x": 217,
+            "y": 446,
+            "width": 217,
+            "height": 223
+          },
+          "asset": {
+            "x": 229,
+            "y": 458,
+            "width": 193,
+            "height": 199
+          }
+        },
+        {
+          "index": 8,
+          "quality": "GOAT",
+          "source": "新设计\\品质素材_9档\\08_GOAT\\头像框8-方.png",
+          "cell": {
+            "x": 434,
+            "y": 446,
+            "width": 217,
+            "height": 223
+          },
+          "asset": {
+            "x": 446,
+            "y": 458,
+            "width": 193,
+            "height": 199
+          }
+        }
+      ]
+    },
+    {
+      "family": "圆头像框",
+      "file": "03_圆头像框_9品质合图.png",
+      "background": "transparent",
+      "order": "row-major, quality index 00 to 08",
+      "sheetSize": {
+        "width": 672,
+        "height": 678
+      },
+      "cellSize": {
+        "width": 224,
+        "height": 226
+      },
+      "entries": [
+        {
+          "index": 0,
+          "quality": "概念神",
+          "source": "新设计\\品质素材_9档\\00_概念神\\头像框0-圆.png",
+          "cell": {
+            "x": 0,
+            "y": 0,
+            "width": 224,
+            "height": 226
+          },
+          "asset": {
+            "x": 12,
+            "y": 12,
+            "width": 200,
+            "height": 202
+          }
+        },
+        {
+          "index": 1,
+          "quality": "新秀 / 饮水机",
+          "source": "新设计\\品质素材_9档\\01_新秀_饮水机\\头像框1-圆.png",
+          "cell": {
+            "x": 224,
+            "y": 0,
+            "width": 224,
+            "height": 226
+          },
+          "asset": {
+            "x": 236,
+            "y": 12,
+            "width": 200,
+            "height": 202
+          }
+        },
+        {
+          "index": 2,
+          "quality": "轮换 / 第六人",
+          "source": "新设计\\品质素材_9档\\02_轮换_第六人\\头像框2-圆.png",
+          "cell": {
+            "x": 448,
+            "y": 0,
+            "width": 224,
+            "height": 226
+          },
+          "asset": {
+            "x": 460,
+            "y": 12,
+            "width": 200,
+            "height": 202
+          }
+        },
+        {
+          "index": 3,
+          "quality": "首发 / 核心",
+          "source": "新设计\\品质素材_9档\\03_首发_核心\\头像框3-圆.png",
+          "cell": {
+            "x": 0,
+            "y": 226,
+            "width": 224,
+            "height": 226
+          },
+          "asset": {
+            "x": 12,
+            "y": 238,
+            "width": 200,
+            "height": 202
+          }
+        },
+        {
+          "index": 4,
+          "quality": "全明星 / 最佳阵容",
+          "source": "新设计\\品质素材_9档\\04_全明星_最佳阵容\\头像框4-圆.png",
+          "cell": {
+            "x": 224,
+            "y": 226,
+            "width": 224,
+            "height": 226
+          },
+          "asset": {
+            "x": 236,
+            "y": 238,
+            "width": 200,
+            "height": 202
+          }
+        },
+        {
+          "index": 5,
+          "quality": "MVP / FMVP",
+          "source": "新设计\\品质素材_9档\\05_MVP_FMVP\\头像框5-圆.png",
+          "cell": {
+            "x": 448,
+            "y": 226,
+            "width": 224,
+            "height": 226
+          },
+          "asset": {
+            "x": 460,
+            "y": 238,
+            "width": 200,
+            "height": 202
+          }
+        },
+        {
+          "index": 6,
+          "quality": "名人堂",
+          "source": "新设计\\品质素材_9档\\06_名人堂\\头像框6-圆.png",
+          "cell": {
+            "x": 0,
+            "y": 452,
+            "width": 224,
+            "height": 226
+          },
+          "asset": {
+            "x": 12,
+            "y": 464,
+            "width": 200,
+            "height": 202
+          }
+        },
+        {
+          "index": 7,
+          "quality": "传奇",
+          "source": "新设计\\品质素材_9档\\07_传奇\\头像框7-圆.png",
+          "cell": {
+            "x": 224,
+            "y": 452,
+            "width": 224,
+            "height": 226
+          },
+          "asset": {
+            "x": 236,
+            "y": 464,
+            "width": 200,
+            "height": 202
+          }
+        },
+        {
+          "index": 8,
+          "quality": "GOAT",
+          "source": "新设计\\品质素材_9档\\08_GOAT\\头像框8-圆.png",
+          "cell": {
+            "x": 448,
+            "y": 452,
+            "width": 224,
+            "height": 226
+          },
+          "asset": {
+            "x": 460,
+            "y": 464,
+            "width": 200,
+            "height": 202
+          }
+        }
+      ]
+    },
+    {
+      "family": "细边框",
+      "file": "04_细边框_9品质合图.png",
+      "background": "transparent",
+      "order": "row-major, quality index 00 to 08",
+      "sheetSize": {
+        "width": 372,
+        "height": 378
+      },
+      "cellSize": {
+        "width": 124,
+        "height": 126
+      },
+      "entries": [
+        {
+          "index": 0,
+          "quality": "概念神",
+          "source": "新设计\\品质素材_9档\\00_概念神\\细边框00.png",
+          "cell": {
+            "x": 0,
+            "y": 0,
+            "width": 124,
+            "height": 126
+          },
+          "asset": {
+            "x": 12,
+            "y": 12,
+            "width": 100,
+            "height": 102
+          }
+        },
+        {
+          "index": 1,
+          "quality": "新秀 / 饮水机",
+          "source": "新设计\\品质素材_9档\\01_新秀_饮水机\\细边框01.png",
+          "cell": {
+            "x": 124,
+            "y": 0,
+            "width": 124,
+            "height": 126
+          },
+          "asset": {
+            "x": 136,
+            "y": 12,
+            "width": 100,
+            "height": 102
+          }
+        },
+        {
+          "index": 2,
+          "quality": "轮换 / 第六人",
+          "source": "新设计\\品质素材_9档\\02_轮换_第六人\\细边框02.png",
+          "cell": {
+            "x": 248,
+            "y": 0,
+            "width": 124,
+            "height": 126
+          },
+          "asset": {
+            "x": 260,
+            "y": 12,
+            "width": 100,
+            "height": 102
+          }
+        },
+        {
+          "index": 3,
+          "quality": "首发 / 核心",
+          "source": "新设计\\品质素材_9档\\03_首发_核心\\细边框03.png",
+          "cell": {
+            "x": 0,
+            "y": 126,
+            "width": 124,
+            "height": 126
+          },
+          "asset": {
+            "x": 12,
+            "y": 138,
+            "width": 100,
+            "height": 102
+          }
+        },
+        {
+          "index": 4,
+          "quality": "全明星 / 最佳阵容",
+          "source": "新设计\\品质素材_9档\\04_全明星_最佳阵容\\细边框04.png",
+          "cell": {
+            "x": 124,
+            "y": 126,
+            "width": 124,
+            "height": 126
+          },
+          "asset": {
+            "x": 136,
+            "y": 138,
+            "width": 100,
+            "height": 102
+          }
+        },
+        {
+          "index": 5,
+          "quality": "MVP / FMVP",
+          "source": "新设计\\品质素材_9档\\05_MVP_FMVP\\细边框05.png",
+          "cell": {
+            "x": 248,
+            "y": 126,
+            "width": 124,
+            "height": 126
+          },
+          "asset": {
+            "x": 260,
+            "y": 138,
+            "width": 100,
+            "height": 102
+          }
+        },
+        {
+          "index": 6,
+          "quality": "名人堂",
+          "source": "新设计\\品质素材_9档\\06_名人堂\\细边框06.png",
+          "cell": {
+            "x": 0,
+            "y": 252,
+            "width": 124,
+            "height": 126
+          },
+          "asset": {
+            "x": 12,
+            "y": 264,
+            "width": 100,
+            "height": 102
+          }
+        },
+        {
+          "index": 7,
+          "quality": "传奇",
+          "source": "新设计\\品质素材_9档\\07_传奇\\细边框07.png",
+          "cell": {
+            "x": 124,
+            "y": 252,
+            "width": 124,
+            "height": 126
+          },
+          "asset": {
+            "x": 136,
+            "y": 264,
+            "width": 100,
+            "height": 102
+          }
+        },
+        {
+          "index": 8,
+          "quality": "GOAT",
+          "source": "新设计\\品质素材_9档\\08_GOAT\\细边框08.png",
+          "cell": {
+            "x": 248,
+            "y": 252,
+            "width": 124,
+            "height": 126
+          },
+          "asset": {
+            "x": 260,
+            "y": 264,
+            "width": 100,
+            "height": 102
+          }
+        }
+      ]
+    },
+    {
+      "family": "品质标签",
+      "file": "05_品质标签_9品质合图.png",
+      "background": "transparent",
+      "order": "row-major, quality index 00 to 08",
+      "sheetSize": {
+        "width": 372,
+        "height": 198
+      },
+      "cellSize": {
+        "width": 124,
+        "height": 66
+      },
+      "entries": [
+        {
+          "index": 0,
+          "quality": "概念神",
+          "source": "新设计\\品质素材_9档\\00_概念神\\品质标签00.png",
+          "cell": {
+            "x": 0,
+            "y": 0,
+            "width": 124,
+            "height": 66
+          },
+          "asset": {
+            "x": 12,
+            "y": 12,
+            "width": 100,
+            "height": 42
+          }
+        },
+        {
+          "index": 1,
+          "quality": "新秀 / 饮水机",
+          "source": "新设计\\品质素材_9档\\01_新秀_饮水机\\品质标签01.png",
+          "cell": {
+            "x": 124,
+            "y": 0,
+            "width": 124,
+            "height": 66
+          },
+          "asset": {
+            "x": 136,
+            "y": 12,
+            "width": 100,
+            "height": 42
+          }
+        },
+        {
+          "index": 2,
+          "quality": "轮换 / 第六人",
+          "source": "新设计\\品质素材_9档\\02_轮换_第六人\\品质标签02.png",
+          "cell": {
+            "x": 248,
+            "y": 0,
+            "width": 124,
+            "height": 66
+          },
+          "asset": {
+            "x": 260,
+            "y": 12,
+            "width": 100,
+            "height": 42
+          }
+        },
+        {
+          "index": 3,
+          "quality": "首发 / 核心",
+          "source": "新设计\\品质素材_9档\\03_首发_核心\\品质标签03.png",
+          "cell": {
+            "x": 0,
+            "y": 66,
+            "width": 124,
+            "height": 66
+          },
+          "asset": {
+            "x": 12,
+            "y": 78,
+            "width": 100,
+            "height": 42
+          }
+        },
+        {
+          "index": 4,
+          "quality": "全明星 / 最佳阵容",
+          "source": "新设计\\品质素材_9档\\04_全明星_最佳阵容\\品质标签04.png",
+          "cell": {
+            "x": 124,
+            "y": 66,
+            "width": 124,
+            "height": 66
+          },
+          "asset": {
+            "x": 136,
+            "y": 78,
+            "width": 100,
+            "height": 42
+          }
+        },
+        {
+          "index": 5,
+          "quality": "MVP / FMVP",
+          "source": "新设计\\品质素材_9档\\05_MVP_FMVP\\品质标签05.png",
+          "cell": {
+            "x": 248,
+            "y": 66,
+            "width": 124,
+            "height": 66
+          },
+          "asset": {
+            "x": 260,
+            "y": 78,
+            "width": 100,
+            "height": 42
+          }
+        },
+        {
+          "index": 6,
+          "quality": "名人堂",
+          "source": "新设计\\品质素材_9档\\06_名人堂\\品质标签06.png",
+          "cell": {
+            "x": 0,
+            "y": 132,
+            "width": 124,
+            "height": 66
+          },
+          "asset": {
+            "x": 12,
+            "y": 144,
+            "width": 100,
+            "height": 42
+          }
+        },
+        {
+          "index": 7,
+          "quality": "传奇",
+          "source": "新设计\\品质素材_9档\\07_传奇\\品质标签07.png",
+          "cell": {
+            "x": 124,
+            "y": 132,
+            "width": 124,
+            "height": 66
+          },
+          "asset": {
+            "x": 136,
+            "y": 144,
+            "width": 100,
+            "height": 42
+          }
+        },
+        {
+          "index": 8,
+          "quality": "GOAT",
+          "source": "新设计\\品质素材_9档\\08_GOAT\\品质标签08.png",
+          "cell": {
+            "x": 248,
+            "y": 132,
+            "width": 124,
+            "height": 66
+          },
+          "asset": {
+            "x": 260,
+            "y": 144,
+            "width": 100,
+            "height": 42
+          }
+        }
+      ]
+    },
+    {
+      "family": "名牌",
+      "file": "06_名牌_9品质合图.png",
+      "background": "transparent",
+      "order": "row-major, quality index 00 to 08",
+      "sheetSize": {
+        "width": 1131,
+        "height": 399
+      },
+      "cellSize": {
+        "width": 377,
+        "height": 133
+      },
+      "entries": [
+        {
+          "index": 0,
+          "quality": "概念神",
+          "source": "新设计\\品质素材_9档\\00_概念神\\名牌00.png",
+          "cell": {
+            "x": 0,
+            "y": 0,
+            "width": 377,
+            "height": 133
+          },
+          "asset": {
+            "x": 12,
+            "y": 12,
+            "width": 353,
+            "height": 109
+          }
+        },
+        {
+          "index": 1,
+          "quality": "新秀 / 饮水机",
+          "source": "新设计\\品质素材_9档\\01_新秀_饮水机\\名牌01.png",
+          "cell": {
+            "x": 377,
+            "y": 0,
+            "width": 377,
+            "height": 133
+          },
+          "asset": {
+            "x": 389,
+            "y": 12,
+            "width": 353,
+            "height": 109
+          }
+        },
+        {
+          "index": 2,
+          "quality": "轮换 / 第六人",
+          "source": "新设计\\品质素材_9档\\02_轮换_第六人\\名牌02.png",
+          "cell": {
+            "x": 754,
+            "y": 0,
+            "width": 377,
+            "height": 133
+          },
+          "asset": {
+            "x": 766,
+            "y": 12,
+            "width": 353,
+            "height": 109
+          }
+        },
+        {
+          "index": 3,
+          "quality": "首发 / 核心",
+          "source": "新设计\\品质素材_9档\\03_首发_核心\\名牌03.png",
+          "cell": {
+            "x": 0,
+            "y": 133,
+            "width": 377,
+            "height": 133
+          },
+          "asset": {
+            "x": 12,
+            "y": 145,
+            "width": 353,
+            "height": 109
+          }
+        },
+        {
+          "index": 4,
+          "quality": "全明星 / 最佳阵容",
+          "source": "新设计\\品质素材_9档\\04_全明星_最佳阵容\\名牌04.png",
+          "cell": {
+            "x": 377,
+            "y": 133,
+            "width": 377,
+            "height": 133
+          },
+          "asset": {
+            "x": 389,
+            "y": 145,
+            "width": 353,
+            "height": 109
+          }
+        },
+        {
+          "index": 5,
+          "quality": "MVP / FMVP",
+          "source": "新设计\\品质素材_9档\\05_MVP_FMVP\\名牌05.png",
+          "cell": {
+            "x": 754,
+            "y": 133,
+            "width": 377,
+            "height": 133
+          },
+          "asset": {
+            "x": 766,
+            "y": 145,
+            "width": 353,
+            "height": 109
+          }
+        },
+        {
+          "index": 6,
+          "quality": "名人堂",
+          "source": "新设计\\品质素材_9档\\06_名人堂\\名牌06.png",
+          "cell": {
+            "x": 0,
+            "y": 266,
+            "width": 377,
+            "height": 133
+          },
+          "asset": {
+            "x": 12,
+            "y": 278,
+            "width": 353,
+            "height": 109
+          }
+        },
+        {
+          "index": 7,
+          "quality": "传奇",
+          "source": "新设计\\品质素材_9档\\07_传奇\\名牌07.png",
+          "cell": {
+            "x": 377,
+            "y": 266,
+            "width": 377,
+            "height": 133
+          },
+          "asset": {
+            "x": 389,
+            "y": 278,
+            "width": 353,
+            "height": 109
+          }
+        },
+        {
+          "index": 8,
+          "quality": "GOAT",
+          "source": "新设计\\品质素材_9档\\08_GOAT\\名牌08.png",
+          "cell": {
+            "x": 754,
+            "y": 266,
+            "width": 377,
+            "height": 133
+          },
+          "asset": {
+            "x": 766,
+            "y": 278,
+            "width": 353,
+            "height": 109
+          }
+        }
+      ]
+    },
+    {
+      "family": "麦穗",
+      "file": "07_麦穗_9品质合图.png",
+      "background": "transparent",
+      "order": "row-major, quality index 00 to 08",
+      "sheetSize": {
+        "width": 333,
+        "height": 723
+      },
+      "cellSize": {
+        "width": 111,
+        "height": 241
+      },
+      "entries": [
+        {
+          "index": 0,
+          "quality": "概念神",
+          "source": "新设计\\品质素材_9档\\00_概念神\\麦穗00.png",
+          "cell": {
+            "x": 0,
+            "y": 0,
+            "width": 111,
+            "height": 241
+          },
+          "asset": {
+            "x": 12,
+            "y": 12,
+            "width": 87,
+            "height": 217
+          }
+        },
+        {
+          "index": 1,
+          "quality": "新秀 / 饮水机",
+          "source": "新设计\\品质素材_9档\\01_新秀_饮水机\\麦穗01.png",
+          "cell": {
+            "x": 111,
+            "y": 0,
+            "width": 111,
+            "height": 241
+          },
+          "asset": {
+            "x": 123,
+            "y": 12,
+            "width": 87,
+            "height": 217
+          }
+        },
+        {
+          "index": 2,
+          "quality": "轮换 / 第六人",
+          "source": "新设计\\品质素材_9档\\02_轮换_第六人\\麦穗02.png",
+          "cell": {
+            "x": 222,
+            "y": 0,
+            "width": 111,
+            "height": 241
+          },
+          "asset": {
+            "x": 234,
+            "y": 12,
+            "width": 87,
+            "height": 217
+          }
+        },
+        {
+          "index": 3,
+          "quality": "首发 / 核心",
+          "source": "新设计\\品质素材_9档\\03_首发_核心\\麦穗03.png",
+          "cell": {
+            "x": 0,
+            "y": 241,
+            "width": 111,
+            "height": 241
+          },
+          "asset": {
+            "x": 12,
+            "y": 253,
+            "width": 87,
+            "height": 217
+          }
+        },
+        {
+          "index": 4,
+          "quality": "全明星 / 最佳阵容",
+          "source": "新设计\\品质素材_9档\\04_全明星_最佳阵容\\麦穗04.png",
+          "cell": {
+            "x": 111,
+            "y": 241,
+            "width": 111,
+            "height": 241
+          },
+          "asset": {
+            "x": 123,
+            "y": 253,
+            "width": 87,
+            "height": 217
+          }
+        },
+        {
+          "index": 5,
+          "quality": "MVP / FMVP",
+          "source": "新设计\\品质素材_9档\\05_MVP_FMVP\\麦穗05.png",
+          "cell": {
+            "x": 222,
+            "y": 241,
+            "width": 111,
+            "height": 241
+          },
+          "asset": {
+            "x": 234,
+            "y": 253,
+            "width": 87,
+            "height": 217
+          }
+        },
+        {
+          "index": 6,
+          "quality": "名人堂",
+          "source": "新设计\\品质素材_9档\\06_名人堂\\麦穗06.png",
+          "cell": {
+            "x": 0,
+            "y": 482,
+            "width": 111,
+            "height": 241
+          },
+          "asset": {
+            "x": 12,
+            "y": 494,
+            "width": 87,
+            "height": 217
+          }
+        },
+        {
+          "index": 7,
+          "quality": "传奇",
+          "source": "新设计\\品质素材_9档\\07_传奇\\麦穗07.png",
+          "cell": {
+            "x": 111,
+            "y": 482,
+            "width": 111,
+            "height": 241
+          },
+          "asset": {
+            "x": 123,
+            "y": 494,
+            "width": 87,
+            "height": 217
+          }
+        },
+        {
+          "index": 8,
+          "quality": "GOAT",
+          "source": "新设计\\品质素材_9档\\08_GOAT\\麦穗08.png",
+          "cell": {
+            "x": 222,
+            "y": 482,
+            "width": 111,
+            "height": 241
+          },
+          "asset": {
+            "x": 234,
+            "y": 494,
+            "width": 87,
+            "height": 217
+          }
+        }
+      ]
+    }
+  ]
+}

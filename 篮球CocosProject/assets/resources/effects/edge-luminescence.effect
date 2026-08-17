@@ -1,0 +1,119 @@
+CCEffect %{
+  techniques:
+  - passes:
+    - vert: edge-luminescence-vs:vert
+      frag: edge-luminescence-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        edgeColor: { value: [1.0, 0.84, 0.0, 1.0], editor: { type: color } }
+        edgeWidth: { value: 3.0, target: params.x, editor: { slide: true, range: [0.5, 15.0] } }
+        intensity: { value: 1.2, target: params.y, editor: { slide: true, range: [0.0, 5.0] } }
+        pulseSpeed: { value: 0.0, target: params.z, editor: { slide: true, range: [0.0, 8.0] } }
+}%
+
+CCProgram edge-luminescence-vs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #if USE_LOCAL
+    #include <builtin/uniforms/cc-local>
+  #endif
+  #if SAMPLE_FROM_RT
+    #include <common/common-define>
+  #endif
+
+  in vec3 a_position;
+  in vec2 a_texCoord;
+  in vec4 a_color;
+
+  out vec4 color;
+  out vec2 uv0;
+
+  vec4 vert () {
+    vec4 pos = vec4(a_position, 1.0);
+
+    #if USE_LOCAL
+      pos = cc_matWorld * pos;
+    #endif
+
+    #if USE_PIXEL_ALIGNMENT
+      pos = cc_matView * pos;
+      pos.xyz = floor(pos.xyz);
+      pos = cc_matProj * pos;
+    #else
+      pos = cc_matViewProj * pos;
+    #endif
+
+    uv0 = a_texCoord;
+    #if SAMPLE_FROM_RT
+      CC_HANDLE_RT_SAMPLE_FLIP(uv0);
+    #endif
+
+    color = a_color;
+    return pos;
+  }
+}%
+
+CCProgram edge-luminescence-fs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #include <builtin/internal/embedded-alpha>
+  #include <builtin/internal/alpha-test>
+
+  in vec4 color;
+  in vec2 uv0;
+
+  #pragma builtin(local)
+  layout(set = 2, binding = 12) uniform sampler2D cc_spriteTexture;
+
+  uniform EdgeParams {
+    vec4 edgeColor;
+    vec4 params; // x: edgeWidth, y: intensity, z: pulseSpeed
+  };
+
+  vec4 frag () {
+    vec4 o = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+    // --- Pulse strength from time ---
+    float pulse = 1.0;
+    if (params.z > 0.01) {
+      pulse = 0.6 + 0.4 * sin(cc_time.x * params.z * 6.28318);
+    }
+
+    // --- UV offset for edge sampling ---
+    // edgeWidth maps roughly to pixels: 1.0 → ~0.5px, 15.0 → ~7.5px on a 500px sprite
+    float stepX = params.x * pulse / 500.0;
+    float stepY = stepX;
+
+    // --- 8-directional Sobel edge detection on alpha ---
+    float tl = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0 + vec2(-stepX,  stepY)).a;
+    float t  = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0 + vec2( 0.0,     stepY)).a;
+    float tr = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0 + vec2( stepX,  stepY)).a;
+    float l  = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0 + vec2(-stepX,  0.0  )).a;
+    float r  = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0 + vec2( stepX,  0.0  )).a;
+    float bl = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0 + vec2(-stepX, -stepY)).a;
+    float b  = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0 + vec2( 0.0,    -stepY)).a;
+    float br = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0 + vec2( stepX, -stepY)).a;
+
+    float gx = -tl - 2.0 * l - bl + tr + 2.0 * r + br;
+    float gy = -tl - 2.0 * t - tr + bl + 2.0 * b + br;
+    float edge = sqrt(gx * gx + gy * gy);
+
+    // --- Apply intensity and blend glow ---
+    float glow = clamp(edge * params.y, 0.0, 1.0);
+    o.rgb = mix(o.rgb, edgeColor.rgb, glow * edgeColor.a * params.y);
+
+    ALPHA_TEST(o);
+    o *= color;
+    return o;
+  }
+}%
