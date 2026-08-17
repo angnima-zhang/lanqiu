@@ -13,84 +13,101 @@ import {
     Vec3,
 } from 'cc';
 import { setGrowingNumber } from './NumberGrowthAnimator';
+import { gameAudio } from './GameAudio';
 
 const { ccclass, property } = _decorator;
 
-export const TEAM_PROGRESSION_STORAGE_KEY = 'basketball.team.progression.v1';
+export const TEAM_PROGRESSION_STORAGE_KEY = 'basketball.team.progression.v2';
 const DEFAULT_PROGRESSION_RESOURCE_PATH = 'data/balance/team_progression';
-const SAVE_VERSION = 1;
+const SAVE_VERSION = 2;
+const MIN_TEAM_LEVEL = 0;
+const MAX_TEAM_LEVEL = 100;
 
 export const TEAM_PROGRESSION_EVENT_WILLPOWER_CHANGED = 'team-progression-willpower-changed';
 export const TEAM_PROGRESSION_EVENT_LEVEL_CHANGED = 'team-progression-level-changed';
 export const TEAM_PROGRESSION_EVENT_MARKET_VALUE_CHANGED = 'team-progression-market-value-changed';
-export const TEAM_PROGRESSION_EVENT_CHAMPIONSHIP_REQUESTED = 'team-progression-championship-requested';
+export const TEAM_PROGRESSION_EVENT_WIN_UPGRADE_REQUESTED = 'team-progression-win-upgrade-requested';
 
 export const teamProgressionEvents = new EventTarget();
 
-export function getStoredMarketValueLevel(fallback = 1): number {
+export function getStoredMarketValueLevel(fallback = MIN_TEAM_LEVEL): number {
+    return getStoredTeamLevel(fallback);
+}
+
+export function getStoredTeamLevel(fallback = MIN_TEAM_LEVEL): number {
     const serialized = sys.localStorage.getItem(TEAM_PROGRESSION_STORAGE_KEY);
     if (!serialized) {
-        return Math.max(1, Math.floor(fallback));
+        return clampTeamLevel(fallback);
     }
     try {
         const parsed = JSON.parse(serialized) as Partial<TeamProgressionSaveData>;
-        const level = Number(parsed.marketValueLevel);
-        return Number.isFinite(level)
-            ? Math.min(520, Math.max(1, Math.floor(level)))
-            : Math.max(1, Math.floor(fallback));
+        if (sanitizeSaveVersion(parsed.version) !== SAVE_VERSION) {
+            return clampTeamLevel(fallback);
+        }
+        const storedLevel = clampTeamLevel(parsed.teamLevel ?? fallback);
+        return parsed.wonAtCurrentLevel
+            ? Math.min(MAX_TEAM_LEVEL, storedLevel + 1)
+            : storedLevel;
     } catch {
-        return Math.max(1, Math.floor(fallback));
+        return clampTeamLevel(fallback);
     }
 }
 
-export function getStoredTeamLevel(fallback = 1): number {
+export function recordStoredStandardMatchWin(): boolean {
     const serialized = sys.localStorage.getItem(TEAM_PROGRESSION_STORAGE_KEY);
     if (!serialized) {
-        return Math.min(520, Math.max(1, Math.floor(fallback)));
+        return false;
     }
     try {
         const parsed = JSON.parse(serialized) as Partial<TeamProgressionSaveData>;
-        const level = Number(parsed.teamLevel);
-        return Number.isFinite(level)
-            ? Math.min(520, Math.max(1, Math.floor(level)))
-            : Math.min(520, Math.max(1, Math.floor(fallback)));
+        if (
+            sanitizeSaveVersion(parsed.version) !== SAVE_VERSION
+            || clampTeamLevel(parsed.teamLevel ?? MIN_TEAM_LEVEL) >= MAX_TEAM_LEVEL
+        ) {
+            return false;
+        }
+        const currentLevel = clampTeamLevel(parsed.teamLevel ?? MIN_TEAM_LEVEL);
+        sys.localStorage.setItem(TEAM_PROGRESSION_STORAGE_KEY, JSON.stringify({
+            version: SAVE_VERSION,
+            teamLevel: Math.min(MAX_TEAM_LEVEL, currentLevel + 1),
+            willpower: 0,
+            wonAtCurrentLevel: false,
+        }));
+        return true;
     } catch {
-        return Math.min(520, Math.max(1, Math.floor(fallback)));
+        return false;
     }
-}
-
-interface TeamLevelStageConfig {
-    marketValueLevel: number;
-    teamLevelStart: number;
-    teamLevelCap: number;
-    willpowerRequirements: number[];
 }
 
 interface TeamProgressionConfig {
     _meta: {
-        marketValueLevelCount: number;
-        teamLevelsPerMarketValue: number;
+        teamLevelMin: number;
         totalTeamLevels: number;
         recruitWillpowerReward: number;
     };
-    marketValueLevels: TeamLevelStageConfig[];
+    willpowerRequirementFormula: {
+        teamLevelMultiplier: number;
+        baseRequirement: number;
+    };
 }
 
 interface TeamProgressionSaveData {
     version: number;
     teamLevel: number;
-    marketValueLevel: number;
     willpower: number;
+    wonAtCurrentLevel: boolean;
 }
 
 export interface TeamProgressionSnapshot {
     teamLevel: number;
+    // 兼容现有招募、离线收益和概率弹窗的调用，现与球队等级一一对应。
     marketValueLevel: number;
     marketLevelCap: number;
     willpower: number;
     currentRequirement: number;
     canUpgrade: boolean;
     pendingChampionship: boolean;
+    pendingWinUpgrade: boolean;
     maxLevel: boolean;
 }
 
@@ -127,13 +144,11 @@ export class TeamLevelController extends Component {
     protected onLoad(): void {
         TeamLevelController.instance = this;
         this.resolveSceneReferences();
-
         if (!this.hasRequiredReferences()) {
             console.error('[TeamLevelController] Missing team level UI references.');
             this.enabled = false;
             return;
         }
-
         this.buttonBaseScale.set(this.upgradeButton!.node.scale);
         this.showLoadingState();
         this.loadProgressionConfig();
@@ -155,72 +170,63 @@ export class TeamLevelController extends Component {
     }
 
     public addRecruitWillpower(): number {
-        const amount = this.config?._meta.recruitWillpowerReward ?? 0;
-        return this.addWillpower(amount);
+        return this.addWillpower(this.config?._meta.recruitWillpowerReward ?? 0);
     }
 
     public addWillpower(amount: number): number {
         if (!this.ready || this.isAtMaximumLevel()) {
             return 0;
         }
-
         const safeAmount = Math.max(0, Math.floor(Number.isFinite(amount) ? amount : 0));
-        if (safeAmount <= 0) {
+        const accepted = Math.min(
+            safeAmount,
+            Math.max(0, this.getCurrentRequirement() - this.state.willpower),
+        );
+        if (accepted <= 0) {
             return 0;
         }
-
-        this.state.willpower = Math.min(Number.MAX_SAFE_INTEGER, this.state.willpower + safeAmount);
+        this.state.willpower += accepted;
         this.saveState();
         this.refreshView(true);
         teamProgressionEvents.emit(TEAM_PROGRESSION_EVENT_WILLPOWER_CHANGED, this.getSnapshot());
-        return safeAmount;
+        return accepted;
     }
 
-    public upgradeOneLevel(): boolean {
-        if (!this.ready || !this.canUpgrade()) {
+    public recordStandardMatchWin(): boolean {
+        if (!this.ready || this.isAtMaximumLevel() || !this.isReadyForWinUpgrade()) {
             return false;
         }
-
-        const requirement = this.getCurrentRequirement();
-        this.state.willpower -= requirement;
-        this.state.teamLevel += 1;
-        this.saveState();
+        if (!recordStoredStandardMatchWin()) {
+            return false;
+        }
+        this.state = this.loadState();
         this.refreshView(true);
         this.playLevelUpAnimation();
-        teamProgressionEvents.emit(TEAM_PROGRESSION_EVENT_LEVEL_CHANGED, this.getSnapshot());
+        const snapshot = this.getSnapshot();
+        teamProgressionEvents.emit(TEAM_PROGRESSION_EVENT_WILLPOWER_CHANGED, snapshot);
+        teamProgressionEvents.emit(TEAM_PROGRESSION_EVENT_LEVEL_CHANGED, snapshot);
+        teamProgressionEvents.emit(TEAM_PROGRESSION_EVENT_MARKET_VALUE_CHANGED, snapshot);
+        gameAudio.playUpgradeSuccess();
         return true;
     }
 
-    public applyChampionshipWin(): boolean {
-        if (!this.ready || !this.isPendingChampionship()) {
-            return false;
-        }
-
-        const maxMarketValue = this.getMaximumMarketValueLevel();
-        if (this.state.marketValueLevel >= maxMarketValue) {
-            return false;
-        }
-
-        this.state.marketValueLevel += 1;
-        this.saveState();
-        this.refreshView(true);
-        teamProgressionEvents.emit(TEAM_PROGRESSION_EVENT_MARKET_VALUE_CHANGED, this.getSnapshot());
-        return true;
+    public canStartProgressionMatch(): boolean {
+        return this.ready && (this.isAtMaximumLevel() || this.isReadyForWinUpgrade());
     }
 
     public getSnapshot(): TeamProgressionSnapshot | null {
         if (!this.ready) {
             return null;
         }
-
         return {
             teamLevel: this.state.teamLevel,
-            marketValueLevel: this.state.marketValueLevel,
-            marketLevelCap: this.getCurrentMarketLevelCap(),
+            marketValueLevel: this.state.teamLevel,
+            marketLevelCap: this.getMaximumTeamLevel(),
             willpower: this.state.willpower,
             currentRequirement: this.getCurrentRequirement(),
-            canUpgrade: this.canUpgrade(),
-            pendingChampionship: this.isPendingChampionship(),
+            canUpgrade: false,
+            pendingChampionship: false,
+            pendingWinUpgrade: false,
             maxLevel: this.isAtMaximumLevel(),
         };
     }
@@ -230,7 +236,6 @@ export class TeamLevelController extends Component {
         const willpowerNode = this.node.getChildByName('斗志数值');
         const progressNode = this.node.getChildByName('进度框');
         const upgradeNode = this.node.getChildByName('升级');
-
         this.teamLevelLabel ??= levelNode?.getComponent(Label) ?? null;
         this.willpowerLabel ??= willpowerNode?.getComponent(Label) ?? null;
         this.willpowerProgress ??= progressNode?.getComponent(ProgressBar) ?? null;
@@ -249,7 +254,7 @@ export class TeamLevelController extends Component {
     }
 
     private showLoadingState(): void {
-        this.teamLevelLabel!.string = '1';
+        this.teamLevelLabel!.string = '0';
         this.willpowerLabel!.string = '-- / --';
         this.willpowerProgress!.progress = 0;
         this.upgradeButton!.interactable = false;
@@ -262,13 +267,11 @@ export class TeamLevelController extends Component {
                 console.error('[TeamLevelController] Failed to load progression config.', error);
                 return;
             }
-
             const config = asset.json as unknown as TeamProgressionConfig;
             if (!this.isValidConfig(config)) {
                 console.error('[TeamLevelController] Invalid progression config.');
                 return;
             }
-
             this.config = config;
             this.state = this.loadState();
             this.ready = true;
@@ -278,23 +281,17 @@ export class TeamLevelController extends Component {
     }
 
     private isValidConfig(config: TeamProgressionConfig | null): config is TeamProgressionConfig {
-        if (!config?._meta || !Array.isArray(config.marketValueLevels)) {
-            return false;
-        }
-
-        const expectedMarketCount = config._meta.marketValueLevelCount;
-        if (expectedMarketCount <= 0 || config.marketValueLevels.length !== expectedMarketCount) {
-            return false;
-        }
-
-        return config.marketValueLevels.every((stage) => (
-            stage.marketValueLevel > 0
-            && stage.teamLevelStart > 0
-            && stage.teamLevelCap >= stage.teamLevelStart
-            && Array.isArray(stage.willpowerRequirements)
-            && stage.willpowerRequirements.length === config._meta.teamLevelsPerMarketValue
-            && stage.willpowerRequirements.every((value) => Number.isFinite(value) && value > 0)
-        ));
+        return Boolean(
+            config?._meta
+            && config._meta.teamLevelMin === MIN_TEAM_LEVEL
+            && config._meta.totalTeamLevels === MAX_TEAM_LEVEL
+            && Number.isFinite(config._meta.recruitWillpowerReward)
+            && config._meta.recruitWillpowerReward > 0
+            && Number.isFinite(config.willpowerRequirementFormula?.teamLevelMultiplier)
+            && Number.isFinite(config.willpowerRequirementFormula?.baseRequirement)
+            && config.willpowerRequirementFormula.teamLevelMultiplier >= 0
+            && config.willpowerRequirementFormula.baseRequirement > 0,
+        );
     }
 
     private loadState(): TeamProgressionSaveData {
@@ -303,38 +300,25 @@ export class TeamLevelController extends Component {
         if (!serialized) {
             return fallback;
         }
-
         try {
             const parsed = JSON.parse(serialized) as Partial<TeamProgressionSaveData>;
-            const maxTeamLevel = this.getMaximumTeamLevel();
-            const maxMarketValue = this.getMaximumMarketValueLevel();
-            const teamLevel = this.clampInteger(parsed.teamLevel, 1, maxTeamLevel, fallback.teamLevel);
-            const minimumMarketValue = Math.ceil(teamLevel / this.config!._meta.teamLevelsPerMarketValue);
-            const maximumUnlockedMarketValue = Math.min(
-                maxMarketValue,
-                Math.floor(teamLevel / this.config!._meta.teamLevelsPerMarketValue) + 1,
-            );
-            const marketValueLevel = this.clampInteger(
-                parsed.marketValueLevel,
-                minimumMarketValue,
-                maximumUnlockedMarketValue,
-                minimumMarketValue,
-            );
-            const willpower = this.clampInteger(
-                parsed.willpower,
-                0,
-                Number.MAX_SAFE_INTEGER,
-                fallback.willpower,
-            );
-
+            if (sanitizeSaveVersion(parsed.version) !== SAVE_VERSION) {
+                return fallback;
+            }
+            const storedLevel = clampTeamLevel(parsed.teamLevel ?? fallback.teamLevel);
+            const teamLevel = parsed.wonAtCurrentLevel
+                ? Math.min(MAX_TEAM_LEVEL, storedLevel + 1)
+                : storedLevel;
+            const requirement = this.getRequirementForLevel(teamLevel);
             return {
                 version: SAVE_VERSION,
                 teamLevel,
-                marketValueLevel,
-                willpower: teamLevel >= maxTeamLevel ? 0 : willpower,
+                willpower: teamLevel >= MAX_TEAM_LEVEL
+                    ? 0
+                    : Math.min(requirement, Math.max(0, Math.floor(parsed.willpower ?? 0))),
+                wonAtCurrentLevel: false,
             };
-        } catch (error) {
-            console.warn('[TeamLevelController] Invalid save data, using defaults.', error);
+        } catch {
             return fallback;
         }
     }
@@ -346,19 +330,16 @@ export class TeamLevelController extends Component {
     private createDefaultState(): TeamProgressionSaveData {
         return {
             version: SAVE_VERSION,
-            teamLevel: 1,
-            marketValueLevel: 1,
+            teamLevel: MIN_TEAM_LEVEL,
             willpower: 0,
+            wonAtCurrentLevel: false,
         };
     }
 
     private refreshView(animateProgress: boolean): void {
         const maximumLevel = this.isAtMaximumLevel();
         const requirement = this.getCurrentRequirement();
-        const targetProgress = maximumLevel
-            ? 1
-            : Math.max(0, Math.min(1, this.state.willpower / requirement));
-
+        const targetProgress = maximumLevel ? 1 : this.state.willpower / requirement;
         setGrowingNumber(
             this.teamLevelLabel,
             this.state.teamLevel,
@@ -368,15 +349,9 @@ export class TeamLevelController extends Component {
         setGrowingNumber(
             this.willpowerLabel,
             this.state.willpower,
-            (value) => maximumLevel
-                ? 'MAX'
-                : `${Math.floor(value)} / ${requirement}`,
-            {
-                animateGrowth: animateProgress,
-                duration: this.progressAnimationDuration,
-            },
+            (value) => maximumLevel ? 'MAX' : `${Math.floor(value)} / ${requirement}`,
+            { animateGrowth: animateProgress, duration: this.progressAnimationDuration },
         );
-
         Tween.stopAllByTarget(this.willpowerProgress!);
         if (animateProgress) {
             tween(this.willpowerProgress!)
@@ -386,16 +361,14 @@ export class TeamLevelController extends Component {
             this.willpowerProgress!.progress = targetProgress;
         }
 
-        const pendingChampionship = this.isPendingChampionship();
-        const canUpgrade = this.canUpgrade();
-        this.upgradeButton!.interactable = canUpgrade || pendingChampionship;
+        const pendingWinUpgrade = this.isReadyForWinUpgrade();
+        this.upgradeButton!.interactable = maximumLevel || pendingWinUpgrade;
         this.upgradeButtonLabel!.string = maximumLevel
-            ? '已满级'
-            : pendingChampionship
-                ? '去夺冠'
+            ? '无限赛程'
+            : pendingWinUpgrade
+                ? '获胜升级'
                 : '升级';
-
-        if (canUpgrade || pendingChampionship) {
+        if (maximumLevel || pendingWinUpgrade) {
             this.startButtonPulse();
         } else {
             this.stopButtonPulse();
@@ -403,72 +376,51 @@ export class TeamLevelController extends Component {
     }
 
     private onUpgradeButtonClicked(): void {
-        if (this.isPendingChampionship()) {
-            const snapshot = this.getSnapshot();
-            teamProgressionEvents.emit(TEAM_PROGRESSION_EVENT_CHAMPIONSHIP_REQUESTED, snapshot);
-            console.info('[TeamLevelController] Championship requested.', snapshot);
+        if (!this.isAtMaximumLevel() && !this.isReadyForWinUpgrade()) {
             return;
         }
-
-        this.upgradeOneLevel();
+        teamProgressionEvents.emit(
+            TEAM_PROGRESSION_EVENT_WIN_UPGRADE_REQUESTED,
+            this.getSnapshot(),
+        );
     }
 
-    private canUpgrade(): boolean {
+    private isReadyForWinUpgrade(): boolean {
         return !this.isAtMaximumLevel()
-            && !this.isAtCurrentMarketCap()
-            && this.state.willpower >= this.getCurrentRequirement();
-    }
-
-    private isPendingChampionship(): boolean {
-        return !this.isAtMaximumLevel()
-            && this.isAtCurrentMarketCap()
-            && this.state.willpower >= this.getCurrentRequirement();
-    }
-
-    private isAtCurrentMarketCap(): boolean {
-        return this.state.teamLevel >= this.getCurrentMarketLevelCap();
+            && this.state.willpower >= this.getCurrentRequirement()
+            && !this.state.wonAtCurrentLevel;
     }
 
     private isAtMaximumLevel(): boolean {
         return this.state.teamLevel >= this.getMaximumTeamLevel();
     }
 
-    private getCurrentMarketLevelCap(): number {
-        return this.config!.marketValueLevels[this.state.marketValueLevel - 1].teamLevelCap;
+    private getCurrentRequirement(): number {
+        return this.isAtMaximumLevel() ? 0 : this.getRequirementForLevel(this.state.teamLevel);
     }
 
-    private getCurrentRequirement(): number {
-        const levelsPerMarket = this.config!._meta.teamLevelsPerMarketValue;
-        const stageIndex = Math.min(
-            this.config!.marketValueLevels.length - 1,
-            Math.floor((this.state.teamLevel - 1) / levelsPerMarket),
+    private getRequirementForLevel(teamLevel: number): number {
+        const formula = this.config?.willpowerRequirementFormula;
+        if (!formula) {
+            return 100;
+        }
+        return Math.max(
+            1,
+            Math.floor(teamLevel) * Math.floor(formula.teamLevelMultiplier)
+                + Math.floor(formula.baseRequirement),
         );
-        const localLevelIndex = (this.state.teamLevel - 1) % levelsPerMarket;
-        return this.config!.marketValueLevels[stageIndex].willpowerRequirements[localLevelIndex];
     }
 
     private getMaximumTeamLevel(): number {
-        return this.config?._meta.totalTeamLevels ?? 520;
-    }
-
-    private getMaximumMarketValueLevel(): number {
-        return this.config?._meta.marketValueLevelCount ?? 130;
+        return this.config?._meta.totalTeamLevels ?? MAX_TEAM_LEVEL;
     }
 
     private playLevelUpAnimation(): void {
         const target = this.teamLevelLabel!.node;
         const baseScale = target.scale.clone();
-        const enlargedScale = new Vec3(
-            baseScale.x * 1.2,
-            baseScale.y * 1.2,
-            baseScale.z,
-        );
-
+        const enlargedScale = new Vec3(baseScale.x * 1.2, baseScale.y * 1.2, baseScale.z);
         Tween.stopAllByTarget(target);
-        tween(target)
-            .to(0.12, { scale: enlargedScale })
-            .to(0.18, { scale: baseScale })
-            .start();
+        tween(target).to(0.12, { scale: enlargedScale }).to(0.18, { scale: baseScale }).start();
     }
 
     private startButtonPulse(): void {
@@ -478,7 +430,6 @@ export class TeamLevelController extends Component {
             this.buttonBaseScale.y * 1.06,
             this.buttonBaseScale.z,
         );
-
         Tween.stopAllByTarget(target);
         target.setScale(this.buttonBaseScale);
         tween(target)
@@ -493,20 +444,15 @@ export class TeamLevelController extends Component {
         if (!this.upgradeButton) {
             return;
         }
-
         Tween.stopAllByTarget(this.upgradeButton.node);
         this.upgradeButton.node.setScale(this.buttonBaseScale);
     }
+}
 
-    private clampInteger(
-        value: number | undefined,
-        minimum: number,
-        maximum: number,
-        fallback: number,
-    ): number {
-        if (!Number.isFinite(value)) {
-            return fallback;
-        }
-        return Math.max(minimum, Math.min(maximum, Math.floor(value!)));
-    }
+function clampTeamLevel(value: number): number {
+    return Math.max(MIN_TEAM_LEVEL, Math.min(MAX_TEAM_LEVEL, Math.floor(value)));
+}
+
+function sanitizeSaveVersion(value: unknown): number {
+    return Number.isFinite(value) ? Math.floor(Number(value)) : 0;
 }

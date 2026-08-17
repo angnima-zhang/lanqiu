@@ -1,0 +1,68 @@
+type: Graph
+name: New Shader Graph
+nodes:
+  t_178590107518806545266:
+    type: UnlitMasterNode
+    position:
+      x: 347
+      'y': -280
+    details:
+      inputPins:
+        - dataType: vec3
+          value:
+            x: 0
+            'y': 0
+            z: 0
+          details: {}
+        - dataType: vec3
+          value:
+            x: 0
+            'y': 0
+            z: 0
+          details: {}
+        - dataType: vec3
+          value:
+            x: 0
+            'y': 0
+            z: 0
+          details: {}
+        - dataType: color
+          value:
+            x: 0.5
+            'y': 0.5
+            z: 0.5
+            w: 0.5
+          details: {}
+        - dataType: float
+          value: 1
+          details: {}
+        - dataType: float
+          value: 0
+          details: {}
+      outputPins: []
+  t_178590110646746984183:
+    type: Square
+    position:
+      x: 51.19047619047619
+      'y': -25.595238095238095
+    details:
+      outputPins:
+        - dataType: vec4
+          value:
+            x: 0
+            'y': 0
+            z: 0
+            w: 0
+          details: {}
+      inputPins:
+        - dataType: vec4
+          value:
+            x: 0
+            'y': 0
+            z: 0
+            w: 0
+          details: {}
+graphs: {}
+lines: {}
+details:
+  properties: []

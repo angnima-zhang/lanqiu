@@ -5,6 +5,7 @@ import {
     Vec3,
 } from 'cc';
 import { PlayerCard } from './GameState';
+import { MatchCommentarySelector } from './MatchCommentarySelector';
 
 export type MatchTactic =
     | 'five-out'
@@ -185,6 +186,7 @@ export class MatchCourtSimulation {
         playerCards: ReadonlyArray<PlayerCard | null>,
         opponentCards: ReadonlyArray<PlayerCard | null>,
         callbacks: MatchCourtCallbacks,
+        private readonly commentarySelector: MatchCommentarySelector,
     ) {
         this.callbacks = callbacks;
         this.collectCourtReferences();
@@ -224,8 +226,14 @@ export class MatchCourtSimulation {
         this.stopTweens();
         this.faceTeamTowardAttack(event.offenseTeam);
         const setup = this.createTacticSetup(event);
-        this.setBallOwner(setup.handler);
-        this.moveIntoTactic(setup, token, () => {
+        const currentOwner = this.ballOwners.get(this.ball)?.actor ?? null;
+        const transitionHandler = currentOwner?.team === event.offenseTeam
+            ? currentOwner
+            : setup.handler;
+        if (currentOwner !== transitionHandler) {
+            this.setBallOwner(transitionHandler);
+        }
+        this.moveIntoTactic(setup, transitionHandler, token, () => {
             this.executeTactic(setup, event, token);
         });
         return true;
@@ -352,15 +360,37 @@ export class MatchCourtSimulation {
 
     private moveIntoTactic(
         setup: TacticSetup,
+        transitionHandler: MatchActor,
         token: number,
         onComplete: () => void,
     ): void {
         const roleOrder = this.orderRolesForTactic(setup);
-        const duration = this.scaled(0.46);
+        const offenseTargets = new Map<MatchActor, Vec3>();
         roleOrder.forEach((actor, index) => {
             const [depth, vertical] = setup.points[index];
-            const target = this.getAttackingHalfPoint(actor.team, depth, vertical);
-            this.moveActor(actor, target, duration);
+            offenseTargets.set(
+                actor,
+                this.getAttackingHalfPoint(actor.team, depth, vertical),
+            );
+        });
+        const maximumTravelDistance = Math.max(
+            ...roleOrder.map((actor) => Vec3.distance(
+                actor.node.worldPosition,
+                offenseTargets.get(actor) ?? actor.node.worldPosition,
+            )),
+        );
+        const transitionDuration = Math.max(
+            0.78,
+            Math.min(1.9, maximumTravelDistance / 230),
+        );
+        roleOrder.forEach((actor, index) => {
+            if (actor === transitionHandler) {
+                return;
+            }
+            const target = offenseTargets.get(actor);
+            if (target) {
+                this.moveActor(actor, target, this.scaled(transitionDuration));
+            }
         });
         setup.defense.forEach((defender, index) => {
             const mark = roleOrder[index] ?? setup.offense[index];
@@ -385,12 +415,31 @@ export class MatchCourtSimulation {
             const side = index % 2 === 0 ? -1 : 1;
             const spacing = 12 + Math.floor(index / 2) * 4;
             target.add3f(-lane.y * spacing * side, lane.x * spacing * side, 0);
-            this.moveActor(defender, target, duration);
+            this.moveActor(defender, target, this.scaled(transitionDuration));
         });
-        this.after(0.5, token, () => {
-            this.startOffBallRoutes(setup, roleOrder, token);
-            onComplete();
-        });
+
+        const transitionTarget = offenseTargets.get(transitionHandler)
+            ?? transitionHandler.node.worldPosition.clone();
+        this.dribbleTo(
+            transitionHandler,
+            transitionTarget,
+            transitionDuration,
+            token,
+            () => {
+                if (token !== this.token) {
+                    return;
+                }
+                const beginTactic = (): void => {
+                    this.startOffBallRoutes(setup, roleOrder, token);
+                    onComplete();
+                };
+                if (transitionHandler !== setup.handler) {
+                    this.passBall(transitionHandler, setup.handler, token, beginTactic);
+                    return;
+                }
+                beginTactic();
+            },
+        );
     }
 
     private orderRolesForTactic(setup: TacticSetup): MatchActor[] {
@@ -663,8 +712,10 @@ export class MatchCourtSimulation {
                     ? '两罚一中'
                     : '两罚全部偏出';
             if (madeShots === 2) {
+                const special = this.selectCommentary(shooter, event, 'free-throw');
                 this.emitCommentary(
-                    `${this.playerName(shooter)}造成投篮犯规，站上罚球线${resultText}，得到${madeShots}分。`,
+                    special
+                        ?? `${this.playerName(shooter)}造成投篮犯规，站上罚球线${resultText}，得到${madeShots}分。`,
                     event,
                     shooter,
                 );
@@ -760,8 +811,15 @@ export class MatchCourtSimulation {
                 );
                 this.moveActor(defender, target, this.scaled(0.24));
                 this.passBall(setup.handler, defender, token, () => {
+                    const special = this.selectCommentary(
+                        setup.handler,
+                        event,
+                        'turnover',
+                    );
                     this.emitCommentary(
-                        `${TACTIC_NAMES[event.tactic]}没有打成，${this.playerName(defender)}判断传球路线完成抢断，球权交换。`,
+                        special
+                            ? `${special} ${this.playerName(defender)}完成抢断，球权交换。`
+                            : `${TACTIC_NAMES[event.tactic]}没有打成，${this.playerName(defender)}判断传球路线完成抢断，球权交换。`,
                         event,
                         defender,
                     );
@@ -930,7 +988,7 @@ export class MatchCourtSimulation {
                     ? '队友保护下进攻篮板'
                     : '防守方收下篮板';
             const outcome = outcomePrefix
-                || `${this.playerName(shooter)}${this.actionName(event.action)}偏出`;
+                || this.createMissedCommentary(shooter, event);
             this.emitCommentary(
                 `${outcome}，${contestedText}${this.playerName(winner)}${relation}。`,
                 event,
@@ -980,6 +1038,10 @@ export class MatchCourtSimulation {
         shooter: MatchActor,
         event: MatchPlayEvent,
     ): string {
+        const special = this.selectCommentary(shooter, event, 'made');
+        if (special) {
+            return special;
+        }
         const tactic = TACTIC_NAMES[event.tactic];
         const player = this.playerName(shooter);
         if (event.action === 'three') {
@@ -992,6 +1054,32 @@ export class MatchCourtSimulation {
             return `${tactic}形成突破，${player}上篮得手，比分增加2分。`;
         }
         return `${tactic}创造出手机会，${player}中距离命中，比分增加2分。`;
+    }
+
+    private createMissedCommentary(
+        shooter: MatchActor,
+        event: MatchPlayEvent,
+    ): string {
+        return this.selectCommentary(shooter, event, 'missed')
+            ?? `${this.playerName(shooter)}${this.actionName(event.action)}偏出`;
+    }
+
+    private selectCommentary(
+        actor: MatchActor,
+        event: MatchPlayEvent,
+        outcome: 'made' | 'missed' | 'turnover' | 'free-throw',
+    ): string | null {
+        const offense = this.getTeamActors(event.offenseTeam);
+        const passer = offense[event.passerIndex % offense.length] ?? null;
+        return this.commentarySelector.select({
+            event,
+            outcome,
+            actor: actor.card,
+            passer: passer.card,
+            ownRoster: offense.map((member) => member.card),
+            opponentRoster: this.getTeamActors(1 - event.offenseTeam)
+                .map((member) => member.card),
+        });
     }
 
     private emitCommentary(

@@ -1,0 +1,122 @@
+CCEffect %{
+  techniques:
+  - passes:
+    - vert: slot-new-player-sweep-vs:vert
+      frag: slot-new-player-sweep-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        alphaThreshold: { value: 0.5 }
+        shineColor: { value: [1.0, 1.0, 1.0, 1.0], editor: { type: color } }
+        spriteRect: { value: [1.0, 1.0, 0.5, 0.5] }
+        sweepWidth: { value: 0.28, target: sweepParams.x }
+        sweepPeriod: { value: 0.7, target: sweepParams.y }
+        sweepSlope: { value: 0.32, target: sweepParams.z }
+        sweepIntensity: { value: 1.0, target: sweepParams.w }
+        pulseIntensity: { value: 0.3, target: pulseParams.x }
+        pulsePeriod: { value: 0.5, target: pulseParams.y }
+        sweepTime: { value: 0.0, target: timingParams.x }
+}%
+
+CCProgram slot-new-player-sweep-vs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #if USE_LOCAL
+    #include <builtin/uniforms/cc-local>
+  #endif
+  #if SAMPLE_FROM_RT
+    #include <common/common-define>
+  #endif
+
+  in vec3 a_position;
+  in vec2 a_texCoord;
+  in vec4 a_color;
+  out vec4 color;
+  out vec2 uv0;
+
+  vec4 vert () {
+    vec4 pos = vec4(a_position, 1.0);
+    #if USE_LOCAL
+      pos = cc_matWorld * pos;
+    #endif
+    #if USE_PIXEL_ALIGNMENT
+      pos = cc_matView * pos;
+      pos.xyz = floor(pos.xyz);
+      pos = cc_matProj * pos;
+    #else
+      pos = cc_matViewProj * pos;
+    #endif
+    uv0 = a_texCoord;
+    #if SAMPLE_FROM_RT
+      CC_HANDLE_RT_SAMPLE_FLIP(uv0);
+    #endif
+    color = a_color;
+    return pos;
+  }
+}%
+
+CCProgram slot-new-player-sweep-fs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #include <builtin/internal/embedded-alpha>
+  #include <builtin/internal/alpha-test>
+
+  in vec4 color;
+  in vec2 uv0;
+  #pragma builtin(local)
+  layout(set = 2, binding = 12) uniform sampler2D cc_spriteTexture;
+
+  uniform SlotNewPlayerSweep {
+    vec4 shineColor;
+    vec4 spriteRect;
+    vec4 sweepParams;
+    vec4 pulseParams;
+    vec4 timingParams;
+  };
+
+  vec4 frag () {
+    vec4 o = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+    #if IS_GRAY
+      float gray = 0.2126 * o.r + 0.7152 * o.g + 0.0722 * o.b;
+      o.r = o.g = o.b = gray;
+    #else
+      float width = max(sweepParams.x, 0.001);
+      float period = max(sweepParams.y, 0.1);
+      float slope = sweepParams.z;
+      float axis = uv0.x + (uv0.y - 0.5) * slope;
+      float minAxis = min(0.0, -slope * 0.5);
+      float maxAxis = 1.0 + max(0.0, slope * 0.5);
+      float center = mix(
+        minAxis - width,
+        maxAxis + width,
+        fract(timingParams.x / period)
+      );
+      float sweep = 1.0 - smoothstep(width * 0.35, width, abs(axis - center));
+      float pulsePeriod = max(pulseParams.y, 0.1);
+      float pulse = 0.5 + 0.5 * sin(timingParams.x * 6.2831853 / pulsePeriod);
+      float intensity = clamp(
+        sweep * sweepParams.w + pulse * pulseParams.x,
+        0.0,
+        1.0
+      );
+      o.rgb = min(
+        vec3(1.0),
+        o.rgb + shineColor.rgb * intensity * 0.55 * o.a
+      );
+    #endif
+
+    o *= color;
+    ALPHA_TEST(o);
+    return o;
+  }
+}%

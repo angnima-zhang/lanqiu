@@ -1,4 +1,9 @@
 import { PREVIEW } from 'cc/env';
+import { gameAudio } from './GameAudio';
+import {
+    GAME_STATE_EVENT_REWARDED_AD_COMPLETED,
+    gameStateEvents,
+} from './GameState';
 
 export interface RewardedAdUnitIds {
     wechat: string;
@@ -44,6 +49,8 @@ export async function showRewardedVideo(
     adUnitIds: RewardedAdUnitIds = configuredAdUnitIds,
 ): Promise<boolean> {
     if (PREVIEW) {
+        gameAudio.playAdSuccess();
+        gameStateEvents.emit(GAME_STATE_EVENT_REWARDED_AD_COMPLETED);
         return true;
     }
 
@@ -79,6 +86,10 @@ export async function showRewardedVideo(
             ad.offClose?.(onClose);
             ad.offError?.(onError);
             ad.destroy?.();
+            if (success) {
+                gameAudio.playAdSuccess();
+                gameStateEvents.emit(GAME_STATE_EVENT_REWARDED_AD_COMPLETED);
+            }
             resolve(success);
         };
         const onClose = (result: RewardedAdCloseResult): void => {

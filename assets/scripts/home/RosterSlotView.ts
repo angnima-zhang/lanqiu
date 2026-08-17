@@ -6,11 +6,15 @@ import {
     EffectAsset,
     Label,
     Material,
+    Node,
     Sprite,
     SpriteFrame,
+    tween,
+    Tween,
     resources,
     UITransform,
     Vec4,
+    Vec3,
 } from 'cc';
 import {
     forgetGrowingNumber,
@@ -21,8 +25,13 @@ const { ccclass, property } = _decorator;
 
 const FULL_OVR_DISPLAY_LIMIT = 10_000;
 const QUALITY_FRAME_ROOT = 'images/UI/球员/头像框-方';
-const SLOT_GLOW_EFFECT_PATH = 'effects/recruit-button-glow';
-const NEW_PLAYER_GLOW_SECONDS = 2;
+const QUALITY_BACKGROUND_ROOT = 'images/UI/球员/招募背景';
+const EMPTY_SLOT_QUALITY_ID = 3;
+const SLOT_GLOW_EFFECT_PATH = 'effects/slot-new-player-sweep';
+const NEW_PLAYER_GLOW_SWEEP_COUNT = 3;
+const NEW_PLAYER_GLOW_SWEEP_PERIOD = 0.7;
+const EVENT_ICON_GLOW_PERIOD = 1.2;
+const EVENT_ICON_PULSE_SCALE = 1.08;
 
 interface SlotGlowBinding {
     sprite: Sprite;
@@ -47,20 +56,20 @@ const OVR_UNIT_MULTIPLIER: Readonly<Record<string, number>> = {
 };
 
 const QUALITY_FRAME_INDEX_BY_ID: Readonly<Record<number, number>> = {
-    16: 0,
-    3: 1,
+    3: 0,
     4: 1,
     5: 2,
-    6: 2,
-    7: 3,
-    8: 3,
-    9: 4,
-    10: 4,
-    11: 5,
-    12: 5,
-    13: 6,
-    14: 7,
-    15: 8,
+    6: 3,
+    7: 4,
+    8: 5,
+    9: 6,
+    10: 7,
+    11: 8,
+    12: 9,
+    13: 10,
+    14: 11,
+    15: 12,
+    16: 13,
 };
 
 export function formatPlayerOverall(overall: number): string {
@@ -109,6 +118,9 @@ export function parsePlayerOverall(displayValue: string): number {
 @ccclass('RosterSlotView')
 export class RosterSlotView extends Component {
     @property(Sprite)
+    public qualityBackground: Sprite | null = null;
+
+    @property(Sprite)
     public portrait: Sprite | null = null;
 
     @property(Label)
@@ -120,23 +132,45 @@ export class RosterSlotView extends Component {
     @property(Button)
     public selectButton: Button | null = null;
 
+    @property(Button)
+    public eventButton: Button | null = null;
+
     private qualityFrameRequestVersion = 0;
     private newPlayerGlowRequestVersion = 0;
     private newPlayerGlowBindings: SlotGlowBinding[] = [];
+    private newPlayerGlowSweepElapsed = 0;
+    private newPlayerGlowCompletedSweeps = 0;
+    private eventIconRequestVersion = 0;
+    private eventIcon: Sprite | null = null;
+    private eventNode: Node | null = null;
+    private eventIconOriginalMaterial: Material | null = null;
+    private eventIconGlowMaterial: Material | null = null;
+    private eventIconGlowElapsed = 0;
+    private eventIconOriginalScale = new Vec3(1, 1, 1);
+    private eventIconPulseTween: Tween<Node> | null = null;
     private currentOverall = 0;
 
     protected onLoad(): void {
+        const backgroundNode = this.node.getChildByName('背景')
+            ?? this.node.getChildByName('Background');
         const portraitNode = this.node.getChildByName('头像') ?? this.node.getChildByName('Portrait');
         const ovrNode = this.node.getChildByName('ovr') ?? this.node.getChildByName('OVR');
         const frameNode = this.node.getChildByName('边框') ?? this.node.getChildByName('QualityFrame');
+        const eventNode = this.node.getChildByName('事件');
 
+        this.qualityBackground ??= backgroundNode?.getComponent(Sprite) ?? null;
         this.portrait ??= portraitNode?.getComponent(Sprite) ?? null;
         this.ovrLabel ??= ovrNode?.getComponent(Label) ?? null;
         this.qualityFrame ??= frameNode?.getComponent(Sprite) ?? this.node.getComponent(Sprite);
         this.selectButton ??= frameNode?.getComponent(Button) ?? this.node.getComponent(Button);
+        this.eventNode = eventNode ?? null;
+        this.eventIcon = eventNode?.getComponent(Sprite) ?? null;
+        this.eventButton ??= eventNode?.getComponent(Button) ?? eventNode?.addComponent(Button) ?? null;
+        if (this.eventNode) {
+            this.eventNode.active = false;
+        }
 
         this.currentOverall = this.ovrLabel ? parsePlayerOverall(this.ovrLabel.string) : 0;
-
         if (!this.qualityFrame) {
             console.error('[RosterSlotView] Missing quality frame Sprite.', this.node.name);
         }
@@ -145,7 +179,52 @@ export class RosterSlotView extends Component {
     protected onDestroy(): void {
         this.qualityFrameRequestVersion += 1;
         this.newPlayerGlowRequestVersion += 1;
+        this.eventIconRequestVersion += 1;
         this.clearNewPlayerHighlight();
+        this.clearEventIcon();
+    }
+
+    protected update(deltaTime: number): void {
+        this.updateNewPlayerHighlight(deltaTime);
+        if (!this.eventIconGlowMaterial) {
+            return;
+        }
+        this.eventIconGlowElapsed += Math.max(0, deltaTime);
+        this.eventIconGlowMaterial.setProperty(
+            'timingParams',
+            new Vec4(this.eventIconGlowElapsed, 0, 0, 0),
+        );
+    }
+
+    private updateNewPlayerHighlight(deltaTime: number): void {
+        if (this.newPlayerGlowBindings.length === 0) {
+            return;
+        }
+
+        let remainingTime = Math.max(0, deltaTime);
+        while (remainingTime > 0) {
+            const timeUntilSweepEnds = NEW_PLAYER_GLOW_SWEEP_PERIOD
+                - this.newPlayerGlowSweepElapsed;
+            if (remainingTime < timeUntilSweepEnds) {
+                this.newPlayerGlowSweepElapsed += remainingTime;
+                break;
+            }
+
+            remainingTime -= timeUntilSweepEnds;
+            this.newPlayerGlowSweepElapsed = 0;
+            this.newPlayerGlowCompletedSweeps += 1;
+            if (this.newPlayerGlowCompletedSweeps >= NEW_PLAYER_GLOW_SWEEP_COUNT) {
+                this.clearNewPlayerHighlight();
+                return;
+            }
+        }
+
+        for (const binding of this.newPlayerGlowBindings) {
+            binding.glowMaterial.setProperty(
+                'timingParams',
+                new Vec4(this.newPlayerGlowSweepElapsed, 0, 0, 0),
+            );
+        }
     }
 
     public setup(
@@ -187,7 +266,9 @@ export class RosterSlotView extends Component {
 
     public setQuality(qualityId: number): void {
         const frameIndex = getQualityFrameIndex(qualityId);
-        const resourcePath = `${QUALITY_FRAME_ROOT}/头像框${frameIndex}-方/spriteFrame`;
+        const qualityIndex = String(frameIndex).padStart(2, '0');
+        const resourcePath = `${QUALITY_FRAME_ROOT}/头像框${qualityIndex}-方/spriteFrame`;
+        const backgroundResourcePath = `${QUALITY_BACKGROUND_ROOT}/招募背景${qualityIndex}/spriteFrame`;
         const requestVersion = ++this.qualityFrameRequestVersion;
 
         resources.load(resourcePath, SpriteFrame, (error, spriteFrame) => {
@@ -200,11 +281,23 @@ export class RosterSlotView extends Component {
             }
             this.qualityFrame.spriteFrame = spriteFrame;
         });
+
+        resources.load(backgroundResourcePath, SpriteFrame, (error, spriteFrame) => {
+            if (requestVersion !== this.qualityFrameRequestVersion || !this.qualityBackground) {
+                return;
+            }
+            if (error || !spriteFrame) {
+                console.error(
+                    `[RosterSlotView] Failed to load quality background: ${backgroundResourcePath}`,
+                    error,
+                );
+                return;
+            }
+            this.qualityBackground.spriteFrame = spriteFrame;
+        });
     }
 
-    public playNewPlayerHighlight(
-        durationSeconds = NEW_PLAYER_GLOW_SECONDS,
-    ): void {
+    public playNewPlayerHighlight(): void {
         const requestVersion = ++this.newPlayerGlowRequestVersion;
         this.clearNewPlayerHighlight();
         resources.load(SLOT_GLOW_EFFECT_PATH, EffectAsset, (error, effectAsset) => {
@@ -254,6 +347,7 @@ export class RosterSlotView extends Component {
                     'pulseParams',
                     new Vec4(0.3, 0.5, 0, 0),
                 );
+                material.setProperty('timingParams', new Vec4(0, 0, 0, 0));
                 bindings.push({
                     sprite,
                     originalMaterial: sprite.customMaterial,
@@ -262,25 +356,107 @@ export class RosterSlotView extends Component {
                 sprite.customMaterial = material;
             }
             this.newPlayerGlowBindings = bindings;
-            this.scheduleOnce(() => {
-                if (requestVersion === this.newPlayerGlowRequestVersion) {
-                    this.clearNewPlayerHighlight();
-                }
-            }, Math.max(0, durationSeconds));
+            this.newPlayerGlowSweepElapsed = 0;
+            this.newPlayerGlowCompletedSweeps = 0;
+        });
+    }
+
+    public setEventIcon(icon: SpriteFrame | null): void {
+        this.eventIconRequestVersion += 1;
+        this.clearEventIcon();
+        if (!icon || !this.eventNode || !this.eventIcon) {
+            return;
+        }
+
+        this.eventIcon.spriteFrame = icon;
+        this.eventNode.active = true;
+        this.eventIconOriginalScale.set(
+            this.eventNode.scale.x,
+            this.eventNode.scale.y,
+            this.eventNode.scale.z,
+        );
+        this.eventIconPulseTween = tween(this.eventNode)
+            .to(
+                EVENT_ICON_GLOW_PERIOD * 0.5,
+                {
+                    scale: new Vec3(
+                        this.eventIconOriginalScale.x * EVENT_ICON_PULSE_SCALE,
+                        this.eventIconOriginalScale.y * EVENT_ICON_PULSE_SCALE,
+                        this.eventIconOriginalScale.z,
+                    ),
+                },
+                { easing: 'sineInOut' },
+            )
+            .to(
+                EVENT_ICON_GLOW_PERIOD * 0.5,
+                { scale: this.eventIconOriginalScale.clone() },
+                { easing: 'sineInOut' },
+            )
+            .union()
+            .repeatForever()
+            .start();
+
+        const requestVersion = this.eventIconRequestVersion;
+        resources.load(SLOT_GLOW_EFFECT_PATH, EffectAsset, (error, effectAsset) => {
+            if (
+                requestVersion !== this.eventIconRequestVersion
+                || !this.eventIcon
+                || !this.eventIcon.node.isValid
+            ) {
+                return;
+            }
+            if (error || !effectAsset) {
+                console.warn('[RosterSlotView] Event icon glow is unavailable.', error);
+                return;
+            }
+            const transform = this.eventIcon.node.getComponent(UITransform);
+            if (!transform || !this.eventIcon.spriteFrame) {
+                return;
+            }
+            const material = new Material();
+            material.initialize({
+                effectAsset,
+                defines: {
+                    IS_GRAY: false,
+                    USE_TEXTURE: true,
+                },
+            });
+            material.setProperty(
+                'spriteRect',
+                new Vec4(
+                    transform.width,
+                    transform.height,
+                    transform.anchorPoint.x,
+                    transform.anchorPoint.y,
+                ),
+            );
+            material.setProperty('shineColor', new Color(168, 248, 255, 255));
+            material.setProperty(
+                'sweepParams',
+                new Vec4(0.44, EVENT_ICON_GLOW_PERIOD, 0.22, 0.76),
+            );
+            material.setProperty('pulseParams', new Vec4(0.62, EVENT_ICON_GLOW_PERIOD, 0, 0));
+            material.setProperty('timingParams', new Vec4(0, 0, 0, 0));
+            this.eventIconOriginalMaterial = this.eventIcon.customMaterial;
+            this.eventIconGlowMaterial = material;
+            this.eventIconGlowElapsed = 0;
+            this.eventIcon.customMaterial = material;
         });
     }
 
     public clear(): void {
         this.qualityFrameRequestVersion += 1;
         this.newPlayerGlowRequestVersion += 1;
+        this.eventIconRequestVersion += 1;
         this.clearNewPlayerHighlight();
+        this.clearEventIcon();
         this.currentOverall = 0;
         if (this.ovrLabel) {
             forgetGrowingNumber(this.ovrLabel);
             this.ovrLabel.string = '';
         }
         this.setPortrait(null);
-        this.setQuality(0);
+        this.setQuality(EMPTY_SLOT_QUALITY_ID);
     }
 
     private clearNewPlayerHighlight(): void {
@@ -294,5 +470,30 @@ export class RosterSlotView extends Component {
             binding.glowMaterial.destroy();
         }
         this.newPlayerGlowBindings = [];
+        this.newPlayerGlowSweepElapsed = 0;
+        this.newPlayerGlowCompletedSweeps = 0;
+    }
+
+    private clearEventIcon(): void {
+        this.eventIconPulseTween?.stop();
+        this.eventIconPulseTween = null;
+        if (this.eventNode?.isValid) {
+            this.eventNode.setScale(this.eventIconOriginalScale);
+            this.eventNode.active = false;
+        }
+        if (
+            this.eventIcon?.isValid
+            && this.eventIconGlowMaterial
+            && this.eventIcon.customMaterial === this.eventIconGlowMaterial
+        ) {
+            this.eventIcon.customMaterial = this.eventIconOriginalMaterial;
+        }
+        this.eventIconGlowMaterial?.destroy();
+        this.eventIconGlowMaterial = null;
+        this.eventIconOriginalMaterial = null;
+        this.eventIconGlowElapsed = 0;
+        if (this.eventIcon) {
+            this.eventIcon.spriteFrame = null;
+        }
     }
 }

@@ -15,6 +15,7 @@ import {
 import {
     loadRoster,
     PlayerCard,
+    TEAM_NAME_STORAGE_KEY,
 } from './GameState';
 import {
     loadPlayerPortrait,
@@ -147,7 +148,6 @@ const MODE_DURATIONS: Record<TrainingMode, number> = {
     scrimmage: 120,
 };
 
-const TEAM_NAME_STORAGE_KEY = 'basketball.team.name';
 const DEFAULT_TEAM_NAME = '我的球队';
 
 const COMMENTARY_IDS: Record<string, string[]> = {

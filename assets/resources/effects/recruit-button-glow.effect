@@ -19,11 +19,11 @@ CCEffect %{
         shineColor: { value: [1.0, 1.0, 0.96, 1.0], editor: { type: color } }
         spriteRect: { value: [1.0, 1.0, 0.5, 0.5] }
         sweepWidth: { value: 0.22, target: sweepParams.x }
-        sweepPeriod: { value: 2.1, target: sweepParams.y }
+        sweepPeriod: { value: 2.2, target: sweepParams.y }
         sweepSlope: { value: 0.32, target: sweepParams.z }
         sweepStrength: { value: 0.9, target: sweepParams.w }
         pulseStrength: { value: 0.14, target: pulseParams.x }
-        pulsePeriod: { value: 1.2, target: pulseParams.y }
+        pulsePeriod: { value: 1.6, target: pulseParams.y }
 }%
 
 CCProgram recruit-button-glow-vs %{
@@ -42,15 +42,6 @@ CCProgram recruit-button-glow-vs %{
 
   out vec4 color;
   out vec2 uv0;
-  out vec2 effectUV;
-
-  uniform RecruitButtonGlow {
-    vec4 shineColor;
-    vec4 spriteRect;
-    vec4 sweepParams;
-    vec4 pulseParams;
-  };
-
   vec4 vert () {
     vec4 pos = vec4(a_position, 1.0);
 
@@ -71,8 +62,6 @@ CCProgram recruit-button-glow-vs %{
       CC_HANDLE_RT_SAMPLE_FLIP(uv0);
     #endif
 
-    vec2 safeSize = max(spriteRect.xy, vec2(0.0001));
-    effectUV = a_position.xy / safeSize + spriteRect.zw;
     color = a_color;
     return pos;
   }
@@ -86,8 +75,6 @@ CCProgram recruit-button-glow-fs %{
 
   in vec4 color;
   in vec2 uv0;
-  in vec2 effectUV;
-
   #pragma builtin(local)
   layout(set = 2, binding = 12) uniform sampler2D cc_spriteTexture;
 
@@ -107,9 +94,15 @@ CCProgram recruit-button-glow-fs %{
     #else
       float width = max(sweepParams.x, 0.001);
       float period = max(sweepParams.y, 0.1);
-      float axis = effectUV.x + effectUV.y * sweepParams.z;
-      float travel = 1.0 + sweepParams.z + width * 2.0;
-      float center = -width + fract(cc_time.x / period) * travel;
+      float slope = sweepParams.z;
+      float axis = uv0.x + (uv0.y - 0.5) * slope;
+      float minAxis = min(0.0, -slope * 0.5);
+      float maxAxis = 1.0 + max(0.0, slope * 0.5);
+      float center = mix(
+        minAxis - width,
+        maxAxis + width,
+        fract(cc_time.x / period)
+      );
       float sweep = 1.0 - smoothstep(width * 0.35, width, abs(axis - center));
       float pulsePeriod = max(pulseParams.y, 0.1);
       float pulse = 0.5 + 0.5 * sin(cc_time.x * 6.2831853 / pulsePeriod);

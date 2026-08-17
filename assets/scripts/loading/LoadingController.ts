@@ -1,13 +1,10 @@
-import { _decorator, Component, director, Font, Label, ProgressBar, resources } from 'cc';
-import { applyGameFont } from './GameFont';
+import { _decorator, Component, director, Label, ProgressBar } from 'cc';
 
 const { ccclass, property } = _decorator;
 
 const HOME_SCENE = 'Homepage';
-const FONT_PATH = 'fonts/zpix';
-const MIN_DISPLAY_SECONDS = 1;
-const PROGRESS_SPEED = 1.2;
-const FONT_PROGRESS_WEIGHT = 0.1;
+const MIN_DISPLAY_SECONDS = 0.2;
+const PROGRESS_SPEED = 4;
 
 @ccclass('LoadingController')
 export class LoadingController extends Component {
@@ -20,13 +17,14 @@ export class LoadingController extends Component {
     @property(Label)
     public statusLabel: Label | null = null;
 
-    private gameFont: Font | null = null;
     private targetProgress = 0;
     private displayProgress = 0;
     private elapsedSeconds = 0;
     private dotElapsedSeconds = 0;
     private dotCount = 0;
     private retryCount = 0;
+    private homepagePreloadProgress = 0;
+    private homepagePreloaded = false;
     private loadComplete = false;
     private switchingScene = false;
     private stopped = false;
@@ -49,7 +47,7 @@ export class LoadingController extends Component {
 
     protected start(): void {
         if (this.enabled) {
-            this.loadFont();
+            this.preloadHomepage();
         }
     }
 
@@ -83,24 +81,6 @@ export class LoadingController extends Component {
         this.unscheduleAllCallbacks();
     }
 
-    private loadFont(): void {
-        this.setStatus('正在加载字体');
-        resources.load(FONT_PATH, Font, (error, font) => {
-            if (!this.isValid) {
-                return;
-            }
-            if (error || !font) {
-                this.handleLoadError(error ?? new Error('zpix font asset is missing'));
-                return;
-            }
-
-            this.gameFont = font;
-            applyGameFont(this.node.scene, font);
-            this.targetProgress = FONT_PROGRESS_WEIGHT;
-            this.preloadHomepage();
-        });
-    }
-
     private preloadHomepage(): void {
         this.setStatus('正在加载游戏资源');
         director.preloadScene(
@@ -110,38 +90,50 @@ export class LoadingController extends Component {
                     return;
                 }
                 const sceneProgress = Math.min(1, completedCount / totalCount);
-                this.targetProgress = Math.max(
-                    this.targetProgress,
-                    FONT_PROGRESS_WEIGHT + sceneProgress * (1 - FONT_PROGRESS_WEIGHT),
-                );
+                this.homepagePreloadProgress = Math.max(this.homepagePreloadProgress, sceneProgress);
+                this.updateTargetProgress();
             },
             (error) => {
                 if (!this.isValid) {
                     return;
                 }
                 if (error) {
-                    this.handleLoadError(error);
+                    this.handleLoadError(error, () => this.preloadHomepage());
                     return;
                 }
 
-                this.targetProgress = 1;
-                this.loadComplete = true;
-                this.setStatus('加载完成', false);
+                this.homepagePreloadProgress = 1;
+                this.homepagePreloaded = true;
+                this.updateTargetProgress();
+                this.tryCompleteLoading();
             },
         );
     }
 
-    private handleLoadError(error: Error): void {
+    private updateTargetProgress(): void {
+        this.targetProgress = Math.max(
+            this.targetProgress,
+            this.homepagePreloadProgress,
+        );
+    }
+
+    private tryCompleteLoading(): void {
+        if (!this.homepagePreloaded) {
+            return;
+        }
+
+        this.targetProgress = 1;
+        this.loadComplete = true;
+        this.setStatus('加载完成', false);
+    }
+
+    private handleLoadError(error: Error, retry: () => void): void {
         console.error('[LoadingController] Failed to load:', error);
         if (this.retryCount < 1) {
             this.retryCount += 1;
             this.setStatus('加载失败，正在重试');
             this.scheduleOnce(() => {
-                if (this.gameFont) {
-                    this.preloadHomepage();
-                } else {
-                    this.loadFont();
-                }
+                retry();
             }, 1);
             return;
         }
@@ -161,11 +153,8 @@ export class LoadingController extends Component {
         director.loadScene(HOME_SCENE, (error, scene) => {
             if (error) {
                 this.switchingScene = false;
-                this.handleLoadError(error);
+                this.handleLoadError(error, () => this.preloadHomepage());
                 return;
-            }
-            if (scene && this.gameFont) {
-                applyGameFont(scene, this.gameFont);
             }
         });
     }

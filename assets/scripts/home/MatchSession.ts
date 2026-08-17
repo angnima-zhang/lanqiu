@@ -11,6 +11,7 @@ export interface MatchSessionSnapshot {
     seasonNumber: number;
     matchNumber: number;
     difficultyQualityName: string;
+    scheduleLabel: string;
     playerTeamName: string;
     opponentTeamName: string;
     playerRoster: Array<PlayerCard | null>;
@@ -18,6 +19,8 @@ export interface MatchSessionSnapshot {
     playerOverall: number;
     opponentOverall: number;
     operationPresidentBonus: number;
+    rewardMultiplier: number;
+    isStandardProgressionMatch: boolean;
     temporaryBonusPercent: number;
 }
 

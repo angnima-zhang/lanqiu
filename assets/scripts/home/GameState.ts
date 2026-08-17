@@ -1,4 +1,8 @@
 import { EventTarget, JsonAsset, resources, sys } from 'cc';
+import {
+    STANDARD_MATCH_COUNT,
+    getScheduleDescriptor,
+} from './SeasonRoute';
 
 export const INT32_MAX = 2_147_483_647;
 export const ROSTER_SLOT_COUNT = 12;
@@ -10,33 +14,59 @@ export const GAME_STATE_EVENT_PLAYER_DETAILS_REQUESTED = 'game-state-player-deta
 export const GAME_STATE_EVENT_MANAGEMENT_CHANGED = 'game-state-management-changed';
 export const GAME_STATE_EVENT_SEASON_CHANGED = 'game-state-season-changed';
 export const GAME_STATE_EVENT_MATCH_SETTLED = 'game-state-match-settled';
+export const GAME_STATE_EVENT_REWARDED_AD_COMPLETED = 'game-state-rewarded-ad-completed';
 
 export const gameStateEvents = new EventTarget();
 
-export const BUDGET_STORAGE_KEY = 'basketball.economy.budget.v1';
-export const ROSTER_STORAGE_KEY = 'basketball.roster.v1';
-export const TEAM_NAME_STORAGE_KEY = 'basketball.team.name';
-export const TEAM_ABBREVIATION_STORAGE_KEY = 'basketball.team.abbreviation';
+export const BUDGET_STORAGE_KEY = 'basketball.economy.budget.v2';
+export const ROSTER_STORAGE_KEY = 'basketball.roster.v2';
+export const TEAM_NAME_STORAGE_KEY = 'basketball.team.name.v2';
+export const TEAM_ABBREVIATION_STORAGE_KEY = 'basketball.team.abbreviation.v2';
 
-const MANAGEMENT_STORAGE_KEY = 'basketball.management.v1';
-const PLAYER_HISTORY_STORAGE_KEY = 'basketball.player-history.v1';
+const MANAGEMENT_STORAGE_KEY = 'basketball.management.v2';
+const PLAYER_HISTORY_STORAGE_KEY = 'basketball.player-history.v2';
 const SETTINGS_STORAGE_KEY = 'basketball.settings.v1';
-const IDLE_STORAGE_KEY = 'basketball.idle.v1';
-const SEASON_STORAGE_KEY = 'basketball.season.v1';
-const DEFAULT_BUDGET = 100;
+const IDLE_STORAGE_KEY = 'basketball.idle.v2';
+const SEASON_STORAGE_KEY = 'basketball.season.v2';
+const DEFAULT_BUDGET = 20;
 const SAVE_VERSION = 1;
+const IDLE_SAVE_VERSION = 2;
 const ROSTER_SAVE_VERSION = 2;
 const PLAYER_HISTORY_SAVE_VERSION = 4;
-const SEASON_SAVE_VERSION = 2;
-const MAX_MANAGEMENT_LEVEL = 520;
-const MAX_STANDARD_SEASON = 13;
-const MATCHES_PER_SEASON = 98;
-const REGULAR_SEASON_MATCHES = 82;
+const SEASON_SAVE_VERSION = 3;
+const MAX_MANAGEMENT_LEVEL = 100;
 const BUDGET_PRECISION = 1_000_000;
 
 export const ATTRIBUTE_KEYS = ['scoring', 'rebound', 'assist', 'steal', 'block'] as const;
 export type AttributeKey = typeof ATTRIBUTE_KEYS[number];
 export type PlayerAttributes = Record<AttributeKey, number>;
+
+export type PlayerEventType = 'injury' | 'retirement' | 'training' | 'recruitment';
+
+export interface PendingEventRecruit {
+    templateId: string;
+    sourcePlayerName: string;
+    displayName: string;
+    position: string;
+    qualityId: number;
+    qualityName: string;
+    overall: number;
+    attributes: PlayerAttributes;
+}
+
+export interface PendingPlayerEvent {
+    type: PlayerEventType;
+    occurredAtMs: number;
+    descriptionTemplate?: string;
+    overallDelta: number;
+    recoveryMatches: number;
+    recruit: PendingEventRecruit | null;
+}
+
+export interface ActivePlayerInjury {
+    overallPenalty: number;
+    remainingMatches: number;
+}
 
 export function getTeamAbbreviation(teamName: string, fallback = '我'): string {
     return Array.from(teamName.trim())[0] ?? fallback;
@@ -55,6 +85,11 @@ export interface PlayerCard {
     attributes: PlayerAttributes;
     acquiredAtMs: number;
     lineupSinceMs: number | null;
+    matchesPlayed?: number;
+    retirementMatchLimit?: number;
+    lastCountedMatchId?: string;
+    pendingEvent?: PendingPlayerEvent;
+    activeInjury?: ActivePlayerInjury;
 }
 
 interface RosterSaveData {
@@ -131,6 +166,8 @@ export interface IdleState {
     version: number;
     accrualStartedAtMs: number;
     lastOnlineTickAtMs: number;
+    offlineStartedAtMs: number | null;
+    hasRecordedOfflineSession: boolean;
     pendingOfflineSeconds: number;
     unpromptedOfflineSeconds: number;
 }
@@ -143,14 +180,22 @@ export interface SeasonState {
     schedulePhase: SeasonSchedulePhase;
     playoffRound: number;
     playoffWinsInRound: number;
-    goatCompleted: boolean;
+    infiniteMode: boolean;
+    infiniteMatchNumber: number;
+    infiniteWins: number;
+    conceptGodUpgradeUnlocked: boolean;
     lastSettledMatchId: string | null;
     lastBaseRewardMatchId: string | null;
     lastAdRewardMatchId: string | null;
     lastAdvancedMatchId: string | null;
 }
 
-export type SeasonSchedulePhase = 'regular-season' | 'playoffs' | 'goat-complete';
+export type SeasonSchedulePhase =
+    | 'regular-season'
+    | 'cup'
+    | 'all-star'
+    | 'playoffs'
+    | 'concept-endless';
 
 export interface MatchSettlementEvent {
     matchId: string;
@@ -501,7 +546,10 @@ export async function upgradeManagementWithBudget(
         );
     }
 
-    levels[role] = previousLevel + 1;
+    levels = {
+        ...levels,
+        [role]: previousLevel + 1,
+    };
     saveManagementLevels(levels);
     return createManagementUpgradeResult(
         true,
@@ -547,12 +595,15 @@ export function upgradeManagementWithAd(
         );
     }
 
-    levels[role] = previousLevel + 1;
-    saveManagementLevels(levels);
+    const upgradedLevels: ManagementLevels = {
+        ...levels,
+        [role]: previousLevel + 1,
+    };
+    saveManagementLevels(upgradedLevels);
     return createManagementUpgradeResult(
         true,
         'ok',
-        levels,
+        upgradedLevels,
         previousLevel,
         0,
     );
@@ -661,9 +712,11 @@ export function saveGameSettings(settings: GameSettings): void {
 
 export function loadIdleState(now = Date.now()): IdleState {
     const defaults: IdleState = {
-        version: SAVE_VERSION,
+        version: IDLE_SAVE_VERSION,
         accrualStartedAtMs: now,
         lastOnlineTickAtMs: now,
+        offlineStartedAtMs: null,
+        hasRecordedOfflineSession: false,
         pendingOfflineSeconds: 0,
         unpromptedOfflineSeconds: 0,
     };
@@ -674,10 +727,17 @@ export function loadIdleState(now = Date.now()): IdleState {
     }
     try {
         const parsed = JSON.parse(serialized) as Partial<IdleState>;
+        const parsedOfflineStartedAtMs = Number(parsed.offlineStartedAtMs);
         return {
-            version: SAVE_VERSION,
+            version: IDLE_SAVE_VERSION,
             accrualStartedAtMs: sanitizeTimestamp(parsed.accrualStartedAtMs, now),
             lastOnlineTickAtMs: sanitizeTimestamp(parsed.lastOnlineTickAtMs, now),
+            offlineStartedAtMs: Number.isFinite(parsedOfflineStartedAtMs)
+                && parsedOfflineStartedAtMs > 0
+                ? Math.floor(parsedOfflineStartedAtMs)
+                : null,
+            hasRecordedOfflineSession: Boolean(parsed.hasRecordedOfflineSession)
+                || (Number.isFinite(parsedOfflineStartedAtMs) && parsedOfflineStartedAtMs > 0),
             pendingOfflineSeconds: Math.max(
                 0,
                 Number.isFinite(Number(parsed.pendingOfflineSeconds))
@@ -698,9 +758,13 @@ export function loadIdleState(now = Date.now()): IdleState {
 
 export function saveIdleState(state: IdleState): void {
     sys.localStorage.setItem(IDLE_STORAGE_KEY, JSON.stringify({
-        version: SAVE_VERSION,
+        version: IDLE_SAVE_VERSION,
         accrualStartedAtMs: sanitizeTimestamp(state.accrualStartedAtMs, Date.now()),
         lastOnlineTickAtMs: sanitizeTimestamp(state.lastOnlineTickAtMs, Date.now()),
+        offlineStartedAtMs: state.offlineStartedAtMs === null
+            ? null
+            : sanitizeTimestamp(state.offlineStartedAtMs, Date.now()),
+        hasRecordedOfflineSession: Boolean(state.hasRecordedOfflineSession),
         pendingOfflineSeconds: Math.max(
             0,
             Number.isFinite(state.pendingOfflineSeconds) ? state.pendingOfflineSeconds : 0,
@@ -738,7 +802,23 @@ export function saveSeasonState(state: SeasonState): SeasonState {
 }
 
 export function getCurrentMatchId(state: SeasonState = loadSeasonState()): string {
-    return `${state.seasonNumber}-${state.matchNumber}`;
+    return state.infiniteMode
+        ? `infinite-${state.infiniteMatchNumber}`
+        : `standard-${state.matchNumber}`;
+}
+
+export function isConceptGodUpgradeUnlocked(
+    state: SeasonState = loadSeasonState(),
+): boolean {
+    return state.conceptGodUpgradeUnlocked;
+}
+
+export function getInfiniteGoatProbabilityBonus(
+    state: SeasonState = loadSeasonState(),
+): number {
+    return state.infiniteMode
+        ? Math.min(0.5, Math.max(0, state.infiniteWins) * 0.005)
+        : 0;
 }
 
 export function settleBaseMatchReward(matchId: string, amount: number): boolean {
@@ -753,7 +833,6 @@ export function advanceSeasonAfterWin(matchId: string): boolean {
     const state = loadSeasonState();
     if (
         !isCurrentMatchId(state, matchId)
-        || state.goatCompleted
         || state.lastAdvancedMatchId === matchId
     ) {
         return false;
@@ -761,13 +840,17 @@ export function advanceSeasonAfterWin(matchId: string): boolean {
 
     state.lastAdvancedMatchId = matchId;
     state.officialWins = Math.min(INT32_MAX, state.officialWins + 1);
-    if (state.matchNumber < MATCHES_PER_SEASON) {
+    if (state.infiniteMode) {
+        state.infiniteWins = Math.min(INT32_MAX, state.infiniteWins + 1);
+        state.infiniteMatchNumber = Math.min(INT32_MAX, state.infiniteMatchNumber + 1);
+        state.conceptGodUpgradeUnlocked = state.infiniteWins >= 11;
+    } else if (state.matchNumber < STANDARD_MATCH_COUNT) {
         state.matchNumber += 1;
-    } else if (state.seasonNumber < MAX_STANDARD_SEASON) {
-        state.seasonNumber += 1;
-        state.matchNumber = 1;
     } else {
-        state.goatCompleted = true;
+        state.infiniteMode = true;
+        state.infiniteMatchNumber = 1;
+        state.infiniteWins = 0;
+        state.conceptGodUpgradeUnlocked = false;
     }
     saveSeasonState(state);
     return true;
@@ -866,7 +949,10 @@ function createDefaultSeasonState(): SeasonState {
         schedulePhase: 'regular-season',
         playoffRound: 0,
         playoffWinsInRound: 0,
-        goatCompleted: false,
+        infiniteMode: false,
+        infiniteMatchNumber: 1,
+        infiniteWins: 0,
+        conceptGodUpgradeUnlocked: false,
         lastSettledMatchId: null,
         lastBaseRewardMatchId: null,
         lastAdRewardMatchId: null,
@@ -875,23 +961,24 @@ function createDefaultSeasonState(): SeasonState {
 }
 
 function normalizeSeasonState(value: Partial<SeasonState>): SeasonState {
-    const seasonNumber = Math.min(
-        MAX_STANDARD_SEASON,
-        Math.max(1, sanitizeInteger(value.seasonNumber, 1)),
-    );
-    const goatCompleted = Boolean(value.goatCompleted)
-        && seasonNumber === MAX_STANDARD_SEASON;
-    const matchNumber = goatCompleted
-        ? MATCHES_PER_SEASON
+    if (sanitizeInteger(value.version, 0) !== SEASON_SAVE_VERSION) {
+        return createDefaultSeasonState();
+    }
+    const infiniteMode = Boolean(value.infiniteMode);
+    const matchNumber = infiniteMode
+        ? STANDARD_MATCH_COUNT
         : Math.min(
-            MATCHES_PER_SEASON,
+            STANDARD_MATCH_COUNT,
             Math.max(1, sanitizeInteger(value.matchNumber, 1)),
         );
-    const completedSeasonWins = (seasonNumber - 1) * MATCHES_PER_SEASON;
-    const currentSeasonWins = goatCompleted
-        ? MATCHES_PER_SEASON
+    const infiniteMatchNumber = Math.max(
+        1,
+        sanitizeInteger(value.infiniteMatchNumber, 1),
+    );
+    const infiniteWins = Math.max(0, sanitizeInteger(value.infiniteWins, 0));
+    const fallbackOfficialWins = infiniteMode
+        ? STANDARD_MATCH_COUNT + infiniteWins
         : matchNumber - 1;
-    const fallbackOfficialWins = completedSeasonWins + currentSeasonWins;
     const storedOfficialWins = Math.max(
         0,
         sanitizeInteger(value.officialWins, fallbackOfficialWins),
@@ -900,14 +987,17 @@ function normalizeSeasonState(value: Partial<SeasonState>): SeasonState {
         INT32_MAX,
         Math.max(fallbackOfficialWins, storedOfficialWins),
     );
-    const schedule = getSeasonSchedule(matchNumber, goatCompleted);
+    const schedule = getSeasonSchedule(matchNumber, infiniteMode);
     return {
         version: SEASON_SAVE_VERSION,
-        seasonNumber,
+        seasonNumber: 1,
         matchNumber,
         officialWins,
         ...schedule,
-        goatCompleted,
+        infiniteMode,
+        infiniteMatchNumber,
+        infiniteWins,
+        conceptGodUpgradeUnlocked: infiniteMode && infiniteWins >= 11,
         lastSettledMatchId: normalizeMatchId(value.lastSettledMatchId),
         lastBaseRewardMatchId: normalizeMatchId(value.lastBaseRewardMatchId),
         lastAdRewardMatchId: normalizeMatchId(value.lastAdRewardMatchId),
@@ -917,27 +1007,17 @@ function normalizeSeasonState(value: Partial<SeasonState>): SeasonState {
 
 function getSeasonSchedule(
     matchNumber: number,
-    goatCompleted: boolean,
+    infiniteMode: boolean,
 ): Pick<SeasonState, 'schedulePhase' | 'playoffRound' | 'playoffWinsInRound'> {
-    if (goatCompleted) {
-        return {
-            schedulePhase: 'goat-complete',
-            playoffRound: 4,
-            playoffWinsInRound: 4,
-        };
-    }
-    if (matchNumber <= REGULAR_SEASON_MATCHES) {
-        return {
-            schedulePhase: 'regular-season',
-            playoffRound: 0,
-            playoffWinsInRound: 0,
-        };
-    }
-    const playoffIndex = matchNumber - REGULAR_SEASON_MATCHES - 1;
+    const schedule = getScheduleDescriptor({
+        infiniteMode,
+        infiniteMatchNumber: 1,
+        matchNumber,
+    });
     return {
-        schedulePhase: 'playoffs',
-        playoffRound: Math.min(4, Math.floor(playoffIndex / 4) + 1),
-        playoffWinsInRound: playoffIndex % 4,
+        schedulePhase: schedule.phase,
+        playoffRound: schedule.playoffRound,
+        playoffWinsInRound: schedule.playoffWinsInRound,
     };
 }
 
@@ -1022,6 +1102,8 @@ function normalizePlayerCard(value: unknown, now: number): PlayerCard | null {
         result[key] = sanitizeInteger(rawAttributes[key], 0);
         return result;
     }, {} as PlayerAttributes);
+    const pendingEvent = normalizePendingPlayerEvent(card.pendingEvent, now);
+    const activeInjury = normalizeActivePlayerInjury(card.activeInjury);
 
     return {
         instanceId: String(card.instanceId),
@@ -1038,6 +1120,16 @@ function normalizePlayerCard(value: unknown, now: number): PlayerCard | null {
         lineupSinceMs: card.lineupSinceMs === null
             ? null
             : sanitizeTimestamp(card.lineupSinceMs, now),
+        matchesPlayed: Math.max(0, sanitizeInteger(card.matchesPlayed, 0)),
+        retirementMatchLimit: normalizeRetirementMatchLimit(
+            card.retirementMatchLimit,
+            String(card.instanceId),
+        ),
+        ...(normalizeMatchId(card.lastCountedMatchId)
+            ? { lastCountedMatchId: normalizeMatchId(card.lastCountedMatchId)! }
+            : {}),
+        ...(pendingEvent ? { pendingEvent } : {}),
+        ...(activeInjury ? { activeInjury } : {}),
     };
 }
 
@@ -1045,7 +1137,110 @@ function clonePlayerCard(card: PlayerCard): PlayerCard {
     return {
         ...card,
         attributes: { ...card.attributes },
+        ...(card.pendingEvent
+            ? {
+                pendingEvent: {
+                    ...card.pendingEvent,
+                    recruit: card.pendingEvent.recruit
+                        ? {
+                            ...card.pendingEvent.recruit,
+                            attributes: { ...card.pendingEvent.recruit.attributes },
+                        }
+                        : null,
+                },
+            }
+            : {}),
+        ...(card.activeInjury ? { activeInjury: { ...card.activeInjury } } : {}),
     };
+}
+
+function normalizeRetirementMatchLimit(value: unknown, seed: string): number {
+    const savedLimit = sanitizeInteger(value, 0);
+    if (savedLimit > 0) {
+        return Math.min(5, savedLimit);
+    }
+
+    let hash = 0;
+    for (const character of seed) {
+        hash = (hash * 31 + character.codePointAt(0)!) >>> 0;
+    }
+    return 3 + hash % 3;
+}
+
+function normalizePendingPlayerEvent(
+    value: unknown,
+    now: number,
+): PendingPlayerEvent | null {
+    if (!value || typeof value !== 'object') {
+        return null;
+    }
+    const event = value as Partial<PendingPlayerEvent>;
+    if (
+        event.type !== 'injury'
+        && event.type !== 'retirement'
+        && event.type !== 'training'
+        && event.type !== 'recruitment'
+    ) {
+        return null;
+    }
+    const recruit = normalizePendingEventRecruit(event.recruit);
+    if (event.type === 'recruitment' && !recruit) {
+        return null;
+    }
+    return {
+        type: event.type,
+        occurredAtMs: sanitizeTimestamp(event.occurredAtMs, now),
+        descriptionTemplate: typeof event.descriptionTemplate === 'string'
+            && event.descriptionTemplate.trim().length > 0
+            ? event.descriptionTemplate
+            : undefined,
+        overallDelta: sanitizeInteger(event.overallDelta, 0),
+        recoveryMatches: Math.max(0, sanitizeInteger(event.recoveryMatches, 0)),
+        recruit,
+    };
+}
+
+function normalizePendingEventRecruit(value: unknown): PendingEventRecruit | null {
+    if (!value || typeof value !== 'object') {
+        return null;
+    }
+    const recruit = value as Partial<PendingEventRecruit>;
+    if (
+        !recruit.templateId
+        || !recruit.sourcePlayerName
+        || !recruit.displayName
+        || !recruit.position
+    ) {
+        return null;
+    }
+    const attributes = ATTRIBUTE_KEYS.reduce((result, key) => {
+        result[key] = Math.max(0, sanitizeInteger(recruit.attributes?.[key], 0));
+        return result;
+    }, {} as PlayerAttributes);
+    const overall = Math.max(1, sanitizeInteger(recruit.overall, 0));
+    return {
+        templateId: String(recruit.templateId),
+        sourcePlayerName: String(recruit.sourcePlayerName),
+        displayName: String(recruit.displayName),
+        position: String(recruit.position),
+        qualityId: Math.max(3, sanitizeInteger(recruit.qualityId, 3)),
+        qualityName: String(recruit.qualityName ?? ''),
+        overall,
+        attributes,
+    };
+}
+
+function normalizeActivePlayerInjury(value: unknown): ActivePlayerInjury | null {
+    if (!value || typeof value !== 'object') {
+        return null;
+    }
+    const injury = value as Partial<ActivePlayerInjury>;
+    const overallPenalty = sanitizeInteger(injury.overallPenalty, 0);
+    const remainingMatches = sanitizeInteger(injury.remainingMatches, 0);
+    if (overallPenalty <= 0 || remainingMatches <= 0) {
+        return null;
+    }
+    return { overallPenalty, remainingMatches };
 }
 
 function loadPlayerHistory(): PlayerHistorySaveData {
@@ -1231,7 +1426,7 @@ function sanitizeLevel(value: unknown): number {
 function sanitizeTeamLevel(value: unknown): number {
     return Math.min(
         MAX_MANAGEMENT_LEVEL,
-        Math.max(1, sanitizeInteger(value, 1)),
+        Math.max(0, sanitizeInteger(value, 0)),
     );
 }
 

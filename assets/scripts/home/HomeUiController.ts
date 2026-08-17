@@ -8,6 +8,7 @@ import {
     Node,
     resources,
     Sprite,
+    SpriteFrame,
     sys,
     UITransform,
 } from 'cc';
@@ -35,16 +36,21 @@ import {
 } from './GameState';
 import {
     loadPlayerPortrait,
+    loadPlayerEventIcon,
+    loadQualityBadge,
     loadQualityFrame,
-    loadSpriteFrame,
+    loadQualityNameplate,
+    loadQualityPosition,
+    loadThinQualityFrame,
+    loadQualityWheat,
+    loadRecruitmentBackground,
 } from './PlayerAssets';
 import {
     formatPlayerOverall,
-    getQualityFrameIndex,
     RosterSlotView,
 } from './RosterSlotView';
 import {
-    TEAM_PROGRESSION_EVENT_CHAMPIONSHIP_REQUESTED,
+    TEAM_PROGRESSION_EVENT_WIN_UPGRADE_REQUESTED,
     teamProgressionEvents,
 } from './TeamLevelController';
 import { TopTeamInfoController } from './TopTeamInfoController';
@@ -52,10 +58,21 @@ import { PreMatchController } from './PreMatchController';
 import { applyGameFont } from '../loading/GameFont';
 import { playFullScreenEntrance } from './FullScreenEntrance';
 import { stopFullScreenEntrance } from './FullScreenEntrance';
+import { playFullScreenExit as exitWithFade } from './FullScreenEntrance';
 import { ManagementController } from './ManagementController';
 import { ManagerSlotView } from './ManagerSlotView';
 import { consumeHomepageReturnTarget } from './MatchSession';
 import { ManagementRole } from './GameState';
+import { IdleIncomeController } from './IdleIncomeController';
+import { RecruitmentProbabilityController } from './RecruitmentProbabilityController';
+import { gameAudio } from './GameAudio';
+import { installGoldAdButtonGlows } from './GoldAdButtonGlow';
+import {
+    applyOverallNumberQuality,
+    applyPlayerQualityVisuals,
+} from './PlayerQualityVisuals';
+import { PlayerEventController } from './PlayerEventController';
+import { setGrowingNumber } from './NumberGrowthAnimator';
 
 const { ccclass } = _decorator;
 
@@ -71,6 +88,11 @@ interface ButtonVisualBinding {
     lastInteractable: boolean | null;
 }
 
+interface SettingToggleSprites {
+    onSprite: SpriteFrame | null;
+    offSprite: SpriteFrame | null;
+}
+
 @ccclass('HomeUiController')
 export class HomeUiController extends Component {
     private canvas: Node | null = null;
@@ -80,6 +102,9 @@ export class HomeUiController extends Component {
     private playerDetailsPage: Node | null = null;
     private managementPage: Node | null = null;
     private managementController: ManagementController | null = null;
+    private idleIncomeController: IdleIncomeController | null = null;
+    private recruitmentProbabilityController: RecruitmentProbabilityController | null = null;
+    private playerEventController: PlayerEventController | null = null;
     private topTeamInfoController: TopTeamInfoController | null = null;
     private rosterSlots: RosterSlotView[] = [];
     private boundButtons: BoundButton[] = [];
@@ -91,6 +116,7 @@ export class HomeUiController extends Component {
     private teamInfoRequestVersion = 0;
     private buttonVisualBindings: ButtonVisualBinding[] = [];
     private recruitButtonWithPressedSprite: Button | null = null;
+    private readonly settingToggleSprites = new WeakMap<Button, SettingToggleSprites>();
 
     protected onLoad(): void {
         this.resolveSceneReferences();
@@ -109,17 +135,22 @@ export class HomeUiController extends Component {
         this.teamInfoPage.active = false;
         this.settingsPage.active = false;
         this.playerDetailsPage.active = false;
+        this.playerEventController = this.node.getComponent(PlayerEventController)
+            ?? this.node.addComponent(PlayerEventController);
         this.managementController = this.node.getComponent(ManagementController)
             ?? this.node.addComponent(ManagementController);
+        this.recruitmentProbabilityController = this.node.getComponent(
+            RecruitmentProbabilityController,
+        ) ?? this.node.addComponent(RecruitmentProbabilityController);
         this.recruitButtonWithPressedSprite = this.findByPath(
             this.homeRoot,
             '底部按钮/招募/招募',
         )?.getComponent(Button) ?? null;
+        this.captureSettingToggleSprites();
         this.prepareAllButtonVisuals(this.canvas);
-        this.disableUnavailableEntrypoints();
+        installGoldAdButtonGlows(this.canvas);
         this.syncDisabledButtonVisuals(true);
         this.prepareTeamNameEditor();
-        this.applyHomepageFont();
     }
 
     protected lateUpdate(): void {
@@ -127,6 +158,8 @@ export class HomeUiController extends Component {
     }
 
     protected start(): void {
+        this.scheduleOnce(this.applyHomepageFont, 0.25);
+        this.scheduleOnce(() => gameAudio.initialize(), 0.5);
         if (consumeHomepageReturnTarget() === 'pre-match') {
             this.scheduleOnce(this.openPreMatchPage, 0);
         }
@@ -155,7 +188,7 @@ export class HomeUiController extends Component {
             this,
         );
         teamProgressionEvents.on(
-            TEAM_PROGRESSION_EVENT_CHAMPIONSHIP_REQUESTED,
+            TEAM_PROGRESSION_EVENT_WIN_UPGRADE_REQUESTED,
             this.openPreMatchPage,
             this,
         );
@@ -187,7 +220,7 @@ export class HomeUiController extends Component {
             this,
         );
         teamProgressionEvents.off(
-            TEAM_PROGRESSION_EVENT_CHAMPIONSHIP_REQUESTED,
+            TEAM_PROGRESSION_EVENT_WIN_UPGRADE_REQUESTED,
             this.openPreMatchPage,
             this,
         );
@@ -244,7 +277,22 @@ export class HomeUiController extends Component {
             this.homeRoot,
             '底部按钮/左侧2个/球队',
         )?.getComponentInChildren(Button);
-        this.bindButton(teamButton, this.closeFullScreenPages);
+        this.bindButton(teamButton, this.openTeamInfoPage);
+
+        const recruitmentProbabilityButton = this.findByPath(
+            this.homeRoot,
+            '底部按钮/左侧2个/招募概率',
+        )?.getComponentInChildren(Button);
+        this.bindButton(
+            recruitmentProbabilityButton,
+            this.recruitmentProbabilityController?.openPage ?? (() => undefined),
+        );
+
+        const trainingButton = this.findByPath(
+            this.homeRoot,
+            '底部按钮/右侧2个/训练',
+        )?.getComponentInChildren(Button);
+        this.bindButton(trainingButton, this.openIdleIncomePage);
 
         this.rosterSlots.forEach((slot, index) => {
             this.bindButton(slot.selectButton, () => this.openPlayerDetails(index));
@@ -278,8 +326,9 @@ export class HomeUiController extends Component {
         this.teamInfoRequestVersion += 1;
         this.cancelTeamNameEdit();
         if (this.teamInfoPage) {
-            stopFullScreenEntrance(this.teamInfoPage);
-            this.teamInfoPage.active = false;
+            void exitWithFade(this.teamInfoPage).then(() => {
+                this.teamInfoPage!.active = false;
+            });
         }
     };
 
@@ -326,12 +375,14 @@ export class HomeUiController extends Component {
     private openSettingsPage = (): void => {
         this.teamInfoRequestVersion += 1;
         this.refreshSettingsPage();
-        this.bringToFront(this.settingsPage);
+        this.bringToFront(this.settingsPage, true);
     };
 
     private closeSettingsPage = (): void => {
         if (this.settingsPage) {
-            this.settingsPage.active = false;
+            void exitWithFade(this.settingsPage).then(() => {
+                this.settingsPage!.active = false;
+            });
         }
     };
 
@@ -339,6 +390,7 @@ export class HomeUiController extends Component {
         const settings = loadGameSettings();
         settings.musicEnabled = !settings.musicEnabled;
         saveGameSettings(settings);
+        gameAudio.syncSettings();
         this.refreshSettingsPage();
     };
 
@@ -346,6 +398,7 @@ export class HomeUiController extends Component {
         const settings = loadGameSettings();
         settings.soundEnabled = !settings.soundEnabled;
         saveGameSettings(settings);
+        gameAudio.syncSettings();
         this.refreshSettingsPage();
     };
 
@@ -361,7 +414,9 @@ export class HomeUiController extends Component {
     private closePlayerDetails = (): void => {
         this.cardRenderVersion += 1;
         if (this.playerDetailsPage) {
-            this.playerDetailsPage.active = false;
+            void exitWithFade(this.playerDetailsPage).then(() => {
+                this.playerDetailsPage!.active = false;
+            });
         }
     };
 
@@ -370,12 +425,19 @@ export class HomeUiController extends Component {
         void PreMatchController.instance?.openPage();
     };
 
+    private openIdleIncomePage = (): void => {
+        this.idleIncomeController?.openPage();
+    };
+
     private closeFullScreenPages = (): void => {
-        if (this.playerDetailsPage) {
-            this.playerDetailsPage.active = false;
+        if (this.playerDetailsPage?.active) {
+            void exitWithFade(this.playerDetailsPage).then(() => {
+                this.playerDetailsPage!.active = false;
+            });
         }
         PreMatchController.instance?.closePage();
         this.managementController?.closeManagement();
+        this.playerEventController?.closePage();
     };
 
     private async refreshTeamInfoPage(): Promise<void> {
@@ -434,7 +496,7 @@ export class HomeUiController extends Component {
         }
         const [portraitFrame, qualityFrame] = await Promise.all([
             loadPlayerPortrait(bestPlayer),
-            loadQualityFrame(bestPlayer.qualityId),
+            loadThinQualityFrame(bestPlayer.qualityId),
         ]);
         if (portrait) {
             portrait.spriteFrame = portraitFrame;
@@ -456,6 +518,45 @@ export class HomeUiController extends Component {
             settings.soundEnabled ? '开' : '关',
             this.settingsPage,
         );
+        this.refreshSettingsToggle('音乐/开关', settings.musicEnabled);
+        this.refreshSettingsToggle('音效/开关', settings.soundEnabled);
+    }
+
+    private captureSettingToggleSprites(): void {
+        this.captureSettingToggleSpritesAtPath('音乐/开关');
+        this.captureSettingToggleSpritesAtPath('音效/开关');
+    }
+
+    private captureSettingToggleSpritesAtPath(path: string): void {
+        const button = this.findByPath(this.settingsPage, path)?.getComponent(Button) ?? null;
+        if (!button || this.settingToggleSprites.has(button)) {
+            return;
+        }
+        this.settingToggleSprites.set(button, {
+            onSprite: button.normalSprite,
+            offSprite: button.disabledSprite,
+        });
+    }
+
+    private refreshSettingsToggle(path: string, enabled: boolean): void {
+        const button = this.findByPath(this.settingsPage, path)?.getComponent(Button) ?? null;
+        if (!button) {
+            return;
+        }
+        const sprites = this.settingToggleSprites.get(button);
+        const spriteFrame = enabled
+            ? sprites?.onSprite
+            : sprites?.offSprite ?? sprites?.onSprite;
+        if (!spriteFrame) {
+            return;
+        }
+        button.normalSprite = spriteFrame;
+        button.interactable = true;
+        const targetSprite = button.target?.getComponent(Sprite)
+            ?? button.node.getComponent(Sprite);
+        if (targetSprite) {
+            targetSprite.spriteFrame = spriteFrame;
+        }
     }
 
     private async renderDetailedPlayerCard(root: Node | null, card: PlayerCard): Promise<void> {
@@ -463,10 +564,8 @@ export class HomeUiController extends Component {
             return;
         }
         const renderVersion = ++this.cardRenderVersion;
-        const qualityIndex = getQualityFrameIndex(card.qualityId);
         const portraitRoot = root.getChildByName('球员头像');
-        const portraitSprite = portraitRoot?.children
-            .find((child) => child.name.includes('_'))
+        const portraitSprite = portraitRoot?.getChildByName('头像')
             ?.getComponent(Sprite) ?? null;
         const backgroundSprite = portraitRoot?.getChildByName('bg')?.getComponent(Sprite)
             ?? null;
@@ -481,11 +580,29 @@ export class HomeUiController extends Component {
         const qualityBadgeSprite = portraitRoot
             ?.getChildByName('品质标签')
             ?.getComponent(Sprite) ?? null;
+        const positionBadgeSprite = portraitRoot?.getChildByName('位置')?.getComponent(Sprite)
+            ?? null;
+        const eventNode = portraitRoot?.getChildByName('事件') ?? null;
+        const eventIcon = eventNode?.getComponent(Sprite) ?? null;
+        const eventType = card.pendingEvent?.type
+            ?? (card.activeInjury ? 'injury' : null);
+        if (eventNode) {
+            eventNode.active = eventType !== null;
+        }
+        if (eventIcon) {
+            eventIcon.spriteFrame = null;
+        }
 
         this.setLabel('球员头像/名牌/名字', card.displayName, root);
         this.setLabel('球员头像/品质标签/品质', card.qualityName, root);
         this.setLabel('球员头像/位置/位置', card.position, root);
-        this.setLabel('总评/数值', this.formatOverall(card.overall), root);
+        const overallLabel = root.getChildByName('总评')?.getChildByName('数值')
+            ?.getComponent(Label) ?? null;
+        this.animateDetailedOverall(overallLabel, card);
+        applyOverallNumberQuality(
+            overallLabel,
+            card.qualityId,
+        );
         const attributeNodeNames: Record<typeof ATTRIBUTE_KEYS[number], string> = {
             scoring: '得分',
             rebound: '篮板',
@@ -520,18 +637,25 @@ export class HomeUiController extends Component {
             frame,
             nameplate,
             qualityBadge,
+            positionBadge,
+            eventSpriteFrame,
         ] = await Promise.all([
             loadPlayerPortrait(card),
-            loadSpriteFrame(`images/UI/球员/招募背景/招募背景0${qualityIndex}/spriteFrame`),
-            loadSpriteFrame(`images/UI/球员/麦穗/麦穗0${qualityIndex}/spriteFrame`),
+            loadRecruitmentBackground(card.qualityId),
+            loadQualityWheat(card.qualityId),
             loadQualityFrame(card.qualityId),
-            loadSpriteFrame(`images/UI/球员/名牌/名牌0${qualityIndex}/spriteFrame`),
-            loadSpriteFrame(`images/UI/球员/品质标签/品质标签0${qualityIndex}/spriteFrame`),
+            loadQualityNameplate(card.qualityId),
+            loadQualityBadge(card.qualityId),
+            loadQualityPosition(card.qualityId),
+            eventType ? loadPlayerEventIcon(eventType) : Promise.resolve(null),
         ]);
         if (renderVersion !== this.cardRenderVersion) {
             return;
         }
-        portraitSprite && (portraitSprite.spriteFrame = portrait);
+        // 仅在加载成功时覆盖 spriteFrame，避免 null 把默认头像清掉
+        if (portraitSprite && portrait) {
+            portraitSprite.spriteFrame = portrait;
+        }
         if (backgroundSprite && background) {
             backgroundSprite.spriteFrame = background;
         }
@@ -549,6 +673,34 @@ export class HomeUiController extends Component {
         if (qualityBadgeSprite && qualityBadge) {
             qualityBadgeSprite.spriteFrame = qualityBadge;
         }
+        if (positionBadgeSprite && positionBadge) {
+            positionBadgeSprite.spriteFrame = positionBadge;
+        }
+        if (eventIcon && eventSpriteFrame) {
+            eventIcon.spriteFrame = eventSpriteFrame;
+        }
+        applyPlayerQualityVisuals(portraitRoot ?? null, card.qualityId);
+    }
+
+    private animateDetailedOverall(label: Label | null, card: PlayerCard): void {
+        const target = card.overall;
+        const penalty = card.activeInjury?.overallPenalty ?? 0;
+        if (penalty <= 0) {
+            if (label) {
+                label.string = this.formatOverall(target);
+            }
+            return;
+        }
+        setGrowingNumber(
+            label,
+            target,
+            (value) => this.formatOverall(Math.floor(value)),
+            {
+                from: target + penalty,
+                duration: 1.5,
+                animateDecrease: true,
+            },
+        );
     }
 
     private prepareTeamNameEditor(): void {
@@ -656,8 +808,11 @@ export class HomeUiController extends Component {
             const slotRoot = this.findDescendantByName(root, nodeName);
             const slot = slotRoot?.getComponent(ManagerSlotView)
                 ?? slotRoot?.getComponentInChildren(ManagerSlotView)
+                ?? slotRoot?.addComponent(ManagerSlotView)
                 ?? null;
-            const button = slot?.openButton
+            const button = slot?.resolveOpenButton()
+                ?? slotRoot?.getChildByName('bg')?.getComponent(Button)
+                ?? slotRoot?.getChildByName('背景')?.getComponent(Button)
                 ?? slotRoot?.getComponent(Button)
                 ?? slotRoot?.getComponentInChildren(Button)
                 ?? null;
@@ -687,7 +842,16 @@ export class HomeUiController extends Component {
             const slot = slotRoot?.getComponent(ManagerSlotView)
                 ?? slotRoot?.getComponentInChildren(ManagerSlotView)
                 ?? null;
-            slot?.setup(`Lv.${levels[role]}`);
+            if (slot) {
+                slot.setup(`Lv.${levels[role]}`);
+                continue;
+            }
+            const levelLabel = slotRoot?.getChildByName('等级')?.getComponent(Label)
+                ?? slotRoot?.getChildByName('LevelText')?.getComponent(Label)
+                ?? null;
+            if (levelLabel) {
+                levelLabel.string = `Lv.${levels[role]}`;
+            }
         }
     }
 
@@ -765,24 +929,6 @@ export class HomeUiController extends Component {
         }
     }
 
-    private disableUnavailableEntrypoints(): void {
-        const leagueButton = this.findByPath(
-            this.homeRoot,
-            '底部按钮/左侧2个/联盟',
-        )?.getComponentInChildren(Button);
-        const trainingButton = this.findByPath(
-            this.homeRoot,
-            '底部按钮/右侧2个/训练',
-        )?.getComponentInChildren(Button);
-        if (leagueButton) {
-            leagueButton.interactable = false;
-        }
-        if (trainingButton) {
-            trainingButton.interactable = false;
-        }
-
-    }
-
     private bringToFront(page: Node | null, animateEntrance = false): void {
         if (!page) {
             return;
@@ -833,6 +979,7 @@ export class HomeUiController extends Component {
         this.settingsPage = this.canvas?.getChildByName('设置弹窗') ?? null;
         this.playerDetailsPage = this.canvas?.getChildByName('球员详情页面') ?? null;
         this.managementPage = this.canvas?.getChildByName('管理层页面') ?? null;
+        this.idleIncomeController = this.node.getComponent(IdleIncomeController);
         this.topTeamInfoController = this.homeRoot
             ?.getComponentInChildren(TopTeamInfoController) ?? null;
 

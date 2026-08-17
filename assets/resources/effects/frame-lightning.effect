@@ -1,0 +1,106 @@
+CCEffect %{
+  techniques:
+  - passes:
+    - vert: frame-lightning-vs:vert
+      frag: frame-lightning-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        boltColor: { value: [1.0, 0.95, 0.72, 1.0], editor: { type: color } }
+        glowColor: { value: [1.0, 0.57, 0.08, 1.0], editor: { type: color } }
+        period: { value: 4.8, target: params.x }
+        intensity: { value: 0.72, target: params.y }
+        density: { value: 24.0, target: params.z }
+        edgeWidth: { value: 2.0, target: params.w }
+}%
+
+CCProgram frame-lightning-vs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #if USE_LOCAL
+    #include <builtin/uniforms/cc-local>
+  #endif
+  #if SAMPLE_FROM_RT
+    #include <common/common-define>
+  #endif
+
+  in vec3 a_position;
+  in vec2 a_texCoord;
+  in vec4 a_color;
+  out vec4 color;
+  out vec2 uv0;
+
+  vec4 vert () {
+    vec4 pos = vec4(a_position, 1.0);
+    #if USE_LOCAL
+      pos = cc_matWorld * pos;
+    #endif
+    #if USE_PIXEL_ALIGNMENT
+      pos = cc_matView * pos;
+      pos.xyz = floor(pos.xyz);
+      pos = cc_matProj * pos;
+    #else
+      pos = cc_matViewProj * pos;
+    #endif
+    uv0 = a_texCoord;
+    #if SAMPLE_FROM_RT
+      CC_HANDLE_RT_SAMPLE_FLIP(uv0);
+    #endif
+    color = a_color;
+    return pos;
+  }
+}%
+
+CCProgram frame-lightning-fs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #include <builtin/internal/embedded-alpha>
+  #include <builtin/internal/alpha-test>
+
+  in vec4 color;
+  in vec2 uv0;
+  #pragma builtin(local)
+  layout(set = 2, binding = 12) uniform sampler2D cc_spriteTexture;
+
+  uniform FrameLightning {
+    vec4 boltColor;
+    vec4 glowColor;
+    vec4 params;
+  };
+
+  float hash21(vec2 p) {
+    return fract(sin(dot(p, vec2(41.73, 289.13))) * 15431.871);
+  }
+
+  vec4 frag () {
+    vec4 o = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+    float stepSize = max(params.w, 0.5) / 720.0;
+    float alphaL = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0 + vec2(-stepSize, 0.0)).a;
+    float alphaR = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0 + vec2(stepSize, 0.0)).a;
+    float alphaU = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0 + vec2(0.0, stepSize)).a;
+    float alphaD = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0 + vec2(0.0, -stepSize)).a;
+    float contour = clamp(abs(alphaL - alphaR) + abs(alphaU - alphaD), 0.0, 1.0);
+    float edge = smoothstep(0.04, 0.22, contour) * o.a;
+    float period = max(params.x, 0.1);
+    float phase = fract(cc_time.x / period);
+    float burst = smoothstep(0.02, 0.09, phase) * (1.0 - smoothstep(0.25, 0.38, phase));
+    vec2 cell = floor(uv0 * params.z + vec2(phase * 13.0, -phase * 17.0));
+    float fork = hash21(cell);
+    float zigzag = abs(sin((uv0.x * 19.0 + uv0.y * 27.0 + fork * 4.0) * 6.2831853));
+    float bolt = smoothstep(0.84, 0.975, zigzag) * smoothstep(0.35, 0.92, fork) * edge * burst;
+    o.rgb += glowColor.rgb * edge * burst * params.y * 0.12;
+    o.rgb += mix(glowColor.rgb, boltColor.rgb, bolt) * bolt * params.y;
+    o *= color;
+    ALPHA_TEST(o);
+    return o;
+  }
+}%

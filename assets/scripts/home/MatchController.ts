@@ -6,6 +6,7 @@ import {
     director,
     Font,
     instantiate,
+    JsonAsset,
     Label,
     Node,
     Prefab,
@@ -37,6 +38,7 @@ import {
 } from './PlayerAssets';
 import { formatPlayerOverall } from './RosterSlotView';
 import { showRewardedVideo } from './RewardedAdService';
+import { gameAudio } from './GameAudio';
 import {
     playFullScreenEntrance,
     stopFullScreenEntrance,
@@ -44,6 +46,9 @@ import {
 import { setGrowingNumber } from './NumberGrowthAnimator';
 import { applyGameFont } from '../loading/GameFont';
 import { CourtSimulationController } from './CourtSimulationController';
+import { recordStoredStandardMatchWin } from './TeamLevelController';
+import { installGoldAdButtonGlows } from './GoldAdButtonGlow';
+import { MatchCommentarySelector } from './MatchCommentarySelector';
 import {
     MatchCourtSimulation,
     MatchCommentaryMention,
@@ -60,6 +65,7 @@ const QUARTER_SECONDS = 30;
 const WIN_PREFAB_PATH = 'prefabs/比赛/胜利弹窗';
 const LOSE_PREFAB_PATH = 'prefabs/比赛/失败弹窗';
 const FONT_PATH = 'fonts/zpix';
+const MATCH_MEME_COMMENTARY_PATH = 'data/match_meme_commentary';
 const POSSESSIONS_PER_QUARTER = 10;
 const MAX_TEAM_SCORE = 60;
 
@@ -102,6 +108,7 @@ export class MatchController extends Component {
         new Color(204, 87, 40, 255),
     ];
     private courtSimulation: MatchCourtSimulation | null = null;
+    private commentarySelector = new MatchCommentarySelector({});
     private initialized = false;
     private finished = false;
     private adProcessing = false;
@@ -109,6 +116,7 @@ export class MatchController extends Component {
     private readonly originalButtonGrayscale = new WeakMap<Sprite, boolean>();
 
     protected onLoad(): void {
+        gameAudio.initialize();
         this.page = this.node.getChildByName('比赛页面');
         this.session = getCurrentMatchSession();
         if (!this.page || !this.session) {
@@ -124,6 +132,7 @@ export class MatchController extends Component {
         }
         this.resolveButtons();
         this.prepareButtonVisuals(this.node);
+        installGoldAdButtonGlows(this.node);
     }
 
     protected onEnable(): void {
@@ -180,10 +189,11 @@ export class MatchController extends Component {
 
     private async initialize(): Promise<void> {
         try {
-            const [victoryPrefab, defeatPrefab, font] = await Promise.all([
+            const [victoryPrefab, defeatPrefab, font, commentaryLibrary] = await Promise.all([
                 this.loadResource<Prefab>(WIN_PREFAB_PATH, Prefab),
                 this.loadResource<Prefab>(LOSE_PREFAB_PATH, Prefab),
                 this.loadResource<Font>(FONT_PATH, Font),
+                this.loadResource<JsonAsset>(MATCH_MEME_COMMENTARY_PATH, JsonAsset),
             ]);
             if (!this.isValid || !this.page || !this.session) {
                 return;
@@ -195,6 +205,7 @@ export class MatchController extends Component {
             this.victoryPage.active = false;
             this.defeatPage.active = false;
             applyGameFont(this.node.scene, font);
+            this.commentarySelector = MatchCommentarySelector.fromJsonAsset(commentaryLibrary);
             this.bindResultButtons();
             await this.bindCourtPlayers();
             this.startPreparedMatch();
@@ -741,6 +752,7 @@ export class MatchController extends Component {
                 onCommentary: this.onCourtCommentary,
                 onPlayComplete: this.onCourtPlayComplete,
             },
+            this.commentarySelector,
         );
         if (!this.courtSimulation.isReady) {
             console.error('[MatchController] Match court simulation references are incomplete.');
@@ -774,6 +786,9 @@ export class MatchController extends Component {
         const reward = this.calculateMatchReward();
         const baseSettled = settleBaseMatchReward(this.session.matchId, reward);
         const advanced = advanceSeasonAfterWin(this.session.matchId);
+        if (advanced && this.session.isStandardProgressionMatch) {
+            recordStoredStandardMatchWin();
+        }
         emitMatchSettled({
             matchId: this.session.matchId,
             won: true,
@@ -786,22 +801,26 @@ export class MatchController extends Component {
             this.victoryPage,
             '本场奖励/管理层-选中背景/获得数值',
         )?.getComponent(Label) ?? null;
+        const adRewardClaimed = loadSeasonState().lastAdRewardMatchId
+            === this.session.matchId;
         setGrowingNumber(
             rewardLabel,
-            reward,
+            adRewardClaimed ? reward * 2 : reward,
             (value) => `+${formatPlayerOverall(Math.floor(value))}`,
             { from: 0, animateGrowth: true },
         );
-        this.setNodeLabel(this.victoryPage, '看广告双倍领取/数值', formatPlayerOverall(reward));
+        this.setNodeLabel(
+            this.victoryPage,
+            '看广告双倍领取/数值',
+            formatPlayerOverall(reward * 2),
+        );
         const adButton = this.victoryPage
             .getChildByName('看广告双倍领取')
             ?.getComponent(Button);
         if (adButton) {
-            this.setButtonAvailable(
-                adButton,
-                loadSeasonState().lastAdRewardMatchId !== this.session.matchId,
-            );
+            this.setButtonAvailable(adButton, !adRewardClaimed);
         }
+        gameAudio.playVictory();
         void playFullScreenEntrance(this.victoryPage, {
             backgroundNodes: this.nodes(this.victoryPage, ['遮罩', 'bg']),
             moduleGroups: [
@@ -852,7 +871,7 @@ export class MatchController extends Component {
         this.setNodeLabel(
             page,
             '赛程/赛程',
-            `${this.session.difficultyQualityName}赛季 第${this.session.matchNumber}场`,
+            `${this.session.difficultyQualityName} ${this.session.scheduleLabel}`,
         );
         this.setNodeLabel(page, '比分/总比分/自己', String(this.result.playerFinalScore));
         this.setNodeLabel(page, '比分/总比分/对方', String(this.result.opponentFinalScore));
@@ -890,7 +909,7 @@ export class MatchController extends Component {
         defeatAd?.node.on(Button.EventType.CLICK, this.retryWithAdBonus, this);
         defeatAdjust?.node.on(
             Button.EventType.CLICK,
-            () => this.returnToHomepage(true),
+            () => this.returnToHomepage(false),
             this,
         );
         this.prepareButtonVisuals(this.node);
@@ -923,6 +942,16 @@ export class MatchController extends Component {
                     adReward: reward,
                     advanced: false,
                 });
+                const rewardLabel = this.findByPath(
+                    this.victoryPage,
+                    '本场奖励/管理层-选中背景/获得数值',
+                )?.getComponent(Label) ?? null;
+                setGrowingNumber(
+                    rewardLabel,
+                    reward * 2,
+                    (value) => `+${formatPlayerOverall(Math.floor(value))}`,
+                    { from: reward, animateGrowth: true },
+                );
             }
         } finally {
             this.adProcessing = false;
@@ -1055,7 +1084,9 @@ export class MatchController extends Component {
         const session = this.session!;
         const baseReward = Math.max(1, Math.ceil(session.opponentOverall / 696));
         return Math.ceil(
-            baseReward * (1 + Math.max(0, session.operationPresidentBonus)),
+            baseReward
+            * Math.max(0, session.rewardMultiplier)
+            * (1 + Math.max(0, session.operationPresidentBonus)),
         );
     }
 

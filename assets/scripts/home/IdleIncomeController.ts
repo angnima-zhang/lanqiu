@@ -27,6 +27,7 @@ import {
     playFullScreenEntrance,
     stopFullScreenEntrance,
 } from './FullScreenEntrance';
+import { playFullScreenExit as exitWithFade } from './FullScreenEntrance';
 
 const { ccclass } = _decorator;
 
@@ -40,6 +41,7 @@ interface EconomyConfig {
         offlineIdle: {
             baseBudgetPerHour: number;
             maxAccrualHours: number;
+            autoOpenMinimumMinutes: number;
         };
     };
 }
@@ -91,7 +93,7 @@ export class IdleIncomeController extends Component {
     }
 
     protected start(): void {
-        void this.initialize();
+        this.scheduleOnce(() => void this.initialize(), 0.5);
     }
 
     protected onDisable(): void {
@@ -116,7 +118,11 @@ export class IdleIncomeController extends Component {
 
             const now = Date.now();
             this.idleState = loadIdleState(now);
-            this.accumulateOfflineSeconds(now);
+            if (this.idleState.offlineStartedAtMs !== null) {
+                this.accumulateOfflineSeconds(now);
+            } else {
+                await this.flushOnlineIncome(now);
+            }
             this.initialized = true;
 
             const tickSeconds = Math.max(
@@ -151,6 +157,8 @@ export class IdleIncomeController extends Component {
             }
             this.idleState.accrualStartedAtMs = now;
             this.idleState.lastOnlineTickAtMs = now;
+            this.idleState.offlineStartedAtMs = now;
+            this.idleState.hasRecordedOfflineSession = true;
             saveIdleState(this.idleState);
         });
     }
@@ -160,6 +168,9 @@ export class IdleIncomeController extends Component {
             return;
         }
         void this.refreshManagementEffects().then(() => {
+            if (this.idleState?.offlineStartedAtMs === null) {
+                return;
+            }
             const now = Date.now();
             this.accumulateOfflineSeconds(now);
             this.refreshPage();
@@ -205,9 +216,13 @@ export class IdleIncomeController extends Component {
             0,
             this.config.budgetSources.offlineIdle.maxAccrualHours * 3600,
         );
+        const offlineStartedAtMs = this.idleState.offlineStartedAtMs;
+        if (offlineStartedAtMs === null) {
+            return;
+        }
         const elapsedSeconds = Math.max(
             0,
-            (now - this.idleState.accrualStartedAtMs) / 1000,
+            (now - offlineStartedAtMs) / 1000,
         );
         this.idleState.pendingOfflineSeconds = Math.min(
             maxSeconds,
@@ -219,6 +234,7 @@ export class IdleIncomeController extends Component {
         );
         this.idleState.accrualStartedAtMs = now;
         this.idleState.lastOnlineTickAtMs = now;
+        this.idleState.offlineStartedAtMs = null;
         saveIdleState(this.idleState);
     }
 
@@ -273,11 +289,12 @@ export class IdleIncomeController extends Component {
         this.idleState.unpromptedOfflineSeconds = 0;
         this.idleState.accrualStartedAtMs = now;
         this.idleState.lastOnlineTickAtMs = now;
+        this.idleState.offlineStartedAtMs = null;
         saveIdleState(this.idleState);
         this.closePage();
     }
 
-    private openPage(): void {
+    public openPage(): void {
         if (!this.page) {
             return;
         }
@@ -319,8 +336,9 @@ export class IdleIncomeController extends Component {
 
     private closePage(): void {
         if (this.page) {
-            stopFullScreenEntrance(this.page);
-            this.page.active = false;
+            void exitWithFade(this.page).then(() => {
+                this.page!.active = false;
+            });
         }
     }
 
@@ -371,10 +389,12 @@ export class IdleIncomeController extends Component {
             return { seconds: 0, baseReward: 0, mediaBonusReward: 0, totalReward: 0 };
         }
         const seconds = Math.max(0, secondsValue);
-        const baseReward = seconds / 3600
+        const baseReward = this.floorReward(seconds / 3600
             * Math.max(0, this.config.budgetSources.offlineIdle.baseBudgetPerHour)
-            * this.getMarketValueMultiplier();
-        const mediaBonusReward = baseReward * Math.max(0, this.mediaTeamBonus);
+            * this.getMarketValueMultiplier());
+        const mediaBonusReward = this.floorReward(
+            baseReward * Math.max(0, this.mediaTeamBonus),
+        );
         return {
             seconds,
             baseReward,
@@ -387,14 +407,20 @@ export class IdleIncomeController extends Component {
         if (!this.idleState) {
             return false;
         }
-        return this.getRewardSnapshot().totalReward >= 1;
+        const minimumOfflineSeconds = Math.max(
+            0,
+            this.config?.budgetSources.offlineIdle.autoOpenMinimumMinutes ?? 30,
+        ) * 60;
+        return this.idleState.hasRecordedOfflineSession
+            && this.idleState.unpromptedOfflineSeconds >= minimumOfflineSeconds
+            && this.getRewardSnapshot().totalReward >= 1;
     }
 
     private getMarketValueMultiplier(): number {
         const marketValueLevel = TeamLevelController.instance
             ?.getSnapshot()
             ?.marketValueLevel ?? getStoredMarketValueLevel();
-        return 1 + 0.02 * Math.max(0, marketValueLevel - 1);
+        return 1 + 0.02 * Math.max(0, marketValueLevel);
     }
 
     private setRewardLabel(
@@ -402,7 +428,7 @@ export class IdleIncomeController extends Component {
         value: number,
         animateFromZero = false,
     ): void {
-        const safeValue = Math.floor(Math.max(0, value));
+        const safeValue = this.floorReward(value);
         setGrowingNumber(
             label,
             safeValue,
@@ -412,6 +438,10 @@ export class IdleIncomeController extends Component {
                 from: animateFromZero ? 0 : undefined,
             },
         );
+    }
+
+    private floorReward(value: number): number {
+        return Math.floor(Math.max(0, value));
     }
 
     private formatDuration(totalSeconds: number): string {

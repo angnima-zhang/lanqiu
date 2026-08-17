@@ -16,12 +16,14 @@ import {
 } from 'cc';
 import {
     formatPlayerOverall,
-    getQualityFrameIndex,
     RosterSlotView,
 } from './RosterSlotView';
 import {
     getStoredMarketValueLevel,
+    getStoredTeamLevel,
+    TEAM_PROGRESSION_EVENT_LEVEL_CHANGED,
     TeamLevelController,
+    teamProgressionEvents,
 } from './TeamLevelController';
 import { TopTeamInfoController } from './TopTeamInfoController';
 import {
@@ -40,6 +42,8 @@ import {
     loadRoster,
     ManagementEffectSnapshot,
     migratePlayerHistoryToDisplayNames,
+    isConceptGodUpgradeUnlocked,
+    loadSeasonState,
     PlayerAttributes,
     PlayerCard,
     recordConceptGodAcquisition,
@@ -48,16 +52,34 @@ import {
     trySpend,
 } from './GameState';
 import {
+    RecruitmentProbabilityConfig,
+    resolveRecruitmentWindow,
+} from './RecruitmentProgression';
+import {
     loadPlayerPortrait,
+    loadQualityBadge,
+    loadQualityFrame,
+    loadQualityNameplate,
+    loadQualityPosition,
+    loadQualityWheat,
+    loadRecruitmentBackground,
     loadSpriteFrame,
 } from './PlayerAssets';
 import { playFullScreenEntrance } from './FullScreenEntrance';
+import { playFullScreenExit as exitWithFade } from './FullScreenEntrance';
 
 import {
     configureRewardedAdUnitIds,
     showRewardedVideo,
 } from './RewardedAdService';
 import { setGrowingNumber } from './NumberGrowthAnimator';
+import { gameAudio } from './GameAudio';
+import {
+    applyOverallNumberQuality,
+    applyPlayerQualityVisuals,
+    playHighQualityPortraitReveal,
+    triggerOverallNumberQualityImpact,
+} from './PlayerQualityVisuals';
 
 const { ccclass, property } = _decorator;
 
@@ -66,10 +88,11 @@ const OVR_RANGES_PATH = 'data/balance/player_ovr_ranges';
 const RECRUITMENT_PROBABILITY_PATH = 'data/balance/recruitment_probability';
 const ECONOMY_PATH = 'data/balance/economy';
 const CONCEPT_GOD_UPGRADE_PATH = 'data/balance/concept_god_upgrade';
-const DEFAULT_BUDGET = 100;
+const DEFAULT_BUDGET = 20;
 const RECRUITING_BUTTON_SPRITE_PATH = 'images/UI/按钮/招募中/spriteFrame';
-const RECRUIT_BUTTON_GLOW_EFFECT_PATH = 'effects/recruit-button-glow';
-const RECRUITING_DELAY_SECONDS = 1.5;
+const RECRUIT_BUTTON_SWEEP_EFFECT_PATH = 'effects/recruit-button-sweep';
+const DISSOLVE_EFFECT_PATH = 'effects/dissolve';
+const RECRUITING_DELAY_SECONDS = 1;
 const AD_RECRUIT_COUNT = 3;
 const AD_RECRUIT_LABEL = '3连抽';
 const NEGATIVE_OVERALL_COLOR = new Color(220, 55, 55, 255);
@@ -101,23 +124,13 @@ interface OvrRangesConfig {
     ranges: OvrRange[];
 }
 
-interface RecruitmentLevelConfig {
-    level: number;
-    baseWeights: number[];
-}
-
-interface RecruitmentProbabilityConfig {
-    qualities: Array<{
-        qualityId: number;
-        qualityName: string;
-    }>;
-    marketValueLevels: RecruitmentLevelConfig[];
-}
-
 interface EconomyConfig {
     initialBudget: number;
     recruit: {
-        budgetCost: number;
+        budgetCostFormula: {
+            teamLevelMultiplier: number;
+            baseCost: number;
+        };
         willpowerReward: number;
     };
 }
@@ -140,6 +153,7 @@ interface ConceptGodUpgradeConfig {
         attributeButtonLabel: string;
     };
     eligibleSourcePlayerNames: string[];
+    conceptGodDisplayNameOverrides?: Record<string, string>;
 }
 
 interface QueuedRecruitmentResult {
@@ -170,7 +184,8 @@ export class RecruitmentController extends Component {
     private recruitButtonTransition = Button.Transition.NONE;
     private recruitingButtonSprite: SpriteFrame | null = null;
     private recruitButtonOriginalMaterial: Material | null = null;
-    private recruitButtonGlowMaterial: Material | null = null;
+    private recruitButtonEffectMaterial: Material | null = null;
+    private dissolveEffectAsset: EffectAsset | null = null;
     private budgetLabel: Label | null = null;
     private dismissButton: Button | null = null;
     private replaceButton: Button | null = null;
@@ -189,6 +204,7 @@ export class RecruitmentController extends Component {
     private candidateFrame: Sprite | null = null;
     private candidateNameplate: Sprite | null = null;
     private candidateQualityBadge: Sprite | null = null;
+    private candidatePositionBadge: Sprite | null = null;
     private candidateNameLabel: Label | null = null;
     private candidateQualityLabel: Label | null = null;
     private candidatePositionLabel: Label | null = null;
@@ -252,10 +268,15 @@ export class RecruitmentController extends Component {
             this.onBudgetChanged,
             this,
         );
+        teamProgressionEvents.on(
+            TEAM_PROGRESSION_EVENT_LEVEL_CHANGED,
+            this.refreshBudgetView,
+            this,
+        );
     }
 
     protected start(): void {
-        void this.initialize();
+        this.scheduleOnce(() => void this.initialize(), 0.75);
     }
 
     protected onDisable(): void {
@@ -270,6 +291,11 @@ export class RecruitmentController extends Component {
         gameStateEvents.off(
             GAME_STATE_EVENT_BUDGET_CHANGED,
             this.onBudgetChanged,
+            this,
+        );
+        teamProgressionEvents.off(
+            TEAM_PROGRESSION_EVENT_LEVEL_CHANGED,
+            this.refreshBudgetView,
             this,
         );
     }
@@ -310,9 +336,12 @@ export class RecruitmentController extends Component {
         }
 
         const portraitRoot = this.resultPage.getChildByName('球员头像');
-        this.candidatePortrait = portraitRoot?.children
-            .find((child) => child.name.includes('_'))
-            ?.getComponent(Sprite) ?? null;
+        this.candidatePortrait = portraitRoot?.getChildByName('头像')
+            ?.getComponent(Sprite)
+            ?? portraitRoot?.children
+                .find((child) => child.name.includes('_'))
+                ?.getComponent(Sprite)
+            ?? null;
         this.recruitBackground = portraitRoot?.getChildByName('bg')?.getComponent(Sprite) ?? null;
         this.wheatSprites = portraitRoot?.children
             .filter((child) => child.name === '麦穗')
@@ -321,10 +350,12 @@ export class RecruitmentController extends Component {
         this.candidateFrame = portraitRoot?.getChildByName('头像框')?.getComponent(Sprite) ?? null;
         this.candidateNameplate = portraitRoot?.getChildByName('名牌')?.getComponent(Sprite) ?? null;
         this.candidateQualityBadge = portraitRoot?.getChildByName('品质标签')?.getComponent(Sprite) ?? null;
+        this.candidatePositionBadge = portraitRoot?.getChildByName('位置')?.getComponent(Sprite) ?? null;
         this.candidateNameLabel = this.findByPath(portraitRoot, '名牌/名字')?.getComponent(Label) ?? null;
         this.candidateQualityLabel = this.findByPath(portraitRoot, '品质标签/品质')?.getComponent(Label) ?? null;
         this.candidatePositionLabel = this.findByPath(portraitRoot, '位置/位置')?.getComponent(Label) ?? null;
         this.candidateOverallLabel = this.findByPath(this.resultPage, '总评/数值')?.getComponent(Label) ?? null;
+        applyOverallNumberQuality(this.candidateOverallLabel, 3);
 
         const attributeRoot = this.resultPage.getChildByName('五项数据');
         const attributeNodes: ReadonlyArray<[AttributeKey, string]> = [
@@ -407,7 +438,8 @@ export class RecruitmentController extends Component {
                 conceptGodUpgradeConfig,
                 managementEffects,
                 recruitingButtonSprite,
-                recruitButtonGlowEffect,
+                recruitButtonSweepEffect,
+                dissolveEffect,
             ] = await Promise.all([
                 this.loadJson<PlayerConfig>(PLAYER_CONFIG_PATH),
                 this.loadJson<OvrRangesConfig>(OVR_RANGES_PATH),
@@ -416,14 +448,17 @@ export class RecruitmentController extends Component {
                 this.loadJson<ConceptGodUpgradeConfig>(CONCEPT_GOD_UPGRADE_PATH),
                 getManagementEffects(),
                 loadSpriteFrame(RECRUITING_BUTTON_SPRITE_PATH),
-                this.loadRecruitButtonGlowEffect(),
+                this.loadRecruitButtonEffect(),
+                this.loadDissolveEffect(),
             ]);
             if (
                 !Array.isArray(playerConfig.players)
                 || !Array.isArray(ovrConfig.ranges)
-                || !Array.isArray(probabilityConfig.marketValueLevels)
+                || !Array.isArray(probabilityConfig.qualityWindows)
                 || !Number.isFinite(economyConfig.initialBudget)
                 || !economyConfig.recruit
+                || !Number.isFinite(economyConfig.recruit.budgetCostFormula?.teamLevelMultiplier)
+                || !Number.isFinite(economyConfig.recruit.budgetCostFormula?.baseCost)
                 || !Array.isArray(conceptGodUpgradeConfig.eligibleSourcePlayerNames)
             ) {
                 throw new Error('Invalid recruitment configuration.');
@@ -436,11 +471,15 @@ export class RecruitmentController extends Component {
             this.conceptGodUpgradeConfig = conceptGodUpgradeConfig;
             this.managementEffects = managementEffects;
             this.recruitingButtonSprite = recruitingButtonSprite;
-            if (recruitButtonGlowEffect) {
-                this.installRecruitButtonGlow(recruitButtonGlowEffect);
+            if (recruitButtonSweepEffect) {
+                this.installRecruitButtonEffect(recruitButtonSweepEffect);
+            }
+            if (dissolveEffect) {
+                this.dissolveEffectAsset = dissolveEffect;
             }
             this.budget = getBalance(economyConfig.initialBudget);
             this.roster = loadRoster(this.rosterSlots.length);
+            this.migrateRosterDisplayNames();
             migratePlayerHistoryToDisplayNames(playerConfig.players, this.roster);
             await this.refreshRosterSlots();
             this.refreshCourtSimulation();
@@ -458,7 +497,7 @@ export class RecruitmentController extends Component {
             return;
         }
 
-        const cost = Math.max(0, Math.floor(this.economyConfig.recruit.budgetCost));
+        const cost = this.getRecruitmentCost();
         if (this.budget < cost) {
             void this.recruitTripleFromAd();
             return;
@@ -584,7 +623,7 @@ export class RecruitmentController extends Component {
         if (!this.pendingCard || this.pendingDecision?.mode === 'empty-slot') {
             return;
         }
-        this.closeResultPage();
+        this.closeResultPage('dissolve');
     }
 
     private onReplaceClicked(): void {
@@ -601,7 +640,7 @@ export class RecruitmentController extends Component {
         this.applyCardToSlot(this.rosterSlots[targetIndex], card, true);
         this.topTeamInfoController?.refreshOverallFromRoster();
         this.refreshCourtSimulation();
-        this.closeResultPage();
+        this.closeResultPage('fade');
     }
 
     private onUpgradeAdClicked(): void {
@@ -718,9 +757,53 @@ export class RecruitmentController extends Component {
         card.qualityId = config.quality.conceptGodQualityId;
         card.qualityName = config.quality.conceptGodQualityName;
         card.isConceptGod = true;
+        card.displayName = config.conceptGodDisplayNameOverrides?.[card.sourcePlayerName]
+            ?? card.displayName;
         card.overall = conceptOverall;
         card.attributes = this.allocateAttributes(conceptOverall, card.attributes);
         return true;
+    }
+
+    private migrateRosterDisplayNames(): void {
+        if (!this.playerConfig) {
+            return;
+        }
+        let changed = false;
+        for (const card of this.roster) {
+            if (!card) {
+                continue;
+            }
+            // Generated template IDs are position-based and can change when a
+            // player pool is rebuilt. The source player plus quality is the
+            // stable identity for an already-owned card.
+            const template = this.playerConfig.players.find((candidate) => {
+                return candidate.sourcePlayerName === card.sourcePlayerName
+                    && candidate.quality === card.qualityId;
+            });
+            const displayName = this.isConceptGod(card)
+                ? this.conceptGodUpgradeConfig?.conceptGodDisplayNameOverrides?.[
+                    card.sourcePlayerName
+                ] ?? template?.displayName
+                : template?.displayName;
+            if (!template || !displayName) {
+                continue;
+            }
+            if (
+                card.templateId !== template.id
+                || card.displayName !== displayName
+                || card.position !== template.position
+                || card.qualityName !== template.qualityName
+            ) {
+                card.templateId = template.id;
+                card.displayName = displayName;
+                card.position = template.position;
+                card.qualityName = template.qualityName;
+                changed = true;
+            }
+        }
+        if (changed) {
+            saveRoster(this.roster);
+        }
     }
 
     private upgradeRandomAttribute(card: PlayerCard): boolean {
@@ -782,6 +865,7 @@ export class RecruitmentController extends Component {
     private canBecomeConceptGod(card: PlayerCard): boolean {
         return Boolean(
             this.isGoat(card)
+            && isConceptGodUpgradeUnlocked()
             && this.conceptGodUpgradeConfig?.eligibleSourcePlayerNames
                 .includes(card.sourcePlayerName),
         );
@@ -882,9 +966,15 @@ export class RecruitmentController extends Component {
         const snapshot = this.teamLevelController?.getSnapshot();
         const marketValueLevel = snapshot?.marketValueLevel
             ?? getStoredMarketValueLevel();
-        const levelConfig = this.probabilityConfig!.marketValueLevels.find(
-            (item) => item.level === marketValueLevel,
-        ) ?? this.probabilityConfig!.marketValueLevels[0];
+        const levelConfig = resolveRecruitmentWindow(
+            this.probabilityConfig!,
+            marketValueLevel,
+            loadSeasonState(),
+        );
+        if (!levelConfig) {
+            console.error('[RecruitmentController] Missing recruitment window.', marketValueLevel);
+            return 3;
+        }
 
         const highestRecruitableIndex = levelConfig.baseWeights.reduce(
             (highest, weight, index) => weight > 0 ? index : highest,
@@ -948,7 +1038,6 @@ export class RecruitmentController extends Component {
         willpowerAdded: number,
         playEntrance = true,
     ): Promise<void> {
-        const qualityIndex = getQualityFrameIndex(card.qualityId);
         const [
             portrait,
             background,
@@ -956,13 +1045,15 @@ export class RecruitmentController extends Component {
             frame,
             nameplate,
             qualityBadge,
+            positionBadge,
         ] = await Promise.all([
             loadPlayerPortrait(card),
-            loadSpriteFrame(`images/UI/球员/招募背景/招募背景0${qualityIndex}/spriteFrame`),
-            loadSpriteFrame(`images/UI/球员/麦穗/麦穗0${qualityIndex}/spriteFrame`),
-            loadSpriteFrame(`images/UI/球员/头像框-方/头像框${qualityIndex}-方/spriteFrame`),
-            loadSpriteFrame(`images/UI/球员/名牌/名牌0${qualityIndex}/spriteFrame`),
-            loadSpriteFrame(`images/UI/球员/品质标签/品质标签0${qualityIndex}/spriteFrame`),
+            loadRecruitmentBackground(card.qualityId),
+            loadQualityWheat(card.qualityId),
+            loadQualityFrame(card.qualityId),
+            loadQualityNameplate(card.qualityId),
+            loadQualityBadge(card.qualityId),
+            loadQualityPosition(card.qualityId),
         ]);
 
         this.candidatePortrait!.spriteFrame = portrait;
@@ -983,6 +1074,14 @@ export class RecruitmentController extends Component {
         if (qualityBadge && this.candidateQualityBadge) {
             this.candidateQualityBadge.spriteFrame = qualityBadge;
         }
+        if (positionBadge && this.candidatePositionBadge) {
+            this.candidatePositionBadge.spriteFrame = positionBadge;
+        }
+        applyPlayerQualityVisuals(
+            this.resultPage?.getChildByName('球员头像') ?? null,
+            card.qualityId,
+        );
+        applyOverallNumberQuality(this.candidateOverallLabel, card.qualityId);
 
         this.candidateNameLabel!.string = card.displayName;
         this.candidateQualityLabel!.string = card.qualityName;
@@ -994,6 +1093,12 @@ export class RecruitmentController extends Component {
             {
                 animateGrowth: !playEntrance,
                 duration: 0.55,
+                onComplete: playEntrance
+                    ? undefined
+                    : () => triggerOverallNumberQualityImpact(
+                        this.candidateOverallLabel,
+                        card.qualityId,
+                    ),
             },
         );
         for (const key of ATTRIBUTE_KEYS) {
@@ -1073,7 +1178,13 @@ export class RecruitmentController extends Component {
         this.replaceButtonLabel!.string = decision.mode === 'empty-slot' ? '上阵' : '替换上阵';
         this.refreshUpgradeAdButton(card, true);
         if (playEntrance) {
+            gameAudio.playVictory();
             await playFullScreenEntrance(this.resultPage!);
+            triggerOverallNumberQualityImpact(
+                this.candidateOverallLabel,
+                card.qualityId,
+            );
+            playHighQualityPortraitReveal(this.candidatePortrait, card.qualityId);
         }
         this.dismissButton!.interactable = dismissInteractable;
         this.replaceButton!.interactable = replaceInteractable;
@@ -1108,7 +1219,22 @@ export class RecruitmentController extends Component {
         });
     }
 
-    private closeResultPage(): void {
+    private closeResultPage(mode: 'dissolve' | 'fade'): void {
+        if (mode === 'dissolve' && this.resultPage?.active && this.dissolveEffectAsset) {
+            this.dissolveResultPage();
+            return;
+        }
+        // fade out
+        if (this.resultPage?.active) {
+            void exitWithFade(this.resultPage).then(() => {
+                this.finishCloseResultPage();
+            });
+        } else {
+            this.finishCloseResultPage();
+        }
+    }
+
+    private finishCloseResultPage(): void {
         this.resultPage!.active = false;
         if (this.upgradeAdButton) {
             this.upgradeAdButton.interactable = false;
@@ -1135,6 +1261,73 @@ export class RecruitmentController extends Component {
             return;
         }
         this.refreshBudgetView();
+    }
+
+    // ---- Dissolve effect ----
+
+    private dissolveResultPage(): void {
+        const effect = this.dissolveEffectAsset!;
+        const materials: Material[] = [];
+        const sprites: Sprite[] = [];
+        const labels: { label: Label; originalColor: Color }[] = [];
+
+        this.collectSprites(this.resultPage!, (sprite) => {
+            const mat = new Material();
+            mat.initialize({ effectAsset: effect, defines: { USE_TEXTURE: true } });
+            mat.setProperty('dissolveParams', new Vec4(0, 0.12, 8.0, 0));
+            mat.setProperty('edgeColor', new Color(255, 160, 30, 255));
+            sprite.customMaterial = mat;
+            materials.push(mat);
+            sprites.push(sprite);
+        });
+
+        this.collectLabels(this.resultPage!, (label) => {
+            labels.push({ label, originalColor: label.color.clone() });
+        });
+
+        const duration = 0.5;
+        const startTime = Date.now();
+        const tick = (): void => {
+            const elapsed = (Date.now() - startTime) / 1000;
+            const t = Math.min(elapsed / duration, 1);
+            materials.forEach((m) => {
+                m.setProperty('dissolveParams', new Vec4(t, 0.12, 8.0, 0));
+            });
+            labels.forEach(({ label, originalColor }) => {
+                const c = originalColor.clone();
+                c.a = Math.round(originalColor.a * (1 - t));
+                label.color = c;
+            });
+            if (t >= 1) {
+                sprites.forEach((s) => { s.customMaterial = null; });
+                labels.forEach(({ label, originalColor }) => { label.color = originalColor; });
+                materials.forEach((m) => m.destroy());
+                this.finishCloseResultPage();
+            } else {
+                setTimeout(tick, 16);
+            }
+        };
+        tick();
+    }
+
+    private collectLabels(node: Node, fn: (label: Label) => void): void {
+        const label = node.getComponent(Label);
+        if (label && label.string.trim()) {
+            fn(label);
+        }
+        for (const child of node.children) {
+            this.collectLabels(child, fn);
+        }
+    }
+
+    private collectSprites(node: Node, fn: (sprite: Sprite) => void): void {
+        const sprite = node.getComponent(Sprite);
+        if (sprite && sprite.spriteFrame) {
+            fn(sprite);
+        }
+        for (const child of node.children) {
+            this.collectSprites(child, fn);
+        }
     }
 
     private finishAdTripleRecruitment(): void {
@@ -1176,8 +1369,9 @@ export class RecruitmentController extends Component {
     }
 
     private refreshBudgetView(): void {
-        const cost = this.economyConfig?.recruit.budgetCost
-            ?? Number.POSITIVE_INFINITY;
+        const cost = this.economyConfig
+            ? this.getRecruitmentCost()
+            : Number.POSITIVE_INFINITY;
         const hasRecruitmentBudget = !this.economyConfig
             || this.budget >= cost;
         setGrowingNumber(
@@ -1195,24 +1389,43 @@ export class RecruitmentController extends Component {
                     && !this.resultPage?.active
                 );
         }
+        if (this.recruitButtonTargetSprite) {
+            this.recruitButtonTargetSprite.grayscale = !hasRecruitmentBudget;
+        }
+    }
+
+    private getRecruitmentCost(): number {
+        const formula = this.economyConfig?.recruit.budgetCostFormula;
+        if (!formula) {
+            return Number.POSITIVE_INFINITY;
+        }
+        const teamLevel = this.teamLevelController?.getSnapshot().teamLevel
+            ?? getStoredTeamLevel();
+        return Math.max(
+            0,
+            Math.floor(
+                Math.max(0, teamLevel) * Math.max(0, formula.teamLevelMultiplier)
+                + Math.max(0, formula.baseCost),
+            ),
+        );
     }
 
     protected lateUpdate(): void {
-        this.syncRecruitButtonGlow();
+        this.syncRecruitButtonEffect();
     }
 
     protected onDestroy(): void {
         if (
             this.recruitButtonTargetSprite?.isValid
-            && this.recruitButtonTargetSprite.customMaterial === this.recruitButtonGlowMaterial
+            && this.recruitButtonTargetSprite.customMaterial === this.recruitButtonEffectMaterial
         ) {
             this.recruitButtonTargetSprite.customMaterial = this.recruitButtonOriginalMaterial;
         }
-        this.recruitButtonGlowMaterial?.destroy();
-        this.recruitButtonGlowMaterial = null;
+        this.recruitButtonEffectMaterial?.destroy();
+        this.recruitButtonEffectMaterial = null;
     }
 
-    private installRecruitButtonGlow(effectAsset: EffectAsset): void {
+    private installRecruitButtonEffect(effectAsset: EffectAsset): void {
         const sprite = this.recruitButtonTargetSprite;
         const transform = sprite?.node.getComponent(UITransform);
         if (!sprite || !transform) {
@@ -1228,49 +1441,36 @@ export class RecruitmentController extends Component {
             },
         });
         material.setProperty(
-            'spriteRect',
-            new Vec4(
-                transform.width,
-                transform.height,
-                transform.anchorPoint.x,
-                transform.anchorPoint.y,
-            ),
-        );
-        material.setProperty(
-            'shineColor',
-            new Color(255, 255, 245, 255),
-        );
-        material.setProperty(
             'sweepParams',
-            new Vec4(0.22, 2.1, 0.32, 1.1),
+            new Vec4(0.14, 1.5, 0.16, 0.36),
         );
         material.setProperty(
-            'pulseParams',
-            new Vec4(0.14, 1.2, 0, 0),
+            'diffracParams',
+            new Vec4(0.12, 1.6, 0, 0),
         );
-        this.recruitButtonGlowMaterial = material;
-        this.syncRecruitButtonGlow();
+        this.recruitButtonEffectMaterial = material;
+        this.syncRecruitButtonEffect();
     }
 
-    private syncRecruitButtonGlow(): void {
+    private syncRecruitButtonEffect(): void {
         const sprite = this.recruitButtonTargetSprite;
-        const glowMaterial = this.recruitButtonGlowMaterial;
-        if (!sprite || !glowMaterial) {
+        const effectMaterial = this.recruitButtonEffectMaterial;
+        if (!sprite || !effectMaterial) {
             return;
         }
 
         const desiredMaterial = sprite.grayscale
             ? this.recruitButtonOriginalMaterial
-            : glowMaterial;
+            : effectMaterial;
         if (sprite.customMaterial !== desiredMaterial) {
             sprite.customMaterial = desiredMaterial;
         }
     }
 
-    private loadRecruitButtonGlowEffect(): Promise<EffectAsset | null> {
+    private loadRecruitButtonEffect(): Promise<EffectAsset | null> {
         return new Promise((resolve) => {
             resources.load(
-                RECRUIT_BUTTON_GLOW_EFFECT_PATH,
+                RECRUIT_BUTTON_SWEEP_EFFECT_PATH,
                 EffectAsset,
                 (error, asset) => {
                     if (error || !asset) {
@@ -1284,6 +1484,19 @@ export class RecruitmentController extends Component {
                     resolve(asset);
                 },
             );
+        });
+    }
+
+    private loadDissolveEffect(): Promise<EffectAsset | null> {
+        return new Promise((resolve) => {
+            resources.load(DISSOLVE_EFFECT_PATH, EffectAsset, (error, asset) => {
+                if (error || !asset) {
+                    console.warn('[RecruitmentController] Dissolve effect unavailable.', error);
+                    resolve(null);
+                    return;
+                }
+                resolve(asset);
+            });
         });
     }
 

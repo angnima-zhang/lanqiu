@@ -8,6 +8,7 @@ import {
     Node,
     ProgressBar,
     Sprite,
+    SpriteFrame,
 } from 'cc';
 import {
     GAME_STATE_EVENT_BUDGET_CHANGED,
@@ -28,8 +29,10 @@ import {
     playFullScreenEntrance,
     stopFullScreenEntrance,
 } from './FullScreenEntrance';
+import { playFullScreenExit as exitWithFade } from './FullScreenEntrance';
 import { setGrowingNumber } from './NumberGrowthAnimator';
 import { showRewardedVideo } from './RewardedAdService';
+import { gameAudio } from './GameAudio';
 import {
     getStoredTeamLevel,
     TEAM_PROGRESSION_EVENT_LEVEL_CHANGED,
@@ -38,7 +41,7 @@ import {
 
 const { ccclass } = _decorator;
 
-const MAX_MANAGEMENT_LEVEL = 520;
+const MAX_MANAGEMENT_LEVEL = 100;
 const DISABLED_COLOR = new Color(112, 112, 112, 255);
 
 const ROLES: readonly ManagementRole[] = [
@@ -105,9 +108,9 @@ const ROLE_DEFINITIONS: Record<ManagementRole, RoleDefinition> = {
     scoutingDirector: {
         nodeName: '管理层-球探',
         tabName: '球探',
-        effectDescription: '招募池最高品质权重',
+        effectDescription: '招募池最高品质概率',
         effectKey: 'scoutingDirectorHighestQualityWeightBonus',
-        percentDisplay: false,
+        percentDisplay: true,
     },
     medicalTeam: {
         nodeName: '管理层-队医',
@@ -139,6 +142,10 @@ export class ManagementController extends Component {
     private readonly adUpgradeHandlers = new Map<ManagementRole, () => void>();
     private readonly originalSpriteGrayscale = new WeakMap<Sprite, boolean>();
     private readonly originalLabelColors = new WeakMap<Label, Color>();
+    private selectedTabSpriteFrame: SpriteFrame | null = null;
+    private unselectedTabSpriteFrame: SpriteFrame | null = null;
+    private selectedTabLabelColor: Color | null = null;
+    private unselectedTabLabelColor: Color | null = null;
 
     private selectedRole: ManagementRole = 'operationPresident';
     private effectsConfig: ManagementEffectsConfig | null = null;
@@ -160,7 +167,6 @@ export class ManagementController extends Component {
         ManagementController.instance = this;
         this.resolveHierarchy();
         this.initializeVisibility();
-        void this.ensureConfigurations().then(() => this.refreshCurrentRole(false));
     }
 
     protected onEnable(): void {
@@ -193,6 +199,7 @@ export class ManagementController extends Component {
         for (const [candidate, view] of this.roleViews) {
             view.root.active = candidate === targetRole;
         }
+        this.refreshTabStates();
         this.navigationRoot.active = true;
         this.navigationRoot.setSiblingIndex(Math.max(
             0,
@@ -224,6 +231,7 @@ export class ManagementController extends Component {
             view.root.active = candidate === role;
         }
         this.selectedRole = role;
+        this.refreshTabStates();
         this.refreshCurrentRole(false);
         void this.ensureConfigurations().then(() => this.refreshCurrentRole(false));
 
@@ -235,16 +243,16 @@ export class ManagementController extends Component {
 
     public closeManagement(): void {
         this.resolveHierarchy();
-        if (!this.navigationRoot) {
+        if (!this.navigationRoot || !this.navigationRoot.active) {
             return;
         }
 
-        stopFullScreenEntrance(this.navigationRoot);
-        for (const view of this.roleViews.values()) {
-            stopFullScreenEntrance(view.root);
-            view.root.active = false;
-        }
-        this.navigationRoot.active = false;
+        void exitWithFade(this.navigationRoot).then(() => {
+            for (const view of this.roleViews.values()) {
+                view.root.active = false;
+            }
+            this.navigationRoot!.active = false;
+        });
     }
 
     private resolveHierarchy(): void {
@@ -286,6 +294,61 @@ export class ManagementController extends Component {
             )?.getComponent(Button);
             if (tab) {
                 this.tabButtons.set(role, tab);
+            }
+        }
+        this.captureTabVisualTemplates();
+    }
+
+    private captureTabVisualTemplates(): void {
+        if (
+            this.selectedTabSpriteFrame
+            && this.unselectedTabSpriteFrame
+            && this.selectedTabLabelColor
+            && this.unselectedTabLabelColor
+        ) {
+            return;
+        }
+
+        const selectedTab = this.tabButtons.get('operationPresident');
+        const unselectedTab = this.tabButtons.get('headCoach');
+        this.selectedTabSpriteFrame = selectedTab?.normalSprite
+            ?? selectedTab?.target?.getComponent(Sprite)?.spriteFrame
+            ?? null;
+        this.unselectedTabSpriteFrame = unselectedTab?.normalSprite
+            ?? unselectedTab?.target?.getComponent(Sprite)?.spriteFrame
+            ?? null;
+        this.selectedTabLabelColor = selectedTab?.node
+            .getChildByName('Label')
+            ?.getComponent(Label)
+            ?.color.clone() ?? null;
+        this.unselectedTabLabelColor = unselectedTab?.node
+            .getChildByName('Label')
+            ?.getComponent(Label)
+            ?.color.clone() ?? null;
+    }
+
+    private refreshTabStates(): void {
+        this.captureTabVisualTemplates();
+        for (const [role, button] of this.tabButtons) {
+            const selected = role === this.selectedRole;
+            const spriteFrame = selected
+                ? this.selectedTabSpriteFrame
+                : this.unselectedTabSpriteFrame;
+            const targetSprite = button.target?.getComponent(Sprite)
+                ?? button.node.getComponent(Sprite);
+            if (spriteFrame) {
+                button.normalSprite = spriteFrame;
+                if (targetSprite) {
+                    targetSprite.spriteFrame = spriteFrame;
+                }
+            }
+
+            const labelColor = selected
+                ? this.selectedTabLabelColor
+                : this.unselectedTabLabelColor;
+            const label = button.node.getChildByName('Label')?.getComponent(Label);
+            if (labelColor && label) {
+                label.color = labelColor.clone();
             }
         }
     }
@@ -466,6 +529,9 @@ export class ManagementController extends Component {
         try {
             await upgradeManagementWithBudget(role, getStoredTeamLevel());
             const upgraded = loadManagementLevels()[role] > before;
+            if (upgraded) {
+                gameAudio.playUpgradeSuccess();
+            }
             this.refreshCurrentRole(upgraded);
         } catch (error) {
             console.error('[ManagementController] Budget upgrade failed.', error);
@@ -538,8 +604,8 @@ export class ManagementController extends Component {
         const definition = ROLE_DEFINITIONS[role];
         const level = loadManagementLevels()[role];
         const teamLevel = getStoredTeamLevel();
-        const maximumLevel = Math.min(MAX_MANAGEMENT_LEVEL, teamLevel);
-        const capped = level >= maximumLevel;
+        const upgradeLevelCap = Math.min(MAX_MANAGEMENT_LEVEL, teamLevel);
+        const capped = level >= upgradeLevelCap;
         const currentRow = this.getEffectRow(level);
         const nextRow = this.getEffectRow(capped ? level : level + 1);
         const currentEffect = currentRow?.[definition.effectKey] ?? 0;
@@ -565,13 +631,14 @@ export class ManagementController extends Component {
         setGrowingNumber(
             view.levelLabel,
             level,
-            (value) => `Lv. ${Math.floor(value)} / ${maximumLevel}`,
+            (value) => `Lv. ${Math.floor(value)} / ${MAX_MANAGEMENT_LEVEL}`,
             { animateGrowth },
         );
         if (view.progressBar) {
-            view.progressBar.progress = maximumLevel > 0
-                ? Math.max(0, Math.min(1, level / maximumLevel))
-                : 1;
+            view.progressBar.progress = Math.max(
+                0,
+                Math.min(1, level / MAX_MANAGEMENT_LEVEL),
+            );
         }
 
         if (view.currentDescriptionLabel) {
@@ -607,7 +674,7 @@ export class ManagementController extends Component {
 
         if (view.hintLabel) {
             view.hintLabel.string = level >= MAX_MANAGEMENT_LEVEL
-                ? '已达到520级上限'
+                ? '已达到100级上限'
                 : level >= teamLevel
                     ? '管理层等级不能超过球队等级'
                     : budgetEnabled

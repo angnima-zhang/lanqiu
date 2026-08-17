@@ -12,8 +12,10 @@ interface NumberAnimationState {
 
 interface NumberAnimationOptions {
     animateGrowth?: boolean;
+    animateDecrease?: boolean;
     duration?: number;
     from?: number;
+    onComplete?: () => void;
 }
 
 const displayedValues = new WeakMap<Label, number>();
@@ -41,15 +43,21 @@ export function setGrowingNumber(
         ?? displayedValues.get(label);
     const shouldAnimate = options.animateGrowth !== false
         && previous !== undefined
-        && target > previous;
+        && (
+            target > previous
+            || (options.animateDecrease === true && target < previous)
+        );
     if (!shouldAnimate) {
         label.string = formatter(target);
         displayedValues.set(label, target);
+        options.onComplete?.();
         return;
     }
 
     const state: NumberAnimationState = { value: previous };
     const duration = Math.max(0.05, options.duration ?? 0.5);
+    label.string = formatter(previous);
+    displayedValues.set(label, previous);
     activeStates.set(label, state);
     tween(state)
         .to(
@@ -71,6 +79,7 @@ export function setGrowingNumber(
             if (label.isValid) {
                 label.string = formatter(target);
                 displayedValues.set(label, target);
+                options.onComplete?.();
             }
             activeStates.delete(label);
         })

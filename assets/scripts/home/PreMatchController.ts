@@ -9,6 +9,7 @@ import {
     Size,
     Sprite,
     sys,
+    Tween,
     UITransform,
 } from 'cc';
 import {
@@ -20,6 +21,7 @@ import {
     GAME_STATE_EVENT_TEAM_IDENTITY_CHANGED,
     gameStateEvents,
     getManagementEffects,
+    getCurrentMatchId,
     INT32_MAX,
     loadJson,
     loadRoster,
@@ -28,17 +30,25 @@ import {
     PlayerCard,
     TEAM_NAME_STORAGE_KEY,
 } from './GameState';
-import { loadPlayerPortrait } from './PlayerAssets';
+import {
+    MatchDefinition,
+    MatchRewardsConfig,
+    resolveMatchDefinition,
+} from './MatchProgression';
+import { loadPlayerPortrait, loadThinQualityFrame } from './PlayerAssets';
 import { formatPlayerOverall } from './RosterSlotView';
 import {
     playFullScreenEntrance,
     stopFullScreenEntrance,
 } from './FullScreenEntrance';
+import { playFullScreenExit as exitWithFade } from './FullScreenEntrance';
+import { playPreMatchEntrance } from './PreMatchEntrance';
 import { MatchController } from './MatchController';
 import {
     MatchSessionSnapshot,
     setCurrentMatchSession,
 } from './MatchSession';
+import { TeamLevelController } from './TeamLevelController';
 
 const { ccclass } = _decorator;
 
@@ -54,22 +64,6 @@ interface PlayerTemplate {
 
 interface PlayerConfig {
     players: PlayerTemplate[];
-}
-
-interface MatchReward {
-    matchNumber: number;
-    opponentOvr: number;
-}
-
-interface MatchRewardSeason {
-    seasonNumber: number;
-    difficultyQualityId: number;
-    difficultyQualityName: string;
-    matches: MatchReward[];
-}
-
-interface MatchRewardsConfig {
-    seasons: MatchRewardSeason[];
 }
 
 @ccclass('PreMatchController')
@@ -88,6 +82,7 @@ export class PreMatchController extends Component {
     private pageRequestVersion = 0;
     private playerCardButtons: Array<{ button: Button; callback: () => void }> = [];
     private preparedMatch: MatchSessionSnapshot | null = null;
+    private readonly defaultQualityFrames = new WeakMap<Sprite, Sprite['spriteFrame']>();
     private startingMatch = false;
     private readonly portraitBounds = new WeakMap<UITransform, Size>();
 
@@ -166,15 +161,41 @@ export class PreMatchController extends Component {
         await this.ensureDataLoaded();
         await this.refreshPage();
         if (requestVersion === this.pageRequestVersion) {
-            void playFullScreenEntrance(this.page, {
-                backgroundNodes: this.namedChildren(['bg']),
-                moduleGroups: [
-                    { nodes: this.namedChildren(['顶部']), order: 0 },
-                    { nodes: this.namedChildren(['双方阵容']), order: 1 },
-                    { nodes: this.namedChildren(['管理层加成']), order: 2 },
-                    { nodes: this.namedChildren(['底部按钮']), order: 3 },
-                ],
-            });
+            // ---- NEW: custom collision entrance ----
+            const playerTeamPanel = this.findByPath(
+                this.page, '双方阵容/球队总览/我方球队',
+            )!;
+            const opponentTeamPanel = this.findByPath(
+                this.page, '双方阵容/球队总览/对方球队',
+            )!;
+            const playerCards = this.playerTeamCardsRoot?.children.filter(
+                (c) => c.active,
+            ) ?? [];
+            const opponentCards = this.opponentTeamCardsRoot?.children.filter(
+                (c) => c.active,
+            ) ?? [];
+
+            void playPreMatchEntrance(
+                this.page,
+                { playerTeam: playerTeamPanel, opponentTeam: opponentTeamPanel },
+                playerCards,
+                opponentCards,
+                this.namedChildren(['bg']),
+                this.namedChildren(['顶部']),
+                this.namedChildren(['管理层加成']),
+                this.namedChildren(['底部按钮']),
+            );
+
+            // ---- OLD: fade-in entrance (keep for restore) ----
+            // void playFullScreenEntrance(this.page, {
+            //     backgroundNodes: this.namedChildren(['bg']),
+            //     moduleGroups: [
+            //         { nodes: this.namedChildren(['顶部']), order: 0 },
+            //         { nodes: this.namedChildren(['双方阵容']), order: 1 },
+            //         { nodes: this.namedChildren(['管理层加成']), order: 2 },
+            //         { nodes: this.namedChildren(['底部按钮']), order: 3 },
+            //     ],
+            // });
         }
     }
 
@@ -183,9 +204,19 @@ export class PreMatchController extends Component {
         this.cardRenderVersion += 1;
         if (this.page) {
             stopFullScreenEntrance(this.page);
-            this.page.active = false;
+            this.stopAllChildTweens(this.page);
+            void exitWithFade(this.page).then(() => {
+                this.page!.active = false;
+            });
         }
     };
+
+    private stopAllChildTweens(node: Node): void {
+        Tween.stopAllByTarget(node);
+        for (const child of node.children) {
+            this.stopAllChildTweens(child);
+        }
+    }
 
     private ensureDataLoaded(): Promise<void> {
         this.loadPromise ??= Promise.all([
@@ -194,7 +225,7 @@ export class PreMatchController extends Component {
         ]).then(([playerConfig, matchRewards]) => {
             if (
                 !Array.isArray(playerConfig.players)
-                || !Array.isArray(matchRewards.seasons)
+                || !Array.isArray(matchRewards.difficultyAnchors)
             ) {
                 throw new Error('Invalid pre-match configuration.');
             }
@@ -211,13 +242,8 @@ export class PreMatchController extends Component {
             return;
         }
         const seasonState = loadSeasonState();
-        const season = this.matchRewards.seasons.find(
-            (item) => item.seasonNumber === seasonState.seasonNumber,
-        ) ?? this.matchRewards.seasons[0];
-        const match = season?.matches.find(
-            (item) => item.matchNumber === seasonState.matchNumber,
-        ) ?? season?.matches[0];
-        if (!season || !match) {
+        const match = resolveMatchDefinition(this.matchRewards, seasonState);
+        if (!match) {
             return;
         }
 
@@ -228,20 +254,14 @@ export class PreMatchController extends Component {
             roster,
             effects.headCoachBattleOvrBonus,
         );
-        const opponentRoster = this.createOpponentRoster(
-            season,
-            match,
-        );
+        const opponentRoster = this.createOpponentRoster(match, getCurrentMatchId(seasonState));
         const teamName = sys.localStorage.getItem(TEAM_NAME_STORAGE_KEY)?.trim()
             || '我的球队';
         const occupiedRosterCount = roster.filter(Boolean).length;
-        const goatCompleted = Boolean(seasonState.goatCompleted);
 
         this.setLabel(
             '顶部/赛程',
-            goatCompleted
-                ? '概念神赛程待开放'
-                : `${season.difficultyQualityName}赛季 第${match.matchNumber}场`,
+            `${match.difficultyQualityName} ${match.scheduleLabel}`,
         );
         this.setLabel(
             '双方阵容/球队总览/我方球队/球队总评/球队名',
@@ -253,7 +273,7 @@ export class PreMatchController extends Component {
         );
         this.setLabel(
             '双方阵容/球队总览/对方球队/球队总评/球队名',
-            `${season.difficultyQualityName}对手`,
+            `${match.difficultyQualityName}对手`,
         );
         this.setLabel(
             '双方阵容/球队总览/对方球队/球队总评/球队总评',
@@ -267,24 +287,30 @@ export class PreMatchController extends Component {
             '管理层加成/教练/数值',
             `+${(effects.headCoachBattleOvrBonus * 100).toFixed(2)}%`,
         );
-        this.preparedMatch = goatCompleted ? null : {
-            matchId: `${seasonState.seasonNumber}-${seasonState.matchNumber}`,
+        this.preparedMatch = {
+            matchId: getCurrentMatchId(seasonState),
             seasonNumber: seasonState.seasonNumber,
-            matchNumber: seasonState.matchNumber,
-            difficultyQualityName: season.difficultyQualityName,
+            matchNumber: seasonState.infiniteMode
+                ? seasonState.infiniteMatchNumber
+                : seasonState.matchNumber,
+            difficultyQualityName: match.difficultyQualityName,
+            scheduleLabel: match.scheduleLabel,
             playerTeamName: teamName,
-            opponentTeamName: `${season.difficultyQualityName}对手`,
+            opponentTeamName: `${match.difficultyQualityName}对手`,
             playerRoster: roster,
             opponentRoster,
             playerOverall,
             opponentOverall: match.opponentOvr,
             operationPresidentBonus: effects.operationPresidentBudgetBonus,
+            rewardMultiplier: match.rewardMultiplier,
+            isStandardProgressionMatch: match.isStandardProgressionMatch,
             temporaryBonusPercent: 0,
         };
         if (this.startButton) {
             this.startButton.interactable = occupiedRosterCount >= 5
                 && !this.startingMatch
-                && Boolean(this.preparedMatch);
+                && Boolean(this.preparedMatch)
+                && (TeamLevelController.instance?.canStartProgressionMatch() ?? false);
         }
 
         const playerCardNodes = this.playerTeamCardsRoot?.children ?? [];
@@ -308,16 +334,16 @@ export class PreMatchController extends Component {
     }
 
     private createOpponentRoster(
-        season: MatchRewardSeason,
-        match: MatchReward,
+        match: MatchDefinition,
+        matchId: string,
     ): PlayerCard[] {
         const pool = this.playerConfig!.players.filter(
-            (player) => player.quality === season.difficultyQualityId,
+            (player) => player.quality === match.difficultyQualityId,
         );
         const fallbackPool = pool.length > 0 ? pool : this.playerConfig!.players;
         const shuffled = this.shuffleDeterministically(
             fallbackPool,
-            season.seasonNumber * 10_000 + match.matchNumber,
+            this.getStableSeed(matchId),
         );
         const baseOverall = Math.floor(match.opponentOvr / 12);
         const remainder = Math.max(0, match.opponentOvr - baseOverall * 12);
@@ -326,7 +352,7 @@ export class PreMatchController extends Component {
             const template = shuffled[index % shuffled.length];
             const overall = baseOverall + (index < remainder ? 1 : 0);
             return {
-                instanceId: `opponent-${season.seasonNumber}-${match.matchNumber}-${index}`,
+                instanceId: `opponent-${matchId}-${index}`,
                 templateId: template.id,
                 sourcePlayerName: template.sourcePlayerName,
                 displayName: template.displayName,
@@ -349,9 +375,16 @@ export class PreMatchController extends Component {
         const portrait = root.getChildByName('头像')?.getComponent(Sprite) ?? null;
         const nameLabel = root.getChildByName('名字')?.getComponent(Label) ?? null;
         const overallLabel = root.getChildByName('总评')?.getComponent(Label) ?? null;
+        const qualityFrame = root.getChildByName('边框')?.getComponent(Sprite) ?? null;
+        if (qualityFrame && !this.defaultQualityFrames.has(qualityFrame)) {
+            this.defaultQualityFrames.set(qualityFrame, qualityFrame.spriteFrame);
+        }
         if (!card) {
             if (portrait) {
                 portrait.spriteFrame = null;
+            }
+            if (qualityFrame) {
+                qualityFrame.spriteFrame = this.defaultQualityFrames.get(qualityFrame) ?? null;
             }
             if (nameLabel) {
                 nameLabel.string = '空缺';
@@ -366,14 +399,22 @@ export class PreMatchController extends Component {
             nameLabel.string = card.displayName;
         }
         if (overallLabel) {
+            overallLabel.overflow = Label.Overflow.SHRINK;
+            overallLabel.enableWrapText = false;
             overallLabel.string = this.formatOverall(card.overall);
         }
-        const portraitFrame = await loadPlayerPortrait(card);
+        const [portraitFrame, qualityFrameAsset] = await Promise.all([
+            loadPlayerPortrait(card),
+            loadThinQualityFrame(card.qualityId),
+        ]);
         if (renderVersion !== this.cardRenderVersion) {
             return;
         }
         if (portrait) {
             this.setPortraitFramePreservingAspect(portrait, portraitFrame);
+        }
+        if (qualityFrame && qualityFrameAsset) {
+            qualityFrame.spriteFrame = qualityFrameAsset;
         }
     }
 
@@ -436,6 +477,7 @@ export class PreMatchController extends Component {
             this.startingMatch
             || !this.preparedMatch
             || loadRoster().filter(Boolean).length < 5
+            || !TeamLevelController.instance?.canStartProgressionMatch()
         ) {
             return;
         }
@@ -507,6 +549,15 @@ export class PreMatchController extends Component {
             [result[index], result[target]] = [result[target], result[index]];
         }
         return result;
+    }
+
+    private getStableSeed(value: string): number {
+        let hash = 2_166_136_261;
+        for (const character of value) {
+            hash ^= character.charCodeAt(0);
+            hash = Math.imul(hash, 16_777_619);
+        }
+        return hash >>> 0;
     }
 
     private setLabel(path: string, value: string): void {
