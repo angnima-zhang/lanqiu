@@ -50,6 +50,7 @@ import {
     ManagementEffectSnapshot,
     migratePlayerHistoryToDisplayNames,
     notifyValidOperationCompleted,
+    isCheatModeEnabled,
     isConceptGodUpgradeUnlocked,
     loadSeasonState,
     PlayerAttributes,
@@ -299,6 +300,7 @@ export class RecruitmentController extends Component {
     private queuedContinuousRecruitments: QueuedRecruitmentResult[] = [];
     private adTripleRecruitmentActive = false;
     private continuousRecruitmentActive = false;
+    private resultPageClosing = false;
     private pendingBudgetOperation = false;
     private pendingContinuousRecruitmentCount = 0;
     private continuousRecruitCount = 0;
@@ -626,7 +628,9 @@ export class RecruitmentController extends Component {
         const recruitmentAction = continuousCount >= CONTINUOUS_RECRUIT_MINIMUM_COUNT
             ? () => this.beginContinuousRecruitment(continuousCount)
             : this.beginRecruitment;
-        const playerEventController = this.node.parent?.getComponent(PlayerEventController) ?? null;
+        const playerEventController = this.node.getComponent(PlayerEventController)
+            ?? this.node.parent?.getComponent(PlayerEventController)
+            ?? null;
         if (playerEventController?.runAfterPendingEvents(recruitmentAction)) {
             return;
         }
@@ -789,7 +793,7 @@ export class RecruitmentController extends Component {
         }
 
         const cost = this.getRecruitmentCost();
-        if (this.budget < cost) {
+        if (!isCheatModeEnabled() && this.budget < cost) {
             void this.recruitTripleFromAd();
             return;
         }
@@ -907,7 +911,9 @@ export class RecruitmentController extends Component {
     }
 
     private waitForPendingPlayerEvents(): Promise<void> {
-        const playerEventController = this.node.parent?.getComponent(PlayerEventController) ?? null;
+        const playerEventController = this.node.getComponent(PlayerEventController)
+            ?? this.node.parent?.getComponent(PlayerEventController)
+            ?? null;
         if (!playerEventController) {
             return Promise.resolve();
         }
@@ -973,13 +979,20 @@ export class RecruitmentController extends Component {
     }
 
     private onDismissClicked(): void {
-        if (!this.pendingCard || this.pendingDecision?.mode === 'empty-slot') {
+        if (
+            this.resultPageClosing
+            || !this.pendingCard
+            || this.pendingDecision?.mode === 'empty-slot'
+        ) {
             return;
         }
         this.closeResultPage('dissolve');
     }
 
     private onReplaceClicked(): void {
+        if (this.resultPageClosing) {
+            return;
+        }
         const card = this.pendingCard;
         const targetIndex = this.pendingDecision?.targetIndex;
         if (!card || targetIndex === null || targetIndex === undefined) {
@@ -1005,6 +1018,7 @@ export class RecruitmentController extends Component {
         if (
             !card
             || !this.pendingDecision
+            || this.resultPageClosing
             || !this.conceptGodUpgradeConfig
             || this.upgradeAdProcessing
             || this.pendingUpgradeAdUsed
@@ -1287,15 +1301,18 @@ export class RecruitmentController extends Component {
         }
 
         const draw = this.drawQualityId(lowQualityProtectionActive);
-        const recruitedSourceNames = new Set(
-            loadRoster(this.rosterSlots.length).flatMap((card) => (
-                card ? [card.sourcePlayerName] : []
-            )),
-        );
+        const cheatMode = isCheatModeEnabled();
+        const recruitedSourceNames = cheatMode
+            ? new Set<string>()
+            : new Set(
+                loadRoster(this.rosterSlots.length).flatMap((card) => (
+                    card ? [card.sourcePlayerName] : []
+                )),
+            );
         const pool = this.playerConfig.players.filter((player) => (
             player.quality === draw.qualityId
             && !recruitedSourceNames.has(player.sourcePlayerName)
-            && !excludedSourceNames.has(player.sourcePlayerName)
+            && (cheatMode || !excludedSourceNames.has(player.sourcePlayerName))
         ));
         const range = this.ovrConfig.ranges.find((item) => item.qualityId === draw.qualityId);
         if (pool.length === 0 || !range) {
@@ -1345,6 +1362,14 @@ export class RecruitmentController extends Component {
         const secondHighestQualityId = sortedRecruitableQualityIds[
             sortedRecruitableQualityIds.length - 2
         ] ?? null;
+        if (isCheatModeEnabled()) {
+            return {
+                qualityId: sortedRecruitableQualityIds[
+                    sortedRecruitableQualityIds.length - 1
+                ] ?? 3,
+                secondHighestQualityId,
+            };
+        }
         if (
             secondHighestQualityId !== null
             && getRecruitmentUpperQualityPityMissCount()
@@ -1411,6 +1436,7 @@ export class RecruitmentController extends Component {
         willpowerAdded: number,
         playEntrance = true,
     ): Promise<void> {
+        this.resultPageClosing = false;
         const [
             portrait,
             background,
@@ -1597,6 +1623,19 @@ export class RecruitmentController extends Component {
     }
 
     private closeResultPage(mode: 'dissolve' | 'fade'): void {
+        if (this.resultPageClosing) {
+            return;
+        }
+        this.resultPageClosing = true;
+        if (this.dismissButton) {
+            this.dismissButton.interactable = false;
+        }
+        if (this.replaceButton) {
+            this.replaceButton.interactable = false;
+        }
+        if (this.upgradeAdButton) {
+            this.upgradeAdButton.interactable = false;
+        }
         if (mode === 'dissolve' && this.resultPage?.active && this.dissolveEffectAsset) {
             this.dissolveResultPage();
             return;
@@ -1805,6 +1844,9 @@ export class RecruitmentController extends Component {
         const cost = this.getRecruitmentCost();
         if (!Number.isFinite(cost) || cost <= 0) {
             return 0;
+        }
+        if (isCheatModeEnabled()) {
+            return Number.MAX_SAFE_INTEGER;
         }
         return Math.max(0, Math.floor(this.budget / cost));
     }

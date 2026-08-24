@@ -699,7 +699,9 @@ export class PreMatchController extends Component {
         ) {
             return;
         }
-        const playerEventController = this.node.parent?.getComponent(PlayerEventController) ?? null;
+        const playerEventController = this.node.getComponent(PlayerEventController)
+            ?? this.node.parent?.getComponent(PlayerEventController)
+            ?? null;
         if (playerEventController?.runAfterPendingEvents(this.startMatch)) {
             return;
         }

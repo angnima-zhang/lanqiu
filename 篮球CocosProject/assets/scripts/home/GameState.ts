@@ -56,6 +56,7 @@ export const BUDGET_STORAGE_KEY = 'basketball.economy.budget.v2';
 export const ROSTER_STORAGE_KEY = 'basketball.roster.v2';
 export const TEAM_NAME_STORAGE_KEY = 'basketball.team.name.v2';
 export const TEAM_ABBREVIATION_STORAGE_KEY = 'basketball.team.abbreviation.v2';
+export const CHEAT_MODE_TEAM_NAME = '怎么作弊啊';
 export const RECRUITMENT_LOWEST_QUALITY_PROTECTION_STORAGE_KEY = 'basketball.recruitment.lowest-quality-protection.v1';
 export const RECRUITMENT_LOWEST_QUALITY_PROTECTION_RECRUITMENT_COUNT = 10;
 export const RECRUITMENT_UPPER_QUALITY_PITY_MISS_STORAGE_KEY = 'basketball.recruitment.upper-quality-pity-miss.v1';
@@ -113,6 +114,10 @@ export interface ActivePlayerTraining {
 
 export function getTeamAbbreviation(teamName: string, fallback = '我'): string {
     return Array.from(teamName.trim())[0] ?? fallback;
+}
+
+export function isCheatModeEnabled(): boolean {
+    return sys.localStorage.getItem(TEAM_NAME_STORAGE_KEY) === CHEAT_MODE_TEAM_NAME;
 }
 
 export interface PlayerCard {
@@ -302,12 +307,23 @@ export function addBudget(amount: number): number {
 
 export function trySpendBudget(amount: number): boolean {
     const safeAmount = Number.isFinite(amount) ? Math.max(0, amount) : 0;
+    if (isCheatModeEnabled()) {
+        return true;
+    }
     const budget = getBudget();
     if (budget + Number.EPSILON < safeAmount) {
         return false;
     }
     setBudget(budget - safeAmount);
     return true;
+}
+
+export function canAffordBudget(amount: number): boolean {
+    if (isCheatModeEnabled()) {
+        return true;
+    }
+    const safeAmount = Number.isFinite(amount) ? Math.max(0, amount) : 0;
+    return getBudget() + Number.EPSILON >= safeAmount;
 }
 
 export function getBalance(initialBalance = DEFAULT_BUDGET): number {

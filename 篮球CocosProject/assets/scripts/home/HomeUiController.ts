@@ -814,7 +814,8 @@ export class HomeUiController extends Component {
         const inputTransform = inputLabelNode.addComponent(UITransform);
         if (sourceTransform) {
             inputTransform.setContentSize(sourceTransform.contentSize);
-            inputTransform.setAnchorPoint(sourceTransform.anchorPoint);
+            // EditBox 会把输入文本放在编辑区域左上角，因此输入 Label 也必须使用左上锚点。
+            inputTransform.setAnchorPoint(0, 1);
         }
         const inputLabel = inputLabelNode.addComponent(Label);
         inputLabel.font = nameLabel.font;

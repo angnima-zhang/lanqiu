@@ -8,6 +8,7 @@ import {
     Tween,
     Vec3,
     Vec4,
+    isValid,
     resources,
     tween,
 } from 'cc';
@@ -171,7 +172,11 @@ export class OverallNumberImpact extends Component {
             && this.material
             && this.label.customMaterial === this.material
         ) {
-            this.label.customMaterial = this.originalMaterial;
+            this.label.customMaterial = this.enabledInHierarchy
+                && this.originalMaterial
+                && isValid(this.originalMaterial, true)
+                ? this.originalMaterial
+                : null;
         }
         this.material?.destroy();
         this.material = null;

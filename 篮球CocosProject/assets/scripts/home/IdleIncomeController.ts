@@ -22,7 +22,10 @@ import {
 import { formatPlayerOverall } from './RosterSlotView';
 import {
     getStoredMarketValueLevel,
+    getStoredTeamLevel,
+    TEAM_PROGRESSION_EVENT_LEVEL_CHANGED,
     TeamLevelController,
+    teamProgressionEvents,
 } from './TeamLevelController';
 import { setGrowingNumber } from './NumberGrowthAnimator';
 import { showRewardedVideo } from './RewardedAdService';
@@ -38,11 +41,9 @@ interface EconomyConfig {
     initialBudget: number;
     budgetSources: {
         onlineIdle: {
-            baseBudgetPerMinute: number;
             claimTickSeconds: number;
         };
         offlineIdle: {
-            baseBudgetPerHour: number;
             maxAccrualHours: number;
             autoOpenMinimumMinutes: number;
         };
@@ -101,6 +102,11 @@ export class IdleIncomeController extends Component {
             this.onManagementChanged,
             this,
         );
+        teamProgressionEvents.on(
+            TEAM_PROGRESSION_EVENT_LEVEL_CHANGED,
+            this.onTeamLevelChanged,
+            this,
+        );
     }
 
     protected start(): void {
@@ -116,6 +122,11 @@ export class IdleIncomeController extends Component {
         gameStateEvents.off(
             GAME_STATE_EVENT_MANAGEMENT_CHANGED,
             this.onManagementChanged,
+            this,
+        );
+        teamProgressionEvents.off(
+            TEAM_PROGRESSION_EVENT_LEVEL_CHANGED,
+            this.onTeamLevelChanged,
             this,
         );
         this.unschedule(this.onOnlineTick);
@@ -201,6 +212,11 @@ export class IdleIncomeController extends Component {
         void this.refreshManagementEffects().then(() => this.refreshPage());
     };
 
+    private onTeamLevelChanged = (): void => {
+        this.refreshHomeIncomeRateLabels();
+        this.refreshPage();
+    };
+
     private async flushOnlineIncome(now: number): Promise<void> {
         if (!this.config || !this.idleState) {
             return;
@@ -212,10 +228,7 @@ export class IdleIncomeController extends Component {
         );
         if (elapsedSeconds > 0) {
             const marketMultiplier = this.getMarketValueMultiplier();
-            const basePerMinute = Math.max(
-                0,
-                this.config.budgetSources.onlineIdle.baseBudgetPerMinute,
-            );
+            const basePerMinute = this.getOnlineBaseRewardPerMinute();
             const reward = elapsedSeconds / 60
                 * basePerMinute
                 * marketMultiplier
@@ -431,8 +444,8 @@ export class IdleIncomeController extends Component {
         }
         const seconds = Math.max(0, secondsValue);
         const safeMultiplier = Math.max(1, Math.floor(multiplier));
-        const oneTimeBaseReward = this.floorReward(seconds / 3600
-            * Math.max(0, this.config.budgetSources.offlineIdle.baseBudgetPerHour)
+        const oneTimeBaseReward = this.floorReward(seconds / 60
+            * this.getOfflineBaseRewardPerMinute()
             * this.getMarketValueMultiplier());
         // First settle the single-claim reward exactly as it is displayed, then
         // apply the advertisement multiplier. This keeps the double claim equal
@@ -470,19 +483,33 @@ export class IdleIncomeController extends Component {
         return 1 + 0.02 * Math.max(0, marketValueLevel);
     }
 
+    private getCurrentTeamLevel(): number {
+        return Math.max(
+            0,
+            TeamLevelController.instance?.getSnapshot()?.teamLevel
+                ?? getStoredTeamLevel(),
+        );
+    }
+
+    private getOnlineBaseRewardPerMinute(): number {
+        return this.getCurrentTeamLevel();
+    }
+
+    private getOfflineBaseRewardPerMinute(): number {
+        return this.getCurrentTeamLevel() / 2;
+    }
+
     private refreshHomeIncomeRateLabels(): void {
         if (!this.config) {
             return;
         }
         const marketMultiplier = this.getMarketValueMultiplier();
-        const onlinePerMinute = Math.max(
-            0,
-            this.config.budgetSources.onlineIdle.baseBudgetPerMinute,
-        ) * marketMultiplier * (1 + this.operationPresidentBonus);
-        const offlinePerMinute = Math.max(
-            0,
-            this.config.budgetSources.offlineIdle.baseBudgetPerHour,
-        ) / 60 * marketMultiplier * (1 + this.mediaTeamBonus);
+        const onlinePerMinute = this.getOnlineBaseRewardPerMinute()
+            * marketMultiplier
+            * (1 + this.operationPresidentBonus);
+        const offlinePerMinute = this.getOfflineBaseRewardPerMinute()
+            * marketMultiplier
+            * (1 + this.mediaTeamBonus);
         if (this.offlineIncomeRateLabel) {
             this.offlineIncomeRateLabel.string = `离线奖励：每分钟${this.formatIncomeRate(offlinePerMinute)}`;
         }
@@ -492,10 +519,8 @@ export class IdleIncomeController extends Component {
     }
 
     private formatIncomeRate(value: number): string {
-        const roundedValue = Math.round(Math.max(0, value) * 100) / 100;
-        return Number.isInteger(roundedValue)
-            ? String(roundedValue)
-            : roundedValue.toFixed(2).replace(/0+$/, '');
+        const truncatedValue = Math.floor(Math.max(0, value) * 10) / 10;
+        return truncatedValue.toFixed(1);
     }
 
     private setRewardLabel(

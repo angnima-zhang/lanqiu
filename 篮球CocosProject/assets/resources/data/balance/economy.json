@@ -30,17 +30,15 @@
                       },
     "budgetSources":  {
                           "onlineIdle":  {
-                                             "baseBudgetPerMinute":  1.0,
+                                             "baseBudgetPerMinuteFormula":  "currentTeamLevel",
                                              "marketValueMultiplierFormula":  "1 + 0.02 * teamLevel",
                                              "claimTickSeconds":  10,
                                              "operationPresidentBonusApplies":  true
                                          },
                           "matchRewards":  {
                                                "settlementGranularity":  "per_won_match",
-                                               "rewardBasis":  "opponent_team_ovr",
-                                               "baselineOpponentOvr":  696,
-                                               "baselineBudgetReward":  1,
-                                               "baseBudgetFormula":  "max(1, ceil(opponentTeamOvr / 696))",
+                                               "rewardBasis":  "current_team_level",
+                                               "baseBudgetFormula":  "currentTeamLevel * 10",
                                                "finalBudgetFormula":  "ceil(baseBudgetReward * (1 + operationPresidentBudgetBonus))",
                                                "regularSeasonAndPlayoffsUseSameFormula":  true,
                                                "lossBudget":  0,
@@ -52,7 +50,7 @@
                                                "precomputedTable":  "match_rewards.json"
                                            },
                           "offlineIdle":  {
-                                              "baseBudgetPerHour":  20,
+                                              "baseBudgetPerMinuteFormula":  "currentTeamLevel / 2",
                                               "marketValueMultiplierFormula":  "1 + 0.02 * teamLevel",
                                               "maxAccrualHours":  8,
                                               "autoOpenMinimumMinutes":  30,

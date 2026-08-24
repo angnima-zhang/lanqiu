@@ -20,6 +20,7 @@ import {
     advanceSeasonAfterWin,
     emitMatchSettled,
     INT32_MAX,
+    isCheatModeEnabled,
     loadSeasonState,
     PlayerCard,
     settleAdMatchReward,
@@ -47,7 +48,10 @@ import {
 import { setGrowingNumber } from './NumberGrowthAnimator';
 import { applyGameFont } from '../loading/GameFont';
 import { CourtSimulationController } from './CourtSimulationController';
-import { recordStoredStandardMatchWin } from './TeamLevelController';
+import {
+    getStoredTeamLevel,
+    recordStoredStandardMatchWin,
+} from './TeamLevelController';
 import { installGoldAdButtonGlows } from './GoldAdButtonGlow';
 import { MatchCommentarySelector } from './MatchCommentarySelector';
 import {
@@ -360,10 +364,13 @@ export class MatchController extends Component {
         );
         const fullConceptLineup = session.playerRoster.length >= 12
             && session.playerRoster.every((card) => card?.isConceptGod);
+        const cheatMode = isCheatModeEnabled();
         const ratio = session.opponentOverall > 0
             ? effectivePlayerOverall / session.opponentOverall
             : Number.POSITIVE_INFINITY;
-        const band: MatchResultBand = fullConceptLineup
+        const band: MatchResultBand = cheatMode
+            ? 'auto-win'
+            : fullConceptLineup
             ? 'full-concept'
             : ratio >= 1.1
                 ? 'auto-win'
@@ -373,10 +380,14 @@ export class MatchController extends Component {
         const random = this.createSeededRandom(
             `${session.matchId}:${this.retryCount}:${session.temporaryBonusPercent}`,
         );
-        const won = forceWin
+        const won = cheatMode
+            || forceWin
             || band === 'full-concept'
             || band === 'auto-win'
-            || (band === 'uncertain' && random() < 0.5);
+            || (
+                band === 'uncertain'
+                && Math.random() < this.calculateUncertainWinProbability(ratio)
+            );
         const rawPlayerScore = this.calculateRawScore(
             session.playerRoster,
             random,
@@ -410,6 +421,8 @@ export class MatchController extends Component {
             uncappedPlayerScore,
             uncappedOpponentScore,
             won,
+            won ? effectivePlayerOverall : session.opponentOverall,
+            random,
         );
         return {
             band,
@@ -465,6 +478,8 @@ export class MatchController extends Component {
         playerScore: number,
         opponentScore: number,
         playerWon: boolean,
+        winnerOverall: number,
+        random: () => number,
     ): [number, number] {
         const highest = Math.max(1, playerScore, opponentScore);
         const scale = Math.min(1, MAX_TEAM_SCORE / highest);
@@ -474,18 +489,38 @@ export class MatchController extends Component {
         let opponent = opponentScore > 0
             ? Math.max(1, Math.floor(opponentScore * scale))
             : 0;
+        const correctionMargin = Math.min(
+            MAX_TEAM_SCORE,
+            this.calculateScoreCorrectionMargin(winnerOverall, random),
+        );
         if (playerWon && player <= opponent) {
-            if (opponent >= MAX_TEAM_SCORE) {
-                opponent = MAX_TEAM_SCORE - 1;
-            }
-            player = Math.min(MAX_TEAM_SCORE, opponent + 1);
+            player = Math.min(MAX_TEAM_SCORE, opponent + correctionMargin);
+            opponent = Math.max(0, Math.min(opponent, player - correctionMargin));
         } else if (!playerWon && opponent <= player) {
-            if (player >= MAX_TEAM_SCORE) {
-                player = MAX_TEAM_SCORE - 1;
-            }
-            opponent = Math.min(MAX_TEAM_SCORE, player + 1);
+            opponent = Math.min(MAX_TEAM_SCORE, player + correctionMargin);
+            player = Math.max(0, Math.min(player, opponent - correctionMargin));
         }
         return [player, opponent];
+    }
+
+    private calculateUncertainWinProbability(overallRatio: number): number {
+        if (overallRatio === 1) {
+            return 0.5;
+        }
+        const percentageOnesDigit = Math.floor(overallRatio * 100) % 10;
+        return overallRatio > 1
+            ? percentageOnesDigit * 0.1
+            : percentageOnesDigit * 0.05;
+    }
+
+    private calculateScoreCorrectionMargin(
+        winnerOverall: number,
+        random: () => number = Math.random,
+    ): number {
+        return Math.max(
+            1,
+            Math.ceil(Math.max(0, winnerOverall) * random() * 0.01),
+        );
     }
 
     private createPlayPlan(result: MatchResult): MatchPlayEvent[] {
@@ -1377,19 +1412,13 @@ export class MatchController extends Component {
         let opponentFinalScore = this.calculateSkippedMatchScore(
             this.session.opponentOverall,
         );
-        let playerWon = playerFinalScore > opponentFinalScore;
-        if (playerFinalScore === opponentFinalScore) {
-            playerWon = this.result.won;
-            if (playerWon) {
-                playerFinalScore += 1;
-            } else {
-                opponentFinalScore += 1;
-            }
-        }
+        const playerWon = this.result.won;
         [playerFinalScore, opponentFinalScore] = this.randomizeSkippedMatchScores(
             playerFinalScore,
             opponentFinalScore,
             playerWon,
+            effectivePlayerOverall,
+            this.session.opponentOverall,
         );
         const random = this.createSeededRandom(
             `${this.session.matchId}:skip:${this.session.matchNumber}:${this.retryCount}`,
@@ -1433,6 +1462,8 @@ export class MatchController extends Component {
         playerBaseScore: number,
         opponentBaseScore: number,
         playerWon: boolean,
+        playerOverall: number,
+        opponentOverall: number,
     ): [number, number] {
         const playerMinimum = Math.max(
             SKIPPED_MATCH_MIN_SCORE,
@@ -1452,16 +1483,13 @@ export class MatchController extends Component {
         );
         let playerScore = this.randomInteger(playerMinimum, playerMaximum);
         let opponentScore = this.randomInteger(opponentMinimum, opponentMaximum);
+        const correctionMargin = this.calculateScoreCorrectionMargin(
+            playerWon ? playerOverall : opponentOverall,
+        );
         if (playerWon && playerScore <= opponentScore) {
-            playerScore = Math.min(playerMaximum, opponentScore + 1);
-            if (playerScore <= opponentScore) {
-                opponentScore = Math.max(opponentMinimum, playerScore - 1);
-            }
+            playerScore = opponentScore + correctionMargin;
         } else if (!playerWon && opponentScore <= playerScore) {
-            opponentScore = Math.min(opponentMaximum, playerScore + 1);
-            if (opponentScore <= playerScore) {
-                playerScore = Math.max(playerMinimum, opponentScore - 1);
-            }
+            opponentScore = playerScore + correctionMargin;
         }
         return [playerScore, opponentScore];
     }
@@ -1484,7 +1512,7 @@ export class MatchController extends Component {
 
     private calculateMatchReward(): number {
         const session = this.session!;
-        const baseReward = Math.max(1, Math.ceil(session.opponentOverall / 696));
+        const baseReward = Math.max(0, getStoredTeamLevel()) * 10;
         return Math.ceil(
             baseReward
             * Math.max(0, session.rewardMultiplier)

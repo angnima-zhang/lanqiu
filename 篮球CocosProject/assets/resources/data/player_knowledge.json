@@ -2191,7 +2191,7 @@
         "country": "美国",
         "careerSpan": "2022-至今",
         "honors": [
-          "最佳阵容"
+          "2次最佳阵容"
         ],
         "peakSeason": {
           "season": 2022,
@@ -2451,7 +2451,8 @@
         "country": "美国",
         "careerSpan": "2024-至今",
         "honors": [
-          "职业篮球运动员"
+          "最佳阵容",
+          "最佳防阵"
         ],
         "peakSeason": {
           "season": 2024,
@@ -2638,7 +2639,7 @@
     "Chris Paul": {
       "profile": {
         "country": "美国",
-        "careerSpan": "2006-至今",
+        "careerSpan": "2006-2026",
         "honors": [
           "75大",
           "11次最佳阵容",
@@ -2837,7 +2838,7 @@
         "country": "美国",
         "careerSpan": "2026-至今",
         "honors": [
-          "职业篮球运动员"
+          "最佳新秀"
         ],
         "peakSeason": {
           "season": 2026,
@@ -3288,7 +3289,9 @@
         "country": "美国",
         "careerSpan": "2009-2024",
         "honors": [
+          "MVP",
           "最佳阵容",
+          "3次全明星",
           "最佳新秀"
         ],
         "peakSeason": {
@@ -3335,7 +3338,7 @@
         {
           "id": "q6",
           "text": "{{playerName}} 获得过常规赛 MVP。",
-          "answer": false,
+          "answer": true,
           "rewardOverall": 7
         },
         {
@@ -3612,7 +3615,7 @@
         "country": "美国",
         "careerSpan": "2018-至今",
         "honors": [
-          "2次最佳阵容"
+          "3次最佳阵容"
         ],
         "peakSeason": {
           "season": 2023,
@@ -4723,7 +4726,7 @@
         "honors": [
           "总冠军",
           "1次FMVP",
-          "2次最佳阵容"
+          "3次最佳阵容"
         ],
         "peakSeason": {
           "season": 2024,
@@ -5116,7 +5119,7 @@
         "honors": [
           "总冠军",
           "1次FMVP",
-          "最佳阵容"
+          "2次最佳阵容"
         ],
         "peakSeason": {
           "season": 2026,
@@ -5901,7 +5904,7 @@
           "75大",
           "2次总冠军",
           "2次FMVP",
-          "6次最佳阵容",
+          "7次最佳阵容",
           "7次全明星",
           "2次DPOY",
           "7次最佳防阵"
@@ -5971,7 +5974,7 @@
           "2次FMVP",
           "MVP",
           "4次得分王",
-          "11次最佳阵容",
+          "12次最佳阵容",
           "16次全明星",
           "最佳新秀"
         ],
@@ -6637,8 +6640,8 @@
         "country": "斯洛文尼亚",
         "careerSpan": "2019-至今",
         "honors": [
-          "得分王",
-          "5次最佳阵容",
+          "2次得分王",
+          "6次最佳阵容",
           "6次全明星",
           "最佳新秀"
         ],
@@ -7170,7 +7173,7 @@
           "总冠军",
           "1次FMVP",
           "3次MVP",
-          "7次最佳阵容",
+          "8次最佳阵容",
           "8次全明星"
         ],
         "peakSeason": {
@@ -8020,8 +8023,10 @@
         "honors": [
           "总冠军",
           "1次FMVP",
+          "2次MVP",
           "得分王",
-          "3次最佳阵容"
+          "4次最佳阵容",
+          "4次全明星"
         ],
         "peakSeason": {
           "season": 2025,
@@ -8067,7 +8072,7 @@
         {
           "id": "q6",
           "text": "{{playerName}} 获得过常规赛 MVP。",
-          "answer": false,
+          "answer": true,
           "rewardOverall": 7
         },
         {
@@ -8807,7 +8812,9 @@
         "country": "法国",
         "careerSpan": "2024-至今",
         "honors": [
-          "最佳防阵",
+          "最佳阵容",
+          "DPOY",
+          "2次最佳防阵",
           "最佳新秀"
         ],
         "peakSeason": {

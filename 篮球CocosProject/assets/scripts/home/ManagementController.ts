@@ -11,6 +11,7 @@ import {
     SpriteFrame,
 } from 'cc';
 import {
+    canAffordBudget,
     GAME_STATE_EVENT_BUDGET_CHANGED,
     GAME_STATE_EVENT_MANAGEMENT_CHANGED,
     gameStateEvents,
@@ -612,7 +613,7 @@ export class ManagementController extends Component {
         const budget = getBudget();
         const budgetEnabled = !capped
             && cost !== null
-            && budget + Number.EPSILON >= cost
+            && canAffordBudget(cost)
             && !this.budgetUpgradeProcessing
             && !this.adUpgradeProcessing;
         const adEnabled = !capped
@@ -714,7 +715,7 @@ export class ManagementController extends Component {
             return true;
         }
         const cost = this.getUpgradeCost(level);
-        return cost !== null && getBudget() + Number.EPSILON >= cost;
+        return cost !== null && canAffordBudget(cost);
     }
 
     private getEffectRow(level: number): ManagementEffectRow | null {

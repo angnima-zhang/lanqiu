@@ -1,4 +1,14 @@
-import { _decorator, Color, Component, EffectAsset, Label, Material, Vec4, resources } from 'cc';
+import {
+    _decorator,
+    Color,
+    Component,
+    EffectAsset,
+    Label,
+    Material,
+    Vec4,
+    isValid,
+    resources,
+} from 'cc';
 
 const { ccclass } = _decorator;
 const EFFECT_PATH = 'effects/overall-number-edge-flow';
@@ -134,7 +144,11 @@ export class OverallNumberEdgeFlow extends Component {
             && this.material
             && this.label.customMaterial === this.material
         ) {
-            this.label.customMaterial = this.originalMaterial;
+            this.label.customMaterial = this.enabledInHierarchy
+                && this.originalMaterial
+                && isValid(this.originalMaterial, true)
+                ? this.originalMaterial
+                : null;
         }
         this.material?.destroy();
         this.material = null;
