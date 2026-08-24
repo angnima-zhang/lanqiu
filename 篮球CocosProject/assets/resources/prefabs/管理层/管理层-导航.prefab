@@ -3960,11 +3960,11 @@
     "__prefab": {
       "__id__": 160
     },
-    "_alignFlags": 40,
+    "_alignFlags": 41,
     "_target": null,
     "_left": 0,
     "_right": 0,
-    "_top": 0,
+    "_top": 157.135,
     "_bottom": 0,
     "_horizontalCenter": 0,
     "_verticalCenter": 0,

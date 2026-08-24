@@ -1173,7 +1173,7 @@
     "_target": null,
     "_left": 0,
     "_right": 0,
-    "_top": 0,
+    "_top": 1705.7060000000001,
     "_bottom": 354.294,
     "_horizontalCenter": 0,
     "_verticalCenter": 0,
@@ -1184,7 +1184,7 @@
     "_isAbsHorizontalCenter": true,
     "_isAbsVerticalCenter": true,
     "_originalWidth": 0,
-    "_originalHeight": 0,
+    "_originalHeight": 100,
     "_alignMode": 2,
     "_lockFlags": 0,
     "_id": "91lgsBMuxKGpG+dXEtzC99"

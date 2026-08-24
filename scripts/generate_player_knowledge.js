@@ -769,7 +769,7 @@ function buildHonors(sourceName, playerId, profile, career, cba) {
         sixthManCount > 0 ? honorLabel(sixthManCount, '最佳第六人') : '',
         rookieCount > 0 ? '最佳新秀' : '',
     ];
-    const honors = honorsByPriority.filter(Boolean).slice(0, 5);
+    const honors = honorsByPriority.filter(Boolean);
     return honors.length > 0 ? honors : ['职业篮球运动员'];
 }
 

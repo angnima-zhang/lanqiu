@@ -81,10 +81,14 @@ import { showRewardedVideo } from './RewardedAdService';
 import {
     addPermanentOverallForPlayerKnowledge,
     advancePlayerKnowledgeQuestion,
+    calculatePlayerKnowledgeReward,
     formatPlayerKnowledgeText,
+    formatPlayerProfile,
     getPlayerKnowledgeProgress,
+    hasAnsweredPlayerKnowledgeQuestion,
     loadPlayerKnowledgeConfig,
     recordPlayerKnowledgeAnswer,
+    recordPlayerKnowledgeReward,
     unlockPlayerKnowledgeAnswers,
 } from './PlayerKnowledge';
 
@@ -129,6 +133,7 @@ export class HomeUiController extends Component {
     private cardRenderVersion = 0;
     private knowledgeRenderVersion = 0;
     private currentKnowledgeSourceName: string | null = null;
+    private readonly playerKnowledgeQuestionWidths = new WeakMap<Node, number>();
     private teamInfoRequestVersion = 0;
     private buttonVisualBindings: ButtonVisualBinding[] = [];
     private readonly buttonGrayscaleOverrides = new WeakMap<Button, boolean>();
@@ -903,13 +908,13 @@ export class HomeUiController extends Component {
 
             const progress = getPlayerKnowledgeProgress(card.sourcePlayerName);
             const completedCount = entry.questions.filter((question) => (
-                progress.correctQuestionIds.includes(question.id)
+                hasAnsweredPlayerKnowledgeQuestion(progress, question.id)
             )).length;
             if (completedCount >= entry.questions.length) {
-                titleLabel.string = `球员知识 ${entry.questions.length}/${entry.questions.length}`;
+                titleLabel.string = '球员荣誉';
                 this.setPlayerKnowledgeQuestionText(
                     questionLabel,
-                    '全部答对！该球员的知识奖励已领取完毕。',
+                    formatPlayerProfile(entry.profile),
                 );
                 yesButton.node.active = false;
                 noButton.node.active = false;
@@ -929,9 +934,11 @@ export class HomeUiController extends Component {
             noButton.node.active = true;
 
             if (alreadyCorrect) {
+                const rewardedOverall = progress.rewardOverallByQuestionId[question.id]
+                    ?? question.rewardOverall;
                 this.setPlayerKnowledgeQuestionText(
                     questionLabel,
-                    `答对了！${card.displayName} 总评永久提升 ${question.rewardOverall}。`,
+                    `答对了！${card.displayName} 总评永久提升 ${rewardedOverall}。`,
                 );
                 this.setKnowledgeAnswerButtonState(correctButton, false, false);
                 this.setKnowledgeAnswerButtonState(wrongButton, false, true);
@@ -999,9 +1006,15 @@ export class HomeUiController extends Component {
         );
         let overallAnimationFrom: number | undefined;
         if (newlyCorrect) {
+            const rewardOverall = calculatePlayerKnowledgeReward(card.overall);
+            recordPlayerKnowledgeReward(
+                card.sourcePlayerName,
+                question.id,
+                rewardOverall,
+            );
             const rewardedCard = addPermanentOverallForPlayerKnowledge(
                 card.sourcePlayerName,
-                question.rewardOverall,
+                rewardOverall,
             );
             if (rewardedCard && rewardedCard.overall > card.overall) {
                 overallAnimationFrom = card.overall;
@@ -1020,13 +1033,22 @@ export class HomeUiController extends Component {
         question: string,
         highlightedSuffix?: string,
     ): void {
+        const transform = label.node.getComponent(UITransform);
         let richText = label.node.getComponent(RichText);
+        let fixedWidth = this.playerKnowledgeQuestionWidths.get(label.node);
+        if (fixedWidth === undefined && transform) {
+            fixedWidth = transform.width;
+            this.playerKnowledgeQuestionWidths.set(label.node, fixedWidth);
+        }
         if (!highlightedSuffix) {
             if (richText) {
                 richText.enabled = false;
             }
             label.enabled = true;
             label.string = question;
+            if (transform && fixedWidth !== undefined) {
+                transform.setContentSize(fixedWidth, transform.height);
+            }
             return;
         }
         if (!richText) {
@@ -1035,12 +1057,12 @@ export class HomeUiController extends Component {
             richText.lineHeight = label.lineHeight;
             richText.horizontalAlign = label.horizontalAlign;
             richText.verticalAlign = label.verticalAlign;
-            richText.maxWidth = label.node.getComponent(UITransform)?.width ?? 0;
             richText.useSystemFont = label.useSystemFont;
             richText.fontFamily = label.fontFamily;
             richText.font = label.font;
             richText.handleTouchEvent = false;
         }
+        richText.maxWidth = fixedWidth ?? 0;
         const baseColor = `#${[label.color.r, label.color.g, label.color.b]
             .map((value) => value.toString(16).padStart(2, '0'))
             .join('')}`;
@@ -1051,6 +1073,9 @@ export class HomeUiController extends Component {
         label.enabled = false;
         richText.enabled = true;
         richText.string = `<color=${baseColor}><b>${escapeRichText(question)}</b></color>\n<color=#FFD15A><b>${escapeRichText(highlightedSuffix)}</b></color>`;
+        if (transform && fixedWidth !== undefined) {
+            transform.setContentSize(fixedWidth, transform.height);
+        }
     }
 
     private async unlockPlayerKnowledgeWithAd(): Promise<void> {

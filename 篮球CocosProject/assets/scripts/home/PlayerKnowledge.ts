@@ -3,11 +3,14 @@ import {
     loadJson,
     loadRoster,
     PlayerCard,
+    recordPlayerAcquisition,
     saveRoster,
 } from './GameState';
 
 const PLAYER_KNOWLEDGE_PATH = 'data/player_knowledge';
 const PLAYER_KNOWLEDGE_PROGRESS_STORAGE_KEY = 'basketball.player-knowledge.v1';
+const PLAYER_KNOWLEDGE_REWARD_MIN_PERCENT = 0.01;
+const PLAYER_KNOWLEDGE_REWARD_MAX_PERCENT = 0.02;
 
 export interface PlayerKnowledgeQuestion {
     id: string;
@@ -44,6 +47,7 @@ export interface PlayerKnowledgeProgress {
     currentQuestionIndex: number;
     correctQuestionIds: string[];
     wrongQuestionIds: string[];
+    rewardOverallByQuestionId: Record<string, number>;
     answerAllUnlocked: boolean;
 }
 
@@ -57,6 +61,29 @@ export function loadPlayerKnowledgeConfig(): Promise<PlayerKnowledgeConfig> {
 export function getPlayerKnowledgeProgress(sourcePlayerName: string): PlayerKnowledgeProgress {
     const stored = loadProgressByPlayer()[sourcePlayerName];
     return normalizeProgress(stored);
+}
+
+export function hasAnsweredPlayerKnowledgeQuestion(
+    progress: PlayerKnowledgeProgress,
+    questionId: string,
+): boolean {
+    return progress.correctQuestionIds.includes(questionId)
+        || progress.wrongQuestionIds.includes(questionId);
+}
+
+/** Records an acquisition and starts a fresh knowledge round for repeat players. */
+export function recordPlayerAcquisitionWithKnowledgeReset(card: PlayerCard): number {
+    const acquisitionCount = recordPlayerAcquisition(card);
+    if (acquisitionCount > 1) {
+        resetPlayerKnowledgeProgress(card.sourcePlayerName);
+    }
+    return acquisitionCount;
+}
+
+export function resetPlayerKnowledgeProgress(sourcePlayerName: string): void {
+    const allProgress = loadProgressByPlayer();
+    delete allProgress[sourcePlayerName];
+    saveProgressByPlayer(allProgress);
 }
 
 export function recordPlayerKnowledgeAnswer(
@@ -80,6 +107,29 @@ export function recordPlayerKnowledgeAnswer(
     return correct;
 }
 
+export function calculatePlayerKnowledgeReward(
+    overall: number,
+    randomValue = Math.random(),
+): number {
+    const rewardPercent = PLAYER_KNOWLEDGE_REWARD_MIN_PERCENT
+        + (PLAYER_KNOWLEDGE_REWARD_MAX_PERCENT - PLAYER_KNOWLEDGE_REWARD_MIN_PERCENT)
+        * Math.min(1, Math.max(0, randomValue));
+    return Math.max(1, Math.ceil(Math.max(1, overall) * rewardPercent));
+}
+
+export function recordPlayerKnowledgeReward(
+    sourcePlayerName: string,
+    questionId: string,
+    rewardOverall: number,
+): void {
+    const reward = Math.max(1, Math.ceil(rewardOverall));
+    const allProgress = loadProgressByPlayer();
+    const progress = normalizeProgress(allProgress[sourcePlayerName]);
+    progress.rewardOverallByQuestionId[questionId] = reward;
+    allProgress[sourcePlayerName] = progress;
+    saveProgressByPlayer(allProgress);
+}
+
 export function unlockPlayerKnowledgeAnswers(sourcePlayerName: string): void {
     const allProgress = loadProgressByPlayer();
     const progress = normalizeProgress(allProgress[sourcePlayerName]);
@@ -100,7 +150,7 @@ export function advancePlayerKnowledgeQuestion(
     const start = Math.max(0, progress.currentQuestionIndex % questions.length);
     for (let offset = 1; offset <= questions.length; offset += 1) {
         const index = (start + offset) % questions.length;
-        if (!progress.correctQuestionIds.includes(questions[index].id)) {
+        if (!hasAnsweredPlayerKnowledgeQuestion(progress, questions[index].id)) {
             progress.currentQuestionIndex = index;
             allProgress[sourcePlayerName] = progress;
             saveProgressByPlayer(allProgress);
@@ -143,18 +193,34 @@ export function formatPlayerKnowledgeText(text: string, displayName: string): st
     return text.replace(/\{\{playerName\}\}/g, displayName);
 }
 
-export function formatPlayerProfile(profile: PlayerProfile | undefined): string {
+export function formatPlayerProfile(
+    profile: PlayerProfile | undefined,
+    maximumHonors?: number,
+): string {
     if (!profile) {
         return '资料整理中';
     }
     const peak = profile.peakSeason;
     return [
-        `荣誉：${profile.honors.join(' · ')}`,
+        formatPlayerHonors(profile, maximumHonors),
         `国籍：${profile.country}`,
         `生涯：${profile.careerSpan}`,
         `代表赛季：${peak.season} ${peak.team}`,
         `场均：${peak.pointsPerGame.toFixed(1)}分 ${peak.reboundsPerGame.toFixed(1)}板 ${peak.assistsPerGame.toFixed(1)}助 ${peak.stealsPerGame.toFixed(1)}断 ${peak.blocksPerGame.toFixed(1)}帽`,
     ].join('\n');
+}
+
+export function formatPlayerHonors(
+    profile: PlayerProfile | undefined,
+    maximumHonors?: number,
+): string {
+    if (!profile) {
+        return '荣誉：资料整理中';
+    }
+    const honors = maximumHonors === undefined
+        ? profile.honors
+        : profile.honors.slice(0, Math.max(0, Math.floor(maximumHonors)));
+    return `荣誉：${honors.join(' · ')}`;
 }
 
 function loadProgressByPlayer(): Record<string, PlayerKnowledgeProgress> {
@@ -188,6 +254,7 @@ function normalizeProgress(value: unknown): PlayerKnowledgeProgress {
         currentQuestionIndex: Math.max(0, Math.floor(Number(raw.currentQuestionIndex) || 0)),
         correctQuestionIds: normalizeQuestionIds(raw.correctQuestionIds),
         wrongQuestionIds: normalizeQuestionIds(raw.wrongQuestionIds),
+        rewardOverallByQuestionId: normalizeQuestionRewards(raw.rewardOverallByQuestionId),
         answerAllUnlocked: Boolean(raw.answerAllUnlocked),
     };
 }
@@ -196,4 +263,18 @@ function normalizeQuestionIds(value: unknown): string[] {
     return Array.isArray(value)
         ? [...new Set(value.filter((id): id is string => typeof id === 'string'))]
         : [];
+}
+
+function normalizeQuestionRewards(value: unknown): Record<string, number> {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) {
+        return {};
+    }
+    const rewards: Record<string, number> = {};
+    for (const [questionId, rawReward] of Object.entries(value)) {
+        const reward = Math.ceil(Number(rawReward));
+        if (questionId && Number.isFinite(reward) && reward >= 1) {
+            rewards[questionId] = reward;
+        }
+    }
+    return rewards;
 }

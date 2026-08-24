@@ -302,7 +302,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 1074.997,
+      "y": 1080,
       "z": 0
     },
     "_lrot": {
@@ -1792,9 +1792,9 @@
     },
     "_alignFlags": 41,
     "_target": null,
-    "_left": 1.3988810110276972e-14,
-    "_right": -1.3988810110276972e-14,
-    "_top": 5.002999999999929,
+    "_left": 0,
+    "_right": 0,
+    "_top": 0,
     "_bottom": 0,
     "_horizontalCenter": 0,
     "_verticalCenter": 0,
@@ -9910,8 +9910,8 @@
     },
     "_alignFlags": 41,
     "_target": null,
-    "_left": 1.3988810110276972e-14,
-    "_right": -1.3988810110276972e-14,
+    "_left": 0,
+    "_right": 0,
     "_top": 225.74500000000012,
     "_bottom": 0,
     "_horizontalCenter": 0,
@@ -14799,11 +14799,11 @@
     "__prefab": {
       "__id__": 808
     },
-    "_alignFlags": 44,
+    "_alignFlags": 41,
     "_target": null,
     "_left": 0,
     "_right": 0,
-    "_top": 1867.615,
+    "_top": 1872,
     "_bottom": 0,
     "_horizontalCenter": 0,
     "_verticalCenter": 0,
@@ -14814,7 +14814,7 @@
     "_isAbsHorizontalCenter": true,
     "_isAbsVerticalCenter": true,
     "_originalWidth": 100,
-    "_originalHeight": 300,
+    "_originalHeight": 288,
     "_alignMode": 2,
     "_lockFlags": 0,
     "_id": ""

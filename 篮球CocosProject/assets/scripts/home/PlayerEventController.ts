@@ -30,7 +30,6 @@ import {
     PlayerEventType,
     getManagementEffects,
     loadSeasonState,
-    recordPlayerAcquisition,
     ROSTER_SLOT_COUNT,
     loadRoster,
     saveRoster,
@@ -61,6 +60,7 @@ import {
     playFullScreenExit,
 } from './FullScreenEntrance';
 import { applyGameFont } from '../loading/GameFont';
+import { recordPlayerAcquisitionWithKnowledgeReset } from './PlayerKnowledge';
 
 const { ccclass } = _decorator;
 
@@ -261,6 +261,9 @@ export class PlayerEventController extends Component {
             });
             return true;
         }
+        if (this.generatingEvent) {
+            return true;
+        }
         if (this.findNextPendingEventIndex() === null) {
             this.queuedActionAfterPendingEvents = null;
             return false;
@@ -451,6 +454,9 @@ export class PlayerEventController extends Component {
             saveRoster(roster);
         } finally {
             this.generatingEvent = false;
+            if (this.queuedActionAfterPendingEvents) {
+                this.openNextQueuedEventOrRunAction();
+            }
         }
     }
 
@@ -873,7 +879,7 @@ export class PlayerEventController extends Component {
         const rewardedRecruit = withAd ? this.upgradeRecruit(recruit) : recruit;
         const recruitedCard = this.createRecruitedCard(rewardedRecruit);
         roster[emptyIndex] = recruitedCard;
-        recordPlayerAcquisition(recruitedCard);
+        recordPlayerAcquisitionWithKnowledgeReset(recruitedCard);
         delete card.pendingEvent;
     }
 

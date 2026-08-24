@@ -55,7 +55,6 @@ import {
     PlayerAttributes,
     PlayerCard,
     recordConceptGodAcquisition,
-    recordPlayerAcquisition,
     recordRecruitmentUpperQualityPityResult,
     RECRUITMENT_UPPER_QUALITY_PITY_MISS_LIMIT,
     saveRoster,
@@ -95,6 +94,7 @@ import { PlayerEventController } from './PlayerEventController';
 import {
     formatPlayerProfile,
     loadPlayerKnowledgeConfig,
+    recordPlayerAcquisitionWithKnowledgeReset,
 } from './PlayerKnowledge';
 
 const { ccclass, property } = _decorator;
@@ -111,6 +111,7 @@ const DISSOLVE_EFFECT_PATH = 'effects/dissolve';
 const RECRUITING_DELAY_SECONDS = 1;
 const AD_RECRUIT_COUNT = 10;
 const AD_RECRUIT_LABEL = `${AD_RECRUIT_COUNT}连抽`;
+const RECRUITMENT_PROFILE_HONOR_LIMIT = 5;
 const NEGATIVE_OVERALL_COLOR = new Color(220, 55, 55, 255);
 const CONTINUOUS_RECRUIT_START_DELAY_SECONDS = 1;
 const CONTINUOUS_RECRUIT_GROWTH_INTERVAL_SECONDS = 0.1;
@@ -768,7 +769,7 @@ export class RecruitmentController extends Component {
         this.budget = getBalance(this.economyConfig.initialBudget);
         this.refreshBudgetView();
         this.queuedContinuousRecruitments = spentCards.map((card) => {
-            recordPlayerAcquisition(card);
+            recordPlayerAcquisitionWithKnowledgeReset(card);
             return {
                 card,
                 willpowerAdded: this.teamLevelController?.addRecruitWillpower() ?? 0,
@@ -813,7 +814,7 @@ export class RecruitmentController extends Component {
         this.showRecruitingButtonVisual();
         this.budget = getBalance(this.economyConfig.initialBudget);
         this.refreshBudgetView();
-        recordPlayerAcquisition(card);
+        recordPlayerAcquisitionWithKnowledgeReset(card);
 
         const willpowerAdded = this.teamLevelController?.addRecruitWillpower() ?? 0;
         this.pendingCard = card;
@@ -851,6 +852,11 @@ export class RecruitmentController extends Component {
                 return;
             }
 
+            await this.waitForPendingPlayerEvents();
+            if (!this.node.isValid) {
+                return;
+            }
+
             const cards: PlayerCard[] = [];
             const availableLowQualityProtection = getLowestRecruitmentQualityProtectionCount();
             let consumedLowQualityProtection = 0;
@@ -879,7 +885,7 @@ export class RecruitmentController extends Component {
             }
 
             this.queuedAdRecruitments = cards.map((card) => {
-                recordPlayerAcquisition(card);
+                recordPlayerAcquisitionWithKnowledgeReset(card);
                 return {
                     card,
                     willpowerAdded: this.teamLevelController?.addRecruitWillpower() ?? 0,
@@ -898,6 +904,18 @@ export class RecruitmentController extends Component {
                 this.refreshBudgetView();
             }
         }
+    }
+
+    private waitForPendingPlayerEvents(): Promise<void> {
+        const playerEventController = this.node.parent?.getComponent(PlayerEventController) ?? null;
+        if (!playerEventController) {
+            return Promise.resolve();
+        }
+        return new Promise((resolve) => {
+            if (!playerEventController.runAfterPendingEvents(resolve)) {
+                resolve();
+            }
+        });
     }
 
     private async showNextAdRecruitmentResult(): Promise<void> {
@@ -1452,6 +1470,7 @@ export class RecruitmentController extends Component {
         if (this.candidateProfileLabel) {
             this.candidateProfileLabel.string = formatPlayerProfile(
                 playerKnowledge?.players[card.sourcePlayerName]?.profile,
+                RECRUITMENT_PROFILE_HONOR_LIMIT,
             );
         }
         setGrowingNumber(
