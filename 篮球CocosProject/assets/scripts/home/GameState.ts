@@ -474,6 +474,16 @@ export function getPlayerAcquisitionCount(displayName: string): number {
     );
 }
 
+export function getTotalRecruitmentCount(): number {
+    return Object.values(loadPlayerHistory().acquiredCounts).reduce(
+        (total, rawCount) => Math.min(
+            INT32_MAX,
+            total + Math.max(0, sanitizeInteger(rawCount, 0)),
+        ),
+        0,
+    );
+}
+
 export function getPlayerServiceDurationMs(
     displayName: string,
     roster: ReadonlyArray<PlayerCard | null> = loadRoster(),

@@ -8,6 +8,9 @@ import type {
 
 type CommentaryOutcome = 'made' | 'missed' | 'turnover' | 'free-throw';
 
+const MATCH_SECONDS = 60 * 4;
+const CLUTCH_SECONDS = 15;
+
 interface CommentaryRule {
     id: string;
     priority?: number;
@@ -146,7 +149,8 @@ export class MatchCommentarySelector {
     }
 
     private isClutch(event: MatchPlayEvent): boolean {
-        return event.quarter === 3 && event.startSecond >= 105;
+        return event.quarter === 3
+            && event.startSecond >= MATCH_SECONDS - CLUTCH_SECONDS;
     }
 
     private isCoolingDown(rule: CommentaryRule, eventIndex: number): boolean {

@@ -61,14 +61,19 @@ import {
 
 const { ccclass } = _decorator;
 
-const MATCH_SECONDS = 120;
-const QUARTER_SECONDS = 30;
+const QUARTER_SECONDS = 60;
+const MATCH_SECONDS = QUARTER_SECONDS * 4;
 const WIN_PREFAB_PATH = 'prefabs/比赛/胜利弹窗';
 const LOSE_PREFAB_PATH = 'prefabs/比赛/失败弹窗';
 const FONT_PATH = 'fonts/zpix';
 const MATCH_MEME_COMMENTARY_PATH = 'data/match_meme_commentary';
 const POSSESSIONS_PER_QUARTER = 10;
 const MAX_TEAM_SCORE = 60;
+const SKIPPED_MATCH_MIN_SCORE = 50;
+const SKIPPED_MATCH_MAX_NUMBER = 100;
+const SKIPPED_MATCH_BASE_RATE = 0.05;
+const SKIPPED_MATCH_RATE_PER_GAME = 0.001;
+const SKIPPED_MATCH_SCORE_VARIANCE = 0.1;
 
 interface MatchResult {
     band: MatchResultBand;
@@ -227,7 +232,7 @@ export class MatchController extends Component {
             return;
         }
         // 一次回合的动画尚未结束时，时钟最多推进到下一回合的开球时间。
-        // 这样不会在动画期间直接跑完 2 分钟，使所有播报时间都变成 02:00。
+        // 这样不会在动画期间直接跑完整场，使所有播报时间都挤到比赛末尾。
         const nextPlaySecond = this.courtSimulation?.isBusy
             ? (this.plannedPlays[this.nextPlayIndex]?.startSecond ?? MATCH_SECONDS)
             : MATCH_SECONDS;
@@ -1331,15 +1336,19 @@ export class MatchController extends Component {
     }
 
     private toggleDoubleSpeed = (): void => {
-        this.requestedSpeedMultiplier = this.requestedSpeedMultiplier === 1
-            ? 2
-            : 1;
+        this.requestedSpeedMultiplier = this.requestedSpeedMultiplier >= 3
+            ? 1
+            : this.requestedSpeedMultiplier + 1;
         if (!this.courtSimulation?.isBusy) {
             this.speedMultiplier = this.requestedSpeedMultiplier;
         }
         this.setButtonLabel(
             this.doubleSpeedButton,
-            this.requestedSpeedMultiplier === 2 ? '一倍速' : '二倍速',
+            this.requestedSpeedMultiplier === 1
+                ? '二倍速'
+                : this.requestedSpeedMultiplier === 2
+                    ? '三倍速'
+                    : '一倍速',
         );
     };
 
@@ -1347,27 +1356,118 @@ export class MatchController extends Component {
         if (!this.initialized || this.finished) {
             return;
         }
-        this.settleRemainingPlays();
+        this.settleSkippedMatch();
         this.elapsedMatchSeconds = MATCH_SECONDS;
         this.finishMatch();
     };
 
-    private settleRemainingPlays(): void {
-        this.courtSimulation?.settleImmediately();
-        for (const play of this.plannedPlays) {
-            const awarded = this.awardedPointsByPlay.get(play.index) ?? 0;
-            const remaining = Math.max(0, play.points - awarded);
-            if (remaining <= 0) {
-                continue;
-            }
-            const scores = play.offenseTeam === 0
-                ? this.playerQuarterScores
-                : this.opponentQuarterScores;
-            scores[play.quarter] += remaining;
-            this.awardedPointsByPlay.set(play.index, play.points);
+    private settleSkippedMatch(): void {
+        if (!this.session || !this.result) {
+            return;
         }
+        this.courtSimulation?.settleImmediately();
+        const effectivePlayerOverall = Math.min(
+            INT32_MAX,
+            Math.floor(
+                this.session.playerOverall
+                * (1 + Math.max(0, this.session.temporaryBonusPercent) / 100),
+            ),
+        );
+        let playerFinalScore = this.calculateSkippedMatchScore(effectivePlayerOverall);
+        let opponentFinalScore = this.calculateSkippedMatchScore(
+            this.session.opponentOverall,
+        );
+        let playerWon = playerFinalScore > opponentFinalScore;
+        if (playerFinalScore === opponentFinalScore) {
+            playerWon = this.result.won;
+            if (playerWon) {
+                playerFinalScore += 1;
+            } else {
+                opponentFinalScore += 1;
+            }
+        }
+        [playerFinalScore, opponentFinalScore] = this.randomizeSkippedMatchScores(
+            playerFinalScore,
+            opponentFinalScore,
+            playerWon,
+        );
+        const random = this.createSeededRandom(
+            `${this.session.matchId}:skip:${this.session.matchNumber}:${this.retryCount}`,
+        );
+        const playerQuarterScores = this.distributeQuarterScores(
+            playerFinalScore,
+            random,
+        );
+        const opponentQuarterScores = this.distributeQuarterScores(
+            opponentFinalScore,
+            random,
+        );
+        this.result = {
+            ...this.result,
+            won: playerWon,
+            playerFinalScore,
+            opponentFinalScore,
+            playerQuarterScores,
+            opponentQuarterScores,
+        };
+        this.playerQuarterScores = [...playerQuarterScores];
+        this.opponentQuarterScores = [...opponentQuarterScores];
         this.nextPlayIndex = this.plannedPlays.length;
         this.refreshScorePresentation(false);
+    }
+
+    private calculateSkippedMatchScore(teamOverall: number): number {
+        const matchNumber = Math.min(
+            SKIPPED_MATCH_MAX_NUMBER,
+            Math.max(1, Math.floor(this.session?.matchNumber ?? 1)),
+        );
+        const rate = SKIPPED_MATCH_BASE_RATE
+            + SKIPPED_MATCH_RATE_PER_GAME * matchNumber;
+        return Math.max(
+            SKIPPED_MATCH_MIN_SCORE,
+            Math.ceil(Math.max(0, teamOverall) * rate),
+        );
+    }
+
+    private randomizeSkippedMatchScores(
+        playerBaseScore: number,
+        opponentBaseScore: number,
+        playerWon: boolean,
+    ): [number, number] {
+        const playerMinimum = Math.max(
+            SKIPPED_MATCH_MIN_SCORE,
+            Math.ceil(playerBaseScore * (1 - SKIPPED_MATCH_SCORE_VARIANCE)),
+        );
+        const playerMaximum = Math.max(
+            playerMinimum,
+            Math.floor(playerBaseScore * (1 + SKIPPED_MATCH_SCORE_VARIANCE)),
+        );
+        const opponentMinimum = Math.max(
+            SKIPPED_MATCH_MIN_SCORE,
+            Math.ceil(opponentBaseScore * (1 - SKIPPED_MATCH_SCORE_VARIANCE)),
+        );
+        const opponentMaximum = Math.max(
+            opponentMinimum,
+            Math.floor(opponentBaseScore * (1 + SKIPPED_MATCH_SCORE_VARIANCE)),
+        );
+        let playerScore = this.randomInteger(playerMinimum, playerMaximum);
+        let opponentScore = this.randomInteger(opponentMinimum, opponentMaximum);
+        if (playerWon && playerScore <= opponentScore) {
+            playerScore = Math.min(playerMaximum, opponentScore + 1);
+            if (playerScore <= opponentScore) {
+                opponentScore = Math.max(opponentMinimum, playerScore - 1);
+            }
+        } else if (!playerWon && opponentScore <= playerScore) {
+            opponentScore = Math.min(opponentMaximum, playerScore + 1);
+            if (opponentScore <= playerScore) {
+                playerScore = Math.max(playerMinimum, opponentScore - 1);
+            }
+        }
+        return [playerScore, opponentScore];
+    }
+
+    private randomInteger(minimum: number, maximum: number): number {
+        return minimum + Math.floor(Math.random() * (maximum - minimum + 1));
     }
 
     private returnToHomepage(openPreMatch: boolean): void {

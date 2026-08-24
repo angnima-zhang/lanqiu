@@ -7,6 +7,9 @@ import {
 import { PlayerCard } from './GameState';
 import { MatchCommentarySelector } from './MatchCommentarySelector';
 
+// 与 MatchController 的单节时长保持一致。
+const MATCH_QUARTER_SECONDS = 60;
+
 export type MatchTactic =
     | 'five-out'
     | 'four-out-one-in'
@@ -290,7 +293,10 @@ export class MatchCourtSimulation {
                 this.executeTactic(setup, event, token);
             });
         };
-        if (event.quarter > 0 && event.startSecond === event.quarter * 30) {
+        if (
+            event.quarter > 0
+            && event.startSecond === event.quarter * MATCH_QUARTER_SECONDS
+        ) {
             this.playQuarterOpeningInbound(setup, event, token, beginTactic);
         } else {
             beginTactic();

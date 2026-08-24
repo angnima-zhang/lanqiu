@@ -385,7 +385,7 @@
     "__prefab": {
       "__id__": 16
     },
-    "_alignFlags": 45,
+    "_alignFlags": 41,
     "_target": null,
     "_left": 55,
     "_right": 55,
@@ -560,7 +560,7 @@
     "__prefab": {
       "__id__": 24
     },
-    "_alignFlags": 45,
+    "_alignFlags": 41,
     "_target": null,
     "_left": 70.38600000000002,
     "_right": 74.61399999999998,
@@ -1071,7 +1071,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 0,
+      "y": 360.0350000000001,
       "z": 0
     },
     "_lrot": {
@@ -1121,7 +1121,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 363.108,
+      "y": 0,
       "z": 0
     },
     "_lrot": {
@@ -1257,7 +1257,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": -342.305,
-      "y": 464.972,
+      "y": 110.573,
       "z": 0
     },
     "_lrot": {
@@ -1416,7 +1416,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": -394.995,
-      "y": 364.729,
+      "y": -4.045,
       "z": 0
     },
     "_lrot": {
@@ -1578,7 +1578,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 354.144,
-      "y": 364.027,
+      "y": 0,
       "z": 0
     },
     "_lrot": {
@@ -1795,7 +1795,7 @@
     "_target": null,
     "_left": 0,
     "_right": 0,
-    "_top": 1030,
+    "_top": 669.9649999999999,
     "_bottom": 0,
     "_horizontalCenter": 0,
     "_verticalCenter": 0,
@@ -1862,7 +1862,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 0,
+      "y": 99.78499999999997,
       "z": 0
     },
     "_lrot": {
@@ -1912,7 +1912,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 102.269,
+      "y": 0,
       "z": 0
     },
     "_lrot": {
@@ -2048,7 +2048,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": -342.305,
-      "y": 244.223,
+      "y": 140.913,
       "z": 0
     },
     "_lrot": {
@@ -2207,7 +2207,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": -3.355,
-      "y": 105.671,
+      "y": 0,
       "z": 0
     },
     "_lrot": {
@@ -2386,7 +2386,7 @@
     "_target": null,
     "_left": 0,
     "_right": 0,
-    "_top": 1030,
+    "_top": 930.215,
     "_bottom": 0,
     "_horizontalCenter": 0,
     "_verticalCenter": 0,
@@ -3183,7 +3183,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "累计胜场",
+    "_name": "累计招募次数",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": {
@@ -3215,7 +3215,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -653.2370000000001,
+      "y": -536.297,
       "z": 0
     },
     "_lrot": {
@@ -3265,7 +3265,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 102.269,
+      "y": 0,
       "z": 0
     },
     "_lrot": {
@@ -3400,8 +3400,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -342.305,
-      "y": 244.223,
+      "x": -290.706,
+      "y": 134.17,
       "z": 0
     },
     "_lrot": {
@@ -3441,7 +3441,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 180,
+      "width": 270,
       "height": 56.7
     },
     "_anchorPoint": {
@@ -3477,7 +3477,7 @@
       "b": 180,
       "a": 255
     },
-    "_string": "累计胜场",
+    "_string": "累计招募次数",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 45,
@@ -3538,7 +3538,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "胜场数",
+    "_name": "招募次数",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": {
@@ -3560,7 +3560,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": -3.355,
-      "y": 105.671,
+      "y": 0,
       "z": 0
     },
     "_lrot": {
@@ -3739,7 +3739,7 @@
     "_target": null,
     "_left": 0,
     "_right": 0,
-    "_top": 1683.237,
+    "_top": 1566.297,
     "_bottom": 0,
     "_horizontalCenter": 0,
     "_verticalCenter": 0,

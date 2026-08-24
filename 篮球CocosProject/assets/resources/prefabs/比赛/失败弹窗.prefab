@@ -376,7 +376,7 @@
     "__prefab": {
       "__id__": 16
     },
-    "_alignFlags": 45,
+    "_alignFlags": 41,
     "_target": null,
     "_left": 125.5,
     "_right": 125.5,
@@ -1681,7 +1681,7 @@
     "_horizontalAlign": 0,
     "_verticalAlign": 1,
     "_actualFontSize": 89,
-    "_fontSize": 100,
+    "_fontSize": 130,
     "_fontFamily": "Arial",
     "_lineHeight": 100,
     "_overflow": 2,

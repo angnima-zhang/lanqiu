@@ -24,6 +24,7 @@ import {
     getPlayerAcquisitionCount,
     getPlayerServiceDurationMs,
     getTeamAbbreviation,
+    getTotalRecruitmentCount,
     INT32_MAX,
     loadGameSettings,
     loadManagementLevels,
@@ -522,8 +523,8 @@ export class HomeUiController extends Component {
             this.teamInfoPage,
         );
         this.setLabel(
-            '累计胜场/胜场数',
-            String(loadSeasonState().officialWins),
+            '累计招募次数/招募次数',
+            String(getTotalRecruitmentCount()),
             this.teamInfoPage,
         );
         this.setLabel(
@@ -1269,7 +1270,10 @@ export class HomeUiController extends Component {
                 { nodes: this.namedChildren(this.teamInfoPage, ['球队名']), order: 1 },
                 { nodes: this.namedChildren(this.teamInfoPage, ['球队总评']), order: 2 },
                 { nodes: this.namedChildren(this.teamInfoPage, ['最佳球员']), order: 3 },
-                { nodes: this.namedChildren(this.teamInfoPage, ['累计胜场']), order: 4 },
+                {
+                    nodes: this.namedChildren(this.teamInfoPage, ['累计招募次数']),
+                    order: 4,
+                },
                 { nodes: this.namedChildren(this.teamInfoPage, ['保存并关闭']), order: 5 },
             ],
         });
