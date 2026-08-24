@@ -23,6 +23,14 @@ ALLTIME_OUT_CSV = DATA / "player_config_alltime_v2.csv"
 FAME_OUT_JSON = DATA / "player_config_fame_v3.json"
 FAME_OUT_CSV = DATA / "player_config_fame_v3.csv"
 ALLTIME_REFERENCE = DATA / "nba2k_alltime_teams.md"
+NBA_TEAM_NAMES_ZH = json.loads(
+    (DATA / "nba_team_names_zh.json").read_text(encoding="utf-8")
+)
+
+
+def localize_nba_team_name(team: object) -> str:
+    normalized = str(team).strip()
+    return NBA_TEAM_NAMES_ZH.get(normalized, normalized)
 
 QUALITY_NAMES = {
     3: "新秀",
@@ -1464,7 +1472,7 @@ def main() -> None:
                     "originalChineseSurname": original_cn_surname,
                     "realSurname": real_surname,
                     "season": int(row["season"]),
-                    "team": str(row["team"]),
+                    "team": localize_nba_team_name(row["team"]),
                     "position": str(row["position"]),
                     "quality": quality,
                     "qualityName": QUALITY_NAMES[quality],

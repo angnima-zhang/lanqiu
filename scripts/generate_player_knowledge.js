@@ -15,6 +15,12 @@ const writeJson = (relativePath, value) => fs.writeFileSync(
     `${JSON.stringify(value, null, 2)}\n`,
     'utf8',
 );
+const nbaTeamNamesZh = readJson('data/nba_team_names_zh.json');
+
+function localizeNbaTeamName(team) {
+    const normalized = String(team ?? '').trim();
+    return nbaTeamNamesZh[normalized] ?? normalized;
+}
 
 function parseCsv(text) {
     const rows = [];
@@ -775,7 +781,7 @@ function buildHonors(sourceName, playerId, profile, career, cba) {
 
 function getPeakSeason(card, cba) {
     const stats = card.sourceStats ?? {};
-    return cba?.peakSeason ?? {
+    const peakSeason = cba?.peakSeason ?? {
         season: card.season,
         team: card.team,
         pointsPerGame: number(stats.points_per_game),
@@ -784,11 +790,15 @@ function getPeakSeason(card, cba) {
         stealsPerGame: number(stats.steals_per_game),
         blocksPerGame: number(stats.blocks_per_game),
     };
+    return {
+        ...peakSeason,
+        team: localizeNbaTeamName(peakSeason.team),
+    };
 }
 
 function buildQuestions(sourceName, card, profile, career, cba, peakSeason) {
     const season = peakSeason.season;
-    const team = peakSeason.team || card.team || '其所在球队';
+    const team = localizeNbaTeamName(peakSeason.team || card.team) || '其所在球队';
     const mvp = Boolean(profile?.mvp_seasons?.length) || Boolean(cba?.mvpSeasons?.length);
     const funQuestions = FUN_QUESTIONS[sourceName] ?? [];
     const questions = [

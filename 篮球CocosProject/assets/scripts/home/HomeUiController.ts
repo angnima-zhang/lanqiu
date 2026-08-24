@@ -943,7 +943,10 @@ export class HomeUiController extends Component {
                 this.setKnowledgeAnswerButtonState(correctButton, false, false);
                 this.setKnowledgeAnswerButtonState(wrongButton, false, true);
                 if (answerAllButton) answerAllButton.node.active = false;
-                if (nextButton) nextButton.node.active = true;
+                if (nextButton) {
+                    nextButton.node.active = true;
+                    this.setKnowledgeAnswerButtonState(nextButton, true, false);
+                }
                 return;
             }
 
@@ -956,7 +959,10 @@ export class HomeUiController extends Component {
                 this.setKnowledgeAnswerButtonState(correctButton, false, false);
                 this.setKnowledgeAnswerButtonState(wrongButton, false, true);
                 if (answerAllButton) answerAllButton.node.active = false;
-                if (nextButton) nextButton.node.active = true;
+                if (nextButton) {
+                    nextButton.node.active = true;
+                    this.setKnowledgeAnswerButtonState(nextButton, true, false);
+                }
                 return;
             }
 
@@ -972,9 +978,15 @@ export class HomeUiController extends Component {
             );
             if (answerAllButton) {
                 answerAllButton.node.active = !progress.answerAllUnlocked;
+                if (!progress.answerAllUnlocked) {
+                    this.setKnowledgeAnswerButtonState(answerAllButton, true, false);
+                }
             }
             if (nextButton) {
                 nextButton.node.active = progress.answerAllUnlocked;
+                if (progress.answerAllUnlocked) {
+                    this.setKnowledgeAnswerButtonState(nextButton, false, true);
+                }
             }
         } catch (error) {
             console.error('[HomeUiController] Failed to load player knowledge.', error);
@@ -1106,6 +1118,17 @@ export class HomeUiController extends Component {
         const config = await loadPlayerKnowledgeConfig();
         const entry = config.players[card.sourcePlayerName];
         if (!entry) {
+            return;
+        }
+        const progress = getPlayerKnowledgeProgress(card.sourcePlayerName);
+        const currentQuestion = entry.questions[
+            progress.currentQuestionIndex % entry.questions.length
+        ];
+        if (
+            !currentQuestion
+            || !hasAnsweredPlayerKnowledgeQuestion(progress, currentQuestion.id)
+        ) {
+            await this.renderDetailedPlayerCard(this.playerDetailsPage, card);
             return;
         }
         advancePlayerKnowledgeQuestion(card.sourcePlayerName, entry.questions);

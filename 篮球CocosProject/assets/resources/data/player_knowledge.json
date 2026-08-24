@@ -1017,7 +1017,7 @@
         ],
         "peakSeason": {
           "season": 2007,
-          "team": "HOU",
+          "team": "火箭",
           "pointsPerGame": 25,
           "reboundsPerGame": 9.4,
           "assistsPerGame": 2,
@@ -1034,7 +1034,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2007 赛季效力过 HOU。",
+          "text": "{{playerName}} 在 2007 赛季效力过 火箭。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -1338,7 +1338,7 @@
         ],
         "peakSeason": {
           "season": 2006,
-          "team": "PHI",
+          "team": "76人",
           "pointsPerGame": 33,
           "reboundsPerGame": 3.2,
           "assistsPerGame": 7.4,
@@ -1355,7 +1355,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2006 赛季效力过 PHI。",
+          "text": "{{playerName}} 在 2006 赛季效力过 76人。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -1404,7 +1404,7 @@
         ],
         "peakSeason": {
           "season": 1996,
-          "team": "MIA",
+          "team": "热火",
           "pointsPerGame": 23.2,
           "reboundsPerGame": 10.4,
           "assistsPerGame": 2.3,
@@ -1421,7 +1421,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1996 赛季效力过 MIA。",
+          "text": "{{playerName}} 在 1996 赛季效力过 热火。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -1467,7 +1467,7 @@
         ],
         "peakSeason": {
           "season": 2005,
-          "team": "PHO",
+          "team": "太阳",
           "pointsPerGame": 26,
           "reboundsPerGame": 8.9,
           "assistsPerGame": 1.6,
@@ -1484,7 +1484,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2005 赛季效力过 PHO。",
+          "text": "{{playerName}} 在 2005 赛季效力过 太阳。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -1529,7 +1529,7 @@
         ],
         "peakSeason": {
           "season": 2024,
-          "team": "HOU",
+          "team": "火箭",
           "pointsPerGame": 9.5,
           "reboundsPerGame": 6.6,
           "assistsPerGame": 2.6,
@@ -1546,7 +1546,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2024 赛季效力过 HOU。",
+          "text": "{{playerName}} 在 2024 赛季效力过 火箭。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -1592,7 +1592,7 @@
         ],
         "peakSeason": {
           "season": 2017,
-          "team": "MIN",
+          "team": "森林狼",
           "pointsPerGame": 23.6,
           "reboundsPerGame": 4,
           "assistsPerGame": 2.3,
@@ -1615,7 +1615,7 @@
         },
         {
           "id": "q3",
-          "text": "{{playerName}} 在 2017 赛季效力过 MIN。",
+          "text": "{{playerName}} 在 2017 赛季效力过 森林狼。",
           "answer": true,
           "rewardOverall": 7
         },
@@ -1663,7 +1663,7 @@
         ],
         "peakSeason": {
           "season": 2018,
-          "team": "NOP",
+          "team": "鹈鹕",
           "pointsPerGame": 28.1,
           "reboundsPerGame": 11.1,
           "assistsPerGame": 2.3,
@@ -1680,7 +1680,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2018 赛季效力过 NOP。",
+          "text": "{{playerName}} 在 2018 赛季效力过 鹈鹕。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -1725,7 +1725,7 @@
         ],
         "peakSeason": {
           "season": 2026,
-          "team": "MIN",
+          "team": "森林狼",
           "pointsPerGame": 28.8,
           "reboundsPerGame": 5,
           "assistsPerGame": 3.7,
@@ -1742,7 +1742,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2026 赛季效力过 MIN。",
+          "text": "{{playerName}} 在 2026 赛季效力过 森林狼。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -1789,7 +1789,7 @@
         ],
         "peakSeason": {
           "season": 2019,
-          "team": "PHI",
+          "team": "76人",
           "pointsPerGame": 16.9,
           "reboundsPerGame": 8.8,
           "assistsPerGame": 7.7,
@@ -1812,7 +1812,7 @@
         },
         {
           "id": "q3",
-          "text": "{{playerName}} 在 2019 赛季效力过 PHI。",
+          "text": "{{playerName}} 在 2019 赛季效力过 76人。",
           "answer": true,
           "rewardOverall": 7
         },
@@ -1862,7 +1862,7 @@
         ],
         "peakSeason": {
           "season": 2005,
-          "team": "DET",
+          "team": "活塞",
           "pointsPerGame": 9.7,
           "reboundsPerGame": 12.2,
           "assistsPerGame": 1.7,
@@ -1879,7 +1879,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2005 赛季效力过 DET。",
+          "text": "{{playerName}} 在 2005 赛季效力过 活塞。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -1930,7 +1930,7 @@
         ],
         "peakSeason": {
           "season": 1962,
-          "team": "BOS",
+          "team": "凯尔特人",
           "pointsPerGame": 18.9,
           "reboundsPerGame": 23.6,
           "assistsPerGame": 4.5,
@@ -1947,7 +1947,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1962 赛季效力过 BOS。",
+          "text": "{{playerName}} 在 1962 赛季效力过 凯尔特人。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -2000,7 +2000,7 @@
         ],
         "peakSeason": {
           "season": 1978,
-          "team": "POR",
+          "team": "开拓者",
           "pointsPerGame": 18.9,
           "reboundsPerGame": 13.2,
           "assistsPerGame": 5,
@@ -2017,7 +2017,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1978 赛季效力过 POR。",
+          "text": "{{playerName}} 在 1978 赛季效力过 开拓者。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -2064,7 +2064,7 @@
         ],
         "peakSeason": {
           "season": 2019,
-          "team": "DET",
+          "team": "活塞",
           "pointsPerGame": 24.5,
           "reboundsPerGame": 7.5,
           "assistsPerGame": 5.4,
@@ -2081,7 +2081,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2019 赛季效力过 DET。",
+          "text": "{{playerName}} 在 2019 赛季效力过 活塞。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -2133,7 +2133,7 @@
         ],
         "peakSeason": {
           "season": 1962,
-          "team": "STL",
+          "team": "老鹰",
           "pointsPerGame": 31.1,
           "reboundsPerGame": 18.7,
           "assistsPerGame": 3.7,
@@ -2150,7 +2150,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1962 赛季效力过 STL。",
+          "text": "{{playerName}} 在 1962 赛季效力过 老鹰。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -2195,7 +2195,7 @@
         ],
         "peakSeason": {
           "season": 2022,
-          "team": "DET",
+          "team": "活塞",
           "pointsPerGame": 17.4,
           "reboundsPerGame": 5.5,
           "assistsPerGame": 5.6,
@@ -2212,7 +2212,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2022 赛季效力过 DET。",
+          "text": "{{playerName}} 在 2022 赛季效力过 活塞。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -2261,7 +2261,7 @@
         ],
         "peakSeason": {
           "season": 2007,
-          "team": "DEN",
+          "team": "掘金",
           "pointsPerGame": 28.9,
           "reboundsPerGame": 6,
           "assistsPerGame": 3.8,
@@ -2278,7 +2278,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2007 赛季效力过 DEN。",
+          "text": "{{playerName}} 在 2007 赛季效力过 掘金。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -2327,7 +2327,7 @@
         ],
         "peakSeason": {
           "season": 1988,
-          "team": "PHI",
+          "team": "76人",
           "pointsPerGame": 28.3,
           "reboundsPerGame": 11.9,
           "assistsPerGame": 3.2,
@@ -2344,7 +2344,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1988 赛季效力过 PHI。",
+          "text": "{{playerName}} 在 1988 赛季效力过 76人。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -2393,7 +2393,7 @@
         ],
         "peakSeason": {
           "season": 2010,
-          "team": "DEN",
+          "team": "掘金",
           "pointsPerGame": 19.5,
           "reboundsPerGame": 3.1,
           "assistsPerGame": 5.6,
@@ -2410,7 +2410,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2010 赛季效力过 DEN。",
+          "text": "{{playerName}} 在 2010 赛季效力过 掘金。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -2455,7 +2455,7 @@
         ],
         "peakSeason": {
           "season": 2024,
-          "team": "OKC",
+          "team": "雷霆",
           "pointsPerGame": 16.5,
           "reboundsPerGame": 7.9,
           "assistsPerGame": 2.4,
@@ -2472,7 +2472,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2024 赛季效力过 OKC。",
+          "text": "{{playerName}} 在 2024 赛季效力过 雷霆。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -2519,7 +2519,7 @@
         ],
         "peakSeason": {
           "season": 2010,
-          "team": "TOR",
+          "team": "猛龙",
           "pointsPerGame": 24,
           "reboundsPerGame": 10.8,
           "assistsPerGame": 2.4,
@@ -2536,7 +2536,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2010 赛季效力过 TOR。",
+          "text": "{{playerName}} 在 2010 赛季效力过 猛龙。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -2582,7 +2582,7 @@
         ],
         "peakSeason": {
           "season": 1989,
-          "team": "GSW",
+          "team": "勇士",
           "pointsPerGame": 26.5,
           "reboundsPerGame": 5.9,
           "assistsPerGame": 5.1,
@@ -2599,7 +2599,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1989 赛季效力过 GSW。",
+          "text": "{{playerName}} 在 1989 赛季效力过 勇士。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -2648,7 +2648,7 @@
         ],
         "peakSeason": {
           "season": 2009,
-          "team": "NOH",
+          "team": "黄蜂",
           "pointsPerGame": 22.8,
           "reboundsPerGame": 5.5,
           "assistsPerGame": 11,
@@ -2665,7 +2665,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2009 赛季效力过 NOH。",
+          "text": "{{playerName}} 在 2009 赛季效力过 黄蜂。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -2713,7 +2713,7 @@
         ],
         "peakSeason": {
           "season": 2001,
-          "team": "SAC",
+          "team": "国王",
           "pointsPerGame": 27.1,
           "reboundsPerGame": 11.1,
           "assistsPerGame": 4.2,
@@ -2730,7 +2730,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2001 赛季效力过 SAC。",
+          "text": "{{playerName}} 在 2001 赛季效力过 国王。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -2779,7 +2779,7 @@
         ],
         "peakSeason": {
           "season": 1989,
-          "team": "POR",
+          "team": "开拓者",
           "pointsPerGame": 27.2,
           "reboundsPerGame": 7.9,
           "assistsPerGame": 5.8,
@@ -2796,7 +2796,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1989 赛季效力过 POR。",
+          "text": "{{playerName}} 在 1989 赛季效力过 开拓者。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -2841,7 +2841,7 @@
         ],
         "peakSeason": {
           "season": 2026,
-          "team": "DAL",
+          "team": "独行侠",
           "pointsPerGame": 21,
           "reboundsPerGame": 6.7,
           "assistsPerGame": 4.5,
@@ -2858,7 +2858,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2026 赛季效力过 DAL。",
+          "text": "{{playerName}} 在 2026 赛季效力过 独行侠。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -2903,7 +2903,7 @@
         ],
         "peakSeason": {
           "season": 2025,
-          "team": "BRK",
+          "team": "篮网",
           "pointsPerGame": 0.6,
           "reboundsPerGame": 0.4,
           "assistsPerGame": 0,
@@ -2920,7 +2920,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2025 赛季效力过 BRK。",
+          "text": "{{playerName}} 在 2025 赛季效力过 篮网。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -2968,7 +2968,7 @@
         ],
         "peakSeason": {
           "season": 2023,
-          "team": "POR",
+          "team": "开拓者",
           "pointsPerGame": 32.2,
           "reboundsPerGame": 4.8,
           "assistsPerGame": 7.3,
@@ -2985,7 +2985,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2023 赛季效力过 POR。",
+          "text": "{{playerName}} 在 2023 赛季效力过 开拓者。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -3038,7 +3038,7 @@
         ],
         "peakSeason": {
           "season": 1994,
-          "team": "SAS",
+          "team": "马刺",
           "pointsPerGame": 29.8,
           "reboundsPerGame": 10.7,
           "assistsPerGame": 4.8,
@@ -3055,7 +3055,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1994 赛季效力过 SAS。",
+          "text": "{{playerName}} 在 1994 赛季效力过 马刺。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -3100,7 +3100,7 @@
         ],
         "peakSeason": {
           "season": 2020,
-          "team": "PHO",
+          "team": "太阳",
           "pointsPerGame": 18.2,
           "reboundsPerGame": 11.5,
           "assistsPerGame": 1.9,
@@ -3117,7 +3117,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2020 赛季效力过 PHO。",
+          "text": "{{playerName}} 在 2020 赛季效力过 太阳。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -3162,7 +3162,7 @@
         ],
         "peakSeason": {
           "season": 2017,
-          "team": "2TM",
+          "team": "多队",
           "pointsPerGame": 27,
           "reboundsPerGame": 11,
           "assistsPerGame": 4.6,
@@ -3179,7 +3179,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2017 赛季效力过 2TM。",
+          "text": "{{playerName}} 在 2017 赛季效力过 多队。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -3230,7 +3230,7 @@
         ],
         "peakSeason": {
           "season": 1988,
-          "team": "DET",
+          "team": "活塞",
           "pointsPerGame": 11.6,
           "reboundsPerGame": 8.7,
           "assistsPerGame": 1.3,
@@ -3247,7 +3247,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1988 赛季效力过 DET。",
+          "text": "{{playerName}} 在 1988 赛季效力过 活塞。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -3293,7 +3293,7 @@
         ],
         "peakSeason": {
           "season": 2011,
-          "team": "CHI",
+          "team": "公牛",
           "pointsPerGame": 25,
           "reboundsPerGame": 4.1,
           "assistsPerGame": 7.7,
@@ -3310,7 +3310,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2011 赛季效力过 CHI。",
+          "text": "{{playerName}} 在 2011 赛季效力过 公牛。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -3355,7 +3355,7 @@
         ],
         "peakSeason": {
           "season": 2023,
-          "team": "PHO",
+          "team": "太阳",
           "pointsPerGame": 27.8,
           "reboundsPerGame": 4.5,
           "assistsPerGame": 5.5,
@@ -3372,7 +3372,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2023 赛季效力过 PHO。",
+          "text": "{{playerName}} 在 2023 赛季效力过 太阳。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -3421,7 +3421,7 @@
         ],
         "peakSeason": {
           "season": 1992,
-          "team": "DEN",
+          "team": "掘金",
           "pointsPerGame": 16.6,
           "reboundsPerGame": 12.3,
           "assistsPerGame": 2.2,
@@ -3438,7 +3438,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1992 赛季效力过 DEN。",
+          "text": "{{playerName}} 在 1992 赛季效力过 掘金。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -3489,7 +3489,7 @@
         ],
         "peakSeason": {
           "season": 2006,
-          "team": "DAL",
+          "team": "独行侠",
           "pointsPerGame": 26.6,
           "reboundsPerGame": 9,
           "assistsPerGame": 2.8,
@@ -3506,7 +3506,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2006 赛季效力过 DAL。",
+          "text": "{{playerName}} 在 2006 赛季效力过 独行侠。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -3554,7 +3554,7 @@
         ],
         "peakSeason": {
           "season": 1988,
-          "team": "ATL",
+          "team": "老鹰",
           "pointsPerGame": 30.7,
           "reboundsPerGame": 6.4,
           "assistsPerGame": 2.9,
@@ -3571,7 +3571,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1988 赛季效力过 ATL。",
+          "text": "{{playerName}} 在 1988 赛季效力过 老鹰。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -3616,7 +3616,7 @@
         ],
         "peakSeason": {
           "season": 2023,
-          "team": "CLE",
+          "team": "骑士",
           "pointsPerGame": 28.3,
           "reboundsPerGame": 4.3,
           "assistsPerGame": 4.4,
@@ -3633,7 +3633,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2023 赛季效力过 CLE。",
+          "text": "{{playerName}} 在 2023 赛季效力过 骑士。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -3682,7 +3682,7 @@
         ],
         "peakSeason": {
           "season": 2016,
-          "team": "GSW",
+          "team": "勇士",
           "pointsPerGame": 14,
           "reboundsPerGame": 9.5,
           "assistsPerGame": 7.4,
@@ -3699,7 +3699,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2016 赛季效力过 GSW。",
+          "text": "{{playerName}} 在 2016 赛季效力过 勇士。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -3749,7 +3749,7 @@
         ],
         "peakSeason": {
           "season": 2011,
-          "team": "ORL",
+          "team": "魔术",
           "pointsPerGame": 22.9,
           "reboundsPerGame": 14.1,
           "assistsPerGame": 1.4,
@@ -3766,7 +3766,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2011 赛季效力过 ORL。",
+          "text": "{{playerName}} 在 2011 赛季效力过 魔术。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -3817,7 +3817,7 @@
         ],
         "peakSeason": {
           "season": 2009,
-          "team": "MIA",
+          "team": "热火",
           "pointsPerGame": 30.2,
           "reboundsPerGame": 5,
           "assistsPerGame": 7.5,
@@ -3834,7 +3834,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2009 赛季效力过 MIA。",
+          "text": "{{playerName}} 在 2009 赛季效力过 热火。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -3879,7 +3879,7 @@
         ],
         "peakSeason": {
           "season": 2026,
-          "team": "SAS",
+          "team": "马刺",
           "pointsPerGame": 11.8,
           "reboundsPerGame": 3.4,
           "assistsPerGame": 3.9,
@@ -3896,7 +3896,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2026 赛季效力过 SAS。",
+          "text": "{{playerName}} 在 2026 赛季效力过 马刺。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -3943,7 +3943,7 @@
         ],
         "peakSeason": {
           "season": 2022,
-          "team": "CLE",
+          "team": "骑士",
           "pointsPerGame": 15,
           "reboundsPerGame": 8.3,
           "assistsPerGame": 2.5,
@@ -3960,7 +3960,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2022 赛季效力过 CLE。",
+          "text": "{{playerName}} 在 2022 赛季效力过 骑士。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -4005,7 +4005,7 @@
         ],
         "peakSeason": {
           "season": 2022,
-          "team": "ORL",
+          "team": "魔术",
           "pointsPerGame": 15.2,
           "reboundsPerGame": 4.5,
           "assistsPerGame": 2.9,
@@ -4022,7 +4022,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2022 赛季效力过 ORL。",
+          "text": "{{playerName}} 在 2022 赛季效力过 魔术。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -4067,7 +4067,7 @@
         ],
         "peakSeason": {
           "season": 2022,
-          "team": "TOR",
+          "team": "猛龙",
           "pointsPerGame": 20.3,
           "reboundsPerGame": 4.4,
           "assistsPerGame": 6.7,
@@ -4084,7 +4084,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2022 赛季效力过 TOR。",
+          "text": "{{playerName}} 在 2022 赛季效力过 猛龙。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -4135,7 +4135,7 @@
         ],
         "peakSeason": {
           "season": 2000,
-          "team": "SEA",
+          "team": "超音速",
           "pointsPerGame": 24.2,
           "reboundsPerGame": 6.5,
           "assistsPerGame": 8.9,
@@ -4152,7 +4152,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2000 赛季效力过 SEA。",
+          "text": "{{playerName}} 在 2000 赛季效力过 超音速。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -4201,7 +4201,7 @@
         ],
         "peakSeason": {
           "season": 1980,
-          "team": "SAS",
+          "team": "马刺",
           "pointsPerGame": 33.1,
           "reboundsPerGame": 5.2,
           "assistsPerGame": 2.6,
@@ -4218,7 +4218,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1980 赛季效力过 SAS。",
+          "text": "{{playerName}} 在 1980 赛季效力过 马刺。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -4267,7 +4267,7 @@
         ],
         "peakSeason": {
           "season": 1949,
-          "team": "MNL",
+          "team": "湖人",
           "pointsPerGame": 28.3,
           "reboundsPerGame": 0,
           "assistsPerGame": 3.6,
@@ -4284,7 +4284,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1949 赛季效力过 MNL。",
+          "text": "{{playerName}} 在 1949 赛季效力过 湖人。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -4336,7 +4336,7 @@
         ],
         "peakSeason": {
           "season": 2023,
-          "team": "MIL",
+          "team": "雄鹿",
           "pointsPerGame": 31.1,
           "reboundsPerGame": 11.8,
           "assistsPerGame": 5.7,
@@ -4353,7 +4353,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2023 赛季效力过 MIL。",
+          "text": "{{playerName}} 在 2023 赛季效力过 雄鹿。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -4401,7 +4401,7 @@
         ],
         "peakSeason": {
           "season": 2000,
-          "team": "DET",
+          "team": "活塞",
           "pointsPerGame": 25.8,
           "reboundsPerGame": 6.6,
           "assistsPerGame": 5.2,
@@ -4418,7 +4418,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2000 赛季效力过 DET。",
+          "text": "{{playerName}} 在 2000 赛季效力过 活塞。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -4463,7 +4463,7 @@
         ],
         "peakSeason": {
           "season": 2010,
-          "team": "POR",
+          "team": "开拓者",
           "pointsPerGame": 11.1,
           "reboundsPerGame": 8.5,
           "assistsPerGame": 0.9,
@@ -4480,7 +4480,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2010 赛季效力过 POR。",
+          "text": "{{playerName}} 在 2010 赛季效力过 开拓者。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -4533,7 +4533,7 @@
         ],
         "peakSeason": {
           "season": 1995,
-          "team": "HOU",
+          "team": "火箭",
           "pointsPerGame": 27.8,
           "reboundsPerGame": 10.8,
           "assistsPerGame": 3.5,
@@ -4550,7 +4550,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1995 赛季效力过 HOU。",
+          "text": "{{playerName}} 在 1995 赛季效力过 火箭。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -4600,7 +4600,7 @@
         ],
         "peakSeason": {
           "season": 1983,
-          "team": "DET",
+          "team": "活塞",
           "pointsPerGame": 22.9,
           "reboundsPerGame": 4,
           "assistsPerGame": 7.8,
@@ -4617,7 +4617,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1983 赛季效力过 DET。",
+          "text": "{{playerName}} 在 1983 赛季效力过 活塞。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -4663,7 +4663,7 @@
         ],
         "peakSeason": {
           "season": 2013,
-          "team": "NYK",
+          "team": "尼克斯",
           "pointsPerGame": 18.1,
           "reboundsPerGame": 5.3,
           "assistsPerGame": 2.7,
@@ -4680,7 +4680,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2013 赛季效力过 NYK。",
+          "text": "{{playerName}} 在 2013 赛季效力过 尼克斯。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -4727,7 +4727,7 @@
         ],
         "peakSeason": {
           "season": 2024,
-          "team": "NYK",
+          "team": "尼克斯",
           "pointsPerGame": 28.7,
           "reboundsPerGame": 3.6,
           "assistsPerGame": 6.7,
@@ -4744,7 +4744,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2024 赛季效力过 NYK。",
+          "text": "{{playerName}} 在 2024 赛季效力过 尼克斯。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -4791,7 +4791,7 @@
         ],
         "peakSeason": {
           "season": 2023,
-          "team": "OKC",
+          "team": "雷霆",
           "pointsPerGame": 14.1,
           "reboundsPerGame": 4.5,
           "assistsPerGame": 3.3,
@@ -4808,7 +4808,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2023 赛季效力过 OKC。",
+          "text": "{{playerName}} 在 2023 赛季效力过 雷霆。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -4858,7 +4858,7 @@
         ],
         "peakSeason": {
           "season": 2019,
-          "team": "HOU",
+          "team": "火箭",
           "pointsPerGame": 36.1,
           "reboundsPerGame": 6.6,
           "assistsPerGame": 7.5,
@@ -4875,7 +4875,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2019 赛季效力过 HOU。",
+          "text": "{{playerName}} 在 2019 赛季效力过 火箭。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -4925,7 +4925,7 @@
         ],
         "peakSeason": {
           "season": 1991,
-          "team": "LAL",
+          "team": "湖人",
           "pointsPerGame": 21.4,
           "reboundsPerGame": 4.6,
           "assistsPerGame": 3.5,
@@ -4942,7 +4942,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1991 赛季效力过 LAL。",
+          "text": "{{playerName}} 在 1991 赛季效力过 湖人。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -4993,7 +4993,7 @@
         ],
         "peakSeason": {
           "season": 2003,
-          "team": "NJN",
+          "team": "篮网",
           "pointsPerGame": 18.7,
           "reboundsPerGame": 6.3,
           "assistsPerGame": 8.9,
@@ -5010,7 +5010,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2003 赛季效力过 NJN。",
+          "text": "{{playerName}} 在 2003 赛季效力过 篮网。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -5056,7 +5056,7 @@
         ],
         "peakSeason": {
           "season": 2001,
-          "team": "ATL",
+          "team": "老鹰",
           "pointsPerGame": 19.7,
           "reboundsPerGame": 3.3,
           "assistsPerGame": 4.9,
@@ -5073,7 +5073,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2001 赛季效力过 ATL。",
+          "text": "{{playerName}} 在 2001 赛季效力过 老鹰。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -5120,7 +5120,7 @@
         ],
         "peakSeason": {
           "season": 2026,
-          "team": "BOS",
+          "team": "凯尔特人",
           "pointsPerGame": 28.7,
           "reboundsPerGame": 6.9,
           "assistsPerGame": 5.1,
@@ -5137,7 +5137,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2026 赛季效力过 BOS。",
+          "text": "{{playerName}} 在 2026 赛季效力过 凯尔特人。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -5183,7 +5183,7 @@
         ],
         "peakSeason": {
           "season": 2023,
-          "team": "BOS",
+          "team": "凯尔特人",
           "pointsPerGame": 30.1,
           "reboundsPerGame": 8.8,
           "assistsPerGame": 4.6,
@@ -5200,7 +5200,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2023 赛季效力过 BOS。",
+          "text": "{{playerName}} 在 2023 赛季效力过 凯尔特人。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -5245,7 +5245,7 @@
         ],
         "peakSeason": {
           "season": 2019,
-          "team": "CHO",
+          "team": "黄蜂",
           "pointsPerGame": 15.3,
           "reboundsPerGame": 5.5,
           "assistsPerGame": 2.2,
@@ -5262,7 +5262,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2019 赛季效力过 CHO。",
+          "text": "{{playerName}} 在 2019 赛季效力过 黄蜂。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -5307,7 +5307,7 @@
         ],
         "peakSeason": {
           "season": 2018,
-          "team": "BRK",
+          "team": "篮网",
           "pointsPerGame": 18,
           "reboundsPerGame": 0,
           "assistsPerGame": 4,
@@ -5324,7 +5324,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2018 赛季效力过 BRK。",
+          "text": "{{playerName}} 在 2018 赛季效力过 篮网。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -5376,7 +5376,7 @@
         ],
         "peakSeason": {
           "season": 1966,
-          "team": "LAL",
+          "team": "湖人",
           "pointsPerGame": 31.3,
           "reboundsPerGame": 7.1,
           "assistsPerGame": 6.1,
@@ -5393,7 +5393,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1966 赛季效力过 LAL。",
+          "text": "{{playerName}} 在 1966 赛季效力过 湖人。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -5440,7 +5440,7 @@
         ],
         "peakSeason": {
           "season": 2017,
-          "team": "CHI",
+          "team": "公牛",
           "pointsPerGame": 23.9,
           "reboundsPerGame": 6.2,
           "assistsPerGame": 5.5,
@@ -5457,7 +5457,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2017 赛季效力过 CHI。",
+          "text": "{{playerName}} 在 2017 赛季效力过 公牛。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -5505,7 +5505,7 @@
         ],
         "peakSeason": {
           "season": 2024,
-          "team": "PHI",
+          "team": "76人",
           "pointsPerGame": 34.7,
           "reboundsPerGame": 11,
           "assistsPerGame": 5.6,
@@ -5522,7 +5522,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2024 赛季效力过 PHI。",
+          "text": "{{playerName}} 在 2024 赛季效力过 76人。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -5571,7 +5571,7 @@
         ],
         "peakSeason": {
           "season": 1991,
-          "team": "UTA",
+          "team": "爵士",
           "pointsPerGame": 17.2,
           "reboundsPerGame": 2.9,
           "assistsPerGame": 14.2,
@@ -5588,7 +5588,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1991 赛季效力过 UTA。",
+          "text": "{{playerName}} 在 1991 赛季效力过 爵士。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -5634,7 +5634,7 @@
         ],
         "peakSeason": {
           "season": 2017,
-          "team": "WAS",
+          "team": "奇才",
           "pointsPerGame": 23.1,
           "reboundsPerGame": 4.2,
           "assistsPerGame": 10.7,
@@ -5651,7 +5651,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2017 赛季效力过 WAS。",
+          "text": "{{playerName}} 在 2017 赛季效力过 奇才。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -5702,7 +5702,7 @@
         ],
         "peakSeason": {
           "season": 1980,
-          "team": "PHI",
+          "team": "76人",
           "pointsPerGame": 26.9,
           "reboundsPerGame": 7.4,
           "assistsPerGame": 4.6,
@@ -5719,7 +5719,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1980 赛季效力过 PHI。",
+          "text": "{{playerName}} 在 1980 赛季效力过 76人。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -5773,7 +5773,7 @@
         ],
         "peakSeason": {
           "season": 1972,
-          "team": "MIL",
+          "team": "雄鹿",
           "pointsPerGame": 34.8,
           "reboundsPerGame": 16.6,
           "assistsPerGame": 4.6,
@@ -5790,7 +5790,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1972 赛季效力过 MIL。",
+          "text": "{{playerName}} 在 1972 赛季效力过 雄鹿。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -5840,7 +5840,7 @@
         ],
         "peakSeason": {
           "season": 1990,
-          "team": "UTA",
+          "team": "爵士",
           "pointsPerGame": 31,
           "reboundsPerGame": 11.1,
           "assistsPerGame": 2.8,
@@ -5857,7 +5857,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1990 赛季效力过 UTA。",
+          "text": "{{playerName}} 在 1990 赛季效力过 爵士。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -5908,7 +5908,7 @@
         ],
         "peakSeason": {
           "season": 2026,
-          "team": "LAC",
+          "team": "快船",
           "pointsPerGame": 27.9,
           "reboundsPerGame": 6.4,
           "assistsPerGame": 3.6,
@@ -5925,7 +5925,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2026 赛季效力过 LAC。",
+          "text": "{{playerName}} 在 2026 赛季效力过 快船。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -5977,7 +5977,7 @@
         ],
         "peakSeason": {
           "season": 2014,
-          "team": "OKC",
+          "team": "雷霆",
           "pointsPerGame": 32,
           "reboundsPerGame": 7.4,
           "assistsPerGame": 5.5,
@@ -5994,7 +5994,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2014 赛季效力过 OKC。",
+          "text": "{{playerName}} 在 2014 赛季效力过 雷霆。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -6046,7 +6046,7 @@
         ],
         "peakSeason": {
           "season": 2004,
-          "team": "MIN",
+          "team": "森林狼",
           "pointsPerGame": 24.2,
           "reboundsPerGame": 13.9,
           "assistsPerGame": 5,
@@ -6063,7 +6063,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2004 赛季效力过 MIN。",
+          "text": "{{playerName}} 在 2004 赛季效力过 森林狼。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -6114,7 +6114,7 @@
         ],
         "peakSeason": {
           "season": 1987,
-          "team": "BOS",
+          "team": "凯尔特人",
           "pointsPerGame": 26.1,
           "reboundsPerGame": 9.9,
           "assistsPerGame": 2.6,
@@ -6131,7 +6131,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1987 赛季效力过 BOS。",
+          "text": "{{playerName}} 在 1987 赛季效力过 凯尔特人。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -6179,7 +6179,7 @@
         ],
         "peakSeason": {
           "season": 2017,
-          "team": "GSW",
+          "team": "勇士",
           "pointsPerGame": 22.3,
           "reboundsPerGame": 3.7,
           "assistsPerGame": 2.1,
@@ -6196,7 +6196,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2017 赛季效力过 GSW。",
+          "text": "{{playerName}} 在 2017 赛季效力过 勇士。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -6249,7 +6249,7 @@
         ],
         "peakSeason": {
           "season": 2006,
-          "team": "LAL",
+          "team": "湖人",
           "pointsPerGame": 35.4,
           "reboundsPerGame": 5.3,
           "assistsPerGame": 4.5,
@@ -6266,7 +6266,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2006 赛季效力过 LAL。",
+          "text": "{{playerName}} 在 2006 赛季效力过 湖人。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -6311,7 +6311,7 @@
         ],
         "peakSeason": {
           "season": 2021,
-          "team": "MEM",
+          "team": "灰熊",
           "pointsPerGame": 12.4,
           "reboundsPerGame": 5.7,
           "assistsPerGame": 3.6,
@@ -6328,7 +6328,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2021 赛季效力过 MEM。",
+          "text": "{{playerName}} 在 2021 赛季效力过 灰熊。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -6376,7 +6376,7 @@
         ],
         "peakSeason": {
           "season": 2020,
-          "team": "BRK",
+          "team": "篮网",
           "pointsPerGame": 27.4,
           "reboundsPerGame": 5.2,
           "assistsPerGame": 6.4,
@@ -6393,7 +6393,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2020 赛季效力过 BRK。",
+          "text": "{{playerName}} 在 2020 赛季效力过 篮网。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -6439,7 +6439,7 @@
         ],
         "peakSeason": {
           "season": 2007,
-          "team": "POR",
+          "team": "开拓者",
           "pointsPerGame": 9,
           "reboundsPerGame": 5,
           "assistsPerGame": 0.4,
@@ -6456,7 +6456,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2007 赛季效力过 POR。",
+          "text": "{{playerName}} 在 2007 赛季效力过 开拓者。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -6509,7 +6509,7 @@
         ],
         "peakSeason": {
           "season": 1988,
-          "team": "BOS",
+          "team": "凯尔特人",
           "pointsPerGame": 29.9,
           "reboundsPerGame": 9.3,
           "assistsPerGame": 6.1,
@@ -6526,7 +6526,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1988 赛季效力过 BOS。",
+          "text": "{{playerName}} 在 1988 赛季效力过 凯尔特人。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -6579,7 +6579,7 @@
         ],
         "peakSeason": {
           "season": 2006,
-          "team": "CLE",
+          "team": "骑士",
           "pointsPerGame": 31.4,
           "reboundsPerGame": 7,
           "assistsPerGame": 6.6,
@@ -6596,7 +6596,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2006 赛季效力过 CLE。",
+          "text": "{{playerName}} 在 2006 赛季效力过 骑士。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -6644,7 +6644,7 @@
         ],
         "peakSeason": {
           "season": 2024,
-          "team": "DAL",
+          "team": "独行侠",
           "pointsPerGame": 33.9,
           "reboundsPerGame": 9.2,
           "assistsPerGame": 9.8,
@@ -6661,7 +6661,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2024 赛季效力过 DAL。",
+          "text": "{{playerName}} 在 2024 赛季效力过 独行侠。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -6712,7 +6712,7 @@
         ],
         "peakSeason": {
           "season": 1987,
-          "team": "LAL",
+          "team": "湖人",
           "pointsPerGame": 23.9,
           "reboundsPerGame": 6.3,
           "assistsPerGame": 12.2,
@@ -6729,7 +6729,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1987 赛季效力过 LAL。",
+          "text": "{{playerName}} 在 1987 赛季效力过 湖人。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -6778,7 +6778,7 @@
         ],
         "peakSeason": {
           "season": 2008,
-          "team": "SAS",
+          "team": "马刺",
           "pointsPerGame": 19.5,
           "reboundsPerGame": 4.8,
           "assistsPerGame": 4.5,
@@ -6795,7 +6795,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2008 赛季效力过 SAS。",
+          "text": "{{playerName}} 在 2008 赛季效力过 马刺。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -6843,7 +6843,7 @@
         ],
         "peakSeason": {
           "season": 2017,
-          "team": "MEM",
+          "team": "灰熊",
           "pointsPerGame": 19.5,
           "reboundsPerGame": 6.3,
           "assistsPerGame": 4.6,
@@ -6860,7 +6860,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2017 赛季效力过 MEM。",
+          "text": "{{playerName}} 在 2017 赛季效力过 灰熊。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -6905,7 +6905,7 @@
         ],
         "peakSeason": {
           "season": 2002,
-          "team": "DEN",
+          "team": "掘金",
           "pointsPerGame": 5.1,
           "reboundsPerGame": 3.6,
           "assistsPerGame": 0.8,
@@ -6922,7 +6922,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2002 赛季效力过 DEN。",
+          "text": "{{playerName}} 在 2002 赛季效力过 掘金。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -6977,7 +6977,7 @@
         ],
         "peakSeason": {
           "season": 1987,
-          "team": "CHI",
+          "team": "公牛",
           "pointsPerGame": 37.1,
           "reboundsPerGame": 5.2,
           "assistsPerGame": 4.6,
@@ -6994,7 +6994,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1987 赛季效力过 CHI。",
+          "text": "{{playerName}} 在 1987 赛季效力过 公牛。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -7047,7 +7047,7 @@
         ],
         "peakSeason": {
           "season": 1982,
-          "team": "HOU",
+          "team": "火箭",
           "pointsPerGame": 31.1,
           "reboundsPerGame": 14.7,
           "assistsPerGame": 1.8,
@@ -7064,7 +7064,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1982 赛季效力过 HOU。",
+          "text": "{{playerName}} 在 1982 赛季效力过 火箭。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -7109,7 +7109,7 @@
         ],
         "peakSeason": {
           "season": 2014,
-          "team": "LAL",
+          "team": "湖人",
           "pointsPerGame": 17.9,
           "reboundsPerGame": 2.6,
           "assistsPerGame": 1.5,
@@ -7126,7 +7126,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2014 赛季效力过 LAL。",
+          "text": "{{playerName}} 在 2014 赛季效力过 湖人。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -7175,7 +7175,7 @@
         ],
         "peakSeason": {
           "season": 2025,
-          "team": "DEN",
+          "team": "掘金",
           "pointsPerGame": 29.6,
           "reboundsPerGame": 12.7,
           "assistsPerGame": 10.2,
@@ -7192,7 +7192,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2025 赛季效力过 DEN。",
+          "text": "{{playerName}} 在 2025 赛季效力过 掘金。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -7242,7 +7242,7 @@
         ],
         "peakSeason": {
           "season": 1964,
-          "team": "CIN",
+          "team": "皇家",
           "pointsPerGame": 31.4,
           "reboundsPerGame": 9.9,
           "assistsPerGame": 11,
@@ -7259,7 +7259,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1964 赛季效力过 CIN。",
+          "text": "{{playerName}} 在 1964 赛季效力过 皇家。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -7304,7 +7304,7 @@
         ],
         "peakSeason": {
           "season": 2023,
-          "team": "ORL",
+          "team": "魔术",
           "pointsPerGame": 20,
           "reboundsPerGame": 6.9,
           "assistsPerGame": 3.7,
@@ -7321,7 +7321,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2023 赛季效力过 ORL。",
+          "text": "{{playerName}} 在 2023 赛季效力过 魔术。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -7369,7 +7369,7 @@
         ],
         "peakSeason": {
           "season": 1990,
-          "team": "NYK",
+          "team": "尼克斯",
           "pointsPerGame": 28.6,
           "reboundsPerGame": 10.9,
           "assistsPerGame": 2.2,
@@ -7386,7 +7386,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1990 赛季效力过 NYK。",
+          "text": "{{playerName}} 在 1990 赛季效力过 尼克斯。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -7435,7 +7435,7 @@
         ],
         "peakSeason": {
           "season": 2007,
-          "team": "MEM",
+          "team": "灰熊",
           "pointsPerGame": 20.8,
           "reboundsPerGame": 9.8,
           "assistsPerGame": 3.4,
@@ -7452,7 +7452,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2007 赛季效力过 MEM。",
+          "text": "{{playerName}} 在 2007 赛季效力过 灰熊。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -7499,7 +7499,7 @@
         ],
         "peakSeason": {
           "season": 2019,
-          "team": "OKC",
+          "team": "雷霆",
           "pointsPerGame": 28,
           "reboundsPerGame": 8.2,
           "assistsPerGame": 4.1,
@@ -7516,7 +7516,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2019 赛季效力过 OKC。",
+          "text": "{{playerName}} 在 2019 赛季效力过 雷霆。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -7566,7 +7566,7 @@
         ],
         "peakSeason": {
           "season": 2006,
-          "team": "BOS",
+          "team": "凯尔特人",
           "pointsPerGame": 26.8,
           "reboundsPerGame": 6.7,
           "assistsPerGame": 4.7,
@@ -7583,7 +7583,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2006 赛季效力过 BOS。",
+          "text": "{{playerName}} 在 2006 赛季效力过 凯尔特人。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -7630,7 +7630,7 @@
         ],
         "peakSeason": {
           "season": 2013,
-          "team": "BOS",
+          "team": "凯尔特人",
           "pointsPerGame": 13.7,
           "reboundsPerGame": 5.6,
           "assistsPerGame": 11.1,
@@ -7647,7 +7647,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2013 赛季效力过 BOS。",
+          "text": "{{playerName}} 在 2013 赛季效力过 凯尔特人。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -7696,7 +7696,7 @@
         ],
         "peakSeason": {
           "season": 2007,
-          "team": "SEA",
+          "team": "超音速",
           "pointsPerGame": 26.4,
           "reboundsPerGame": 4.5,
           "assistsPerGame": 4.1,
@@ -7713,7 +7713,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2007 赛季效力过 SEA。",
+          "text": "{{playerName}} 在 2007 赛季效力过 超音速。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -7761,7 +7761,7 @@
         ],
         "peakSeason": {
           "season": 1990,
-          "team": "IND",
+          "team": "步行者",
           "pointsPerGame": 24.6,
           "reboundsPerGame": 3.6,
           "assistsPerGame": 3.8,
@@ -7778,7 +7778,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1990 赛季效力过 IND。",
+          "text": "{{playerName}} 在 1990 赛季效力过 步行者。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -7827,7 +7827,7 @@
         ],
         "peakSeason": {
           "season": 1982,
-          "team": "BOS",
+          "team": "凯尔特人",
           "pointsPerGame": 19.9,
           "reboundsPerGame": 10.8,
           "assistsPerGame": 1.8,
@@ -7844,7 +7844,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1982 赛季效力过 BOS。",
+          "text": "{{playerName}} 在 1982 赛季效力过 凯尔特人。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -7893,7 +7893,7 @@
         ],
         "peakSeason": {
           "season": 2017,
-          "team": "OKC",
+          "team": "雷霆",
           "pointsPerGame": 31.6,
           "reboundsPerGame": 10.7,
           "assistsPerGame": 10.4,
@@ -7910,7 +7910,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2017 赛季效力过 OKC。",
+          "text": "{{playerName}} 在 2017 赛季效力过 雷霆。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -7960,7 +7960,7 @@
         ],
         "peakSeason": {
           "season": 1994,
-          "team": "CHI",
+          "team": "公牛",
           "pointsPerGame": 22,
           "reboundsPerGame": 8.7,
           "assistsPerGame": 5.6,
@@ -7977,7 +7977,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1994 赛季效力过 CHI。",
+          "text": "{{playerName}} 在 1994 赛季效力过 公牛。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -8025,7 +8025,7 @@
         ],
         "peakSeason": {
           "season": 2025,
-          "team": "OKC",
+          "team": "雷霆",
           "pointsPerGame": 32.7,
           "reboundsPerGame": 5,
           "assistsPerGame": 6.4,
@@ -8042,7 +8042,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2025 赛季效力过 OKC。",
+          "text": "{{playerName}} 在 2025 赛季效力过 雷霆。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -8096,7 +8096,7 @@
         ],
         "peakSeason": {
           "season": 2000,
-          "team": "LAL",
+          "team": "湖人",
           "pointsPerGame": 29.7,
           "reboundsPerGame": 13.6,
           "assistsPerGame": 3.8,
@@ -8113,7 +8113,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2000 赛季效力过 LAL。",
+          "text": "{{playerName}} 在 2000 赛季效力过 湖人。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -8164,7 +8164,7 @@
         ],
         "peakSeason": {
           "season": 2021,
-          "team": "GSW",
+          "team": "勇士",
           "pointsPerGame": 32,
           "reboundsPerGame": 5.5,
           "assistsPerGame": 5.8,
@@ -8181,7 +8181,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2021 赛季效力过 GSW。",
+          "text": "{{playerName}} 在 2021 赛季效力过 勇士。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -8226,7 +8226,7 @@
         ],
         "peakSeason": {
           "season": 2025,
-          "team": "SAS",
+          "team": "马刺",
           "pointsPerGame": 14.7,
           "reboundsPerGame": 3.7,
           "assistsPerGame": 4.1,
@@ -8243,7 +8243,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2025 赛季效力过 SAS。",
+          "text": "{{playerName}} 在 2025 赛季效力过 马刺。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -8292,7 +8292,7 @@
         ],
         "peakSeason": {
           "season": 2006,
-          "team": "PHO",
+          "team": "太阳",
           "pointsPerGame": 18.8,
           "reboundsPerGame": 4.2,
           "assistsPerGame": 10.5,
@@ -8309,7 +8309,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2006 赛季效力过 PHO。",
+          "text": "{{playerName}} 在 2006 赛季效力过 太阳。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -8354,7 +8354,7 @@
         ],
         "peakSeason": {
           "season": 2009,
-          "team": "LAL",
+          "team": "湖人",
           "pointsPerGame": 0.6,
           "reboundsPerGame": 0,
           "assistsPerGame": 0.2,
@@ -8371,7 +8371,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2009 赛季效力过 LAL。",
+          "text": "{{playerName}} 在 2009 赛季效力过 湖人。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -8424,7 +8424,7 @@
         ],
         "peakSeason": {
           "season": 2002,
-          "team": "SAS",
+          "team": "马刺",
           "pointsPerGame": 25.5,
           "reboundsPerGame": 12.7,
           "assistsPerGame": 3.7,
@@ -8447,7 +8447,7 @@
         },
         {
           "id": "q3",
-          "text": "{{playerName}} 在 2002 赛季效力过 SAS。",
+          "text": "{{playerName}} 在 2002 赛季效力过 马刺。",
           "answer": true,
           "rewardOverall": 7
         },
@@ -8494,7 +8494,7 @@
         ],
         "peakSeason": {
           "season": 1999,
-          "team": "CHI",
+          "team": "公牛",
           "pointsPerGame": 18.8,
           "reboundsPerGame": 7,
           "assistsPerGame": 5.3,
@@ -8511,7 +8511,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1999 赛季效力过 CHI。",
+          "text": "{{playerName}} 在 1999 赛季效力过 公牛。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -8560,7 +8560,7 @@
         ],
         "peakSeason": {
           "season": 2009,
-          "team": "SAS",
+          "team": "马刺",
           "pointsPerGame": 22,
           "reboundsPerGame": 3.1,
           "assistsPerGame": 6.9,
@@ -8577,7 +8577,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2009 赛季效力过 SAS。",
+          "text": "{{playerName}} 在 2009 赛季效力过 马刺。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -8625,7 +8625,7 @@
         ],
         "peakSeason": {
           "season": 2003,
-          "team": "ORL",
+          "team": "魔术",
           "pointsPerGame": 32.1,
           "reboundsPerGame": 6.5,
           "assistsPerGame": 5.5,
@@ -8642,7 +8642,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2003 赛季效力过 ORL。",
+          "text": "{{playerName}} 在 2003 赛季效力过 魔术。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -8687,7 +8687,7 @@
         ],
         "peakSeason": {
           "season": 2020,
-          "team": "ATL",
+          "team": "老鹰",
           "pointsPerGame": 29.6,
           "reboundsPerGame": 4.3,
           "assistsPerGame": 9.3,
@@ -8704,7 +8704,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2020 赛季效力过 ATL。",
+          "text": "{{playerName}} 在 2020 赛季效力过 老鹰。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -8749,7 +8749,7 @@
         ],
         "peakSeason": {
           "season": 2021,
-          "team": "SAC",
+          "team": "国王",
           "pointsPerGame": 13,
           "reboundsPerGame": 3,
           "assistsPerGame": 5.3,
@@ -8766,7 +8766,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2021 赛季效力过 SAC。",
+          "text": "{{playerName}} 在 2021 赛季效力过 国王。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -8812,7 +8812,7 @@
         ],
         "peakSeason": {
           "season": 2024,
-          "team": "SAS",
+          "team": "马刺",
           "pointsPerGame": 21.4,
           "reboundsPerGame": 10.6,
           "assistsPerGame": 3.9,
@@ -8829,7 +8829,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2024 赛季效力过 SAS。",
+          "text": "{{playerName}} 在 2024 赛季效力过 马刺。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -8877,7 +8877,7 @@
         ],
         "peakSeason": {
           "season": 2001,
-          "team": "TOR",
+          "team": "猛龙",
           "pointsPerGame": 27.6,
           "reboundsPerGame": 5.5,
           "assistsPerGame": 3.9,
@@ -8894,7 +8894,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2001 赛季效力过 TOR。",
+          "text": "{{playerName}} 在 2001 赛季效力过 猛龙。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -8939,7 +8939,7 @@
         ],
         "peakSeason": {
           "season": 2026,
-          "team": "PHI",
+          "team": "76人",
           "pointsPerGame": 16,
           "reboundsPerGame": 5.6,
           "assistsPerGame": 4.2,
@@ -8956,7 +8956,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2026 赛季效力过 PHI。",
+          "text": "{{playerName}} 在 2026 赛季效力过 76人。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -9001,7 +9001,7 @@
         ],
         "peakSeason": {
           "season": 1995,
-          "team": "LAL",
+          "team": "湖人",
           "pointsPerGame": 16,
           "reboundsPerGame": 10.4,
           "assistsPerGame": 4.1,
@@ -9018,7 +9018,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1995 赛季效力过 LAL。",
+          "text": "{{playerName}} 在 1995 赛季效力过 湖人。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -9067,7 +9067,7 @@
         ],
         "peakSeason": {
           "season": 1972,
-          "team": "NYK",
+          "team": "尼克斯",
           "pointsPerGame": 23.2,
           "reboundsPerGame": 6.7,
           "assistsPerGame": 5.8,
@@ -9084,7 +9084,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1972 赛季效力过 NYK。",
+          "text": "{{playerName}} 在 1972 赛季效力过 尼克斯。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -9129,7 +9129,7 @@
         ],
         "peakSeason": {
           "season": 2002,
-          "team": "DAL",
+          "team": "独行侠",
           "pointsPerGame": 5.6,
           "reboundsPerGame": 2,
           "assistsPerGame": 0.4,
@@ -9146,7 +9146,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2002 赛季效力过 DAL。",
+          "text": "{{playerName}} 在 2002 赛季效力过 独行侠。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -9199,7 +9199,7 @@
         ],
         "peakSeason": {
           "season": 1962,
-          "team": "PHW",
+          "team": "勇士",
           "pointsPerGame": 50.4,
           "reboundsPerGame": 25.7,
           "assistsPerGame": 2.4,
@@ -9216,7 +9216,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 1962 赛季效力过 PHW。",
+          "text": "{{playerName}} 在 1962 赛季效力过 勇士。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -9261,7 +9261,7 @@
         ],
         "peakSeason": {
           "season": 2026,
-          "team": "POR",
+          "team": "开拓者",
           "pointsPerGame": 2.2,
           "reboundsPerGame": 1.5,
           "assistsPerGame": 0.5,
@@ -9278,7 +9278,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2026 赛季效力过 POR。",
+          "text": "{{playerName}} 在 2026 赛季效力过 开拓者。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -9325,7 +9325,7 @@
         ],
         "peakSeason": {
           "season": 2007,
-          "team": "HOU",
+          "team": "火箭",
           "pointsPerGame": 25,
           "reboundsPerGame": 9.4,
           "assistsPerGame": 2,
@@ -9342,7 +9342,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2007 赛季效力过 HOU。",
+          "text": "{{playerName}} 在 2007 赛季效力过 火箭。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -9387,7 +9387,7 @@
         ],
         "peakSeason": {
           "season": 2010,
-          "team": "NJN",
+          "team": "篮网",
           "pointsPerGame": 12,
           "reboundsPerGame": 7.2,
           "assistsPerGame": 0.9,
@@ -9404,7 +9404,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2010 赛季效力过 NJN。",
+          "text": "{{playerName}} 在 2010 赛季效力过 篮网。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -9449,7 +9449,7 @@
         ],
         "peakSeason": {
           "season": 2021,
-          "team": "CHI",
+          "team": "公牛",
           "pointsPerGame": 27.4,
           "reboundsPerGame": 5,
           "assistsPerGame": 4.9,
@@ -9466,7 +9466,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2021 赛季效力过 CHI。",
+          "text": "{{playerName}} 在 2021 赛季效力过 公牛。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -9511,7 +9511,7 @@
         ],
         "peakSeason": {
           "season": 2019,
-          "team": "HOU",
+          "team": "火箭",
           "pointsPerGame": 2,
           "reboundsPerGame": 0,
           "assistsPerGame": 0,
@@ -9528,7 +9528,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2019 赛季效力过 HOU。",
+          "text": "{{playerName}} 在 2019 赛季效力过 火箭。",
           "answer": true,
           "rewardOverall": 6
         },
@@ -9573,7 +9573,7 @@
         ],
         "peakSeason": {
           "season": 2021,
-          "team": "NOP",
+          "team": "鹈鹕",
           "pointsPerGame": 27,
           "reboundsPerGame": 7.2,
           "assistsPerGame": 3.7,
@@ -9590,7 +9590,7 @@
         },
         {
           "id": "q2",
-          "text": "{{playerName}} 在 2021 赛季效力过 NOP。",
+          "text": "{{playerName}} 在 2021 赛季效力过 鹈鹕。",
           "answer": true,
           "rewardOverall": 6
         },
