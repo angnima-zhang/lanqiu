@@ -12,6 +12,7 @@ interface CommentaryRule {
     id: string;
     priority?: number;
     action?: MatchPlayAction;
+    actions?: MatchPlayAction[];
     outcome?: CommentaryOutcome;
     actors?: string[];
     teamHasAll?: string[];
@@ -19,7 +20,8 @@ interface CommentaryRule {
     passerMustBe?: string[];
     tactics?: MatchTactic[];
     clutch?: boolean;
-    texts: string[];
+    texts?: string[];
+    series?: string[][];
 }
 
 interface CommentaryLibraryData {
@@ -48,7 +50,7 @@ export class MatchCommentarySelector {
         return new MatchCommentarySelector(asset.json);
     }
 
-    public select(context: MatchCommentaryContext): string | null {
+    public select(context: MatchCommentaryContext): readonly string[] | null {
         const matches = this.rules.filter((rule) => this.matches(rule, context));
         if (matches.length === 0) {
             return null;
@@ -63,13 +65,13 @@ export class MatchCommentarySelector {
         const startIndex = this.seed(context.event, context.actor) % candidates.length;
         for (let offset = 0; offset < candidates.length; offset += 1) {
             const rule = candidates[(startIndex + offset) % candidates.length];
-            const text = this.pickText(rule, context);
-            if (!text) {
+            const series = this.pickSeries(rule, context);
+            if (!series) {
                 continue;
             }
             this.lastEventByRule.set(rule.id, context.event.index);
-            this.usedTexts.add(text);
-            return text;
+            this.usedTexts.add(series.join('\u0000'));
+            return series;
         }
         return null;
     }
@@ -85,14 +87,24 @@ export class MatchCommentarySelector {
         return rawRules.filter((rule): rule is CommentaryRule => (
             Boolean(rule)
             && typeof rule.id === 'string'
-            && Array.isArray(rule.texts)
-            && rule.texts.some((text) => typeof text === 'string' && text.length > 0)
+            && (
+                (Array.isArray(rule.texts)
+                    && rule.texts.some((text) => typeof text === 'string' && text.length > 0))
+                || (Array.isArray(rule.series)
+                    && rule.series.some((series) => (
+                        Array.isArray(series)
+                        && series.some((text) => typeof text === 'string' && text.length > 0)
+                    )))
+            )
         ));
     }
 
     private matches(rule: CommentaryRule, context: MatchCommentaryContext): boolean {
         const { event } = context;
         if (rule.action && rule.action !== event.action) {
+            return false;
+        }
+        if (Array.isArray(rule.actions) && !rule.actions.includes(event.action)) {
             return false;
         }
         if (rule.outcome && rule.outcome !== context.outcome) {
@@ -142,19 +154,33 @@ export class MatchCommentarySelector {
         return lastEvent !== undefined && eventIndex - lastEvent <= 2;
     }
 
-    private pickText(rule: CommentaryRule, context: MatchCommentaryContext): string | null {
-        const texts = rule.texts.filter((text) => typeof text === 'string' && text.length > 0);
-        if (texts.length === 0) {
+    private pickSeries(
+        rule: CommentaryRule,
+        context: MatchCommentaryContext,
+    ): readonly string[] | null {
+        const choices = [
+            ...(rule.texts ?? [])
+                .filter((text) => typeof text === 'string' && text.length > 0)
+                .map((text) => [text]),
+            ...(rule.series ?? [])
+                .filter((series) => (
+                    Array.isArray(series)
+                    && series.length > 0
+                    && series.every((text) => typeof text === 'string' && text.length > 0)
+                )),
+        ];
+        if (choices.length === 0) {
             return null;
         }
-        const startIndex = this.seed(context.event, context.actor) % texts.length;
-        for (let offset = 0; offset < texts.length; offset += 1) {
-            const text = this.render(texts[(startIndex + offset) % texts.length], context);
-            if (!this.usedTexts.has(text)) {
-                return text;
+        const startIndex = this.seed(context.event, context.actor) % choices.length;
+        for (let offset = 0; offset < choices.length; offset += 1) {
+            const series = choices[(startIndex + offset) % choices.length]
+                .map((text) => this.render(text, context));
+            if (!this.usedTexts.has(series.join('\u0000'))) {
+                return series;
             }
         }
-        return this.render(texts[startIndex], context);
+        return choices[startIndex].map((text) => this.render(text, context));
     }
 
     private render(text: string, context: MatchCommentaryContext): string {

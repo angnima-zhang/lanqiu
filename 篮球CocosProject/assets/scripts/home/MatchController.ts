@@ -36,6 +36,7 @@ import {
     loadPlayerPortrait,
     loadRoundQualityFrame,
 } from './PlayerAssets';
+import { preloadHomepageRuntimeAssets } from './HomepagePreloader';
 import { formatPlayerOverall } from './RosterSlotView';
 import { showRewardedVideo } from './RewardedAdService';
 import { gameAudio } from './GameAudio';
@@ -84,6 +85,73 @@ interface CommentaryLine {
     richText: string;
 }
 
+interface OffensiveTendency {
+    handler: number;
+    three: number;
+    jumper: number;
+    layup: number;
+    dunk: number;
+    post: number;
+}
+
+type ShotAction = 'three' | 'jumper' | 'layup' | 'dunk';
+
+const POSITION_OFFENSIVE_TENDENCIES: Readonly<Record<string, OffensiveTendency>> = {
+    PG: { handler: 1.55, three: 1.2, jumper: 1.12, layup: 1.18, dunk: 0.24, post: 0.12 },
+    SG: { handler: 1.18, three: 1.32, jumper: 1.26, layup: 1.05, dunk: 0.54, post: 0.2 },
+    SF: { handler: 0.88, three: 1, jumper: 1.16, layup: 1.08, dunk: 0.9, post: 0.62 },
+    PF: { handler: 0.48, three: 0.48, jumper: 0.98, layup: 1.08, dunk: 1.08, post: 1.3 },
+    C: { handler: 0.28, three: 0.12, jumper: 0.72, layup: 1.16, dunk: 1.32, post: 1.7 },
+};
+
+const DEFAULT_OFFENSIVE_TENDENCY: OffensiveTendency = {
+    handler: 0.8,
+    three: 0.8,
+    jumper: 1,
+    layup: 1,
+    dunk: 0.7,
+    post: 0.5,
+};
+
+/**
+ * 与 NBA 2K 的“出手/突破/扣篮/背身”分项同一层级：位置决定基础倾向，
+ * 明星球员只覆盖自己鲜明的打法，未列出的球员仍由位置规则自然分流。
+ */
+const PLAYER_OFFENSIVE_TENDENCY_OVERRIDES: Readonly<
+    Record<string, Partial<OffensiveTendency>>
+> = {
+    'Stephen Curry': { handler: 1.48, three: 2.45, jumper: 0.82, layup: 0.82, dunk: 0.05 },
+    'Klay Thompson': { handler: 0.72, three: 2.25, jumper: 1.05, layup: 0.68, dunk: 0.18 },
+    'Damian Lillard': { handler: 1.5, three: 2.15, jumper: 0.9, layup: 1.05, dunk: 0.16 },
+    'Trae Young': { handler: 1.55, three: 1.9, jumper: 1.06, layup: 1.18, dunk: 0.04 },
+    'Ray Allen': { three: 2.1, jumper: 1.2, layup: 0.7, dunk: 0.16 },
+    'Reggie Miller': { three: 2.15, jumper: 1.1, layup: 0.76, dunk: 0.12 },
+    'James Harden': { handler: 1.55, three: 1.72, jumper: 1.08, layup: 1.16, dunk: 0.28 },
+    'Luka Dončić': { handler: 1.58, three: 1.42, jumper: 1.28, layup: 1.1, dunk: 0.16, post: 1.16 },
+    'Kyrie Irving': { handler: 1.5, three: 1.32, jumper: 1.24, layup: 1.52, dunk: 0.1 },
+    'Chris Paul': { handler: 1.52, three: 1.18, jumper: 1.45, layup: 0.82, dunk: 0.04 },
+    'Steve Nash': { handler: 1.5, three: 1.32, jumper: 1.28, layup: 0.9, dunk: 0.04 },
+    'Magic Johnson': { handler: 1.45, three: 0.35, jumper: 1.1, layup: 1.22, dunk: 0.48, post: 1.35 },
+    'Kobe Bryant': { handler: 1.24, three: 0.92, jumper: 1.68, layup: 1.1, dunk: 0.92, post: 1.08 },
+    'Michael Jordan': { handler: 1.22, three: 0.44, jumper: 1.75, layup: 1.28, dunk: 1.16, post: 1.12 },
+    'Kevin Durant': { handler: 1.16, three: 1.36, jumper: 1.72, layup: 1.04, dunk: 0.72, post: 1.18 },
+    'LeBron James': { handler: 1.42, three: 0.82, jumper: 0.88, layup: 1.42, dunk: 1.5, post: 1.08 },
+    'Giannis Antetokounmpo': { handler: 1.12, three: 0.16, jumper: 0.5, layup: 1.42, dunk: 1.75, post: 1.22 },
+    'Russell Westbrook': { handler: 1.48, three: 0.5, jumper: 0.78, layup: 1.3, dunk: 1.4 },
+    'Shaquille O\'Neal': { three: 0.02, jumper: 0.18, layup: 1.38, dunk: 2.35, post: 2.5 },
+    'Dwight Howard': { three: 0.04, jumper: 0.26, layup: 1.3, dunk: 1.95, post: 1.62 },
+    'Wilt Chamberlain': { three: 0.04, jumper: 0.48, layup: 1.42, dunk: 1.8, post: 2.2 },
+    'Kareem Abdul-Jabbar': { three: 0.03, jumper: 1.3, layup: 1.2, dunk: 0.72, post: 2.35 },
+    'Hakeem Olajuwon': { three: 0.12, jumper: 1.18, layup: 1.2, dunk: 1.02, post: 2.25 },
+    'Tim Duncan': { three: 0.1, jumper: 1.12, layup: 1.22, dunk: 1.06, post: 2.05 },
+    'Nikola Jokić': { handler: 1.08, three: 1.12, jumper: 1.35, layup: 1.2, dunk: 0.2, post: 1.92 },
+    'Joel Embiid': { three: 1.05, jumper: 1.34, layup: 1.1, dunk: 1.08, post: 1.9 },
+    'Anthony Davis': { three: 0.58, jumper: 1.12, layup: 1.24, dunk: 1.38, post: 1.35 },
+    'Dirk Nowitzki': { three: 0.78, jumper: 2, layup: 0.72, dunk: 0.16, post: 1.9 },
+    'Larry Bird': { three: 1.5, jumper: 1.62, layup: 0.78, dunk: 0.1, post: 1.02 },
+    'Karl Malone': { three: 0.1, jumper: 1.08, layup: 1.22, dunk: 1.35, post: 1.9 },
+};
+
 @ccclass('MatchController')
 export class MatchController extends Component {
     private page: Node | null = null;
@@ -100,6 +168,7 @@ export class MatchController extends Component {
     private commentaryLines: CommentaryLine[] = [];
     private plannedPlays: MatchPlayEvent[] = [];
     private nextPlayIndex = 0;
+    private lastStartedQuarter = 0;
     private playerQuarterScores = [0, 0, 0, 0];
     private opponentQuarterScores = [0, 0, 0, 0];
     private readonly awardedPointsByPlay = new Map<number, number>();
@@ -157,8 +226,13 @@ export class MatchController extends Component {
         if (!this.initialized || this.finished || !this.result) {
             return;
         }
+        // 一次回合的动画尚未结束时，时钟最多推进到下一回合的开球时间。
+        // 这样不会在动画期间直接跑完 2 分钟，使所有播报时间都变成 02:00。
+        const nextPlaySecond = this.courtSimulation?.isBusy
+            ? (this.plannedPlays[this.nextPlayIndex]?.startSecond ?? MATCH_SECONDS)
+            : MATCH_SECONDS;
         this.elapsedMatchSeconds = Math.min(
-            MATCH_SECONDS,
+            nextPlaySecond,
             this.elapsedMatchSeconds + deltaTime * this.speedMultiplier,
         );
         this.refreshClockPresentation();
@@ -226,6 +300,8 @@ export class MatchController extends Component {
         this.elapsedMatchSeconds = 0;
         this.commentaryLines = [];
         this.nextPlayIndex = 0;
+        this.lastStartedQuarter = 0;
+        this.initialized = false;
         this.playerQuarterScores = [0, 0, 0, 0];
         this.opponentQuarterScores = [0, 0, 0, 0];
         this.awardedPointsByPlay.clear();
@@ -248,14 +324,24 @@ export class MatchController extends Component {
         this.pushCommentary(
             0,
             forceWin
-                ? '广告助威生效，球队士气被彻底点燃，比赛从第一节重新开始！'
+                ? '广告助威生效，球队士气被彻底点燃。双方在中圈跳球，第一节重新开始！'
                 : this.retryCount > 0
-                    ? `广告加成生效，本场球队总评临时提升${this.session.temporaryBonusPercent}%！`
-                    : `${this.session.playerTeamName}与${this.session.opponentTeamName}的比赛正式开始！`,
+                    ? `广告加成生效，本场球队总评临时提升${this.session.temporaryBonusPercent}%。双方在中圈跳球，第一节比赛开始！`
+                    : `${this.session.playerTeamName}与${this.session.opponentTeamName}在中圈跳球，第一节比赛正式开始！`,
         );
-        this.courtSimulation?.reset(this.plannedPlays[0]?.offenseTeam ?? 0);
-        this.initialized = true;
-        this.startDueCourtPlay();
+        const openingTeam = this.plannedPlays[0]?.offenseTeam ?? 0;
+        this.courtSimulation?.reset(openingTeam);
+        const beginMatch = (): void => {
+            if (!this.isValid || this.finished) {
+                return;
+            }
+            this.initialized = true;
+            this.startDueCourtPlay();
+        };
+        if (this.courtSimulation?.playOpeningJumpBall(openingTeam, beginMatch)) {
+            return;
+        }
+        beginMatch();
     }
 
     private createMatchResult(forceWin: boolean): MatchResult {
@@ -343,12 +429,15 @@ export class MatchController extends Component {
             (total, card) => total + Math.max(0, card.attributes.scoring),
             0,
         );
+        const scoringAverage = scoringSum / active.length;
+        const scoringStrength = Math.min(
+            1.35,
+            Math.max(0.25, scoringAverage / 180),
+        );
         return Math.min(
             INT32_MAX,
             Math.floor(
-                scoringSum / active.length
-                * 5
-                * 0.1
+                (22 + scoringStrength * 12)
                 * (0.9 + random() * 0.2),
             ),
         );
@@ -399,13 +488,6 @@ export class MatchController extends Component {
             `${this.session?.matchId}:plays:${this.retryCount}:${result.forcedWin}`,
         );
         const plays: MatchPlayEvent[] = [];
-        const tactics: MatchTactic[] = [
-            'five-out',
-            'four-out-one-in',
-            'pick-and-roll',
-            'low-post',
-            'horns',
-        ];
         let offenseTeam = random() < 0.5 ? 0 : 1;
         let lastTactic: MatchTactic | null = null;
         for (let quarter = 0; quarter < 4; quarter += 1) {
@@ -427,14 +509,22 @@ export class MatchController extends Component {
             ) {
                 const points = teamPoints[offenseTeam][teamTurns[offenseTeam]];
                 teamTurns[offenseTeam] += 1;
-                const tacticCandidates = lastTactic
-                    ? tactics.filter((tactic) => tactic !== lastTactic)
-                    : tactics;
-                const tactic = tacticCandidates[
-                    Math.floor(random() * tacticCandidates.length)
-                ];
+                const lineup = this.getTopFive(
+                    offenseTeam === 0
+                        ? this.session?.playerRoster ?? []
+                        : this.session?.opponentRoster ?? [],
+                );
+                const action = this.pickPlayAction(points, lineup, random);
+                const shooterIndex = this.pickShooterIndex(lineup, action, random);
+                const shooter = lineup[shooterIndex] ?? null;
+                const handlerIndex = this.pickHandlerIndex(lineup, random);
+                const tactic = this.pickTactic(
+                    action,
+                    shooter,
+                    lastTactic,
+                    random,
+                );
                 lastTactic = tactic;
-                const action = this.pickPlayAction(points, random);
                 const rebound = this.pickReboundResult(random);
                 plays.push({
                     index: plays.length,
@@ -447,9 +537,11 @@ export class MatchController extends Component {
                     tactic,
                     action,
                     points,
-                    shooterIndex: Math.floor(random() * 5),
-                    handlerIndex: Math.floor(random() * 5),
-                    passerIndex: Math.floor(random() * 5),
+                    shooterIndex,
+                    handlerIndex: this.shouldShooterHandle(action, random)
+                        ? shooterIndex
+                        : handlerIndex,
+                    passerIndex: handlerIndex,
                     made: points > 0,
                     foul: action === 'free-throw' || action === 'and-one',
                     rebound,
@@ -465,8 +557,9 @@ export class MatchController extends Component {
         total: number,
         random: () => number,
     ): number[] {
-        const points = [0, 0, 0, 0, 0];
-        let remaining = Math.max(0, Math.min(15, total));
+        const possessionCount = Math.max(1, Math.floor(POSSESSIONS_PER_QUARTER / 2));
+        const points = Array.from({ length: possessionCount }, () => 0);
+        let remaining = Math.max(0, Math.min(possessionCount * 3, total));
         for (let index = 0; index < points.length; index += 1) {
             const slotsAfter = points.length - index - 1;
             const minimum = Math.max(0, remaining - slotsAfter * 3);
@@ -478,14 +571,7 @@ export class MatchController extends Component {
                     { length: maximum - minimum + 1 },
                     (_, choice) => minimum + choice,
                 );
-                const preferred = choices.filter((value) => (
-                    value === 0
-                    || value === 2
-                    || value === 3
-                    || remaining === 1
-                ));
-                const pool = preferred.length > 0 ? preferred : choices;
-                points[index] = pool[Math.floor(random() * pool.length)];
+                points[index] = this.pickWeightedPointValue(choices, random);
             }
             remaining -= points[index];
         }
@@ -494,35 +580,212 @@ export class MatchController extends Component {
 
     private pickPlayAction(
         points: number,
+        lineup: ReadonlyArray<PlayerCard>,
         random: () => number,
     ): MatchPlayAction {
         if (points === 3) {
-            return random() < 0.84 ? 'three' : 'and-one';
+            return random() < 0.94 ? 'three' : 'and-one';
         }
         if (points === 2) {
-            if (random() < 0.14) {
+            if (random() < 0.06) {
                 return 'free-throw';
             }
-            const actions: MatchPlayAction[] = ['jumper', 'layup', 'dunk'];
-            return actions[Math.floor(random() * actions.length)];
+            return this.pickShotAction(
+                lineup,
+                ['jumper', 'layup', 'dunk'],
+                [0.3, 0.43, 0.27],
+                random,
+            );
         }
         if (points === 1) {
             return 'free-throw';
         }
         const roll = random();
-        if (roll < 0.18) {
+        if (roll < 0.14) {
             return 'turnover';
         }
-        if (roll < 0.26) {
+        if (roll < 0.2) {
             return 'free-throw';
         }
-        const misses: MatchPlayAction[] = [
-            'three',
-            'jumper',
-            'layup',
-            'dunk',
-        ];
-        return misses[Math.floor(random() * misses.length)];
+        return this.pickShotAction(
+            lineup,
+            ['three', 'jumper', 'layup', 'dunk'],
+            [0.23, 0.23, 0.35, 0.19],
+            random,
+        );
+    }
+
+    private pickWeightedPointValue(
+        values: ReadonlyArray<number>,
+        random: () => number,
+    ): number {
+        const weights: Record<number, number> = {
+            0: 0.38,
+            1: 0.07,
+            2: 0.45,
+            3: 0.1,
+        };
+        const totalWeight = values.reduce(
+            (sum, value) => sum + (weights[value] ?? 0.01),
+            0,
+        );
+        let roll = random() * totalWeight;
+        for (const value of values) {
+            roll -= weights[value] ?? 0.01;
+            if (roll <= 0) {
+                return value;
+            }
+        }
+        return values[values.length - 1] ?? 0;
+    }
+
+    private pickShotAction(
+        lineup: ReadonlyArray<PlayerCard>,
+        actions: ReadonlyArray<ShotAction>,
+        baseWeights: ReadonlyArray<number>,
+        random: () => number,
+    ): ShotAction {
+        const weights = actions.map((action, index) => (
+            Math.max(0.01, baseWeights[index] ?? 0)
+            * this.getTeamActionTendency(lineup, action)
+        ));
+        const totalWeight = weights.reduce((sum, value) => sum + value, 0);
+        let roll = random() * totalWeight;
+        for (let index = 0; index < actions.length; index += 1) {
+            roll -= weights[index];
+            if (roll <= 0) {
+                return actions[index];
+            }
+        }
+        return actions[actions.length - 1] ?? 'jumper';
+    }
+
+    private pickShooterIndex(
+        lineup: ReadonlyArray<PlayerCard>,
+        action: MatchPlayAction,
+        random: () => number,
+    ): number {
+        if (lineup.length === 0) {
+            return 0;
+        }
+        const averageScoring = lineup.reduce(
+            (sum, card) => sum + Math.max(1, card.attributes.scoring),
+            0,
+        ) / lineup.length;
+        const weights = lineup.map((card) => {
+            const scoringShare = 0.7 + Math.max(1, card.attributes.scoring)
+                / Math.max(1, averageScoring) * 0.3;
+            if (action === 'free-throw') {
+                return scoringShare;
+            }
+            if (action === 'turnover') {
+                return this.getOffensiveTendency(card).handler * scoringShare;
+            }
+            return this.getActionTendency(
+                card,
+                action === 'and-one' ? 'layup' : action,
+            ) * scoringShare;
+        });
+        return this.pickWeightedIndex(weights, random);
+    }
+
+    private pickHandlerIndex(
+        lineup: ReadonlyArray<PlayerCard>,
+        random: () => number,
+    ): number {
+        return this.pickWeightedIndex(
+            lineup.map((card) => this.getOffensiveTendency(card).handler),
+            random,
+        );
+    }
+
+    private pickWeightedIndex(
+        weights: ReadonlyArray<number>,
+        random: () => number,
+    ): number {
+        const totalWeight = weights.reduce(
+            (sum, value) => sum + Math.max(0.01, value),
+            0,
+        );
+        let roll = random() * totalWeight;
+        for (let index = 0; index < weights.length; index += 1) {
+            roll -= Math.max(0.01, weights[index]);
+            if (roll <= 0) {
+                return index;
+            }
+        }
+        return Math.max(0, weights.length - 1);
+    }
+
+    private shouldShooterHandle(
+        action: MatchPlayAction,
+        random: () => number,
+    ): boolean {
+        if (action === 'turnover' || action === 'free-throw') {
+            return true;
+        }
+        if (action === 'layup' || action === 'dunk' || action === 'and-one') {
+            return random() < 0.62;
+        }
+        return random() < 0.3;
+    }
+
+    private pickTactic(
+        action: MatchPlayAction,
+        shooter: PlayerCard | null,
+        previousTactic: MatchTactic | null,
+        random: () => number,
+    ): MatchTactic {
+        const tendency = shooter ? this.getOffensiveTendency(shooter) : DEFAULT_OFFENSIVE_TENDENCY;
+        const candidates: Array<[MatchTactic, number]> = action === 'three'
+            ? [['five-out', 0.46], ['pick-and-roll', 0.32], ['horns', 0.22]]
+            : tendency.post >= 1.5 && action !== 'turnover' && action !== 'free-throw'
+                ? [['low-post', 0.58], ['four-out-one-in', 0.26], ['horns', 0.16]]
+                : action === 'layup' || action === 'dunk' || action === 'and-one'
+                    ? [['pick-and-roll', 0.46], ['four-out-one-in', 0.31], ['horns', 0.23]]
+                    : [['horns', 0.38], ['pick-and-roll', 0.34], ['five-out', 0.28]];
+        const available = candidates.filter(([tactic]) => tactic !== previousTactic);
+        const pool = available.length > 0 ? available : candidates;
+        const totalWeight = pool.reduce((sum, [, weight]) => sum + weight, 0);
+        let roll = random() * totalWeight;
+        for (const [tactic, weight] of pool) {
+            roll -= weight;
+            if (roll <= 0) {
+                return tactic;
+            }
+        }
+        return pool[pool.length - 1]?.[0] ?? 'horns';
+    }
+
+    private getTeamActionTendency(
+        lineup: ReadonlyArray<PlayerCard>,
+        action: ShotAction,
+    ): number {
+        if (lineup.length === 0) {
+            return 1;
+        }
+        return lineup.reduce(
+            (sum, card) => sum + this.getActionTendency(card, action),
+            0,
+        ) / lineup.length;
+    }
+
+    private getActionTendency(card: PlayerCard, action: ShotAction): number {
+        return this.getOffensiveTendency(card)[action];
+    }
+
+    private getOffensiveTendency(card: PlayerCard): OffensiveTendency {
+        const base = POSITION_OFFENSIVE_TENDENCIES[card.position]
+            ?? DEFAULT_OFFENSIVE_TENDENCY;
+        const override = PLAYER_OFFENSIVE_TENDENCY_OVERRIDES[card.sourcePlayerName];
+        return {
+            handler: base.handler * (override?.handler ?? 1),
+            three: base.three * (override?.three ?? 1),
+            jumper: base.jumper * (override?.jumper ?? 1),
+            layup: base.layup * (override?.layup ?? 1),
+            dunk: base.dunk * (override?.dunk ?? 1),
+            post: base.post * (override?.post ?? 1),
+        };
     }
 
     private pickReboundResult(
@@ -551,6 +814,10 @@ export class MatchController extends Component {
             return;
         }
         if (this.courtSimulation.play(play, this.speedMultiplier)) {
+            if (play.quarter > this.lastStartedQuarter) {
+                this.pushQuarterTransition(play.quarter, play.startSecond);
+                this.lastStartedQuarter = play.quarter;
+            }
             this.nextPlayIndex += 1;
         }
     }
@@ -578,21 +845,38 @@ export class MatchController extends Component {
     };
 
     private onCourtCommentary = (
-        text: string,
+        text: string | readonly string[],
         event: MatchPlayEvent,
         mentions: readonly MatchCommentaryMention[],
     ): void => {
-        this.pushCommentary(
-            Math.max(event.startSecond, this.elapsedMatchSeconds),
-            text,
-            mentions,
-        );
+        const lines = typeof text === 'string' ? [text] : text;
+        for (const line of lines) {
+            this.pushCommentary(
+                event.startSecond,
+                line,
+                mentions,
+            );
+        }
     };
 
     private onCourtPlayComplete = (): void => {
         this.speedMultiplier = this.requestedSpeedMultiplier;
         this.startDueCourtPlay();
     };
+
+    private pushQuarterTransition(nextQuarter: number, matchSecond: number): void {
+        const playerScore = this.playerQuarterScores
+            .slice(0, nextQuarter)
+            .reduce((sum, score) => sum + score, 0);
+        const opponentScore = this.opponentQuarterScores
+            .slice(0, nextQuarter)
+            .reduce((sum, score) => sum + score, 0);
+        const score = `${playerScore}-${opponentScore}`;
+        const text = nextQuarter === 2
+            ? `上半场结束，比分${score}。下半场开始！`
+            : `第${nextQuarter}节结束，比分${score}。第${nextQuarter + 1}节开始。`;
+        this.pushCommentary(matchSecond, text);
+    }
 
     private refreshScorePresentation(animateGrowth: boolean): void {
         if (!this.page) {
@@ -785,7 +1069,11 @@ export class MatchController extends Component {
         }
         const reward = this.calculateMatchReward();
         const baseSettled = settleBaseMatchReward(this.session.matchId, reward);
-        const advanced = advanceSeasonAfterWin(this.session.matchId);
+        const advanced = advanceSeasonAfterWin(
+            this.session.matchId,
+            this.session.playerOverall,
+            this.session.nextOpponentOverallMultiplier,
+        );
         if (advanced && this.session.isStandardProgressionMatch) {
             recordStoredStandardMatchWin();
         }
@@ -795,6 +1083,7 @@ export class MatchController extends Component {
             baseReward: baseSettled ? reward : 0,
             adReward: 0,
             advanced,
+            participatingPlayerInstanceIds: this.getParticipatingPlayerInstanceIds(),
         });
         this.setResultPageLabels(this.victoryPage);
         const rewardLabel = this.findByPath(
@@ -817,9 +1106,13 @@ export class MatchController extends Component {
         const adButton = this.victoryPage
             .getChildByName('看广告双倍领取')
             ?.getComponent(Button);
+        const continueButton = this.victoryPage
+            .getChildByName('继续下一场')
+            ?.getComponent(Button);
         if (adButton) {
             this.setButtonAvailable(adButton, !adRewardClaimed);
         }
+        this.setButtonAvailable(continueButton ?? null, true);
         gameAudio.playVictory();
         void playFullScreenEntrance(this.victoryPage, {
             backgroundNodes: this.nodes(this.victoryPage, ['遮罩', 'bg']),
@@ -847,6 +1140,7 @@ export class MatchController extends Component {
             baseReward: 0,
             adReward: 0,
             advanced: false,
+            participatingPlayerInstanceIds: this.getParticipatingPlayerInstanceIds(),
         });
         this.setResultPageLabels(this.defeatPage);
         void playFullScreenEntrance(this.defeatPage, {
@@ -871,7 +1165,7 @@ export class MatchController extends Component {
         this.setNodeLabel(
             page,
             '赛程/赛程',
-            `${this.session.difficultyQualityName} ${this.session.scheduleLabel}`,
+            this.session.scheduleLabel,
         );
         this.setNodeLabel(page, '比分/总比分/自己', String(this.result.playerFinalScore));
         this.setNodeLabel(page, '比分/总比分/对方', String(this.result.opponentFinalScore));
@@ -941,6 +1235,7 @@ export class MatchController extends Component {
                     baseReward: 0,
                     adReward: reward,
                     advanced: false,
+                    participatingPlayerInstanceIds: this.getParticipatingPlayerInstanceIds(),
                 });
                 const rewardLabel = this.findByPath(
                     this.victoryPage,
@@ -1015,10 +1310,11 @@ export class MatchController extends Component {
             if (!completed) {
                 return;
             }
-            this.startPreparedMatch(true);
-            if (this.forcedWinButton) {
-                this.forcedWinButton.node.active = false;
-            }
+            this.result = this.createMatchResult(true);
+            this.playerQuarterScores = [...this.result.playerQuarterScores];
+            this.opponentQuarterScores = [...this.result.opponentQuarterScores];
+            this.nextPlayIndex = this.plannedPlays.length;
+            this.finishMatch();
         } finally {
             this.adProcessing = false;
             if (
@@ -1077,7 +1373,13 @@ export class MatchController extends Component {
     private returnToHomepage(openPreMatch: boolean): void {
         clearCurrentMatchSession();
         setHomepageReturnTarget(openPreMatch ? 'pre-match' : 'home');
-        director.loadScene('Homepage');
+        void preloadHomepageRuntimeAssets()
+            .catch((error) => {
+                console.warn('[MatchController] Homepage runtime preload failed.', error);
+            })
+            .finally(() => {
+                director.loadScene('Homepage');
+            });
     }
 
     private calculateMatchReward(): number {
@@ -1281,6 +1583,12 @@ export class MatchController extends Component {
             .filter((card): card is PlayerCard => Boolean(card))
             .sort((a, b) => b.overall - a.overall)
             .slice(0, 5);
+    }
+
+    private getParticipatingPlayerInstanceIds(): string[] {
+        return this.session
+            ? this.getTopFive(this.session.playerRoster).map((card) => card.instanceId)
+            : [];
     }
 
     private formatClock(totalSeconds: number): string {

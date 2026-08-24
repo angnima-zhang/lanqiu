@@ -52,16 +52,11 @@ const ROLES: readonly ManagementRole[] = [
     'mediaTeam',
 ];
 
-interface ManagementUpgradeCostRow {
-    fromLevel: number;
-    toLevel: number;
-    budgetCost: number;
-}
-
 interface EconomyConfig {
     managementUpgradeCost: {
         maxLevel: number;
-        upgradeCostToNextLevel: ManagementUpgradeCostRow[];
+        currentLevelBudgetMultiplier: number;
+        currentLevelOffset: number;
     };
 }
 
@@ -71,6 +66,7 @@ interface RoleDefinition {
     effectDescription: string;
     effectKey: keyof Omit<ManagementEffectRow, 'managementLevel'>;
     percentDisplay: boolean;
+    percentagePointDisplay?: boolean;
 }
 
 interface RoleView {
@@ -110,13 +106,14 @@ const ROLE_DEFINITIONS: Record<ManagementRole, RoleDefinition> = {
         tabName: '球探',
         effectDescription: '招募池最高品质概率',
         effectKey: 'scoutingDirectorHighestQualityWeightBonus',
-        percentDisplay: true,
+        percentDisplay: false,
+        percentagePointDisplay: true,
     },
     medicalTeam: {
         nodeName: '管理层-队医',
         tabName: '队医',
-        effectDescription: '招募球员OVR向品质上限偏移',
-        effectKey: 'medicalTeamOvrRollPercentileShift',
+        effectDescription: '伤病发生风险降低',
+        effectKey: 'medicalTeamInjuryRiskReduction',
         percentDisplay: true,
     },
     mediaTeam: {
@@ -607,7 +604,7 @@ export class ManagementController extends Component {
         const upgradeLevelCap = Math.min(MAX_MANAGEMENT_LEVEL, teamLevel);
         const capped = level >= upgradeLevelCap;
         const currentRow = this.getEffectRow(level);
-        const nextRow = this.getEffectRow(capped ? level : level + 1);
+        const nextRow = this.getEffectRow(level + 1);
         const currentEffect = currentRow?.[definition.effectKey] ?? 0;
         const nextEffect = nextRow?.[definition.effectKey] ?? currentEffect;
         const deltaEffect = Math.max(0, nextEffect - currentEffect);
@@ -650,19 +647,31 @@ export class ManagementController extends Component {
         setGrowingNumber(
             view.currentEffectLabel,
             currentEffect,
-            (value) => this.formatEffect(value, definition.percentDisplay),
+            (value) => this.formatEffect(
+                value,
+                definition.percentDisplay,
+                definition.percentagePointDisplay,
+            ),
             { animateGrowth },
         );
         setGrowingNumber(
             view.nextEffectLabel,
             nextEffect,
-            (value) => this.formatEffect(value, definition.percentDisplay),
+            (value) => this.formatEffect(
+                value,
+                definition.percentDisplay,
+                definition.percentagePointDisplay,
+            ),
             { animateGrowth },
         );
         setGrowingNumber(
             view.deltaEffectLabel,
             deltaEffect,
-            (value) => this.formatEffect(value, definition.percentDisplay),
+            (value) => this.formatEffect(
+                value,
+                definition.percentDisplay,
+                definition.percentagePointDisplay,
+            ),
             { animateGrowth },
         );
         setGrowingNumber(
@@ -728,18 +737,30 @@ export class ManagementController extends Component {
         if (!config || level >= Math.min(MAX_MANAGEMENT_LEVEL, config.maxLevel)) {
             return null;
         }
-        const row = config.upgradeCostToNextLevel.find(
-            (candidate) => candidate.fromLevel === level,
-        );
-        return row && Number.isFinite(row.budgetCost)
-            ? Math.max(0, row.budgetCost)
-            : null;
+        if (
+            !Number.isFinite(config.currentLevelBudgetMultiplier)
+            || !Number.isFinite(config.currentLevelOffset)
+        ) {
+            return null;
+        }
+        return (
+            Math.max(0, Math.floor(level))
+            + Math.max(0, Math.floor(config.currentLevelOffset))
+        )
+            * Math.max(0, Math.floor(config.currentLevelBudgetMultiplier));
     }
 
-    private formatEffect(value: number, percentDisplay: boolean): string {
+    private formatEffect(
+        value: number,
+        percentDisplay: boolean,
+        percentagePointDisplay = false,
+    ): string {
         const safeValue = Number.isFinite(value) ? Math.max(0, value) : 0;
         if (percentDisplay) {
             return `+${this.trimTrailingZeros(safeValue * 100)}%`;
+        }
+        if (percentagePointDisplay) {
+            return `+${this.trimTrailingZeros(safeValue)}%`;
         }
         return `+${this.trimTrailingZeros(safeValue)}`;
     }

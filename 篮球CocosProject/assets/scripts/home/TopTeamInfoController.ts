@@ -187,17 +187,7 @@ export class TopTeamInfoController extends Component {
         if (value >= INT32_MAX) {
             return 'MAX';
         }
-        if (value >= 100_000_000) {
-            return `${this.formatUnit(value / 100_000_000)}亿`;
-        }
-        if (value >= 10_000) {
-            return `${this.formatUnit(value / 10_000)}万`;
-        }
         return String(Math.round(value));
-    }
-
-    private formatUnit(value: number): string {
-        return value.toFixed(2).replace(/\.00$/, '').replace(/(\.\d)0$/, '$1');
     }
 
     private onRosterChanged(): void {

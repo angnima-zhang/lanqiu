@@ -48,7 +48,8 @@
       "outcome": "made",
       "actors": ["Stephen Curry", "Klay Thompson"],
       "teamHasAll": ["Stephen Curry", "Klay Thompson"],
-      "texts": ["水花又开了！", "两道水花，打湿了记分牌。"]
+      "texts": ["水花又开了！", "两道水花，打湿了记分牌。"],
+      "series": [["{{player}}接球后直接开火。", "水花兄弟，今夜举火烧天！"]]
     },
     {
       "id": "combo_curry_green_assist",
@@ -67,7 +68,8 @@
       "actors": ["LeBron James", "Dwyane Wade"],
       "teamHasAll": ["LeBron James", "Dwyane Wade"],
       "passerMustBe": ["LeBron James", "Dwyane Wade"],
-      "texts": ["詹韦连线！", "迈阿密的闪电，又划过球场。"]
+      "texts": ["詹韦连线！", "迈阿密的闪电，又划过球场。"],
+      "series": [["{{player}}快下接到妙传。", "詹韦连线，今日五佳球！"]]
     },
     {
       "id": "combo_gdp",
@@ -334,7 +336,8 @@
       "action": "dunk",
       "outcome": "made",
       "actors": ["Shaquille O'Neal"],
-      "texts": ["{{player}}低位一坐，禁区开始摇晃。", "大鲨鱼转身，篮筐被迫营业。", "这不是扣篮，是拆迁。"]
+      "texts": ["{{player}}低位一坐，禁区开始摇晃。", "大鲨鱼转身，篮筐被迫营业。", "这不是扣篮，是拆迁。"],
+      "series": [["{{player}}转身直奔篮筐。", "力劈华山！今日五佳球！"]]
     },
     {
       "id": "hakeem_lowpost",
@@ -611,70 +614,98 @@
       "priority": 200,
       "action": "three",
       "outcome": "made",
-      "texts": ["{{player}}外线埋伏，接球便是三分。", "传球刚到，{{player}}已经完成出手。", "空位出现得很短，{{player}}抓得很准。", "{{player}}推进中急停，三分有了。", "一个节奏差，防守人只能目送。", "{{player}}离三分线还有一步，照样敢投。"]
+      "texts": ["{{player}}外线埋伏，接球便是三分。", "传球刚到，{{player}}已经完成出手。", "空位出现得很短，{{player}}抓得很准。", "{{player}}推进中急停，三分有了。", "{{player}}一个节奏差晃开空间，防守人只能目送。", "{{player}}离三分线还有一步，照样敢投。"],
+      "series": [["{{player}}在三分线外张弓搭箭。", "我的三分箭，是地狱的火焰！"], ["{{player}}迎着扑防果断出手。", "今日五佳球，外线也能上榜！"], ["{{player}}借掩护绕出空位。", "手起刀落，三分穿心！"], ["{{player}}抬手就是一记远投。", "百步穿杨，三分雨说下就下！"]]
     },
     {
       "id": "base_three_miss",
       "priority": 200,
       "action": "three",
       "outcome": "missed",
-      "texts": ["{{player}}外线出手，篮球弹框而出。", "{{player}}刚摆脱防守，外线这次差了点准星。", "{{player}}超远距离试手，没能落袋。"]
+      "texts": ["{{player}}外线出手，篮球弹框而出。", "{{player}}刚摆脱防守，外线这次差了点准星。", "{{player}}超远距离试手，没能落袋。"],
+      "series": [["{{player}}三分线外果断开火。", "铁匠铺今天提前开张。"], ["{{player}}迎着防守放出一箭。", "篮筐说：这单我不接。"]]
     },
     {
       "id": "base_jumper_made",
       "priority": 200,
       "action": "jumper",
       "outcome": "made",
-      "texts": ["{{player}}转身后仰，篮球划出高弧线。", "防守贴得很紧，{{player}}还是把球送进。", "{{player}}把出手点抬得很高，两分命中。", "{{player}}借板取分，朴实但致命。"]
+      "texts": ["{{player}}转身后仰，篮球划出高弧线。", "防守贴得很紧，{{player}}还是把球送进。", "{{player}}把出手点抬得很高，两分命中。", "{{player}}借板取分，朴实但致命。"],
+      "series": [["{{player}}后仰拉开距离。", "后仰美如画，得分全靠它！"], ["{{player}}在甜点位从容起跳。", "中距离才是男人的浪漫！"], ["{{player}}顶着防守干拔出手。", "这球怎么防？真防不了。"]]
     },
     {
       "id": "base_jumper_miss",
       "priority": 200,
       "action": "jumper",
       "outcome": "missed",
-      "texts": ["{{player}}中距离出手，篮球涮筐而出。", "{{player}}转身后仰，差了点手感。", "{{player}}想借板取分，角度稍大。"]
+      "texts": ["{{player}}中距离出手，篮球涮筐而出。", "{{player}}转身后仰，差了点手感。", "{{player}}想借板取分，角度稍大。"],
+      "series": [["{{player}}后仰把空间拉得很开。", "姿势美如画，落点差一点。"], ["{{player}}甜点位一抬手。", "篮筐盖儿帽，拒绝了这记中投。"]]
     },
     {
       "id": "base_layup_made",
       "priority": 200,
       "action": "layup",
       "outcome": "made",
-      "texts": ["{{player}}加速切进禁区，挑篮得手。", "第一步甩开防守，{{player}}直取篮筐。", "协防赶到时，球已经擦板入网。", "{{player}}空中换手，篮下得分。"]
+      "texts": ["{{player}}加速切进禁区，挑篮得手。", "第一步甩开防守，{{player}}直取篮筐。", "协防赶到时，球已经擦板入网。", "{{player}}空中换手，篮下得分。"],
+      "series": [["{{player}}蛇形突破杀入禁区。", "人缝里绣花，篮下照样得分！"], ["{{player}}空中拉杆避开封盖。", "这滞空，防守人只能仰望！"], ["{{player}}第一步过掉对位。", "闪电切入，防线形同虚设！"]]
     },
     {
       "id": "base_layup_miss",
       "priority": 200,
       "action": "layup",
       "outcome": "missed",
-      "texts": ["{{player}}突破到篮下，协防干扰了终结。", "{{player}}高难度上篮，皮球没能落袋。", "{{player}}杀到篮下，最后一步被补到。"]
+      "texts": ["{{player}}突破到篮下，协防干扰了终结。", "{{player}}高难度上篮，皮球没能落袋。", "{{player}}杀到篮下，最后一步被补到。"],
+      "series": [["{{player}}空中动作都做出来了。", "得分明天再说，先看回放。"], ["{{player}}绕过协防直奔篮筐。", "篮筐加盖，这球被拒收。"]]
     },
     {
       "id": "base_dunk_made",
       "priority": 200,
       "action": "dunk",
       "outcome": "made",
-      "texts": ["{{player}}快下起飞，篮筐发出警报。", "前场一片开阔，{{player}}直接升空。", "{{player}}把快攻终结成了扣篮。", "{{player}}低位吃到深位，转身重扣。"]
+      "texts": ["{{player}}快下起飞，篮筐发出警报。", "前场一片开阔，{{player}}直接升空。", "{{player}}把快攻终结成了扣篮。", "{{player}}低位吃到深位，转身重扣。"],
+      "series": [["{{player}}起飞直奔篮筐。", "力劈华山！今日五佳球！"], ["{{player}}双手把篮球举过头顶。", "举火烧天，篮筐都在发颤！"], ["{{player}}原地拔起，狠狠砸向篮筐。", "平地惊雷，暴力美学拉满！"], ["{{player}}一脚蹬地直接升空。", "旱地拔葱，篮筐原地报警！"]]
     },
     {
       "id": "base_dunk_miss",
       "priority": 200,
       "action": "dunk",
       "outcome": "missed",
-      "texts": ["{{player}}起飞想完成暴扣，篮球砸在篮筐前沿。", "气氛已经飞上屋顶，篮球却临时取消了行程。"]
+      "texts": ["{{player}}起飞想完成暴扣，篮球砸在篮筐前沿。", "气氛已经飞上屋顶，篮球却临时取消了行程。"],
+      "series": [["{{player}}把起跳高度拉满。", "五大囧预定！"], ["{{player}}飞得比篮球还高。", "五佳球与五大囧就在一瞬间——这回是后者。"]]
+    },
+    {
+      "id": "base_low_post_made",
+      "priority": 300,
+      "outcome": "made",
+      "actions": ["jumper", "layup", "dunk"],
+      "tactics": ["low-post"],
+      "texts": ["{{player}}背身接球，往篮下持续施压。", "{{player}}低位转身，强硬拿到两分。"],
+      "series": [["{{player}}背身一路凿进禁区。", "大屁股一坐，禁区要交税！"], ["{{player}}低位脚步晃开对位。", "梦幻脚步，防守人找不着北！"]]
+    },
+    {
+      "id": "base_low_post_miss",
+      "priority": 300,
+      "outcome": "missed",
+      "actions": ["jumper", "layup", "dunk"],
+      "tactics": ["low-post"],
+      "texts": ["{{player}}背身要位后转身出手，没能命中。"],
+      "series": [["{{player}}低位连续发力想顶进篮下。", "这回大屁股没顶动。"]]
     },
     {
       "id": "base_turnover",
       "priority": 200,
       "action": "turnover",
       "outcome": "turnover",
-      "texts": ["{{player}}的传球被识破，对手完成抢断。", "{{player}}处理球慢了半拍，球权转换。", "防守阅读到了路线，{{player}}这次没能送出去。"]
+      "texts": ["{{player}}的传球被识破，对手完成抢断。", "{{player}}处理球慢了半拍，球权转换。", "防守阅读到了路线，{{player}}这次没能送出去。"],
+      "series": [["{{player}}一个回头，球已经到了对手手里。", "高级失误，纯享版。"], ["{{player}}这记传球直奔场边。", "场边球迷请签收，球权也一起送了。"], ["{{player}}刚想组织进攻，皮球先离家出走。", "这一回合，球商暂时离线。"]]
     },
     {
       "id": "base_free_throw",
       "priority": 200,
       "action": "free-throw",
       "outcome": "free-throw",
-      "texts": ["{{player}}站上罚球线，稳稳把分数收下。", "{{player}}深呼吸后罚球命中。"]
+      "texts": ["{{player}}站上罚球线，稳稳把分数收下。", "{{player}}深呼吸后罚球命中。"],
+      "series": [["{{player}}在罚球线前调整呼吸。", "罚球线是他的舒适区。"], ["{{player}}站上罚球线，出手很稳。", "白给的分，也得稳稳收下。"]]
     }
   ]
 }

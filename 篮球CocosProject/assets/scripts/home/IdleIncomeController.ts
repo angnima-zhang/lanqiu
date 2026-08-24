@@ -9,11 +9,14 @@ import {
 } from 'cc';
 import {
     add as addBalance,
+    GAME_STATE_EVENT_MANAGEMENT_CHANGED,
     getBalance,
     getManagementEffects,
+    gameStateEvents,
     IdleState,
     loadIdleState,
     loadJson,
+    notifyValidOperationCompleted,
     saveIdleState,
 } from './GameState';
 import { formatPlayerOverall } from './RosterSlotView';
@@ -55,6 +58,7 @@ interface OfflineRewardSnapshot {
 
 @ccclass('IdleIncomeController')
 export class IdleIncomeController extends Component {
+    private homeRoot: Node | null = null;
     private page: Node | null = null;
     private closeButton: Button | null = null;
     private claimButton: Button | null = null;
@@ -66,6 +70,8 @@ export class IdleIncomeController extends Component {
     private mediaBonusLabel: Label | null = null;
     private claimRewardLabel: Label | null = null;
     private adRewardLabel: Label | null = null;
+    private offlineIncomeRateLabel: Label | null = null;
+    private onlineIncomeRateLabel: Label | null = null;
 
     private config: EconomyConfig | null = null;
     private idleState: IdleState | null = null;
@@ -90,6 +96,11 @@ export class IdleIncomeController extends Component {
         this.adClaimButton?.node.on(Button.EventType.CLICK, this.onAdClaimClicked, this);
         game.on(Game.EVENT_HIDE, this.onGameHide, this);
         game.on(Game.EVENT_SHOW, this.onGameShow, this);
+        gameStateEvents.on(
+            GAME_STATE_EVENT_MANAGEMENT_CHANGED,
+            this.onManagementChanged,
+            this,
+        );
     }
 
     protected start(): void {
@@ -102,6 +113,11 @@ export class IdleIncomeController extends Component {
         this.adClaimButton?.node.off(Button.EventType.CLICK, this.onAdClaimClicked, this);
         game.off(Game.EVENT_HIDE, this.onGameHide, this);
         game.off(Game.EVENT_SHOW, this.onGameShow, this);
+        gameStateEvents.off(
+            GAME_STATE_EVENT_MANAGEMENT_CHANGED,
+            this.onManagementChanged,
+            this,
+        );
         this.unschedule(this.onOnlineTick);
     }
 
@@ -114,6 +130,7 @@ export class IdleIncomeController extends Component {
             this.config = config;
             this.operationPresidentBonus = effects.operationPresidentBudgetBonus;
             this.mediaTeamBonus = effects.mediaTeamOfflineBudgetBonus;
+            this.refreshHomeIncomeRateLabels();
             getBalance(config.initialBudget);
 
             const now = Date.now();
@@ -180,6 +197,10 @@ export class IdleIncomeController extends Component {
         });
     }
 
+    private onManagementChanged = (): void => {
+        void this.refreshManagementEffects().then(() => this.refreshPage());
+    };
+
     private async flushOnlineIncome(now: number): Promise<void> {
         if (!this.config || !this.idleState) {
             return;
@@ -242,6 +263,7 @@ export class IdleIncomeController extends Component {
         const effects = await getManagementEffects();
         this.operationPresidentBonus = effects.operationPresidentBudgetBonus;
         this.mediaTeamBonus = effects.mediaTeamOfflineBudgetBonus;
+        this.refreshHomeIncomeRateLabels();
     }
 
     private claimOfflineIncome(): void {
@@ -279,11 +301,14 @@ export class IdleIncomeController extends Component {
         if (!this.idleState) {
             return;
         }
-        const snapshot = this.getRewardSnapshot();
+        const snapshot = this.getRewardSnapshot(multiplier);
         if (snapshot.totalReward < 1) {
             return;
         }
-        addBalance(snapshot.totalReward * Math.max(1, multiplier));
+        addBalance(snapshot.totalReward);
+        if (multiplier === 1) {
+            notifyValidOperationCompleted();
+        }
         const now = Date.now();
         this.idleState.pendingOfflineSeconds = 0;
         this.idleState.unpromptedOfflineSeconds = 0;
@@ -303,6 +328,7 @@ export class IdleIncomeController extends Component {
             this.page.setSiblingIndex(parent.children.length - 1);
         }
         this.refreshPage(true);
+        void this.refreshManagementEffects().then(() => this.refreshPage(true));
         void playFullScreenEntrance(this.page, {
             backgroundNodes: [
                 this.page.getChildByName('遮罩'),
@@ -347,6 +373,7 @@ export class IdleIncomeController extends Component {
             return;
         }
         const snapshot = this.getRewardSnapshot();
+        const adSnapshot = this.getRewardSnapshot(2);
         const maxSeconds = this.config.budgetSources.offlineIdle.maxAccrualHours * 3600;
         const remainingSeconds = Math.max(0, maxSeconds - snapshot.seconds);
         if (this.durationLabel) {
@@ -364,7 +391,7 @@ export class IdleIncomeController extends Component {
         this.setRewardLabel(this.baseRewardLabel, snapshot.baseReward, animateRewards);
         this.setRewardLabel(this.mediaBonusLabel, snapshot.mediaBonusReward, animateRewards);
         this.setRewardLabel(this.claimRewardLabel, snapshot.totalReward, animateRewards);
-        this.setRewardLabel(this.adRewardLabel, snapshot.totalReward * 2, animateRewards);
+        this.setRewardLabel(this.adRewardLabel, adSnapshot.totalReward, animateRewards);
         if (this.claimButton) {
             this.claimButton.interactable = snapshot.totalReward >= 1
                 && !this.adClaimProcessing;
@@ -375,26 +402,46 @@ export class IdleIncomeController extends Component {
         }
     }
 
-    private getRewardSnapshot(): OfflineRewardSnapshot {
+    private getRewardSnapshot(multiplier = 1): OfflineRewardSnapshot {
         if (!this.config || !this.idleState) {
-            return { seconds: 0, baseReward: 0, mediaBonusReward: 0, totalReward: 0 };
+            return {
+                seconds: 0,
+                baseReward: 0,
+                mediaBonusReward: 0,
+                totalReward: 0,
+            };
         }
         return this.getRewardSnapshotForSeconds(
             this.idleState.pendingOfflineSeconds,
+            multiplier,
         );
     }
 
-    private getRewardSnapshotForSeconds(secondsValue: number): OfflineRewardSnapshot {
+    private getRewardSnapshotForSeconds(
+        secondsValue: number,
+        multiplier = 1,
+    ): OfflineRewardSnapshot {
         if (!this.config) {
-            return { seconds: 0, baseReward: 0, mediaBonusReward: 0, totalReward: 0 };
+            return {
+                seconds: 0,
+                baseReward: 0,
+                mediaBonusReward: 0,
+                totalReward: 0,
+            };
         }
         const seconds = Math.max(0, secondsValue);
-        const baseReward = this.floorReward(seconds / 3600
+        const safeMultiplier = Math.max(1, Math.floor(multiplier));
+        const oneTimeBaseReward = this.floorReward(seconds / 3600
             * Math.max(0, this.config.budgetSources.offlineIdle.baseBudgetPerHour)
             * this.getMarketValueMultiplier());
-        const mediaBonusReward = this.floorReward(
-            baseReward * Math.max(0, this.mediaTeamBonus),
+        // First settle the single-claim reward exactly as it is displayed, then
+        // apply the advertisement multiplier. This keeps the double claim equal
+        // to the displayed claim amount × 2 instead of re-rounding its bonus.
+        const oneTimeMediaBonusReward = this.floorReward(
+            oneTimeBaseReward * Math.max(0, this.mediaTeamBonus),
         );
+        const baseReward = oneTimeBaseReward * safeMultiplier;
+        const mediaBonusReward = oneTimeMediaBonusReward * safeMultiplier;
         return {
             seconds,
             baseReward,
@@ -421,6 +468,34 @@ export class IdleIncomeController extends Component {
             ?.getSnapshot()
             ?.marketValueLevel ?? getStoredMarketValueLevel();
         return 1 + 0.02 * Math.max(0, marketValueLevel);
+    }
+
+    private refreshHomeIncomeRateLabels(): void {
+        if (!this.config) {
+            return;
+        }
+        const marketMultiplier = this.getMarketValueMultiplier();
+        const onlinePerMinute = Math.max(
+            0,
+            this.config.budgetSources.onlineIdle.baseBudgetPerMinute,
+        ) * marketMultiplier * (1 + this.operationPresidentBonus);
+        const offlinePerMinute = Math.max(
+            0,
+            this.config.budgetSources.offlineIdle.baseBudgetPerHour,
+        ) / 60 * marketMultiplier * (1 + this.mediaTeamBonus);
+        if (this.offlineIncomeRateLabel) {
+            this.offlineIncomeRateLabel.string = `离线奖励：每分钟${this.formatIncomeRate(offlinePerMinute)}`;
+        }
+        if (this.onlineIncomeRateLabel) {
+            this.onlineIncomeRateLabel.string = `在线奖励：每分钟${this.formatIncomeRate(onlinePerMinute)}`;
+        }
+    }
+
+    private formatIncomeRate(value: number): string {
+        const roundedValue = Math.round(Math.max(0, value) * 100) / 100;
+        return Number.isInteger(roundedValue)
+            ? String(roundedValue)
+            : roundedValue.toFixed(2).replace(/0+$/, '');
     }
 
     private setRewardLabel(
@@ -453,6 +528,7 @@ export class IdleIncomeController extends Component {
 
     private resolveSceneReferences(): void {
         const canvas = this.node.parent;
+        this.homeRoot = canvas?.getChildByName('主页') ?? null;
         this.page = canvas?.getChildByName('离线收益弹窗') ?? null;
         this.closeButton = this.page?.getChildByName('关闭')?.getComponent(Button) ?? null;
         this.claimButton = this.page?.getChildByName('领取')?.getComponent(Button) ?? null;
@@ -473,6 +549,10 @@ export class IdleIncomeController extends Component {
             ?.getComponent(Label) ?? null;
         this.adRewardLabel = this.findByPath(this.page, '看广告双倍领取/数值')
             ?.getComponent(Label) ?? null;
+        this.offlineIncomeRateLabel = this.findDescendantByName(this.homeRoot, '离线奖励')
+            ?.getComponent(Label) ?? null;
+        this.onlineIncomeRateLabel = this.findDescendantByName(this.homeRoot, '在线奖励')
+            ?.getComponent(Label) ?? null;
     }
 
     private findByPath(root: Node | null, path: string): Node | null {
@@ -484,6 +564,21 @@ export class IdleIncomeController extends Component {
             }
         }
         return current;
+    }
+
+    private findDescendantByName(root: Node | null, name: string): Node | null {
+        if (!root) {
+            return null;
+        }
+        const nodesToCheck = [root];
+        while (nodesToCheck.length > 0) {
+            const current = nodesToCheck.pop()!;
+            if (current.name === name) {
+                return current;
+            }
+            nodesToCheck.push(...current.children);
+        }
+        return null;
     }
 
     private namedChildren(names: readonly string[]): Node[] {

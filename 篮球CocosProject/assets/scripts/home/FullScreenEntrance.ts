@@ -19,6 +19,8 @@ export interface FullScreenEntranceGroup {
 export interface FullScreenEntranceOptions {
     backgroundNodes?: readonly Node[];
     moduleGroups?: readonly FullScreenEntranceGroup[];
+    /** 仅供需要加速的连续展示页使用；普通页面保持默认速度。 */
+    speedMultiplier?: number;
 }
 
 interface ActiveEntrance {
@@ -45,7 +47,7 @@ export function stopFullScreenEntrance(page: Node): void {
  * 标准淡出：入场动画的反向——从下往上依次淡出，速度是淡入的 N 倍。
  * 返回 Promise，resolve 时所有节点已完全透明。
  */
-export function playFullScreenExit(page: Node): Promise<void> {
+export function playFullScreenExit(page: Node, speedMultiplier = 1): Promise<void> {
     stopFullScreenEntrance(page);
 
     // 复用入场时的分组逻辑：背景节点 + 按 Y 坐标从高到低排列的模块组
@@ -78,8 +80,9 @@ export function playFullScreenExit(page: Node): Promise<void> {
         return Promise.resolve();
     }
 
-    const exitFade = FADE_SECONDS / EXIT_SPEED_MULTIPLIER;       // 每段淡出时长
-    const exitStagger = STAGGER_SECONDS / EXIT_SPEED_MULTIPLIER;  // 每段间隔
+    const speed = Math.max(1, speedMultiplier);
+    const exitFade = FADE_SECONDS / EXIT_SPEED_MULTIPLIER / speed;
+    const exitStagger = STAGGER_SECONDS / EXIT_SPEED_MULTIPLIER / speed;
     const totalDuration = exitFade
         + exitStagger * Math.max(0, moduleOpacities.length - 1);
 
@@ -119,6 +122,7 @@ export function playFullScreenEntrance(
 ): Promise<void> {
     stopFullScreenEntrance(page);
     page.active = true;
+    const speed = Math.max(1, options.speedMultiplier ?? 1);
 
     const viewportTransform = page.parent?.getComponent(UITransform)
         ?? page.getComponent(UITransform);
@@ -168,8 +172,10 @@ export function playFullScreenEntrance(
         return Promise.resolve();
     }
 
-    const totalDuration = FADE_SECONDS
-        + STAGGER_SECONDS * Math.max(0, moduleOpacityGroups.length - 1);
+    const fadeSeconds = FADE_SECONDS / speed;
+    const staggerSeconds = STAGGER_SECONDS / speed;
+    const totalDuration = fadeSeconds
+        + staggerSeconds * Math.max(0, moduleOpacityGroups.length - 1);
     return new Promise<void>((resolve) => {
         let finished = false;
         const finish = (): void => {
@@ -203,8 +209,8 @@ export function playFullScreenEntrance(
         moduleOpacityGroups.forEach((group, groupIndex) => {
             group.forEach((opacity, nodeIndex) => {
                 const entrance = tween(opacity)
-                    .delay(groupIndex * STAGGER_SECONDS)
-                    .to(FADE_SECONDS, { opacity: 255 }, { easing: 'quadOut' });
+                .delay(groupIndex * staggerSeconds)
+                .to(fadeSeconds, { opacity: 255 }, { easing: 'quadOut' });
                 if (
                     groupIndex === moduleOpacityGroups.length - 1
                     && nodeIndex === group.length - 1

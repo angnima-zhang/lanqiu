@@ -1,13 +1,17 @@
 {
   "_meta": {
-    "description": "单赛季100场主线的对手总评、预算奖励与特殊赛程倍率。常规赛82场加季中杯、全明星赛共84场，随后四轮季后赛各4场。",
+    "description": "单赛季100场主线的动态对手总评、预算奖励与特殊赛程倍率。常规赛82场加季中杯、全明星赛共84场，随后四轮季后赛各4场。",
     "status": "已定稿",
-    "version": "v1.00",
+    "version": "v1.01",
     "standardMatchCount": 100,
     "regularSeasonMatchCount": 82,
     "playoffWinsPerRound": 4,
     "baseBudgetFormula": "max(1, ceil(opponentTeamOvr / 696))",
     "operationPresidentBonusAppliedAfterBaseReward": true
+  },
+  "opponentProgression": {
+    "firstMatchPlayerOverallMultiplier": 0.95,
+    "nextOpponentPlayerOverallMultiplier": 1.5
   },
   "difficultyAnchors": [
     { "matchNumber": 1, "opponentOvr": 696, "difficultyQualityId": 3, "difficultyQualityName": "新秀" },

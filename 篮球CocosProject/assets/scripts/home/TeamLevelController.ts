@@ -44,10 +44,7 @@ export function getStoredTeamLevel(fallback = MIN_TEAM_LEVEL): number {
         if (sanitizeSaveVersion(parsed.version) !== SAVE_VERSION) {
             return clampTeamLevel(fallback);
         }
-        const storedLevel = clampTeamLevel(parsed.teamLevel ?? fallback);
-        return parsed.wonAtCurrentLevel
-            ? Math.min(MAX_TEAM_LEVEL, storedLevel + 1)
-            : storedLevel;
+        return clampTeamLevel(parsed.teamLevel ?? fallback);
     } catch {
         return clampTeamLevel(fallback);
     }
@@ -67,11 +64,14 @@ export function recordStoredStandardMatchWin(): boolean {
             return false;
         }
         const currentLevel = clampTeamLevel(parsed.teamLevel ?? MIN_TEAM_LEVEL);
+        if (parsed.wonAtCurrentLevel) {
+            return false;
+        }
         sys.localStorage.setItem(TEAM_PROGRESSION_STORAGE_KEY, JSON.stringify({
             version: SAVE_VERSION,
-            teamLevel: Math.min(MAX_TEAM_LEVEL, currentLevel + 1),
-            willpower: 0,
-            wonAtCurrentLevel: false,
+            teamLevel: currentLevel,
+            willpower: Math.max(0, Math.floor(parsed.willpower ?? 0)),
+            wonAtCurrentLevel: true,
         }));
         return true;
     } catch {
@@ -193,7 +193,7 @@ export class TeamLevelController extends Component {
     }
 
     public recordStandardMatchWin(): boolean {
-        if (!this.ready || this.isAtMaximumLevel() || !this.isReadyForWinUpgrade()) {
+        if (!this.ready || this.isAtMaximumLevel() || this.state.wonAtCurrentLevel) {
             return false;
         }
         if (!recordStoredStandardMatchWin()) {
@@ -201,17 +201,13 @@ export class TeamLevelController extends Component {
         }
         this.state = this.loadState();
         this.refreshView(true);
-        this.playLevelUpAnimation();
         const snapshot = this.getSnapshot();
         teamProgressionEvents.emit(TEAM_PROGRESSION_EVENT_WILLPOWER_CHANGED, snapshot);
-        teamProgressionEvents.emit(TEAM_PROGRESSION_EVENT_LEVEL_CHANGED, snapshot);
-        teamProgressionEvents.emit(TEAM_PROGRESSION_EVENT_MARKET_VALUE_CHANGED, snapshot);
-        gameAudio.playUpgradeSuccess();
         return true;
     }
 
     public canStartProgressionMatch(): boolean {
-        return this.ready && (this.isAtMaximumLevel() || this.isReadyForWinUpgrade());
+        return this.ready;
     }
 
     public getSnapshot(): TeamProgressionSnapshot | null {
@@ -224,9 +220,9 @@ export class TeamLevelController extends Component {
             marketLevelCap: this.getMaximumTeamLevel(),
             willpower: this.state.willpower,
             currentRequirement: this.getCurrentRequirement(),
-            canUpgrade: false,
+            canUpgrade: this.isReadyForManualUpgrade(),
             pendingChampionship: false,
-            pendingWinUpgrade: false,
+            pendingWinUpgrade: this.state.wonAtCurrentLevel,
             maxLevel: this.isAtMaximumLevel(),
         };
     }
@@ -306,9 +302,7 @@ export class TeamLevelController extends Component {
                 return fallback;
             }
             const storedLevel = clampTeamLevel(parsed.teamLevel ?? fallback.teamLevel);
-            const teamLevel = parsed.wonAtCurrentLevel
-                ? Math.min(MAX_TEAM_LEVEL, storedLevel + 1)
-                : storedLevel;
+            const teamLevel = storedLevel;
             const requirement = this.getRequirementForLevel(teamLevel);
             return {
                 version: SAVE_VERSION,
@@ -316,7 +310,7 @@ export class TeamLevelController extends Component {
                 willpower: teamLevel >= MAX_TEAM_LEVEL
                     ? 0
                     : Math.min(requirement, Math.max(0, Math.floor(parsed.willpower ?? 0))),
-                wonAtCurrentLevel: false,
+                wonAtCurrentLevel: teamLevel < MAX_TEAM_LEVEL && Boolean(parsed.wonAtCurrentLevel),
             };
         } catch {
             return fallback;
@@ -361,14 +355,17 @@ export class TeamLevelController extends Component {
             this.willpowerProgress!.progress = targetProgress;
         }
 
-        const pendingWinUpgrade = this.isReadyForWinUpgrade();
-        this.upgradeButton!.interactable = maximumLevel || pendingWinUpgrade;
+        const canUpgrade = this.isReadyForManualUpgrade();
+        const needsWinToUpgrade = this.isReadyForWinUpgrade();
+        this.upgradeButton!.interactable = maximumLevel || canUpgrade || needsWinToUpgrade;
         this.upgradeButtonLabel!.string = maximumLevel
             ? '无限赛程'
-            : pendingWinUpgrade
-                ? '获胜升级'
-                : '升级';
-        if (maximumLevel || pendingWinUpgrade) {
+            : canUpgrade
+                ? '升级'
+                : needsWinToUpgrade
+                    ? '获胜升级'
+                    : '升级';
+        if (maximumLevel || canUpgrade || needsWinToUpgrade) {
             this.startButtonPulse();
         } else {
             this.stopButtonPulse();
@@ -376,13 +373,43 @@ export class TeamLevelController extends Component {
     }
 
     private onUpgradeButtonClicked(): void {
-        if (!this.isAtMaximumLevel() && !this.isReadyForWinUpgrade()) {
+        if (this.isAtMaximumLevel()) {
+            teamProgressionEvents.emit(
+                TEAM_PROGRESSION_EVENT_WIN_UPGRADE_REQUESTED,
+                this.getSnapshot(),
+            );
             return;
         }
-        teamProgressionEvents.emit(
-            TEAM_PROGRESSION_EVENT_WIN_UPGRADE_REQUESTED,
-            this.getSnapshot(),
-        );
+        if (this.isReadyForWinUpgrade()) {
+            teamProgressionEvents.emit(
+                TEAM_PROGRESSION_EVENT_WIN_UPGRADE_REQUESTED,
+                this.getSnapshot(),
+            );
+            return;
+        }
+        if (!this.isReadyForManualUpgrade()) {
+            return;
+        }
+        this.state = {
+            version: SAVE_VERSION,
+            teamLevel: Math.min(MAX_TEAM_LEVEL, this.state.teamLevel + 1),
+            willpower: 0,
+            wonAtCurrentLevel: false,
+        };
+        this.saveState();
+        this.refreshView(true);
+        this.playLevelUpAnimation();
+        const snapshot = this.getSnapshot();
+        teamProgressionEvents.emit(TEAM_PROGRESSION_EVENT_WILLPOWER_CHANGED, snapshot);
+        teamProgressionEvents.emit(TEAM_PROGRESSION_EVENT_LEVEL_CHANGED, snapshot);
+        teamProgressionEvents.emit(TEAM_PROGRESSION_EVENT_MARKET_VALUE_CHANGED, snapshot);
+        gameAudio.playUpgradeSuccess();
+    }
+
+    private isReadyForManualUpgrade(): boolean {
+        return !this.isAtMaximumLevel()
+            && this.state.willpower >= this.getCurrentRequirement()
+            && this.state.wonAtCurrentLevel;
     }
 
     private isReadyForWinUpgrade(): boolean {

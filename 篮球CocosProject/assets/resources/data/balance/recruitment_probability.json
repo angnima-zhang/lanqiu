@@ -9,6 +9,7 @@
     "scoutingDirectorRule": "球探仅额外增加当前五档池最高品质权重，最终按总权重抽取。",
     "endlessRule": "无限赛程每胜使GOAT基础概率提高0.5个百分点，其他四档按比例压缩，GOAT概率最高50%。"
   },
+  "withinWindowEndWeights": [52, 29, 11.5, 5, 2.5],
   "qualities": [
     { "qualityId": 3, "qualityName": "新秀" },
     { "qualityId": 4, "qualityName": "饮水机" },

@@ -10,6 +10,10 @@ export interface MatchDifficultyAnchor {
 }
 
 export interface MatchRewardsConfig {
+    opponentProgression: {
+        firstMatchPlayerOverallMultiplier: number;
+        nextOpponentPlayerOverallMultiplier: number;
+    };
     difficultyAnchors: MatchDifficultyAnchor[];
     specialMatches: {
         cup: MatchSpecialConfig;

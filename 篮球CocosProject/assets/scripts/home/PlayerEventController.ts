@@ -3,6 +3,7 @@ import {
     Button,
     Color,
     Component,
+    Font,
     instantiate,
     JsonAsset,
     Label,
@@ -16,10 +17,10 @@ import {
 } from 'cc';
 import {
     ATTRIBUTE_KEYS,
-    GAME_STATE_EVENT_BUDGET_CHANGED,
     GAME_STATE_EVENT_MATCH_SETTLED,
     GAME_STATE_EVENT_REWARDED_AD_COMPLETED,
     GAME_STATE_EVENT_ROSTER_CHANGED,
+    GAME_STATE_EVENT_VALID_OPERATION_COMPLETED,
     gameStateEvents,
     MatchSettlementEvent,
     PendingEventRecruit,
@@ -27,6 +28,8 @@ import {
     PlayerAttributes,
     PlayerCard,
     PlayerEventType,
+    getManagementEffects,
+    loadSeasonState,
     recordPlayerAcquisition,
     ROSTER_SLOT_COUNT,
     loadRoster,
@@ -43,8 +46,12 @@ import {
     loadSpriteFrame,
 } from './PlayerAssets';
 import {
+    applyOverallTrendArrow,
     applyOverallNumberQuality,
     applyPlayerQualityVisuals,
+    getOverallDefaultColor,
+    getOverallTrendColor,
+    OverallTrend,
 } from './PlayerQualityVisuals';
 import { formatPlayerOverall, RosterSlotView } from './RosterSlotView';
 import { setGrowingNumber } from './NumberGrowthAnimator';
@@ -53,6 +60,7 @@ import {
     playFullScreenEntrance,
     playFullScreenExit,
 } from './FullScreenEntrance';
+import { applyGameFont } from '../loading/GameFont';
 
 const { ccclass } = _decorator;
 
@@ -63,11 +71,30 @@ const NEGATIVE_EVENT_COLOR = new Color(220, 55, 55, 255);
 const EVENT_VALUE_HIGHLIGHT_COLOR = '#FFD15A';
 const EVENT_TEXT_OUTLINE_COLOR = '#000000';
 const EVENT_OVERALL_ANIMATION_DELAY_SECONDS = 0.5;
+const DISABLED_AD_BUTTON_COLOR = new Color(160, 160, 160, 255);
+const DIRECT_INJURY_AD_SUMMARIES = [
+    ['食物中毒', '食物中毒'],
+    ['发烧', '发烧'],
+    ['旧伤', '旧伤复发'],
+] as const;
+const OCCURRED_INJURY_AD_SUMMARIES = [
+    ['手指', '手指骨折'],
+    ['脚底筋膜', '足底筋膜炎'],
+    ['脚踝', '脚踝伤病'],
+    ['膝盖', '膝盖伤病'],
+    ['大腿', '大腿拉伤'],
+    ['小腿', '小腿拉伤'],
+    ['腰部', '腰部扭伤'],
+    ['脚部', '脚部伤病'],
+    ['肩部', '肩部拉伤'],
+    ['手腕', '手腕挫伤'],
+] as const;
 
 type EventTone = 'positive' | 'negative';
 
 interface PlayerEventDefinition {
     id: PlayerEventType;
+    selectionWeight?: number;
     iconPath: string;
     title: string;
     description: string;
@@ -78,6 +105,7 @@ interface PlayerEventDefinition {
     overallPercent?: number;
     minimumOverallDelta?: number;
     recoveryMatches?: number;
+    adResolvedDescription?: string;
 }
 
 interface RecruitmentCombo {
@@ -141,6 +169,7 @@ export class PlayerEventController extends Component {
     private templates: PlayerTemplate[] = [];
     private rosterSlots: RosterSlotView[] = [];
     private slotEventBindings: SlotEventBinding[] = [];
+    private initializationPromise: Promise<void> | null = null;
     private initialized = false;
     private generatingEvent = false;
     private resolvingEvent = false;
@@ -148,16 +177,21 @@ export class PlayerEventController extends Component {
     private eventIndicatorRenderVersion = 0;
     private activePlayerInstanceId: string | null = null;
     private activeEventOccurredAtMs = 0;
+    private queuedActionAfterPendingEvents: (() => void) | null = null;
+    private adResultShown = false;
 
     protected onLoad(): void {
         this.canvas = this.node.parent;
-        void this.initialize();
+        this.initializationPromise = this.initialize();
     }
 
     protected onEnable(): void {
+        if (this.initialized) {
+            this.reconcileLastSettledMatch();
+        }
         gameStateEvents.on(
-            GAME_STATE_EVENT_BUDGET_CHANGED,
-            this.onBudgetChanged,
+            GAME_STATE_EVENT_VALID_OPERATION_COMPLETED,
+            this.onValidOperationCompleted,
             this,
         );
         gameStateEvents.on(
@@ -179,8 +213,8 @@ export class PlayerEventController extends Component {
 
     protected onDisable(): void {
         gameStateEvents.off(
-            GAME_STATE_EVENT_BUDGET_CHANGED,
-            this.onBudgetChanged,
+            GAME_STATE_EVENT_VALID_OPERATION_COMPLETED,
+            this.onValidOperationCompleted,
             this,
         );
         gameStateEvents.off(
@@ -209,24 +243,51 @@ export class PlayerEventController extends Component {
     }
 
     public closePage(): void {
+        void this.closePageAndWait();
+    }
+
+    /**
+     * 有未查看事件时，先按发生时间逐个展示；所有事件处理完毕后再继续后续操作。
+     * 返回 true 代表后续操作已被事件队列接管。
+     */
+    public runAfterPendingEvents(action: () => void): boolean {
+        if (this.queuedActionAfterPendingEvents) {
+            return true;
+        }
+        this.queuedActionAfterPendingEvents = action;
+        if (!this.initialized) {
+            void (this.initializationPromise ?? this.initialize()).then(() => {
+                this.openNextQueuedEventOrRunAction();
+            });
+            return true;
+        }
+        if (this.findNextPendingEventIndex() === null) {
+            this.queuedActionAfterPendingEvents = null;
+            return false;
+        }
+        this.openNextQueuedEventOrRunAction();
+        return true;
+    }
+
+    private async closePageAndWait(): Promise<void> {
         this.eventPageRenderVersion += 1;
         this.activePlayerInstanceId = null;
         this.activeEventOccurredAtMs = 0;
         if (this.page?.active) {
-            void playFullScreenExit(this.page).then(() => {
-                if (this.page?.isValid) {
-                    this.page.active = false;
-                }
-            });
+            await playFullScreenExit(this.page);
+            if (this.page?.isValid) {
+                this.page.active = false;
+            }
         }
     }
 
     private async initialize(): Promise<void> {
         try {
-            const [config, playerConfig, prefab] = await Promise.all([
+            const [config, playerConfig, prefab, gameFont] = await Promise.all([
                 this.loadJson<PlayerEventConfig>(PLAYER_EVENT_CONFIG_PATH),
                 this.loadJson<PlayerConfig>(PLAYER_CONFIG_PATH),
                 this.loadPrefab(),
+                this.loadGameFont(),
             ]);
             if (!this.node.isValid || !this.canvas || !this.isConfigValid(config, playerConfig)) {
                 throw new Error('Invalid player event configuration.');
@@ -237,18 +298,20 @@ export class PlayerEventController extends Component {
             this.definitions = new Map(config.events.map((event) => [event.id, event]));
             this.page = instantiate(prefab);
             this.canvas.addChild(this.page);
+            applyGameFont(this.page, gameFont);
             this.page.active = false;
             this.resolvePageButtons();
             this.resolveRosterSlots();
             this.bindSlotEventButtons();
             this.initialized = true;
+            this.reconcileLastSettledMatch();
             await this.syncEventIndicators();
         } catch (error) {
             console.error('[PlayerEventController] Failed to initialize player events.', error);
         }
     }
 
-    private onBudgetChanged = (): void => {
+    private onValidOperationCompleted = (): void => {
         void this.tryCreateRandomEvent();
     };
 
@@ -258,13 +321,17 @@ export class PlayerEventController extends Component {
         }
     };
 
-    private onRosterChanged = (): void => {
+    private onRosterChanged = (roster: ReadonlyArray<PlayerCard | null>): void => {
+        this.syncRosterSlotOveralls(roster);
         void this.syncEventIndicators();
     };
 
     private onMatchSettled = (event: MatchSettlementEvent): void => {
         if (event?.matchId) {
-            this.advancePlayerMatchState(event.matchId);
+            this.advancePlayerMatchState(
+                event.matchId,
+                event.participatingPlayerInstanceIds,
+            );
         }
     };
 
@@ -289,6 +356,9 @@ export class PlayerEventController extends Component {
                 .map((card, index) => ({ card, index }))
                 .filter((entry): entry is RosterCandidate => Boolean(entry.card))
                 .filter(({ card }) => !card.pendingEvent);
+            const temporaryOverallCandidates = playerCandidates.filter(({ card }) => (
+                !card.activeInjury && !card.activeTraining
+            ));
             if (playerCandidates.length === 0) {
                 return;
             }
@@ -304,16 +374,50 @@ export class PlayerEventController extends Component {
                 if (definition.id === 'retirement') {
                     return retirementCandidates.length > 0;
                 }
-                return definition.id !== 'injury'
-                    || playerCandidates.some(({ card }) => !card.activeInjury);
+                return (
+                    definition.id !== 'injury'
+                    && definition.id !== 'training'
+                ) || temporaryOverallCandidates.length > 0;
             });
             if (definitions.length === 0) {
                 return;
             }
 
-            const definition = definitions[Math.floor(Math.random() * definitions.length)];
-            const targets = definition.id === 'injury'
-                ? playerCandidates.filter(({ card }) => !card.activeInjury)
+            const managementEffects = await getManagementEffects();
+            const definitionWeights = new Map<PlayerEventDefinition, number>(
+                definitions.map((candidate) => [
+                    candidate,
+                    Math.max(0.01, Number(candidate.selectionWeight) || 1),
+                ]),
+            );
+            const injuryDefinition = definitions.find((candidate) => candidate.id === 'injury');
+            const injuryWeight = injuryDefinition
+                ? definitionWeights.get(injuryDefinition) ?? 0
+                : 0;
+            const otherWeight = [...definitionWeights.entries()]
+                .filter(([candidate]) => candidate !== injuryDefinition)
+                .reduce((total, [, weight]) => total + weight, 0);
+            if (injuryDefinition && injuryWeight > 0 && otherWeight > 0) {
+                const injuryRiskReduction = Math.max(
+                    0,
+                    Math.min(1, managementEffects.medicalTeamInjuryRiskReduction),
+                );
+                const baseInjuryProbability = injuryWeight / (injuryWeight + otherWeight);
+                const targetInjuryProbability = baseInjuryProbability * (1 - injuryRiskReduction);
+                definitionWeights.set(
+                    injuryDefinition,
+                    otherWeight * targetInjuryProbability / (1 - targetInjuryProbability),
+                );
+            }
+            const definition = this.pickWeighted(
+                definitions,
+                (candidate) => definitionWeights.get(candidate) ?? 1,
+            );
+            if (!definition) {
+                return;
+            }
+            const targets = definition.id === 'injury' || definition.id === 'training'
+                ? temporaryOverallCandidates
                 : definition.id === 'retirement'
                     ? retirementCandidates
                     : playerCandidates;
@@ -327,7 +431,10 @@ export class PlayerEventController extends Component {
             if (!card) {
                 return;
             }
-            if (definition.id === 'injury' && card.activeInjury) {
+            if (
+                (definition.id === 'injury' || definition.id === 'training')
+                && (card.activeInjury || card.activeTraining)
+            ) {
                 return;
             }
 
@@ -441,6 +548,7 @@ export class PlayerEventController extends Component {
         const renderVersion = ++this.eventPageRenderVersion;
         this.activePlayerInstanceId = card.instanceId;
         this.activeEventOccurredAtMs = event.occurredAtMs;
+        this.adResultShown = false;
 
         const eventRoot = this.page.getChildByName('事件');
         const eventName = eventRoot?.getChildByName('事件名称')?.getComponent(Label) ?? null;
@@ -457,15 +565,16 @@ export class PlayerEventController extends Component {
             this.setEventDescriptionRichText(
                 eventDescriptionNode,
                 this.formatDescription(
-                event.descriptionTemplate ?? definition.description,
-                card,
-                event,
+                    event.descriptionTemplate ?? definition.description,
+                    card,
+                    event,
                 ),
                 eventColor,
             );
         }
         this.setButtonLabel(this.confirmButton, definition.confirmLabel);
         this.setButtonLabel(this.adButton, definition.adLabel);
+        this.setAdButtonResolvedVisual(false);
         this.setButtonsInteractable(true);
 
         const [icon] = await Promise.all([
@@ -478,6 +587,9 @@ export class PlayerEventController extends Component {
         if (eventIcon && icon) {
             eventIcon.spriteFrame = icon;
         }
+        const overallRoot = this.page.getChildByName('总评') ?? null;
+        const overallLabel = overallRoot?.getChildByName('数值')?.getComponent(Label) ?? null;
+        applyOverallTrendArrow(overallRoot, this.getOverallTrend(card, event));
     }
 
     private async renderPlayerPresentation(
@@ -558,6 +670,7 @@ export class PlayerEventController extends Component {
             : event.type === 'training'
                 ? from + delta
                 : from;
+        const trend = this.getOverallTrend(card, event);
         setGrowingNumber(
             label,
             target,
@@ -566,6 +679,10 @@ export class PlayerEventController extends Component {
                 from,
                 duration: 1.5,
                 animateDecrease: target < from,
+                colorFrom: getOverallDefaultColor(label),
+                colorTo: trend
+                    ? getOverallTrendColor(trend)
+                    : getOverallDefaultColor(label),
             },
         );
     }
@@ -595,18 +712,119 @@ export class PlayerEventController extends Component {
             });
             const card = targetIndex >= 0 ? roster[targetIndex] : null;
             if (!card?.pendingEvent) {
-                this.closePage();
+                await this.closePageAndWait();
+                this.openNextQueuedEventOrRunAction();
                 return;
             }
+            const keepAdResultOpen = withAd
+                && card.pendingEvent.type !== 'recruitment';
+            const resolvedEvent = card.pendingEvent;
             this.applyEventResolution(roster, targetIndex, card, withAd);
             saveRoster(roster);
-            this.closePage();
+            if (keepAdResultOpen) {
+                this.showAdResolvedEventResult(card, resolvedEvent);
+                return;
+            }
+            await this.closePageAndWait();
+            this.openNextQueuedEventOrRunAction();
         } finally {
             this.resolvingEvent = false;
             if (this.page?.active) {
-                this.setButtonsInteractable(true);
+                this.setButtonsInteractable(!this.adResultShown);
+                if (this.adResultShown && this.confirmButton) {
+                    this.confirmButton.interactable = true;
+                }
             }
         }
+    }
+
+    private showAdResolvedEventResult(card: PlayerCard, event: PendingPlayerEvent): void {
+        this.eventPageRenderVersion += 1;
+        this.adResultShown = true;
+        this.setButtonLabel(this.confirmButton, this.getAdResolvedConfirmLabel(event.type));
+        this.updateAdResolvedDescription(card, event);
+        this.setAdButtonResolvedVisual(true);
+        const overallRoot = this.page?.getChildByName('总评') ?? null;
+        const overallLabel = overallRoot?.getChildByName('数值')?.getComponent(Label) ?? null;
+        const trend = event.type === 'training'
+            ? 'training'
+            : card.activeInjury
+                ? 'injury'
+                : null;
+        applyOverallTrendArrow(overallRoot, trend);
+        if (event.type === 'retirement') {
+            if (overallLabel) {
+                overallLabel.color = getOverallDefaultColor(overallLabel);
+            }
+            return;
+        }
+        const previewOverall = Math.max(
+            1,
+            card.overall - Math.max(1, Math.abs(event.overallDelta)),
+        );
+        setGrowingNumber(
+            overallLabel,
+            card.overall,
+            (value) => formatPlayerOverall(Math.floor(value)),
+            {
+                from: previewOverall,
+                duration: 1.5,
+                colorFrom: event.type === 'injury'
+                    ? getOverallTrendColor('injury')
+                    : getOverallDefaultColor(overallLabel),
+                colorTo: trend
+                    ? getOverallTrendColor(trend)
+                    : getOverallDefaultColor(overallLabel),
+            },
+        );
+    }
+
+    private getOverallTrend(card: PlayerCard, event: PendingPlayerEvent): OverallTrend {
+        if (event.type === 'injury') {
+            return 'injury';
+        }
+        if (event.type === 'training') {
+            return 'training';
+        }
+        return card.activeInjury
+            ? 'injury'
+            : card.activeTraining
+                ? 'training'
+                : null;
+    }
+
+    private getAdResolvedConfirmLabel(type: PlayerEventType): string {
+        if (type === 'injury') {
+            return '爷复活辣！';
+        }
+        if (type === 'training') {
+            return '堪比去少林寺！';
+        }
+        return '我要破出勤记录！';
+    }
+
+    private updateAdResolvedDescription(card: PlayerCard, event: PendingPlayerEvent): void {
+        const definition = this.definitions.get(event.type);
+        const eventDescriptionNode = this.page
+            ?.getChildByName('事件')
+            ?.getChildByName('事件描述') ?? null;
+        if (!definition?.adResolvedDescription || !eventDescriptionNode) {
+            return;
+        }
+        const baseDescription = this.getAdResolvedBaseDescription(card, event);
+        const resolvedDescription = this.resolveDescriptionTemplate(
+            definition.adResolvedDescription,
+            card,
+            event,
+        );
+        const eventColor = definition.tone === 'positive'
+            ? POSITIVE_EVENT_COLOR
+            : NEGATIVE_EVENT_COLOR;
+        this.setEventDescriptionRichText(
+            eventDescriptionNode,
+            `${baseDescription}${resolvedDescription}`,
+            eventColor,
+        );
     }
 
     private applyEventResolution(
@@ -637,10 +855,12 @@ export class PlayerEventController extends Component {
             return;
         }
         if (event.type === 'training') {
-            this.applyOverallDelta(
-                card,
-                Math.max(1, event.overallDelta) * (withAd ? 2 : 1),
-            );
+            const bonus = Math.max(1, event.overallDelta) * (withAd ? 2 : 1);
+            this.applyOverallDelta(card, bonus);
+            card.activeTraining = {
+                overallBonus: bonus,
+                remainingMatches: Math.max(1, event.recoveryMatches),
+            };
             delete card.pendingEvent;
             return;
         }
@@ -657,11 +877,33 @@ export class PlayerEventController extends Component {
         delete card.pendingEvent;
     }
 
-    private advancePlayerMatchState(matchId: string): void {
+    private reconcileLastSettledMatch(): void {
+        const seasonState = loadSeasonState();
+        if (!seasonState.lastSettledMatchId) {
+            return;
+        }
+        this.advancePlayerMatchState(
+            seasonState.lastSettledMatchId,
+            seasonState.lastSettledPlayerInstanceIds,
+        );
+    }
+
+    private advancePlayerMatchState(
+        matchId: string,
+        participatingPlayerInstanceIds: ReadonlyArray<string>,
+    ): void {
+        const participatingIds = new Set(participatingPlayerInstanceIds);
+        if (participatingIds.size === 0) {
+            return;
+        }
         const roster = loadRoster(ROSTER_SLOT_COUNT);
         let changed = false;
         for (const card of roster) {
-            if (!card || card.lastCountedMatchId === matchId) {
+            if (
+                !card
+                || !participatingIds.has(card.instanceId)
+                || card.lastCountedMatchId === matchId
+            ) {
                 continue;
             }
             card.lastCountedMatchId = matchId;
@@ -674,6 +916,13 @@ export class PlayerEventController extends Component {
                 if (card.activeInjury.remainingMatches <= 0) {
                     this.applyOverallDelta(card, card.activeInjury.overallPenalty);
                     delete card.activeInjury;
+                }
+            }
+            if (card.activeTraining) {
+                card.activeTraining.remainingMatches -= 1;
+                if (card.activeTraining.remainingMatches <= 0) {
+                    this.applyOverallDelta(card, -card.activeTraining.overallBonus);
+                    delete card.activeTraining;
                 }
             }
             changed = true;
@@ -849,11 +1098,55 @@ export class PlayerEventController extends Component {
         card: PlayerCard,
         event: PendingPlayerEvent,
     ): string {
+        const description = this.resolveDescriptionTemplate(template, card, event);
+        const value = formatPlayerOverall(Math.abs(event.overallDelta));
+        const matches = Math.max(1, event.recoveryMatches);
+        if (event.type === 'injury') {
+            return `${description} 接下来${matches}场比赛中总评暂时下降${value}。`;
+        }
+        if (event.type === 'training') {
+            return `${description} 接下来${matches}场比赛中总评暂时提升${value}。`;
+        }
+        return description;
+    }
+
+    private resolveDescriptionTemplate(
+        template: string,
+        card: PlayerCard,
+        event: PendingPlayerEvent,
+    ): string {
         return template
             .replace(/\{\{player\}\}/g, card.displayName)
             .replace(/\{\{recruit\}\}/g, event.recruit?.displayName ?? '')
             .replace(/\{\{value\}\}/g, formatPlayerOverall(Math.abs(event.overallDelta)))
             .replace(/\{\{matches\}\}/g, String(Math.max(1, event.recoveryMatches)));
+    }
+
+    private getAdResolvedBaseDescription(
+        card: PlayerCard,
+        event: PendingPlayerEvent,
+    ): string {
+        const value = formatPlayerOverall(Math.abs(event.overallDelta));
+        if (event.type === 'injury') {
+            const template = event.descriptionTemplate ?? '';
+            const directSummary = DIRECT_INJURY_AD_SUMMARIES.find(([keyword]) => (
+                template.includes(keyword)
+            ))?.[1];
+            if (directSummary) {
+                return `${card.displayName}${directSummary}，总评下降${value}。`;
+            }
+            const injurySummary = OCCURRED_INJURY_AD_SUMMARIES.find(([keyword]) => (
+                template.includes(keyword)
+            ))?.[1] ?? '伤病';
+            return `${card.displayName}发生了${injurySummary}，总评下降${value}。`;
+        }
+        if (event.type === 'training') {
+            return `${card.displayName}参加训练，总评提升${value}。`;
+        }
+        if (event.type === 'retirement') {
+            return `${card.displayName}宣布退役。`;
+        }
+        return `${card.displayName}招募了${event.recruit?.displayName ?? '新队友'}，免费加入球队！`;
     }
 
     private setEventDescriptionRichText(
@@ -929,9 +1222,29 @@ export class PlayerEventController extends Component {
         });
     }
 
+    private syncRosterSlotOveralls(
+        roster: ReadonlyArray<PlayerCard | null>,
+    ): void {
+        this.rosterSlots.forEach((slot, index) => {
+            const card = roster[index] ?? null;
+            if (card) {
+                slot.setOverall(card.overall);
+            } else if (slot.getOverall() > 0) {
+                slot.clear();
+            }
+        });
+    }
+
     private resolvePageButtons(): void {
         this.confirmButton = this.page?.getChildByName('确认')?.getComponent(Button) ?? null;
         this.adButton = this.page?.getChildByName('看广告')?.getComponent(Button) ?? null;
+        if (this.adButton) {
+            this.adButton.transition = Button.Transition.COLOR;
+            this.adButton.normalColor = Color.WHITE;
+            this.adButton.hoverColor = Color.WHITE;
+            this.adButton.pressedColor = new Color(225, 225, 225, 255);
+            this.adButton.disabledColor = DISABLED_AD_BUTTON_COLOR;
+        }
         this.confirmButton?.node.on(Button.EventType.CLICK, this.confirmEvent, this);
         this.adButton?.node.on(Button.EventType.CLICK, this.resolveEventWithAd, this);
     }
@@ -980,6 +1293,15 @@ export class PlayerEventController extends Component {
         }
     }
 
+    private setAdButtonResolvedVisual(disabled: boolean): void {
+        if (!this.adButton) {
+            return;
+        }
+        for (const sprite of this.adButton.node.getComponentsInChildren(Sprite)) {
+            sprite.grayscale = disabled;
+        }
+    }
+
     private setButtonsInteractable(interactable: boolean): void {
         if (this.confirmButton) {
             this.confirmButton.interactable = interactable;
@@ -987,6 +1309,38 @@ export class PlayerEventController extends Component {
         if (this.adButton) {
             this.adButton.interactable = interactable;
         }
+    }
+
+    private findNextPendingEventIndex(): number | null {
+        const next = loadRoster(ROSTER_SLOT_COUNT)
+            .map((card, index) => ({ card, index }))
+            .filter((entry): entry is RosterCandidate & { card: PlayerCard & {
+                pendingEvent: PendingPlayerEvent;
+            } } => Boolean(entry.card?.pendingEvent))
+            .sort((left, right) => {
+                return left.card.pendingEvent.occurredAtMs - right.card.pendingEvent.occurredAtMs
+                    || left.index - right.index;
+            })[0];
+        return next?.index ?? null;
+    }
+
+    private openNextQueuedEventOrRunAction(): void {
+        const action = this.queuedActionAfterPendingEvents;
+        if (!action) {
+            return;
+        }
+        if (!this.initialized) {
+            this.queuedActionAfterPendingEvents = null;
+            action();
+            return;
+        }
+        const nextIndex = this.findNextPendingEventIndex();
+        if (nextIndex !== null) {
+            this.openEventAt(nextIndex);
+            return;
+        }
+        this.queuedActionAfterPendingEvents = null;
+        action();
     }
 
     private setLabel(path: string, value: string, root: Node): void {
@@ -1027,6 +1381,18 @@ export class PlayerEventController extends Component {
                     return;
                 }
                 resolve(prefab);
+            });
+        });
+    }
+
+    private loadGameFont(): Promise<Font> {
+        return new Promise((resolve, reject) => {
+            resources.load('fonts/zpix', Font, (error, font) => {
+                if (error || !font) {
+                    reject(error ?? new Error('Missing game font: fonts/zpix'));
+                    return;
+                }
+                resolve(font);
             });
         });
     }

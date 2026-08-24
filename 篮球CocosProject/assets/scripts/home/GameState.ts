@@ -1,8 +1,32 @@
 import { EventTarget, JsonAsset, resources, sys } from 'cc';
+import { PREVIEW } from 'cc/env';
 import {
     STANDARD_MATCH_COUNT,
     getScheduleDescriptor,
 } from './SeasonRoute';
+
+const LOCAL_PREVIEW_RESET_REVISION = '2026-08-21-reset-1';
+const LOCAL_PREVIEW_RESET_STORAGE_KEY = 'basketball.local-preview-reset-revision';
+
+function resetLocalPreviewSaveOnce(): void {
+    if (
+        !PREVIEW
+        || sys.localStorage.getItem(LOCAL_PREVIEW_RESET_STORAGE_KEY) === LOCAL_PREVIEW_RESET_REVISION
+    ) {
+        return;
+    }
+    const basketballKeys: string[] = [];
+    for (let index = 0; index < sys.localStorage.length; index += 1) {
+        const key = sys.localStorage.key(index);
+        if (key?.startsWith('basketball.')) {
+            basketballKeys.push(key);
+        }
+    }
+    basketballKeys.forEach((key) => sys.localStorage.removeItem(key));
+    sys.localStorage.setItem(LOCAL_PREVIEW_RESET_STORAGE_KEY, LOCAL_PREVIEW_RESET_REVISION);
+}
+
+resetLocalPreviewSaveOnce();
 
 export const INT32_MAX = 2_147_483_647;
 export const ROSTER_SLOT_COUNT = 12;
@@ -15,13 +39,27 @@ export const GAME_STATE_EVENT_MANAGEMENT_CHANGED = 'game-state-management-change
 export const GAME_STATE_EVENT_SEASON_CHANGED = 'game-state-season-changed';
 export const GAME_STATE_EVENT_MATCH_SETTLED = 'game-state-match-settled';
 export const GAME_STATE_EVENT_REWARDED_AD_COMPLETED = 'game-state-rewarded-ad-completed';
+export const GAME_STATE_EVENT_VALID_OPERATION_COMPLETED = 'game-state-valid-operation-completed';
+export const GAME_STATE_EVENT_RECRUITMENT_PROTECTION_CHANGED = 'game-state-recruitment-protection-changed';
 
 export const gameStateEvents = new EventTarget();
+
+/**
+ * 只有玩家主动完成了会改变预算的操作时才调用。
+ * 在线挂机等自动收入只广播预算刷新，不属于有效操作。
+ */
+export function notifyValidOperationCompleted(): void {
+    gameStateEvents.emit(GAME_STATE_EVENT_VALID_OPERATION_COMPLETED);
+}
 
 export const BUDGET_STORAGE_KEY = 'basketball.economy.budget.v2';
 export const ROSTER_STORAGE_KEY = 'basketball.roster.v2';
 export const TEAM_NAME_STORAGE_KEY = 'basketball.team.name.v2';
 export const TEAM_ABBREVIATION_STORAGE_KEY = 'basketball.team.abbreviation.v2';
+export const RECRUITMENT_LOWEST_QUALITY_PROTECTION_STORAGE_KEY = 'basketball.recruitment.lowest-quality-protection.v1';
+export const RECRUITMENT_LOWEST_QUALITY_PROTECTION_RECRUITMENT_COUNT = 10;
+export const RECRUITMENT_UPPER_QUALITY_PITY_MISS_STORAGE_KEY = 'basketball.recruitment.upper-quality-pity-miss.v1';
+export const RECRUITMENT_UPPER_QUALITY_PITY_MISS_LIMIT = 10;
 
 const MANAGEMENT_STORAGE_KEY = 'basketball.management.v2';
 const PLAYER_HISTORY_STORAGE_KEY = 'basketball.player-history.v2';
@@ -68,6 +106,11 @@ export interface ActivePlayerInjury {
     remainingMatches: number;
 }
 
+export interface ActivePlayerTraining {
+    overallBonus: number;
+    remainingMatches: number;
+}
+
 export function getTeamAbbreviation(teamName: string, fallback = '我'): string {
     return Array.from(teamName.trim())[0] ?? fallback;
 }
@@ -90,6 +133,7 @@ export interface PlayerCard {
     lastCountedMatchId?: string;
     pendingEvent?: PendingPlayerEvent;
     activeInjury?: ActivePlayerInjury;
+    activeTraining?: ActivePlayerTraining;
 }
 
 interface RosterSaveData {
@@ -123,16 +167,11 @@ export interface ManagementUpgradeResult {
     budgetCost: number;
 }
 
-interface ManagementUpgradeCostRow {
-    fromLevel: number;
-    toLevel: number;
-    budgetCost: number;
-}
-
 interface EconomyConfig {
     managementUpgradeCost: {
         maxLevel: number;
-        upgradeCostToNextLevel: ManagementUpgradeCostRow[];
+        currentLevelBudgetMultiplier: number;
+        currentLevelOffset: number;
     };
 }
 
@@ -141,7 +180,7 @@ export interface ManagementEffectRow {
     operationPresidentBudgetBonus: number;
     headCoachBattleOvrBonus: number;
     scoutingDirectorHighestQualityWeightBonus: number;
-    medicalTeamOvrRollPercentileShift: number;
+    medicalTeamInjuryRiskReduction: number;
     mediaTeamOfflineBudgetBonus: number;
 }
 
@@ -153,7 +192,7 @@ export interface ManagementEffectSnapshot {
     operationPresidentBudgetBonus: number;
     headCoachBattleOvrBonus: number;
     scoutingDirectorHighestQualityWeightBonus: number;
-    medicalTeamOvrRollPercentileShift: number;
+    medicalTeamInjuryRiskReduction: number;
     mediaTeamOfflineBudgetBonus: number;
 }
 
@@ -185,9 +224,11 @@ export interface SeasonState {
     infiniteWins: number;
     conceptGodUpgradeUnlocked: boolean;
     lastSettledMatchId: string | null;
+    lastSettledPlayerInstanceIds: string[];
     lastBaseRewardMatchId: string | null;
     lastAdRewardMatchId: string | null;
     lastAdvancedMatchId: string | null;
+    nextOpponentOverall: number | null;
 }
 
 export type SeasonSchedulePhase =
@@ -203,6 +244,7 @@ export interface MatchSettlementEvent {
     baseReward: number;
     adReward: number;
     advanced: boolean;
+    participatingPlayerInstanceIds: string[];
     seasonState: SeasonState;
 }
 
@@ -225,7 +267,7 @@ const ZERO_MANAGEMENT_EFFECTS: ManagementEffectSnapshot = {
     operationPresidentBudgetBonus: 0,
     headCoachBattleOvrBonus: 0,
     scoutingDirectorHighestQualityWeightBonus: 0,
-    medicalTeamOvrRollPercentileShift: 0,
+    medicalTeamInjuryRiskReduction: 0,
     mediaTeamOfflineBudgetBonus: 0,
 };
 
@@ -278,6 +320,82 @@ export function trySpend(amount: number): boolean {
 
 export function add(amount: number): number {
     return addBudget(amount);
+}
+
+export function getLowestRecruitmentQualityProtectionCount(): number {
+    return Math.min(
+        INT32_MAX,
+        Math.max(
+            0,
+            sanitizeInteger(
+                sys.localStorage.getItem(RECRUITMENT_LOWEST_QUALITY_PROTECTION_STORAGE_KEY),
+                0,
+            ),
+        ),
+    );
+}
+
+export function addLowestRecruitmentQualityProtection(
+    count = RECRUITMENT_LOWEST_QUALITY_PROTECTION_RECRUITMENT_COUNT,
+): number {
+    const nextCount = Math.min(
+        INT32_MAX,
+        getLowestRecruitmentQualityProtectionCount()
+            + Math.max(0, sanitizeInteger(count, 0)),
+    );
+    writeLowestRecruitmentQualityProtectionCount(nextCount);
+    return nextCount;
+}
+
+export function consumeLowestRecruitmentQualityProtection(): number {
+    const nextCount = Math.max(
+        0,
+        getLowestRecruitmentQualityProtectionCount() - 1,
+    );
+    writeLowestRecruitmentQualityProtectionCount(nextCount);
+    return nextCount;
+}
+
+export function getRecruitmentUpperQualityPityMissCount(): number {
+    return Math.min(
+        RECRUITMENT_UPPER_QUALITY_PITY_MISS_LIMIT,
+        Math.max(
+            0,
+            sanitizeInteger(
+                sys.localStorage.getItem(RECRUITMENT_UPPER_QUALITY_PITY_MISS_STORAGE_KEY),
+                0,
+            ),
+        ),
+    );
+}
+
+export function recordRecruitmentUpperQualityPityResult(isUpperQuality: boolean): number {
+    const nextCount = isUpperQuality
+        ? 0
+        : Math.min(
+            RECRUITMENT_UPPER_QUALITY_PITY_MISS_LIMIT,
+            getRecruitmentUpperQualityPityMissCount() + 1,
+        );
+    sys.localStorage.setItem(
+        RECRUITMENT_UPPER_QUALITY_PITY_MISS_STORAGE_KEY,
+        String(nextCount),
+    );
+    return nextCount;
+}
+
+function writeLowestRecruitmentQualityProtectionCount(count: number): void {
+    const normalizedCount = Math.min(
+        INT32_MAX,
+        Math.max(0, sanitizeInteger(count, 0)),
+    );
+    sys.localStorage.setItem(
+        RECRUITMENT_LOWEST_QUALITY_PROTECTION_STORAGE_KEY,
+        String(normalizedCount),
+    );
+    gameStateEvents.emit(
+        GAME_STATE_EVENT_RECRUITMENT_PROTECTION_CHANGED,
+        normalizedCount,
+    );
 }
 
 export function loadRoster(slotCount = ROSTER_SLOT_COUNT): Array<PlayerCard | null> {
@@ -536,7 +654,7 @@ export async function upgradeManagementWithBudget(
             cost,
         );
     }
-    if (cost <= 0 || !trySpendBudget(cost)) {
+    if (cost > 0 && !trySpendBudget(cost)) {
         return createManagementUpgradeResult(
             false,
             'insufficient-budget',
@@ -551,6 +669,9 @@ export async function upgradeManagementWithBudget(
         [role]: previousLevel + 1,
     };
     saveManagementLevels(levels);
+    if (cost > 0) {
+        notifyValidOperationCompleted();
+    }
     return createManagementUpgradeResult(
         true,
         'ok',
@@ -627,7 +748,12 @@ function loadEconomyConfig(): Promise<EconomyConfig> {
     ).then((config) => {
         if (
             !config.managementUpgradeCost
-            || !Array.isArray(config.managementUpgradeCost.upgradeCostToNextLevel)
+            || !Number.isFinite(
+                config.managementUpgradeCost.currentLevelBudgetMultiplier,
+            )
+            || !Number.isFinite(
+                config.managementUpgradeCost.currentLevelOffset,
+            )
         ) {
             throw new Error('Invalid management upgrade cost configuration.');
         }
@@ -653,10 +779,10 @@ export async function getManagementEffects(): Promise<ManagementEffectSnapshot> 
                 config,
                 levels.scoutingDirector,
             ).scoutingDirectorHighestQualityWeightBonus,
-            medicalTeamOvrRollPercentileShift: getEffectRow(
+            medicalTeamInjuryRiskReduction: getEffectRow(
                 config,
                 levels.medicalTeam,
-            ).medicalTeamOvrRollPercentileShift,
+            ).medicalTeamInjuryRiskReduction,
             mediaTeamOfflineBudgetBonus: getEffectRow(
                 config,
                 levels.mediaTeam,
@@ -829,7 +955,11 @@ export function settleAdMatchReward(matchId: string, amount: number): boolean {
     return settleMatchReward(matchId, amount, 'ad');
 }
 
-export function advanceSeasonAfterWin(matchId: string): boolean {
+export function advanceSeasonAfterWin(
+    matchId: string,
+    winningTeamOverall: number,
+    nextOpponentOverallMultiplier: number,
+): boolean {
     const state = loadSeasonState();
     if (
         !isCurrentMatchId(state, matchId)
@@ -838,6 +968,18 @@ export function advanceSeasonAfterWin(matchId: string): boolean {
         return false;
     }
 
+    const safeWinningTeamOverall = Math.max(
+        1,
+        Math.floor(Number.isFinite(winningTeamOverall) ? winningTeamOverall : 1),
+    );
+    const safeMultiplier = Number.isFinite(nextOpponentOverallMultiplier)
+        && nextOpponentOverallMultiplier > 0
+        ? nextOpponentOverallMultiplier
+        : 1;
+    state.nextOpponentOverall = Math.min(
+        INT32_MAX,
+        Math.max(1, Math.floor(safeWinningTeamOverall * safeMultiplier)),
+    );
     state.lastAdvancedMatchId = matchId;
     state.officialWins = Math.min(INT32_MAX, state.officialWins + 1);
     if (state.infiniteMode) {
@@ -866,6 +1008,9 @@ export function emitMatchSettled(
     const state = loadSeasonState();
     if (state.lastSettledMatchId !== matchId) {
         state.lastSettledMatchId = matchId;
+        state.lastSettledPlayerInstanceIds = normalizePlayerInstanceIds(
+            settlement.participatingPlayerInstanceIds,
+        );
         saveSeasonState(state);
     }
     const event: MatchSettlementEvent = {
@@ -873,6 +1018,9 @@ export function emitMatchSettled(
         matchId,
         baseReward: normalizeBudget(settlement.baseReward),
         adReward: normalizeBudget(settlement.adReward),
+        participatingPlayerInstanceIds: normalizePlayerInstanceIds(
+            settlement.participatingPlayerInstanceIds,
+        ),
         seasonState: { ...loadSeasonState() },
     };
     gameStateEvents.emit(GAME_STATE_EVENT_MATCH_SETTLED, event);
@@ -925,18 +1073,21 @@ function getManagementMaxLevel(config: EconomyConfig): number {
 function getManagementCostRow(
     config: EconomyConfig,
     fromLevel: number,
-): ManagementUpgradeCostRow | null {
-    const row = config.managementUpgradeCost.upgradeCostToNextLevel.find(
-        (entry) => sanitizeInteger(entry.fromLevel, -1) === fromLevel
-            && sanitizeInteger(entry.toLevel, -1) === fromLevel + 1,
-    );
-    if (!row || !Number.isFinite(Number(row.budgetCost))) {
+): { fromLevel: number; toLevel: number; budgetCost: number } | null {
+    if (fromLevel < 0 || fromLevel >= getManagementMaxLevel(config)) {
         return null;
     }
+    const multiplier = normalizeBudget(
+        config.managementUpgradeCost.currentLevelBudgetMultiplier,
+    );
+    const levelOffset = Math.max(
+        0,
+        sanitizeInteger(config.managementUpgradeCost.currentLevelOffset, 0),
+    );
     return {
         fromLevel,
         toLevel: fromLevel + 1,
-        budgetCost: normalizeBudget(Number(row.budgetCost)),
+        budgetCost: normalizeBudget((fromLevel + levelOffset) * multiplier),
     };
 }
 
@@ -954,9 +1105,11 @@ function createDefaultSeasonState(): SeasonState {
         infiniteWins: 0,
         conceptGodUpgradeUnlocked: false,
         lastSettledMatchId: null,
+        lastSettledPlayerInstanceIds: [],
         lastBaseRewardMatchId: null,
         lastAdRewardMatchId: null,
         lastAdvancedMatchId: null,
+        nextOpponentOverall: null,
     };
 }
 
@@ -987,6 +1140,10 @@ function normalizeSeasonState(value: Partial<SeasonState>): SeasonState {
         INT32_MAX,
         Math.max(fallbackOfficialWins, storedOfficialWins),
     );
+    const storedNextOpponentOverall = sanitizeInteger(
+        value.nextOpponentOverall,
+        0,
+    );
     const schedule = getSeasonSchedule(matchNumber, infiniteMode);
     return {
         version: SEASON_SAVE_VERSION,
@@ -999,9 +1156,15 @@ function normalizeSeasonState(value: Partial<SeasonState>): SeasonState {
         infiniteWins,
         conceptGodUpgradeUnlocked: infiniteMode && infiniteWins >= 11,
         lastSettledMatchId: normalizeMatchId(value.lastSettledMatchId),
+        lastSettledPlayerInstanceIds: normalizePlayerInstanceIds(
+            value.lastSettledPlayerInstanceIds,
+        ),
         lastBaseRewardMatchId: normalizeMatchId(value.lastBaseRewardMatchId),
         lastAdRewardMatchId: normalizeMatchId(value.lastAdRewardMatchId),
         lastAdvancedMatchId: normalizeMatchId(value.lastAdvancedMatchId),
+        nextOpponentOverall: storedNextOpponentOverall > 0
+            ? Math.min(INT32_MAX, storedNextOpponentOverall)
+            : null,
     };
 }
 
@@ -1073,6 +1236,26 @@ function isRecentMatchId(state: SeasonState, matchId: string): boolean {
         || state.lastSettledMatchId === matchId;
 }
 
+function normalizePlayerInstanceIds(value: unknown): string[] {
+    if (!Array.isArray(value)) {
+        return [];
+    }
+    const uniqueIds = new Set<string>();
+    for (const item of value) {
+        if (typeof item !== 'string') {
+            continue;
+        }
+        const id = item.trim();
+        if (id) {
+            uniqueIds.add(id);
+        }
+        if (uniqueIds.size >= ROSTER_SLOT_COUNT) {
+            break;
+        }
+    }
+    return [...uniqueIds];
+}
+
 function normalizeMatchId(value: unknown): string | null {
     if (typeof value !== 'string') {
         return null;
@@ -1104,6 +1287,7 @@ function normalizePlayerCard(value: unknown, now: number): PlayerCard | null {
     }, {} as PlayerAttributes);
     const pendingEvent = normalizePendingPlayerEvent(card.pendingEvent, now);
     const activeInjury = normalizeActivePlayerInjury(card.activeInjury);
+    const activeTraining = normalizeActivePlayerTraining(card.activeTraining);
 
     return {
         instanceId: String(card.instanceId),
@@ -1130,6 +1314,7 @@ function normalizePlayerCard(value: unknown, now: number): PlayerCard | null {
             : {}),
         ...(pendingEvent ? { pendingEvent } : {}),
         ...(activeInjury ? { activeInjury } : {}),
+        ...(activeTraining ? { activeTraining } : {}),
     };
 }
 
@@ -1151,6 +1336,7 @@ function clonePlayerCard(card: PlayerCard): PlayerCard {
             }
             : {}),
         ...(card.activeInjury ? { activeInjury: { ...card.activeInjury } } : {}),
+        ...(card.activeTraining ? { activeTraining: { ...card.activeTraining } } : {}),
     };
 }
 
@@ -1243,6 +1429,19 @@ function normalizeActivePlayerInjury(value: unknown): ActivePlayerInjury | null 
     return { overallPenalty, remainingMatches };
 }
 
+function normalizeActivePlayerTraining(value: unknown): ActivePlayerTraining | null {
+    if (!value || typeof value !== 'object') {
+        return null;
+    }
+    const training = value as Partial<ActivePlayerTraining>;
+    const overallBonus = sanitizeInteger(training.overallBonus, 0);
+    const remainingMatches = sanitizeInteger(training.remainingMatches, 0);
+    if (overallBonus <= 0 || remainingMatches <= 0) {
+        return null;
+    }
+    return { overallBonus, remainingMatches };
+}
+
 function loadPlayerHistory(): PlayerHistorySaveData {
     const defaults: PlayerHistorySaveData = {
         version: PLAYER_HISTORY_SAVE_VERSION,
@@ -1292,11 +1491,9 @@ function savePlayerHistory(history: PlayerHistorySaveData): void {
 
 function ensureCurrentRosterHistory(roster: ReadonlyArray<PlayerCard | null>): void {
     const history = loadPlayerHistory();
-    if (history.version < 3) {
-        return;
-    }
+    let changed = history.version !== PLAYER_HISTORY_SAVE_VERSION;
+    history.version = PLAYER_HISTORY_SAVE_VERSION;
     const activeCounts = countRosterPlayersByDisplayName(roster);
-    let changed = false;
     for (const [displayName, activeCount] of Object.entries(activeCounts)) {
         if (sanitizeInteger(history.acquiredCounts[displayName], 0) < activeCount) {
             history.acquiredCounts[displayName] = activeCount;

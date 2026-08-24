@@ -45,7 +45,7 @@ export interface MatchPlayEvent {
 export interface MatchCourtCallbacks {
     onScore: (team: number, points: number, event: MatchPlayEvent) => void;
     onCommentary: (
-        text: string,
+        text: string | readonly string[],
         event: MatchPlayEvent,
         mentions: readonly MatchCommentaryMention[],
     ) => void;
@@ -214,6 +214,58 @@ export class MatchCourtSimulation {
         }
     }
 
+    public playOpeningJumpBall(
+        winningTeam: number,
+        onComplete: () => void,
+    ): boolean {
+        if (!this.isReady || this.busy) {
+            return false;
+        }
+        const jumpers = [
+            this.getTeamActors(0)[4] ?? this.getTeamActors(0)[0],
+            this.getTeamActors(1)[4] ?? this.getTeamActors(1)[0],
+        ];
+        const receiver = this.getTeamActors(winningTeam)[0];
+        if (!jumpers[0] || !jumpers[1] || !receiver) {
+            return false;
+        }
+        this.busy = true;
+        this.activeEvent = null;
+        this.speedMultiplier = 1;
+        this.token += 1;
+        const token = this.token;
+        this.stopTweens();
+        this.placeStartingFormation();
+        this.faceTeamTowardAttack(winningTeam);
+        const center = this.courtRange.getChildByName('中场点')?.worldPosition.clone()
+            ?? this.pointInCourt(0.5, 0.5);
+        this.moveActor(jumpers[0], new Vec3(center.x - 26, center.y, center.z), 0.2);
+        this.moveActor(jumpers[1], new Vec3(center.x + 26, center.y, center.z), 0.2);
+        this.after(0.24, token, () => {
+            this.clearBallOwner();
+            this.ball.active = true;
+            this.ball.setWorldPosition(center);
+            this.jumpActor(jumpers[0], 1.14, 0.34);
+            this.jumpActor(jumpers[1], 1.14, 0.34);
+            this.animateBallArc(
+                center,
+                this.getBallAnchorPosition(receiver, 'hold'),
+                0.36,
+                68,
+                token,
+                () => {
+                    if (token !== this.token) {
+                        return;
+                    }
+                    this.setBallOwner(receiver);
+                    this.busy = false;
+                    onComplete();
+                },
+            );
+        });
+        return true;
+    }
+
     public play(event: MatchPlayEvent, speedMultiplier: number): boolean {
         if (!this.isReady || this.busy) {
             return false;
@@ -233,9 +285,16 @@ export class MatchCourtSimulation {
         if (currentOwner !== transitionHandler) {
             this.setBallOwner(transitionHandler);
         }
-        this.moveIntoTactic(setup, transitionHandler, token, () => {
-            this.executeTactic(setup, event, token);
-        });
+        const beginTactic = (): void => {
+            this.moveIntoTactic(setup, transitionHandler, token, () => {
+                this.executeTactic(setup, event, token);
+            });
+        };
+        if (event.quarter > 0 && event.startSecond === event.quarter * 30) {
+            this.playQuarterOpeningInbound(setup, event, token, beginTactic);
+        } else {
+            beginTactic();
+        }
         return true;
     }
 
@@ -339,10 +398,7 @@ export class MatchCourtSimulation {
         const offense = this.getTeamActors(event.offenseTeam);
         const defense = this.getTeamActors(1 - event.offenseTeam);
         const handler = offense[event.handlerIndex % offense.length] ?? offense[0];
-        let shooter = offense[event.shooterIndex % offense.length] ?? offense[0];
-        if (event.action !== 'turnover' && shooter === handler && offense.length > 1) {
-            shooter = offense[(event.shooterIndex + 1) % offense.length];
-        }
+        const shooter = offense[event.shooterIndex % offense.length] ?? offense[0];
         const passer = offense[event.passerIndex % offense.length] ?? handler;
         const helper = offense.find(
             (actor) => actor !== handler && actor !== shooter && actor !== passer,
@@ -356,6 +412,37 @@ export class MatchCourtSimulation {
             helper,
             points: TACTIC_POINTS[event.tactic],
         };
+    }
+
+    private playQuarterOpeningInbound(
+        setup: TacticSetup,
+        event: MatchPlayEvent,
+        token: number,
+        onComplete: () => void,
+    ): void {
+        const inbounder = setup.offense[
+            (event.handlerIndex + 1) % setup.offense.length
+        ] ?? setup.handler;
+        const receiver = inbounder === setup.handler
+            ? (setup.offense[(event.handlerIndex + 2) % setup.offense.length] ?? inbounder)
+            : setup.handler;
+        const inboundHoop = this.getAttackingHoop(1 - event.offenseTeam);
+        const inboundIndex = this.hoopNodes.indexOf(inboundHoop);
+        const inboundPoint = this.ballDropNodes[inboundIndex]?.worldPosition.clone()
+            ?? inbounder.node.worldPosition.clone();
+        const receiverPoint = this.pointInCourt(
+            event.offenseTeam === 0 ? 0.24 : 0.76,
+            event.index % 2 === 0 ? 0.44 : 0.56,
+        );
+        this.clearBallOwner();
+        this.ball.active = true;
+        this.ball.setWorldPosition(inboundPoint);
+        this.moveActor(inbounder, inboundPoint, this.scaled(0.22));
+        this.moveActor(receiver, receiverPoint, this.scaled(0.22));
+        this.after(0.24, token, () => {
+            this.setBallOwner(inbounder);
+            this.passBall(inbounder, receiver, token, onComplete);
+        });
     }
 
     private moveIntoTactic(
@@ -650,7 +737,7 @@ export class MatchCourtSimulation {
             this.animateFreeThrowShot(setup.shooter, true, token, () => {
                 this.callbacks.onScore(event.offenseTeam, 1, event);
                 this.emitCommentary(
-                    `${this.playerName(setup.shooter)}打成2+1，罚球稳稳命中，本回合得到3分。`,
+                    `${this.playerName(setup.shooter)}突破出手时遭遇犯规，打成2+1。加罚命中，本回合得到3分。`,
                     event,
                     setup.shooter,
                 );
@@ -711,11 +798,16 @@ export class MatchCourtSimulation {
                 : madeShots === 1
                     ? '两罚一中'
                     : '两罚全部偏出';
+            const outcome = `${resultText}，得到${madeShots}分`;
+            const foul = `${this.playerName(shooter)}突破出手时遭遇犯规，站上罚球线`;
+            const special = this.selectCommentary(shooter, event, 'free-throw');
+            const commentary = this.composeCommentarySeries(
+                special,
+                this.joinCommentarySentences(foul, special?.[0] ?? '', outcome),
+            );
             if (madeShots === 2) {
-                const special = this.selectCommentary(shooter, event, 'free-throw');
                 this.emitCommentary(
-                    special
-                        ?? `${this.playerName(shooter)}造成投篮犯规，站上罚球线${resultText}，得到${madeShots}分。`,
+                    commentary,
                     event,
                     shooter,
                 );
@@ -725,7 +817,7 @@ export class MatchCourtSimulation {
                     shooter,
                     event,
                     token,
-                    `${this.playerName(shooter)}造成投篮犯规，站上罚球线${resultText}，得到${madeShots}分`,
+                    commentary,
                 );
             }
             return;
@@ -818,8 +910,14 @@ export class MatchCourtSimulation {
                     );
                     this.emitCommentary(
                         special
-                            ? `${special} ${this.playerName(defender)}完成抢断，球权交换。`
-                            : `${TACTIC_NAMES[event.tactic]}没有打成，${this.playerName(defender)}判断传球路线完成抢断，球权交换。`,
+                            ? this.composeCommentarySeries(
+                                special,
+                                this.joinCommentarySentences(
+                                    special[0],
+                                    `${this.playerName(defender)}完成抢断，球权交换`,
+                                ),
+                            )
+                            : [`${TACTIC_NAMES[event.tactic]}没有打成，${this.playerName(defender)}判断传球路线完成抢断，球权交换。`],
                         event,
                         defender,
                     );
@@ -944,7 +1042,7 @@ export class MatchCourtSimulation {
         shooter: MatchActor,
         event: MatchPlayEvent,
         token: number,
-        outcomePrefix = '',
+        outcomePrefix: readonly string[] = [],
     ): void {
         const offense = this.getTeamActors(event.offenseTeam);
         const defense = this.getTeamActors(1 - event.offenseTeam);
@@ -987,10 +1085,16 @@ export class MatchCourtSimulation {
                 : winner.team === event.offenseTeam
                     ? '队友保护下进攻篮板'
                     : '防守方收下篮板';
-            const outcome = outcomePrefix
-                || this.createMissedCommentary(shooter, event);
+            const outcome = outcomePrefix.length > 0
+                ? outcomePrefix
+                : this.createMissedCommentary(shooter, event);
             this.emitCommentary(
-                `${outcome}，${contestedText}${this.playerName(winner)}${relation}。`,
+                [
+                    ...outcome,
+                    this.joinCommentarySentences(
+                        `${contestedText}${this.playerName(winner)}${relation}`,
+                    ),
+                ],
                 event,
                 shooter,
                 winner,
@@ -1013,10 +1117,25 @@ export class MatchCourtSimulation {
         const start = this.ball.worldPosition.clone();
         this.animateBallArc(start, drop.worldPosition, 0.22, 8, token, () => {
             this.moveActor(receiver, drop.worldPosition, this.scaled(0.2), () => {
-                if (token === this.token) {
-                    this.setBallOwner(receiver);
-                    this.completePlay(nextTeam, event, token);
+                if (token !== this.token) {
+                    return;
                 }
+                this.setBallOwner(receiver);
+                const outlet = receivers[(event.index + 1) % receivers.length] ?? receiver;
+                if (outlet === receiver) {
+                    this.completePlay(nextTeam, event, token);
+                    return;
+                }
+                const outletPoint = this.pointInCourt(
+                    nextTeam === 0 ? 0.25 : 0.75,
+                    event.index % 2 === 0 ? 0.44 : 0.56,
+                );
+                this.moveActor(outlet, outletPoint, this.scaled(0.16));
+                this.after(0.06, token, () => {
+                    this.passBall(receiver, outlet, token, () => {
+                        this.completePlay(nextTeam, event, token);
+                    });
+                });
             });
         });
     }
@@ -1037,38 +1156,93 @@ export class MatchCourtSimulation {
     private createMadeCommentary(
         shooter: MatchActor,
         event: MatchPlayEvent,
-    ): string {
+    ): readonly string[] {
         const special = this.selectCommentary(shooter, event, 'made');
         if (special) {
-            return special;
+            return this.composeCommentarySeries(
+                special,
+                this.joinCommentarySentences(
+                    special[0],
+                    this.createMadeResultCommentary(shooter, event),
+                ),
+            );
         }
         const tactic = TACTIC_NAMES[event.tactic];
         const player = this.playerName(shooter);
         if (event.action === 'three') {
-            return `${tactic}拉出空位，${player}三分命中，比分增加3分。`;
+            return [`${tactic}拉出空位，${player}三分命中，比分增加3分。`];
         }
         if (event.action === 'dunk') {
-            return `${tactic}撕开防线，${player}完成扣篮，比分增加2分。`;
+            return [`${tactic}撕开防线，${player}完成扣篮，比分增加2分。`];
         }
         if (event.action === 'layup') {
-            return `${tactic}形成突破，${player}上篮得手，比分增加2分。`;
+            return [`${tactic}形成突破，${player}上篮得手，比分增加2分。`];
         }
-        return `${tactic}创造出手机会，${player}中距离命中，比分增加2分。`;
+        return [`${tactic}创造出手机会，${player}中距离命中，比分增加2分。`];
     }
 
     private createMissedCommentary(
         shooter: MatchActor,
         event: MatchPlayEvent,
+    ): readonly string[] {
+        const special = this.selectCommentary(shooter, event, 'missed');
+        if (special) {
+            return this.composeCommentarySeries(
+                special,
+                this.joinCommentarySentences(
+                    special[0],
+                    `${this.playerName(shooter)}${this.actionName(event.action)}打铁`,
+                ),
+            );
+        }
+        return [`${this.playerName(shooter)}${this.actionName(event.action)}偏出`];
+    }
+
+    private createMadeResultCommentary(
+        shooter: MatchActor,
+        event: MatchPlayEvent,
     ): string {
-        return this.selectCommentary(shooter, event, 'missed')
-            ?? `${this.playerName(shooter)}${this.actionName(event.action)}偏出`;
+        const player = this.playerName(shooter);
+        if (event.action === 'three') {
+            return `${player}三分命中，得到3分`;
+        }
+        if (event.action === 'dunk') {
+            return `${player}扣篮得手，得到2分`;
+        }
+        if (event.action === 'layup') {
+            return `${player}上篮得手，得到2分`;
+        }
+        return `${player}中距离命中，得到2分`;
+    }
+
+    private joinCommentarySentences(...parts: string[]): string {
+        return parts
+            .map((part) => part.trim())
+            .filter(Boolean)
+            .map((part) => {
+                const normalized = part.replace(/[，,、；;：:]+$/u, '');
+                return /[。！？!?]$/u.test(normalized)
+                    ? normalized
+                    : `${normalized}。`;
+            })
+            .join('');
+    }
+
+    private composeCommentarySeries(
+        special: readonly string[] | null,
+        lead: string,
+    ): readonly string[] {
+        return [
+            lead,
+            ...(special?.slice(1).map((text) => this.joinCommentarySentences(text)) ?? []),
+        ];
     }
 
     private selectCommentary(
         actor: MatchActor,
         event: MatchPlayEvent,
         outcome: 'made' | 'missed' | 'turnover' | 'free-throw',
-    ): string | null {
+    ): readonly string[] | null {
         const offense = this.getTeamActors(event.offenseTeam);
         const passer = offense[event.passerIndex % offense.length] ?? null;
         return this.commentarySelector.select({
@@ -1083,7 +1257,7 @@ export class MatchCourtSimulation {
     }
 
     private emitCommentary(
-        text: string,
+        text: string | readonly string[],
         event: MatchPlayEvent,
         ...actors: MatchActor[]
     ): void {

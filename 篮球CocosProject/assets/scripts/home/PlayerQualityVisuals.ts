@@ -10,6 +10,11 @@ import { UniverseWithin } from '../effects/UniverseWithin';
 import { XrayAvatarScan } from '../effects/XrayAvatarScan';
 
 const HIGH_QUALITY_MIN_ID = 10;
+const INJURY_OVERALL_COLOR = new Color(210, 99, 92, 255);
+const TRAINING_OVERALL_COLOR = new Color(95, 176, 118, 255);
+const originalOverallLabelColors = new WeakMap<Label, Color>();
+
+export type OverallTrend = 'injury' | 'training' | null;
 
 interface QualityVisualPreset {
     frameKind: QualityFrameShaderKind;
@@ -126,6 +131,36 @@ export function applyOverallNumberQuality(label: Label | null, qualityId: number
         preset.numberFlow,
         preset.numberPrism,
     );
+}
+
+/** 伤病、训练中的总评箭头沿用一套状态：伤病向下红色，训练向上绿色。 */
+export function applyOverallTrendArrow(
+    overallRoot: Node | null,
+    trend: OverallTrend,
+): void {
+    const arrow = overallRoot?.getChildByName('箭头') ?? null;
+    if (arrow) {
+        arrow.active = trend !== null;
+        arrow.angle = trend === 'training' ? 180 : 0;
+        const sprite = arrow.getComponent(Sprite) ?? arrow.getComponentInChildren(Sprite);
+        if (sprite && trend) {
+            sprite.color = getOverallTrendColor(trend);
+        }
+    }
+}
+
+export function getOverallDefaultColor(label: Label | null): Color {
+    if (!label) {
+        return Color.WHITE.clone();
+    }
+    if (!originalOverallLabelColors.has(label)) {
+        originalOverallLabelColors.set(label, label.color.clone());
+    }
+    return originalOverallLabelColors.get(label)!.clone();
+}
+
+export function getOverallTrendColor(trend: Exclude<OverallTrend, null>): Color {
+    return (trend === 'training' ? TRAINING_OVERALL_COLOR : INJURY_OVERALL_COLOR).clone();
 }
 
 /** 招募揭示时的总评冲击色也跟随当前品质。 */

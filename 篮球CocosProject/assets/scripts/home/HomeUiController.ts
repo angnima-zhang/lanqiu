@@ -7,13 +7,13 @@ import {
     Label,
     Node,
     resources,
+    RichText,
     Sprite,
     SpriteFrame,
     sys,
     UITransform,
 } from 'cc';
 import {
-    ATTRIBUTE_KEYS,
     calculateTeamOverall,
     GAME_STATE_EVENT_PLAYER_DETAILS_REQUESTED,
     GAME_STATE_EVENT_MANAGEMENT_CHANGED,
@@ -68,11 +68,25 @@ import { RecruitmentProbabilityController } from './RecruitmentProbabilityContro
 import { gameAudio } from './GameAudio';
 import { installGoldAdButtonGlows } from './GoldAdButtonGlow';
 import {
+    applyOverallTrendArrow,
     applyOverallNumberQuality,
     applyPlayerQualityVisuals,
+    getOverallDefaultColor,
+    getOverallTrendColor,
+    OverallTrend,
 } from './PlayerQualityVisuals';
 import { PlayerEventController } from './PlayerEventController';
 import { setGrowingNumber } from './NumberGrowthAnimator';
+import { showRewardedVideo } from './RewardedAdService';
+import {
+    addPermanentOverallForPlayerKnowledge,
+    advancePlayerKnowledgeQuestion,
+    formatPlayerKnowledgeText,
+    getPlayerKnowledgeProgress,
+    loadPlayerKnowledgeConfig,
+    recordPlayerKnowledgeAnswer,
+    unlockPlayerKnowledgeAnswers,
+} from './PlayerKnowledge';
 
 const { ccclass } = _decorator;
 
@@ -113,8 +127,11 @@ export class HomeUiController extends Component {
     private teamNameInputLabel: Label | null = null;
     private editingTeamName = false;
     private cardRenderVersion = 0;
+    private knowledgeRenderVersion = 0;
+    private currentKnowledgeSourceName: string | null = null;
     private teamInfoRequestVersion = 0;
     private buttonVisualBindings: ButtonVisualBinding[] = [];
+    private readonly buttonGrayscaleOverrides = new WeakMap<Button, boolean>();
     private recruitButtonWithPressedSprite: Button | null = null;
     private readonly settingToggleSprites = new WeakMap<Button, SettingToggleSprites>();
 
@@ -135,6 +152,7 @@ export class HomeUiController extends Component {
         this.teamInfoPage.active = false;
         this.settingsPage.active = false;
         this.playerDetailsPage.active = false;
+        this.ensurePlayerKnowledgeButtons();
         this.playerEventController = this.node.getComponent(PlayerEventController)
             ?? this.node.addComponent(PlayerEventController);
         this.managementController = this.node.getComponent(ManagementController)
@@ -266,6 +284,22 @@ export class HomeUiController extends Component {
             this.playerDetailsPage?.getChildByName('返回')?.getComponent(Button),
             this.closePlayerDetails,
         );
+        this.bindButton(
+            this.findByPath(this.playerDetailsPage, '球员知识/是')?.getComponent(Button),
+            () => { void this.answerPlayerKnowledge(true); },
+        );
+        this.bindButton(
+            this.findByPath(this.playerDetailsPage, '球员知识/否')?.getComponent(Button),
+            () => { void this.answerPlayerKnowledge(false); },
+        );
+        this.bindButton(
+            this.findByPath(this.playerDetailsPage, '球员知识/答对全部')?.getComponent(Button),
+            () => { void this.unlockPlayerKnowledgeWithAd(); },
+        );
+        this.bindButton(
+            this.findByPath(this.playerDetailsPage, '球员知识/下一题')?.getComponent(Button),
+            () => { void this.showNextPlayerKnowledgeQuestion(); },
+        );
 
         const seasonButton = this.findByPath(
             this.homeRoot,
@@ -298,6 +332,15 @@ export class HomeUiController extends Component {
             this.bindButton(slot.selectButton, () => this.openPlayerDetails(index));
         });
         this.bindManagementEntrypoints();
+    }
+
+    private ensurePlayerKnowledgeButtons(): void {
+        for (const name of ['是', '否', '答对全部', '下一题']) {
+            const node = this.findByPath(this.playerDetailsPage, `球员知识/${name}`);
+            if (node && !node.getComponent(Button)) {
+                node.addComponent(Button);
+            }
+        }
     }
 
     private bindButton(
@@ -413,6 +456,8 @@ export class HomeUiController extends Component {
 
     private closePlayerDetails = (): void => {
         this.cardRenderVersion += 1;
+        this.knowledgeRenderVersion += 1;
+        this.currentKnowledgeSourceName = null;
         if (this.playerDetailsPage) {
             void exitWithFade(this.playerDetailsPage).then(() => {
                 this.playerDetailsPage!.active = false;
@@ -421,8 +466,14 @@ export class HomeUiController extends Component {
     };
 
     private openPreMatchPage = (): void => {
-        this.closeFullScreenPages();
-        void PreMatchController.instance?.openPage();
+        const openPage = (): void => {
+            this.closeFullScreenPages();
+            void PreMatchController.instance?.openPage();
+        };
+        if (this.playerEventController?.runAfterPendingEvents(openPage)) {
+            return;
+        }
+        openPage();
     };
 
     private openIdleIncomePage = (): void => {
@@ -559,7 +610,11 @@ export class HomeUiController extends Component {
         }
     }
 
-    private async renderDetailedPlayerCard(root: Node | null, card: PlayerCard): Promise<void> {
+    private async renderDetailedPlayerCard(
+        root: Node | null,
+        card: PlayerCard,
+        overallAnimationFrom?: number,
+    ): Promise<void> {
         if (!root) {
             return;
         }
@@ -585,7 +640,11 @@ export class HomeUiController extends Component {
         const eventNode = portraitRoot?.getChildByName('事件') ?? null;
         const eventIcon = eventNode?.getComponent(Sprite) ?? null;
         const eventType = card.pendingEvent?.type
-            ?? (card.activeInjury ? 'injury' : null);
+            ?? (card.activeInjury
+                ? 'injury'
+                : card.activeTraining
+                    ? 'training'
+                    : null);
         if (eventNode) {
             eventNode.active = eventType !== null;
         }
@@ -596,39 +655,44 @@ export class HomeUiController extends Component {
         this.setLabel('球员头像/名牌/名字', card.displayName, root);
         this.setLabel('球员头像/品质标签/品质', card.qualityName, root);
         this.setLabel('球员头像/位置/位置', card.position, root);
-        const overallLabel = root.getChildByName('总评')?.getChildByName('数值')
-            ?.getComponent(Label) ?? null;
-        this.animateDetailedOverall(overallLabel, card);
-        applyOverallNumberQuality(
-            overallLabel,
-            card.qualityId,
-        );
-        const attributeNodeNames: Record<typeof ATTRIBUTE_KEYS[number], string> = {
-            scoring: '得分',
-            rebound: '篮板',
-            assist: '助攻',
-            steal: '抢断',
-            block: '盖帽',
-        };
-        for (const key of ATTRIBUTE_KEYS) {
-            this.setLabel(
-                `五项数据/${attributeNodeNames[key]}/数值`,
-                this.formatOverall(card.attributes[key]),
-                root,
-            );
-        }
+        const roster = loadRoster(this.rosterSlots.length);
         this.setLabel(
             '累计获得次数/累计获得次数数值',
-            String(getPlayerAcquisitionCount(card.displayName)),
+            String(Math.max(1, getPlayerAcquisitionCount(card.displayName))),
             root,
         );
         this.setLabel(
             '效力时长/累计效力时长数值',
-            this.formatServiceDuration(
-                getPlayerServiceDurationMs(card.displayName),
+            this.formatPlayerServiceDuration(
+                getPlayerServiceDurationMs(card.displayName, roster),
             ),
             root,
         );
+        const overallRoot = root.getChildByName('总评') ?? null;
+        const overallLabel = overallRoot?.getChildByName('数值')
+            ?.getComponent(Label) ?? null;
+        const eventOverallTrend: OverallTrend = card.activeInjury
+            ? 'injury'
+            : card.activeTraining || card.pendingEvent?.type === 'training'
+                ? 'training'
+                : null;
+        const overallTrend: OverallTrend = overallAnimationFrom !== undefined
+            && card.overall > overallAnimationFrom
+            ? 'training'
+            : eventOverallTrend;
+        this.animateDetailedOverall(
+            overallLabel,
+            card,
+            overallTrend,
+            overallAnimationFrom,
+        );
+        applyOverallNumberQuality(
+            overallLabel,
+            card.qualityId,
+        );
+        applyOverallTrendArrow(overallRoot, overallTrend);
+        this.currentKnowledgeSourceName = card.sourcePlayerName;
+        void this.renderPlayerKnowledge(root, card);
 
         const [
             portrait,
@@ -682,12 +746,35 @@ export class HomeUiController extends Component {
         applyPlayerQualityVisuals(portraitRoot ?? null, card.qualityId);
     }
 
-    private animateDetailedOverall(label: Label | null, card: PlayerCard): void {
+    private animateDetailedOverall(
+        label: Label | null,
+        card: PlayerCard,
+        trend: OverallTrend,
+        fromOverall?: number,
+    ): void {
         const target = card.overall;
+        if (fromOverall !== undefined && target > fromOverall) {
+            setGrowingNumber(
+                label,
+                target,
+                (value) => this.formatOverall(Math.floor(value)),
+                {
+                    from: fromOverall,
+                    duration: 1.5,
+                    colorFrom: getOverallDefaultColor(label),
+                    colorTo: getOverallTrendColor('training'),
+                },
+            );
+            return;
+        }
         const penalty = card.activeInjury?.overallPenalty ?? 0;
-        if (penalty <= 0) {
+        const bonus = card.activeTraining?.overallBonus ?? 0;
+        if (penalty <= 0 && bonus <= 0) {
             if (label) {
                 label.string = this.formatOverall(target);
+                label.color = trend
+                    ? getOverallTrendColor(trend)
+                    : getOverallDefaultColor(label);
             }
             return;
         }
@@ -696,9 +783,15 @@ export class HomeUiController extends Component {
             target,
             (value) => this.formatOverall(Math.floor(value)),
             {
-                from: target + penalty,
+                from: penalty > 0
+                    ? target + penalty
+                    : Math.max(1, target - bonus),
                 duration: 1.5,
-                animateDecrease: true,
+                animateDecrease: penalty > 0,
+                colorFrom: getOverallDefaultColor(label),
+                colorTo: getOverallTrendColor(
+                    penalty > 0 ? 'injury' : 'training',
+                ),
             },
         );
     }
@@ -773,9 +866,261 @@ export class HomeUiController extends Component {
         this.setLabel('球队名/名字', teamName, this.teamInfoPage);
     }
 
+    private async renderPlayerKnowledge(root: Node, card: PlayerCard): Promise<void> {
+        const renderVersion = ++this.knowledgeRenderVersion;
+        const knowledgeRoot = root.getChildByName('球员知识');
+        const titleLabel = knowledgeRoot?.getChildByName('题目')?.getComponent(Label) ?? null;
+        const questionLabel = knowledgeRoot?.getChildByName('问题')?.getComponent(Label) ?? null;
+        const yesButton = knowledgeRoot?.getChildByName('是')?.getComponent(Button) ?? null;
+        const noButton = knowledgeRoot?.getChildByName('否')?.getComponent(Button) ?? null;
+        const answerAllButton = knowledgeRoot?.getChildByName('答对全部')?.getComponent(Button) ?? null;
+        const nextButton = knowledgeRoot?.getChildByName('下一题')?.getComponent(Button) ?? null;
+        if (!knowledgeRoot || !titleLabel || !questionLabel || !yesButton || !noButton) {
+            return;
+        }
+
+        try {
+            const config = await loadPlayerKnowledgeConfig();
+            if (
+                renderVersion !== this.knowledgeRenderVersion
+                || this.currentKnowledgeSourceName !== card.sourcePlayerName
+            ) {
+                return;
+            }
+            const entry = config.players[card.sourcePlayerName];
+            if (!entry || entry.questions.length === 0) {
+                titleLabel.string = '球员知识';
+                this.setPlayerKnowledgeQuestionText(
+                    questionLabel,
+                    '该球员的资料正在整理中。',
+                );
+                yesButton.node.active = false;
+                noButton.node.active = false;
+                if (answerAllButton) answerAllButton.node.active = false;
+                if (nextButton) nextButton.node.active = false;
+                return;
+            }
+
+            const progress = getPlayerKnowledgeProgress(card.sourcePlayerName);
+            const completedCount = entry.questions.filter((question) => (
+                progress.correctQuestionIds.includes(question.id)
+            )).length;
+            if (completedCount >= entry.questions.length) {
+                titleLabel.string = `球员知识 ${entry.questions.length}/${entry.questions.length}`;
+                this.setPlayerKnowledgeQuestionText(
+                    questionLabel,
+                    '全部答对！该球员的知识奖励已领取完毕。',
+                );
+                yesButton.node.active = false;
+                noButton.node.active = false;
+                if (answerAllButton) answerAllButton.node.active = false;
+                if (nextButton) nextButton.node.active = false;
+                return;
+            }
+
+            const index = progress.currentQuestionIndex % entry.questions.length;
+            const question = entry.questions[index];
+            titleLabel.string = `球员知识 ${index + 1}/${entry.questions.length}`;
+            const alreadyCorrect = progress.correctQuestionIds.includes(question.id);
+            const answeredWrong = progress.wrongQuestionIds.includes(question.id);
+            const correctButton = question.answer ? yesButton : noButton;
+            const wrongButton = question.answer ? noButton : yesButton;
+            yesButton.node.active = true;
+            noButton.node.active = true;
+
+            if (alreadyCorrect) {
+                this.setPlayerKnowledgeQuestionText(
+                    questionLabel,
+                    `答对了！${card.displayName} 总评永久提升 ${question.rewardOverall}。`,
+                );
+                this.setKnowledgeAnswerButtonState(correctButton, false, false);
+                this.setKnowledgeAnswerButtonState(wrongButton, false, true);
+                if (answerAllButton) answerAllButton.node.active = false;
+                if (nextButton) nextButton.node.active = true;
+                return;
+            }
+
+            if (answeredWrong) {
+                this.setPlayerKnowledgeQuestionText(
+                    questionLabel,
+                    formatPlayerKnowledgeText(question.text, card.displayName),
+                    `可惜了，正确答案是：${question.answer ? '是' : '否'}`,
+                );
+                this.setKnowledgeAnswerButtonState(correctButton, false, false);
+                this.setKnowledgeAnswerButtonState(wrongButton, false, true);
+                if (answerAllButton) answerAllButton.node.active = false;
+                if (nextButton) nextButton.node.active = true;
+                return;
+            }
+
+            this.setPlayerKnowledgeQuestionText(
+                questionLabel,
+                formatPlayerKnowledgeText(question.text, card.displayName),
+            );
+            this.setKnowledgeAnswerButtonState(correctButton, true, false);
+            this.setKnowledgeAnswerButtonState(
+                wrongButton,
+                !progress.answerAllUnlocked,
+                progress.answerAllUnlocked,
+            );
+            if (answerAllButton) {
+                answerAllButton.node.active = !progress.answerAllUnlocked;
+            }
+            if (nextButton) {
+                nextButton.node.active = progress.answerAllUnlocked;
+            }
+        } catch (error) {
+            console.error('[HomeUiController] Failed to load player knowledge.', error);
+            titleLabel.string = '球员知识';
+            this.setPlayerKnowledgeQuestionText(
+                questionLabel,
+                '资料加载失败，请稍后重试。',
+            );
+        }
+    }
+
+    private async answerPlayerKnowledge(answer: boolean): Promise<void> {
+        const card = this.getCurrentKnowledgeCard();
+        if (!card || !this.playerDetailsPage) {
+            return;
+        }
+        const config = await loadPlayerKnowledgeConfig();
+        const entry = config.players[card.sourcePlayerName];
+        if (!entry || entry.questions.length === 0) {
+            return;
+        }
+        const progress = getPlayerKnowledgeProgress(card.sourcePlayerName);
+        const question = entry.questions[progress.currentQuestionIndex % entry.questions.length];
+        const correct = answer === question.answer;
+        const newlyCorrect = recordPlayerKnowledgeAnswer(
+            card.sourcePlayerName,
+            question.id,
+            correct,
+        );
+        let overallAnimationFrom: number | undefined;
+        if (newlyCorrect) {
+            const rewardedCard = addPermanentOverallForPlayerKnowledge(
+                card.sourcePlayerName,
+                question.rewardOverall,
+            );
+            if (rewardedCard && rewardedCard.overall > card.overall) {
+                overallAnimationFrom = card.overall;
+            }
+        }
+        const latestCard = this.getCurrentKnowledgeCard() ?? card;
+        await this.renderDetailedPlayerCard(
+            this.playerDetailsPage,
+            latestCard,
+            overallAnimationFrom,
+        );
+    }
+
+    private setPlayerKnowledgeQuestionText(
+        label: Label,
+        question: string,
+        highlightedSuffix?: string,
+    ): void {
+        let richText = label.node.getComponent(RichText);
+        if (!highlightedSuffix) {
+            if (richText) {
+                richText.enabled = false;
+            }
+            label.enabled = true;
+            label.string = question;
+            return;
+        }
+        if (!richText) {
+            richText = label.node.addComponent(RichText);
+            richText.fontSize = label.fontSize;
+            richText.lineHeight = label.lineHeight;
+            richText.horizontalAlign = label.horizontalAlign;
+            richText.verticalAlign = label.verticalAlign;
+            richText.maxWidth = label.node.getComponent(UITransform)?.width ?? 0;
+            richText.useSystemFont = label.useSystemFont;
+            richText.fontFamily = label.fontFamily;
+            richText.font = label.font;
+            richText.handleTouchEvent = false;
+        }
+        const baseColor = `#${[label.color.r, label.color.g, label.color.b]
+            .map((value) => value.toString(16).padStart(2, '0'))
+            .join('')}`;
+        const escapeRichText = (value: string): string => value
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+        label.enabled = false;
+        richText.enabled = true;
+        richText.string = `<color=${baseColor}><b>${escapeRichText(question)}</b></color>\n<color=#FFD15A><b>${escapeRichText(highlightedSuffix)}</b></color>`;
+    }
+
+    private async unlockPlayerKnowledgeWithAd(): Promise<void> {
+        const card = this.getCurrentKnowledgeCard();
+        if (!card || !this.playerDetailsPage) {
+            return;
+        }
+        const answerAllButton = this.findByPath(
+            this.playerDetailsPage,
+            '球员知识/答对全部',
+        )?.getComponent(Button) ?? null;
+        if (answerAllButton) {
+            answerAllButton.interactable = false;
+        }
+        const completed = await showRewardedVideo();
+        if (completed) {
+            unlockPlayerKnowledgeAnswers(card.sourcePlayerName);
+        }
+        const latestCard = this.getCurrentKnowledgeCard() ?? card;
+        await this.renderDetailedPlayerCard(this.playerDetailsPage, latestCard);
+    }
+
+    private async showNextPlayerKnowledgeQuestion(): Promise<void> {
+        const card = this.getCurrentKnowledgeCard();
+        if (!card || !this.playerDetailsPage) {
+            return;
+        }
+        const config = await loadPlayerKnowledgeConfig();
+        const entry = config.players[card.sourcePlayerName];
+        if (!entry) {
+            return;
+        }
+        advancePlayerKnowledgeQuestion(card.sourcePlayerName, entry.questions);
+        await this.renderDetailedPlayerCard(this.playerDetailsPage, card);
+    }
+
+    private getCurrentKnowledgeCard(): PlayerCard | null {
+        if (!this.currentKnowledgeSourceName) {
+            return null;
+        }
+        return loadRoster(this.rosterSlots.length).find((card) => (
+            card?.sourcePlayerName === this.currentKnowledgeSourceName
+        )) ?? null;
+    }
+
+    private async refreshVisibleRosterSlots(): Promise<void> {
+        const roster = loadRoster(this.rosterSlots.length);
+        await Promise.all(this.rosterSlots.map(async (slot, index) => {
+            const card = roster[index];
+            if (!card) {
+                slot.clear();
+                return;
+            }
+            slot.setup(card.overall, card.qualityId, await loadPlayerPortrait(card));
+        }));
+        this.topTeamInfoController?.refreshOverallFromRoster();
+    }
+
     private onRosterChanged(): void {
+        void this.refreshVisibleRosterSlots();
         if (this.teamInfoPage?.active) {
             void this.refreshTeamInfoPage();
+        }
+        if (this.playerDetailsPage?.active && this.currentKnowledgeSourceName) {
+            const card = loadRoster(this.rosterSlots.length).find((candidate) => (
+                candidate?.sourcePlayerName === this.currentKnowledgeSourceName
+            ));
+            if (card) {
+                void this.renderDetailedPlayerCard(this.playerDetailsPage, card);
+            }
         }
     }
 
@@ -922,10 +1267,31 @@ export class HomeUiController extends Component {
             }
             binding.lastInteractable = interactable;
             if (binding.sprite?.isValid) {
-                binding.sprite.grayscale = interactable
-                    ? binding.originalGrayscale
-                    : true;
+                const grayscaleOverride = this.buttonGrayscaleOverrides.get(binding.button);
+                binding.sprite.grayscale = grayscaleOverride
+                    ?? (interactable ? binding.originalGrayscale : true);
             }
+        }
+    }
+
+    private setKnowledgeAnswerButtonState(
+        button: Button,
+        interactable: boolean,
+        grayscale: boolean,
+    ): void {
+        button.interactable = interactable;
+        this.buttonGrayscaleOverrides.set(button, grayscale);
+        const binding = this.buttonVisualBindings.find((candidate) => (
+            candidate.button === button
+        ));
+        const sprite = binding?.sprite
+            ?? button.target?.getComponent(Sprite)
+            ?? button.node.getComponent(Sprite);
+        if (sprite?.isValid) {
+            sprite.grayscale = grayscale;
+        }
+        if (binding) {
+            binding.lastInteractable = interactable;
         }
     }
 
@@ -955,21 +1321,12 @@ export class HomeUiController extends Component {
         return value >= INT32_MAX ? 'MAX' : formatPlayerOverall(value);
     }
 
-    private formatServiceDuration(durationMs: number): string {
-        const elapsedMinutes = Math.max(
-            0,
-            Math.floor(durationMs / 60_000),
-        );
-        const days = Math.floor(elapsedMinutes / 1440);
-        const hours = Math.floor((elapsedMinutes % 1440) / 60);
-        const minutes = elapsedMinutes % 60;
-        if (days > 0) {
-            return `${days}天${hours}小时`;
-        }
-        if (hours > 0) {
-            return `${hours}小时${minutes}分`;
-        }
-        return `${minutes}分钟`;
+    private formatPlayerServiceDuration(durationMs: number): string {
+        const totalSeconds = Math.max(0, Math.floor(durationMs / 1000));
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+        return `${hours}H-${minutes}M-${seconds}S`;
     }
 
     private resolveSceneReferences(): void {

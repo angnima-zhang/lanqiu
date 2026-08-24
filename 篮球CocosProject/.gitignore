@@ -13,6 +13,7 @@ native
 #//////////////////////////
 node_modules/
 extensions/cocos-code-mode/
+.firecrawl/
 
 #//////////////////////////
 # VSCode

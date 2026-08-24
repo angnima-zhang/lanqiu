@@ -9,8 +9,11 @@ import {
 } from 'cc';
 import {
     GAME_STATE_EVENT_MANAGEMENT_CHANGED,
+    GAME_STATE_EVENT_RECRUITMENT_PROTECTION_CHANGED,
     GAME_STATE_EVENT_SEASON_CHANGED,
+    addLowestRecruitmentQualityProtection,
     gameStateEvents,
+    getLowestRecruitmentQualityProtectionCount,
     getManagementEffects,
     loadJson,
     loadManagementLevels,
@@ -18,14 +21,15 @@ import {
 } from './GameState';
 import { playFullScreenEntrance, stopFullScreenEntrance } from './FullScreenEntrance';
 import { playFullScreenExit as exitWithFade } from './FullScreenEntrance';
-import { ManagementController } from './ManagementController';
 import { loadThinQualityFrame } from './PlayerAssets';
 import { getQualityFrameIndex } from './RosterSlotView';
 import {
     RecruitmentProbabilityConfig,
     ResolvedRecruitmentWindow,
+    resolveRecruitmentQualityWeights,
     resolveRecruitmentWindow,
 } from './RecruitmentProgression';
+import { showRewardedVideo } from './RewardedAdService';
 import {
     getStoredMarketValueLevel,
     TEAM_PROGRESSION_EVENT_MARKET_VALUE_CHANGED,
@@ -61,6 +65,7 @@ export class RecruitmentProbabilityController extends Component {
     private rows: ProbabilityRowView[] = [];
     private configPromise: Promise<RecruitmentProbabilityConfig> | null = null;
     private renderVersion = 0;
+    private upgradeAdProcessing = false;
 
     protected onLoad(): void {
         this.resolveHierarchy();
@@ -74,7 +79,11 @@ export class RecruitmentProbabilityController extends Component {
     protected onEnable(): void {
         this.resolveHierarchy();
         this.closeButton?.node.on(Button.EventType.CLICK, this.closePage, this);
-        this.upgradeButton?.node.on(Button.EventType.CLICK, this.openScoutingManagement, this);
+        this.upgradeButton?.node.on(
+            Button.EventType.CLICK,
+            this.activateLowestQualityProtection,
+            this,
+        );
         gameStateEvents.on(
             GAME_STATE_EVENT_MANAGEMENT_CHANGED,
             this.refreshIfVisible,
@@ -82,6 +91,11 @@ export class RecruitmentProbabilityController extends Component {
         );
         gameStateEvents.on(
             GAME_STATE_EVENT_SEASON_CHANGED,
+            this.refreshIfVisible,
+            this,
+        );
+        gameStateEvents.on(
+            GAME_STATE_EVENT_RECRUITMENT_PROTECTION_CHANGED,
             this.refreshIfVisible,
             this,
         );
@@ -94,7 +108,11 @@ export class RecruitmentProbabilityController extends Component {
 
     protected onDisable(): void {
         this.closeButton?.node.off(Button.EventType.CLICK, this.closePage, this);
-        this.upgradeButton?.node.off(Button.EventType.CLICK, this.openScoutingManagement, this);
+        this.upgradeButton?.node.off(
+            Button.EventType.CLICK,
+            this.activateLowestQualityProtection,
+            this,
+        );
         gameStateEvents.off(
             GAME_STATE_EVENT_MANAGEMENT_CHANGED,
             this.refreshIfVisible,
@@ -102,6 +120,11 @@ export class RecruitmentProbabilityController extends Component {
         );
         gameStateEvents.off(
             GAME_STATE_EVENT_SEASON_CHANGED,
+            this.refreshIfVisible,
+            this,
+        );
+        gameStateEvents.off(
+            GAME_STATE_EVENT_RECRUITMENT_PROTECTION_CHANGED,
             this.refreshIfVisible,
             this,
         );
@@ -133,7 +156,7 @@ export class RecruitmentProbabilityController extends Component {
                     order: index + 1,
                 })),
                 { nodes: this.namedChildren(this.page, ['球探加成']), order: 6 },
-                { nodes: this.namedChildren(this.page, ['立刻升级球探']), order: 7 },
+                { nodes: this.upgradeButton ? [this.upgradeButton.node] : [], order: 7 },
             ],
         });
     };
@@ -148,9 +171,24 @@ export class RecruitmentProbabilityController extends Component {
         });
     };
 
-    private openScoutingManagement = (): void => {
-        this.closePage();
-        ManagementController.instance?.openManagement('scoutingDirector');
+    private activateLowestQualityProtection = (): void => {
+        if (this.upgradeAdProcessing) {
+            return;
+        }
+        this.upgradeAdProcessing = true;
+        if (this.upgradeButton) {
+            this.upgradeButton.interactable = false;
+        }
+        void showRewardedVideo().then((completed) => {
+            if (completed) {
+                addLowestRecruitmentQualityProtection();
+            }
+        }).catch((error) => {
+            console.error('[RecruitmentProbabilityController] 低档保护广告播放失败。', error);
+        }).finally(() => {
+            this.upgradeAdProcessing = false;
+            this.refreshIfVisible();
+        });
     };
 
     private refreshIfVisible = (): void => {
@@ -186,6 +224,7 @@ export class RecruitmentProbabilityController extends Component {
                 config,
                 levelConfig,
                 effects.scoutingDirectorHighestQualityWeightBonus,
+                getLowestRecruitmentQualityProtectionCount(),
             );
             const displayedPercentages = this.toPercentBasisPoints(
                 qualities.map((quality) => quality.finalWeight),
@@ -215,6 +254,9 @@ export class RecruitmentProbabilityController extends Component {
                     finalHighestProbability - baseHighestProbability,
                 ).toFixed(2)}%`,
             );
+            if (this.upgradeButton) {
+                this.upgradeButton.interactable = !this.upgradeAdProcessing;
+            }
 
             await Promise.all(this.rows.map(async (row, index) => {
                 const quality = qualities[index];
@@ -253,7 +295,14 @@ export class RecruitmentProbabilityController extends Component {
         config: RecruitmentProbabilityConfig,
         levelConfig: ResolvedRecruitmentWindow,
         scoutBonus: number,
+        lowestQualityProtectionCount: number,
     ): DisplayQuality[] {
+        const finalWeights = resolveRecruitmentQualityWeights(
+            config,
+            levelConfig,
+            scoutBonus,
+            lowestQualityProtectionCount,
+        );
         const recruitableIds = new Set(levelConfig.recruitableQualityIds);
         const rows = config.qualities.flatMap((quality, index) => {
             const baseWeight = Math.max(0, Number(levelConfig.baseWeights[index]) || 0);
@@ -264,16 +313,9 @@ export class RecruitmentProbabilityController extends Component {
                 qualityId: quality.qualityId,
                 qualityName: quality.qualityName,
                 baseWeight,
-                finalWeight: baseWeight,
+                finalWeight: Math.max(0, finalWeights[index] ?? 0),
             }];
         });
-        const highestQualityId = levelConfig.highestUnlockedQualityId
-            ?? rows[rows.length - 1]?.qualityId;
-        const highest = rows.find((quality) => quality.qualityId === highestQualityId)
-            ?? rows[rows.length - 1];
-        if (highest) {
-            highest.finalWeight += Math.max(0, Number(scoutBonus) || 0);
-        }
         return rows.slice(0, DISPLAY_ROW_COUNT);
     }
 
@@ -308,7 +350,9 @@ export class RecruitmentProbabilityController extends Component {
             ?? canvas?.getChildByName('招募概率')
             ?? null;
         this.closeButton = this.page?.getChildByName('关闭')?.getComponent(Button) ?? null;
-        const upgradeNode = this.page?.getChildByName('立刻升级球探') ?? null;
+        const upgradeNode = this.page?.getChildByName('无最低品质')
+            ?? this.page?.getChildByName('立刻升级球探')
+            ?? null;
         this.upgradeButton = upgradeNode
             ? upgradeNode.getComponent(Button) ?? upgradeNode.addComponent(Button)
             : null;

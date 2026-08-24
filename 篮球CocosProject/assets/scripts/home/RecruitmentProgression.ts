@@ -16,6 +16,7 @@ export interface RecruitmentQualityWindow {
 export interface RecruitmentProbabilityConfig {
     qualities: RecruitmentQualityConfig[];
     qualityWindows: RecruitmentQualityWindow[];
+    withinWindowEndWeights?: number[];
     endlessGoatProbability: {
         bonusPerWin: number;
         maximumProbability: number;
@@ -51,13 +52,19 @@ export function resolveRecruitmentWindow(
     if (qualities.length !== 5) {
         return null;
     }
+    const progress = calculateWindowProgress(window, teamLevel);
+    const resolvedWindowWeights = interpolateWindowWeights(
+        window.baseWeights,
+        config.withinWindowEndWeights,
+        progress,
+    );
     const baseWeights = Array<number>(config.qualities.length).fill(0);
     qualities.forEach((quality, index) => {
         const qualityIndex = config.qualities.findIndex(
             (candidate) => candidate.qualityId === quality.qualityId,
         );
         if (qualityIndex >= 0) {
-            baseWeights[qualityIndex] = Math.max(0, window.baseWeights[index]);
+            baseWeights[qualityIndex] = Math.max(0, resolvedWindowWeights[index]);
         }
     });
     if (
@@ -80,6 +87,64 @@ export function resolveRecruitmentWindow(
         highestUnlockedQualityId: qualities[qualities.length - 1].qualityId,
         highestUnlockedQualityName: qualities[qualities.length - 1].qualityName,
     };
+}
+
+function calculateWindowProgress(window: RecruitmentQualityWindow, teamLevel: number): number {
+    const span = Math.max(0, window.levelEnd - window.levelStart);
+    if (span <= 0) {
+        return 0;
+    }
+    return Math.max(0, Math.min(1, (teamLevel - window.levelStart) / span));
+}
+
+function interpolateWindowWeights(
+    startWeights: readonly number[],
+    endWeights: readonly number[] | undefined,
+    progress: number,
+): number[] {
+    if (!endWeights || endWeights.length !== startWeights.length || progress <= 0) {
+        return startWeights.map((weight) => Math.max(0, weight));
+    }
+    return startWeights.map((weight, index) => {
+        const start = Math.max(0, weight);
+        const end = Math.max(0, endWeights[index]);
+        return start + (end - start) * progress;
+    });
+}
+
+export function resolveRecruitmentQualityWeights(
+    config: RecruitmentProbabilityConfig,
+    levelConfig: ResolvedRecruitmentWindow,
+    scoutingDirectorHighestQualityWeightBonus: number,
+    lowestQualityProtectionCount: number,
+): number[] {
+    const weights = levelConfig.baseWeights.map((weight) => Math.max(0, weight));
+    const highestQualityIndex = config.qualities.findIndex(
+        (quality) => quality.qualityId === levelConfig.highestUnlockedQualityId,
+    );
+    if (highestQualityIndex >= 0) {
+        weights[highestQualityIndex] += Math.max(
+            0,
+            scoutingDirectorHighestQualityWeightBonus,
+        );
+    }
+
+    if (lowestQualityProtectionCount <= 0) {
+        return weights;
+    }
+    const recruitableIndexes = config.qualities
+        .map((quality, index) => ({ quality, index }))
+        .filter(({ quality }) => levelConfig.recruitableQualityIds.includes(quality.qualityId))
+        .sort((left, right) => left.quality.qualityId - right.quality.qualityId)
+        .map(({ index }) => index);
+    const lowestIndex = recruitableIndexes[0];
+    const nextLowestIndex = recruitableIndexes[1];
+    if (lowestIndex === undefined || nextLowestIndex === undefined) {
+        return weights;
+    }
+    weights[nextLowestIndex] += weights[lowestIndex];
+    weights[lowestIndex] = 0;
+    return weights;
 }
 
 function applyEndlessGoatWeight(

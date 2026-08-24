@@ -18,6 +18,7 @@ export interface MatchSessionSnapshot {
     opponentRoster: PlayerCard[];
     playerOverall: number;
     opponentOverall: number;
+    nextOpponentOverallMultiplier: number;
     operationPresidentBonus: number;
     rewardMultiplier: number;
     isStandardProgressionMatch: boolean;

@@ -8,14 +8,17 @@ import {
     Label,
     Material,
     Node,
+    RichText,
     resources,
     Sprite,
     SpriteFrame,
+    TTFFont,
     UITransform,
     Vec4,
 } from 'cc';
 import {
     formatPlayerOverall,
+    getQualityFrameIndex,
     RosterSlotView,
 } from './RosterSlotView';
 import {
@@ -35,24 +38,32 @@ import {
     ATTRIBUTE_KEYS,
     calculateTeamOverall,
     GAME_STATE_EVENT_BUDGET_CHANGED,
+    GAME_STATE_EVENT_RECRUITMENT_PROTECTION_CHANGED,
     gameStateEvents,
+    consumeLowestRecruitmentQualityProtection,
     getBalance,
+    getLowestRecruitmentQualityProtectionCount,
+    getRecruitmentUpperQualityPityMissCount,
     getManagementEffects,
     getRosterSnapshot as cloneRosterSnapshot,
     loadRoster,
     ManagementEffectSnapshot,
     migratePlayerHistoryToDisplayNames,
+    notifyValidOperationCompleted,
     isConceptGodUpgradeUnlocked,
     loadSeasonState,
     PlayerAttributes,
     PlayerCard,
     recordConceptGodAcquisition,
     recordPlayerAcquisition,
+    recordRecruitmentUpperQualityPityResult,
+    RECRUITMENT_UPPER_QUALITY_PITY_MISS_LIMIT,
     saveRoster,
     trySpend,
 } from './GameState';
 import {
     RecruitmentProbabilityConfig,
+    resolveRecruitmentQualityWeights,
     resolveRecruitmentWindow,
 } from './RecruitmentProgression';
 import {
@@ -80,6 +91,11 @@ import {
     playHighQualityPortraitReveal,
     triggerOverallNumberQualityImpact,
 } from './PlayerQualityVisuals';
+import { PlayerEventController } from './PlayerEventController';
+import {
+    formatPlayerProfile,
+    loadPlayerKnowledgeConfig,
+} from './PlayerKnowledge';
 
 const { ccclass, property } = _decorator;
 
@@ -93,11 +109,48 @@ const RECRUITING_BUTTON_SPRITE_PATH = 'images/UI/按钮/招募中/spriteFrame';
 const RECRUIT_BUTTON_SWEEP_EFFECT_PATH = 'effects/recruit-button-sweep';
 const DISSOLVE_EFFECT_PATH = 'effects/dissolve';
 const RECRUITING_DELAY_SECONDS = 1;
-const AD_RECRUIT_COUNT = 3;
-const AD_RECRUIT_LABEL = '3连抽';
+const AD_RECRUIT_COUNT = 10;
+const AD_RECRUIT_LABEL = `${AD_RECRUIT_COUNT}连抽`;
 const NEGATIVE_OVERALL_COLOR = new Color(220, 55, 55, 255);
+const CONTINUOUS_RECRUIT_START_DELAY_SECONDS = 1;
+const CONTINUOUS_RECRUIT_GROWTH_INTERVAL_SECONDS = 0.1;
+const CONTINUOUS_RECRUIT_MINIMUM_COUNT = 2;
+const CONTINUOUS_RECRUIT_DEFAULT_COUNT = 5;
+const CONTINUOUS_RECRUIT_MAX_FONT_SIZE = 50;
 
 type AttributeKey = typeof ATTRIBUTE_KEYS[number];
+
+interface RecruitmentQualityDraw {
+    qualityId: number;
+    secondHighestQualityId: number | null;
+}
+
+interface QualityTextHighlight {
+    value: string;
+    color: string;
+}
+
+interface RecruitmentHint {
+    text: string;
+    highlights: string[];
+    qualityHighlights: QualityTextHighlight[];
+}
+
+const BRIGHT_QUALITY_HINT_COLORS = [
+    '#F0B27A', // 铜
+    '#F4FBFF', // 银
+    '#FFE06A', // 金
+    '#7BFF9C', // 绿
+    '#79BCFF', // 蓝
+    '#FF8590', // 红
+    '#E39AFF', // 紫
+    '#C9EEFF', // 冰蓝
+    '#FF9CCD', // 粉
+    '#FFF2FF', // 幻彩
+    '#A3FAFF', // 青蓝
+    '#B8E9FF', // 浅蓝
+    '#FFEE9A', // GOAT金
+] as const;
 
 interface PlayerTemplate {
     id: string;
@@ -187,6 +240,11 @@ export class RecruitmentController extends Component {
     private recruitButtonEffectMaterial: Material | null = null;
     private dissolveEffectAsset: EffectAsset | null = null;
     private budgetLabel: Label | null = null;
+    private continuousRecruitLabel: Label | null = null;
+    private continuousRecruitRichText: RichText | null = null;
+    private continuousRecruitLabelBaseFontSize = 0;
+    private continuousRecruitLabelLocked = false;
+    private continuousRecruitLockedCount = 0;
     private dismissButton: Button | null = null;
     private replaceButton: Button | null = null;
     private replaceButtonLabel: Label | null = null;
@@ -209,7 +267,8 @@ export class RecruitmentController extends Component {
     private candidateQualityLabel: Label | null = null;
     private candidatePositionLabel: Label | null = null;
     private candidateOverallLabel: Label | null = null;
-    private candidateAttributeLabels = new Map<AttributeKey, Label>();
+    private candidateProfileTitleLabel: Label | null = null;
+    private candidateProfileLabel: Label | null = null;
     private willpowerTextLabel: Label | null = null;
     private willpowerValueLabel: Label | null = null;
     private teamLevelController: TeamLevelController | null = null;
@@ -225,7 +284,7 @@ export class RecruitmentController extends Component {
         operationPresidentBudgetBonus: 0,
         headCoachBattleOvrBonus: 0,
         scoutingDirectorHighestQualityWeightBonus: 0,
-        medicalTeamOvrRollPercentileShift: 0,
+        medicalTeamInjuryRiskReduction: 0,
         mediaTeamOfflineBudgetBonus: 0,
     };
     private roster: Array<PlayerCard | null> = [];
@@ -236,7 +295,14 @@ export class RecruitmentController extends Component {
     private upgradeAdProcessing = false;
     private pendingUpgradeAdUsed = false;
     private queuedAdRecruitments: QueuedRecruitmentResult[] = [];
+    private queuedContinuousRecruitments: QueuedRecruitmentResult[] = [];
     private adTripleRecruitmentActive = false;
+    private continuousRecruitmentActive = false;
+    private pendingBudgetOperation = false;
+    private pendingContinuousRecruitmentCount = 0;
+    private continuousRecruitCount = 0;
+    private continuousRecruitHolding = false;
+    private continuousRecruitReady = false;
     private ready = false;
     private processing = false;
 
@@ -256,6 +322,24 @@ export class RecruitmentController extends Component {
 
     protected onEnable(): void {
         this.recruitButton?.node.on(Button.EventType.CLICK, this.onRecruitClicked, this);
+        this.recruitButton?.node.on(
+            Node.EventType.TOUCH_START,
+            this.onRecruitTouchStart,
+            this,
+            true,
+        );
+        this.recruitButton?.node.on(
+            Node.EventType.TOUCH_END,
+            this.onRecruitTouchEnd,
+            this,
+            true,
+        );
+        this.recruitButton?.node.on(
+            Node.EventType.TOUCH_CANCEL,
+            this.onRecruitTouchCancel,
+            this,
+            true,
+        );
         this.dismissButton?.node.on(Button.EventType.CLICK, this.onDismissClicked, this);
         this.replaceButton?.node.on(Button.EventType.CLICK, this.onReplaceClicked, this);
         this.upgradeAdButton?.node.on(
@@ -266,6 +350,11 @@ export class RecruitmentController extends Component {
         gameStateEvents.on(
             GAME_STATE_EVENT_BUDGET_CHANGED,
             this.onBudgetChanged,
+            this,
+        );
+        gameStateEvents.on(
+            GAME_STATE_EVENT_RECRUITMENT_PROTECTION_CHANGED,
+            this.refreshBudgetView,
             this,
         );
         teamProgressionEvents.on(
@@ -281,6 +370,24 @@ export class RecruitmentController extends Component {
 
     protected onDisable(): void {
         this.recruitButton?.node.off(Button.EventType.CLICK, this.onRecruitClicked, this);
+        this.recruitButton?.node.off(
+            Node.EventType.TOUCH_START,
+            this.onRecruitTouchStart,
+            this,
+            true,
+        );
+        this.recruitButton?.node.off(
+            Node.EventType.TOUCH_END,
+            this.onRecruitTouchEnd,
+            this,
+            true,
+        );
+        this.recruitButton?.node.off(
+            Node.EventType.TOUCH_CANCEL,
+            this.onRecruitTouchCancel,
+            this,
+            true,
+        );
         this.dismissButton?.node.off(Button.EventType.CLICK, this.onDismissClicked, this);
         this.replaceButton?.node.off(Button.EventType.CLICK, this.onReplaceClicked, this);
         this.upgradeAdButton?.node.off(
@@ -291,6 +398,11 @@ export class RecruitmentController extends Component {
         gameStateEvents.off(
             GAME_STATE_EVENT_BUDGET_CHANGED,
             this.onBudgetChanged,
+            this,
+        );
+        gameStateEvents.off(
+            GAME_STATE_EVENT_RECRUITMENT_PROTECTION_CHANGED,
+            this.refreshBudgetView,
             this,
         );
         teamProgressionEvents.off(
@@ -326,6 +438,25 @@ export class RecruitmentController extends Component {
             ?? Button.Transition.NONE;
         this.budgetLabel = this.findByPath(this.homeRoot, '底部按钮/招募/预算余额')
             ?.getComponent(Label) ?? null;
+        this.continuousRecruitLabel = this.findByPath(
+            this.homeRoot,
+            '底部按钮/招募/连续招募',
+        )?.getComponent(Label) ?? null;
+        this.continuousRecruitLabelBaseFontSize = this.continuousRecruitLabel?.fontSize ?? 0;
+        if (this.continuousRecruitLabel) {
+            const labelNode = this.continuousRecruitLabel.node;
+            this.continuousRecruitRichText = labelNode.getComponent(RichText)
+                ?? labelNode.addComponent(RichText);
+            this.continuousRecruitRichText.font = this.continuousRecruitLabel.font as TTFFont | null;
+            this.continuousRecruitRichText.fontSize = this.continuousRecruitLabel.fontSize;
+            this.continuousRecruitRichText.lineHeight = this.continuousRecruitLabel.lineHeight;
+            this.continuousRecruitRichText.horizontalAlign = this.continuousRecruitLabel.horizontalAlign;
+            this.continuousRecruitRichText.fontColor = this.continuousRecruitLabel.color;
+            // 连招文案在松手后会放大到 50 号；保持单行比自动换行更重要。
+            this.continuousRecruitRichText.maxWidth = 0;
+            this.continuousRecruitRichText.handleTouchEvent = false;
+            this.continuousRecruitLabel.enabled = false;
+        }
         this.teamLevelController = this.homeRoot?.getComponentInChildren(TeamLevelController) ?? null;
         this.topTeamInfoController = this.homeRoot?.getComponentInChildren(TopTeamInfoController) ?? null;
         this.courtSimulationController = this.homeRoot
@@ -357,20 +488,14 @@ export class RecruitmentController extends Component {
         this.candidateOverallLabel = this.findByPath(this.resultPage, '总评/数值')?.getComponent(Label) ?? null;
         applyOverallNumberQuality(this.candidateOverallLabel, 3);
 
-        const attributeRoot = this.resultPage.getChildByName('五项数据');
-        const attributeNodes: ReadonlyArray<[AttributeKey, string]> = [
-            ['scoring', '得分'],
-            ['rebound', '篮板'],
-            ['assist', '助攻'],
-            ['steal', '抢断'],
-            ['block', '盖帽'],
-        ];
-        for (const [key, nodeName] of attributeNodes) {
-            const label = this.findByPath(attributeRoot, `${nodeName}/数值`)?.getComponent(Label);
-            if (label) {
-                this.candidateAttributeLabels.set(key, label);
-            }
-        }
+        this.candidateProfileTitleLabel = this.findByPath(
+            this.resultPage,
+            '球员资料/题目',
+        )?.getComponent(Label) ?? null;
+        this.candidateProfileLabel = this.findByPath(
+            this.resultPage,
+            '球员资料/资料',
+        )?.getComponent(Label) ?? null;
 
         this.replacementPanel = this.resultPage.children
             .find((child) => child.name === '替换' && !child.getComponent(Button)) ?? null;
@@ -423,8 +548,7 @@ export class RecruitmentController extends Component {
             && this.candidateNameLabel
             && this.candidateQualityLabel
             && this.candidatePositionLabel
-            && this.candidateOverallLabel
-            && this.candidateAttributeLabels.size === ATTRIBUTE_KEYS.length,
+            && this.candidateOverallLabel,
         );
     }
 
@@ -496,6 +620,172 @@ export class RecruitmentController extends Component {
         if (!this.ready || this.processing || !this.economyConfig) {
             return;
         }
+        const continuousCount = this.pendingContinuousRecruitmentCount;
+        this.pendingContinuousRecruitmentCount = 0;
+        const recruitmentAction = continuousCount >= CONTINUOUS_RECRUIT_MINIMUM_COUNT
+            ? () => this.beginContinuousRecruitment(continuousCount)
+            : this.beginRecruitment;
+        const playerEventController = this.node.parent?.getComponent(PlayerEventController) ?? null;
+        if (playerEventController?.runAfterPendingEvents(recruitmentAction)) {
+            return;
+        }
+        recruitmentAction();
+    }
+
+    private onRecruitTouchStart = (): void => {
+        if (!this.ready || this.processing || this.getMaxContinuousRecruitmentCount() < 2) {
+            return;
+        }
+        this.continuousRecruitHolding = true;
+        this.continuousRecruitReady = false;
+        this.continuousRecruitCount = 0;
+        this.scheduleOnce(
+            this.activateContinuousRecruitment,
+            CONTINUOUS_RECRUIT_START_DELAY_SECONDS,
+        );
+    };
+
+    private onRecruitTouchEnd = (): void => {
+        const batchCount = this.continuousRecruitReady
+            ? this.continuousRecruitCount
+            : 0;
+        this.stopContinuousRecruitHold();
+        if (batchCount >= CONTINUOUS_RECRUIT_MINIMUM_COUNT) {
+            this.lockContinuousRecruitLabel(batchCount);
+            this.pendingContinuousRecruitmentCount = batchCount;
+        }
+    };
+
+    private onRecruitTouchCancel = (): void => {
+        this.stopContinuousRecruitHold();
+    };
+
+    private activateContinuousRecruitment = (): void => {
+        if (!this.continuousRecruitHolding) {
+            return;
+        }
+        const maximum = this.getMaxContinuousRecruitmentCount();
+        if (maximum < CONTINUOUS_RECRUIT_MINIMUM_COUNT) {
+            this.stopContinuousRecruitHold();
+            return;
+        }
+        this.continuousRecruitReady = true;
+        this.continuousRecruitCount = Math.min(
+            CONTINUOUS_RECRUIT_DEFAULT_COUNT,
+            maximum,
+        );
+        this.refreshContinuousRecruitLabel();
+        if (this.continuousRecruitCount < maximum) {
+            this.schedule(
+                this.growContinuousRecruitment,
+                CONTINUOUS_RECRUIT_GROWTH_INTERVAL_SECONDS,
+            );
+        }
+    };
+
+    private growContinuousRecruitment = (): void => {
+        if (!this.continuousRecruitHolding) {
+            this.unschedule(this.growContinuousRecruitment);
+            return;
+        }
+        const maximum = this.getMaxContinuousRecruitmentCount();
+        this.continuousRecruitCount = Math.min(
+            maximum,
+            this.continuousRecruitCount + 1,
+        );
+        this.refreshContinuousRecruitLabel();
+        if (this.continuousRecruitCount >= maximum) {
+            this.unschedule(this.growContinuousRecruitment);
+        }
+    };
+
+    private stopContinuousRecruitHold(): void {
+        this.continuousRecruitHolding = false;
+        this.continuousRecruitReady = false;
+        this.continuousRecruitCount = 0;
+        this.unschedule(this.activateContinuousRecruitment);
+        this.unschedule(this.growContinuousRecruitment);
+        this.refreshContinuousRecruitLabel();
+    }
+
+    private beginContinuousRecruitment = (requestedCount: number): void => {
+        if (!this.ready || this.processing || !this.economyConfig) {
+            return;
+        }
+        const count = Math.min(
+            Math.max(0, Math.floor(requestedCount)),
+            this.getMaxContinuousRecruitmentCount(),
+        );
+        if (count < CONTINUOUS_RECRUIT_MINIMUM_COUNT) {
+            this.resetContinuousRecruitLabel();
+            this.beginRecruitment();
+            return;
+        }
+
+        const cards: PlayerCard[] = [];
+        const excludedSourceNames = new Set(
+            loadRoster(this.rosterSlots.length).flatMap((card) => (
+                card ? [card.sourcePlayerName] : []
+            )),
+        );
+        const protectedDrawCount = getLowestRecruitmentQualityProtectionCount();
+        for (let index = 0; index < count; index += 1) {
+            const card = this.createRecruitedCard(index < protectedDrawCount, excludedSourceNames);
+            if (!card) {
+                break;
+            }
+            cards.push(card);
+            excludedSourceNames.add(card.sourcePlayerName);
+        }
+        if (cards.length < CONTINUOUS_RECRUIT_MINIMUM_COUNT) {
+            this.resetContinuousRecruitLabel();
+            this.beginRecruitment();
+            return;
+        }
+
+        const cost = this.getRecruitmentCost();
+        const spentCards: PlayerCard[] = [];
+        for (const card of cards) {
+            if (!trySpend(cost)) {
+                break;
+            }
+            spentCards.push(card);
+        }
+        if (spentCards.length === 0) {
+            this.resetContinuousRecruitLabel();
+            this.budget = getBalance(this.economyConfig.initialBudget);
+            this.refreshBudgetView();
+            return;
+        }
+        for (let index = 0; index < Math.min(protectedDrawCount, spentCards.length); index += 1) {
+            consumeLowestRecruitmentQualityProtection();
+        }
+
+        this.processing = true;
+        this.continuousRecruitmentActive = true;
+        this.pendingBudgetOperation = true;
+        this.showRecruitingButtonVisual();
+        this.budget = getBalance(this.economyConfig.initialBudget);
+        this.refreshBudgetView();
+        this.queuedContinuousRecruitments = spentCards.map((card) => {
+            recordPlayerAcquisition(card);
+            return {
+                card,
+                willpowerAdded: this.teamLevelController?.addRecruitWillpower() ?? 0,
+            };
+        });
+        void this.waitForSeconds(RECRUITING_DELAY_SECONDS)
+            .then(() => this.showNextContinuousRecruitmentResult())
+            .catch((error) => {
+                console.error('[RecruitmentController] Continuous recruitment failed.', error);
+                this.finishContinuousRecruitment();
+            });
+    };
+
+    private beginRecruitment = (): void => {
+        if (!this.ready || this.processing || !this.economyConfig) {
+            return;
+        }
 
         const cost = this.getRecruitmentCost();
         if (this.budget < cost) {
@@ -503,7 +793,8 @@ export class RecruitmentController extends Component {
             return;
         }
 
-        const card = this.createRecruitedCard();
+        const lowQualityProtectionActive = getLowestRecruitmentQualityProtectionCount() > 0;
+        const card = this.createRecruitedCard(lowQualityProtectionActive);
         if (!card) {
             return;
         }
@@ -513,8 +804,12 @@ export class RecruitmentController extends Component {
             this.refreshBudgetView();
             return;
         }
+        if (lowQualityProtectionActive) {
+            consumeLowestRecruitmentQualityProtection();
+        }
 
         this.processing = true;
+        this.pendingBudgetOperation = true;
         this.showRecruitingButtonVisual();
         this.budget = getBalance(this.economyConfig.initialBudget);
         this.refreshBudgetView();
@@ -525,9 +820,7 @@ export class RecruitmentController extends Component {
         this.pendingWillpowerAdded = willpowerAdded;
         this.upgradeAdProcessing = false;
         this.pendingUpgradeAdUsed = false;
-        this.pendingDecision = evaluateRecruitmentResult(
-            this.roster.map((player) => player?.overall ?? null),
-        );
+        this.pendingDecision = this.getCurrentRecruitmentDecision();
 
         void this.showRecruitmentResultAfterDelay(
             card,
@@ -559,12 +852,30 @@ export class RecruitmentController extends Component {
             }
 
             const cards: PlayerCard[] = [];
+            const availableLowQualityProtection = getLowestRecruitmentQualityProtectionCount();
+            let consumedLowQualityProtection = 0;
+            const excludedSourceNames = new Set(
+                loadRoster(this.rosterSlots.length).flatMap((card) => (
+                    card ? [card.sourcePlayerName] : []
+                )),
+            );
             for (let index = 0; index < AD_RECRUIT_COUNT; index += 1) {
-                const card = this.createRecruitedCard();
+                const lowQualityProtectionActive = index < availableLowQualityProtection;
+                const card = this.createRecruitedCard(
+                    lowQualityProtectionActive,
+                    excludedSourceNames,
+                );
                 if (!card) {
                     throw new Error('Failed to create an ad recruitment result.');
                 }
                 cards.push(card);
+                excludedSourceNames.add(card.sourcePlayerName);
+                if (lowQualityProtectionActive) {
+                    consumedLowQualityProtection += 1;
+                }
+            }
+            for (let index = 0; index < consumedLowQualityProtection; index += 1) {
+                consumeLowestRecruitmentQualityProtection();
             }
 
             this.queuedAdRecruitments = cards.map((card) => {
@@ -600,9 +911,26 @@ export class RecruitmentController extends Component {
         this.pendingWillpowerAdded = next.willpowerAdded;
         this.upgradeAdProcessing = false;
         this.pendingUpgradeAdUsed = false;
-        this.pendingDecision = evaluateRecruitmentResult(
-            this.roster.map((player) => player?.overall ?? null),
+        this.pendingDecision = this.getCurrentRecruitmentDecision();
+        await this.showRecruitmentResult(
+            next.card,
+            this.pendingDecision,
+            next.willpowerAdded,
         );
+    }
+
+    private async showNextContinuousRecruitmentResult(): Promise<void> {
+        const next = this.queuedContinuousRecruitments.shift();
+        if (!next) {
+            this.finishContinuousRecruitment();
+            return;
+        }
+
+        this.pendingCard = next.card;
+        this.pendingWillpowerAdded = next.willpowerAdded;
+        this.upgradeAdProcessing = false;
+        this.pendingUpgradeAdUsed = false;
+        this.pendingDecision = this.getCurrentRecruitmentDecision();
         await this.showRecruitmentResult(
             next.card,
             this.pendingDecision,
@@ -617,6 +945,13 @@ export class RecruitmentController extends Component {
     ): Promise<void> {
         await this.waitForSeconds(RECRUITING_DELAY_SECONDS);
         await this.showRecruitmentResult(card, decision, willpowerAdded);
+    }
+
+    private getCurrentRecruitmentDecision(): RecruitmentResultDecision {
+        this.roster = loadRoster(this.rosterSlots.length);
+        return evaluateRecruitmentResult(
+            this.roster.map((player) => player?.overall ?? null),
+        );
     }
 
     private onDismissClicked(): void {
@@ -687,9 +1022,7 @@ export class RecruitmentController extends Component {
                 return;
             }
 
-            this.pendingDecision = evaluateRecruitmentResult(
-                this.roster.map((player) => player?.overall ?? null),
-            );
+            this.pendingDecision = this.getCurrentRecruitmentDecision();
             await this.showRecruitmentResult(
                 card,
                 this.pendingDecision,
@@ -752,7 +1085,7 @@ export class RecruitmentController extends Component {
         const multiplier = 1 + 0.01 * cumulativeCount;
         const minOvr = Math.floor(goatRange.minOvr * multiplier);
         const maxOvr = Math.floor(goatRange.maxOvr * multiplier);
-        const conceptOverall = this.rollOverall(minOvr, maxOvr, 0);
+        const conceptOverall = this.rollOverall(minOvr, maxOvr);
 
         card.qualityId = config.quality.conceptGodQualityId;
         card.qualityName = config.quality.conceptGodQualityName;
@@ -927,25 +1260,38 @@ export class RecruitmentController extends Component {
         this.replaceButton!.interactable = decision.mode !== 'dismiss-only';
     }
 
-    private createRecruitedCard(): PlayerCard | null {
+    private createRecruitedCard(
+        lowQualityProtectionActive = false,
+        excludedSourceNames: ReadonlySet<string> = new Set<string>(),
+    ): PlayerCard | null {
         if (!this.playerConfig || !this.ovrConfig || !this.probabilityConfig) {
             return null;
         }
 
-        const qualityId = this.drawQualityId();
-        const pool = this.playerConfig.players.filter((player) => player.quality === qualityId);
-        const range = this.ovrConfig.ranges.find((item) => item.qualityId === qualityId);
+        const draw = this.drawQualityId(lowQualityProtectionActive);
+        const recruitedSourceNames = new Set(
+            loadRoster(this.rosterSlots.length).flatMap((card) => (
+                card ? [card.sourcePlayerName] : []
+            )),
+        );
+        const pool = this.playerConfig.players.filter((player) => (
+            player.quality === draw.qualityId
+            && !recruitedSourceNames.has(player.sourcePlayerName)
+            && !excludedSourceNames.has(player.sourcePlayerName)
+        ));
+        const range = this.ovrConfig.ranges.find((item) => item.qualityId === draw.qualityId);
         if (pool.length === 0 || !range) {
-            console.error('[RecruitmentController] Empty player pool or missing OVR range.', qualityId);
+            console.error('[RecruitmentController] Empty player pool or missing OVR range.', draw.qualityId);
             return null;
         }
 
+        if (draw.secondHighestQualityId !== null) {
+            recordRecruitmentUpperQualityPityResult(
+                draw.qualityId >= draw.secondHighestQualityId,
+            );
+        }
         const template = pool[Math.floor(Math.random() * pool.length)];
-        const overall = this.rollOverall(
-            range.minOvr,
-            range.maxOvr,
-            this.managementEffects.medicalTeamOvrRollPercentileShift,
-        );
+        const overall = this.rollOverall(range.minOvr, range.maxOvr);
         const now = Date.now();
         return {
             instanceId: `recruit-${Date.now()}-${Math.floor(Math.random() * 1_000_000)}`,
@@ -962,7 +1308,7 @@ export class RecruitmentController extends Component {
         };
     }
 
-    private drawQualityId(): number {
+    private drawQualityId(lowQualityProtectionActive = false): RecruitmentQualityDraw {
         const snapshot = this.teamLevelController?.getSnapshot();
         const marketValueLevel = snapshot?.marketValueLevel
             ?? getStoredMarketValueLevel();
@@ -973,26 +1319,32 @@ export class RecruitmentController extends Component {
         );
         if (!levelConfig) {
             console.error('[RecruitmentController] Missing recruitment window.', marketValueLevel);
-            return 3;
+            return { qualityId: 3, secondHighestQualityId: null };
         }
 
-        const highestRecruitableIndex = levelConfig.baseWeights.reduce(
-            (highest, weight, index) => weight > 0 ? index : highest,
-            -1,
+        const sortedRecruitableQualityIds = [...levelConfig.recruitableQualityIds]
+            .sort((left, right) => left - right);
+        const secondHighestQualityId = sortedRecruitableQualityIds[
+            sortedRecruitableQualityIds.length - 2
+        ] ?? null;
+        if (
+            secondHighestQualityId !== null
+            && getRecruitmentUpperQualityPityMissCount()
+                >= RECRUITMENT_UPPER_QUALITY_PITY_MISS_LIMIT
+        ) {
+            return { qualityId: secondHighestQualityId, secondHighestQualityId };
+        }
+
+        const weights = resolveRecruitmentQualityWeights(
+            this.probabilityConfig!,
+            levelConfig,
+            this.managementEffects.scoutingDirectorHighestQualityWeightBonus,
+            lowQualityProtectionActive ? 1 : 0,
         );
         const weightedQualities = this.probabilityConfig!.qualities
             .map((quality, index) => ({
                 qualityId: quality.qualityId,
-                weight: Math.max(
-                    0,
-                    (levelConfig.baseWeights[index] ?? 0)
-                    + (
-                        index === highestRecruitableIndex
-                            ? this.managementEffects
-                                .scoutingDirectorHighestQualityWeightBonus
-                            : 0
-                    ),
-                ),
+                weight: Math.max(0, weights[index] ?? 0),
             }))
             .filter((item) => item.weight > 0);
         const totalWeight = weightedQualities.reduce((total, item) => total + item.weight, 0);
@@ -1000,10 +1352,13 @@ export class RecruitmentController extends Component {
         for (const item of weightedQualities) {
             roll -= item.weight;
             if (roll <= 0) {
-                return item.qualityId;
+                return { qualityId: item.qualityId, secondHighestQualityId };
             }
         }
-        return weightedQualities[weightedQualities.length - 1]?.qualityId ?? 3;
+        return {
+            qualityId: weightedQualities[weightedQualities.length - 1]?.qualityId ?? 3,
+            secondHighestQualityId,
+        };
     }
 
     private allocateAttributes(overall: number, template: PlayerAttributes): PlayerAttributes {
@@ -1046,6 +1401,7 @@ export class RecruitmentController extends Component {
             nameplate,
             qualityBadge,
             positionBadge,
+            playerKnowledge,
         ] = await Promise.all([
             loadPlayerPortrait(card),
             loadRecruitmentBackground(card.qualityId),
@@ -1054,6 +1410,10 @@ export class RecruitmentController extends Component {
             loadQualityNameplate(card.qualityId),
             loadQualityBadge(card.qualityId),
             loadQualityPosition(card.qualityId),
+            loadPlayerKnowledgeConfig().catch((error) => {
+                console.error('[RecruitmentController] Failed to load player profile.', error);
+                return null;
+            }),
         ]);
 
         this.candidatePortrait!.spriteFrame = portrait;
@@ -1086,6 +1446,14 @@ export class RecruitmentController extends Component {
         this.candidateNameLabel!.string = card.displayName;
         this.candidateQualityLabel!.string = card.qualityName;
         this.candidatePositionLabel!.string = card.position;
+        if (this.candidateProfileTitleLabel) {
+            this.candidateProfileTitleLabel.string = '球员资料';
+        }
+        if (this.candidateProfileLabel) {
+            this.candidateProfileLabel.string = formatPlayerProfile(
+                playerKnowledge?.players[card.sourcePlayerName]?.profile,
+            );
+        }
         setGrowingNumber(
             this.candidateOverallLabel,
             card.overall,
@@ -1101,18 +1469,6 @@ export class RecruitmentController extends Component {
                     ),
             },
         );
-        for (const key of ATTRIBUTE_KEYS) {
-            setGrowingNumber(
-                this.candidateAttributeLabels.get(key) ?? null,
-                card.attributes[key],
-                (value) => formatPlayerOverall(Math.floor(value)),
-                {
-                    animateGrowth: !playEntrance,
-                    duration: 0.55,
-                },
-            );
-        }
-
         this.willpowerTextLabel && (this.willpowerTextLabel.string = '招募获得      斗志');
         setGrowingNumber(
             this.willpowerValueLabel,
@@ -1179,7 +1535,9 @@ export class RecruitmentController extends Component {
         this.refreshUpgradeAdButton(card, true);
         if (playEntrance) {
             gameAudio.playVictory();
-            await playFullScreenEntrance(this.resultPage!);
+            await playFullScreenEntrance(this.resultPage!, {
+                speedMultiplier: this.continuousRecruitmentActive ? 2 : 1,
+            });
             triggerOverallNumberQualityImpact(
                 this.candidateOverallLabel,
                 card.qualityId,
@@ -1226,7 +1584,10 @@ export class RecruitmentController extends Component {
         }
         // fade out
         if (this.resultPage?.active) {
-            void exitWithFade(this.resultPage).then(() => {
+            void exitWithFade(
+                this.resultPage,
+                this.continuousRecruitmentActive ? 2 : 1,
+            ).then(() => {
                 this.finishCloseResultPage();
             });
         } else {
@@ -1235,6 +1596,8 @@ export class RecruitmentController extends Component {
     }
 
     private finishCloseResultPage(): void {
+        const shouldNotifyValidOperation = this.pendingBudgetOperation;
+        this.pendingBudgetOperation = false;
         this.resultPage!.active = false;
         if (this.upgradeAdButton) {
             this.upgradeAdButton.interactable = false;
@@ -1246,6 +1609,7 @@ export class RecruitmentController extends Component {
         this.pendingUpgradeAdUsed = false;
         if (this.adTripleRecruitmentActive) {
             if (this.queuedAdRecruitments.length > 0) {
+                this.pendingBudgetOperation = shouldNotifyValidOperation;
                 this.scheduleOnce(() => {
                     void this.showNextAdRecruitmentResult().catch((error) => {
                         console.error(
@@ -1259,6 +1623,25 @@ export class RecruitmentController extends Component {
             }
             this.finishAdTripleRecruitment();
             return;
+        }
+        if (this.continuousRecruitmentActive) {
+            if (this.queuedContinuousRecruitments.length > 0) {
+                this.pendingBudgetOperation = shouldNotifyValidOperation;
+                this.scheduleOnce(() => {
+                    void this.showNextContinuousRecruitmentResult().catch((error) => {
+                        console.error(
+                            '[RecruitmentController] Failed to show continuous recruitment result.',
+                            error,
+                        );
+                        this.finishContinuousRecruitment();
+                    });
+                });
+                return;
+            }
+            this.finishContinuousRecruitment();
+        }
+        if (shouldNotifyValidOperation) {
+            notifyValidOperationCompleted();
         }
         this.refreshBudgetView();
     }
@@ -1285,7 +1668,7 @@ export class RecruitmentController extends Component {
             labels.push({ label, originalColor: label.color.clone() });
         });
 
-        const duration = 0.5;
+        const duration = this.continuousRecruitmentActive ? 0.25 : 0.5;
         const startTime = Date.now();
         const tick = (): void => {
             const elapsed = (Date.now() - startTime) / 1000;
@@ -1338,6 +1721,15 @@ export class RecruitmentController extends Component {
         this.refreshBudgetView();
     }
 
+    private finishContinuousRecruitment(): void {
+        this.queuedContinuousRecruitments = [];
+        this.continuousRecruitmentActive = false;
+        this.processing = false;
+        this.restoreRecruitButtonVisual();
+        this.resetContinuousRecruitLabel();
+        this.refreshBudgetView();
+    }
+
     private async refreshRosterSlots(): Promise<void> {
         await Promise.all(this.rosterSlots.map(async (slot, index) => {
             const card = this.roster[index] ?? null;
@@ -1369,18 +1761,11 @@ export class RecruitmentController extends Component {
     }
 
     private refreshBudgetView(): void {
-        const cost = this.economyConfig
-            ? this.getRecruitmentCost()
-            : Number.POSITIVE_INFINITY;
-        const hasRecruitmentBudget = !this.economyConfig
-            || this.budget >= cost;
         setGrowingNumber(
             this.budgetLabel,
             Math.floor(this.budget),
-            hasRecruitmentBudget
-                ? (value) => formatPlayerOverall(Math.floor(value))
-                    .replace(/\.00(?=[KMBTQ]$)/, '')
-                : () => AD_RECRUIT_LABEL,
+            (value) => formatPlayerOverall(Math.floor(value))
+                .replace(/\.00(?=[KMBTQ]$)/, ''),
         );
         if (this.recruitButton) {
             this.recruitButton.interactable = this.processing
@@ -1390,8 +1775,191 @@ export class RecruitmentController extends Component {
                 );
         }
         if (this.recruitButtonTargetSprite) {
-            this.recruitButtonTargetSprite.grayscale = !hasRecruitmentBudget;
+            this.recruitButtonTargetSprite.grayscale = false;
         }
+        if (!this.continuousRecruitHolding) {
+            this.refreshContinuousRecruitLabel();
+        }
+    }
+
+    private getMaxContinuousRecruitmentCount(): number {
+        const cost = this.getRecruitmentCost();
+        if (!Number.isFinite(cost) || cost <= 0) {
+            return 0;
+        }
+        return Math.max(0, Math.floor(this.budget / cost));
+    }
+
+    private refreshContinuousRecruitLabel(): void {
+        if (!this.continuousRecruitLabel || !this.continuousRecruitRichText) {
+            return;
+        }
+        if (this.continuousRecruitLabelLocked) {
+            const protectionHint = this.getLowestQualityProtectionHint();
+            const pityHint = this.getUpperQualityPityHint();
+            const recruitmentHints = this.combineRecruitmentHints(protectionHint, pityHint);
+            this.setContinuousRecruitLabel(
+                `松开招募${this.continuousRecruitLockedCount}次${recruitmentHints.text}`,
+                CONTINUOUS_RECRUIT_MAX_FONT_SIZE,
+                [String(this.continuousRecruitLockedCount), ...recruitmentHints.highlights],
+                recruitmentHints.qualityHighlights,
+            );
+            return;
+        }
+        const maximum = this.getMaxContinuousRecruitmentCount();
+        const activeCount = Math.max(0, this.continuousRecruitCount);
+        const displayCount = this.continuousRecruitReady
+            ? activeCount
+            : Math.min(CONTINUOUS_RECRUIT_DEFAULT_COUNT, Math.max(0, maximum));
+        const protectionHint = this.getLowestQualityProtectionHint();
+        const pityHint = this.getUpperQualityPityHint();
+        const recruitmentHints = this.combineRecruitmentHints(protectionHint, pityHint);
+        const text = maximum < 1
+            ? `看广告${AD_RECRUIT_LABEL}${recruitmentHints.text}`
+            : displayCount < CONTINUOUS_RECRUIT_MINIMUM_COUNT
+                ? `点击进行${displayCount}次招募${recruitmentHints.text}`
+                : this.continuousRecruitReady
+                    ? `松开招募${displayCount}次${recruitmentHints.text}`
+                    : `长按进行${displayCount}连抽${recruitmentHints.text}`;
+        const baseFontSize = Math.min(
+            CONTINUOUS_RECRUIT_MAX_FONT_SIZE,
+            this.continuousRecruitLabelBaseFontSize || this.continuousRecruitLabel.fontSize,
+        );
+        const progress = this.continuousRecruitReady
+            ? Math.min(1, activeCount / Math.max(1, maximum))
+            : 0;
+        const fontSize = maximum < 1
+            ? CONTINUOUS_RECRUIT_MAX_FONT_SIZE
+            : Math.round(
+                baseFontSize + (CONTINUOUS_RECRUIT_MAX_FONT_SIZE - baseFontSize) * progress,
+            );
+        const highlights = maximum < 1
+            ? [String(AD_RECRUIT_COUNT), ...recruitmentHints.highlights]
+            : [String(displayCount), ...recruitmentHints.highlights];
+        this.setContinuousRecruitLabel(
+            text,
+            fontSize,
+            highlights,
+            recruitmentHints.qualityHighlights,
+        );
+    }
+
+    private lockContinuousRecruitLabel(count: number): void {
+        this.continuousRecruitLabelLocked = true;
+        this.continuousRecruitLockedCount = count;
+        this.refreshContinuousRecruitLabel();
+    }
+
+    private resetContinuousRecruitLabel(): void {
+        this.continuousRecruitLabelLocked = false;
+        this.continuousRecruitLockedCount = 0;
+        this.refreshContinuousRecruitLabel();
+    }
+
+    private getLowestQualityProtectionHint(): RecruitmentHint {
+        const protectedDrawCount = getLowestRecruitmentQualityProtectionCount();
+        if (protectedDrawCount <= 0 || !this.probabilityConfig) {
+            return { text: '', highlights: [], qualityHighlights: [] };
+        }
+        const marketValueLevel = this.teamLevelController?.getSnapshot().marketValueLevel
+            ?? getStoredMarketValueLevel();
+        const window = resolveRecruitmentWindow(
+            this.probabilityConfig,
+            marketValueLevel,
+            loadSeasonState(),
+        );
+        const lowestQualityName = window?.recruitableQualityNames[0];
+        const lowestQualityId = window?.recruitableQualityIds[0];
+        if (!lowestQualityName || lowestQualityId === undefined) {
+            return { text: '', highlights: [], qualityHighlights: [] };
+        }
+        return {
+            text: `，${protectedDrawCount}抽必没有${lowestQualityName}`,
+            highlights: [String(protectedDrawCount), lowestQualityName],
+            qualityHighlights: [{
+                value: lowestQualityName,
+                color: this.getBrightQualityHintColor(lowestQualityId),
+            }],
+        };
+    }
+
+    private getUpperQualityPityHint(): RecruitmentHint {
+        if (
+            getRecruitmentUpperQualityPityMissCount()
+                < RECRUITMENT_UPPER_QUALITY_PITY_MISS_LIMIT
+            || !this.probabilityConfig
+        ) {
+            return { text: '', highlights: [], qualityHighlights: [] };
+        }
+        const marketValueLevel = this.teamLevelController?.getSnapshot().marketValueLevel
+            ?? getStoredMarketValueLevel();
+        const window = resolveRecruitmentWindow(
+            this.probabilityConfig,
+            marketValueLevel,
+            loadSeasonState(),
+        );
+        const qualityIds = [...(window?.recruitableQualityIds ?? [])]
+            .sort((left, right) => left - right);
+        const secondHighestQualityId = qualityIds[qualityIds.length - 2];
+        const qualityName = this.probabilityConfig.qualities.find(
+            (quality) => quality.qualityId === secondHighestQualityId,
+        )?.qualityName;
+        if (!qualityName || secondHighestQualityId === undefined) {
+            return { text: '', highlights: [], qualityHighlights: [] };
+        }
+        return {
+            text: `，下一次必是${qualityName}`,
+            highlights: [qualityName],
+            qualityHighlights: [{
+                value: qualityName,
+                color: this.getBrightQualityHintColor(secondHighestQualityId),
+            }],
+        };
+    }
+
+    private combineRecruitmentHints(
+        ...hints: ReadonlyArray<RecruitmentHint>
+    ): RecruitmentHint {
+        return {
+            text: hints.map((hint) => hint.text).join(''),
+            highlights: hints.flatMap((hint) => hint.highlights),
+            qualityHighlights: hints.flatMap((hint) => hint.qualityHighlights),
+        };
+    }
+
+    private getBrightQualityHintColor(qualityId: number): string {
+        return BRIGHT_QUALITY_HINT_COLORS[getQualityFrameIndex(qualityId)] ?? '#FFFFFF';
+    }
+
+    private setContinuousRecruitLabel(
+        text: string,
+        fontSize: number,
+        highlightedValues: readonly string[],
+        qualityHighlights: readonly QualityTextHighlight[],
+    ): void {
+        if (!this.continuousRecruitLabel || !this.continuousRecruitRichText) {
+            return;
+        }
+        const colorByValue = new Map<string, string>();
+        highlightedValues.filter(Boolean).forEach((value) => {
+            colorByValue.set(value, '#FFD85A');
+        });
+        qualityHighlights.forEach(({ value, color }) => {
+            colorByValue.set(value, color);
+        });
+        const escapedValues = [...colorByValue.keys()]
+            .sort((left, right) => right.length - left.length)
+            .map((value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+        const highlightedText = escapedValues.length > 0
+            ? text.replace(
+                new RegExp(`(${escapedValues.join('|')})`, 'g'),
+                (matched) => `<color=${colorByValue.get(matched)}><b>${matched}</b></color>`,
+            )
+            : text;
+        this.continuousRecruitLabel.enabled = false;
+        this.continuousRecruitRichText.fontSize = fontSize;
+        this.continuousRecruitRichText.lineHeight = fontSize;
+        this.continuousRecruitRichText.string = highlightedText;
     }
 
     private getRecruitmentCost(): number {
@@ -1532,10 +2100,10 @@ export class RecruitmentController extends Component {
         this.refreshBudgetView();
     }
 
-    private rollOverall(minimum: number, maximum: number, percentileShift: number): number {
+    private rollOverall(minimum: number, maximum: number): number {
         const min = Math.ceil(Math.min(minimum, maximum));
         const max = Math.floor(Math.max(minimum, maximum));
-        const percentile = Math.min(1, Math.random() + Math.max(0, percentileShift));
+        const percentile = Math.random();
         return Math.min(max, min + Math.floor(percentile * (max - min + 1)));
     }
 }

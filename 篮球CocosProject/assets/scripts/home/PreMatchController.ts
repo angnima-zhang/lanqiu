@@ -28,6 +28,7 @@ import {
     loadSeasonState,
     PlayerAttributes,
     PlayerCard,
+    SeasonState,
     TEAM_NAME_STORAGE_KEY,
 } from './GameState';
 import {
@@ -49,6 +50,7 @@ import {
     setCurrentMatchSession,
 } from './MatchSession';
 import { TeamLevelController } from './TeamLevelController';
+import { PlayerEventController } from './PlayerEventController';
 
 const { ccclass } = _decorator;
 
@@ -66,6 +68,42 @@ interface PlayerConfig {
     players: PlayerTemplate[];
 }
 
+interface PlayerOvrRange {
+    qualityId: number;
+    qualityName: string;
+    minOvr: number;
+    maxOvr: number;
+}
+
+interface PlayerOvrRangesConfig {
+    ranges: PlayerOvrRange[];
+}
+
+const OPPONENT_ROSTER_SIZE = 12;
+const OPPONENT_OVERALL_WEIGHTS = [42, 20, 12, 8, 5, 4, 3, 2, 1, 1, 1, 1];
+const STANDARD_OPPONENT_TEAM_NAMES = [
+    '投一个试试',
+    '太久没打了',
+    '膝盖有伤',
+    '鲲鲲',
+    '走步观光团',
+    '篮板搬运工',
+    '五大囧常客',
+    '打铁基建队',
+    '发配CBA',
+    '三拒投',
+    '勾手老大爷',
+    '矮壮篮板怪',
+    '灵活死胖子',
+    '高瘦远投王',
+    '半裸暴汗男',
+    '装备党',
+    '好球！',
+    '我系个鞋带',
+    '加一个，不太会',
+    '把球给我我要回家',
+] as const;
+
 @ccclass('PreMatchController')
 export class PreMatchController extends Component {
     public static instance: PreMatchController | null = null;
@@ -76,11 +114,13 @@ export class PreMatchController extends Component {
     private playerTeamCardsRoot: Node | null = null;
     private opponentTeamCardsRoot: Node | null = null;
     private playerConfig: PlayerConfig | null = null;
+    private playerOvrRanges: PlayerOvrRangesConfig | null = null;
     private matchRewards: MatchRewardsConfig | null = null;
     private loadPromise: Promise<void> | null = null;
     private cardRenderVersion = 0;
     private pageRequestVersion = 0;
     private playerCardButtons: Array<{ button: Button; callback: () => void }> = [];
+    private previewPlayerRoster: Array<PlayerCard | null> = [];
     private preparedMatch: MatchSessionSnapshot | null = null;
     private readonly defaultQualityFrames = new WeakMap<Sprite, Sprite['spriteFrame']>();
     private startingMatch = false;
@@ -221,15 +261,28 @@ export class PreMatchController extends Component {
     private ensureDataLoaded(): Promise<void> {
         this.loadPromise ??= Promise.all([
             loadJson<PlayerConfig>('data/player_config_fame_v3'),
+            loadJson<PlayerOvrRangesConfig>('data/balance/player_ovr_ranges'),
             loadJson<MatchRewardsConfig>('data/balance/match_rewards'),
-        ]).then(([playerConfig, matchRewards]) => {
+        ]).then(([playerConfig, playerOvrRanges, matchRewards]) => {
             if (
                 !Array.isArray(playerConfig.players)
+                || !Array.isArray(playerOvrRanges.ranges)
                 || !Array.isArray(matchRewards.difficultyAnchors)
+                || !Number.isFinite(
+                    matchRewards.opponentProgression?.firstMatchPlayerOverallMultiplier,
+                )
+                || matchRewards.opponentProgression
+                    .firstMatchPlayerOverallMultiplier <= 0
+                || !Number.isFinite(
+                    matchRewards.opponentProgression?.nextOpponentPlayerOverallMultiplier,
+                )
+                || matchRewards.opponentProgression
+                    .nextOpponentPlayerOverallMultiplier <= 0
             ) {
                 throw new Error('Invalid pre-match configuration.');
             }
             this.playerConfig = playerConfig;
+            this.playerOvrRanges = playerOvrRanges;
             this.matchRewards = matchRewards;
         }).catch((error) => {
             console.error('[PreMatchController] Failed to load pre-match data.', error);
@@ -238,12 +291,17 @@ export class PreMatchController extends Component {
     }
 
     private async refreshPage(): Promise<void> {
-        if (!this.page || !this.playerConfig || !this.matchRewards) {
+        if (
+            !this.page
+            || !this.playerConfig
+            || !this.playerOvrRanges
+            || !this.matchRewards
+        ) {
             return;
         }
         const seasonState = loadSeasonState();
-        const match = resolveMatchDefinition(this.matchRewards, seasonState);
-        if (!match) {
+        const scheduleMatch = resolveMatchDefinition(this.matchRewards, seasonState);
+        if (!scheduleMatch) {
             return;
         }
 
@@ -254,14 +312,39 @@ export class PreMatchController extends Component {
             roster,
             effects.headCoachBattleOvrBonus,
         );
-        const opponentRoster = this.createOpponentRoster(match, getCurrentMatchId(seasonState));
+        const opponentOverall = this.resolveOpponentOverall(
+            seasonState,
+            playerOverall,
+        );
+        const opponentRoster = this.createOpponentRoster(
+            { ...scheduleMatch, opponentOvr: opponentOverall },
+            getCurrentMatchId(seasonState),
+        );
+        const strongestOpponent = opponentRoster.reduce(
+            (strongest, card) => !strongest || card.qualityId > strongest.qualityId
+                ? card
+                : strongest,
+            null as PlayerCard | null,
+        );
+        const match = strongestOpponent
+            ? {
+                ...scheduleMatch,
+                opponentOvr: opponentOverall,
+                difficultyQualityId: strongestOpponent.qualityId,
+                difficultyQualityName: strongestOpponent.qualityName,
+            }
+            : { ...scheduleMatch, opponentOvr: opponentOverall };
         const teamName = sys.localStorage.getItem(TEAM_NAME_STORAGE_KEY)?.trim()
             || '我的球队';
+        const opponentTeamName = this.getOpponentTeamName(
+            seasonState,
+            opponentRoster,
+        );
         const occupiedRosterCount = roster.filter(Boolean).length;
 
         this.setLabel(
             '顶部/赛程',
-            `${match.difficultyQualityName} ${match.scheduleLabel}`,
+            match.scheduleLabel,
         );
         this.setLabel(
             '双方阵容/球队总览/我方球队/球队总评/球队名',
@@ -273,7 +356,7 @@ export class PreMatchController extends Component {
         );
         this.setLabel(
             '双方阵容/球队总览/对方球队/球队总评/球队名',
-            `${match.difficultyQualityName}对手`,
+            opponentTeamName,
         );
         this.setLabel(
             '双方阵容/球队总览/对方球队/球队总评/球队总评',
@@ -296,11 +379,13 @@ export class PreMatchController extends Component {
             difficultyQualityName: match.difficultyQualityName,
             scheduleLabel: match.scheduleLabel,
             playerTeamName: teamName,
-            opponentTeamName: `${match.difficultyQualityName}对手`,
+            opponentTeamName,
             playerRoster: roster,
             opponentRoster,
             playerOverall,
             opponentOverall: match.opponentOvr,
+            nextOpponentOverallMultiplier: this.matchRewards.opponentProgression
+                .nextOpponentPlayerOverallMultiplier,
             operationPresidentBonus: effects.operationPresidentBudgetBonus,
             rewardMultiplier: match.rewardMultiplier,
             isStandardProgressionMatch: match.isStandardProgressionMatch,
@@ -315,11 +400,17 @@ export class PreMatchController extends Component {
 
         const playerCardNodes = this.playerTeamCardsRoot?.children ?? [];
         const opponentCardNodes = this.opponentTeamCardsRoot?.children ?? [];
+        this.previewPlayerRoster = [
+            ...roster
+                .filter((card): card is PlayerCard => Boolean(card))
+                .sort((left, right) => right.overall - left.overall),
+            ...Array<PlayerCard | null>(Math.max(0, 12 - occupiedRosterCount)).fill(null),
+        ];
         await Promise.all([
             ...playerCardNodes.slice(0, 12).map((node, index) => {
                 return this.renderCompactCard(
                     node,
-                    roster[index] ?? null,
+                    this.previewPlayerRoster[index] ?? null,
                     renderVersion,
                 );
             }),
@@ -337,34 +428,155 @@ export class PreMatchController extends Component {
         match: MatchDefinition,
         matchId: string,
     ): PlayerCard[] {
-        const pool = this.playerConfig!.players.filter(
-            (player) => player.quality === match.difficultyQualityId,
-        );
-        const fallbackPool = pool.length > 0 ? pool : this.playerConfig!.players;
-        const shuffled = this.shuffleDeterministically(
-            fallbackPool,
-            this.getStableSeed(matchId),
-        );
-        const baseOverall = Math.floor(match.opponentOvr / 12);
-        const remainder = Math.max(0, match.opponentOvr - baseOverall * 12);
+        const poolsByQuality = new Map<number, PlayerTemplate[]>();
+        const overalls = this.createOpponentOverallDistribution(match.opponentOvr);
 
-        return Array.from({ length: 12 }, (_, index) => {
-            const template = shuffled[index % shuffled.length];
-            const overall = baseOverall + (index < remainder ? 1 : 0);
+        return overalls.map((overall, index) => {
+            const quality = this.resolveOpponentQuality(overall, match);
+            let pool = poolsByQuality.get(quality.qualityId);
+            if (!pool) {
+                const matchingPlayers = this.playerConfig!.players.filter(
+                    (player) => player.quality === quality.qualityId,
+                );
+                pool = this.shuffleDeterministically(
+                    matchingPlayers.length > 0
+                        ? matchingPlayers
+                        : this.playerConfig!.players,
+                    this.getStableSeed(`${matchId}-${quality.qualityId}`),
+                );
+                poolsByQuality.set(quality.qualityId, pool);
+            }
+            const template = pool[index % pool.length];
             return {
                 instanceId: `opponent-${matchId}-${index}`,
                 templateId: template.id,
                 sourcePlayerName: template.sourcePlayerName,
                 displayName: template.displayName,
                 position: template.position,
-                qualityId: template.quality,
-                qualityName: template.qualityName,
+                qualityId: quality.qualityId,
+                qualityName: quality.qualityName,
                 overall,
                 attributes: this.allocateAttributes(overall, template.attributes),
                 acquiredAtMs: 0,
                 lineupSinceMs: null,
             };
         });
+    }
+
+    private createOpponentOverallDistribution(totalOverall: number): number[] {
+        const targetOverall = Math.max(0, Math.floor(totalOverall));
+        const rookieMinimum = this.getQualityMinimumOverall(3);
+        const drinkingWaterMinimum = this.getQualityMinimumOverall(4);
+        const rotationMinimum = this.getQualityMinimumOverall(5);
+        const minimumOveralls = [
+            rotationMinimum,
+            drinkingWaterMinimum,
+            ...Array.from(
+                { length: OPPONENT_ROSTER_SIZE - 2 },
+                () => rookieMinimum,
+            ),
+        ];
+        const minimumTotal = minimumOveralls.reduce((sum, value) => sum + value, 0);
+        const baseOveralls = targetOverall >= minimumTotal
+            ? minimumOveralls
+            : Array.from({ length: OPPONENT_ROSTER_SIZE }, () => 0);
+        const remainingOverall = Math.max(
+            0,
+            targetOverall - baseOveralls.reduce((sum, value) => sum + value, 0),
+        );
+        const totalWeight = OPPONENT_OVERALL_WEIGHTS.reduce(
+            (sum, value) => sum + value,
+            0,
+        );
+        const overalls = baseOveralls.map((baseOverall, index) => (
+            baseOverall + Math.floor(
+                remainingOverall * OPPONENT_OVERALL_WEIGHTS[index] / totalWeight,
+            )
+        ));
+        let remainder = targetOverall - overalls.reduce((sum, value) => sum + value, 0);
+        for (let index = 0; remainder > 0; index = (index + 1) % OPPONENT_ROSTER_SIZE) {
+            overalls[index] += 1;
+            remainder -= 1;
+        }
+        return overalls;
+    }
+
+    private getQualityMinimumOverall(qualityId: number): number {
+        const range = this.playerOvrRanges!.ranges.find(
+            (candidate) => candidate.qualityId === qualityId,
+        );
+        return Math.max(1, Math.floor(range?.minOvr ?? 1));
+    }
+
+    private resolveOpponentOverall(
+        seasonState: SeasonState,
+        playerOverall: number,
+    ): number {
+        const storedOverall = seasonState.nextOpponentOverall;
+        if (storedOverall !== null && storedOverall > 0) {
+            return Math.min(INT32_MAX, Math.floor(storedOverall));
+        }
+        return Math.min(
+            INT32_MAX,
+            Math.max(
+                1,
+                Math.floor(
+                    playerOverall
+                    * this.matchRewards!.opponentProgression
+                        .firstMatchPlayerOverallMultiplier,
+                ),
+            ),
+        );
+    }
+
+    private resolveOpponentQuality(
+        overall: number,
+        fallback: Pick<MatchDefinition, 'difficultyQualityId' | 'difficultyQualityName'>,
+    ): Pick<PlayerCard, 'qualityId' | 'qualityName'> {
+        const range = [...this.playerOvrRanges!.ranges]
+            .filter((candidate) => (
+                Number.isFinite(candidate.minOvr)
+                && candidate.minOvr <= overall
+            ))
+            .sort((left, right) => right.qualityId - left.qualityId)[0];
+        return range
+            ? { qualityId: range.qualityId, qualityName: range.qualityName }
+            : {
+                qualityId: fallback.difficultyQualityId,
+                qualityName: fallback.difficultyQualityName,
+            };
+    }
+
+    private getOpponentTeamName(
+        seasonState: SeasonState,
+        opponentRoster: readonly PlayerCard[],
+    ): string {
+        if (seasonState.infiniteMode) {
+            const strongestOpponent = opponentRoster.reduce(
+                (strongest, card) => !strongest || card.overall > strongest.overall
+                    ? card
+                    : strongest,
+                null as PlayerCard | null,
+            );
+            return strongestOpponent?.displayName ?? '概念神';
+        }
+        const standardMatchCount = Math.max(
+            1,
+            Math.floor(this.matchRewards?.standardMatchCount ?? 100),
+        );
+        const matchNumber = Math.max(
+            1,
+            Math.min(standardMatchCount, Math.floor(seasonState.matchNumber)),
+        );
+        const index = Math.min(
+            STANDARD_OPPONENT_TEAM_NAMES.length - 1,
+            Math.floor(
+                (matchNumber - 1)
+                * STANDARD_OPPONENT_TEAM_NAMES.length
+                / standardMatchCount,
+            ),
+        );
+        return STANDARD_OPPONENT_TEAM_NAMES[index];
     }
 
     private async renderCompactCard(
@@ -454,10 +666,16 @@ export class PreMatchController extends Component {
         nodes.forEach((node, index) => {
             const button = node.getComponent(Button) ?? node.addComponent(Button);
             const callback = (): void => {
-                if (loadRoster()[index]) {
+                const card = this.previewPlayerRoster[index];
+                const rosterIndex = card
+                    ? loadRoster().findIndex((candidate) => (
+                        candidate?.instanceId === card.instanceId
+                    ))
+                    : -1;
+                if (rosterIndex >= 0) {
                     gameStateEvents.emit(
                         GAME_STATE_EVENT_PLAYER_DETAILS_REQUESTED,
-                        index,
+                        rosterIndex,
                     );
                 }
             };
@@ -479,6 +697,10 @@ export class PreMatchController extends Component {
             || loadRoster().filter(Boolean).length < 5
             || !TeamLevelController.instance?.canStartProgressionMatch()
         ) {
+            return;
+        }
+        const playerEventController = this.node.parent?.getComponent(PlayerEventController) ?? null;
+        if (playerEventController?.runAfterPendingEvents(this.startMatch)) {
             return;
         }
         this.startingMatch = true;
@@ -568,7 +790,7 @@ export class PreMatchController extends Component {
     }
 
     private formatOverall(value: number): string {
-        return value >= INT32_MAX ? 'MAX' : formatPlayerOverall(value);
+        return value >= INT32_MAX ? 'MAX' : String(Math.round(Math.max(0, value)));
     }
 
     private resolveSceneReferences(): void {

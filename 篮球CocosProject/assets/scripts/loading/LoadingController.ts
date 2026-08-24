@@ -1,4 +1,5 @@
 import { _decorator, Component, director, Label, ProgressBar } from 'cc';
+import { preloadHomepageRuntimeAssets } from '../home/HomepagePreloader';
 
 const { ccclass, property } = _decorator;
 
@@ -25,6 +26,7 @@ export class LoadingController extends Component {
     private retryCount = 0;
     private homepagePreloadProgress = 0;
     private homepagePreloaded = false;
+    private homepageRuntimePreloaded = false;
     private loadComplete = false;
     private switchingScene = false;
     private stopped = false;
@@ -83,6 +85,19 @@ export class LoadingController extends Component {
 
     private preloadHomepage(): void {
         this.setStatus('正在加载游戏资源');
+        void preloadHomepageRuntimeAssets()
+            .then(() => {
+                if (!this.isValid) {
+                    return;
+                }
+                this.homepageRuntimePreloaded = true;
+                this.tryCompleteLoading();
+            })
+            .catch((error) => {
+                if (this.isValid) {
+                    this.handleLoadError(error, () => this.preloadHomepage());
+                }
+            });
         director.preloadScene(
             HOME_SCENE,
             (completedCount, totalCount) => {
@@ -118,7 +133,7 @@ export class LoadingController extends Component {
     }
 
     private tryCompleteLoading(): void {
-        if (!this.homepagePreloaded) {
+        if (!this.homepagePreloaded || !this.homepageRuntimePreloaded) {
             return;
         }
 
