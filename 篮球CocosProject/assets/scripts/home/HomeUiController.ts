@@ -1,10 +1,13 @@
 import {
     _decorator,
     Button,
+    Color,
     Component,
     EditBox,
+    EffectAsset,
     Font,
     Label,
+    Material,
     Node,
     resources,
     RichText,
@@ -12,6 +15,7 @@ import {
     SpriteFrame,
     sys,
     UITransform,
+    Vec4,
 } from 'cc';
 import {
     calculateTeamOverall,
@@ -51,6 +55,7 @@ import {
     RosterSlotView,
 } from './RosterSlotView';
 import {
+    TEAM_PROGRESSION_EVENT_LEVEL_CHANGED,
     TEAM_PROGRESSION_EVENT_WIN_UPGRADE_REQUESTED,
     teamProgressionEvents,
 } from './TeamLevelController';
@@ -94,6 +99,9 @@ import {
 } from './PlayerKnowledge';
 
 const { ccclass } = _decorator;
+const KNOWLEDGE_DISABLED_BUTTON_COLOR = new Color(150, 150, 150, 255);
+const PROBABILITY_HIGHLIGHT_SWEEP_PERIOD = 0.7;
+const PROBABILITY_HIGHLIGHT_SWEEP_COUNT = 3;
 
 interface BoundButton {
     button: Button;
@@ -103,6 +111,7 @@ interface BoundButton {
 interface ButtonVisualBinding {
     button: Button;
     sprite: Sprite | null;
+    originalColor: Color;
     originalGrayscale: boolean;
     lastInteractable: boolean | null;
 }
@@ -140,6 +149,13 @@ export class HomeUiController extends Component {
     private readonly buttonGrayscaleOverrides = new WeakMap<Button, boolean>();
     private recruitButtonWithPressedSprite: Button | null = null;
     private readonly settingToggleSprites = new WeakMap<Button, SettingToggleSprites>();
+    private probabilityHighlightRequestVersion = 0;
+    private probabilityHighlightElapsed = 0;
+    private probabilityHighlightBindings: Array<{
+        sprite: Sprite;
+        originalMaterial: Material | null;
+        material: Material;
+    }> = [];
 
     protected onLoad(): void {
         this.resolveSceneReferences();
@@ -177,8 +193,9 @@ export class HomeUiController extends Component {
         this.prepareTeamNameEditor();
     }
 
-    protected lateUpdate(): void {
+    protected lateUpdate(deltaTime: number): void {
         this.syncDisabledButtonVisuals(false);
+        this.updateProbabilityHighlight(deltaTime);
     }
 
     protected start(): void {
@@ -216,6 +233,11 @@ export class HomeUiController extends Component {
             this.openPreMatchPage,
             this,
         );
+        teamProgressionEvents.on(
+            TEAM_PROGRESSION_EVENT_LEVEL_CHANGED,
+            this.highlightRecruitmentProbability,
+            this,
+        );
     }
 
     protected onDisable(): void {
@@ -248,6 +270,84 @@ export class HomeUiController extends Component {
             this.openPreMatchPage,
             this,
         );
+        teamProgressionEvents.off(
+            TEAM_PROGRESSION_EVENT_LEVEL_CHANGED,
+            this.highlightRecruitmentProbability,
+            this,
+        );
+        this.probabilityHighlightRequestVersion += 1;
+        this.clearProbabilityHighlight();
+    }
+
+    private highlightRecruitmentProbability(): void {
+        const requestVersion = ++this.probabilityHighlightRequestVersion;
+        this.clearProbabilityHighlight();
+        const root = this.findByPath(this.homeRoot, '底部按钮/左侧2个/招募概率');
+        if (!root) {
+            return;
+        }
+        resources.load('effects/slot-new-player-sweep', EffectAsset, (error, effectAsset) => {
+            if (requestVersion !== this.probabilityHighlightRequestVersion || !root.isValid) {
+                return;
+            }
+            if (error || !effectAsset) {
+                console.warn('[HomeUiController] Recruitment probability highlight is unavailable.', error);
+                return;
+            }
+            // 与新球员上阵使用同一份白色扫光效果和参数。
+            for (const sprite of root.getComponentsInChildren(Sprite)) {
+                const transform = sprite.node.getComponent(UITransform);
+                if (!sprite.spriteFrame || !transform) {
+                    continue;
+                }
+                const material = new Material();
+                material.initialize({ effectAsset, defines: { IS_GRAY: false, USE_TEXTURE: true } });
+                material.setProperty('spriteRect', new Vec4(
+                    transform.width, transform.height,
+                    transform.anchorPoint.x, transform.anchorPoint.y,
+                ));
+                material.setProperty('shineColor', new Color(255, 255, 255, 255));
+                material.setProperty(
+                    'sweepParams',
+                    new Vec4(0.28, PROBABILITY_HIGHLIGHT_SWEEP_PERIOD, 0.32, 1),
+                );
+                material.setProperty('pulseParams', new Vec4(0.3, 0.5, 0, 0));
+                material.setProperty('timingParams', new Vec4(0, 0, 0, 0));
+                this.probabilityHighlightBindings.push({
+                    sprite, originalMaterial: sprite.customMaterial, material,
+                });
+                sprite.customMaterial = material;
+            }
+        });
+    }
+
+    private updateProbabilityHighlight(deltaTime: number): void {
+        if (this.probabilityHighlightBindings.length === 0) {
+            return;
+        }
+        this.probabilityHighlightElapsed += Math.max(0, deltaTime);
+        if (
+            this.probabilityHighlightElapsed
+            >= PROBABILITY_HIGHLIGHT_SWEEP_PERIOD * PROBABILITY_HIGHLIGHT_SWEEP_COUNT
+        ) {
+            this.clearProbabilityHighlight();
+            return;
+        }
+        const sweepTime = this.probabilityHighlightElapsed % PROBABILITY_HIGHLIGHT_SWEEP_PERIOD;
+        for (const binding of this.probabilityHighlightBindings) {
+            binding.material.setProperty('timingParams', new Vec4(sweepTime, 0, 0, 0));
+        }
+    }
+
+    private clearProbabilityHighlight(): void {
+        for (const binding of this.probabilityHighlightBindings) {
+            if (binding.sprite.isValid && binding.sprite.customMaterial === binding.material) {
+                binding.sprite.customMaterial = binding.originalMaterial;
+            }
+            binding.material.destroy();
+        }
+        this.probabilityHighlightBindings = [];
+        this.probabilityHighlightElapsed = 0;
     }
 
     private bindAllButtons(): void {
@@ -1300,6 +1400,7 @@ export class HomeUiController extends Component {
             this.buttonVisualBindings.push({
                 button,
                 sprite: targetSprite,
+                originalColor: targetSprite?.color.clone() ?? Color.WHITE.clone(),
                 originalGrayscale: targetSprite?.grayscale ?? false,
                 lastInteractable: null,
             });
@@ -1315,14 +1416,24 @@ export class HomeUiController extends Component {
                 continue;
             }
             const interactable = binding.button.interactable;
-            if (!force && binding.lastInteractable === interactable) {
+            const grayscaleOverride = this.buttonGrayscaleOverrides.get(binding.button);
+            if (
+                !force
+                && binding.lastInteractable === interactable
+                && grayscaleOverride === undefined
+            ) {
                 continue;
             }
             binding.lastInteractable = interactable;
             if (binding.sprite?.isValid) {
-                const grayscaleOverride = this.buttonGrayscaleOverrides.get(binding.button);
-                binding.sprite.grayscale = grayscaleOverride
+                const grayscale = grayscaleOverride
                     ?? (interactable ? binding.originalGrayscale : true);
+                binding.sprite.grayscale = grayscale;
+                if (grayscaleOverride !== undefined) {
+                    binding.sprite.color = grayscale
+                        ? KNOWLEDGE_DISABLED_BUTTON_COLOR.clone()
+                        : binding.originalColor.clone();
+                }
             }
         }
     }
@@ -1342,6 +1453,11 @@ export class HomeUiController extends Component {
             ?? button.node.getComponent(Sprite);
         if (sprite?.isValid) {
             sprite.grayscale = grayscale;
+            if (binding) {
+                sprite.color = grayscale
+                    ? KNOWLEDGE_DISABLED_BUTTON_COLOR.clone()
+                    : binding.originalColor.clone();
+            }
         }
         if (binding) {
             binding.lastInteractable = interactable;

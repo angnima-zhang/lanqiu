@@ -40,10 +40,14 @@ import {
     GAME_STATE_EVENT_BUDGET_CHANGED,
     GAME_STATE_EVENT_RECRUITMENT_PROTECTION_CHANGED,
     gameStateEvents,
+    consumeRecruitmentAdHighestQualityPity,
+    consumeRecruitmentAdProbabilityBoost,
     consumeLowestRecruitmentQualityProtection,
     getBalance,
     getLowestRecruitmentQualityProtectionCount,
     getRecruitmentUpperQualityPityMissCount,
+    getRecruitmentAdHighestQualityPityCount,
+    getRecruitmentAdProbabilityBoostCount,
     getManagementEffects,
     getRosterSnapshot as cloneRosterSnapshot,
     loadRoster,
@@ -58,6 +62,7 @@ import {
     recordConceptGodAcquisition,
     recordRecruitmentUpperQualityPityResult,
     RECRUITMENT_UPPER_QUALITY_PITY_MISS_LIMIT,
+    RECRUITMENT_AD_HIGHEST_QUALITY_PITY_LIMIT,
     saveRoster,
     trySpend,
 } from './GameState';
@@ -125,6 +130,7 @@ type AttributeKey = typeof ATTRIBUTE_KEYS[number];
 interface RecruitmentQualityDraw {
     qualityId: number;
     secondHighestQualityId: number | null;
+    adHighestQualityPityApplied: boolean;
 }
 
 interface QualityTextHighlight {
@@ -190,6 +196,11 @@ interface EconomyConfig {
     };
 }
 
+interface ConceptGodDefinition {
+    conceptGodId: string;
+    displayName: string;
+}
+
 interface ConceptGodUpgradeConfig {
     quality: {
         goatQualityId: number;
@@ -208,7 +219,7 @@ interface ConceptGodUpgradeConfig {
         attributeButtonLabel: string;
     };
     eligibleSourcePlayerNames: string[];
-    conceptGodDisplayNameOverrides?: Record<string, string>;
+    conceptGodDefinitions: Record<string, ConceptGodDefinition[]>;
 }
 
 interface QueuedRecruitmentResult {
@@ -301,7 +312,6 @@ export class RecruitmentController extends Component {
     private adTripleRecruitmentActive = false;
     private continuousRecruitmentActive = false;
     private resultPageClosing = false;
-    private pendingBudgetOperation = false;
     private pendingContinuousRecruitmentCount = 0;
     private continuousRecruitCount = 0;
     private continuousRecruitHolding = false;
@@ -587,6 +597,7 @@ export class RecruitmentController extends Component {
                 || !Number.isFinite(economyConfig.recruit.budgetCostFormula?.teamLevelMultiplier)
                 || !Number.isFinite(economyConfig.recruit.budgetCostFormula?.baseCost)
                 || !Array.isArray(conceptGodUpgradeConfig.eligibleSourcePlayerNames)
+                || !conceptGodUpgradeConfig.conceptGodDefinitions
             ) {
                 throw new Error('Invalid recruitment configuration.');
             }
@@ -734,8 +745,15 @@ export class RecruitmentController extends Component {
             )),
         );
         const protectedDrawCount = getLowestRecruitmentQualityProtectionCount();
+        const probabilityBoost10DrawCount = getRecruitmentAdProbabilityBoostCount(10);
+        const probabilityBoost5DrawCount = getRecruitmentAdProbabilityBoostCount(5);
         for (let index = 0; index < count; index += 1) {
-            const card = this.createRecruitedCard(index < protectedDrawCount, excludedSourceNames);
+            const card = this.createRecruitedCard(
+                index < protectedDrawCount,
+                excludedSourceNames,
+                index < probabilityBoost10DrawCount,
+                index < probabilityBoost5DrawCount,
+            );
             if (!card) {
                 break;
             }
@@ -749,6 +767,7 @@ export class RecruitmentController extends Component {
         }
 
         const cost = this.getRecruitmentCost();
+        const budgetBeforeSpend = getBalance(this.economyConfig.initialBudget);
         const spentCards: PlayerCard[] = [];
         for (const card of cards) {
             if (!trySpend(cost)) {
@@ -765,13 +784,28 @@ export class RecruitmentController extends Component {
         for (let index = 0; index < Math.min(protectedDrawCount, spentCards.length); index += 1) {
             consumeLowestRecruitmentQualityProtection();
         }
+        if (probabilityBoost10DrawCount > 0) {
+            consumeRecruitmentAdProbabilityBoost(
+                10,
+                Math.min(probabilityBoost10DrawCount, spentCards.length),
+            );
+        }
+        if (probabilityBoost5DrawCount > 0) {
+            consumeRecruitmentAdProbabilityBoost(
+                5,
+                Math.min(probabilityBoost5DrawCount, spentCards.length),
+            );
+        }
 
+        const budgetAfterSpend = getBalance(this.economyConfig.initialBudget);
         this.processing = true;
         this.continuousRecruitmentActive = true;
-        this.pendingBudgetOperation = true;
         this.showRecruitingButtonVisual();
-        this.budget = getBalance(this.economyConfig.initialBudget);
+        this.budget = budgetAfterSpend;
         this.refreshBudgetView();
+        if (budgetAfterSpend + Number.EPSILON < budgetBeforeSpend) {
+            notifyValidOperationCompleted();
+        }
         this.queuedContinuousRecruitments = spentCards.map((card) => {
             recordPlayerAcquisitionWithKnowledgeReset(card);
             return {
@@ -799,11 +833,19 @@ export class RecruitmentController extends Component {
         }
 
         const lowQualityProtectionActive = getLowestRecruitmentQualityProtectionCount() > 0;
-        const card = this.createRecruitedCard(lowQualityProtectionActive);
+        const probabilityBoost10Active = getRecruitmentAdProbabilityBoostCount(10) > 0;
+        const probabilityBoost5Active = getRecruitmentAdProbabilityBoostCount(5) > 0;
+        const card = this.createRecruitedCard(
+            lowQualityProtectionActive,
+            new Set<string>(),
+            probabilityBoost10Active,
+            probabilityBoost5Active,
+        );
         if (!card) {
             return;
         }
 
+        const budgetBeforeSpend = getBalance(this.economyConfig.initialBudget);
         if (!trySpend(cost)) {
             this.budget = getBalance(this.economyConfig.initialBudget);
             this.refreshBudgetView();
@@ -812,12 +854,21 @@ export class RecruitmentController extends Component {
         if (lowQualityProtectionActive) {
             consumeLowestRecruitmentQualityProtection();
         }
+        if (probabilityBoost10Active) {
+            consumeRecruitmentAdProbabilityBoost(10);
+        }
+        if (probabilityBoost5Active) {
+            consumeRecruitmentAdProbabilityBoost(5);
+        }
 
+        const budgetAfterSpend = getBalance(this.economyConfig.initialBudget);
         this.processing = true;
-        this.pendingBudgetOperation = true;
         this.showRecruitingButtonVisual();
-        this.budget = getBalance(this.economyConfig.initialBudget);
+        this.budget = budgetAfterSpend;
         this.refreshBudgetView();
+        if (budgetAfterSpend + Number.EPSILON < budgetBeforeSpend) {
+            notifyValidOperationCompleted();
+        }
         recordPlayerAcquisitionWithKnowledgeReset(card);
 
         const willpowerAdded = this.teamLevelController?.addRecruitWillpower() ?? 0;
@@ -863,6 +914,8 @@ export class RecruitmentController extends Component {
 
             const cards: PlayerCard[] = [];
             const availableLowQualityProtection = getLowestRecruitmentQualityProtectionCount();
+            const probabilityBoost10DrawCount = getRecruitmentAdProbabilityBoostCount(10);
+            const probabilityBoost5DrawCount = getRecruitmentAdProbabilityBoostCount(5);
             let consumedLowQualityProtection = 0;
             const excludedSourceNames = new Set(
                 loadRoster(this.rosterSlots.length).flatMap((card) => (
@@ -874,6 +927,8 @@ export class RecruitmentController extends Component {
                 const card = this.createRecruitedCard(
                     lowQualityProtectionActive,
                     excludedSourceNames,
+                    index < probabilityBoost10DrawCount,
+                    index < probabilityBoost5DrawCount,
                 );
                 if (!card) {
                     throw new Error('Failed to create an ad recruitment result.');
@@ -886,6 +941,18 @@ export class RecruitmentController extends Component {
             }
             for (let index = 0; index < consumedLowQualityProtection; index += 1) {
                 consumeLowestRecruitmentQualityProtection();
+            }
+            if (probabilityBoost10DrawCount > 0) {
+                consumeRecruitmentAdProbabilityBoost(
+                    10,
+                    Math.min(probabilityBoost10DrawCount, cards.length),
+                );
+            }
+            if (probabilityBoost5DrawCount > 0) {
+                consumeRecruitmentAdProbabilityBoost(
+                    5,
+                    Math.min(probabilityBoost5DrawCount, cards.length),
+                );
             }
 
             this.queuedAdRecruitments = cards.map((card) => {
@@ -1000,6 +1067,9 @@ export class RecruitmentController extends Component {
         }
 
         this.replaceButton!.interactable = false;
+        // 扣除招募预算后，球员事件可能在结果页展示期间异步写入存档。
+        // 保存上阵结果前重读阵容，避免用旧缓存覆盖刚产生的 pendingEvent。
+        this.roster = loadRoster(this.rosterSlots.length);
         card.lineupSinceMs = Date.now();
         this.roster[targetIndex] = card;
         saveRoster(this.roster);
@@ -1109,7 +1179,8 @@ export class RecruitmentController extends Component {
         const goatRange = this.ovrConfig?.ranges.find(
             (range) => range.qualityId === config?.quality.goatQualityId,
         );
-        if (!config || !goatRange || !this.canBecomeConceptGod(card)) {
+        const definition = this.selectConceptGodDefinition(card);
+        if (!config || !goatRange || !definition || !this.canBecomeConceptGod(card)) {
             return false;
         }
 
@@ -1122,8 +1193,8 @@ export class RecruitmentController extends Component {
         card.qualityId = config.quality.conceptGodQualityId;
         card.qualityName = config.quality.conceptGodQualityName;
         card.isConceptGod = true;
-        card.displayName = config.conceptGodDisplayNameOverrides?.[card.sourcePlayerName]
-            ?? card.displayName;
+        card.conceptGodId = definition.conceptGodId;
+        card.displayName = definition.displayName;
         card.overall = conceptOverall;
         card.attributes = this.allocateAttributes(conceptOverall, card.attributes);
         return true;
@@ -1138,6 +1209,28 @@ export class RecruitmentController extends Component {
             if (!card) {
                 continue;
             }
+            if (this.isConceptGod(card)) {
+                const definition = this.selectConceptGodDefinition(card);
+                const config = this.conceptGodUpgradeConfig;
+                if (!definition || !config) {
+                    continue;
+                }
+                if (
+                    !card.isConceptGod
+                    || card.conceptGodId !== definition.conceptGodId
+                    || card.displayName !== definition.displayName
+                    || card.qualityId !== config.quality.conceptGodQualityId
+                    || card.qualityName !== config.quality.conceptGodQualityName
+                ) {
+                    card.isConceptGod = true;
+                    card.conceptGodId = definition.conceptGodId;
+                    card.displayName = definition.displayName;
+                    card.qualityId = config.quality.conceptGodQualityId;
+                    card.qualityName = config.quality.conceptGodQualityName;
+                    changed = true;
+                }
+                continue;
+            }
             // Generated template IDs are position-based and can change when a
             // player pool is rebuilt. The source player plus quality is the
             // stable identity for an already-owned card.
@@ -1145,11 +1238,7 @@ export class RecruitmentController extends Component {
                 return candidate.sourcePlayerName === card.sourcePlayerName
                     && candidate.quality === card.qualityId;
             });
-            const displayName = this.isConceptGod(card)
-                ? this.conceptGodUpgradeConfig?.conceptGodDisplayNameOverrides?.[
-                    card.sourcePlayerName
-                ] ?? template?.displayName
-                : template?.displayName;
+            const displayName = template?.displayName;
             if (!template || !displayName) {
                 continue;
             }
@@ -1232,8 +1321,36 @@ export class RecruitmentController extends Component {
             this.isGoat(card)
             && isConceptGodUpgradeUnlocked()
             && this.conceptGodUpgradeConfig?.eligibleSourcePlayerNames
-                .includes(card.sourcePlayerName),
+                .includes(card.sourcePlayerName)
+            && this.getConceptGodDefinitions(card).length > 0,
         );
+    }
+
+    private getConceptGodDefinitions(card: PlayerCard): ConceptGodDefinition[] {
+        return this.conceptGodUpgradeConfig
+            ?.conceptGodDefinitions[card.sourcePlayerName] ?? [];
+    }
+
+    private selectConceptGodDefinition(card: PlayerCard): ConceptGodDefinition | null {
+        const definitions = this.getConceptGodDefinitions(card);
+        if (definitions.length === 0) {
+            return null;
+        }
+        const existing = definitions.find(
+            (definition) => definition.conceptGodId === card.conceptGodId,
+        );
+        if (existing) {
+            return existing;
+        }
+        return definitions[this.stableIndex(card.instanceId, definitions.length)];
+    }
+
+    private stableIndex(value: string, count: number): number {
+        let hash = 0;
+        for (let index = 0; index < value.length; index += 1) {
+            hash = (hash * 31 + value.charCodeAt(index)) >>> 0;
+        }
+        return hash % count;
     }
 
     private canUpgradeAttribute(card: PlayerCard): boolean {
@@ -1295,12 +1412,18 @@ export class RecruitmentController extends Component {
     private createRecruitedCard(
         lowQualityProtectionActive = false,
         excludedSourceNames: ReadonlySet<string> = new Set<string>(),
+        probabilityBoost10Active = false,
+        probabilityBoost5Active = false,
     ): PlayerCard | null {
         if (!this.playerConfig || !this.ovrConfig || !this.probabilityConfig) {
             return null;
         }
 
-        const draw = this.drawQualityId(lowQualityProtectionActive);
+        const draw = this.drawQualityId(
+            lowQualityProtectionActive,
+            probabilityBoost10Active,
+            probabilityBoost5Active,
+        );
         const cheatMode = isCheatModeEnabled();
         const recruitedSourceNames = cheatMode
             ? new Set<string>()
@@ -1318,6 +1441,10 @@ export class RecruitmentController extends Component {
         if (pool.length === 0 || !range) {
             console.error('[RecruitmentController] Empty player pool or missing OVR range.', draw.qualityId);
             return null;
+        }
+
+        if (draw.adHighestQualityPityApplied) {
+            consumeRecruitmentAdHighestQualityPity();
         }
 
         if (draw.secondHighestQualityId !== null) {
@@ -1343,7 +1470,11 @@ export class RecruitmentController extends Component {
         };
     }
 
-    private drawQualityId(lowQualityProtectionActive = false): RecruitmentQualityDraw {
+    private drawQualityId(
+        lowQualityProtectionActive = false,
+        probabilityBoost10Active = false,
+        probabilityBoost5Active = false,
+    ): RecruitmentQualityDraw {
         const snapshot = this.teamLevelController?.getSnapshot();
         const marketValueLevel = snapshot?.marketValueLevel
             ?? getStoredMarketValueLevel();
@@ -1354,7 +1485,11 @@ export class RecruitmentController extends Component {
         );
         if (!levelConfig) {
             console.error('[RecruitmentController] Missing recruitment window.', marketValueLevel);
-            return { qualityId: 3, secondHighestQualityId: null };
+            return {
+                qualityId: 3,
+                secondHighestQualityId: null,
+                adHighestQualityPityApplied: false,
+            };
         }
 
         const sortedRecruitableQualityIds = [...levelConfig.recruitableQualityIds]
@@ -1362,12 +1497,24 @@ export class RecruitmentController extends Component {
         const secondHighestQualityId = sortedRecruitableQualityIds[
             sortedRecruitableQualityIds.length - 2
         ] ?? null;
+        const highestQualityId = sortedRecruitableQualityIds[
+            sortedRecruitableQualityIds.length - 1
+        ] ?? 3;
+        if (
+            getRecruitmentAdHighestQualityPityCount()
+                >= RECRUITMENT_AD_HIGHEST_QUALITY_PITY_LIMIT
+        ) {
+            return {
+                qualityId: highestQualityId,
+                secondHighestQualityId,
+                adHighestQualityPityApplied: true,
+            };
+        }
         if (isCheatModeEnabled()) {
             return {
-                qualityId: sortedRecruitableQualityIds[
-                    sortedRecruitableQualityIds.length - 1
-                ] ?? 3,
+                qualityId: highestQualityId,
                 secondHighestQualityId,
+                adHighestQualityPityApplied: false,
             };
         }
         if (
@@ -1375,7 +1522,11 @@ export class RecruitmentController extends Component {
             && getRecruitmentUpperQualityPityMissCount()
                 >= RECRUITMENT_UPPER_QUALITY_PITY_MISS_LIMIT
         ) {
-            return { qualityId: secondHighestQualityId, secondHighestQualityId };
+            return {
+                qualityId: secondHighestQualityId,
+                secondHighestQualityId,
+                adHighestQualityPityApplied: false,
+            };
         }
 
         const weights = resolveRecruitmentQualityWeights(
@@ -1383,6 +1534,8 @@ export class RecruitmentController extends Component {
             levelConfig,
             this.managementEffects.scoutingDirectorHighestQualityWeightBonus,
             lowQualityProtectionActive ? 1 : 0,
+            probabilityBoost10Active,
+            probabilityBoost5Active,
         );
         const weightedQualities = this.probabilityConfig!.qualities
             .map((quality, index) => ({
@@ -1395,12 +1548,17 @@ export class RecruitmentController extends Component {
         for (const item of weightedQualities) {
             roll -= item.weight;
             if (roll <= 0) {
-                return { qualityId: item.qualityId, secondHighestQualityId };
+                return {
+                    qualityId: item.qualityId,
+                    secondHighestQualityId,
+                    adHighestQualityPityApplied: false,
+                };
             }
         }
         return {
             qualityId: weightedQualities[weightedQualities.length - 1]?.qualityId ?? 3,
             secondHighestQualityId,
+            adHighestQualityPityApplied: false,
         };
     }
 
@@ -1654,8 +1812,6 @@ export class RecruitmentController extends Component {
     }
 
     private finishCloseResultPage(): void {
-        const shouldNotifyValidOperation = this.pendingBudgetOperation;
-        this.pendingBudgetOperation = false;
         this.resultPage!.active = false;
         if (this.upgradeAdButton) {
             this.upgradeAdButton.interactable = false;
@@ -1667,7 +1823,6 @@ export class RecruitmentController extends Component {
         this.pendingUpgradeAdUsed = false;
         if (this.adTripleRecruitmentActive) {
             if (this.queuedAdRecruitments.length > 0) {
-                this.pendingBudgetOperation = shouldNotifyValidOperation;
                 this.scheduleOnce(() => {
                     void this.showNextAdRecruitmentResult().catch((error) => {
                         console.error(
@@ -1684,7 +1839,6 @@ export class RecruitmentController extends Component {
         }
         if (this.continuousRecruitmentActive) {
             if (this.queuedContinuousRecruitments.length > 0) {
-                this.pendingBudgetOperation = shouldNotifyValidOperation;
                 this.scheduleOnce(() => {
                     void this.showNextContinuousRecruitmentResult().catch((error) => {
                         console.error(
@@ -1697,9 +1851,6 @@ export class RecruitmentController extends Component {
                 return;
             }
             this.finishContinuousRecruitment();
-        }
-        if (shouldNotifyValidOperation) {
-            notifyValidOperationCompleted();
         }
         this.refreshBudgetView();
     }
@@ -2002,13 +2153,19 @@ export class RecruitmentController extends Component {
             return;
         }
         const colorByValue = new Map<string, string>();
-        highlightedValues.filter(Boolean).forEach((value) => {
-            colorByValue.set(value, '#FFD85A');
+        highlightedValues.forEach((value) => {
+            const normalizedValue = value == null ? '' : String(value);
+            if (normalizedValue) {
+                colorByValue.set(normalizedValue, '#FFD85A');
+            }
         });
         qualityHighlights.forEach(({ value, color }) => {
-            colorByValue.set(value, color);
+            const normalizedValue = value == null ? '' : String(value);
+            if (normalizedValue) {
+                colorByValue.set(normalizedValue, color);
+            }
         });
-        const escapedValues = [...colorByValue.keys()]
+        const escapedValues = Array.from(colorByValue.keys())
             .sort((left, right) => right.length - left.length)
             .map((value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
         const highlightedText = escapedValues.length > 0

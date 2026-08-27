@@ -14,6 +14,7 @@ import {
 } from 'cc';
 import { setGrowingNumber } from './NumberGrowthAnimator';
 import { gameAudio } from './GameAudio';
+import { loadSeasonState } from './GameState';
 
 const { ccclass, property } = _decorator;
 
@@ -50,35 +51,6 @@ export function getStoredTeamLevel(fallback = MIN_TEAM_LEVEL): number {
     }
 }
 
-export function recordStoredStandardMatchWin(): boolean {
-    const serialized = sys.localStorage.getItem(TEAM_PROGRESSION_STORAGE_KEY);
-    if (!serialized) {
-        return false;
-    }
-    try {
-        const parsed = JSON.parse(serialized) as Partial<TeamProgressionSaveData>;
-        if (
-            sanitizeSaveVersion(parsed.version) !== SAVE_VERSION
-            || clampTeamLevel(parsed.teamLevel ?? MIN_TEAM_LEVEL) >= MAX_TEAM_LEVEL
-        ) {
-            return false;
-        }
-        const currentLevel = clampTeamLevel(parsed.teamLevel ?? MIN_TEAM_LEVEL);
-        if (parsed.wonAtCurrentLevel) {
-            return false;
-        }
-        sys.localStorage.setItem(TEAM_PROGRESSION_STORAGE_KEY, JSON.stringify({
-            version: SAVE_VERSION,
-            teamLevel: currentLevel,
-            willpower: Math.max(0, Math.floor(parsed.willpower ?? 0)),
-            wonAtCurrentLevel: true,
-        }));
-        return true;
-    } catch {
-        return false;
-    }
-}
-
 interface TeamProgressionConfig {
     _meta: {
         teamLevelMin: number;
@@ -95,7 +67,6 @@ interface TeamProgressionSaveData {
     version: number;
     teamLevel: number;
     willpower: number;
-    wonAtCurrentLevel: boolean;
 }
 
 export interface TeamProgressionSnapshot {
@@ -105,6 +76,7 @@ export interface TeamProgressionSnapshot {
     marketLevelCap: number;
     willpower: number;
     currentRequirement: number;
+    cumulativeWins: number;
     canUpgrade: boolean;
     pendingChampionship: boolean;
     pendingWinUpgrade: boolean;
@@ -192,20 +164,6 @@ export class TeamLevelController extends Component {
         return accepted;
     }
 
-    public recordStandardMatchWin(): boolean {
-        if (!this.ready || this.isAtMaximumLevel() || this.state.wonAtCurrentLevel) {
-            return false;
-        }
-        if (!recordStoredStandardMatchWin()) {
-            return false;
-        }
-        this.state = this.loadState();
-        this.refreshView(true);
-        const snapshot = this.getSnapshot();
-        teamProgressionEvents.emit(TEAM_PROGRESSION_EVENT_WILLPOWER_CHANGED, snapshot);
-        return true;
-    }
-
     public canStartProgressionMatch(): boolean {
         return this.ready;
     }
@@ -220,9 +178,10 @@ export class TeamLevelController extends Component {
             marketLevelCap: this.getMaximumTeamLevel(),
             willpower: this.state.willpower,
             currentRequirement: this.getCurrentRequirement(),
+            cumulativeWins: this.getCumulativeWins(),
             canUpgrade: this.isReadyForManualUpgrade(),
             pendingChampionship: false,
-            pendingWinUpgrade: this.state.wonAtCurrentLevel,
+            pendingWinUpgrade: this.hasEnoughCumulativeWins(),
             maxLevel: this.isAtMaximumLevel(),
         };
     }
@@ -310,7 +269,6 @@ export class TeamLevelController extends Component {
                 willpower: teamLevel >= MAX_TEAM_LEVEL
                     ? 0
                     : Math.min(requirement, Math.max(0, Math.floor(parsed.willpower ?? 0))),
-                wonAtCurrentLevel: teamLevel < MAX_TEAM_LEVEL && Boolean(parsed.wonAtCurrentLevel),
             };
         } catch {
             return fallback;
@@ -326,7 +284,6 @@ export class TeamLevelController extends Component {
             version: SAVE_VERSION,
             teamLevel: MIN_TEAM_LEVEL,
             willpower: 0,
-            wonAtCurrentLevel: false,
         };
     }
 
@@ -394,7 +351,6 @@ export class TeamLevelController extends Component {
             version: SAVE_VERSION,
             teamLevel: Math.min(MAX_TEAM_LEVEL, this.state.teamLevel + 1),
             willpower: 0,
-            wonAtCurrentLevel: false,
         };
         this.saveState();
         this.refreshView(true);
@@ -409,13 +365,21 @@ export class TeamLevelController extends Component {
     private isReadyForManualUpgrade(): boolean {
         return !this.isAtMaximumLevel()
             && this.state.willpower >= this.getCurrentRequirement()
-            && this.state.wonAtCurrentLevel;
+            && this.hasEnoughCumulativeWins();
     }
 
     private isReadyForWinUpgrade(): boolean {
         return !this.isAtMaximumLevel()
             && this.state.willpower >= this.getCurrentRequirement()
-            && !this.state.wonAtCurrentLevel;
+            && !this.hasEnoughCumulativeWins();
+    }
+
+    private getCumulativeWins(): number {
+        return Math.max(0, loadSeasonState().officialWins);
+    }
+
+    private hasEnoughCumulativeWins(): boolean {
+        return this.getCumulativeWins() > this.state.teamLevel;
     }
 
     private isAtMaximumLevel(): boolean {

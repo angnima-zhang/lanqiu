@@ -1,7 +1,7 @@
 {
   "triggerProbability": 0.3,
   "defaultPlayerTraits": {
-    "health": 0.6,
+    "health": 0.7,
     "age": 28,
     "training": 0.5,
     "bond": 0.5

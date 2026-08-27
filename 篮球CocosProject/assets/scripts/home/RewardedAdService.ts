@@ -3,6 +3,7 @@ import { gameAudio } from './GameAudio';
 import {
     GAME_STATE_EVENT_REWARDED_AD_COMPLETED,
     gameStateEvents,
+    recordRewardedAdForRecruitmentPity,
 } from './GameState';
 
 export interface RewardedAdUnitIds {
@@ -49,8 +50,7 @@ export async function showRewardedVideo(
     adUnitIds: RewardedAdUnitIds = configuredAdUnitIds,
 ): Promise<boolean> {
     if (PREVIEW) {
-        gameAudio.playAdSuccess();
-        gameStateEvents.emit(GAME_STATE_EVENT_REWARDED_AD_COMPLETED);
+        notifyRewardedAdCompleted();
         return true;
     }
 
@@ -87,8 +87,7 @@ export async function showRewardedVideo(
             ad.offError?.(onError);
             ad.destroy?.();
             if (success) {
-                gameAudio.playAdSuccess();
-                gameStateEvents.emit(GAME_STATE_EVENT_REWARDED_AD_COMPLETED);
+                notifyRewardedAdCompleted();
             }
             resolve(success);
         };
@@ -111,4 +110,10 @@ export async function showRewardedVideo(
             }
         });
     });
+}
+
+function notifyRewardedAdCompleted(): void {
+    recordRewardedAdForRecruitmentPity();
+    gameAudio.playAdSuccess();
+    gameStateEvents.emit(GAME_STATE_EVENT_REWARDED_AD_COMPLETED);
 }

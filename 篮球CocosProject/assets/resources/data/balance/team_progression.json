@@ -1,14 +1,14 @@
 {
   "_meta": {
-    "description": "单赛季100场主线。球队从0级升至100级；胜利状态持续记录，斗志满后可在主页手动升级。",
+    "description": "单赛季100场主线。球队从0级升至100级；累计胜场大于当前球队等级且斗志满后，可在主页手动升级。",
     "status": "已定稿",
     "version": "v1.00",
     "teamLevelMin": 0,
     "totalTeamLevels": 100,
     "recruitWillpowerReward": 10,
     "willpowerOverflowEnabled": false,
-    "upgradeMode": "manual_after_recorded_win",
-    "qualifiedWinRule": "标准赛程胜利会记录本级胜利状态；斗志满且已获胜时，可在主页手动提升1级。",
+    "upgradeMode": "manual_when_wins_exceed_level_and_willpower_full",
+    "qualifiedWinRule": "累计胜场大于当前球队等级且斗志满时，可在主页手动提升1级；升级后斗志归零，累计胜场保留。",
     "managementLevelCapRule": "eachManagementLevel <= currentTeamLevel",
     "managementAbsoluteMaxLevel": 100
   },

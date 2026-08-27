@@ -21,14 +21,30 @@ interface CommentaryRule {
     teamHasAll?: string[];
     opponentHasAll?: string[];
     passerMustBe?: string[];
+    actorConceptGodIds?: string[];
+    passerConceptGodIds?: string[];
     tactics?: MatchTactic[];
     clutch?: boolean;
+    maxTriggersPerMatch?: number;
+    cooldownEvents?: number;
+    chance?: number;
     texts?: string[];
     series?: string[][];
 }
 
+interface ConceptGodCommentaryRule {
+    conceptGodId: string;
+    madeActions?: MatchPlayAction[];
+    reverseActions?: MatchPlayAction[];
+    reverseOutcome?: CommentaryOutcome;
+    signature: string;
+    reverse: string;
+    clutch: string[];
+}
+
 interface CommentaryLibraryData {
     rules?: CommentaryRule[];
+    conceptGodRules?: ConceptGodCommentaryRule[];
 }
 
 export interface MatchCommentaryContext {
@@ -43,6 +59,7 @@ export interface MatchCommentaryContext {
 export class MatchCommentarySelector {
     private readonly rules: CommentaryRule[];
     private readonly lastEventByRule = new Map<string, number>();
+    private readonly triggerCountByRule = new Map<string, number>();
     private readonly usedTexts = new Set<string>();
 
     public constructor(data: unknown) {
@@ -53,28 +70,44 @@ export class MatchCommentarySelector {
         return new MatchCommentarySelector(asset.json);
     }
 
+    public resetMatchState(): void {
+        this.lastEventByRule.clear();
+        this.triggerCountByRule.clear();
+        this.usedTexts.clear();
+    }
+
     public select(context: MatchCommentaryContext): readonly string[] | null {
         const matches = this.rules.filter((rule) => this.matches(rule, context));
         if (matches.length === 0) {
             return null;
         }
-        const highestPriority = Math.max(...matches.map((rule) => rule.priority ?? 0));
-        const candidates = matches
-            .filter((rule) => (rule.priority ?? 0) === highestPriority)
-            .filter((rule) => !this.isCoolingDown(rule, context.event.index));
-        if (candidates.length === 0) {
-            return null;
-        }
-        const startIndex = this.seed(context.event, context.actor) % candidates.length;
-        for (let offset = 0; offset < candidates.length; offset += 1) {
-            const rule = candidates[(startIndex + offset) % candidates.length];
-            const series = this.pickSeries(rule, context);
-            if (!series) {
+        const priorities = Array.from(new Set(
+            matches.map((rule) => rule.priority ?? 0),
+        )).sort((left, right) => right - left);
+        for (const priority of priorities) {
+            const candidates = matches
+                .filter((rule) => (rule.priority ?? 0) === priority)
+                .filter((rule) => !this.isCoolingDown(rule, context.event.index))
+                .filter((rule) => !this.hasReachedTriggerLimit(rule))
+                .filter((rule) => this.passesChance(rule, context));
+            if (candidates.length === 0) {
                 continue;
             }
-            this.lastEventByRule.set(rule.id, context.event.index);
-            this.usedTexts.add(series.join('\u0000'));
-            return series;
+            const startIndex = this.seed(context.event, context.actor) % candidates.length;
+            for (let offset = 0; offset < candidates.length; offset += 1) {
+                const rule = candidates[(startIndex + offset) % candidates.length];
+                const series = this.pickSeries(rule, context);
+                if (!series) {
+                    continue;
+                }
+                this.lastEventByRule.set(rule.id, context.event.index);
+                this.triggerCountByRule.set(
+                    rule.id,
+                    (this.triggerCountByRule.get(rule.id) ?? 0) + 1,
+                );
+                this.usedTexts.add(series.join('\u0000'));
+                return series;
+            }
         }
         return null;
     }
@@ -83,11 +116,9 @@ export class MatchCommentarySelector {
         if (!data || typeof data !== 'object') {
             return [];
         }
-        const rawRules = (data as CommentaryLibraryData).rules;
-        if (!Array.isArray(rawRules)) {
-            return [];
-        }
-        return rawRules.filter((rule): rule is CommentaryRule => (
+        const library = data as CommentaryLibraryData;
+        const rawRules = Array.isArray(library.rules) ? library.rules : [];
+        const standardRules = rawRules.filter((rule): rule is CommentaryRule => (
             Boolean(rule)
             && typeof rule.id === 'string'
             && (
@@ -100,6 +131,75 @@ export class MatchCommentarySelector {
                     )))
             )
         ));
+        return [
+            ...this.expandConceptGodRules(library.conceptGodRules),
+            ...standardRules,
+        ];
+    }
+
+    private expandConceptGodRules(value: unknown): CommentaryRule[] {
+        if (!Array.isArray(value)) {
+            return [];
+        }
+        const rules: CommentaryRule[] = [];
+        value.forEach((rawEntry, index) => {
+            if (!rawEntry || typeof rawEntry !== 'object') {
+                return;
+            }
+            const entry = rawEntry as Partial<ConceptGodCommentaryRule>;
+            if (
+                typeof entry.conceptGodId !== 'string'
+                || typeof entry.signature !== 'string'
+                || typeof entry.reverse !== 'string'
+                || !Array.isArray(entry.clutch)
+                || !entry.clutch.every((text) => typeof text === 'string')
+            ) {
+                return;
+            }
+            const madeActions = Array.isArray(entry.madeActions)
+                ? entry.madeActions
+                : undefined;
+            const reverseActions = Array.isArray(entry.reverseActions)
+                ? entry.reverseActions
+                : madeActions;
+            rules.push(
+                {
+                    id: `concept_${index + 1}_signature`,
+                    priority: 1100,
+                    actions: madeActions,
+                    outcome: 'made',
+                    actorConceptGodIds: [entry.conceptGodId],
+                    maxTriggersPerMatch: 2,
+                    cooldownEvents: 4,
+                    chance: 0.35,
+                    texts: [entry.signature],
+                },
+                {
+                    id: `concept_${index + 1}_reverse`,
+                    priority: 1100,
+                    actions: reverseActions,
+                    outcome: entry.reverseOutcome ?? 'missed',
+                    actorConceptGodIds: [entry.conceptGodId],
+                    maxTriggersPerMatch: 1,
+                    cooldownEvents: 4,
+                    chance: 0.25,
+                    texts: [entry.reverse],
+                },
+                {
+                    id: `concept_${index + 1}_clutch`,
+                    priority: 1250,
+                    actions: madeActions,
+                    outcome: 'made',
+                    actorConceptGodIds: [entry.conceptGodId],
+                    clutch: true,
+                    maxTriggersPerMatch: 1,
+                    cooldownEvents: 0,
+                    chance: 1,
+                    series: [entry.clutch],
+                },
+            );
+        });
+        return rules;
     }
 
     private matches(rule: CommentaryRule, context: MatchCommentaryContext): boolean {
@@ -122,17 +222,31 @@ export class MatchCommentarySelector {
         if (!this.hasActor(rule.actors, context.actor)) {
             return false;
         }
+        if (!this.hasConceptGod(rule.actorConceptGodIds, context.actor)) {
+            return false;
+        }
         if (!this.hasAll(rule.teamHasAll, context.ownRoster)) {
             return false;
         }
         if (!this.hasAll(rule.opponentHasAll, context.opponentRoster)) {
             return false;
         }
-        return this.hasActor(rule.passerMustBe, context.passer);
+        return this.hasActor(rule.passerMustBe, context.passer)
+            && this.hasConceptGod(rule.passerConceptGodIds, context.passer);
     }
 
     private hasActor(keys: string[] | undefined, actor: PlayerCard | null): boolean {
         return !keys || keys.length === 0 || Boolean(actor && keys.includes(actor.sourcePlayerName));
+    }
+
+    private hasConceptGod(keys: string[] | undefined, actor: PlayerCard | null): boolean {
+        return !keys
+            || keys.length === 0
+            || Boolean(
+                actor?.isConceptGod
+                && actor.conceptGodId
+                && keys.includes(actor.conceptGodId),
+            );
     }
 
     private hasAll(
@@ -155,7 +269,31 @@ export class MatchCommentarySelector {
 
     private isCoolingDown(rule: CommentaryRule, eventIndex: number): boolean {
         const lastEvent = this.lastEventByRule.get(rule.id);
-        return lastEvent !== undefined && eventIndex - lastEvent <= 2;
+        const cooldownEvents = Math.max(0, Math.floor(rule.cooldownEvents ?? 2));
+        return lastEvent !== undefined && eventIndex - lastEvent <= cooldownEvents;
+    }
+
+    private hasReachedTriggerLimit(rule: CommentaryRule): boolean {
+        if (!Number.isFinite(rule.maxTriggersPerMatch)) {
+            return false;
+        }
+        const limit = Math.max(0, Math.floor(rule.maxTriggersPerMatch ?? 0));
+        return (this.triggerCountByRule.get(rule.id) ?? 0) >= limit;
+    }
+
+    private passesChance(rule: CommentaryRule, context: MatchCommentaryContext): boolean {
+        const chance = Math.min(1, Math.max(0, rule.chance ?? 1));
+        if (chance >= 1) {
+            return true;
+        }
+        if (chance <= 0) {
+            return false;
+        }
+        const roll = (
+            this.seed(context.event, context.actor)
+            + this.hash(rule.id)
+        ) % 10_000;
+        return roll < Math.floor(chance * 10_000);
     }
 
     private pickSeries(
@@ -196,5 +334,13 @@ export class MatchCommentarySelector {
     private seed(event: MatchPlayEvent, actor: PlayerCard | null): number {
         const sourceLength = actor?.sourcePlayerName.length ?? 0;
         return event.index * 31 + event.quarter * 11 + sourceLength * 7;
+    }
+
+    private hash(value: string): number {
+        let hash = 0;
+        for (let index = 0; index < value.length; index += 1) {
+            hash = (hash * 31 + value.charCodeAt(index)) >>> 0;
+        }
+        return hash;
     }
 }

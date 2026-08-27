@@ -5,16 +5,10 @@ import {
     getScheduleDescriptor,
 } from './SeasonRoute';
 
-const LOCAL_PREVIEW_RESET_REVISION = '2026-08-21-reset-1';
+const LOCAL_PREVIEW_RESET_REVISION = '2026-08-25-reset-2';
 const LOCAL_PREVIEW_RESET_STORAGE_KEY = 'basketball.local-preview-reset-revision';
 
-function resetLocalPreviewSaveOnce(): void {
-    if (
-        !PREVIEW
-        || sys.localStorage.getItem(LOCAL_PREVIEW_RESET_STORAGE_KEY) === LOCAL_PREVIEW_RESET_REVISION
-    ) {
-        return;
-    }
+export function clearAllBasketballSaveData(): number {
     const basketballKeys: string[] = [];
     for (let index = 0; index < sys.localStorage.length; index += 1) {
         const key = sys.localStorage.key(index);
@@ -23,6 +17,17 @@ function resetLocalPreviewSaveOnce(): void {
         }
     }
     basketballKeys.forEach((key) => sys.localStorage.removeItem(key));
+    return basketballKeys.length;
+}
+
+function resetLocalPreviewSaveOnce(): void {
+    if (
+        !PREVIEW
+        || sys.localStorage.getItem(LOCAL_PREVIEW_RESET_STORAGE_KEY) === LOCAL_PREVIEW_RESET_REVISION
+    ) {
+        return;
+    }
+    clearAllBasketballSaveData();
     sys.localStorage.setItem(LOCAL_PREVIEW_RESET_STORAGE_KEY, LOCAL_PREVIEW_RESET_REVISION);
 }
 
@@ -30,6 +35,8 @@ resetLocalPreviewSaveOnce();
 
 export const INT32_MAX = 2_147_483_647;
 export const ROSTER_SLOT_COUNT = 12;
+export const OPPONENT_PERMANENT_INJURY_PERCENT = 0.08;
+export const FULLY_INJURED_OPPONENT_PLAYER_OVERALL_MULTIPLIER = 1.1;
 
 export const GAME_STATE_EVENT_BUDGET_CHANGED = 'game-state-budget-changed';
 export const GAME_STATE_EVENT_ROSTER_CHANGED = 'game-state-roster-changed';
@@ -41,12 +48,14 @@ export const GAME_STATE_EVENT_MATCH_SETTLED = 'game-state-match-settled';
 export const GAME_STATE_EVENT_REWARDED_AD_COMPLETED = 'game-state-rewarded-ad-completed';
 export const GAME_STATE_EVENT_VALID_OPERATION_COMPLETED = 'game-state-valid-operation-completed';
 export const GAME_STATE_EVENT_RECRUITMENT_PROTECTION_CHANGED = 'game-state-recruitment-protection-changed';
+export const GAME_STATE_EVENT_RECRUITMENT_AD_PITY_CHANGED = 'game-state-recruitment-ad-pity-changed';
+export const GAME_STATE_EVENT_RECRUITMENT_AD_PROBABILITY_BOOST_CHANGED = 'game-state-recruitment-ad-probability-boost-changed';
 
 export const gameStateEvents = new EventTarget();
 
 /**
- * 只有玩家主动完成了会改变预算的操作时才调用。
- * 在线挂机等自动收入只广播预算刷新，不属于有效操作。
+ * 只有玩家主动完成了会实际减少预算的操作时才调用。
+ * 预算收入只广播预算刷新，不属于有效操作。
  */
 export function notifyValidOperationCompleted(): void {
     gameStateEvents.emit(GAME_STATE_EVENT_VALID_OPERATION_COMPLETED);
@@ -61,6 +70,19 @@ export const RECRUITMENT_LOWEST_QUALITY_PROTECTION_STORAGE_KEY = 'basketball.rec
 export const RECRUITMENT_LOWEST_QUALITY_PROTECTION_RECRUITMENT_COUNT = 10;
 export const RECRUITMENT_UPPER_QUALITY_PITY_MISS_STORAGE_KEY = 'basketball.recruitment.upper-quality-pity-miss.v1';
 export const RECRUITMENT_UPPER_QUALITY_PITY_MISS_LIMIT = 10;
+export const RECRUITMENT_AD_HIGHEST_QUALITY_PITY_STORAGE_KEY = 'basketball.recruitment.ad-highest-quality-pity.v1';
+export const RECRUITMENT_AD_HIGHEST_QUALITY_PITY_LIMIT = 10;
+export const RECRUITMENT_AD_PROBABILITY_BOOST_DRAW_COUNT = 10;
+
+export type RecruitmentAdProbabilityBoostPercent = 5 | 10;
+
+const RECRUITMENT_AD_PROBABILITY_BOOST_STORAGE_KEYS: Record<
+    RecruitmentAdProbabilityBoostPercent,
+    string
+> = {
+    5: 'basketball.recruitment.ad-probability-boost-5.v1',
+    10: 'basketball.recruitment.ad-probability-boost-10.v1',
+};
 
 const MANAGEMENT_STORAGE_KEY = 'basketball.management.v2';
 const PLAYER_HISTORY_STORAGE_KEY = 'basketball.player-history.v2';
@@ -129,6 +151,7 @@ export interface PlayerCard {
     qualityId: number;
     qualityName: string;
     isConceptGod?: boolean;
+    conceptGodId?: string;
     overall: number;
     attributes: PlayerAttributes;
     acquiredAtMs: number;
@@ -233,7 +256,7 @@ export interface SeasonState {
     lastBaseRewardMatchId: string | null;
     lastAdRewardMatchId: string | null;
     lastAdvancedMatchId: string | null;
-    nextOpponentOverall: number | null;
+    opponentInjuredPlayerIndices: number[];
 }
 
 export type SeasonSchedulePhase =
@@ -397,6 +420,112 @@ export function recordRecruitmentUpperQualityPityResult(isUpperQuality: boolean)
         String(nextCount),
     );
     return nextCount;
+}
+
+export function getRecruitmentAdHighestQualityPityCount(): number {
+    return Math.min(
+        INT32_MAX,
+        Math.max(
+            0,
+            sanitizeInteger(
+                sys.localStorage.getItem(RECRUITMENT_AD_HIGHEST_QUALITY_PITY_STORAGE_KEY),
+                0,
+            ),
+        ),
+    );
+}
+
+export function recordRewardedAdForRecruitmentPity(): number {
+    const nextCount = Math.min(
+        INT32_MAX,
+        getRecruitmentAdHighestQualityPityCount() + 1,
+    );
+    writeRecruitmentAdHighestQualityPityCount(nextCount);
+    return nextCount;
+}
+
+export function consumeRecruitmentAdHighestQualityPity(): void {
+    writeRecruitmentAdHighestQualityPityCount(
+        getRecruitmentAdHighestQualityPityCount()
+            - RECRUITMENT_AD_HIGHEST_QUALITY_PITY_LIMIT,
+    );
+}
+
+function writeRecruitmentAdHighestQualityPityCount(count: number): void {
+    const normalizedCount = Math.min(
+        INT32_MAX,
+        Math.max(0, sanitizeInteger(count, 0)),
+    );
+    sys.localStorage.setItem(
+        RECRUITMENT_AD_HIGHEST_QUALITY_PITY_STORAGE_KEY,
+        String(normalizedCount),
+    );
+    gameStateEvents.emit(
+        GAME_STATE_EVENT_RECRUITMENT_AD_PITY_CHANGED,
+        normalizedCount,
+    );
+}
+
+export function getRecruitmentAdProbabilityBoostCount(
+    percent: RecruitmentAdProbabilityBoostPercent,
+): number {
+    return Math.min(
+        INT32_MAX,
+        Math.max(
+            0,
+            sanitizeInteger(
+                sys.localStorage.getItem(
+                    RECRUITMENT_AD_PROBABILITY_BOOST_STORAGE_KEYS[percent],
+                ),
+                0,
+            ),
+        ),
+    );
+}
+
+export function addRecruitmentAdProbabilityBoost(
+    percent: RecruitmentAdProbabilityBoostPercent,
+    count = RECRUITMENT_AD_PROBABILITY_BOOST_DRAW_COUNT,
+): number {
+    const nextCount = Math.min(
+        INT32_MAX,
+        getRecruitmentAdProbabilityBoostCount(percent)
+            + Math.max(0, sanitizeInteger(count, 0)),
+    );
+    writeRecruitmentAdProbabilityBoostCount(percent, nextCount);
+    return nextCount;
+}
+
+export function consumeRecruitmentAdProbabilityBoost(
+    percent: RecruitmentAdProbabilityBoostPercent,
+    count = 1,
+): number {
+    const nextCount = Math.max(
+        0,
+        getRecruitmentAdProbabilityBoostCount(percent)
+            - Math.max(0, sanitizeInteger(count, 0)),
+    );
+    writeRecruitmentAdProbabilityBoostCount(percent, nextCount);
+    return nextCount;
+}
+
+function writeRecruitmentAdProbabilityBoostCount(
+    percent: RecruitmentAdProbabilityBoostPercent,
+    count: number,
+): void {
+    const normalizedCount = Math.min(
+        INT32_MAX,
+        Math.max(0, sanitizeInteger(count, 0)),
+    );
+    sys.localStorage.setItem(
+        RECRUITMENT_AD_PROBABILITY_BOOST_STORAGE_KEYS[percent],
+        String(normalizedCount),
+    );
+    gameStateEvents.emit(
+        GAME_STATE_EVENT_RECRUITMENT_AD_PROBABILITY_BOOST_CHANGED,
+        percent,
+        normalizedCount,
+    );
 }
 
 function writeLowestRecruitmentQualityProtectionCount(count: number): void {
@@ -680,6 +809,7 @@ export async function upgradeManagementWithBudget(
             cost,
         );
     }
+    const budgetBeforeSpend = getBudget();
     if (cost > 0 && !trySpendBudget(cost)) {
         return createManagementUpgradeResult(
             false,
@@ -695,7 +825,8 @@ export async function upgradeManagementWithBudget(
         [role]: previousLevel + 1,
     };
     saveManagementLevels(levels);
-    if (cost > 0) {
+    const budgetAfterSpend = getBudget();
+    if (budgetAfterSpend + Number.EPSILON < budgetBeforeSpend) {
         notifyValidOperationCompleted();
     }
     return createManagementUpgradeResult(
@@ -959,6 +1090,162 @@ export function getCurrentMatchId(state: SeasonState = loadSeasonState()): strin
         : `standard-${state.matchNumber}`;
 }
 
+export function recordRandomOpponentInjuryAfterDefeat(
+    matchId: string,
+    opponentRoster: ReadonlyArray<PlayerCard>,
+): number | null {
+    const state = loadSeasonState();
+    if (!isCurrentMatchId(state, matchId)) {
+        return null;
+    }
+    const injuredIndices = new Set(state.opponentInjuredPlayerIndices);
+    const candidates = opponentRoster
+        .map((card, index) => ({ card, index }))
+        .filter(({ card, index }) => Boolean(card) && !injuredIndices.has(index));
+    if (candidates.length === 0) {
+        return null;
+    }
+    const selected = candidates[Math.floor(Math.random() * candidates.length)];
+    state.opponentInjuredPlayerIndices = [
+        ...state.opponentInjuredPlayerIndices,
+        selected.index,
+    ];
+    saveSeasonState(state);
+    return selected.index;
+}
+
+export function applyPermanentOpponentInjuries(
+    opponentRoster: PlayerCard[],
+    injuredPlayerIndices: ReadonlyArray<number>,
+    playerTeamOverall: number,
+): number {
+    const injuredIndices = new Set(
+        normalizeOpponentInjuredPlayerIndices(injuredPlayerIndices),
+    );
+    opponentRoster.forEach((card, index) => {
+        if (!injuredIndices.has(index) || card.activeInjury) {
+            return;
+        }
+        const currentOverall = Math.max(1, Math.floor(card.overall));
+        const requestedPenalty = Math.max(
+            1,
+            Math.round(currentOverall * OPPONENT_PERMANENT_INJURY_PERCENT),
+        );
+        const nextOverall = Math.max(1, currentOverall - requestedPenalty);
+        let remainingReduction = currentOverall - nextOverall;
+        for (const key of [...ATTRIBUTE_KEYS].sort(
+            (left, right) => card.attributes[right] - card.attributes[left],
+        )) {
+            const reduction = Math.min(card.attributes[key], remainingReduction);
+            card.attributes[key] -= reduction;
+            remainingReduction -= reduction;
+            if (remainingReduction <= 0) {
+                break;
+            }
+        }
+        card.overall = nextOverall;
+        card.activeInjury = {
+            overallPenalty: Math.max(1, currentOverall - nextOverall),
+            remainingMatches: INT32_MAX,
+        };
+    });
+    if (
+        opponentRoster.length === ROSTER_SLOT_COUNT
+        && opponentRoster.every((_card, index) => injuredIndices.has(index))
+    ) {
+        return balanceFullyInjuredOpponentRoster(opponentRoster, playerTeamOverall);
+    }
+    return Math.min(
+        INT32_MAX,
+        opponentRoster.reduce((total, card) => total + Math.max(1, card.overall), 0),
+    );
+}
+
+function balanceFullyInjuredOpponentRoster(
+    opponentRoster: PlayerCard[],
+    playerTeamOverall: number,
+): number {
+    const baselineOveralls = opponentRoster.map((card) => Math.max(
+        1,
+        Math.floor(card.overall) + Math.max(0, card.activeInjury?.overallPenalty ?? 0),
+    ));
+    const baselineTotal = baselineOveralls.reduce((total, overall) => total + overall, 0);
+    const requestedTarget = Math.min(
+        INT32_MAX,
+        Math.max(
+            opponentRoster.length,
+            Math.floor(Math.max(0, playerTeamOverall)
+                * FULLY_INJURED_OPPONENT_PLAYER_OVERALL_MULTIPLIER),
+        ),
+    );
+    const targetTotal = Math.min(baselineTotal, requestedTarget);
+    const distributableTarget = targetTotal - opponentRoster.length;
+    const totalCapacity = baselineTotal - opponentRoster.length;
+    const targetOveralls = baselineOveralls.map((baselineOverall) => {
+        if (totalCapacity <= 0) {
+            return 1;
+        }
+        const exactShare = (baselineOverall - 1) / totalCapacity * distributableTarget;
+        return 1 + Math.floor(exactShare);
+    });
+    let remainingOverall = targetTotal
+        - targetOveralls.reduce((total, overall) => total + overall, 0);
+    const remainderOrder = baselineOveralls
+        .map((baselineOverall, index) => ({
+            index,
+            remainder: totalCapacity <= 0
+                ? 0
+                : (baselineOverall - 1) / totalCapacity * distributableTarget
+                    - Math.floor((baselineOverall - 1) / totalCapacity * distributableTarget),
+        }))
+        .sort((left, right) => right.remainder - left.remainder || left.index - right.index);
+    for (const { index } of remainderOrder) {
+        if (remainingOverall <= 0) {
+            break;
+        }
+        if (targetOveralls[index] < baselineOveralls[index]) {
+            targetOveralls[index] += 1;
+            remainingOverall -= 1;
+        }
+    }
+
+    opponentRoster.forEach((card, index) => {
+        const baselineOverall = baselineOveralls[index];
+        const targetOverall = targetOveralls[index];
+        adjustOpponentCardOverall(card, targetOverall);
+        card.activeInjury = {
+            overallPenalty: Math.max(0, baselineOverall - targetOverall),
+            remainingMatches: INT32_MAX,
+        };
+    });
+    return targetTotal;
+}
+
+function adjustOpponentCardOverall(card: PlayerCard, targetOverall: number): void {
+    let difference = Math.max(1, Math.floor(card.overall)) - targetOverall;
+    if (difference > 0) {
+        for (const key of [...ATTRIBUTE_KEYS].sort(
+            (left, right) => card.attributes[right] - card.attributes[left],
+        )) {
+            const reduction = Math.min(card.attributes[key], difference);
+            card.attributes[key] -= reduction;
+            difference -= reduction;
+            if (difference <= 0) {
+                break;
+            }
+        }
+    } else if (difference < 0) {
+        const strongestAttribute = ATTRIBUTE_KEYS.reduce(
+            (strongest, key) => card.attributes[key] > card.attributes[strongest]
+                ? key
+                : strongest,
+            ATTRIBUTE_KEYS[0],
+        );
+        card.attributes[strongestAttribute] += -difference;
+    }
+    card.overall = targetOverall;
+}
+
 export function isConceptGodUpgradeUnlocked(
     state: SeasonState = loadSeasonState(),
 ): boolean {
@@ -983,8 +1270,6 @@ export function settleAdMatchReward(matchId: string, amount: number): boolean {
 
 export function advanceSeasonAfterWin(
     matchId: string,
-    winningTeamOverall: number,
-    nextOpponentOverallMultiplier: number,
 ): boolean {
     const state = loadSeasonState();
     if (
@@ -994,20 +1279,10 @@ export function advanceSeasonAfterWin(
         return false;
     }
 
-    const safeWinningTeamOverall = Math.max(
-        1,
-        Math.floor(Number.isFinite(winningTeamOverall) ? winningTeamOverall : 1),
-    );
-    const safeMultiplier = Number.isFinite(nextOpponentOverallMultiplier)
-        && nextOpponentOverallMultiplier > 0
-        ? nextOpponentOverallMultiplier
-        : 1;
-    state.nextOpponentOverall = Math.min(
-        INT32_MAX,
-        Math.max(1, Math.floor(safeWinningTeamOverall * safeMultiplier)),
-    );
+    const nextOfficialWins = Math.min(INT32_MAX, state.officialWins + 1);
     state.lastAdvancedMatchId = matchId;
-    state.officialWins = Math.min(INT32_MAX, state.officialWins + 1);
+    state.officialWins = nextOfficialWins;
+    state.opponentInjuredPlayerIndices = [];
     if (state.infiniteMode) {
         state.infiniteWins = Math.min(INT32_MAX, state.infiniteWins + 1);
         state.infiniteMatchNumber = Math.min(INT32_MAX, state.infiniteMatchNumber + 1);
@@ -1135,7 +1410,7 @@ function createDefaultSeasonState(): SeasonState {
         lastBaseRewardMatchId: null,
         lastAdRewardMatchId: null,
         lastAdvancedMatchId: null,
-        nextOpponentOverall: null,
+        opponentInjuredPlayerIndices: [],
     };
 }
 
@@ -1166,10 +1441,6 @@ function normalizeSeasonState(value: Partial<SeasonState>): SeasonState {
         INT32_MAX,
         Math.max(fallbackOfficialWins, storedOfficialWins),
     );
-    const storedNextOpponentOverall = sanitizeInteger(
-        value.nextOpponentOverall,
-        0,
-    );
     const schedule = getSeasonSchedule(matchNumber, infiniteMode);
     return {
         version: SEASON_SAVE_VERSION,
@@ -1188,9 +1459,9 @@ function normalizeSeasonState(value: Partial<SeasonState>): SeasonState {
         lastBaseRewardMatchId: normalizeMatchId(value.lastBaseRewardMatchId),
         lastAdRewardMatchId: normalizeMatchId(value.lastAdRewardMatchId),
         lastAdvancedMatchId: normalizeMatchId(value.lastAdvancedMatchId),
-        nextOpponentOverall: storedNextOpponentOverall > 0
-            ? Math.min(INT32_MAX, storedNextOpponentOverall)
-            : null,
+        opponentInjuredPlayerIndices: normalizeOpponentInjuredPlayerIndices(
+            value.opponentInjuredPlayerIndices,
+        ),
     };
 }
 
@@ -1279,7 +1550,21 @@ function normalizePlayerInstanceIds(value: unknown): string[] {
             break;
         }
     }
-    return [...uniqueIds];
+    return Array.from(uniqueIds);
+}
+
+function normalizeOpponentInjuredPlayerIndices(value: unknown): number[] {
+    if (!Array.isArray(value)) {
+        return [];
+    }
+    const uniqueIndices = new Set<number>();
+    for (const item of value) {
+        const index = sanitizeInteger(item, -1);
+        if (index >= 0 && index < ROSTER_SLOT_COUNT) {
+            uniqueIndices.add(index);
+        }
+    }
+    return Array.from(uniqueIndices).sort((left, right) => left - right);
 }
 
 function normalizeMatchId(value: unknown): string | null {
@@ -1314,6 +1599,9 @@ function normalizePlayerCard(value: unknown, now: number): PlayerCard | null {
     const pendingEvent = normalizePendingPlayerEvent(card.pendingEvent, now);
     const activeInjury = normalizeActivePlayerInjury(card.activeInjury);
     const activeTraining = normalizeActivePlayerTraining(card.activeTraining);
+    const conceptGodId = typeof card.conceptGodId === 'string'
+        ? card.conceptGodId.trim()
+        : '';
 
     return {
         instanceId: String(card.instanceId),
@@ -1324,6 +1612,7 @@ function normalizePlayerCard(value: unknown, now: number): PlayerCard | null {
         qualityId: sanitizeInteger(card.qualityId, 3),
         qualityName: String(card.qualityName ?? ''),
         isConceptGod: Boolean(card.isConceptGod),
+        ...(card.isConceptGod && conceptGodId ? { conceptGodId } : {}),
         overall,
         attributes,
         acquiredAtMs: sanitizeTimestamp(card.acquiredAtMs, now),

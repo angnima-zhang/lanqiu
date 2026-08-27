@@ -9,15 +9,22 @@ import {
 } from 'cc';
 import {
     GAME_STATE_EVENT_MANAGEMENT_CHANGED,
+    GAME_STATE_EVENT_RECRUITMENT_AD_PITY_CHANGED,
+    GAME_STATE_EVENT_RECRUITMENT_AD_PROBABILITY_BOOST_CHANGED,
     GAME_STATE_EVENT_RECRUITMENT_PROTECTION_CHANGED,
     GAME_STATE_EVENT_SEASON_CHANGED,
     addLowestRecruitmentQualityProtection,
+    addRecruitmentAdProbabilityBoost,
     gameStateEvents,
     getLowestRecruitmentQualityProtectionCount,
     getManagementEffects,
+    getRecruitmentAdHighestQualityPityCount,
+    getRecruitmentAdProbabilityBoostCount,
     loadJson,
     loadManagementLevels,
     loadSeasonState,
+    RECRUITMENT_AD_HIGHEST_QUALITY_PITY_LIMIT,
+    RecruitmentAdProbabilityBoostPercent,
 } from './GameState';
 import { playFullScreenEntrance, stopFullScreenEntrance } from './FullScreenEntrance';
 import { playFullScreenExit as exitWithFade } from './FullScreenEntrance';
@@ -62,10 +69,13 @@ export class RecruitmentProbabilityController extends Component {
     private page: Node | null = null;
     private closeButton: Button | null = null;
     private upgradeButton: Button | null = null;
+    private probabilityBoost10Button: Button | null = null;
+    private probabilityBoost5Button: Button | null = null;
     private rows: ProbabilityRowView[] = [];
     private configPromise: Promise<RecruitmentProbabilityConfig> | null = null;
     private renderVersion = 0;
     private upgradeAdProcessing = false;
+    private probabilityBoostAdProcessing = false;
 
     protected onLoad(): void {
         this.resolveHierarchy();
@@ -84,6 +94,16 @@ export class RecruitmentProbabilityController extends Component {
             this.activateLowestQualityProtection,
             this,
         );
+        this.probabilityBoost10Button?.node.on(
+            Button.EventType.CLICK,
+            this.activateProbabilityBoost10,
+            this,
+        );
+        this.probabilityBoost5Button?.node.on(
+            Button.EventType.CLICK,
+            this.activateProbabilityBoost5,
+            this,
+        );
         gameStateEvents.on(
             GAME_STATE_EVENT_MANAGEMENT_CHANGED,
             this.refreshIfVisible,
@@ -96,6 +116,16 @@ export class RecruitmentProbabilityController extends Component {
         );
         gameStateEvents.on(
             GAME_STATE_EVENT_RECRUITMENT_PROTECTION_CHANGED,
+            this.refreshIfVisible,
+            this,
+        );
+        gameStateEvents.on(
+            GAME_STATE_EVENT_RECRUITMENT_AD_PITY_CHANGED,
+            this.refreshIfVisible,
+            this,
+        );
+        gameStateEvents.on(
+            GAME_STATE_EVENT_RECRUITMENT_AD_PROBABILITY_BOOST_CHANGED,
             this.refreshIfVisible,
             this,
         );
@@ -113,6 +143,16 @@ export class RecruitmentProbabilityController extends Component {
             this.activateLowestQualityProtection,
             this,
         );
+        this.probabilityBoost10Button?.node.off(
+            Button.EventType.CLICK,
+            this.activateProbabilityBoost10,
+            this,
+        );
+        this.probabilityBoost5Button?.node.off(
+            Button.EventType.CLICK,
+            this.activateProbabilityBoost5,
+            this,
+        );
         gameStateEvents.off(
             GAME_STATE_EVENT_MANAGEMENT_CHANGED,
             this.refreshIfVisible,
@@ -125,6 +165,16 @@ export class RecruitmentProbabilityController extends Component {
         );
         gameStateEvents.off(
             GAME_STATE_EVENT_RECRUITMENT_PROTECTION_CHANGED,
+            this.refreshIfVisible,
+            this,
+        );
+        gameStateEvents.off(
+            GAME_STATE_EVENT_RECRUITMENT_AD_PITY_CHANGED,
+            this.refreshIfVisible,
+            this,
+        );
+        gameStateEvents.off(
+            GAME_STATE_EVENT_RECRUITMENT_AD_PROBABILITY_BOOST_CHANGED,
             this.refreshIfVisible,
             this,
         );
@@ -191,6 +241,38 @@ export class RecruitmentProbabilityController extends Component {
         });
     };
 
+    private activateProbabilityBoost10 = (): void => {
+        void this.activateProbabilityBoost(10);
+    };
+
+    private activateProbabilityBoost5 = (): void => {
+        void this.activateProbabilityBoost(5);
+    };
+
+    private async activateProbabilityBoost(
+        percent: RecruitmentAdProbabilityBoostPercent,
+    ): Promise<void> {
+        if (this.probabilityBoostAdProcessing) {
+            return;
+        }
+        this.probabilityBoostAdProcessing = true;
+        this.refreshProbabilityBoostButtons();
+        try {
+            if (await showRewardedVideo()) {
+                addRecruitmentAdProbabilityBoost(percent);
+            }
+        } catch (error) {
+            console.error(
+                `[RecruitmentProbabilityController] ${percent}%概率加成广告播放失败。`,
+                error,
+            );
+        } finally {
+            this.probabilityBoostAdProcessing = false;
+            this.refreshProbabilityBoostButtons();
+            this.refreshIfVisible();
+        }
+    }
+
     private refreshIfVisible = (): void => {
         if (!this.page?.active) {
             return;
@@ -254,6 +336,19 @@ export class RecruitmentProbabilityController extends Component {
                     finalHighestProbability - baseHighestProbability,
                 ).toFixed(2)}%`,
             );
+            this.setLabel(
+                '五档品质概率/品质5/广告保底',
+                `广告保底 ${getRecruitmentAdHighestQualityPityCount()}/${RECRUITMENT_AD_HIGHEST_QUALITY_PITY_LIMIT}`,
+            );
+            this.setLabel(
+                '五档品质概率/品质3/广告加成10%',
+                `${getRecruitmentAdProbabilityBoostCount(10)}+10抽概率加10%`,
+            );
+            this.setLabel(
+                '五档品质概率/品质4/广告加成5%',
+                `${getRecruitmentAdProbabilityBoostCount(5)}+10抽概率加5%`,
+            );
+            this.refreshProbabilityBoostButtons();
             if (this.upgradeButton) {
                 this.upgradeButton.interactable = !this.upgradeAdProcessing;
             }
@@ -302,6 +397,8 @@ export class RecruitmentProbabilityController extends Component {
             levelConfig,
             scoutBonus,
             lowestQualityProtectionCount,
+            getRecruitmentAdProbabilityBoostCount(10) > 0,
+            getRecruitmentAdProbabilityBoostCount(5) > 0,
         );
         const recruitableIds = new Set(levelConfig.recruitableQualityIds);
         const rows = config.qualities.flatMap((quality, index) => {
@@ -357,6 +454,14 @@ export class RecruitmentProbabilityController extends Component {
             ? upgradeNode.getComponent(Button) ?? upgradeNode.addComponent(Button)
             : null;
         const rowRoot = this.page?.getChildByName('五档品质概率') ?? null;
+        this.probabilityBoost10Button = rowRoot
+            ?.getChildByName('品质3')
+            ?.getChildByName('广告加成10%')
+            ?.getComponentInChildren(Button) ?? null;
+        this.probabilityBoost5Button = rowRoot
+            ?.getChildByName('品质4')
+            ?.getChildByName('广告加成5%')
+            ?.getComponentInChildren(Button) ?? null;
         this.rows = Array.from({ length: DISPLAY_ROW_COUNT }, (_, index) => {
             const root = rowRoot?.getChildByName(`品质${index + 1}`) ?? null;
             return root ? {
@@ -366,6 +471,16 @@ export class RecruitmentProbabilityController extends Component {
                 probabilityLabel: root.getChildByName('概率')?.getComponent(Label) ?? null,
             } : null;
         }).filter((row): row is ProbabilityRowView => Boolean(row));
+    }
+
+    private refreshProbabilityBoostButtons(): void {
+        const interactable = !this.probabilityBoostAdProcessing;
+        if (this.probabilityBoost10Button) {
+            this.probabilityBoost10Button.interactable = interactable;
+        }
+        if (this.probabilityBoost5Button) {
+            this.probabilityBoost5Button.interactable = interactable;
+        }
     }
 
     private getQualityColor(qualityId: number): Color {

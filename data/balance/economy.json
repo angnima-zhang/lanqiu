@@ -37,10 +37,8 @@
                                          },
                           "matchRewards":  {
                                                "settlementGranularity":  "per_won_match",
-                                               "rewardBasis":  "opponent_team_ovr",
-                                               "baselineOpponentOvr":  696,
-                                               "baselineBudgetReward":  1,
-                                               "baseBudgetFormula":  "max(1, ceil(opponentTeamOvr / 696))",
+                                               "rewardBasis":  "current_team_level_and_opponent_level",
+                                               "baseBudgetFormula":  "(currentTeamLevel + 1) * max(opponentLevel, 10)",
                                                "finalBudgetFormula":  "ceil(baseBudgetReward * (1 + operationPresidentBudgetBonus))",
                                                "regularSeasonAndPlayoffsUseSameFormula":  true,
                                                "lossBudget":  0,

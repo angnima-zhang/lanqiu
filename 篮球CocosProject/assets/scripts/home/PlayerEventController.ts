@@ -397,7 +397,7 @@ export class PlayerEventController extends Component {
             const injuryWeight = injuryDefinition
                 ? definitionWeights.get(injuryDefinition) ?? 0
                 : 0;
-            const otherWeight = [...definitionWeights.entries()]
+            const otherWeight = Array.from(definitionWeights.entries())
                 .filter(([candidate]) => candidate !== injuryDefinition)
                 .reduce((total, [, weight]) => total + weight, 0);
             if (injuryDefinition && injuryWeight > 0 && otherWeight > 0) {

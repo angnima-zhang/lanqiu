@@ -18,11 +18,13 @@ import {
 } from 'cc';
 import {
     advanceSeasonAfterWin,
+    applyPermanentOpponentInjuries,
     emitMatchSettled,
     INT32_MAX,
     isCheatModeEnabled,
     loadSeasonState,
     PlayerCard,
+    recordRandomOpponentInjuryAfterDefeat,
     settleAdMatchReward,
     settleBaseMatchReward,
 } from './GameState';
@@ -50,7 +52,6 @@ import { applyGameFont } from '../loading/GameFont';
 import { CourtSimulationController } from './CourtSimulationController';
 import {
     getStoredTeamLevel,
-    recordStoredStandardMatchWin,
 } from './TeamLevelController';
 import { installGoldAdButtonGlows } from './GoldAdButtonGlow';
 import { MatchCommentarySelector } from './MatchCommentarySelector';
@@ -308,6 +309,7 @@ export class MatchController extends Component {
         this.requestedSpeedMultiplier = 1;
         this.elapsedMatchSeconds = 0;
         this.commentaryLines = [];
+        this.commentarySelector.resetMatchState();
         this.nextPlayIndex = 0;
         this.lastStartedQuarter = 0;
         this.initialized = false;
@@ -1109,14 +1111,7 @@ export class MatchController extends Component {
         }
         const reward = this.calculateMatchReward();
         const baseSettled = settleBaseMatchReward(this.session.matchId, reward);
-        const advanced = advanceSeasonAfterWin(
-            this.session.matchId,
-            this.session.playerOverall,
-            this.session.nextOpponentOverallMultiplier,
-        );
-        if (advanced && this.session.isStandardProgressionMatch) {
-            recordStoredStandardMatchWin();
-        }
+        const advanced = advanceSeasonAfterWin(this.session.matchId);
         emitMatchSettled({
             matchId: this.session.matchId,
             won: true,
@@ -1173,6 +1168,18 @@ export class MatchController extends Component {
     private showDefeat(): void {
         if (!this.defeatPage || !this.result || !this.session) {
             return;
+        }
+        const injuredPlayerIndex = recordRandomOpponentInjuryAfterDefeat(
+            this.session.matchId,
+            this.session.opponentRoster,
+        );
+        if (injuredPlayerIndex !== null) {
+            const injuredPlayerIndices = loadSeasonState().opponentInjuredPlayerIndices;
+            this.session.opponentOverall = applyPermanentOpponentInjuries(
+                this.session.opponentRoster,
+                injuredPlayerIndices,
+                this.session.playerOverall,
+            );
         }
         emitMatchSettled({
             matchId: this.session.matchId,
@@ -1247,6 +1254,7 @@ export class MatchController extends Component {
             this,
         );
         this.prepareButtonVisuals(this.node);
+        installGoldAdButtonGlows(this.node);
     }
 
     private claimVictoryAdReward = (): void => {
@@ -1318,7 +1326,7 @@ export class MatchController extends Component {
                 return;
             }
             this.retryCount += 1;
-            this.session.temporaryBonusPercent = Math.floor(Math.random() * 20) + 1;
+            this.session.temporaryBonusPercent = Math.floor(Math.random() * 11) + 10;
             stopFullScreenEntrance(this.defeatPage);
             this.defeatPage.active = false;
             this.startPreparedMatch();
@@ -1351,9 +1359,7 @@ export class MatchController extends Component {
                 return;
             }
             this.result = this.createMatchResult(true);
-            this.playerQuarterScores = [...this.result.playerQuarterScores];
-            this.opponentQuarterScores = [...this.result.opponentQuarterScores];
-            this.nextPlayIndex = this.plannedPlays.length;
+            this.settleSkippedMatch();
             this.finishMatch();
         } finally {
             this.adProcessing = false;
@@ -1512,7 +1518,9 @@ export class MatchController extends Component {
 
     private calculateMatchReward(): number {
         const session = this.session!;
-        const baseReward = Math.max(0, getStoredTeamLevel()) * 10;
+        // 使用本场快照的对手等级，避免胜利推进赛程后广告追加奖励取到下一场等级。
+        const baseReward = (Math.max(0, getStoredTeamLevel()) + 1)
+            * Math.max(10, session.opponentLevel);
         return Math.ceil(
             baseReward
             * Math.max(0, session.rewardMultiplier)

@@ -707,5 +707,364 @@
       "texts": ["{{player}}站上罚球线，稳稳把分数收下。", "{{player}}深呼吸后罚球命中。"],
       "series": [["{{player}}在罚球线前调整呼吸。", "罚球线是他的舒适区。"], ["{{player}}站上罚球线，出手很稳。", "白给的分，也得稳稳收下。"]]
     }
+  ],
+  "conceptGodRules": [
+    {
+      "conceptGodId": "concept_god_001",
+      "madeActions": ["jumper", "layup"],
+      "signature": "身体已经拉响警报，{{player}}还是坚持完成这一攻。",
+      "reverse": "这次体能终于追上了他，脚步明显沉了一拍。",
+      "clutch": ["高烧带不走最后一攻，{{player}}再次接管球权！", "球进之后，他整个人倒进队友怀里！"]
+    },
+    {
+      "conceptGodId": "concept_god_002",
+      "madeActions": ["three"],
+      "signature": "第六场的开关被按下，{{player}}接球就射。",
+      "reverse": "第一发还没有校准，但G6的倒计时才刚开始。",
+      "clutch": ["比分越紧，G6模式越不讲道理，{{player}}再度出手！", "第六场的佛光，照到了最后一攻！"]
+    },
+    {
+      "conceptGodId": "concept_god_003",
+      "madeActions": ["layup", "jumper"],
+      "reverseActions": ["turnover"],
+      "reverseOutcome": "turnover",
+      "signature": "还差最后一项数据，{{player}}连这一回合都提前算好了。",
+      "reverse": "分球过于坚决，队友没接住这份三双申请。",
+      "clutch": ["数据栏只差最后一格，{{player}}冲向篮筐！", "三双任务和关键得分同时交付！"]
+    },
+    {
+      "conceptGodId": "concept_god_004",
+      "madeActions": ["three", "jumper"],
+      "signature": "如果防守再退一步，这球就是绝对空位。",
+      "reverse": "如果哨声响了，如果篮球再转半圈……可惜没有如果。",
+      "clutch": ["所有平行世界在这一秒汇合，{{player}}迎着防守出手！", "这一次，他把那个“如果”投成了现实！"]
+    },
+    {
+      "conceptGodId": "concept_god_005",
+      "madeActions": ["layup", "dunk"],
+      "signature": "两米的身高配上原来的第一步，{{player}}一步跨过整条防线。",
+      "reverse": "篮筐躲过了这次冲击，防守人却还没从变向里出来。",
+      "clutch": ["同样的速度，更高的出手点，{{player}}杀入禁区！", "比赛平衡被这副身体彻底打破！"]
+    },
+    {
+      "conceptGodId": "concept_god_006",
+      "madeActions": ["three", "dunk"],
+      "signature": "训练馆录像终于照进比赛，{{player}}在外线果断抬手。",
+      "reverse": "常规赛模式突然加载，空位前又多犹豫了一秒。",
+      "clutch": ["六月到九月的所有训练片段，都压在{{player}}这一球上！", "休赛期西帝，这次没有剪辑！"]
+    },
+    {
+      "conceptGodId": "concept_god_007",
+      "madeActions": ["dunk", "layup"],
+      "signature": "保温杯盖终于拧开，{{player}}全速冲向篮筐。",
+      "reverse": "他重新抿了一口枸杞水，这次进攻先养养生。",
+      "clutch": ["天赋不再保温，{{player}}在关键时刻全力起飞！", "加拿大乔丹模式正式接管比赛！"]
+    },
+    {
+      "conceptGodId": "concept_god_008",
+      "madeActions": ["three", "jumper", "layup", "dunk"],
+      "signature": "得分、篮板、助攻同时刷新，{{player}}又给表格添满一行。",
+      "reverse": "表格里出现红色单元格，他马上要求重新计算。",
+      "clutch": ["效率、产量、胜负全部对齐，{{player}}执行最后一攻！", "终极报表没有任何缺项！"]
+    },
+    {
+      "conceptGodId": "concept_god_009",
+      "madeActions": ["three", "jumper", "dunk"],
+      "signature": "园区信号重新连接，{{player}}从外线一路覆盖到篮下。",
+      "reverse": "球馆出口似乎出现了，园区版本的信号短暂波动。",
+      "clutch": ["泡泡里的统治力完整回归，{{player}}强攻最后一球！", "攻防两端同时封锁，园区模式仍在运行！"]
+    },
+    {
+      "conceptGodId": "concept_god_010",
+      "madeActions": ["jumper", "layup"],
+      "signature": "{{player}}读懂包夹后选择最正确的进攻路线——他居然这么合理。",
+      "reverse": "合理路线已经画好，他看了一眼，还是迎着两人出手。",
+      "clutch": ["该传时传，该投时投，{{player}}给出最后一攻的答案！", "这一次，合理得让人无话可说！"]
+    },
+    {
+      "conceptGodId": "concept_god_011",
+      "madeActions": ["three", "jumper"],
+      "signature": "比赛进入35秒区间，属于{{player}}的时间才刚刚开始。",
+      "reverse": "第一记出手偏了，但时钟还没走完，奇迹仍在读秒。",
+      "clutch": ["时间在走，分差在消失，{{player}}再抢一攻！", "他一个人追上了整场比赛！"]
+    },
+    {
+      "conceptGodId": "concept_god_012",
+      "madeActions": ["three", "jumper"],
+      "signature": "{{player}}刚才还坐着轮椅离场，现在回来直接接管球权。",
+      "reverse": "这次回归没有立刻见效，替补席开始寻找那辆轮椅。",
+      "clutch": ["短暂离场，满血归来，{{player}}执行关键一投！", "更衣室通道被他走成了英雄通道！"]
+    },
+    {
+      "conceptGodId": "concept_god_013",
+      "madeActions": ["jumper"],
+      "signature": "高烧影响了呼吸，却影响不了{{player}}的金鸡独立。",
+      "reverse": "他咳了一声，这记投篮也跟着短了一点。",
+      "clutch": ["身体发冷，手感滚烫，{{player}}单脚起身！", "金鸡独立站到了比赛最后！"]
+    },
+    {
+      "conceptGodId": "concept_god_014",
+      "madeActions": ["three"],
+      "signature": "赛前家庭BUFF已经到账，{{player}}在超远位置抬手。",
+      "reverse": "奖励结算似乎有些延迟，篮球停在篮筐之外。",
+      "clutch": ["最后一攻也在奖励范围内，{{player}}从远处直接出手！", "家庭BUFF完成最终结算！"]
+    },
+    {
+      "conceptGodId": "concept_god_015",
+      "madeActions": ["dunk", "layup"],
+      "signature": "天赋已经无解，{{player}}竟然还提前加练了低位脚步。",
+      "reverse": "勤奋解决了体形问题，这次却没解决篮筐问题。",
+      "clutch": ["体形、自律、力量全部拉满，{{player}}碾进禁区！", "连篮筐都别想安稳下班！"]
+    },
+    {
+      "conceptGodId": "concept_god_016",
+      "madeActions": ["layup", "dunk"],
+      "signature": "膝盖没有夺走这一步，{{player}}变向后直冲篮筐。",
+      "reverse": "出手虽然偏了，但这一次他稳稳落地。",
+      "clutch": ["没有伤病的时间线继续向前，{{player}}冲击最后一攻！", "最年轻MVP的速度抵达终场！"]
+    },
+    {
+      "conceptGodId": "concept_god_017",
+      "madeActions": ["layup", "jumper"],
+      "signature": "第一步、视野和身高同时在线，{{player}}展示完整巅峰。",
+      "reverse": "这次终结没进，但健康的脚踝允许他下一回合再来。",
+      "clutch": ["那段没能发生的巅峰，由{{player}}亲手补完最后一页！", "完整希尔，把答案留在了关键回合！"]
+    },
+    {
+      "conceptGodId": "concept_god_018",
+      "madeActions": ["dunk", "layup"],
+      "signature": "健康的双膝撑起禁区，{{player}}在篮下强硬终结。",
+      "reverse": "这球没有打进，但他起身后直接跑回防守端。",
+      "clutch": ["状元天赋终于拥有完整生涯，{{player}}接管最后的禁区！", "健康奥登，终于等到属于他的结局！"]
+    },
+    {
+      "conceptGodId": "concept_god_019",
+      "madeActions": ["dunk", "layup"],
+      "signature": "没有抛投，没有躲闪，{{player}}抱球直接撞进篮下。",
+      "reverse": "强硬模式加载失败，他在篮筐前又选择了轻轻一放。",
+      "clutch": ["最不可能的词组成为现实，强硬的{{player}}直冲篮筐！", "这一次，他没有给对抗让路！"]
+    },
+    {
+      "conceptGodId": "concept_god_020",
+      "madeActions": ["jumper", "three"],
+      "signature": "连帽衫虚影出现，{{player}}的训练馆单打模式正式上线。",
+      "reverse": "帽子似乎被摘掉了，这记干拔失去训练馆滤镜。",
+      "clutch": ["Hoodie模式拒绝下线，{{player}}迎着防守干拔！", "连帽训练瓜，把单打练到了终场！"]
+    },
+    {
+      "conceptGodId": "concept_god_021",
+      "madeActions": ["three"],
+      "signature": "{{player}}低头看表——现在正式进入他的时间。",
+      "reverse": "表针已经到了，篮球却弹出了篮筐。",
+      "clutch": ["时间到，{{player}}在超远位置拔起！", "他顺手向对手挥了挥手！"]
+    },
+    {
+      "conceptGodId": "concept_god_022",
+      "madeActions": ["jumper", "layup"],
+      "reverseActions": ["turnover"],
+      "reverseOutcome": "turnover",
+      "signature": "紫金色的平行世界打开，{{player}}把这一攻梳理得井井有条。",
+      "reverse": "这次配合被吹停，场边传来一句：篮球原因。",
+      "clutch": ["被否决的交易在这一攻完成，{{player}}掌控关键回合！", "紫金平行世界，终于走到了终场！"]
+    },
+    {
+      "conceptGodId": "concept_god_023",
+      "madeActions": ["jumper", "layup"],
+      "reverseActions": ["turnover"],
+      "reverseOutcome": "turnover",
+      "signature": "{{player}}只是笑了一下，裁判已经把手伸向技术台。",
+      "reverse": "这次他全程面无表情，裁判一时找不到吹罚理由。",
+      "clutch": ["{{player}}在最后一攻终于露出笑容！", "请裁判保持冷静，这只是庆祝！"]
+    },
+    {
+      "conceptGodId": "concept_god_024",
+      "madeActions": ["dunk", "layup"],
+      "signature": "{{player}}原地抡出完整大风车，双脚甚至没有离开地板。",
+      "reverse": "大风车已经转起来了，篮球却很不给面子。",
+      "clutch": ["不跳也能大风车，{{player}}用最朴素的动作冲击篮筐！", "最安静的人，完成了最离谱的终结！"]
+    },
+    {
+      "conceptGodId": "concept_god_025",
+      "madeActions": ["layup", "jumper"],
+      "signature": "充足休息让{{player}}脚步轻盈，转身勾手流畅展开。",
+      "reverse": "连续回合开始消耗体能，宽松赛程也不是无限体力。",
+      "clutch": ["健康和体能都留到了最后，{{player}}要球打关键回合！", "宽松赛程，终于换来完整统治力！"]
+    },
+    {
+      "conceptGodId": "concept_god_026",
+      "madeActions": ["layup", "dunk"],
+      "signature": "新发型完成战斗形态切换，{{player}}强硬冲击禁区。",
+      "reverse": "发型依旧抢镜，这次出手却没能抢分。",
+      "clutch": ["造型可以变，硬仗模式不会变，{{player}}执行关键一攻！", "新发型的首胜宣言写进记分牌！"]
+    },
+    {
+      "conceptGodId": "concept_god_027",
+      "madeActions": ["dunk"],
+      "signature": "{{player}}从罚球线附近起飞，空中动作还没做完。",
+      "reverse": "创意给满分，可这一扣和篮筐差了一点默契。",
+      "clutch": ["比赛突然变成扣篮大赛，{{player}}腾空而起！", "满分动作，也能成为关键球！"]
+    },
+    {
+      "conceptGodId": "concept_god_028",
+      "madeActions": ["three", "layup", "dunk"],
+      "signature": "那次重伤没有留下限制，{{player}}起飞后稳稳落地。",
+      "reverse": "出手偏了，但金刚铁腿仍支撑他立即回防。",
+      "clutch": ["伤病只完成了升级，{{player}}在关键时刻切换更强版本！", "金刚铁腿，稳稳站到比赛最后！"]
+    },
+    {
+      "conceptGodId": "concept_god_029",
+      "madeActions": ["jumper", "three"],
+      "signature": "国际赛场模式开启，{{player}}在任何规则下都是无解投篮点。",
+      "reverse": "防守终于干扰到一次，却仍覆盖不了这个出手高度。",
+      "clutch": ["球衣颜色一换，死神准时降临，{{player}}迎来关键一投！", "国际比赛杜，不接受规则限制！"]
+    },
+    {
+      "conceptGodId": "concept_god_030",
+      "madeActions": ["layup", "dunk"],
+      "signature": "对抗强度突然升级，{{player}}一套龙拳节奏冲开防线。",
+      "reverse": "裁判及时介入，他收起拳法，改用投篮解决问题。",
+      "clutch": ["篮球回合也打出组合拳，{{player}}连续施压篮筐！", "最后一式，写在了记分牌上！"]
+    },
+    {
+      "conceptGodId": "concept_god_031",
+      "madeActions": ["layup", "jumper"],
+      "reverseActions": ["turnover"],
+      "reverseOutcome": "turnover",
+      "signature": "边线球安全送达，{{player}}终于接上了后续进攻。",
+      "reverse": "熟悉的路线，熟悉的危险，全场观众同时屏住呼吸。",
+      "clutch": ["这一次边线球安全送达，{{player}}亲自完成最后一攻！", "循环播放的记忆，被他亲手改写！"]
+    },
+    {
+      "conceptGodId": "concept_god_032",
+      "madeActions": ["jumper"],
+      "signature": "{{player}}今天走出负荷管理名单，中距离全功率运行。",
+      "reverse": "常规赛能量保护启动，这一回合先留给季后赛。",
+      "clutch": ["轮休额度全部清空，{{player}}终于在关键时刻满功率出手！", "负荷管理结束，比赛管理开始！"]
+    },
+    {
+      "conceptGodId": "concept_god_033",
+      "madeActions": ["layup", "three"],
+      "signature": "上场时间限制解除，{{player}}用欧洲步切开整条防线。",
+      "reverse": "妖刀连续运转太久，这次刀锋稍微偏了一寸。",
+      "clutch": ["第四节还在场上的{{player}}，切换成阿根廷乔丹！", "妖刀打满全场，最后一刀仍然锋利！"]
+    },
+    {
+      "conceptGodId": "concept_god_034",
+      "madeActions": ["dunk", "layup"],
+      "signature": "体重警报解除，{{player}}带着轻量化机身冲进禁区。",
+      "reverse": "弹跳依旧惊人，但这次落点还要再控制一点。",
+      "clutch": ["力量没有减少，速度全部回来，{{player}}撞向最后一道防线！", "轻量机身，重型终结！"]
+    },
+    {
+      "conceptGodId": "concept_god_035",
+      "madeActions": ["layup", "jumper"],
+      "reverseActions": ["turnover"],
+      "reverseOutcome": "turnover",
+      "signature": "完整生涯的时间线展开，{{player}}用魔术启动快攻。",
+      "reverse": "魔术偶尔也会穿帮，这次路线被对手识破。",
+      "clutch": ["没有提前落幕的巅峰，{{player}}掌控决定胜负的一攻！", "完整生涯的魔术，演到了最后一秒！"]
+    },
+    {
+      "conceptGodId": "concept_god_036",
+      "madeActions": ["three", "dunk"],
+      "reverseActions": ["turnover"],
+      "reverseOutcome": "turnover",
+      "signature": "只看这一回合，{{player}}就是集锦里的乔丹。",
+      "reverse": "集锦播放结束，观众被瞬间带回完整比赛。",
+      "clutch": ["{{player}}拿到最后一攻——等等，他是不是以为球队领先？", "时间还在走，集锦却先进入片尾！"]
+    },
+    {
+      "conceptGodId": "concept_god_037",
+      "madeActions": ["three"],
+      "signature": "新生儿BUFF生效，{{player}}在外线稳稳抬手。",
+      "reverse": "奶爸模式也需要换气，这次投篮短了一点。",
+      "clutch": ["从替补火力到总决赛英雄，{{player}}再投关键三分！", "这一球，他要送给家人！"]
+    },
+    {
+      "conceptGodId": "concept_god_038",
+      "madeActions": ["three"],
+      "signature": "等等，这球不是传给队友的吗？{{player}}半路截胡。",
+      "reverse": "球权从队友手里抢到了，可篮筐还没有答应。",
+      "clutch": ["传球原本奔着队友去了，{{player}}斜刺杀出，连自己人一起抢！", "他建议技术台补记一次抢断！"]
+    },
+    {
+      "conceptGodId": "concept_god_039",
+      "madeActions": ["layup", "three"],
+      "reverseActions": ["turnover"],
+      "reverseOutcome": "turnover",
+      "signature": "街球节奏接管阵地战，{{player}}的想象力让防线原地转身。",
+      "reverse": "花活做满了，接球队友却没跟上这次想象力。",
+      "clutch": ["长发飞起，跑轰提速，{{player}}撕开最后一道防线！", "最自由的篮球，跑到了终场！"]
+    },
+    {
+      "conceptGodId": "concept_god_040",
+      "madeActions": ["layup", "jumper"],
+      "signature": "空间彻底拉开，{{player}}的第一步直接冲进无人区。",
+      "reverse": "现代空间已经给足，篮筐这次却没有给面子。",
+      "clutch": ["最强突破手遇上最宽空间，{{player}}启动关键一攻！", "这个时代，终于没有人能堵住他的第一步！"]
+    },
+    {
+      "conceptGodId": "concept_god_041",
+      "madeActions": ["layup", "jumper"],
+      "signature": "场外频道全部关闭，{{player}}只用运球讨论篮球。",
+      "reverse": "华丽动作骗过了防守，却没能骗过篮筐。",
+      "clutch": ["全部注意力都留在球场，{{player}}展开最后一次单打！", "专注的欧文，只给对手留下终场哨！"]
+    },
+    {
+      "conceptGodId": "concept_god_042",
+      "madeActions": ["dunk", "layup"],
+      "signature": "训练计划一项不漏，{{player}}转身冲击篮筐。",
+      "reverse": "态度已经满分，这次手感还在补课。",
+      "clutch": ["快乐模式暂停，专注模式拉满，{{player}}守住最后的禁区！", "一丝不苟的魔兽，把胜负握在手里！"]
+    },
+    {
+      "conceptGodId": "concept_god_043",
+      "madeActions": ["three", "dunk"],
+      "signature": "五号位被拉出禁区，{{player}}外弹接球直接出手。",
+      "reverse": "小球时代给了机会，外线手感却还没完全加载。",
+      "clutch": ["能投、能跑、能护筐，{{player}}接管关键回合！", "现代四号位的答案，写进了最后一攻！"]
+    },
+    {
+      "conceptGodId": "concept_god_044",
+      "madeActions": ["three", "jumper"],
+      "signature": "情绪全部换算成得分动力，{{player}}后撤步拉开空间。",
+      "reverse": "这记投篮没进，看起来只是又多了一点得分动力。",
+      "clutch": ["场外故事留在场外，{{player}}把今晚结局握在自己手里！", "最后一页，由他亲自改写！"]
+    },
+    {
+      "conceptGodId": "concept_god_045",
+      "madeActions": ["jumper", "layup"],
+      "signature": "逍遥王开始认真训练，{{player}}的低位脚步突然无懈可击。",
+      "reverse": "认真得有些过头，这次出手反而少了往日的松弛。",
+      "clutch": ["天赋再叠加训练，{{player}}执行最后一攻！", "第一大前级别的答案，落在记分牌上！"]
+    },
+    {
+      "conceptGodId": "concept_god_046",
+      "madeActions": ["three"],
+      "signature": "{{player}}从后场一路推进，急停后直接拔起。",
+      "reverse": "今天的第一投没能复制奇迹，但时间还没有走完。",
+      "clutch": ["全场只需要这一投，{{player}}从三分线外拔起！", "压哨绝杀，奇迹又一次准时抵达！"]
+    },
+    {
+      "conceptGodId": "concept_god_047",
+      "madeActions": ["jumper", "layup"],
+      "signature": "{{player}}强攻篮筐——中国第一大前？他本人已经公认了。",
+      "reverse": "看台上立刻有人追问：谁公认的？",
+      "clutch": ["争论可以继续，{{player}}先执行关键一攻！", "答案已经写在记分牌上，谁公认的以后再说！"]
+    },
+    {
+      "conceptGodId": "concept_god_048",
+      "madeActions": ["three", "jumper", "layup", "dunk"],
+      "signature": "{{player}}迎着防守果断出手——这个选择非常合理。",
+      "reverse": "虽然球没进，但这个选择没有问题，还是得这么打。",
+      "clutch": ["关键时刻就得把球交给{{player}}，你看这一下！", "非常合理，比赛就该这么打！"]
+    },
+    {
+      "conceptGodId": "concept_god_049",
+      "madeActions": ["three", "jumper", "layup"],
+      "signature": "游戏数值越过屏幕，{{player}}在现实球场加载2K级手感。",
+      "reverse": "系统短暂掉帧，数值怪物效果这次没有触发。",
+      "clutch": ["现实比赛进入游戏模式，{{player}}读取最后一攻！", "存档已改写，2K蓝姆拒绝正常数值！"]
+    }
   ]
 }

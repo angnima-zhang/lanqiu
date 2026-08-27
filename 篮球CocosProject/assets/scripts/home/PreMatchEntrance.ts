@@ -16,6 +16,7 @@ import {
     UIOpacity,
     UITransform,
     Vec3,
+    Widget,
 } from 'cc';
 
 // ---- 时间常量（单位：秒） ----
@@ -27,7 +28,34 @@ const PLAYER_SLIDE_DURATION = 0.05; // 单个球员卡滑动时长（秒）
 const DROP_DURATION = 0.2;          // 底部按钮坠落时长（秒）
 const DROP_DELAY = 0.05;             // 坠落前停顿（秒）
 
+interface EntranceState {
+    cancelled: boolean;
+    nodes: Map<Node, { position: Vec3 | null; scale: Vec3 | null; opacity: UIOpacity }>;
+    pendingSteps: Set<() => void>;
+    timers: Set<ReturnType<typeof setTimeout>>;
+}
+
+const activeEntrances = new WeakMap<Node, EntranceState>();
+
 // ---- 公开接口 ----
+
+export function stopPreMatchEntrance(page: Node): void {
+    const state = activeEntrances.get(page);
+    if (!state) return;
+    activeEntrances.delete(page);
+    state.cancelled = true;
+    state.timers.forEach((timer) => clearTimeout(timer));
+    state.timers.clear();
+    stopAllTweens(page);
+    for (const [node, original] of state.nodes) {
+        if (!node.isValid) continue;
+        if (original.position) node.setPosition(original.position);
+        if (original.scale) node.setScale(original.scale);
+        original.opacity.opacity = 255;
+    }
+    // 被停止的 Tween 不会触发 call，主动完成等待，防止入场流程悬挂。
+    state.pendingSteps.forEach((finish) => finish());
+}
 
 export async function playPreMatchEntrance(
     page: Node,
@@ -39,35 +67,59 @@ export async function playPreMatchEntrance(
     mgmtNodes: Node[],
     bottomNodes: Node[],
 ): Promise<void> {
+    stopPreMatchEntrance(page);
     stopAllTweens(page);
     page.active = true;
+    // 首次激活后先完成 Widget 对齐，避免把编辑器/隐藏状态的坐标记成动画终点。
+    alignWidgets(page);
+
+    const movingNodes = new Set([
+        teamPanels.playerTeam, teamPanels.opponentTeam,
+        ...playerCards, ...opponentCards,
+    ]);
+    const scalingNodes = new Set(bottomNodes);
 
     // 汇总所有需要 UIOpacity 控制的节点
-    const allNodes = [
+    const allNodes = Array.from(new Set([
         ...bgNodes, ...topBarNodes, ...mgmtNodes,
         teamPanels.playerTeam, teamPanels.opponentTeam,
         ...playerCards, ...opponentCards,
         ...bottomNodes,
-    ];
+    ]));
+    const state: EntranceState = {
+        cancelled: false,
+        nodes: new Map(),
+        pendingSteps: new Set(),
+        timers: new Set(),
+    };
+    activeEntrances.set(page, state);
 
     // 所有节点起始状态：不可见
     for (const node of allNodes) {
         const op = node.getComponent(UIOpacity) ?? node.addComponent(UIOpacity);
+        // 只保存动画会修改的属性；背景、顶部等淡入节点的坐标由 Widget 管理。
+        state.nodes.set(node, {
+            position: movingNodes.has(node) ? node.position.clone() : null,
+            scale: scalingNodes.has(node) ? node.scale.clone() : null,
+            opacity: op,
+        });
         Tween.stopAllByTarget(op);
         op.opacity = 0;
     }
 
     // ---- 阶段一：背景/顶部/管理层 淡入 ----
-    await fadeInNodes([...bgNodes, ...topBarNodes, ...mgmtNodes], PHASE1_DURATION);
+    await fadeInNodes([...bgNodes, ...topBarNodes, ...mgmtNodes], PHASE1_DURATION, state);
+    if (state.cancelled) return;
 
     // ---- 阶段二：双方球队面板对撞 ----
-    const playerPos = teamPanels.playerTeam.position.clone();
-    const opponentPos = teamPanels.opponentTeam.position.clone();
+    const playerPos = state.nodes.get(teamPanels.playerTeam)!.position!;
+    const opponentPos = state.nodes.get(teamPanels.opponentTeam)!.position!;
 
     await Promise.all([
-        slideAndBounce(teamPanels.playerTeam, 'left', playerPos),
-        slideAndBounce(teamPanels.opponentTeam, 'right', opponentPos),
+        slideAndBounce(teamPanels.playerTeam, 'left', playerPos, state),
+        slideAndBounce(teamPanels.opponentTeam, 'right', opponentPos, state),
     ]);
+    if (state.cancelled) return;
 
     // ---- 阶段二下半：球员卡依次对撞（重叠发射） ----
     // 不再等上一对播完才发下一对，而是按固定间隔连续发射
@@ -76,22 +128,29 @@ export async function playPreMatchEntrance(
     for (let i = 0; i < maxCards; i++) {
         // 按发射间隔延迟后再启动这对
         const launchDelay = i * PLAYER_LAUNCH_INTERVAL;
-        const pairPromise = delay(launchDelay).then(() => Promise.all([
-            i < playerCards.length ? slideAndBounce(
-                playerCards[i], 'left', playerCards[i].position.clone(),
-            ) : Promise.resolve(),
-            i < opponentCards.length ? slideAndBounce(
-                opponentCards[i], 'right', opponentCards[i].position.clone(),
-            ) : Promise.resolve(),
-        ]));
+        const pairPromise = delay(launchDelay, state).then(() => {
+            if (state.cancelled) return;
+            return Promise.all([
+                i < playerCards.length ? slideAndBounce(
+                    playerCards[i], 'left', state.nodes.get(playerCards[i])!.position!, state,
+                ) : Promise.resolve(),
+                i < opponentCards.length ? slideAndBounce(
+                    opponentCards[i], 'right', state.nodes.get(opponentCards[i])!.position!, state,
+                ) : Promise.resolve(),
+            ]).then(() => undefined);
+        });
         allCardPromises.push(pairPromise);
     }
     // 等所有卡片动画全部结束
     await Promise.all(allCardPromises);
+    if (state.cancelled) return;
 
     // ---- 阶段三：底部按钮从天而降 ----
-    await delay(DROP_DELAY);
-    await dropIn(bottomNodes);
+    await delay(DROP_DELAY, state);
+    if (state.cancelled) return;
+    await dropIn(bottomNodes, state);
+    // 正常完成只清理记录，不能调用中断恢复去覆盖已经对齐的页面布局。
+    if (!state.cancelled) activeEntrances.delete(page);
 }
 
 // ---- 内部工具函数 ----
@@ -101,9 +160,9 @@ export async function playPreMatchEntrance(
  * @param nodes   目标节点数组
  * @param duration 动画时长（秒）
  */
-function fadeInNodes(nodes: Node[], duration: number): Promise<void> {
+function fadeInNodes(nodes: Node[], duration: number, state: EntranceState): Promise<void> {
     if (nodes.length === 0) return Promise.resolve();
-    return new Promise<void>((resolve) => {
+    return runStep(state, (resolve) => {
         let done = 0;
         for (const node of nodes) {
             const op = node.getComponent(UIOpacity) ?? node.addComponent(UIOpacity);
@@ -126,6 +185,7 @@ function slideAndBounce(
     node: Node,
     fromSide: 'left' | 'right',
     originalPos: Vec3,
+    state: EntranceState,
 ): Promise<void> {
     // 起始透明度
     const op = node.getComponent(UIOpacity) ?? node.addComponent(UIOpacity);
@@ -147,7 +207,7 @@ function slideAndBounce(
 
     node.setPosition(startX, originalPos.y, 0);
 
-    return new Promise<void>((resolve) => {
+    return runStep(state, (resolve) => {
         tween(node)
             // 滑动过程中同步淡入
             .parallel(
@@ -173,14 +233,15 @@ function slideAndBounce(
  * 从天而降：缩放 0.3 → 1.15 → 1.0，同时淡入。模拟"坠落着地"。
  * @param nodes 目标节点数组
  */
-function dropIn(nodes: Node[]): Promise<void> {
+function dropIn(nodes: Node[], state: EntranceState): Promise<void> {
     if (nodes.length === 0) return Promise.resolve();
-    return new Promise<void>((resolve) => {
+    return runStep(state, (resolve) => {
         let done = 0;
         for (const node of nodes) {
             const op = node.getComponent(UIOpacity) ?? node.addComponent(UIOpacity);
             op.opacity = 0;
-            node.setScale(0.3, 0.3, 1);
+            const originalScale = state.nodes.get(node)!.scale!;
+            node.setScale(originalScale.x * 0.3, originalScale.y * 0.3, originalScale.z);
 
             tween(node)
                 .parallel(
@@ -188,11 +249,11 @@ function dropIn(nodes: Node[]): Promise<void> {
                 )
                 // 主体弹射阶段：快速放大到 1.15 倍（占 70% 时长）
                 .to(DROP_DURATION * 0.7, {
-                    scale: new Vec3(1.15, 1.15, 1),
+                    scale: new Vec3(originalScale.x * 1.15, originalScale.y * 1.15, originalScale.z),
                 }, { easing: 'quadIn' })
                 // 回弹到位：1.15 → 1.0（占 30% 时长）
                 .to(DROP_DURATION * 0.3, {
-                    scale: new Vec3(1, 1, 1),
+                    scale: originalScale.clone(),
                 }, { easing: 'backOut' })
                 .call(() => { done++; if (done === nodes.length) resolve(); })
                 .start();
@@ -201,8 +262,33 @@ function dropIn(nodes: Node[]): Promise<void> {
 }
 
 /** 简单延时（秒） */
-function delay(seconds: number): Promise<void> {
-    return new Promise((resolve) => { setTimeout(resolve, seconds * 1000); });
+function delay(seconds: number, state: EntranceState): Promise<void> {
+    return runStep(state, (resolve) => {
+        const timer = setTimeout(() => {
+            state.timers.delete(timer);
+            resolve();
+        }, seconds * 1000);
+        state.timers.add(timer);
+    });
+}
+
+function runStep(state: EntranceState, start: (finish: () => void) => void): Promise<void> {
+    if (state.cancelled) return Promise.resolve();
+    return new Promise<void>((resolve) => {
+        const finish = (): void => {
+            state.pendingSteps.delete(finish);
+            resolve();
+        };
+        state.pendingSteps.add(finish);
+        start(finish);
+    });
+}
+
+/** 按父子顺序同步布局，再记录动画终点。 */
+function alignWidgets(node: Node): void {
+    const widget = node.getComponent(Widget);
+    if (widget?.enabled) widget.updateAlignment();
+    for (const child of node.children) alignWidgets(child);
 }
 
 /** 递归停止页面所有节点的 Tween 动画 */

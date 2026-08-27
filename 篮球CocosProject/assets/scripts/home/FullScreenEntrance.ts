@@ -224,7 +224,7 @@ export function playFullScreenEntrance(
 }
 
 function uniqueNodes(nodes: readonly Node[]): Node[] {
-    return [...new Set(nodes)];
+    return Array.from(new Set(nodes));
 }
 
 function normalizeGroups(

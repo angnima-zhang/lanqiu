@@ -41,6 +41,13 @@ function loadEffect(): Promise<EffectAsset | null> {
     return loadingEffect;
 }
 
+function hasAdNamedNode(node: Node): boolean {
+    if (AD_BUTTON_PATTERN.test(node.name)) {
+        return true;
+    }
+    return node.children.some((child) => hasAdNamedNode(child));
+}
+
 function isAdButton(button: Button): boolean {
     let node: Node | null = button.node;
     while (node) {
@@ -48,6 +55,9 @@ function isAdButton(button: Button): boolean {
             return true;
         }
         node = node.parent;
+    }
+    if (hasAdNamedNode(button.node)) {
+        return true;
     }
     return button.node
         .getComponentsInChildren(Label)

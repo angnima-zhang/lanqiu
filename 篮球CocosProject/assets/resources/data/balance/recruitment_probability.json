@@ -26,15 +26,15 @@
     { "qualityId": 15, "qualityName": "GOAT" }
   ],
   "qualityWindows": [
-    { "levelStart": 0, "levelEnd": 20, "lowestQualityId": 3, "highestQualityId": 7, "baseWeights": [60, 28, 9, 2.5, 0.5] },
-    { "levelStart": 21, "levelEnd": 41, "lowestQualityId": 4, "highestQualityId": 8, "baseWeights": [60, 28, 9, 2.5, 0.5] },
-    { "levelStart": 42, "levelEnd": 62, "lowestQualityId": 5, "highestQualityId": 9, "baseWeights": [60, 28, 9, 2.5, 0.5] },
-    { "levelStart": 63, "levelEnd": 83, "lowestQualityId": 6, "highestQualityId": 10, "baseWeights": [60, 28, 9, 2.5, 0.5] },
-    { "levelStart": 84, "levelEnd": 87, "lowestQualityId": 7, "highestQualityId": 11, "baseWeights": [60, 28, 9, 2.5, 0.5] },
-    { "levelStart": 88, "levelEnd": 91, "lowestQualityId": 8, "highestQualityId": 12, "baseWeights": [60, 28, 9, 2.5, 0.5] },
-    { "levelStart": 92, "levelEnd": 95, "lowestQualityId": 9, "highestQualityId": 13, "baseWeights": [60, 28, 9, 2.5, 0.5] },
-    { "levelStart": 96, "levelEnd": 99, "lowestQualityId": 10, "highestQualityId": 14, "baseWeights": [60, 28, 9, 2.5, 0.5] },
-    { "levelStart": 100, "levelEnd": 100, "lowestQualityId": 11, "highestQualityId": 15, "baseWeights": [60, 28, 9, 2.5, 0.5] }
+    { "levelStart": 0, "levelEnd": 6, "lowestQualityId": 3, "highestQualityId": 7, "baseWeights": [60, 28, 9, 2.5, 0.5] },
+    { "levelStart": 7, "levelEnd": 14, "lowestQualityId": 4, "highestQualityId": 8, "baseWeights": [60, 28, 9, 2.5, 0.5] },
+    { "levelStart": 15, "levelEnd": 23, "lowestQualityId": 5, "highestQualityId": 9, "baseWeights": [60, 28, 9, 2.5, 0.5] },
+    { "levelStart": 24, "levelEnd": 32, "lowestQualityId": 6, "highestQualityId": 10, "baseWeights": [60, 28, 9, 2.5, 0.5] },
+    { "levelStart": 33, "levelEnd": 43, "lowestQualityId": 7, "highestQualityId": 11, "baseWeights": [60, 28, 9, 2.5, 0.5] },
+    { "levelStart": 44, "levelEnd": 55, "lowestQualityId": 8, "highestQualityId": 12, "baseWeights": [60, 28, 9, 2.5, 0.5] },
+    { "levelStart": 56, "levelEnd": 68, "lowestQualityId": 9, "highestQualityId": 13, "baseWeights": [60, 28, 9, 2.5, 0.5] },
+    { "levelStart": 69, "levelEnd": 84, "lowestQualityId": 10, "highestQualityId": 14, "baseWeights": [60, 28, 9, 2.5, 0.5] },
+    { "levelStart": 85, "levelEnd": 100, "lowestQualityId": 11, "highestQualityId": 15, "baseWeights": [60, 28, 9, 2.5, 0.5] }
   ],
   "endlessGoatProbability": {
     "bonusPerWin": 0.005,

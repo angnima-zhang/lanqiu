@@ -261,7 +261,7 @@ function normalizeProgress(value: unknown): PlayerKnowledgeProgress {
 
 function normalizeQuestionIds(value: unknown): string[] {
     return Array.isArray(value)
-        ? [...new Set(value.filter((id): id is string => typeof id === 'string'))]
+        ? Array.from(new Set(value.filter((id): id is string => typeof id === 'string')))
         : [];
 }
 

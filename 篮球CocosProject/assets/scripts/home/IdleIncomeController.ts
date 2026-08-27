@@ -16,7 +16,6 @@ import {
     IdleState,
     loadIdleState,
     loadJson,
-    notifyValidOperationCompleted,
     saveIdleState,
 } from './GameState';
 import { formatPlayerOverall } from './RosterSlotView';
@@ -319,9 +318,6 @@ export class IdleIncomeController extends Component {
             return;
         }
         addBalance(snapshot.totalReward);
-        if (multiplier === 1) {
-            notifyValidOperationCompleted();
-        }
         const now = Date.now();
         this.idleState.pendingOfflineSeconds = 0;
         this.idleState.unpromptedOfflineSeconds = 0;
