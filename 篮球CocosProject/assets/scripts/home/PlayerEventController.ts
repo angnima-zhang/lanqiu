@@ -23,9 +23,7 @@ import {
     GAME_STATE_EVENT_VALID_OPERATION_COMPLETED,
     gameStateEvents,
     MatchSettlementEvent,
-    PendingEventRecruit,
     PendingPlayerEvent,
-    PlayerAttributes,
     PlayerCard,
     PlayerEventType,
     getManagementEffects,
@@ -60,12 +58,10 @@ import {
     playFullScreenExit,
 } from './FullScreenEntrance';
 import { applyGameFont } from '../loading/GameFont';
-import { recordPlayerAcquisitionWithKnowledgeReset } from './PlayerKnowledge';
 
 const { ccclass } = _decorator;
 
 const PLAYER_EVENT_CONFIG_PATH = 'data/player_events';
-const PLAYER_CONFIG_PATH = 'data/player_config_fame_v3';
 const POSITIVE_EVENT_COLOR = new Color(91, 220, 128, 255);
 const NEGATIVE_EVENT_COLOR = new Color(220, 55, 55, 255);
 const EVENT_VALUE_HIGHLIGHT_COLOR = '#FFD15A';
@@ -108,44 +104,18 @@ interface PlayerEventDefinition {
     adResolvedDescription?: string;
 }
 
-interface RecruitmentCombo {
-    requiredSourcePlayerNames: string[];
-    recruitSourcePlayerName: string;
-}
-
 interface PlayerEventTraits {
     health: number;
     age: number;
     training: number;
-    bond: number;
 }
 
 interface PlayerEventConfig {
     triggerProbability: number;
     events: PlayerEventDefinition[];
-    recruitmentCombos: RecruitmentCombo[];
     defaultPlayerTraits: PlayerEventTraits;
     playerTraitOverrides?: Record<string, Partial<PlayerEventTraits>>;
     playerEventDescriptionVariants?: Record<string, Partial<Record<PlayerEventType, string[]>>>;
-}
-
-interface PlayerTemplate {
-    id: string;
-    sourcePlayerName: string;
-    displayName: string;
-    position: string;
-    quality: number;
-    qualityName: string;
-    attributes: PlayerAttributes;
-}
-
-interface PlayerConfig {
-    players: PlayerTemplate[];
-}
-
-interface RecruitmentEventCandidate {
-    triggerIndex: number;
-    recruit: PendingEventRecruit;
 }
 
 interface RosterCandidate {
@@ -166,7 +136,6 @@ export class PlayerEventController extends Component {
     private adButton: Button | null = null;
     private config: PlayerEventConfig | null = null;
     private definitions = new Map<PlayerEventType, PlayerEventDefinition>();
-    private templates: PlayerTemplate[] = [];
     private rosterSlots: RosterSlotView[] = [];
     private slotEventBindings: SlotEventBinding[] = [];
     private initializationPromise: Promise<void> | null = null;
@@ -286,18 +255,16 @@ export class PlayerEventController extends Component {
 
     private async initialize(): Promise<void> {
         try {
-            const [config, playerConfig, prefab, gameFont] = await Promise.all([
+            const [config, prefab, gameFont] = await Promise.all([
                 this.loadJson<PlayerEventConfig>(PLAYER_EVENT_CONFIG_PATH),
-                this.loadJson<PlayerConfig>(PLAYER_CONFIG_PATH),
                 this.loadPrefab(),
                 this.loadGameFont(),
             ]);
-            if (!this.node.isValid || !this.canvas || !this.isConfigValid(config, playerConfig)) {
+            if (!this.node.isValid || !this.canvas || !this.isConfigValid(config)) {
                 throw new Error('Invalid player event configuration.');
             }
 
             this.config = config;
-            this.templates = playerConfig.players;
             this.definitions = new Map(config.events.map((event) => [event.id, event]));
             this.page = instantiate(prefab);
             this.canvas.addChild(this.page);
@@ -314,8 +281,8 @@ export class PlayerEventController extends Component {
         }
     }
 
-    private onValidOperationCompleted = (): void => {
-        void this.tryCreateRandomEvent();
+    private onValidOperationCompleted = (eventCheckCount = 1): void => {
+        void this.tryCreateRandomEvent(eventCheckCount);
     };
 
     private onRewardedAdCompleted = (): void => {
@@ -338,7 +305,7 @@ export class PlayerEventController extends Component {
         }
     };
 
-    private async tryCreateRandomEvent(): Promise<void> {
+    private async tryCreateRandomEvent(eventCheckCount = 1): Promise<void> {
         if (
             !this.initialized
             || !this.config
@@ -350,108 +317,10 @@ export class PlayerEventController extends Component {
         }
         this.generatingEvent = true;
         try {
-            if (Math.random() >= this.config.triggerProbability) {
-                return;
+            // 同一批次串行判定，持锁到全部完成，避免后续判定被跳过。
+            for (let index = 0; index < eventCheckCount; index += 1) {
+                await this.createRandomEvent();
             }
-
-            const roster = loadRoster(ROSTER_SLOT_COUNT);
-            const playerCandidates = roster
-                .map((card, index) => ({ card, index }))
-                .filter((entry): entry is RosterCandidate => Boolean(entry.card))
-                .filter(({ card }) => !card.pendingEvent);
-            const temporaryOverallCandidates = playerCandidates.filter(({ card }) => (
-                !card.activeInjury && !card.activeTraining
-            ));
-            if (playerCandidates.length === 0) {
-                return;
-            }
-
-            const recruitmentCandidate = this.getRecruitmentCandidate(roster);
-            const retirementCandidates = playerCandidates.filter(({ card }) => {
-                return (card.matchesPlayed ?? 0) >= this.getRetirementMatchLimit(card);
-            });
-            const definitions = this.config.events.filter((definition) => {
-                if (definition.id === 'recruitment') {
-                    return Boolean(recruitmentCandidate);
-                }
-                if (definition.id === 'retirement') {
-                    return retirementCandidates.length > 0;
-                }
-                return (
-                    definition.id !== 'injury'
-                    && definition.id !== 'training'
-                ) || temporaryOverallCandidates.length > 0;
-            });
-            if (definitions.length === 0) {
-                return;
-            }
-
-            const managementEffects = await getManagementEffects();
-            const definitionWeights = new Map<PlayerEventDefinition, number>(
-                definitions.map((candidate) => [
-                    candidate,
-                    Math.max(0.01, Number(candidate.selectionWeight) || 1),
-                ]),
-            );
-            const injuryDefinition = definitions.find((candidate) => candidate.id === 'injury');
-            const injuryWeight = injuryDefinition
-                ? definitionWeights.get(injuryDefinition) ?? 0
-                : 0;
-            const otherWeight = Array.from(definitionWeights.entries())
-                .filter(([candidate]) => candidate !== injuryDefinition)
-                .reduce((total, [, weight]) => total + weight, 0);
-            if (injuryDefinition && injuryWeight > 0 && otherWeight > 0) {
-                const injuryRiskReduction = Math.max(
-                    0,
-                    Math.min(1, managementEffects.medicalTeamInjuryRiskReduction),
-                );
-                const baseInjuryProbability = injuryWeight / (injuryWeight + otherWeight);
-                const targetInjuryProbability = baseInjuryProbability * (1 - injuryRiskReduction);
-                definitionWeights.set(
-                    injuryDefinition,
-                    otherWeight * targetInjuryProbability / (1 - targetInjuryProbability),
-                );
-            }
-            const definition = this.pickWeighted(
-                definitions,
-                (candidate) => definitionWeights.get(candidate) ?? 1,
-            );
-            if (!definition) {
-                return;
-            }
-            const targets = definition.id === 'injury' || definition.id === 'training'
-                ? temporaryOverallCandidates
-                : definition.id === 'retirement'
-                    ? retirementCandidates
-                    : playerCandidates;
-            const targetIndex = definition.id === 'recruitment'
-                ? recruitmentCandidate?.triggerIndex
-                : this.pickEventTarget(definition.id, targets)?.index;
-            if (targetIndex === undefined) {
-                return;
-            }
-            const card = roster[targetIndex];
-            if (!card) {
-                return;
-            }
-            if (
-                (definition.id === 'injury' || definition.id === 'training')
-                && (card.activeInjury || card.activeTraining)
-            ) {
-                return;
-            }
-
-            card.pendingEvent = {
-                type: definition.id,
-                occurredAtMs: Date.now(),
-                descriptionTemplate: this.pickEventDescription(card, definition),
-                overallDelta: this.resolveOverallDelta(definition, card.overall),
-                recoveryMatches: Math.max(0, Math.floor(definition.recoveryMatches ?? 0)),
-                recruit: definition.id === 'recruitment'
-                    ? recruitmentCandidate?.recruit ?? null
-                    : null,
-            };
-            saveRoster(roster);
         } finally {
             this.generatingEvent = false;
             if (this.queuedActionAfterPendingEvents) {
@@ -460,45 +329,95 @@ export class PlayerEventController extends Component {
         }
     }
 
-    private getRecruitmentCandidate(
-        roster: ReadonlyArray<PlayerCard | null>,
-    ): RecruitmentEventCandidate | null {
-        if (!this.config || !roster.some((card) => card === null)) {
-            return null;
+    private async createRandomEvent(): Promise<void> {
+        if (Math.random() >= this.config!.triggerProbability) {
+            return;
         }
-        const sourceNames = new Set(
-            roster.flatMap((card) => card ? [card.sourcePlayerName] : []),
-        );
-        const combos = this.config.recruitmentCombos.filter((combo) => {
-            return !sourceNames.has(combo.recruitSourcePlayerName)
-                && combo.requiredSourcePlayerNames.every((name) => sourceNames.has(name));
+
+        const roster = loadRoster(ROSTER_SLOT_COUNT);
+        const playerCandidates = roster
+            .map((card, index) => ({ card, index }))
+            .filter((entry): entry is RosterCandidate => Boolean(entry.card))
+            .filter(({ card }) => !card.pendingEvent);
+        const temporaryOverallCandidates = playerCandidates.filter(({ card }) => (
+            !card.activeInjury && !card.activeTraining
+        ));
+        if (playerCandidates.length === 0) {
+            return;
+        }
+
+        const retirementCandidates = playerCandidates.filter(({ card }) => {
+            return (card.matchesPlayed ?? 0) >= this.getRetirementMatchLimit(card);
         });
-        if (combos.length === 0) {
-            return null;
-        }
-        const candidates = combos.flatMap((combo) => {
-            const template = this.templates
-                .filter((candidate) => candidate.sourcePlayerName === combo.recruitSourcePlayerName)
-                .sort((left, right) => left.quality - right.quality)[0];
-            if (!template) {
-                return [];
+        const definitions = this.config!.events.filter((definition) => {
+            if (definition.id === 'retirement') {
+                return retirementCandidates.length > 0;
             }
-            return roster.flatMap((card, index) => {
-                if (
-                    !card
-                    || card.pendingEvent
-                    || !combo.requiredSourcePlayerNames.includes(card.sourcePlayerName)
-                ) {
-                    return [];
-                }
-                return [{
-                    triggerIndex: index,
-                    recruit: this.toPendingEventRecruit(template),
-                    bond: this.getPlayerTraits(card).bond,
-                }];
-            });
+            return temporaryOverallCandidates.length > 0;
         });
-        return this.pickWeighted(candidates, (candidate) => candidate.bond) ?? null;
+        if (definitions.length === 0) {
+            return;
+        }
+
+        const managementEffects = await getManagementEffects();
+        const definitionWeights = new Map<PlayerEventDefinition, number>(
+            definitions.map((candidate) => [
+                candidate,
+                Math.max(0.01, Number(candidate.selectionWeight) || 1),
+            ]),
+        );
+        const injuryDefinition = definitions.find((candidate) => candidate.id === 'injury');
+        const injuryWeight = injuryDefinition
+            ? definitionWeights.get(injuryDefinition) ?? 0
+            : 0;
+        const otherWeight = Array.from(definitionWeights.entries())
+            .filter(([candidate]) => candidate !== injuryDefinition)
+            .reduce((total, [, weight]) => total + weight, 0);
+        if (injuryDefinition && injuryWeight > 0 && otherWeight > 0) {
+            const injuryRiskReduction = Math.max(
+                0,
+                Math.min(1, managementEffects.medicalTeamInjuryRiskReduction),
+            );
+            const baseInjuryProbability = injuryWeight / (injuryWeight + otherWeight);
+            const targetInjuryProbability = baseInjuryProbability * (1 - injuryRiskReduction);
+            definitionWeights.set(
+                injuryDefinition,
+                otherWeight * targetInjuryProbability / (1 - targetInjuryProbability),
+            );
+        }
+        const definition = this.pickWeighted(
+            definitions,
+            (candidate) => definitionWeights.get(candidate) ?? 1,
+        );
+        if (!definition) {
+            return;
+        }
+        const targets = definition.id === 'retirement'
+            ? retirementCandidates
+            : temporaryOverallCandidates;
+        const targetIndex = this.pickEventTarget(definition.id, targets)?.index;
+        if (targetIndex === undefined) {
+            return;
+        }
+        const card = roster[targetIndex];
+        if (!card) {
+            return;
+        }
+        if (
+            (definition.id === 'injury' || definition.id === 'training')
+            && (card.activeInjury || card.activeTraining)
+        ) {
+            return;
+        }
+
+        card.pendingEvent = {
+            type: definition.id,
+            occurredAtMs: Date.now(),
+            descriptionTemplate: this.pickEventDescription(card, definition),
+            overallDelta: this.resolveOverallDelta(definition, card.overall),
+            recoveryMatches: Math.max(0, Math.floor(definition.recoveryMatches ?? 0)),
+        };
+        saveRoster(roster);
     }
 
     private openEventAt(slotIndex: number): void {
@@ -722,12 +641,10 @@ export class PlayerEventController extends Component {
                 this.openNextQueuedEventOrRunAction();
                 return;
             }
-            const keepAdResultOpen = withAd
-                && card.pendingEvent.type !== 'recruitment';
             const resolvedEvent = card.pendingEvent;
             this.applyEventResolution(roster, targetIndex, card, withAd);
             saveRoster(roster);
-            if (keepAdResultOpen) {
+            if (withAd) {
                 this.showAdResolvedEventResult(card, resolvedEvent);
                 return;
             }
@@ -870,17 +787,6 @@ export class PlayerEventController extends Component {
             delete card.pendingEvent;
             return;
         }
-        const recruit = event.recruit;
-        const emptyIndex = roster.findIndex((entry) => entry === null);
-        if (!recruit || emptyIndex < 0) {
-            delete card.pendingEvent;
-            return;
-        }
-        const rewardedRecruit = withAd ? this.upgradeRecruit(recruit) : recruit;
-        const recruitedCard = this.createRecruitedCard(rewardedRecruit);
-        roster[emptyIndex] = recruitedCard;
-        recordPlayerAcquisitionWithKnowledgeReset(recruitedCard);
-        delete card.pendingEvent;
     }
 
     private reconcileLastSettledMatch(): void {
@@ -959,48 +865,6 @@ export class PlayerEventController extends Component {
         card.overall = nextOverall;
     }
 
-    private upgradeRecruit(recruit: PendingEventRecruit): PendingEventRecruit {
-        const template = this.templates
-            .filter((candidate) => candidate.sourcePlayerName === recruit.sourcePlayerName)
-            .filter((candidate) => candidate.quality > recruit.qualityId)
-            .sort((left, right) => left.quality - right.quality)[0];
-        return template ? this.toPendingEventRecruit(template) : recruit;
-    }
-
-    private createRecruitedCard(recruit: PendingEventRecruit): PlayerCard {
-        const now = Date.now();
-        return {
-            instanceId: `event-${now}-${Math.random().toString(36).slice(2, 8)}`,
-            templateId: recruit.templateId,
-            sourcePlayerName: recruit.sourcePlayerName,
-            displayName: recruit.displayName,
-            position: recruit.position,
-            qualityId: recruit.qualityId,
-            qualityName: recruit.qualityName,
-            overall: recruit.overall,
-            attributes: { ...recruit.attributes },
-            acquiredAtMs: now,
-            lineupSinceMs: now,
-        };
-    }
-
-    private toPendingEventRecruit(template: PlayerTemplate): PendingEventRecruit {
-        const attributes = { ...template.attributes };
-        return {
-            templateId: template.id,
-            sourcePlayerName: template.sourcePlayerName,
-            displayName: template.displayName,
-            position: template.position,
-            qualityId: template.quality,
-            qualityName: template.qualityName,
-            overall: ATTRIBUTE_KEYS.reduce(
-                (sum, key) => sum + Math.max(0, attributes[key]),
-                0,
-            ),
-            attributes,
-        };
-    }
-
     private resolveOverallDelta(
         definition: PlayerEventDefinition,
         overall: number,
@@ -1077,14 +941,12 @@ export class PlayerEventController extends Component {
             health: 0.6,
             age: 28,
             training: 0.5,
-            bond: 0.5,
         };
         const override = this.config?.playerTraitOverrides?.[card.sourcePlayerName];
         return {
             health: this.clampTrait(override?.health ?? defaults.health),
             age: Math.min(50, Math.max(18, Math.floor(override?.age ?? defaults.age))),
             training: this.clampTrait(override?.training ?? defaults.training),
-            bond: this.clampTrait(override?.bond ?? defaults.bond),
         };
     }
 
@@ -1123,7 +985,6 @@ export class PlayerEventController extends Component {
     ): string {
         return template
             .replace(/\{\{player\}\}/g, card.displayName)
-            .replace(/\{\{recruit\}\}/g, event.recruit?.displayName ?? '')
             .replace(/\{\{value\}\}/g, formatPlayerOverall(Math.abs(event.overallDelta)))
             .replace(/\{\{matches\}\}/g, String(Math.max(1, event.recoveryMatches)));
     }
@@ -1149,10 +1010,7 @@ export class PlayerEventController extends Component {
         if (event.type === 'training') {
             return `${card.displayName}参加训练，总评提升${value}。`;
         }
-        if (event.type === 'retirement') {
-            return `${card.displayName}宣布退役。`;
-        }
-        return `${card.displayName}招募了${event.recruit?.displayName ?? '新队友'}，免费加入球队！`;
+        return `${card.displayName}宣布退役。`;
     }
 
     private setEventDescriptionRichText(
@@ -1403,13 +1261,13 @@ export class PlayerEventController extends Component {
         });
     }
 
-    private isConfigValid(config: PlayerEventConfig, playerConfig: PlayerConfig): boolean {
+    private isConfigValid(config: PlayerEventConfig): boolean {
         return Number.isFinite(config.triggerProbability)
             && Array.isArray(config.events)
             && config.events.length > 0
-            && Array.isArray(config.recruitmentCombos)
-            && Boolean(config.defaultPlayerTraits)
-            && Array.isArray(playerConfig.players)
-            && playerConfig.players.length > 0;
+            && config.events.every((event) => (
+                event.id === 'injury' || event.id === 'training' || event.id === 'retirement'
+            ))
+            && Boolean(config.defaultPlayerTraits);
     }
 }

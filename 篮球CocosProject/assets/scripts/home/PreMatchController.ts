@@ -621,6 +621,9 @@ export class PreMatchController extends Component {
         const overallLabel = root.getChildByName('总评')?.getComponent(Label) ?? null;
         const qualityFrame = root.getChildByName('边框')?.getComponent(Sprite) ?? null;
         if (overallLabel) {
+            // 空槽位也保留文本区域，避免清空文字后宽度归零、补人时字号缩为0。
+            overallLabel.overflow = Label.Overflow.SHRINK;
+            overallLabel.enableWrapText = false;
             overallLabel.node.active = true;
             overallLabel.enabled = true;
             overallLabel.color = new Color(234, 158, 2, 255);
@@ -661,8 +664,6 @@ export class PreMatchController extends Component {
             nameLabel.string = card.displayName;
         }
         if (overallLabel) {
-            overallLabel.overflow = Label.Overflow.SHRINK;
-            overallLabel.enableWrapText = false;
             overallLabel.string = this.formatOverall(card.overall);
         }
         const [portraitFrame, qualityFrameAsset] = await Promise.all([

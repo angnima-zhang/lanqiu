@@ -127,13 +127,16 @@ const RECRUITMENT_PROFILE_HONOR_LIMIT = 5;
 const NEGATIVE_OVERALL_COLOR = new Color(220, 55, 55, 255);
 const CONTINUOUS_RECRUIT_START_DELAY_SECONDS = 1;
 const CONTINUOUS_RECRUIT_MAX_HOLD_SECONDS = 3;
+const CONTINUOUS_RECRUIT_UPGRADE_READY_GROWTH_PER_SECOND = 10;
 const CONTINUOUS_RECRUIT_MAX_LEVEL_GROWTH_PER_SECOND = 50;
 const CONTINUOUS_RECRUIT_GROWTH_INTERVAL_SECONDS = 0.1;
 const CONTINUOUS_RECRUIT_MINIMUM_COUNT = 2;
 const CONTINUOUS_RECRUIT_DEFAULT_COUNT = 5;
+const CONTINUOUS_RECRUIT_EVENT_CHECK_INTERVAL = 10;
 const CONTINUOUS_RECRUIT_MAX_FONT_SIZE = 50;
 const AUTO_DISMISS_HOLD_SECONDS = 2;
 const AUTO_DISMISS_SEGMENT_SECONDS = 1.5;
+const AUTO_DISMISS_FINAL_COUNT_HOLD_SECONDS = 0.3;
 
 type AttributeKey = typeof ATTRIBUTE_KEYS[number];
 
@@ -336,6 +339,7 @@ export class RecruitmentController extends Component {
     private adTripleRecruitmentActive = false;
     private continuousRecruitmentActive = false;
     private continuousRecruitmentBatchCount = 0;
+    private continuousRecruitmentEventCheckCount = 0;
     private resultPageClosing = false;
     private pendingContinuousRecruitmentCount = 0;
     private continuousRecruitCount = 0;
@@ -748,10 +752,15 @@ export class RecruitmentController extends Component {
         const initialCount = Math.min(CONTINUOUS_RECRUIT_DEFAULT_COUNT, maximum);
         const growthMilliseconds = Math.max(0, Date.now() - this.continuousRecruitHoldStartedAtMs
             - CONTINUOUS_RECRUIT_START_DELAY_SECONDS * 1000);
-        const maximumLevel = this.teamLevelController?.getSnapshot()?.maxLevel
+        const progression = this.teamLevelController?.getSnapshot();
+        const maximumLevel = progression?.maxLevel
             ?? getStoredTeamLevel() >= 100;
-        const growthCount = maximumLevel
-            ? growthMilliseconds * CONTINUOUS_RECRUIT_MAX_LEVEL_GROWTH_PER_SECOND / 1000
+        const fixedGrowthPerSecond = maximumLevel
+            ? CONTINUOUS_RECRUIT_MAX_LEVEL_GROWTH_PER_SECOND
+            : progression && progression.willpower >= progression.currentRequirement
+                ? CONTINUOUS_RECRUIT_UPGRADE_READY_GROWTH_PER_SECOND : 0;
+        const growthCount = fixedGrowthPerSecond > 0
+            ? growthMilliseconds * fixedGrowthPerSecond / 1000
             : (maximum - initialCount) * Math.min(1, growthMilliseconds
                 / ((CONTINUOUS_RECRUIT_MAX_HOLD_SECONDS - CONTINUOUS_RECRUIT_START_DELAY_SECONDS) * 1000));
         this.continuousRecruitCount = Math.min(maximum, Math.floor(initialCount + growthCount));
@@ -853,9 +862,10 @@ export class RecruitmentController extends Component {
         this.showRecruitingButtonVisual();
         this.budget = budgetAfterSpend;
         this.refreshBudgetView();
-        if (budgetAfterSpend + Number.EPSILON < budgetBeforeSpend) {
-            notifyValidOperationCompleted();
-        }
+        // 先记录判定次数，整轮结果结算后再对最终阵容生成事件，避免事件随旧球员被替换掉。
+        this.continuousRecruitmentEventCheckCount = budgetAfterSpend + Number.EPSILON < budgetBeforeSpend
+            ? Math.floor(spentCards.length / CONTINUOUS_RECRUIT_EVENT_CHECK_INTERVAL)
+            : 0;
         this.queuedContinuousRecruitments = spentCards.map((card) => {
             recordPlayerAcquisitionWithKnowledgeReset(card);
             return {
@@ -1064,7 +1074,9 @@ export class RecruitmentController extends Component {
         finish: () => void,
     ): Promise<void> {
         const paced = this.autoDismissEnabled;
-        const showAtMs = Date.now() + AUTO_DISMISS_SEGMENT_SECONDS * 1000;
+        const initialAutoDismissCount = this.autoDismissCount;
+        let nextStepAtMs = Date.now();
+        const showAtMs = nextStepAtMs + AUTO_DISMISS_SEGMENT_SECONDS * 1000;
         if (paced) {
             this.setAutoDismissBatchLocked(true);
             this.refreshBudgetView();
@@ -1075,7 +1087,10 @@ export class RecruitmentController extends Component {
                 // 只预估下一张可展示结果的位置，不提前移除后续球员或累计计数。
                 const visibleIndex = queue.findIndex((result) => !this.shouldAutoDismiss(result.card, decision));
                 const remainingSteps = visibleIndex < 0 ? queue.length : visibleIndex + 1;
-                const delay = Math.max(0, showAtMs - Date.now()) / 1000 / remainingSteps;
+                // 按绝对时间推进，抵消逐次等待产生的帧误差；全解雇时预留最终计数的展示时间。
+                const stepsEndAtMs = showAtMs - (visibleIndex < 0 ? AUTO_DISMISS_FINAL_COUNT_HOLD_SECONDS * 1000 : 0);
+                nextStepAtMs += Math.max(0, stepsEndAtMs - nextStepAtMs) / remainingSteps;
+                const delay = Math.max(0, nextStepAtMs - Date.now()) / 1000;
                 if (delay > 0) {
                     await this.waitForSeconds(delay);
                 }
@@ -1109,6 +1124,16 @@ export class RecruitmentController extends Component {
             this.pendingDecision = decision;
             await this.showRecruitmentResult(next.card, decision, next.willpowerAdded);
             return;
+        }
+        if (paced && this.autoDismissCount > initialAutoDismissCount) {
+            // 让最后一个数字真正显示出来，不能在同一帧被默认招募提示覆盖。
+            await this.waitForSeconds(Math.max(
+                AUTO_DISMISS_FINAL_COUNT_HOLD_SECONDS,
+                (showAtMs - Date.now()) / 1000,
+            ));
+            if (!this.isValid || !this.enabledInHierarchy) {
+                return;
+            }
         }
         finish();
     }
@@ -2200,6 +2225,8 @@ export class RecruitmentController extends Component {
     }
 
     private finishContinuousRecruitment(): void {
+        const eventCheckCount = this.continuousRecruitmentEventCheckCount;
+        this.continuousRecruitmentEventCheckCount = 0;
         this.queuedContinuousRecruitments = [];
         this.continuousRecruitmentActive = false;
         this.continuousRecruitmentBatchCount = 0;
@@ -2208,6 +2235,9 @@ export class RecruitmentController extends Component {
         this.restoreRecruitButtonVisual();
         this.resetContinuousRecruitLabel();
         this.refreshBudgetView();
+        if (eventCheckCount > 0) {
+            notifyValidOperationCompleted(eventCheckCount);
+        }
     }
 
     private async refreshRosterSlots(): Promise<void> {
@@ -2274,7 +2304,11 @@ export class RecruitmentController extends Component {
 
     private getMaxContinuousRecruitmentCount(): number {
         const budgetLimit = this.getBudgetRecruitmentCount();
-        // 斗志满后仍可单抽补强；满级不再受升级进度限制。
+        const progression = this.teamLevelController?.getSnapshot();
+        if (progression && (progression.maxLevel || progression.willpower >= progression.currentRequirement)) {
+            return budgetLimit;
+        }
+        // 斗志未满时限制到本级所需抽数；满斗志后不因尚缺胜场阻止连抽补强。
         const progressionLimit = Math.max(
             1,
             this.teamLevelController?.getRecruitmentsUntilWillpowerFull() ?? Number.MAX_SAFE_INTEGER,

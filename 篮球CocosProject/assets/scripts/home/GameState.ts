@@ -56,9 +56,11 @@ export const gameStateEvents = new EventTarget();
 /**
  * 只有玩家主动完成了会实际减少预算的操作时才调用。
  * 预算收入只广播预算刷新，不属于有效操作。
+ * eventCheckCount 为本次操作的事件判定次数，默认一次；0次不发送判定。
  */
-export function notifyValidOperationCompleted(): void {
-    gameStateEvents.emit(GAME_STATE_EVENT_VALID_OPERATION_COMPLETED);
+export function notifyValidOperationCompleted(eventCheckCount = 1): void {
+    if (eventCheckCount <= 0) return;
+    gameStateEvents.emit(GAME_STATE_EVENT_VALID_OPERATION_COMPLETED, eventCheckCount);
 }
 
 export const BUDGET_STORAGE_KEY = 'basketball.economy.budget.v2';
@@ -103,18 +105,7 @@ export const ATTRIBUTE_KEYS = ['scoring', 'rebound', 'assist', 'steal', 'block']
 export type AttributeKey = typeof ATTRIBUTE_KEYS[number];
 export type PlayerAttributes = Record<AttributeKey, number>;
 
-export type PlayerEventType = 'injury' | 'retirement' | 'training' | 'recruitment';
-
-export interface PendingEventRecruit {
-    templateId: string;
-    sourcePlayerName: string;
-    displayName: string;
-    position: string;
-    qualityId: number;
-    qualityName: string;
-    overall: number;
-    attributes: PlayerAttributes;
-}
+export type PlayerEventType = 'injury' | 'retirement' | 'training';
 
 export interface PendingPlayerEvent {
     type: PlayerEventType;
@@ -122,7 +113,6 @@ export interface PendingPlayerEvent {
     descriptionTemplate?: string;
     overallDelta: number;
     recoveryMatches: number;
-    recruit: PendingEventRecruit | null;
 }
 
 export interface ActivePlayerInjury {
@@ -1646,19 +1636,7 @@ function clonePlayerCard(card: PlayerCard): PlayerCard {
     return {
         ...card,
         attributes: { ...card.attributes },
-        ...(card.pendingEvent
-            ? {
-                pendingEvent: {
-                    ...card.pendingEvent,
-                    recruit: card.pendingEvent.recruit
-                        ? {
-                            ...card.pendingEvent.recruit,
-                            attributes: { ...card.pendingEvent.recruit.attributes },
-                        }
-                        : null,
-                },
-            }
-            : {}),
+        ...(card.pendingEvent ? { pendingEvent: { ...card.pendingEvent } } : {}),
         ...(card.activeInjury ? { activeInjury: { ...card.activeInjury } } : {}),
         ...(card.activeTraining ? { activeTraining: { ...card.activeTraining } } : {}),
     };
@@ -1685,16 +1663,12 @@ function normalizePendingPlayerEvent(
         return null;
     }
     const event = value as Partial<PendingPlayerEvent>;
+    // 旧存档的招募事件已停用，仅清除事件，保留球员及其他状态。
     if (
         event.type !== 'injury'
         && event.type !== 'retirement'
         && event.type !== 'training'
-        && event.type !== 'recruitment'
     ) {
-        return null;
-    }
-    const recruit = normalizePendingEventRecruit(event.recruit);
-    if (event.type === 'recruitment' && !recruit) {
         return null;
     }
     return {
@@ -1706,37 +1680,6 @@ function normalizePendingPlayerEvent(
             : undefined,
         overallDelta: sanitizeInteger(event.overallDelta, 0),
         recoveryMatches: Math.max(0, sanitizeInteger(event.recoveryMatches, 0)),
-        recruit,
-    };
-}
-
-function normalizePendingEventRecruit(value: unknown): PendingEventRecruit | null {
-    if (!value || typeof value !== 'object') {
-        return null;
-    }
-    const recruit = value as Partial<PendingEventRecruit>;
-    if (
-        !recruit.templateId
-        || !recruit.sourcePlayerName
-        || !recruit.displayName
-        || !recruit.position
-    ) {
-        return null;
-    }
-    const attributes = ATTRIBUTE_KEYS.reduce((result, key) => {
-        result[key] = Math.max(0, sanitizeInteger(recruit.attributes?.[key], 0));
-        return result;
-    }, {} as PlayerAttributes);
-    const overall = Math.max(1, sanitizeInteger(recruit.overall, 0));
-    return {
-        templateId: String(recruit.templateId),
-        sourcePlayerName: String(recruit.sourcePlayerName),
-        displayName: String(recruit.displayName),
-        position: String(recruit.position),
-        qualityId: Math.max(3, sanitizeInteger(recruit.qualityId, 3)),
-        qualityName: String(recruit.qualityName ?? ''),
-        overall,
-        attributes,
     };
 }
 

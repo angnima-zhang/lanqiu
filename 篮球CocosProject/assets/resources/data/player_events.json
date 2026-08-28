@@ -3,30 +3,29 @@
   "defaultPlayerTraits": {
     "health": 0.7,
     "age": 28,
-    "training": 0.5,
-    "bond": 0.5
+    "training": 0.5
   },
   "playerTraitOverrides": {
-    "LeBron James": { "health": 0.92, "age": 41, "training": 0.95, "bond": 0.85 },
-    "Joel Embiid": { "health": 0.22, "age": 32, "training": 0.72, "bond": 0.5 },
-    "Anthony Davis": { "health": 0.28, "age": 33, "training": 0.7, "bond": 0.55 },
-    "Tim Duncan": { "health": 0.8, "age": 40, "training": 0.62, "bond": 0.96 },
-    "Tony Parker": { "health": 0.72, "age": 38, "training": 0.7, "bond": 0.94 },
-    "Manu Ginóbili": { "health": 0.62, "age": 39, "training": 0.78, "bond": 0.94 },
-    "Stephen Curry": { "health": 0.78, "age": 38, "training": 0.94, "bond": 0.82 },
-    "Klay Thompson": { "health": 0.6, "age": 36, "training": 0.82, "bond": 0.88 },
-    "Draymond Green": { "health": 0.7, "age": 36, "training": 0.74, "bond": 0.86 },
-    "Dwyane Wade": { "health": 0.58, "age": 35, "training": 0.76, "bond": 0.9 },
-    "Chris Bosh": { "health": 0.45, "age": 35, "training": 0.7, "bond": 0.84 },
-    "Kevin Garnett": { "health": 0.72, "age": 39, "training": 0.86, "bond": 0.84 },
-    "Paul Pierce": { "health": 0.66, "age": 38, "training": 0.68, "bond": 0.86 },
-    "Ray Allen": { "health": 0.7, "age": 38, "training": 0.88, "bond": 0.86 },
-    "Yao Ming": { "health": 0.38, "age": 35, "training": 0.76, "bond": 0.86 },
-    "Tracy McGrady": { "health": 0.42, "age": 35, "training": 0.8, "bond": 0.88 },
-    "John Stockton": { "health": 0.9, "age": 40, "training": 0.74, "bond": 0.84 },
-    "Karl Malone": { "health": 0.86, "age": 40, "training": 0.82, "bond": 0.82 },
-    "Jeremy Lin": { "health": 0.68, "age": 38, "training": 0.82, "bond": 0.82 },
-    "Jeremy Lamb": { "health": 0.74, "age": 34, "training": 0.67, "bond": 0.52 }
+    "LeBron James": { "health": 0.92, "age": 41, "training": 0.95 },
+    "Joel Embiid": { "health": 0.22, "age": 32, "training": 0.72 },
+    "Anthony Davis": { "health": 0.28, "age": 33, "training": 0.7 },
+    "Tim Duncan": { "health": 0.8, "age": 40, "training": 0.62 },
+    "Tony Parker": { "health": 0.72, "age": 38, "training": 0.7 },
+    "Manu Ginóbili": { "health": 0.62, "age": 39, "training": 0.78 },
+    "Stephen Curry": { "health": 0.78, "age": 38, "training": 0.94 },
+    "Klay Thompson": { "health": 0.6, "age": 36, "training": 0.82 },
+    "Draymond Green": { "health": 0.7, "age": 36, "training": 0.74 },
+    "Dwyane Wade": { "health": 0.58, "age": 35, "training": 0.76 },
+    "Chris Bosh": { "health": 0.45, "age": 35, "training": 0.7 },
+    "Kevin Garnett": { "health": 0.72, "age": 39, "training": 0.86 },
+    "Paul Pierce": { "health": 0.66, "age": 38, "training": 0.68 },
+    "Ray Allen": { "health": 0.7, "age": 38, "training": 0.88 },
+    "Yao Ming": { "health": 0.38, "age": 35, "training": 0.76 },
+    "Tracy McGrady": { "health": 0.42, "age": 35, "training": 0.8 },
+    "John Stockton": { "health": 0.9, "age": 40, "training": 0.74 },
+    "Karl Malone": { "health": 0.86, "age": 40, "training": 0.82 },
+    "Jeremy Lin": { "health": 0.68, "age": 38, "training": 0.82 },
+    "Jeremy Lamb": { "health": 0.74, "age": 34, "training": 0.67 }
   },
   "playerEventDescriptionVariants": {
     "John Wall": {
@@ -143,69 +142,6 @@
       "overallPercent": 0.05,
       "minimumOverallDelta": 2,
       "recoveryMatches": 2
-    },
-    {
-      "id": "recruitment",
-      "iconPath": "images/UI/事件/招募/spriteFrame",
-      "title": "羁绊招募",
-      "description": "{{player}}发出邀请，{{recruit}}将免费加入球队！",
-      "descriptionVariants": [
-        "{{player}}赛后在球员通道主动搭话，几句交流后，{{recruit}}决定免费加入球队！",
-        "{{player}}在一场商业活动中与{{recruit}}重逢，顺势发出邀请，{{recruit}}决定免费加入球队！",
-        "{{player}}给{{recruit}}发了一条真诚的短信，{{recruit}}决定免费加入球队！",
-        "{{player}}深夜打来一通电话，{{recruit}}听完计划后决定免费加入球队！",
-        "{{player}}通过同一位经纪人牵线，{{recruit}}决定免费加入球队！",
-        "{{player}}请共同好友代为联系，{{recruit}}决定免费加入球队！",
-        "{{player}}在休赛期合练时发出邀请，{{recruit}}决定免费加入球队！",
-        "{{player}}用一顿饭聊出了默契，{{recruit}}决定免费加入球队！",
-        "{{player}}把球队计划讲给{{recruit}}听，{{recruit}}决定免费加入球队！"
-      ],
-      "tone": "positive",
-      "confirmLabel": "这不是抱团",
-      "adLabel": "我要NBA队友！",
-      "adResolvedDescription": "“我要NBA队友！”的号召奏效，{{recruit}}以更高品质加入球队。"
-    }
-  ],
-  "recruitmentCombos": [
-    {
-      "requiredSourcePlayerNames": ["Tim Duncan", "Tony Parker"],
-      "recruitSourcePlayerName": "Manu Ginóbili"
-    },
-    {
-      "requiredSourcePlayerNames": ["Tim Duncan", "Manu Ginóbili"],
-      "recruitSourcePlayerName": "Tony Parker"
-    },
-    {
-      "requiredSourcePlayerNames": ["Tony Parker", "Manu Ginóbili"],
-      "recruitSourcePlayerName": "Tim Duncan"
-    },
-    {
-      "requiredSourcePlayerNames": ["Stephen Curry", "Klay Thompson"],
-      "recruitSourcePlayerName": "Draymond Green"
-    },
-    {
-      "requiredSourcePlayerNames": ["Stephen Curry", "Draymond Green"],
-      "recruitSourcePlayerName": "Klay Thompson"
-    },
-    {
-      "requiredSourcePlayerNames": ["Klay Thompson", "Draymond Green"],
-      "recruitSourcePlayerName": "Stephen Curry"
-    },
-    {
-      "requiredSourcePlayerNames": ["LeBron James", "Dwyane Wade"],
-      "recruitSourcePlayerName": "Chris Bosh"
-    },
-    {
-      "requiredSourcePlayerNames": ["Kevin Garnett", "Paul Pierce"],
-      "recruitSourcePlayerName": "Ray Allen"
-    },
-    {
-      "requiredSourcePlayerNames": ["Yao Ming"],
-      "recruitSourcePlayerName": "Tracy McGrady"
-    },
-    {
-      "requiredSourcePlayerNames": ["John Stockton"],
-      "recruitSourcePlayerName": "Karl Malone"
     }
   ]
 }

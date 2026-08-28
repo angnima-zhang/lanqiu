@@ -186,7 +186,6 @@ const PLAYER_EVENT_ICON_PATHS: Readonly<Record<PlayerEventType, string>> = {
     injury: 'images/UI/事件/伤病/spriteFrame',
     retirement: 'images/UI/事件/退役/spriteFrame',
     training: 'images/UI/事件/训练/spriteFrame',
-    recruitment: 'images/UI/事件/招募/spriteFrame',
 };
 
 export function loadPlayerPortrait(
