@@ -22,10 +22,15 @@
     }
   },
   "playoffRoundRewardMultipliers": [1, 1.1, 1.25, 1.5],
+  "championship": {
+    "budgetReward": 100000,
+    "operationPresidentBonusApplied": false,
+    "adDoubleRewardEnabled": false
+  },
   "endless": {
     "budgetRewardMultiplier": 1,
     "goatProbabilityBonusPerWin": 0.005,
     "goatProbabilityMaximum": 0.5,
-    "conceptGodUpgradeUnlockWins": 11
+    "conceptGodUpgradeUnlockCondition": "championship"
   }
 }

@@ -1,7 +1,7 @@
 {
   "status": "已定稿",
   "version": "v1.00",
-  "description": "单赛季100场主线，82场常规赛加季中杯、全明星赛共84场，季后赛四轮各4胜。100级后进入概念神无限赛程。",
+  "description": "单赛季100场主线，82场常规赛加季中杯、全明星赛共84场，季后赛四轮各4胜。第100场总决赛对手固定12名GOAT；夺冠后进入无限赛程，各概念神按身份ID顺序轮流带11名GOAT出战一场，全部轮完后每场随机12名不同概念神。",
   "standardMatchCount": 100,
   "regularSeason": {
     "matchCount": 82,
@@ -23,7 +23,7 @@
     "startsAfterStandardMatch": 100,
     "teamLevelStopsAt": 100,
     "goatProbabilityBonusPerWin": 0.005,
-    "conceptGodUpgradeUnlockWins": 11
+    "conceptGodUpgradeUnlockCondition": "championship"
   },
   "matchSimulation": {
     "quarterSeconds": 30,

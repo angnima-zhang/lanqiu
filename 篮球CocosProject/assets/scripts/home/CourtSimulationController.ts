@@ -342,10 +342,7 @@ export class CourtSimulationController extends Component {
         if (!this.simulationReady) {
             return;
         }
-        if (
-            this.actors.some((actor) => !actor.player)
-            || this.ballRetrieverPlayers.some((player) => !player)
-        ) {
+        if (!this.hasCompleteRoster()) {
             this.showWaitingForRoster();
             return;
         }
@@ -381,7 +378,7 @@ export class CourtSimulationController extends Component {
     }
 
     private runNextEvent = (): void => {
-        if (!this.simulationReady || this.actors.some((actor) => !actor.player)) {
+        if (!this.simulationReady) {
             return;
         }
         if (this.currentMode === 'scrimmage' && this.scrimmagePossessionActive) {
@@ -393,6 +390,11 @@ export class CourtSimulationController extends Component {
         const token = this.eventToken;
         this.stopAnimations();
         this.refreshRosterBindings();
+        // 退役可能使刚刷新的阵容缺员，不能再用上一回合的人数进入五人战术。
+        if (!this.hasCompleteRoster()) {
+            this.showWaitingForRoster();
+            return;
+        }
         if (!this.hasStartedMode || this.modeElapsedSeconds >= MODE_DURATIONS[this.currentMode]) {
             this.startNextMode();
         }
@@ -1672,10 +1674,16 @@ export class CourtSimulationController extends Component {
         });
     }
 
+    private hasCompleteRoster(): boolean {
+        return this.actors.length === 10
+            && this.actors.every((actor) => Boolean(actor.player))
+            && this.ballRetrieverPlayers.every((player) => Boolean(player));
+    }
+
     private showWaitingForRoster(): void {
         this.eventToken += 1;
         this.scrimmagePossessionActive = false;
-        this.unschedule(this.runNextEvent);
+        this.unscheduleAllCallbacks();
         this.stopAnimations();
         this.clearBallOwners();
         this.setBasketballCount(0);

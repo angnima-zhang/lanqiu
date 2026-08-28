@@ -245,7 +245,7 @@ export class RosterSlotView extends Component {
         setGrowingNumber(
             this.ovrLabel,
             this.currentOverall,
-            (value) => formatPlayerOverall(Math.floor(value)),
+            (value) => formatPlayerOverall(Math.floor(value)).replace(/\.\d+(?=[KBTQ]$)/, ''),
             {
                 animateGrowth: previousOverall > 0
                     && this.currentOverall > previousOverall,

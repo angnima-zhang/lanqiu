@@ -31,6 +31,7 @@ import {
     getTotalRecruitmentCount,
     INT32_MAX,
     loadGameSettings,
+    loadJson,
     loadManagementLevels,
     loadRoster,
     loadSeasonState,
@@ -119,6 +120,15 @@ interface ButtonVisualBinding {
 interface SettingToggleSprites {
     onSprite: SpriteFrame | null;
     offSprite: SpriteFrame | null;
+}
+
+interface ConceptGodKnowledgeConfig {
+    quality: { conceptGodQualityId: number; conceptGodQualityName: string };
+    conceptGodDefinitions: Record<string, Array<{
+        conceptGodId: string;
+        displayName: string;
+        lore: string;
+    }>>;
 }
 
 @ccclass('HomeUiController')
@@ -1013,10 +1023,27 @@ export class HomeUiController extends Component {
                 hasAnsweredPlayerKnowledgeQuestion(progress, question.id)
             )).length;
             if (completedCount >= entry.questions.length) {
-                titleLabel.string = '球员荣誉';
+                const conceptConfig = await loadJson<ConceptGodKnowledgeConfig>(
+                    'data/balance/concept_god_upgrade',
+                );
+                if (
+                    renderVersion !== this.knowledgeRenderVersion
+                    || this.currentKnowledgeSourceName !== card.sourcePlayerName
+                ) {
+                    return;
+                }
+                const isConceptGod = card.isConceptGod
+                    || card.qualityId === conceptConfig.quality.conceptGodQualityId
+                    || card.qualityName === conceptConfig.quality.conceptGodQualityName;
+                const definitions = conceptConfig.conceptGodDefinitions[card.sourcePlayerName] ?? [];
+                const conceptDefinition = isConceptGod
+                    ? definitions.find((definition) => definition.conceptGodId === card.conceptGodId)
+                        ?? definitions.find((definition) => definition.displayName === card.displayName)
+                    : null;
+                titleLabel.string = conceptDefinition ? '这无敌了吧' : '球员荣誉';
                 this.setPlayerKnowledgeQuestionText(
                     questionLabel,
-                    formatPlayerProfile(entry.profile),
+                    conceptDefinition?.lore ?? formatPlayerProfile(entry.profile),
                 );
                 yesButton.node.active = false;
                 noButton.node.active = false;

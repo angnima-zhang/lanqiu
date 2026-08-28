@@ -145,6 +145,14 @@ export class TeamLevelController extends Component {
         return this.addWillpower(this.config?._meta.recruitWillpowerReward ?? 0);
     }
 
+    public getRecruitmentsUntilWillpowerFull(): number {
+        if (!this.ready || this.isAtMaximumLevel()) {
+            return Number.MAX_SAFE_INTEGER;
+        }
+        const reward = this.config!._meta.recruitWillpowerReward;
+        return Math.ceil(Math.max(0, this.getCurrentRequirement() - this.state.willpower) / reward);
+    }
+
     public addWillpower(amount: number): number {
         if (!this.ready || this.isAtMaximumLevel()) {
             return 0;
@@ -322,7 +330,7 @@ export class TeamLevelController extends Component {
                 : needsWinToUpgrade
                     ? '获胜升级'
                     : '升级';
-        if (maximumLevel || canUpgrade || needsWinToUpgrade) {
+        if (canUpgrade || needsWinToUpgrade) {
             this.startButtonPulse();
         } else {
             this.stopButtonPulse();

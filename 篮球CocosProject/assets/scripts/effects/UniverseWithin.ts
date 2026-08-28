@@ -62,6 +62,8 @@ export class UniverseWithin extends Component {
     private _sprite: Sprite | null = null;
     private _applied: boolean = false;
     private _destroyed: boolean = false;
+    private _uvOriginAxis = new Vec4();
+    private _uvUpAxis = new Vec4();
 
     async onLoad(): Promise<void> {
         this._sprite = this.node.getComponent(Sprite);
@@ -81,6 +83,28 @@ export class UniverseWithin extends Component {
         this.syncResolution();
         this.syncTune();
         this.syncPalette();
+        this.syncSpriteUV();
+    }
+
+    lateUpdate(): void {
+        // SpriteFrame 换图或进入动态图集后，采样 UV 会变化；程序化背景仍需完整的 0..1 坐标。
+        this.syncSpriteUV();
+    }
+
+    private syncSpriteUV(): void {
+        const uv = this._sprite?.spriteFrame?.uv;
+        if (!this._material || !uv) return;
+        const axisX = uv[2] - uv[0];
+        const axisY = uv[3] - uv[1];
+        const upX = uv[4] - uv[0];
+        const upY = uv[5] - uv[1];
+        if (this._uvOriginAxis.x === uv[0] && this._uvOriginAxis.y === uv[1]
+            && this._uvOriginAxis.z === axisX && this._uvOriginAxis.w === axisY
+            && this._uvUpAxis.x === upX && this._uvUpAxis.y === upY) return;
+        this._uvOriginAxis.set(uv[0], uv[1], axisX, axisY);
+        this._uvUpAxis.set(upX, upY, 0, 0);
+        this._material.setProperty('uvOriginAxis', this._uvOriginAxis);
+        this._material.setProperty('uvUpAxis', this._uvUpAxis);
     }
 
     onDestroy(): void {

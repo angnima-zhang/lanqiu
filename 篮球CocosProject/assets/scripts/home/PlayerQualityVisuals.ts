@@ -7,9 +7,6 @@ import {
     QualityFrameShaderKind,
 } from '../effects/QualityFrameShader';
 import { UniverseWithin } from '../effects/UniverseWithin';
-import { XrayAvatarScan } from '../effects/XrayAvatarScan';
-
-const HIGH_QUALITY_MIN_ID = 10;
 const INJURY_OVERALL_COLOR = new Color(210, 99, 92, 255);
 const TRAINING_OVERALL_COLOR = new Color(95, 176, 118, 255);
 const originalOverallLabelColors = new WeakMap<Label, Color>();
@@ -63,7 +60,7 @@ const QUALITY_PRESETS: Readonly<Record<number, QualityVisualPreset>> = {
     8: { ...DEFAULT_PRESET, frameKind: 'crystal', framePrimary: new Color(184, 8, 8, 255), frameSecondary: new Color(255, 152, 120, 255), frameParams: new Vec4(6.3, 8.0, 0.19, 0.48), universeGlow: 0.7, universeBlend: 0.22, universeSparkle: 0.38, universeBase: new Color(104, 8, 8, 255), universeAccent: new Color(255, 152, 120, 255), numberEdge: new Color(216, 24, 24, 255), numberGlint: new Color(255, 192, 168, 255), numberFlow: new Vec4(2.0, 0.29, 0.19, 0.6), numberImpact: new Color(255, 192, 168, 255), numberImpactIntensity: 0.64 },
     9: { ...DEFAULT_PRESET, frameKind: 'crystal', framePrimary: new Color(136, 8, 184, 255), frameSecondary: new Color(240, 184, 255, 255), frameParams: new Vec4(6.1, 8.5, 0.21, 0.52), universeGlow: 0.78, universeBlend: 0.25, universeSparkle: 0.46, universeBase: new Color(58, 8, 96, 255), universeAccent: new Color(240, 184, 255, 255), numberEdge: new Color(168, 56, 216, 255), numberGlint: new Color(255, 208, 255, 255), numberFlow: new Vec4(2.05, 0.3, 0.2, 0.66), numberImpact: new Color(255, 208, 255, 255), numberImpactIntensity: 0.7 },
     10: { ...DEFAULT_PRESET, frameKind: 'crystal', framePrimary: new Color(88, 136, 168, 255), frameSecondary: new Color(168, 216, 248, 255), frameParams: new Vec4(6.0, 8.5, 0.22, 0.55), universeGlow: 0.86, universeBlend: 0.27, universeSparkle: 0.54, universeBase: new Color(24, 56, 80, 255), universeAccent: new Color(168, 216, 248, 255), numberEdge: new Color(120, 168, 200, 255), numberGlint: new Color(216, 248, 255, 255), numberFlow: new Vec4(2.05, 0.31, 0.2, 0.7), numberImpact: new Color(216, 248, 255, 255), numberImpactIntensity: 0.74 },
-    11: { ...DEFAULT_PRESET, frameKind: 'crystal', framePrimary: new Color(200, 40, 120, 255), frameSecondary: new Color(255, 192, 216, 255), frameParams: new Vec4(5.8, 9.0, 0.24, 0.58), universeGlow: 0.94, universeBlend: 0.29, universeSparkle: 0.64, universeBase: new Color(112, 8, 48, 255), universeAccent: new Color(255, 192, 216, 255), numberEdge: new Color(232, 88, 152, 255), numberGlint: new Color(255, 224, 238, 255), numberFlow: new Vec4(2.1, 0.32, 0.21, 0.75), numberImpact: new Color(255, 224, 238, 255), numberImpactIntensity: 0.8 },
+    11: { ...DEFAULT_PRESET, frameKind: 'crystal', framePrimary: new Color(200, 40, 120, 255), frameSecondary: new Color(255, 192, 216, 255), frameParams: new Vec4(5.8, 9.0, 0.24, 0.58), universeGlow: 0.94, universeBlend: 0.19, universeSparkle: 1.64, universeBase: new Color(112, 8, 48, 255), universeAccent: new Color(255, 192, 216, 255), numberEdge: new Color(232, 88, 152, 255), numberGlint: new Color(255, 224, 238, 255), numberFlow: new Vec4(2.1, 0.32, 0.21, 0.75), numberImpact: new Color(255, 224, 238, 255), numberImpactIntensity: 0.8 },
     12: { ...DEFAULT_PRESET, frameKind: 'crystal', framePrimary: new Color(168, 200, 248, 255), frameSecondary: new Color(255, 216, 232, 255), frameParams: new Vec4(5.7, 9.5, 0.28, 0.6), universeGlow: 0.98, universeBlend: 0.31, universeSparkle: 0.73, universeBase: new Color(130, 197, 232, 255), universeAccent: new Color(245, 180, 220, 255), universePrism: 0.3, numberEdge: new Color(168, 200, 248, 255), numberGlint: new Color(255, 224, 242, 255), numberFlow: new Vec4(2.1, 0.33, 0.22, 0.82), numberPrism: 0.3, numberImpact: new Color(255, 240, 252, 255), numberImpactIntensity: 0.88 },
     13: { ...DEFAULT_PRESET, frameKind: 'crystal', framePrimary: new Color(40, 168, 184, 255), frameSecondary: new Color(184, 248, 248, 255), frameParams: new Vec4(5.6, 10.0, 0.28, 0.62), universeGlow: 1.08, universeBlend: 0.34, universeSparkle: 0.84, universeBase: new Color(4, 76, 88, 255), universeAccent: new Color(184, 248, 248, 255), numberEdge: new Color(56, 184, 200, 255), numberGlint: new Color(208, 255, 255, 255), numberFlow: new Vec4(2.15, 0.34, 0.22, 0.86), numberImpact: new Color(208, 255, 255, 255), numberImpactIntensity: 0.94 },
     14: { ...DEFAULT_PRESET, frameKind: 'crystal', framePrimary: new Color(72, 136, 200, 255), frameSecondary: new Color(232, 255, 255, 255), frameParams: new Vec4(5.5, 10.5, 0.3, 0.65), universeGlow: 1.2, universeBlend: 0.37, universeSparkle: 0.95, universeBase: new Color(39, 104, 168, 255), universeAccent: new Color(232, 255, 255, 255), numberEdge: new Color(120, 184, 232, 255), numberGlint: new Color(255, 255, 255, 255), numberFlow: new Vec4(2.15, 0.35, 0.23, 0.92), numberImpact: new Color(255, 255, 255, 255), numberImpactIntensity: 1.0 },
@@ -174,33 +171,4 @@ export function triggerOverallNumberQualityImpact(
         preset.numberImpact,
         preset.numberImpactIntensity,
     );
-}
-
-export function playHighQualityPortraitReveal(
-    portrait: Sprite | null,
-    qualityId: number,
-): void {
-    if (!portrait || qualityId < HIGH_QUALITY_MIN_ID) {
-        return;
-    }
-
-    const preset = getPreset(qualityId);
-    const scan = portrait.getComponent(XrayAvatarScan)
-        ?? portrait.addComponent(XrayAvatarScan);
-    scan.targetSprite = portrait;
-    scan.loop = false;
-    scan.duration = 0.7;
-    scan.holdAfter = 0;
-    scan.sweepWidth = 0.045;
-    scan.dimness = 0.5;
-    scan.glowFalloff = 0.018;
-    scan.glowColor = preset.framePrimary;
-    scan.xrayTint = new Color(
-        Math.round(preset.framePrimary.r * 0.13),
-        Math.round(preset.framePrimary.g * 0.13),
-        Math.round(preset.framePrimary.b * 0.18),
-        255,
-    );
-    scan.stop();
-    scan.play();
 }

@@ -509,7 +509,7 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 24.04,
+      "x": 25.102,
       "y": -70.781,
       "z": 0
     },
@@ -586,7 +586,7 @@
       "b": 207,
       "a": 255
     },
-    "_string": "72222",
+    "_string": "123.45K",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 30,
@@ -1032,6 +1032,7 @@
     "selectButton": {
       "__id__": 31
     },
+    "eventButton": null,
     "_id": ""
   },
   {

@@ -29,7 +29,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "一、幻神级",
                             "categoryIsPowerTier":  false,
-                            "lore":  "1997总决赛G5，乔丹赛前食物中毒（流感），严重脱水+高烧39度，砍38分7篮板5助攻+抢断绝杀助攻，比赛结束瘫倒皮蓬怀里。唯一实锤打破所有if逻辑的存在",
+                            "lore":  "别人赛前加餐，他赛前叠负面状态。烧着打、虚着打，最后还得让皮蓬扶着走。对面最破防的不是输了，是发现他还没满血。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -43,7 +43,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "二、因果律级",
                             "categoryIsPowerTier":  false,
-                            "lore":  "系列赛G6专属buff：2016西决G6=11记三分41分，2018西决G6=9记三分35分，2019总决G6=伤前30分",
+                            "lore":  "前五场你们随意，第六场记得把球给我。佛祖一睁眼，三分线就成了罚球线。建议对面直接申请打G7，G6这关属于系统杀。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -57,7 +57,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "二、因果律级",
                             "categoryIsPowerTier":  false,
-                            "lore":  "只差最后一个助攻/篮板时的威少无法被阻挡——会无限抢前场板+无限分球，直到数据到位",
+                            "lore":  "九个篮板的时候，队友最好把手背到身后。就差一个了，你还跟我谈战术？这一板下来，禁区里站着的是谁不重要，姓威就行。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -71,7 +71,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "三、IF宇宙级",
                             "categoryIsPowerTier":  false,
-                            "lore":  "「如果」世界里的GOAT——如果保罗腿筋没伤、如果裁判没黑哨、如果杜兰特没踩线、如果队友不受伤……哈登球迷有无穷多个「如果」可以推导到至少4冠4FMVP",
+                            "lore":  "别急着数戒指，先把‘如果’加上。腿筋、哨子、鞋码，修复一个变量就多一冠。现实还在抢七，平行宇宙已经在挑第八根手指了。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -85,7 +85,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "三、IF宇宙级",
                             "categoryIsPowerTier":  false,
-                            "lore":  "如果AI身高2米但保持原有速度/变向/控球——「游戏平衡性归零」",
+                            "lore":  "一米八的变向给你配两米的机身，晃完脚踝还能顺手隔扣。不是，哥们，谁让你把身高拉满还保留原速度的？这号建议严查。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -99,7 +99,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "三、IF宇宙级",
                             "categoryIsPowerTier":  false,
-                            "lore":  "每年6-9月训练视频中三分连中、暴扣连发——常规赛开打后一个三分不投",
+                            "lore":  "训练视频里三分十连中，评论区已经开始分冠军了。唯一的弱点是赛程表。只要联盟宣布永不开赛，西帝就是永不落败。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -113,7 +113,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "三、IF宇宙级",
                             "categoryIsPowerTier":  false,
-                            "lore":  "「加拿大乔丹」球探报告满分——进联盟后把天赋装进保温杯泡了七年枸杞，2022季后赛才打开",
+                            "lore":  "枸杞倒了，保温杯砸了，今天不打十八分的卡。嘴哥一认真，对面才发现：原来以前不是防住了，是人家下班时间到了。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -127,7 +127,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "四、限时无敌级",
                             "categoryIsPowerTier":  false,
-                            "lore":  "詹姆斯的数据终极形态——场均三双、命中率60%+、防守一阵、总决赛从不拉胯。从Excel里爬出来的完美无缺版",
+                            "lore":  "先别放录像，咱们把Excel打开。得分篮板助攻全勾上，比赛还没开打，历史排名已经往上挪了三行。你拿什么跟单元格打？",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -141,7 +141,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "四、限时无敌级",
                             "categoryIsPowerTier":  false,
-                            "lore":  "2020泡泡赛季的AD：总决赛场均25+10.7，三分42%，防守覆盖半场。离开园区后再未恢复此水平",
+                            "lore":  "把球馆搬进园区，把出门按钮扣掉，浓眉直接切换限定皮肤。中投像后卫，护框像门神。建议湖人研究一下：能不能永久封闭训练？",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -155,7 +155,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "四、限时无敌级",
                             "categoryIsPowerTier":  false,
-                            "lore":  "科比选择传球的假设版本。讽刺的是科比靠「不合理」拿了5冠，但球迷总幻想「如果他愿意传球，该有多强」",
+                            "lore":  "两个人包夹？传了。三个人堵路？也传了。队友第一次接球还有点不习惯，张指导更难受：这回真合理了，我准备的词都没法用了。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -169,7 +169,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "四、限时无敌级",
                             "categoryIsPowerTier":  false,
-                            "lore":  "2004年12月9日对马刺，35秒内4记三分+1罚球=13分逆转。最后35秒的麦迪=暂停时间对他无效",
+                            "lore":  "还剩三十五秒，领先的已经准备发朋友圈了。麦迪：先别点发送。四记三分一响，对面连撤回都来不及，庆祝文案当场改成道歉声明。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -183,7 +183,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "四、限时无敌级",
                             "categoryIsPowerTier":  false,
-                            "lore":  "2008总决G1坐轮椅下场→生龙活虎回归连中三分。皮尔斯后来说「当时我可能只是要去上厕所」",
+                            "lore":  "轮椅推出去，满血跑回来，连进三分。别研究什么医疗奇迹了，这局的关键装备是卫生间钥匙。对面申请暂停，他申请冲水。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -197,7 +197,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "四、限时无敌级",
                             "categoryIsPowerTier":  false,
-                            "lore":  "2011总决G4，诺维茨基高烧39度仍砍21分+制胜球。致敬食物中毒丹",
+                            "lore":  "一边咳嗽一边金鸡独立，体温上去了，投篮手感也跟着预热。对面以为他需要退烧药，打完才发现需要降温的是自己的血压。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -211,7 +211,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "四、限时无敌级",
                             "categoryIsPowerTier":  false,
-                            "lore":  "阿耶莎赛前「奖励」库里→三分连中。反面：「奖励完腿软库」——被奖励后反而投不进",
+                            "lore":  "奖励内容暂时保密，三分命中率先给大家看看。人还没过半场，手已经痒了。对面教练研究一宿录像，不如研究一下赛前聊天记录。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -225,7 +225,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "五、高质量反差级",
                             "categoryIsPowerTier":  false,
-                            "lore":  "奥尼尔如果认真训练+保持体形——天赋碾压4冠的基础再叠加强迫症级自律",
+                            "lore":  "鲨鱼开始早睡、控糖、练罚球，联盟的好日子到头了。以前砍鲨是战术，现在砍鲨是给他凑分。中锋群连夜把群名改成了求职互助。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -239,7 +239,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "五、高质量反差级",
                             "categoryIsPowerTier":  false,
-                            "lore":  "22岁历史最年轻MVP，膝盖毁灭之前。虎扑评分9.2",
+                            "lore":  "这朵玫瑰把膝盖保修续到了永久，变向不减速，落地不看说明书。防守人刚摆好姿势，他已经扣完回去了。慢放？慢放也得买票追。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -253,7 +253,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "五、高质量反差级",
                             "categoryIsPowerTier":  false,
-                            "lore":  "活塞时期的乔丹接班人——场均21+9+7，脚踝毁了一切",
+                            "lore":  "‘乔丹接班人’这次不发体验卡，直接包年续费。能突能传还能抢板，脚踝也不请假了。前任还没退场，接班人已经把办公室收拾好了。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -267,7 +267,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "五、高质量反差级",
                             "categoryIsPowerTier":  false,
-                            "lore":  "状元中锋，大学时期统治力历史级。如果膝盖没碎——虎扑评分10.0(满分)",
+                            "lore":  "膝盖耐久锁死，状元说明书终于能翻到第二页。篮下一站，对面突破还没启动，先点开了传球键。这回不是选秀会赢了，是天天都能验货。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -281,7 +281,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "五、高质量反差级",
                             "categoryIsPowerTier":  false,
-                            "lore":  "这个假设本身已经是笑话——艾顿「强硬」等于矛盾修辞。虎扑评分3.6",
+                            "lore":  "艾顿主动要球，还主动找身体对抗？先别庆祝，核对一下证件。以前篮筐像烫手，这版恨不得把篮架扛走。建议严查，疑似换人代练。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -295,7 +295,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "五、高质量反差级",
                             "categoryIsPowerTier":  false,
-                            "lore":  "休赛期/训练中穿着连帽衫的安东尼——无解单打机器，正式比赛中脱下连帽衫后buff消失。球迷称：「Hoodie Melo would average 50」",
+                            "lore":  "帽子一戴，谁来都白给；帽子一摘，教练开始挠头。别讨论体系了，先讨论联盟能不能允许穿卫衣比赛。这件装备可比战术板值钱。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -309,7 +309,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "六、特定场景因果律",
                             "categoryIsPowerTier":  false,
-                            "lore":  "「Dame Time」看表时间。2014年0.9秒绝杀火箭、2019年挥手告别雷霆",
+                            "lore":  "前三节你看比分，最后一攻他看表。离三分线还两步？正好，省得挤。球进了还要冲你挥挥手，主打一个投递绝杀包邮到家。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -323,7 +323,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "六、特定场景因果律",
                             "categoryIsPowerTier":  false,
-                            "lore":  "2011年保罗被交易到湖人联手科比——被斯特恩以「篮球原因」否决。如果成功，NBA20年代格局完全改写",
+                            "lore":  "这条时间线把‘篮球原因’四个字删了，保罗终于穿上湖人球衣。科比负责得分，他负责让科比少运两下。其他队：我也有篮球原因，能撤回吗？",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -337,7 +337,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "六、特定场景因果律",
                             "categoryIsPowerTier":  false,
-                            "lore":  "2007年马刺vs小牛，邓肯坐在替补席上笑了起来，被裁判克劳福德吹技术犯规驱逐。NBA史上最荒谬的技犯之一",
+                            "lore":  "坐板凳都能领技犯，建议把笑容列入违禁动作。别人上场才有威胁，邓肯坐着乐两声就能影响吹罚。这才叫真正的板凳深度。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -351,7 +351,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "六、特定场景因果律",
                             "categoryIsPowerTier":  false,
-                            "lore":  "2014年马刺主场对鹈鹕，死球时邓肯原地举起手臂做了一个完整的「大风车」动作，双脚从未离地。邓肯「呆萌」人设的终极代表画面",
+                            "lore":  "手臂转了整整一圈，双脚愣是没离开地板。年轻人靠弹跳，老艺术家靠想象。扣篮大赛敢给九分？建议先看看他的表情，反正你也看不懂。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -365,7 +365,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "七、时序限定级",
                             "categoryIsPowerTier":  false,
-                            "lore":  "如果NBA缩减为60场+不用每两年打一次国家队比赛，姚明的膝盖和脚至少延长3-5年巅峰",
+                            "lore":  "背靠背取消，加班申请驳回，姚主席终于能按时下班了。每晚满电进禁区，对面中锋轮流当挂件。以前怕赛程，现在该赛程怕他了。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -379,7 +379,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "八、纯玩梗/搞笑向",
                             "categoryIsPowerTier":  false,
-                            "lore":  "每次换发型/染发后状态爆表——2020园区爆炸头、2023金毛。「发型=战斗形态切换器」",
+                            "lore":  "别人休赛期练投篮，他先去找托尼老师。爆炸头、脏辫、斜刘海，换的不是发型，是季后赛形态。教练别画战术了，预约理发比较实在。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -393,7 +393,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "八、纯玩梗/搞笑向",
                             "categoryIsPowerTier":  false,
-                            "lore":  "2015-16扣篮大赛——罚球线360、罚球线大风车……超越人类身体极限",
+                            "lore":  "罚球线起飞算基础款，空中转一圈才开始上菜。别人落地了，他还在找镜头。建议篮筐装个航空灯，这位不归裁判管，得归空管。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -407,7 +407,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "八、纯玩梗/搞笑向",
                             "categoryIsPowerTier":  false,
-                            "lore":  "2014年国家队训练断腿重伤→复出后反而更强。「断腿=自动升级」",
+                            "lore":  "这版乔治把腿的耐久调成了无限，突破不用读条，落地不用存档。步行者那把刀终于不用裹着泡沫纸上场了，防守人先给自己买份保险吧。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -421,7 +421,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "八、纯玩梗/搞笑向",
                             "categoryIsPowerTier":  false,
-                            "lore":  "穿上USA球衣的KD——FIBA规则下的终极兵器，中投一切",
+                            "lore":  "NBA里还讲点人情，换上国家队球衣直接不装了。你伸手够不到，不伸手更没用。中投一抬就是标准答案，这题建议国际篮联换个考纲。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -435,7 +435,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "八、纯玩梗/搞笑向",
                             "categoryIsPowerTier":  false,
-                            "lore":  "2010年热身赛中国vs巴西——巴西球员持续挑衅，朱芳雨上去就是一套组合拳KO对手，是中国男篮最著名的「打架名场面」",
+                            "lore":  "三分线外是神射手，贴身挑衅就像走错了片场。别人热身练投篮，他一活动肩膀，对面先申请文明比赛。龙拳不必真开，威慑力已经拉满。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -449,7 +449,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "八、纯玩梗/搞笑向",
                             "categoryIsPowerTier":  false,
-                            "lore":  "2019年世界杯中国vs波兰加时赛，周琦两次边线发球失误。直接断送东京奥运资格，此后「边线球」成为中国篮球的PTSD级词汇",
+                            "lore":  "边线一站，全场开始屏息。传球路线连队友都猜不到，你说这保密工作到不到位？建议战术板直接写‘随机应变’，主教练也算参与抽奖。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -463,7 +463,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "九、反向概念神（削弱版）",
                             "categoryIsPowerTier":  false,
-                            "lore":  "常规赛模式的伦纳德——「load management」，不出力",
+                            "lore":  "常规赛只是加载界面，季后赛才点开始游戏。别人拼出勤，他攒电量；问就是负荷管理。等这台机器终于开机，对面才发现没给自己留关机键。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -477,7 +477,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "九、反向概念神（削弱版）",
                             "categoryIsPowerTier":  false,
-                            "lore":  "吉诺比利外号「妖刀」，波波维奇常年限时（生涯场均仅25.4分钟），当他打满全场=阿根廷乔丹上线",
+                            "lore":  "波波的限时令一撤，妖刀直接开成电锯。欧洲步拐到你怀疑导航，传球缝小得得拿放大镜找。不是他需要休息，是对面需要喘口气。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -491,7 +491,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "十、v3 球员补充概念神",
                             "categoryIsPowerTier":  false,
-                            "lore":  "体重从300磅减下来——「如果不反弹，他就是下一个巴克利+现代打法」",
+                            "lore":  "体重条往左拉，扣篮条往右爆。食堂少上一盘，对面禁区多挨一轮。以前担心地板承重，现在担心篮筐售后，体重秤成了球队头号助教。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -505,7 +505,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "十、v3 球员补充概念神",
                             "categoryIsPowerTier":  false,
-                            "lore":  "1991年因HIV退役时仅31岁正值巅峰。如果从未感染，GOAT讨论完全不一样",
+                            "lore":  "这条时间线把生涯暂停键扣了，魔术师继续拿中锋身板打控卫。眼睛看左边，球从右边穿过去。你以为他传丢了？是队友还没跑进答案里。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -519,7 +519,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "十、v3 球员补充概念神",
                             "categoryIsPowerTier":  false,
-                            "lore":  "「集锦乔丹」——只看高光无敌，看完整场=铁匠。2018总决G1抢篮板后「以为我们领先」",
+                            "lore":  "只保留神仙球，打铁和看错比分统统剪掉。视频一开，乔丹来了都得拖进度条找破绽。你拿整场比赛比？不好意思，这位只活在高光里。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -533,7 +533,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "十、v3 球员补充概念神",
                             "categoryIsPowerTier":  false,
-                            "lore":  "2019季后赛期间儿子出生——出生前场均4分，出生后东决场均16分，总决G6砍22分夺冠",
+                            "lore":  "孩子一出生，三分技能自动解锁，原来之前一直在等家庭版更新。对面研究怎么夹击，猛龙研究能不能多发点育儿补贴。奶粉钱，必须投出来。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -547,7 +547,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "十、v3 球员补充概念神",
                             "categoryIsPowerTier":  false,
-                            "lore":  "从队友手里断球自己投——全联盟唯一「连队友都防」的男人",
+                            "lore":  "别人抢断看球衣，他抢断只看球。队友刚过半场，他先伸手了。全场九个人都得防着他，这防守覆盖面你就说大不大吧。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -561,7 +561,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "十、v3 球员补充概念神",
                             "categoryIsPowerTier":  false,
-                            "lore":  "白人身体里的黑人灵魂——太阳跑轰革命、街头花活、长发飘飘",
+                            "lore":  "传球脑子还是纳什，弹跳条偷偷拉满。以前喂队友吃饼，现在饼都飞到嘴边了，他自己跳起来先吃。建议检查球员编辑器，谁把滑条拉过头了？",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -569,13 +569,13 @@
                         {
                             "conceptGodId":  "concept_god_040",
                             "index":  40,
-                            "displayName":  "生对时代韦",
+                            "displayName":  "有半月板韦",
                             "sourcePlayerName":  "Dwyane Wade",
                             "rosterSourcePlayerName":  "Dwyane Wade",
                             "sourceInNormalRoster":  true,
                             "category":  "十、v3 球员补充概念神",
                             "categoryIsPowerTier":  false,
-                            "lore":  "2006版韦德放小球时代至少场均35分",
+                            "lore":  "少个半月板都能当闪电侠，原厂满配还得了？这条时间线膝盖没动过刀，变向不掉耐久，起步不讲道理。防守人：建议把他送回原来的存档。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -589,7 +589,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "十、v3 球员补充概念神",
                             "categoryIsPowerTier":  false,
-                            "lore":  "场上运球之神，场下地平说代言人+烧鼠尾草。只要他在球场上就是篮球之神",
+                            "lore":  "今天不研究地球形状，不搞场外课题，准点打卡只聊篮球。运球键终于没有附带选修课。队友感动得想哭：原来全勤的欧文才是稀有皮肤。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -603,7 +603,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "十、v3 球员补充概念神",
                             "categoryIsPowerTier":  false,
-                            "lore":  "认真训练不打闹的霍华德——3次DPOY只是起点",
+                            "lore":  "笑容关了，花活停了，魔兽开始认真卡位护框。对面刚把球举起来，他已经在空中验货。原来快乐篮球少一点，别人的快乐就能少一大半。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -617,7 +617,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "十、v3 球员补充概念神",
                             "categoryIsPowerTier":  false,
-                            "lore":  "如果阿联生在小球时代打四号位→下一个波尔津吉斯",
+                            "lore":  "阿联这回赶上了空间内线版本，能投能跑还能护框。以前教练问你怎么老往外站，现在教练求你再往外挪点。没换球员，换个年代直接真香。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -631,7 +631,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "十、v3 球员补充概念神",
                             "categoryIsPowerTier":  false,
-                            "lore":  "2026年3月与未婚妻解除婚约——8场场均40.9分9板8助，带队6胜0负",
+                            "lore":  "恋爱暂停，背打上线。消息可以不回，换防必须点名。别人失恋删照片，他在这条时间线删的是对面领先优势。建议防守人别劝，容易被多打一个。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -645,7 +645,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "十、v3 球员补充概念神",
                             "categoryIsPowerTier":  false,
-                            "lore":  "「逍遥王」从不训练照样30分，如果认真练——「国家队第一大前可能就不叫易建联了」",
+                            "lore":  "逍遥王把‘随便练练’改成‘今天加练’，队友第一反应是看错日历了。以前靠天赋就够吃，现在连训练也卷上了，这是不给同行留饭啊。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -659,7 +659,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "十、v3 球员补充概念神",
                             "categoryIsPowerTier":  false,
-                            "lore":  "2006年世锦赛全场1投1中（5.8秒全场一条龙急停三分）绝杀斯洛文尼亚",
+                            "lore":  "前面不进都算铺垫，最后那记三分才是正文。王仕鹏按下发送键，对面整场努力直接变成背景素材。什么叫代表作？这一球够评论区循环播放了。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -673,7 +673,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "十、v3 球员补充概念神",
                             "categoryIsPowerTier":  false,
-                            "lore":  "自封「中国历史第一大前锋」，经典怼：「谁公认的？」",
+                            "lore":  "历史第一大前这事，提名、投票、颁奖全由本人完成。谁公认的？我公认的。质疑请先排队，颁奖感言已经讲到自己能打哪个年代了。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
                             "valueConfig":  "balance/concept_god_values.json"
@@ -687,7 +687,7 @@
                             "sourceInNormalRoster":  true,
                             "category":  "十、v3 球员补充概念神",
                             "categoryIsPowerTier":  false,
-                            "lore":  "前国手+CCTV解说，对科比无条件吹捧，球迷戏称「卫平·布莱恩特」，经典口头禅「这球合理！」",
+                            "lore":  "科比迎着三个人出手：合理！队友空位没进：这球不该这么打。张指导一开麦，命中率先放一边，合理率必须百分之百。解说席自带紫金滤镜。",
                             "drawWeight":  1,
                             "ovrStatus":  "dynamic_lineup_formula",
             "valueConfig":  "balance/concept_god_values.json"
@@ -701,7 +701,7 @@
             "sourceInNormalRoster":  true,
             "category":  "十、v3 球员补充概念神",
             "categoryIsPowerTier":  false,
-            "lore":  "《NBA 2K14》里的杰里米·兰姆被玩家戏称为数值怪物；当现实球员带着游戏里的异常能力值上场，就是2K蓝姆。",
+            "lore":  "现实履历先收起来，咱们按2K存档说话。三分、突破、隔扣随便按，能力值写得很谦虚，打出来一点不客气。建议查查名单文件，这哥们像充了会员。",
             "drawWeight":  1,
             "ovrStatus":  "dynamic_lineup_formula",
             "valueConfig":  "balance/concept_god_values.json"

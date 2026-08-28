@@ -51,6 +51,7 @@ import {
     setCurrentMatchSession,
 } from './MatchSession';
 import { TeamLevelController } from './TeamLevelController';
+import { STANDARD_MATCH_COUNT } from './SeasonRoute';
 import { PlayerEventController } from './PlayerEventController';
 import {
     RecruitmentProbabilityConfig,
@@ -82,6 +83,16 @@ interface PlayerOvrRange {
 
 interface PlayerOvrRangesConfig {
     ranges: PlayerOvrRange[];
+}
+
+interface OpponentConceptGodConfig {
+    quality: {
+        goatQualityId: number;
+        conceptGodQualityId: number;
+        conceptGodQualityName: string;
+    };
+    eligibleSourcePlayerNames: string[];
+    conceptGodDefinitions: Record<string, Array<{ conceptGodId: string; displayName: string }>>;
 }
 
 const OPPONENT_ROSTER_SIZE = 12;
@@ -121,6 +132,7 @@ export class PreMatchController extends Component {
     private playerOvrRanges: PlayerOvrRangesConfig | null = null;
     private matchRewards: MatchRewardsConfig | null = null;
     private recruitmentProbability: RecruitmentProbabilityConfig | null = null;
+    private conceptGodConfig: OpponentConceptGodConfig | null = null;
     private loadPromise: Promise<void> | null = null;
     private cardRenderVersion = 0;
     private pageRequestVersion = 0;
@@ -270,11 +282,13 @@ export class PreMatchController extends Component {
             loadJson<PlayerOvrRangesConfig>('data/balance/player_ovr_ranges'),
             loadJson<MatchRewardsConfig>('data/balance/match_rewards'),
             loadJson<RecruitmentProbabilityConfig>('data/balance/recruitment_probability'),
+            loadJson<OpponentConceptGodConfig>('data/balance/concept_god_upgrade'),
         ]).then(([
             playerConfig,
             playerOvrRanges,
             matchRewards,
             recruitmentProbability,
+            conceptGodConfig,
         ]) => {
             if (
                 !Array.isArray(playerConfig.players)
@@ -292,6 +306,7 @@ export class PreMatchController extends Component {
             this.playerOvrRanges = playerOvrRanges;
             this.matchRewards = matchRewards;
             this.recruitmentProbability = recruitmentProbability;
+            this.conceptGodConfig = conceptGodConfig;
         }).catch((error) => {
             console.error('[PreMatchController] Failed to load pre-match data.', error);
         });
@@ -305,6 +320,7 @@ export class PreMatchController extends Component {
             || !this.playerOvrRanges
             || !this.matchRewards
             || !this.recruitmentProbability
+            || !this.conceptGodConfig
         ) {
             return;
         }
@@ -347,10 +363,7 @@ export class PreMatchController extends Component {
         };
         const teamName = sys.localStorage.getItem(TEAM_NAME_STORAGE_KEY)?.trim()
             || '我的球队';
-        const opponentTeamName = this.getOpponentTeamName(
-            seasonState,
-            opponentRoster,
-        );
+        const opponentTeamName = this.getOpponentTeamName(seasonState);
         const occupiedRosterCount = roster.filter(Boolean).length;
 
         this.setLabel(
@@ -458,17 +471,21 @@ export class PreMatchController extends Component {
             this.getStableSeed(`${numericSeedPrefix}-quality-order`),
         );
 
-        return Array.from({ length: OPPONENT_ROSTER_SIZE }, (_, index) => {
+        const finalMatch = matchId === `standard-${STANDARD_MATCH_COUNT}`;
+        const infiniteMatch = matchId.startsWith('infinite-');
+        const roster: PlayerCard[] = Array.from({ length: OPPONENT_ROSTER_SIZE }, (_, index) => {
             const qualityRoll = qualityRolls[index];
             const overallRoll = this.createDeterministicRandom(
                 `${numericSeedPrefix}-overall-${index}`,
             )();
             const qualityIndex = this.drawWeightedIndex(profile.weights, qualityRoll);
-            const qualityId = profile.qualityIds[qualityIndex];
-            const qualityName = profile.qualityNames[qualityIndex];
+            const qualityId = finalMatch || infiniteMatch
+                ? this.conceptGodConfig!.quality.goatQualityId
+                : profile.qualityIds[qualityIndex];
             const range = this.playerOvrRanges!.ranges.find(
                 (candidate) => candidate.qualityId === qualityId,
             );
+            const qualityName = range?.qualityName ?? profile.qualityNames[qualityIndex];
             const minimumOverall = Math.max(1, Math.floor(range?.minOvr ?? 1));
             const maximumOverall = Math.max(
                 minimumOverall,
@@ -505,6 +522,64 @@ export class PreMatchController extends Component {
                 lineupSinceMs: null,
             };
         });
+        if (infiniteMatch) {
+            this.applyInfiniteOpponentLineup(roster, matchId);
+        }
+        return roster;
+    }
+
+    private applyInfiniteOpponentLineup(roster: PlayerCard[], matchId: string): void {
+        const config = this.conceptGodConfig!;
+        const goatRange = this.playerOvrRanges!.ranges.find(
+            (range) => range.qualityId === config.quality.goatQualityId,
+        );
+        // 同一概念神可能配置了中英文原型别名，轮换时只占一个场次。
+        const seenConceptGodIds = new Set<string>();
+        const candidates = this.playerConfig!.players.filter((player) => (
+            player.quality === config.quality.goatQualityId
+            && config.eligibleSourcePlayerNames.includes(player.sourcePlayerName)
+        )).flatMap((template) => (
+            (config.conceptGodDefinitions[template.sourcePlayerName] ?? [])
+                .map((definition) => ({ template, definition }))
+        )).filter(({ definition }) => {
+            if (seenConceptGodIds.has(definition.conceptGodId)) return false;
+            seenConceptGodIds.add(definition.conceptGodId);
+            return true;
+        }).sort((left, right) => (
+            left.definition.conceptGodId.localeCompare(right.definition.conceptGodId)
+        ));
+        if (!goatRange || candidates.length === 0) {
+            throw new Error('Missing opponent concept-god templates or GOAT OVR range.');
+        }
+        const roundIndex = Number(matchId.slice('infinite-'.length)) - 1;
+        const selected = roundIndex < candidates.length
+            ? [candidates[roundIndex]]
+            : this.shuffleDeterministically(
+                candidates,
+                this.getStableSeed(`${matchId}-concept-god-lineup`),
+            ).slice(0, OPPONENT_ROSTER_SIZE);
+        const random = this.createDeterministicRandom(`${matchId}-opponent-concept-god`);
+        // 沿用首名概念神的区间，不读取或增加玩家累计获得数量。
+        const minimumOverall = Math.floor(goatRange.minOvr * 1.01);
+        const maximumOverall = Math.floor(goatRange.maxOvr * 1.01);
+        selected.forEach(({ template, definition }, index) => {
+            const overall = minimumOverall + Math.floor(
+                random() * (maximumOverall - minimumOverall + 1),
+            );
+            roster[index] = {
+                ...roster[index],
+                templateId: template.id,
+                sourcePlayerName: template.sourcePlayerName,
+                displayName: definition.displayName,
+                position: template.position,
+                qualityId: config.quality.conceptGodQualityId,
+                qualityName: config.quality.conceptGodQualityName,
+                isConceptGod: true,
+                conceptGodId: definition.conceptGodId,
+                overall,
+                attributes: this.allocateAttributes(overall, template.attributes),
+            };
+        });
     }
 
     private resolveOpponentLevel(seasonState: SeasonState): number {
@@ -513,18 +588,9 @@ export class PreMatchController extends Component {
             : Math.max(0, Math.min(100, Math.floor(seasonState.matchNumber)));
     }
 
-    private getOpponentTeamName(
-        seasonState: SeasonState,
-        opponentRoster: readonly PlayerCard[],
-    ): string {
+    private getOpponentTeamName(seasonState: SeasonState): string {
         if (seasonState.infiniteMode) {
-            const strongestOpponent = opponentRoster.reduce(
-                (strongest, card) => !strongest || card.overall > strongest.overall
-                    ? card
-                    : strongest,
-                null as PlayerCard | null,
-            );
-            return strongestOpponent?.displayName ?? '概念神';
+            return '篮球概念神';
         }
         const standardMatchCount = Math.max(
             1,

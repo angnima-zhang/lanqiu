@@ -999,9 +999,9 @@
     {
       "conceptGodId": "concept_god_040",
       "madeActions": ["layup", "jumper"],
-      "signature": "空间彻底拉开，{{player}}的第一步直接冲进无人区。",
-      "reverse": "现代空间已经给足，篮筐这次却没有给面子。",
-      "clutch": ["最强突破手遇上最宽空间，{{player}}启动关键一攻！", "这个时代，终于没有人能堵住他的第一步！"]
+      "signature": "原厂半月板还在，{{player}}这一步快得防守人只剩转播视角。",
+      "reverse": "半月板是满配，篮筐可没签包进协议，这球还是弹了出来。",
+      "clutch": ["这次膝盖不拖后腿，{{player}}连续变向，直接把协防甩进慢镜头！", "少个半月板都敢叫闪电侠，满配版还让他起速？这回真追不上了！"]
     },
     {
       "conceptGodId": "concept_god_041",

@@ -1,9 +1,12 @@
 import {
     _decorator,
+    BlockInputEvents,
     Button,
     Color,
     Component,
     EffectAsset,
+    EventTouch,
+    Graphics,
     JsonAsset,
     Label,
     Material,
@@ -25,6 +28,7 @@ import {
     getStoredMarketValueLevel,
     getStoredTeamLevel,
     TEAM_PROGRESSION_EVENT_LEVEL_CHANGED,
+    TEAM_PROGRESSION_EVENT_WILLPOWER_CHANGED,
     TeamLevelController,
     teamProgressionEvents,
 } from './TeamLevelController';
@@ -48,6 +52,8 @@ import {
     getRecruitmentUpperQualityPityMissCount,
     getRecruitmentAdHighestQualityPityCount,
     getRecruitmentAdProbabilityBoostCount,
+    getRecruitmentAutoDismissEnabled,
+    setRecruitmentAutoDismissEnabled,
     getManagementEffects,
     getRosterSnapshot as cloneRosterSnapshot,
     loadRoster,
@@ -93,10 +99,10 @@ import { gameAudio } from './GameAudio';
 import {
     applyOverallNumberQuality,
     applyPlayerQualityVisuals,
-    playHighQualityPortraitReveal,
     triggerOverallNumberQualityImpact,
 } from './PlayerQualityVisuals';
 import { PlayerEventController } from './PlayerEventController';
+import { PortraitUpgradeReveal } from '../effects/PortraitUpgradeReveal';
 import {
     formatPlayerProfile,
     loadPlayerKnowledgeConfig,
@@ -120,10 +126,14 @@ const AD_RECRUIT_LABEL = `${AD_RECRUIT_COUNT}连抽`;
 const RECRUITMENT_PROFILE_HONOR_LIMIT = 5;
 const NEGATIVE_OVERALL_COLOR = new Color(220, 55, 55, 255);
 const CONTINUOUS_RECRUIT_START_DELAY_SECONDS = 1;
+const CONTINUOUS_RECRUIT_MAX_HOLD_SECONDS = 3;
+const CONTINUOUS_RECRUIT_MAX_LEVEL_GROWTH_PER_SECOND = 50;
 const CONTINUOUS_RECRUIT_GROWTH_INTERVAL_SECONDS = 0.1;
 const CONTINUOUS_RECRUIT_MINIMUM_COUNT = 2;
 const CONTINUOUS_RECRUIT_DEFAULT_COUNT = 5;
 const CONTINUOUS_RECRUIT_MAX_FONT_SIZE = 50;
+const AUTO_DISMISS_HOLD_SECONDS = 2;
+const AUTO_DISMISS_SEGMENT_SECONDS = 1.5;
 
 type AttributeKey = typeof ATTRIBUTE_KEYS[number];
 
@@ -199,6 +209,7 @@ interface EconomyConfig {
 interface ConceptGodDefinition {
     conceptGodId: string;
     displayName: string;
+    lore: string;
 }
 
 interface ConceptGodUpgradeConfig {
@@ -213,9 +224,14 @@ interface ConceptGodUpgradeConfig {
         minimumIncrease: number;
         integerMaximum: number;
     };
+    goatOverallUpgrade: {
+        increasePercent: number;
+        integerMaximum: number;
+    };
     frontend: {
         normalQualityButtonLabel: string;
         eligibleGoatButtonLabel: string;
+        ineligibleGoatButtonLabel: string;
         attributeButtonLabel: string;
     };
     eligibleSourcePlayerNames: string[];
@@ -259,6 +275,15 @@ export class RecruitmentController extends Component {
     private continuousRecruitLabelLocked = false;
     private continuousRecruitLockedCount = 0;
     private dismissButton: Button | null = null;
+    private autoDismissLabel: Label | null = null;
+    private autoDismissDefaultText = '';
+    private autoDismissEnabled = false;
+    private autoDismissCount = 0;
+    private autoDismissBatchLocked = false;
+    private recruitmentInputBlocker: Node | null = null;
+    private dismissHoldStartedAtMs = 0;
+    private suppressNextDismissClick = false;
+    private dismissHoldFill: Graphics | null = null;
     private replaceButton: Button | null = null;
     private replaceButtonLabel: Label | null = null;
     private upgradeAdButton: Button | null = null;
@@ -266,7 +291,6 @@ export class RecruitmentController extends Component {
     private replacementPanel: Node | null = null;
     private replacedSlot: RosterSlotView | null = null;
     private replacedNameLabel: Label | null = null;
-    private overallIncreaseLabel: Label | null = null;
     private overallIncreaseValueLabel: Label | null = null;
     private overallIncreaseValueDefaultColor: Color | null = null;
     private candidatePortrait: Sprite | null = null;
@@ -311,10 +335,12 @@ export class RecruitmentController extends Component {
     private queuedContinuousRecruitments: QueuedRecruitmentResult[] = [];
     private adTripleRecruitmentActive = false;
     private continuousRecruitmentActive = false;
+    private continuousRecruitmentBatchCount = 0;
     private resultPageClosing = false;
     private pendingContinuousRecruitmentCount = 0;
     private continuousRecruitCount = 0;
     private continuousRecruitHolding = false;
+    private continuousRecruitHoldStartedAtMs = 0;
     private continuousRecruitReady = false;
     private ready = false;
     private processing = false;
@@ -324,6 +350,7 @@ export class RecruitmentController extends Component {
             wechat: this.wechatRewardedAdUnitId,
             tapTap: this.tapRewardedAdUnitId,
         });
+        this.autoDismissEnabled = getRecruitmentAutoDismissEnabled();
         this.resolveSceneReferences();
         if (!this.hasRequiredReferences()) {
             console.error('[RecruitmentController] Missing recruitment UI references.');
@@ -354,6 +381,10 @@ export class RecruitmentController extends Component {
             true,
         );
         this.dismissButton?.node.on(Button.EventType.CLICK, this.onDismissClicked, this);
+        this.dismissButton?.node.on(Node.EventType.TOUCH_START, this.onDismissTouchStart, this, true);
+        this.dismissButton?.node.on(Node.EventType.TOUCH_MOVE, this.onDismissTouchMove, this, true);
+        this.dismissButton?.node.on(Node.EventType.TOUCH_END, this.onDismissTouchEnd, this, true);
+        this.dismissButton?.node.on(Node.EventType.TOUCH_CANCEL, this.onDismissTouchCancel, this, true);
         this.replaceButton?.node.on(Button.EventType.CLICK, this.onReplaceClicked, this);
         this.upgradeAdButton?.node.on(
             Button.EventType.CLICK,
@@ -375,6 +406,7 @@ export class RecruitmentController extends Component {
             this.refreshBudgetView,
             this,
         );
+        teamProgressionEvents.on(TEAM_PROGRESSION_EVENT_WILLPOWER_CHANGED, this.refreshBudgetView, this);
     }
 
     protected start(): void {
@@ -402,6 +434,12 @@ export class RecruitmentController extends Component {
             true,
         );
         this.dismissButton?.node.off(Button.EventType.CLICK, this.onDismissClicked, this);
+        this.dismissButton?.node.off(Node.EventType.TOUCH_START, this.onDismissTouchStart, this, true);
+        this.dismissButton?.node.off(Node.EventType.TOUCH_MOVE, this.onDismissTouchMove, this, true);
+        this.dismissButton?.node.off(Node.EventType.TOUCH_END, this.onDismissTouchEnd, this, true);
+        this.dismissButton?.node.off(Node.EventType.TOUCH_CANCEL, this.onDismissTouchCancel, this, true);
+        this.stopDismissHold();
+        this.setAutoDismissBatchLocked(false);
         this.replaceButton?.node.off(Button.EventType.CLICK, this.onReplaceClicked, this);
         this.upgradeAdButton?.node.off(
             Button.EventType.CLICK,
@@ -423,6 +461,7 @@ export class RecruitmentController extends Component {
             this.refreshBudgetView,
             this,
         );
+        teamProgressionEvents.off(TEAM_PROGRESSION_EVENT_WILLPOWER_CHANGED, this.refreshBudgetView, this);
     }
 
     private resolveSceneReferences(): void {
@@ -516,9 +555,6 @@ export class RecruitmentController extends Component {
         this.replacedNameLabel = this.replacementPanel
             ?.getChildByName('被替换球员名字')
             ?.getComponent(Label) ?? null;
-        this.overallIncreaseLabel = this.replacementPanel
-            ?.getChildByName('总评提升')
-            ?.getComponent(Label) ?? null;
         this.overallIncreaseValueLabel = this.replacementPanel
             ?.getChildByName('总评提升数值')
             ?.getComponent(Label) ?? null;
@@ -526,6 +562,10 @@ export class RecruitmentController extends Component {
             ?.color.clone() ?? null;
 
         this.dismissButton = this.resultPage.getChildByName('解雇')?.getComponent(Button) ?? null;
+        this.autoDismissLabel = this.dismissButton?.node.getChildByName('自动解雇')
+            ?.getComponent(Label) ?? null;
+        this.autoDismissDefaultText = this.autoDismissLabel?.string ?? '';
+        this.refreshAutoDismissLabel();
         this.replaceButton = this.resultPage.children
             .find((child) => child.name === '替换' && Boolean(child.getComponent(Button)))
             ?.getComponent(Button) ?? null;
@@ -653,6 +693,7 @@ export class RecruitmentController extends Component {
             return;
         }
         this.continuousRecruitHolding = true;
+        this.continuousRecruitHoldStartedAtMs = Date.now();
         this.continuousRecruitReady = false;
         this.continuousRecruitCount = 0;
         this.scheduleOnce(
@@ -662,6 +703,9 @@ export class RecruitmentController extends Component {
     };
 
     private onRecruitTouchEnd = (): void => {
+        if (this.continuousRecruitReady) {
+            this.growContinuousRecruitment();
+        }
         const batchCount = this.continuousRecruitReady
             ? this.continuousRecruitCount
             : 0;
@@ -686,11 +730,7 @@ export class RecruitmentController extends Component {
             return;
         }
         this.continuousRecruitReady = true;
-        this.continuousRecruitCount = Math.min(
-            CONTINUOUS_RECRUIT_DEFAULT_COUNT,
-            maximum,
-        );
-        this.refreshContinuousRecruitLabel();
+        this.growContinuousRecruitment();
         if (this.continuousRecruitCount < maximum) {
             this.schedule(
                 this.growContinuousRecruitment,
@@ -705,10 +745,16 @@ export class RecruitmentController extends Component {
             return;
         }
         const maximum = this.getMaxContinuousRecruitmentCount();
-        this.continuousRecruitCount = Math.min(
-            maximum,
-            this.continuousRecruitCount + 1,
-        );
+        const initialCount = Math.min(CONTINUOUS_RECRUIT_DEFAULT_COUNT, maximum);
+        const growthMilliseconds = Math.max(0, Date.now() - this.continuousRecruitHoldStartedAtMs
+            - CONTINUOUS_RECRUIT_START_DELAY_SECONDS * 1000);
+        const maximumLevel = this.teamLevelController?.getSnapshot()?.maxLevel
+            ?? getStoredTeamLevel() >= 100;
+        const growthCount = maximumLevel
+            ? growthMilliseconds * CONTINUOUS_RECRUIT_MAX_LEVEL_GROWTH_PER_SECOND / 1000
+            : (maximum - initialCount) * Math.min(1, growthMilliseconds
+                / ((CONTINUOUS_RECRUIT_MAX_HOLD_SECONDS - CONTINUOUS_RECRUIT_START_DELAY_SECONDS) * 1000));
+        this.continuousRecruitCount = Math.min(maximum, Math.floor(initialCount + growthCount));
         this.refreshContinuousRecruitLabel();
         if (this.continuousRecruitCount >= maximum) {
             this.unschedule(this.growContinuousRecruitment);
@@ -717,6 +763,7 @@ export class RecruitmentController extends Component {
 
     private stopContinuousRecruitHold(): void {
         this.continuousRecruitHolding = false;
+        this.continuousRecruitHoldStartedAtMs = 0;
         this.continuousRecruitReady = false;
         this.continuousRecruitCount = 0;
         this.unschedule(this.activateContinuousRecruitment);
@@ -800,6 +847,9 @@ export class RecruitmentController extends Component {
         const budgetAfterSpend = getBalance(this.economyConfig.initialBudget);
         this.processing = true;
         this.continuousRecruitmentActive = true;
+        this.continuousRecruitmentBatchCount = spentCards.length;
+        this.autoDismissCount = 0;
+        this.setAutoDismissBatchLocked(this.autoDismissEnabled);
         this.showRecruitingButtonVisual();
         this.budget = budgetAfterSpend;
         this.refreshBudgetView();
@@ -813,7 +863,7 @@ export class RecruitmentController extends Component {
                 willpowerAdded: this.teamLevelController?.addRecruitWillpower() ?? 0,
             };
         });
-        void this.waitForSeconds(RECRUITING_DELAY_SECONDS)
+        void (this.autoDismissEnabled ? Promise.resolve() : this.waitForSeconds(RECRUITING_DELAY_SECONDS))
             .then(() => this.showNextContinuousRecruitmentResult())
             .catch((error) => {
                 console.error('[RecruitmentController] Continuous recruitment failed.', error);
@@ -963,6 +1013,9 @@ export class RecruitmentController extends Component {
                 };
             });
             this.adTripleRecruitmentActive = true;
+            this.autoDismissCount = 0;
+            this.setAutoDismissBatchLocked(this.autoDismissEnabled);
+            this.refreshBudgetView();
             await this.showNextAdRecruitmentResult();
         } catch (error) {
             console.error('[RecruitmentController] Ad triple recruitment failed.', error);
@@ -970,6 +1023,7 @@ export class RecruitmentController extends Component {
             this.adTripleRecruitmentActive = false;
         } finally {
             if (!this.adTripleRecruitmentActive) {
+                this.setAutoDismissBatchLocked(false);
                 this.processing = false;
                 this.restoreRecruitButtonVisual();
                 this.refreshBudgetView();
@@ -992,41 +1046,95 @@ export class RecruitmentController extends Component {
     }
 
     private async showNextAdRecruitmentResult(): Promise<void> {
-        const next = this.queuedAdRecruitments.shift();
-        if (!next) {
-            this.finishAdTripleRecruitment();
-            return;
-        }
-
-        this.pendingCard = next.card;
-        this.pendingWillpowerAdded = next.willpowerAdded;
-        this.upgradeAdProcessing = false;
-        this.pendingUpgradeAdUsed = false;
-        this.pendingDecision = this.getCurrentRecruitmentDecision();
-        await this.showRecruitmentResult(
-            next.card,
-            this.pendingDecision,
-            next.willpowerAdded,
+        await this.showNextQueuedRecruitmentResult(
+            this.queuedAdRecruitments,
+            () => this.finishAdTripleRecruitment(),
         );
     }
 
     private async showNextContinuousRecruitmentResult(): Promise<void> {
-        const next = this.queuedContinuousRecruitments.shift();
-        if (!next) {
-            this.finishContinuousRecruitment();
+        await this.showNextQueuedRecruitmentResult(
+            this.queuedContinuousRecruitments,
+            () => this.finishContinuousRecruitment(),
+        );
+    }
+
+    private async showNextQueuedRecruitmentResult(
+        queue: QueuedRecruitmentResult[],
+        finish: () => void,
+    ): Promise<void> {
+        const paced = this.autoDismissEnabled;
+        const showAtMs = Date.now() + AUTO_DISMISS_SEGMENT_SECONDS * 1000;
+        if (paced) {
+            this.setAutoDismissBatchLocked(true);
+            this.refreshBudgetView();
+        }
+        while (queue.length > 0) {
+            if (paced) {
+                const decision = this.getCurrentRecruitmentDecision();
+                // 只预估下一张可展示结果的位置，不提前移除后续球员或累计计数。
+                const visibleIndex = queue.findIndex((result) => !this.shouldAutoDismiss(result.card, decision));
+                const remainingSteps = visibleIndex < 0 ? queue.length : visibleIndex + 1;
+                const delay = Math.max(0, showAtMs - Date.now()) / 1000 / remainingSteps;
+                if (delay > 0) {
+                    await this.waitForSeconds(delay);
+                }
+                if (!this.isValid || !this.enabledInHierarchy) {
+                    return;
+                }
+            }
+            const next = queue[0];
+            let decision = this.getCurrentRecruitmentDecision();
+            if (paced && !this.shouldAutoDismiss(next.card, decision)) {
+                // 若等待期间阵容发生变化、提前遇到可保留球员，仍等到本段的 1.5 秒再展示。
+                const remainingSeconds = Math.max(0, showAtMs - Date.now()) / 1000;
+                if (remainingSeconds > 0) {
+                    await this.waitForSeconds(remainingSeconds);
+                    if (!this.isValid || !this.enabledInHierarchy) {
+                        return;
+                    }
+                    decision = this.getCurrentRecruitmentDecision();
+                }
+            }
+            queue.shift();
+            if (this.shouldAutoDismiss(next.card, decision)) {
+                this.autoDismissCount += 1;
+                this.refreshContinuousRecruitLabel();
+                continue;
+            }
+            this.pendingCard = next.card;
+            this.pendingWillpowerAdded = next.willpowerAdded;
+            this.upgradeAdProcessing = false;
+            this.pendingUpgradeAdUsed = false;
+            this.pendingDecision = decision;
+            await this.showRecruitmentResult(next.card, decision, next.willpowerAdded);
             return;
         }
+        finish();
+    }
 
-        this.pendingCard = next.card;
-        this.pendingWillpowerAdded = next.willpowerAdded;
-        this.upgradeAdProcessing = false;
-        this.pendingUpgradeAdUsed = false;
-        this.pendingDecision = this.getCurrentRecruitmentDecision();
-        await this.showRecruitmentResult(
-            next.card,
-            this.pendingDecision,
-            next.willpowerAdded,
-        );
+    private setAutoDismissBatchLocked(locked: boolean): void {
+        this.autoDismissBatchLocked = locked;
+        const canvas = this.resultPage?.parent;
+        if (locked && canvas) {
+            if (!this.recruitmentInputBlocker) {
+                const blocker = new Node('自动解雇输入锁');
+                blocker.layer = canvas.layer;
+                canvas.addChild(blocker);
+                blocker.addComponent(UITransform);
+                blocker.addComponent(BlockInputEvents);
+                this.recruitmentInputBlocker = blocker;
+            }
+            const canvasTransform = canvas.getComponent(UITransform)!;
+            const transform = this.recruitmentInputBlocker.getComponent(UITransform)!;
+            transform.setContentSize(canvasTransform.contentSize);
+            transform.setAnchorPoint(canvasTransform.anchorPoint);
+            // 结果展示时会自行移到最上层；其余界面一直锁到整轮结算完。
+            this.recruitmentInputBlocker.setSiblingIndex(canvas.children.length - 1);
+        }
+        if (this.recruitmentInputBlocker?.isValid) {
+            this.recruitmentInputBlocker.active = locked;
+        }
     }
 
     private async showRecruitmentResultAfterDelay(
@@ -1045,7 +1153,123 @@ export class RecruitmentController extends Component {
         );
     }
 
+    private refreshAutoDismissLabel(): void {
+        if (this.autoDismissLabel) {
+            this.autoDismissLabel.string = this.autoDismissEnabled
+                ? '长按2秒关闭自动解雇'
+                : this.autoDismissDefaultText;
+        }
+    }
+
+    private onDismissTouchStart(): void {
+        this.stopDismissHold();
+        this.suppressNextDismissClick = false;
+        if (!this.dismissButton?.interactable || !this.resultPage?.activeInHierarchy
+            || this.resultPageClosing || !this.pendingCard) {
+            return;
+        }
+        const transform = this.dismissButton.node.getComponent(UITransform);
+        if (transform) {
+            if (!this.dismissHoldFill) {
+                const fillNode = new Node('自动解雇长按进度');
+                fillNode.active = false;
+                fillNode.layer = this.dismissButton.node.layer;
+                this.dismissButton.node.addChild(fillNode);
+                fillNode.setSiblingIndex(0);
+                fillNode.addComponent(UITransform);
+                this.dismissHoldFill = fillNode.addComponent(Graphics);
+                this.dismissHoldFill.fillColor = new Color(48, 220, 170, 150);
+            }
+            const fillTransform = this.dismissHoldFill.node.getComponent(UITransform)!;
+            fillTransform.setContentSize(transform.contentSize);
+            fillTransform.setAnchorPoint(transform.anchorPoint);
+            this.dismissHoldFill.clear();
+            this.dismissHoldFill.node.active = true;
+        }
+        this.dismissHoldStartedAtMs = Date.now();
+    }
+
+    private updateDismissHoldProgress(): void {
+        if (!this.dismissHoldStartedAtMs) {
+            return;
+        }
+        if (!this.dismissButton?.interactable || !this.resultPage?.activeInHierarchy
+            || this.resultPageClosing) {
+            this.stopDismissHold();
+            return;
+        }
+        const progress = Math.min(1,
+            (Date.now() - this.dismissHoldStartedAtMs) / (AUTO_DISMISS_HOLD_SECONDS * 1000));
+        if (this.dismissHoldFill) {
+            const transform = this.dismissHoldFill.node.getComponent(UITransform)!;
+            this.dismissHoldFill.clear();
+            this.dismissHoldFill.rect(
+                -transform.width * transform.anchorX + 6,
+                -transform.height * transform.anchorY + 6,
+                Math.max(0, transform.width - 12) * progress,
+                Math.max(0, transform.height - 12),
+            );
+            this.dismissHoldFill.fill();
+        }
+        if (progress >= 1) {
+            this.dismissHoldStartedAtMs = 0;
+            this.suppressNextDismissClick = true;
+            this.autoDismissEnabled = !this.autoDismissEnabled;
+            setRecruitmentAutoDismissEnabled(this.autoDismissEnabled);
+            this.refreshAutoDismissLabel();
+            if (this.autoDismissEnabled) {
+                if (this.continuousRecruitmentActive || this.adTripleRecruitmentActive) {
+                    this.autoDismissCount += 1;
+                    this.setAutoDismissBatchLocked(true);
+                    this.refreshBudgetView();
+                }
+                this.closeResultPage('dissolve');
+            }
+            this.refreshContinuousRecruitLabel();
+        }
+    }
+
+    private onDismissTouchMove(event: EventTouch): void {
+        const transform = this.dismissButton?.node.getComponent(UITransform);
+        if (event.touch && transform && !transform.hitTest(event.touch.getLocation(), event.windowId)) {
+            this.onDismissTouchCancel();
+        }
+    }
+
+    private onDismissTouchEnd(): void {
+        this.updateDismissHoldProgress();
+        this.stopDismissHold();
+    }
+
+    private onDismissTouchCancel(): void {
+        this.stopDismissHold();
+        this.suppressNextDismissClick = true;
+    }
+
+    private stopDismissHold(): void {
+        this.dismissHoldStartedAtMs = 0;
+        if (this.dismissHoldFill?.isValid) {
+            this.dismissHoldFill.node.active = false;
+        }
+    }
+
+    private shouldAutoDismiss(card: PlayerCard, decision: RecruitmentResultDecision): boolean {
+        if (this.isGoat(card)) {
+            return false;
+        }
+        if (!this.autoDismissEnabled || (!this.continuousRecruitmentActive && !this.adTripleRecruitmentActive)
+            || decision.mode !== 'replace' || decision.targetIndex === null) {
+            return false;
+        }
+        const replacedPlayer = this.roster[decision.targetIndex];
+        return Boolean(replacedPlayer && card.qualityId < replacedPlayer.qualityId);
+    }
+
     private onDismissClicked(): void {
+        if (this.suppressNextDismissClick) {
+            this.suppressNextDismissClick = false;
+            return;
+        }
         if (
             this.resultPageClosing
             || !this.pendingCard
@@ -1106,18 +1330,19 @@ export class RecruitmentController extends Component {
                 wechat: this.wechatRewardedAdUnitId,
                 tapTap: this.tapRewardedAdUnitId,
             });
-            if (!completed || this.pendingCard !== card) {
+            if (!completed || this.pendingCard !== card || !this.isValid
+                || !this.resultPage?.activeInHierarchy || this.resultPageClosing) {
                 return;
             }
 
             this.pendingUpgradeAdUsed = true;
-            const upgraded = (
-                this.isConceptGod(card)
-                || (this.isGoat(card) && !this.canBecomeConceptGod(card))
-            )
+            const previousQuality = card.qualityId;
+            const upgraded = this.isConceptGod(card)
                 ? this.upgradeRandomAttribute(card)
                 : this.isGoat(card)
-                    ? this.upgradeGoatToConceptGod(card)
+                    ? this.canBecomeConceptGod(card)
+                        ? this.upgradeGoatToConceptGod(card)
+                        : this.upgradeGoatOverall(card)
                     : this.upgradeNormalQuality(card);
             if (!upgraded) {
                 this.pendingUpgradeAdUsed = false;
@@ -1125,15 +1350,20 @@ export class RecruitmentController extends Component {
             }
 
             this.pendingDecision = this.getCurrentRecruitmentDecision();
-            await this.showRecruitmentResult(
-                card,
-                this.pendingDecision,
-                this.pendingWillpowerAdded,
-                false,
+            const refreshVisuals = () => this.showRecruitmentResult(
+                card, this.pendingDecision!, this.pendingWillpowerAdded, false,
             );
+            const portraitRoot = this.resultPage?.getChildByName('球员头像');
+            if (portraitRoot && card.qualityId !== previousQuality) {
+                const reveal = portraitRoot.getComponent(PortraitUpgradeReveal)
+                    ?? portraitRoot.addComponent(PortraitUpgradeReveal);
+                await reveal.play(refreshVisuals);
+            } else {
+                await refreshVisuals();
+            }
         } finally {
             this.upgradeAdProcessing = false;
-            if (this.pendingCard && this.pendingDecision) {
+            if (this.isValid && this.resultPage?.activeInHierarchy && this.pendingCard && this.pendingDecision) {
                 this.restoreResultButtons(this.pendingDecision);
                 this.refreshUpgradeAdButton(this.pendingCard);
             }
@@ -1188,7 +1418,7 @@ export class RecruitmentController extends Component {
         const multiplier = 1 + 0.01 * cumulativeCount;
         const minOvr = Math.floor(goatRange.minOvr * multiplier);
         const maxOvr = Math.floor(goatRange.maxOvr * multiplier);
-        const conceptOverall = this.rollOverall(minOvr, maxOvr);
+        const conceptOverall = Math.max(card.overall, this.rollOverall(minOvr, maxOvr));
 
         card.qualityId = config.quality.conceptGodQualityId;
         card.qualityName = config.quality.conceptGodQualityName;
@@ -1258,6 +1488,19 @@ export class RecruitmentController extends Component {
         if (changed) {
             saveRoster(this.roster);
         }
+    }
+
+    private upgradeGoatOverall(card: PlayerCard): boolean {
+        const config = this.conceptGodUpgradeConfig?.goatOverallUpgrade;
+        if (!config || card.overall >= config.integerMaximum) {
+            return false;
+        }
+        const previousOverall = card.overall;
+        card.overall = Math.min(
+            config.integerMaximum,
+            Math.round(previousOverall * (1 + config.increasePercent)),
+        );
+        return card.overall > previousOverall;
     }
 
     private upgradeRandomAttribute(card: PlayerCard): boolean {
@@ -1367,8 +1610,9 @@ export class RecruitmentController extends Component {
             return this.canUpgradeAttribute(card);
         }
         if (this.isGoat(card)) {
+            const config = this.conceptGodUpgradeConfig?.goatOverallUpgrade;
             return this.canBecomeConceptGod(card)
-                || this.canUpgradeAttribute(card);
+                || Boolean(config && card.overall < config.integerMaximum);
         }
         return Boolean(this.getNextNormalQualityRange(card.qualityId));
     }
@@ -1382,19 +1626,14 @@ export class RecruitmentController extends Component {
             return;
         }
 
-        let canUpgrade = true;
+        const canUpgrade = this.canUpgradeFromAd(card);
         if (this.isConceptGod(card)) {
             this.upgradeAdButtonLabel.string = config.frontend.attributeButtonLabel;
-            canUpgrade = this.canUpgradeAttribute(card);
         } else if (this.isGoat(card)) {
-            if (this.canBecomeConceptGod(card)) {
-                this.upgradeAdButtonLabel.string = config.frontend.eligibleGoatButtonLabel;
-            } else {
-                this.upgradeAdButtonLabel.string = config.frontend.attributeButtonLabel;
-                canUpgrade = this.canUpgradeAttribute(card);
-            }
+            this.upgradeAdButtonLabel.string = this.canBecomeConceptGod(card)
+                ? config.frontend.eligibleGoatButtonLabel
+                : config.frontend.ineligibleGoatButtonLabel;
         } else {
-            canUpgrade = Boolean(this.getNextNormalQualityRange(card.qualityId));
             this.upgradeAdButtonLabel.string = config.frontend.normalQualityButtonLabel;
         }
 
@@ -1402,6 +1641,10 @@ export class RecruitmentController extends Component {
             && !forceDisabled
             && !this.upgradeAdProcessing
             && !this.pendingUpgradeAdUsed;
+        const buttonSprite = this.upgradeAdButton.target?.getComponent(Sprite);
+        if (buttonSprite) {
+            buttonSprite.grayscale = !this.upgradeAdButton.interactable;
+        }
     }
 
     private restoreResultButtons(decision: RecruitmentResultDecision): void {
@@ -1424,8 +1667,9 @@ export class RecruitmentController extends Component {
             probabilityBoost10Active,
             probabilityBoost5Active,
         );
-        const cheatMode = isCheatModeEnabled();
-        const recruitedSourceNames = cheatMode
+        const teamLevel = this.teamLevelController?.getSnapshot()?.teamLevel ?? getStoredTeamLevel();
+        const allowDuplicatePlayers = isCheatModeEnabled() || teamLevel > 80;
+        const recruitedSourceNames = allowDuplicatePlayers
             ? new Set<string>()
             : new Set(
                 loadRoster(this.rosterSlots.length).flatMap((card) => (
@@ -1435,7 +1679,7 @@ export class RecruitmentController extends Component {
         const pool = this.playerConfig.players.filter((player) => (
             player.quality === draw.qualityId
             && !recruitedSourceNames.has(player.sourcePlayerName)
-            && (cheatMode || !excludedSourceNames.has(player.sourcePlayerName))
+            && (allowDuplicatePlayers || !excludedSourceNames.has(player.sourcePlayerName))
         ));
         const range = this.ovrConfig.ranges.find((item) => item.qualityId === draw.qualityId);
         if (pool.length === 0 || !range) {
@@ -1595,6 +1839,13 @@ export class RecruitmentController extends Component {
         playEntrance = true,
     ): Promise<void> {
         this.resultPageClosing = false;
+        this.stopDismissHold();
+        this.suppressNextDismissClick = false;
+        if (playEntrance) {
+            // 单抽始终展示；连招的自动解雇已在顺序队列中处理。
+            decision = this.getCurrentRecruitmentDecision();
+            this.pendingDecision = decision;
+        }
         const [
             portrait,
             background,
@@ -1648,11 +1899,14 @@ export class RecruitmentController extends Component {
         this.candidateNameLabel!.string = card.displayName;
         this.candidateQualityLabel!.string = card.qualityName;
         this.candidatePositionLabel!.string = card.position;
+        const conceptDefinition = this.isConceptGod(card)
+            ? this.selectConceptGodDefinition(card)
+            : null;
         if (this.candidateProfileTitleLabel) {
-            this.candidateProfileTitleLabel.string = '球员资料';
+            this.candidateProfileTitleLabel.string = conceptDefinition ? '这无敌了吧' : '球员资料';
         }
         if (this.candidateProfileLabel) {
-            this.candidateProfileLabel.string = formatPlayerProfile(
+            this.candidateProfileLabel.string = conceptDefinition?.lore ?? formatPlayerProfile(
                 playerKnowledge?.players[card.sourcePlayerName]?.profile,
                 RECRUITMENT_PROFILE_HONOR_LIMIT,
             );
@@ -1692,7 +1946,6 @@ export class RecruitmentController extends Component {
         this.replacementPanel!.active = Boolean(replacedPlayer);
         if (replacedPlayer) {
             this.replacedNameLabel && (this.replacedNameLabel.string = replacedPlayer.displayName);
-            this.overallIncreaseLabel && (this.overallIncreaseLabel.string = '总评提升');
             const replacementRoster = this.roster.map((player, index) => {
                 return index === decision.targetIndex ? card : player;
             });
@@ -1739,16 +1992,15 @@ export class RecruitmentController extends Component {
         if (playEntrance) {
             gameAudio.playVictory();
             await playFullScreenEntrance(this.resultPage!, {
-                speedMultiplier: this.continuousRecruitmentActive ? 2 : 1,
+                speedMultiplier: this.getResultPageSpeedMultiplier(),
             });
             triggerOverallNumberQualityImpact(
                 this.candidateOverallLabel,
                 card.qualityId,
             );
-            playHighQualityPortraitReveal(this.candidatePortrait, card.qualityId);
         }
-        this.dismissButton!.interactable = dismissInteractable;
-        this.replaceButton!.interactable = replaceInteractable;
+        this.dismissButton!.interactable = dismissInteractable && !this.upgradeAdProcessing;
+        this.replaceButton!.interactable = replaceInteractable && !this.upgradeAdProcessing;
         this.refreshUpgradeAdButton(card);
     }
 
@@ -1785,6 +2037,7 @@ export class RecruitmentController extends Component {
             return;
         }
         this.resultPageClosing = true;
+        this.stopDismissHold();
         if (this.dismissButton) {
             this.dismissButton.interactable = false;
         }
@@ -1802,7 +2055,7 @@ export class RecruitmentController extends Component {
         if (this.resultPage?.active) {
             void exitWithFade(
                 this.resultPage,
-                this.continuousRecruitmentActive ? 2 : 1,
+                this.getResultPageSpeedMultiplier(),
             ).then(() => {
                 this.finishCloseResultPage();
             });
@@ -1857,10 +2110,18 @@ export class RecruitmentController extends Component {
 
     // ---- Dissolve effect ----
 
+    private getResultPageSpeedMultiplier(): number {
+        if (!this.continuousRecruitmentActive) {
+            return 1;
+        }
+        return this.continuousRecruitmentBatchCount > 30 ? 4 : 2;
+    }
+
     private dissolveResultPage(): void {
         const effect = this.dissolveEffectAsset!;
         const materials: Material[] = [];
         const sprites: Sprite[] = [];
+        const originalMaterials: Array<Material | null> = [];
         const labels: { label: Label; originalColor: Color }[] = [];
 
         this.collectSprites(this.resultPage!, (sprite) => {
@@ -1868,6 +2129,7 @@ export class RecruitmentController extends Component {
             mat.initialize({ effectAsset: effect, defines: { USE_TEXTURE: true } });
             mat.setProperty('dissolveParams', new Vec4(0, 0.12, 8.0, 0));
             mat.setProperty('edgeColor', new Color(255, 160, 30, 255));
+            originalMaterials.push(sprite.customMaterial);
             sprite.customMaterial = mat;
             materials.push(mat);
             sprites.push(sprite);
@@ -1877,7 +2139,7 @@ export class RecruitmentController extends Component {
             labels.push({ label, originalColor: label.color.clone() });
         });
 
-        const duration = this.continuousRecruitmentActive ? 0.25 : 0.5;
+        const duration = 0.5 / this.getResultPageSpeedMultiplier();
         const startTime = Date.now();
         const tick = (): void => {
             const elapsed = (Date.now() - startTime) / 1000;
@@ -1891,7 +2153,13 @@ export class RecruitmentController extends Component {
                 label.color = c;
             });
             if (t >= 1) {
-                sprites.forEach((s) => { s.customMaterial = null; });
+                // 溶解只是临时材质，不能清掉 bg 等节点的常驻 Shader。
+                sprites.forEach((sprite, index) => {
+                    if (sprite.isValid && sprite.customMaterial === materials[index]) {
+                        const original = originalMaterials[index];
+                        sprite.customMaterial = original?.isValid ? original : null;
+                    }
+                });
                 labels.forEach(({ label, originalColor }) => { label.color = originalColor; });
                 materials.forEach((m) => m.destroy());
                 this.finishCloseResultPage();
@@ -1925,6 +2193,7 @@ export class RecruitmentController extends Component {
     private finishAdTripleRecruitment(): void {
         this.queuedAdRecruitments = [];
         this.adTripleRecruitmentActive = false;
+        this.setAutoDismissBatchLocked(false);
         this.processing = false;
         this.restoreRecruitButtonVisual();
         this.refreshBudgetView();
@@ -1933,6 +2202,8 @@ export class RecruitmentController extends Component {
     private finishContinuousRecruitment(): void {
         this.queuedContinuousRecruitments = [];
         this.continuousRecruitmentActive = false;
+        this.continuousRecruitmentBatchCount = 0;
+        this.setAutoDismissBatchLocked(false);
         this.processing = false;
         this.restoreRecruitButtonVisual();
         this.resetContinuousRecruitLabel();
@@ -1977,11 +2248,11 @@ export class RecruitmentController extends Component {
                 .replace(/\.00(?=[KMBTQ]$)/, ''),
         );
         if (this.recruitButton) {
-            this.recruitButton.interactable = this.processing
+            this.recruitButton.interactable = !this.autoDismissBatchLocked && (this.processing
                 || (
                     this.ready
                     && !this.resultPage?.active
-                );
+                ));
         }
         if (this.recruitButtonTargetSprite) {
             this.recruitButtonTargetSprite.grayscale = false;
@@ -1991,19 +2262,37 @@ export class RecruitmentController extends Component {
         }
     }
 
-    private getMaxContinuousRecruitmentCount(): number {
+    private getBudgetRecruitmentCount(): number {
         const cost = this.getRecruitmentCost();
         if (!Number.isFinite(cost) || cost <= 0) {
             return 0;
         }
-        if (isCheatModeEnabled()) {
-            return Number.MAX_SAFE_INTEGER;
-        }
-        return Math.max(0, Math.floor(this.budget / cost));
+        return isCheatModeEnabled()
+            ? Number.MAX_SAFE_INTEGER
+            : Math.max(0, Math.floor(this.budget / cost));
+    }
+
+    private getMaxContinuousRecruitmentCount(): number {
+        const budgetLimit = this.getBudgetRecruitmentCount();
+        // 斗志满后仍可单抽补强；满级不再受升级进度限制。
+        const progressionLimit = Math.max(
+            1,
+            this.teamLevelController?.getRecruitmentsUntilWillpowerFull() ?? Number.MAX_SAFE_INTEGER,
+        );
+        return Math.min(budgetLimit, progressionLimit);
     }
 
     private refreshContinuousRecruitLabel(): void {
         if (!this.continuousRecruitLabel || !this.continuousRecruitRichText) {
+            return;
+        }
+        if (this.autoDismissEnabled && (this.continuousRecruitmentActive || this.adTripleRecruitmentActive)) {
+            this.setContinuousRecruitLabel(
+                `自动解雇X${this.autoDismissCount}`,
+                CONTINUOUS_RECRUIT_MAX_FONT_SIZE,
+                [String(this.autoDismissCount)],
+                [],
+            );
             return;
         }
         if (this.continuousRecruitLabelLocked) {
@@ -2018,7 +2307,10 @@ export class RecruitmentController extends Component {
             );
             return;
         }
-        const maximum = this.getMaxContinuousRecruitmentCount();
+        // 普通提示只看预算；长按选定数量仍遵守实际招募上限。
+        const maximum = this.continuousRecruitReady
+            ? this.getMaxContinuousRecruitmentCount()
+            : this.getBudgetRecruitmentCount();
         const activeCount = Math.max(0, this.continuousRecruitCount);
         const displayCount = this.continuousRecruitReady
             ? activeCount
@@ -2198,9 +2490,12 @@ export class RecruitmentController extends Component {
 
     protected lateUpdate(): void {
         this.syncRecruitButtonEffect();
+        this.updateDismissHoldProgress();
     }
 
     protected onDestroy(): void {
+        this.recruitmentInputBlocker?.destroy();
+        this.recruitmentInputBlocker = null;
         if (
             this.recruitButtonTargetSprite?.isValid
             && this.recruitButtonTargetSprite.customMaterial === this.recruitButtonEffectMaterial

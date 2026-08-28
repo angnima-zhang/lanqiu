@@ -32,6 +32,8 @@ CCEffect %{
         paletteBase: { value: [0.282, 0.565, 0.847, 1.0], target: paletteTintA, editor: { type: color } }
         paletteAccent: { value: [0.816, 0.941, 1.0, 1.0], target: paletteTintB, editor: { type: color } }
         palettePrism: { value: 0.0, target: paletteParams.x, editor: { slide: true, range: [0.0, 1.0] } }
+        uvOriginAxis: { value: [0.0, 1.0, 1.0, 0.0] }
+        uvUpAxis: { value: [0.0, -1.0, 0.0, 0.0] }
 }%
 
 CCProgram universe-vs %{
@@ -99,6 +101,11 @@ CCProgram universe-fs %{
     vec4 paletteTintA;
     vec4 paletteTintB;
     vec4 paletteParams;
+  };
+
+  uniform SpriteUV {
+    vec4 uvOriginAxis;
+    vec4 uvUpAxis;
   };
 
   // ---- Noise / Grid helpers ----
@@ -186,7 +193,15 @@ CCProgram universe-fs %{
     o.rgb = texColor.rgb;
 
     vec2 r = resolution;
-    vec2 fragCoord = uv0 * r;
+    vec2 deltaUV = uv0 - uvOriginAxis.xy;
+    vec2 rightUV = uvOriginAxis.zw;
+    vec2 upUV = uvUpAxis.xy;
+    float determinant = rightUV.x * upUV.y - rightUV.y * upUV.x;
+    vec2 spriteUV = vec2(
+      (deltaUV.x * upUV.y - deltaUV.y * upUV.x) / determinant,
+      1.0 - (rightUV.x * deltaUV.y - rightUV.y * deltaUV.x) / determinant
+    );
+    vec2 fragCoord = spriteUV * r;
 
     vec2 uv = (fragCoord - r * .5) / r.y;
     float t = cc_time.x * tune.x;
@@ -218,8 +233,7 @@ CCProgram universe-fs %{
 
     // Circular vignette
     col *= 1. - dot(uv, uv);
-    t = mod(cc_time.x, 230.);
-    col *= S(0., 20., t) * S(224., 200., t);
+   
 
     // Blend: cosmic overlay on top of sprite
     o.rgb = mix(o.rgb, col, tune.z);

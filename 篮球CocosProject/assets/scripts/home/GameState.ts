@@ -73,6 +73,7 @@ export const RECRUITMENT_UPPER_QUALITY_PITY_MISS_LIMIT = 10;
 export const RECRUITMENT_AD_HIGHEST_QUALITY_PITY_STORAGE_KEY = 'basketball.recruitment.ad-highest-quality-pity.v1';
 export const RECRUITMENT_AD_HIGHEST_QUALITY_PITY_LIMIT = 10;
 export const RECRUITMENT_AD_PROBABILITY_BOOST_DRAW_COUNT = 10;
+const RECRUITMENT_AUTO_DISMISS_STORAGE_KEY = 'basketball.recruitment.auto-dismiss.v1';
 
 export type RecruitmentAdProbabilityBoostPercent = 5 | 10;
 
@@ -359,6 +360,14 @@ export function trySpend(amount: number): boolean {
 
 export function add(amount: number): number {
     return addBudget(amount);
+}
+
+export function getRecruitmentAutoDismissEnabled(): boolean {
+    return sys.localStorage.getItem(RECRUITMENT_AUTO_DISMISS_STORAGE_KEY) === 'true';
+}
+
+export function setRecruitmentAutoDismissEnabled(enabled: boolean): void {
+    sys.localStorage.setItem(RECRUITMENT_AUTO_DISMISS_STORAGE_KEY, String(enabled));
 }
 
 export function getLowestRecruitmentQualityProtectionCount(): number {
@@ -1286,15 +1295,14 @@ export function advanceSeasonAfterWin(
     if (state.infiniteMode) {
         state.infiniteWins = Math.min(INT32_MAX, state.infiniteWins + 1);
         state.infiniteMatchNumber = Math.min(INT32_MAX, state.infiniteMatchNumber + 1);
-        state.conceptGodUpgradeUnlocked = state.infiniteWins >= 11;
     } else if (state.matchNumber < STANDARD_MATCH_COUNT) {
         state.matchNumber += 1;
     } else {
         state.infiniteMode = true;
         state.infiniteMatchNumber = 1;
         state.infiniteWins = 0;
-        state.conceptGodUpgradeUnlocked = false;
     }
+    state.conceptGodUpgradeUnlocked = state.infiniteMode;
     saveSeasonState(state);
     return true;
 }
@@ -1451,7 +1459,8 @@ function normalizeSeasonState(value: Partial<SeasonState>): SeasonState {
         infiniteMode,
         infiniteMatchNumber,
         infiniteWins,
-        conceptGodUpgradeUnlocked: infiniteMode && infiniteWins >= 11,
+        // 进入无限赛程即已夺冠；旧存档也按此条件补齐解锁状态。
+        conceptGodUpgradeUnlocked: infiniteMode,
         lastSettledMatchId: normalizeMatchId(value.lastSettledMatchId),
         lastSettledPlayerInstanceIds: normalizePlayerInstanceIds(
             value.lastSettledPlayerInstanceIds,

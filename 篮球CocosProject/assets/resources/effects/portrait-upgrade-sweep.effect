@@ -1,0 +1,60 @@
+CCEffect %{
+  techniques:
+  - passes:
+    - vert: portrait-upgrade-vs:vert
+      frag: portrait-upgrade-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      rasterizerState:
+        cullMode: none
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      properties:
+        worldRect: { value: [0, 0, 600, 600] }
+        sweep: { value: [0, 0.045, 0, 0] }
+}%
+
+CCProgram portrait-upgrade-vs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #if USE_LOCAL
+    #include <builtin/uniforms/cc-local>
+  #endif
+  in vec3 a_position;
+  in vec4 a_color;
+  out vec2 worldPosition;
+  out vec4 color;
+  vec4 vert () {
+    vec4 pos = vec4(a_position, 1.0);
+    #if USE_LOCAL
+      pos = cc_matWorld * pos;
+    #endif
+    worldPosition = pos.xy;
+    color = a_color;
+    return cc_matViewProj * pos;
+  }
+}%
+
+CCProgram portrait-upgrade-fs %{
+  precision highp float;
+  in vec2 worldPosition;
+  in vec4 color;
+  uniform PortraitUpgrade {
+    vec4 worldRect;
+    vec4 sweep;
+  };
+  vec4 frag () {
+    vec2 uv = (worldPosition - worldRect.xy) / worldRect.zw;
+    float distanceToLine = abs(uv.y - sweep.x);
+    float halo = 1.0 - smoothstep(0.0, sweep.y, distanceToLine);
+    float core = 1.0 - smoothstep(0.0, 0.006, distanceToLine);
+    float sides = smoothstep(0.0, 0.04, uv.x) * (1.0 - smoothstep(0.96, 1.0, uv.x));
+    float ends = smoothstep(0.0, 0.03, sweep.x) * (1.0 - smoothstep(0.97, 1.0, sweep.x));
+    return vec4(mix(vec3(1.0, 0.78, 0.3), vec3(1.0), core), max(core, halo * 0.65) * sides * ends) * color;
+  }
+}%

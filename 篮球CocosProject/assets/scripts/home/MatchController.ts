@@ -22,6 +22,7 @@ import {
     emitMatchSettled,
     INT32_MAX,
     isCheatModeEnabled,
+    loadJson,
     loadSeasonState,
     PlayerCard,
     recordRandomOpponentInjuryAfterDefeat,
@@ -48,6 +49,9 @@ import {
     stopFullScreenEntrance,
 } from './FullScreenEntrance';
 import { setGrowingNumber } from './NumberGrowthAnimator';
+import { RainbowLabelCycle } from '../effects/RainbowLabelCycle';
+import { MatchRewardsConfig } from './MatchProgression';
+import { STANDARD_MATCH_COUNT } from './SeasonRoute';
 import { applyGameFont } from '../loading/GameFont';
 import { CourtSimulationController } from './CourtSimulationController';
 import {
@@ -69,6 +73,7 @@ const { ccclass } = _decorator;
 const QUARTER_SECONDS = 60;
 const MATCH_SECONDS = QUARTER_SECONDS * 4;
 const WIN_PREFAB_PATH = 'prefabs/比赛/胜利弹窗';
+const CHAMPIONSHIP_PREFAB_PATH = 'prefabs/比赛/夺冠弹窗';
 const LOSE_PREFAB_PATH = 'prefabs/比赛/失败弹窗';
 const FONT_PATH = 'fonts/zpix';
 const MATCH_MEME_COMMENTARY_PATH = 'data/match_meme_commentary';
@@ -168,6 +173,8 @@ export class MatchController extends Component {
     private session: MatchSessionSnapshot | null = null;
     private result: MatchResult | null = null;
     private victoryPage: Node | null = null;
+    private championshipPage: Node | null = null;
+    private matchRewards: MatchRewardsConfig | null = null;
     private defeatPage: Node | null = null;
     private doubleSpeedButton: Button | null = null;
     private forcedWinButton: Button | null = null;
@@ -268,26 +275,39 @@ export class MatchController extends Component {
             this,
         );
         this.skipButton?.node.off(Button.EventType.CLICK, this.skipMatch, this);
+        if (this.championshipPage) {
+            stopFullScreenEntrance(this.championshipPage);
+        }
         this.stopAllMotion();
     }
 
     private async initialize(): Promise<void> {
         try {
-            const [victoryPrefab, defeatPrefab, font, commentaryLibrary] = await Promise.all([
+            const [victoryPrefab, championshipPrefab, defeatPrefab, font, commentaryLibrary, matchRewards] = await Promise.all([
                 this.loadResource<Prefab>(WIN_PREFAB_PATH, Prefab),
+                this.loadResource<Prefab>(CHAMPIONSHIP_PREFAB_PATH, Prefab),
                 this.loadResource<Prefab>(LOSE_PREFAB_PATH, Prefab),
                 this.loadResource<Font>(FONT_PATH, Font),
                 this.loadResource<JsonAsset>(MATCH_MEME_COMMENTARY_PATH, JsonAsset),
+                loadJson<MatchRewardsConfig>('data/balance/match_rewards'),
             ]);
             if (!this.isValid || !this.page || !this.session) {
                 return;
             }
             this.victoryPage = instantiate(victoryPrefab);
+            this.championshipPage = instantiate(championshipPrefab);
+            this.championshipPage.active = false;
+            this.matchRewards = matchRewards;
             this.defeatPage = instantiate(defeatPrefab);
             this.node.addChild(this.victoryPage);
+            this.node.addChild(this.championshipPage);
             this.node.addChild(this.defeatPage);
             this.victoryPage.active = false;
             this.defeatPage.active = false;
+            const championshipCopy = this.championshipPage.getChildByName('全胜之后');
+            if (championshipCopy && !championshipCopy.getComponent(RainbowLabelCycle)) {
+                championshipCopy.addComponent(RainbowLabelCycle);
+            }
             applyGameFont(this.node.scene, font);
             this.commentarySelector = MatchCommentarySelector.fromJsonAsset(commentaryLibrary);
             this.bindResultButtons();
@@ -319,6 +339,7 @@ export class MatchController extends Component {
         this.result = this.createMatchResult(forceWin);
         this.plannedPlays = this.createPlayPlan(this.result);
         this.victoryPage && (this.victoryPage.active = false);
+        this.championshipPage && (this.championshipPage.active = false);
         this.defeatPage && (this.defeatPage.active = false);
         this.setButtonLabel(this.doubleSpeedButton, '二倍速');
         if (this.forcedWinButton) {
@@ -1106,7 +1127,9 @@ export class MatchController extends Component {
     }
 
     private showVictory(): void {
-        if (!this.victoryPage || !this.result || !this.session) {
+        const championship = this.isChampionshipMatch();
+        const page = championship ? this.championshipPage : this.victoryPage;
+        if (!page || !this.result || !this.session) {
             return;
         }
         const reward = this.calculateMatchReward();
@@ -1120,45 +1143,50 @@ export class MatchController extends Component {
             advanced,
             participatingPlayerInstanceIds: this.getParticipatingPlayerInstanceIds(),
         });
-        this.setResultPageLabels(this.victoryPage);
+        if (!championship) {
+            this.setResultPageLabels(page);
+        }
         const rewardLabel = this.findByPath(
-            this.victoryPage,
-            '本场奖励/管理层-选中背景/获得数值',
+            page,
+            championship ? '领取/数值' : '本场奖励/管理层-选中背景/获得数值',
         )?.getComponent(Label) ?? null;
-        const adRewardClaimed = loadSeasonState().lastAdRewardMatchId
-            === this.session.matchId;
+        const adRewardClaimed = !championship
+            && loadSeasonState().lastAdRewardMatchId === this.session.matchId;
         setGrowingNumber(
             rewardLabel,
             adRewardClaimed ? reward * 2 : reward,
-            (value) => `+${formatPlayerOverall(Math.floor(value))}`,
+            (value) => championship
+                ? formatPlayerOverall(Math.floor(value)).replace(/\.00(?=[KMBTQ]$)/, '')
+                : `+${formatPlayerOverall(Math.floor(value))}`,
             { from: 0, animateGrowth: true },
         );
         this.setNodeLabel(
-            this.victoryPage,
+            page,
             '看广告双倍领取/数值',
             formatPlayerOverall(reward * 2),
         );
-        const adButton = this.victoryPage
+        const adButton = page
             .getChildByName('看广告双倍领取')
             ?.getComponent(Button);
-        const continueButton = this.victoryPage
+        const continueButton = page
             .getChildByName('继续下一场')
             ?.getComponent(Button);
         if (adButton) {
-            this.setButtonAvailable(adButton, !adRewardClaimed);
+            adButton.node.active = !championship;
+            this.setButtonAvailable(adButton, !championship && !adRewardClaimed);
         }
         this.setButtonAvailable(continueButton ?? null, true);
         gameAudio.playVictory();
-        void playFullScreenEntrance(this.victoryPage, {
-            backgroundNodes: this.nodes(this.victoryPage, ['遮罩', 'bg']),
+        void playFullScreenEntrance(page, {
+            backgroundNodes: this.nodes(page, ['遮罩', 'bg']),
             moduleGroups: [
-                { nodes: this.nodes(this.victoryPage, ['顶部装饰']), order: 0 },
-                { nodes: this.nodes(this.victoryPage, ['赛程']), order: 1 },
-                { nodes: this.nodes(this.victoryPage, ['比分']), order: 2 },
-                { nodes: this.nodes(this.victoryPage, ['本场奖励']), order: 3 },
-                { nodes: this.nodes(this.victoryPage, ['看广告双倍领取']), order: 4 },
+                { nodes: this.nodes(page, ['顶部装饰']), order: 0 },
+                { nodes: this.nodes(page, ['赛程']), order: 1 },
+                { nodes: this.nodes(page, ['比分', '全胜之后']), order: 2 },
+                { nodes: this.nodes(page, ['本场奖励']), order: 3 },
+                { nodes: this.nodes(page, ['看广告双倍领取', '领取']), order: 4 },
                 {
-                    nodes: this.nodes(this.victoryPage, ['继续下一场', '返回']),
+                    nodes: this.nodes(page, ['继续下一场', '返回']),
                     order: 5,
                 },
             ],
@@ -1224,12 +1252,6 @@ export class MatchController extends Component {
         const victoryAd = this.victoryPage
             ?.getChildByName('看广告双倍领取')
             ?.getComponent(Button);
-        const victoryContinue = this.victoryPage
-            ?.getChildByName('继续下一场')
-            ?.getComponent(Button);
-        const victoryReturn = this.victoryPage
-            ?.getChildByName('返回')
-            ?.getComponent(Button);
         const defeatAd = this.defeatPage
             ?.getChildByName('看广告获得加成重来')
             ?.getComponent(Button);
@@ -1237,12 +1259,19 @@ export class MatchController extends Component {
             ?.getChildByName('调整阵容')
             ?.getComponent(Button);
         victoryAd?.node.on(Button.EventType.CLICK, this.claimVictoryAdReward, this);
-        victoryContinue?.node.on(
-            Button.EventType.CLICK,
-            () => this.returnToHomepage(true),
-            this,
-        );
-        victoryReturn?.node.on(
+        for (const page of [this.victoryPage, this.championshipPage]) {
+            page?.getChildByName('继续下一场')?.on(
+                Button.EventType.CLICK,
+                () => this.returnToHomepage(true),
+                this,
+            );
+            page?.getChildByName('返回')?.on(
+                Button.EventType.CLICK,
+                () => this.returnToHomepage(false),
+                this,
+            );
+        }
+        this.championshipPage?.getChildByName('领取')?.on(
             Button.EventType.CLICK,
             () => this.returnToHomepage(false),
             this,
@@ -1262,7 +1291,8 @@ export class MatchController extends Component {
     };
 
     private async claimVictoryAdRewardAsync(): Promise<void> {
-        if (this.adProcessing || !this.session || !this.victoryPage) {
+        if (this.adProcessing || !this.session || !this.victoryPage
+            || this.isChampionshipMatch()) {
             return;
         }
         const button = this.victoryPage
@@ -1516,7 +1546,15 @@ export class MatchController extends Component {
             });
     }
 
+    private isChampionshipMatch(): boolean {
+        return Boolean(this.session?.isStandardProgressionMatch
+            && this.session.matchNumber === STANDARD_MATCH_COUNT);
+    }
+
     private calculateMatchReward(): number {
+        if (this.isChampionshipMatch()) {
+            return this.matchRewards!.championship.budgetReward;
+        }
         const session = this.session!;
         // 使用本场快照的对手等级，避免胜利推进赛程后广告追加奖励取到下一场等级。
         const baseReward = (Math.max(0, getStoredTeamLevel()) + 1)

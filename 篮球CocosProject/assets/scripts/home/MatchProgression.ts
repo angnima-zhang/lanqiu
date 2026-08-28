@@ -8,6 +8,9 @@ export interface MatchRewardsConfig {
         allStar: MatchSpecialConfig;
     };
     playoffRoundRewardMultipliers: number[];
+    championship: {
+        budgetReward: number;
+    };
     endless: {
         budgetRewardMultiplier: number;
     };

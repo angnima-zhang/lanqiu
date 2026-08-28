@@ -22,7 +22,7 @@ export function getScheduleDescriptor(state: Pick<
     if (state.infiniteMode) {
         return {
             phase: 'concept-endless',
-            title: '概念神无限赛程',
+            title: '无限赛程',
             phaseMatchNumber: state.infiniteMatchNumber,
             playoffRound: 4,
             playoffWinsInRound: 4,
