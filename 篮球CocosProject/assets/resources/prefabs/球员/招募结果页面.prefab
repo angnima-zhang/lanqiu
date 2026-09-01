@@ -6173,7 +6173,7 @@
       "b": 255,
       "a": 255
     },
-    "_outlineWidth": 1,
+    "_outlineWidth": 0.5,
     "_enableShadow": false,
     "_shadowColor": {
       "__type__": "cc.Color",

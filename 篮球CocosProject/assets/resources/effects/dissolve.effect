@@ -111,6 +111,8 @@ CCProgram dissolve-fs %{
 
   vec4 frag () {
     vec4 o = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+    // 头像和边框的透明区域不需要计算三层噪声，提前剔除以减少移动端片元开销。
+    if (o.a <= 0.0) discard;
 
     float ns = max(dissolveParams.z, 0.1);
     float n = fbm(uv0 * ns);

@@ -147,6 +147,7 @@ export class PlayerEventController extends Component {
     private activePlayerInstanceId: string | null = null;
     private activeEventOccurredAtMs = 0;
     private queuedActionAfterPendingEvents: (() => void) | null = null;
+    private eventPageReady = false;
     private adResultShown = false;
 
     protected onLoad(): void {
@@ -242,6 +243,8 @@ export class PlayerEventController extends Component {
     }
 
     private async closePageAndWait(): Promise<void> {
+        this.eventPageReady = false;
+        this.setButtonsInteractable(false);
         this.eventPageRenderVersion += 1;
         this.activePlayerInstanceId = null;
         this.activeEventOccurredAtMs = 0;
@@ -267,9 +270,9 @@ export class PlayerEventController extends Component {
             this.config = config;
             this.definitions = new Map(config.events.map((event) => [event.id, event]));
             this.page = instantiate(prefab);
-            this.canvas.addChild(this.page);
-            applyGameFont(this.page, gameFont);
             this.page.active = false;
+            applyGameFont(this.page, gameFont);
+            this.canvas.addChild(this.page);
             this.resolvePageButtons();
             this.resolveRosterSlots();
             this.bindSlotEventButtons();
@@ -426,18 +429,23 @@ export class PlayerEventController extends Component {
             return;
         }
         const event = card.pendingEvent;
-        void this.renderEventPage(card, event).then(() => {
+        const rendering = this.renderEventPage(card, event);
+        const renderVersion = this.eventPageRenderVersion;
+        void rendering.then(() => {
             if (
                 this.page
+                && this.eventPageRenderVersion === renderVersion
                 && this.activePlayerInstanceId === card.instanceId
                 && this.activeEventOccurredAtMs === event.occurredAtMs
             ) {
                 this.page.setSiblingIndex(Math.max(0, (this.page.parent?.children.length ?? 1) - 1));
-                const renderVersion = this.eventPageRenderVersion;
                 void playFullScreenEntrance(this.page).then(() => {
                     if (!this.isCurrentEventPresentation(card, event, renderVersion)) {
                         return;
                     }
+                    // 淡入时按钮仍然透明，不能接收主页原位置的连续点击。
+                    this.eventPageReady = true;
+                    this.setButtonsInteractable(!this.resolvingEvent);
                     this.scheduleOnce(() => {
                         if (!this.isCurrentEventPresentation(card, event, renderVersion)) {
                             return;
@@ -473,6 +481,7 @@ export class PlayerEventController extends Component {
         const renderVersion = ++this.eventPageRenderVersion;
         this.activePlayerInstanceId = card.instanceId;
         this.activeEventOccurredAtMs = event.occurredAtMs;
+        this.eventPageReady = false;
         this.adResultShown = false;
 
         const eventRoot = this.page.getChildByName('事件');
@@ -500,7 +509,7 @@ export class PlayerEventController extends Component {
         this.setButtonLabel(this.confirmButton, definition.confirmLabel);
         this.setButtonLabel(this.adButton, definition.adLabel);
         this.setAdButtonResolvedVisual(false);
-        this.setButtonsInteractable(true);
+        this.setButtonsInteractable(false);
 
         const [icon] = await Promise.all([
             loadSpriteFrame(definition.iconPath),
@@ -621,7 +630,7 @@ export class PlayerEventController extends Component {
     };
 
     private async resolveActiveEvent(withAd: boolean): Promise<void> {
-        if (this.resolvingEvent || !this.activePlayerInstanceId) {
+        if (!this.eventPageReady || this.resolvingEvent || !this.activePlayerInstanceId) {
             return;
         }
         this.resolvingEvent = true;
@@ -653,8 +662,8 @@ export class PlayerEventController extends Component {
         } finally {
             this.resolvingEvent = false;
             if (this.page?.active) {
-                this.setButtonsInteractable(!this.adResultShown);
-                if (this.adResultShown && this.confirmButton) {
+                this.setButtonsInteractable(this.eventPageReady && !this.adResultShown);
+                if (this.eventPageReady && this.adResultShown && this.confirmButton) {
                     this.confirmButton.interactable = true;
                 }
             }

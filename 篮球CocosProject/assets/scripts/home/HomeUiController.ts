@@ -62,7 +62,7 @@ import {
 } from './TeamLevelController';
 import { TopTeamInfoController } from './TopTeamInfoController';
 import { PreMatchController } from './PreMatchController';
-import { applyGameFont } from '../loading/GameFont';
+import { applyGameFontInBatches } from '../loading/GameFont';
 import { playFullScreenEntrance } from './FullScreenEntrance';
 import { stopFullScreenEntrance } from './FullScreenEntrance';
 import { playFullScreenExit as exitWithFade } from './FullScreenEntrance';
@@ -957,12 +957,7 @@ export class HomeUiController extends Component {
                 console.error('[HomeUiController] Failed to apply zpix font.', error);
                 return;
             }
-            applyGameFont(this.canvas, font);
-            this.scheduleOnce(() => {
-                if (this.canvas?.isValid) {
-                    applyGameFont(this.canvas, font);
-                }
-            }, 0);
+            applyGameFontInBatches(this.canvas, font, this);
         });
     }
 

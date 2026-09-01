@@ -80,7 +80,7 @@
         "__id__": 21
       },
       {
-        "__id__": 30
+        "__id__": 32
       },
       {
         "__id__": 41
@@ -522,7 +522,7 @@
       "__id__": 21
     },
     "asset": {
-      "__uuid__": "7534bee8-9dce-4b65-8628-f9d5e531fe35",
+      "__uuid__": "67a1f5ec-b001-4b7a-9215-e89bb1b9adf0",
       "__expectedType__": "cc.Prefab"
     },
     "fileId": "c46/YsCPVOJYA4mWEpNYRx",
@@ -533,7 +533,7 @@
   },
   {
     "__type__": "cc.PrefabInstance",
-    "fileId": "26HCudtSZCX4uS+HUwwyLT",
+    "fileId": "9aMEHHCGBK2LrlLLyvQqpC",
     "prefabRootNode": null,
     "mountedChildren": [],
     "mountedComponents": [],
@@ -552,6 +552,9 @@
       },
       {
         "__id__": 29
+      },
+      {
+        "__id__": 31
       }
     ],
     "removedComponents": []
@@ -560,132 +563,6 @@
     "__type__": "CCPropertyOverrideInfo",
     "targetInfo": {
       "__id__": 25
-    },
-    "propertyPath": [
-      "_name"
-    ],
-    "value": "招募结果页面"
-  },
-  {
-    "__type__": "cc.TargetInfo",
-    "localID": [
-      "c46/YsCPVOJYA4mWEpNYRx"
-    ]
-  },
-  {
-    "__type__": "CCPropertyOverrideInfo",
-    "targetInfo": {
-      "__id__": 25
-    },
-    "propertyPath": [
-      "_lpos"
-    ],
-    "value": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    }
-  },
-  {
-    "__type__": "CCPropertyOverrideInfo",
-    "targetInfo": {
-      "__id__": 25
-    },
-    "propertyPath": [
-      "_lrot"
-    ],
-    "value": {
-      "__type__": "cc.Quat",
-      "x": 0,
-      "y": 0,
-      "z": 0,
-      "w": 1
-    }
-  },
-  {
-    "__type__": "CCPropertyOverrideInfo",
-    "targetInfo": {
-      "__id__": 25
-    },
-    "propertyPath": [
-      "_euler"
-    ],
-    "value": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    }
-  },
-  {
-    "__type__": "CCPropertyOverrideInfo",
-    "targetInfo": {
-      "__id__": 25
-    },
-    "propertyPath": [
-      "_active"
-    ],
-    "value": false
-  },
-  {
-    "__type__": "cc.Node",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 2
-    },
-    "_prefab": {
-      "__id__": 31
-    },
-    "__editorExtras__": {}
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 30
-    },
-    "asset": {
-      "__uuid__": "67a1f5ec-b001-4b7a-9215-e89bb1b9adf0",
-      "__expectedType__": "cc.Prefab"
-    },
-    "fileId": "c46/YsCPVOJYA4mWEpNYRx",
-    "instance": {
-      "__id__": 32
-    },
-    "targetOverrides": null
-  },
-  {
-    "__type__": "cc.PrefabInstance",
-    "fileId": "9aMEHHCGBK2LrlLLyvQqpC",
-    "prefabRootNode": null,
-    "mountedChildren": [],
-    "mountedComponents": [],
-    "propertyOverrides": [
-      {
-        "__id__": 33
-      },
-      {
-        "__id__": 35
-      },
-      {
-        "__id__": 36
-      },
-      {
-        "__id__": 37
-      },
-      {
-        "__id__": 38
-      },
-      {
-        "__id__": 40
-      }
-    ],
-    "removedComponents": []
-  },
-  {
-    "__type__": "CCPropertyOverrideInfo",
-    "targetInfo": {
-      "__id__": 34
     },
     "propertyPath": [
       "_name"
@@ -701,7 +578,7 @@
   {
     "__type__": "CCPropertyOverrideInfo",
     "targetInfo": {
-      "__id__": 34
+      "__id__": 25
     },
     "propertyPath": [
       "_lpos"
@@ -716,7 +593,7 @@
   {
     "__type__": "CCPropertyOverrideInfo",
     "targetInfo": {
-      "__id__": 34
+      "__id__": 25
     },
     "propertyPath": [
       "_lrot"
@@ -732,7 +609,7 @@
   {
     "__type__": "CCPropertyOverrideInfo",
     "targetInfo": {
-      "__id__": 34
+      "__id__": 25
     },
     "propertyPath": [
       "_euler"
@@ -747,7 +624,7 @@
   {
     "__type__": "CCPropertyOverrideInfo",
     "targetInfo": {
-      "__id__": 39
+      "__id__": 30
     },
     "propertyPath": [
       "_lpos"
@@ -768,7 +645,130 @@
   {
     "__type__": "CCPropertyOverrideInfo",
     "targetInfo": {
+      "__id__": 25
+    },
+    "propertyPath": [
+      "_active"
+    ],
+    "value": false
+  },
+  {
+    "__type__": "cc.Node",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 2
+    },
+    "_prefab": {
+      "__id__": 33
+    },
+    "__editorExtras__": {}
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 32
+    },
+    "asset": {
+      "__uuid__": "d0057b51-b57e-4d73-ba48-863fb15d9550",
+      "__expectedType__": "cc.Prefab"
+    },
+    "fileId": "c46/YsCPVOJYA4mWEpNYRx",
+    "instance": {
       "__id__": 34
+    },
+    "targetOverrides": null
+  },
+  {
+    "__type__": "cc.PrefabInstance",
+    "fileId": "963JEcez9FvauBEYRwEMTa",
+    "prefabRootNode": null,
+    "mountedChildren": [],
+    "mountedComponents": [],
+    "propertyOverrides": [
+      {
+        "__id__": 35
+      },
+      {
+        "__id__": 37
+      },
+      {
+        "__id__": 38
+      },
+      {
+        "__id__": 39
+      },
+      {
+        "__id__": 40
+      }
+    ],
+    "removedComponents": []
+  },
+  {
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 36
+    },
+    "propertyPath": [
+      "_name"
+    ],
+    "value": "球队信息弹窗"
+  },
+  {
+    "__type__": "cc.TargetInfo",
+    "localID": [
+      "c46/YsCPVOJYA4mWEpNYRx"
+    ]
+  },
+  {
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 36
+    },
+    "propertyPath": [
+      "_lpos"
+    ],
+    "value": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 36
+    },
+    "propertyPath": [
+      "_lrot"
+    ],
+    "value": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    }
+  },
+  {
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 36
+    },
+    "propertyPath": [
+      "_euler"
+    ],
+    "value": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 36
     },
     "propertyPath": [
       "_active"
@@ -792,18 +792,19 @@
       "__id__": 41
     },
     "asset": {
-      "__uuid__": "d0057b51-b57e-4d73-ba48-863fb15d9550",
+      "__uuid__": "8f897c78-9df3-4b16-8269-7b21d6aeb046",
       "__expectedType__": "cc.Prefab"
     },
     "fileId": "c46/YsCPVOJYA4mWEpNYRx",
     "instance": {
       "__id__": 43
     },
-    "targetOverrides": null
+    "targetOverrides": null,
+    "nestedPrefabInstanceRoots": null
   },
   {
     "__type__": "cc.PrefabInstance",
-    "fileId": "963JEcez9FvauBEYRwEMTa",
+    "fileId": "45KqncERNPk6ZG3XXwC8mR",
     "prefabRootNode": null,
     "mountedChildren": [],
     "mountedComponents": [],
@@ -834,7 +835,7 @@
     "propertyPath": [
       "_name"
     ],
-    "value": "球队信息弹窗"
+    "value": "离线收益弹窗"
   },
   {
     "__type__": "cc.TargetInfo",
@@ -915,7 +916,7 @@
       "__id__": 50
     },
     "asset": {
-      "__uuid__": "8f897c78-9df3-4b16-8269-7b21d6aeb046",
+      "__uuid__": "b4c4c17b-312f-4cc9-9b89-9c6f1c3f593e",
       "__expectedType__": "cc.Prefab"
     },
     "fileId": "c46/YsCPVOJYA4mWEpNYRx",
@@ -927,7 +928,7 @@
   },
   {
     "__type__": "cc.PrefabInstance",
-    "fileId": "45KqncERNPk6ZG3XXwC8mR",
+    "fileId": "4dki+PTSRInZoqHEbv9G0u",
     "prefabRootNode": null,
     "mountedChildren": [],
     "mountedComponents": [],
@@ -958,7 +959,7 @@
     "propertyPath": [
       "_name"
     ],
-    "value": "离线收益弹窗"
+    "value": "设置弹窗"
   },
   {
     "__type__": "cc.TargetInfo",
@@ -1039,7 +1040,7 @@
       "__id__": 59
     },
     "asset": {
-      "__uuid__": "b4c4c17b-312f-4cc9-9b89-9c6f1c3f593e",
+      "__uuid__": "934dae13-507f-462e-bda7-912218a57bfe",
       "__expectedType__": "cc.Prefab"
     },
     "fileId": "c46/YsCPVOJYA4mWEpNYRx",
@@ -1051,7 +1052,7 @@
   },
   {
     "__type__": "cc.PrefabInstance",
-    "fileId": "4dki+PTSRInZoqHEbv9G0u",
+    "fileId": "69rMPGcPJNgY1GRyFBLRix",
     "prefabRootNode": null,
     "mountedChildren": [],
     "mountedComponents": [],
@@ -1082,7 +1083,7 @@
     "propertyPath": [
       "_name"
     ],
-    "value": "设置弹窗"
+    "value": "招募概率"
   },
   {
     "__type__": "cc.TargetInfo",
@@ -1163,7 +1164,7 @@
       "__id__": 68
     },
     "asset": {
-      "__uuid__": "934dae13-507f-462e-bda7-912218a57bfe",
+      "__uuid__": "1fdf5474-7dc1-4835-981e-29ea0af7a876",
       "__expectedType__": "cc.Prefab"
     },
     "fileId": "c46/YsCPVOJYA4mWEpNYRx",
@@ -1175,7 +1176,7 @@
   },
   {
     "__type__": "cc.PrefabInstance",
-    "fileId": "69rMPGcPJNgY1GRyFBLRix",
+    "fileId": "0fhvUIvo5J96v1xNk0CZJc",
     "prefabRootNode": null,
     "mountedChildren": [],
     "mountedComponents": [],
@@ -1206,7 +1207,7 @@
     "propertyPath": [
       "_name"
     ],
-    "value": "招募概率"
+    "value": "事件页面"
   },
   {
     "__type__": "cc.TargetInfo",
@@ -1287,7 +1288,7 @@
       "__id__": 77
     },
     "asset": {
-      "__uuid__": "1fdf5474-7dc1-4835-981e-29ea0af7a876",
+      "__uuid__": "bf70ae4d-020f-47a8-9dc2-f0b25c3037cd",
       "__expectedType__": "cc.Prefab"
     },
     "fileId": "c46/YsCPVOJYA4mWEpNYRx",
@@ -1299,7 +1300,7 @@
   },
   {
     "__type__": "cc.PrefabInstance",
-    "fileId": "0fhvUIvo5J96v1xNk0CZJc",
+    "fileId": "cadfKw41lEyZwZQk27p3md",
     "prefabRootNode": null,
     "mountedChildren": [],
     "mountedComponents": [],
@@ -1330,7 +1331,7 @@
     "propertyPath": [
       "_name"
     ],
-    "value": "事件页面"
+    "value": "球员详情页面"
   },
   {
     "__type__": "cc.TargetInfo",
@@ -1411,19 +1412,18 @@
       "__id__": 86
     },
     "asset": {
-      "__uuid__": "bf70ae4d-020f-47a8-9dc2-f0b25c3037cd",
+      "__uuid__": "7534bee8-9dce-4b65-8628-f9d5e531fe35",
       "__expectedType__": "cc.Prefab"
     },
     "fileId": "c46/YsCPVOJYA4mWEpNYRx",
     "instance": {
       "__id__": 88
     },
-    "targetOverrides": null,
-    "nestedPrefabInstanceRoots": null
+    "targetOverrides": null
   },
   {
     "__type__": "cc.PrefabInstance",
-    "fileId": "cadfKw41lEyZwZQk27p3md",
+    "fileId": "4aiiOLmaNBH5rHr0MQKDsN",
     "prefabRootNode": null,
     "mountedChildren": [],
     "mountedComponents": [],
@@ -1454,7 +1454,7 @@
     "propertyPath": [
       "_name"
     ],
-    "value": "球员详情页面"
+    "value": "招募结果页面"
   },
   {
     "__type__": "cc.TargetInfo",
@@ -1516,7 +1516,7 @@
     "propertyPath": [
       "_active"
     ],
-    "value": true
+    "value": false
   },
   {
     "__type__": "cc.Node",
@@ -1715,7 +1715,7 @@
         "__id__": 21
       },
       {
-        "__id__": 30
+        "__id__": 32
       },
       {
         "__id__": 41

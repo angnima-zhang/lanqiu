@@ -4,14 +4,10 @@ import {
     Color,
     Component,
     director,
-    Font,
     instantiate,
-    JsonAsset,
     Label,
     Node,
-    Prefab,
     RichText,
-    resources,
     Sprite,
     TTFFont,
     UITransform,
@@ -22,7 +18,6 @@ import {
     emitMatchSettled,
     INT32_MAX,
     isCheatModeEnabled,
-    loadJson,
     loadSeasonState,
     PlayerCard,
     recordRandomOpponentInjuryAfterDefeat,
@@ -41,6 +36,7 @@ import {
     loadRoundQualityFrame,
 } from './PlayerAssets';
 import { preloadHomepageRuntimeAssets } from './HomepagePreloader';
+import { loadMatchRuntimeAssets } from './MatchPreloader';
 import { formatPlayerOverall } from './RosterSlotView';
 import { showRewardedVideo } from './RewardedAdService';
 import { gameAudio } from './GameAudio';
@@ -72,11 +68,7 @@ const { ccclass } = _decorator;
 
 const QUARTER_SECONDS = 60;
 const MATCH_SECONDS = QUARTER_SECONDS * 4;
-const WIN_PREFAB_PATH = 'prefabs/比赛/胜利弹窗';
-const CHAMPIONSHIP_PREFAB_PATH = 'prefabs/比赛/夺冠弹窗';
-const LOSE_PREFAB_PATH = 'prefabs/比赛/失败弹窗';
-const FONT_PATH = 'fonts/zpix';
-const MATCH_MEME_COMMENTARY_PATH = 'data/match_meme_commentary';
+const COMMENTARY_SLOTS = ['过去01', '过去02', '过去03', '过去04', '最新'] as const;
 const POSSESSIONS_PER_QUARTER = 10;
 const MAX_TEAM_SCORE = 60;
 const SKIPPED_MATCH_MIN_SCORE = 50;
@@ -98,6 +90,11 @@ interface MatchResult {
 interface CommentaryLine {
     time: string;
     richText: string;
+}
+
+interface CommentaryView {
+    time: Label | null;
+    content: RichText | null;
 }
 
 interface OffensiveTendency {
@@ -183,6 +180,9 @@ export class MatchController extends Component {
     private requestedSpeedMultiplier = 1;
     private elapsedMatchSeconds = 0;
     private commentaryLines: CommentaryLine[] = [];
+    private readonly pendingCommentaryLines: CommentaryLine[] = [];
+    private commentarySlots: Node[] = [];
+    private commentaryViews: CommentaryView[] = [];
     private plannedPlays: MatchPlayEvent[] = [];
     private nextPlayIndex = 0;
     private lastStartedQuarter = 0;
@@ -263,6 +263,24 @@ export class MatchController extends Component {
         }
     }
 
+    protected lateUpdate(): void {
+        if (this.pendingCommentaryLines.length === 0 || this.commentaryViews.length === 0) {
+            return;
+        }
+        // Keep text layout out of scoring/rebound callbacks. Only one new line per frame;
+        // previous lines retain their rendered text and move to the older slots.
+        const line = this.pendingCommentaryLines.shift()!;
+        const recycled = this.commentaryViews.shift()!;
+        this.commentaryViews.push(recycled);
+        this.commentaryViews.forEach((view, index) => {
+            const slot = this.commentarySlots[index];
+            view.time?.node.setParent(slot);
+            view.content?.node.setParent(slot);
+        });
+        if (recycled.time) recycled.time.string = line.time;
+        if (recycled.content) recycled.content.string = line.richText;
+    }
+
     protected onDisable(): void {
         this.doubleSpeedButton?.node.off(
             Button.EventType.CLICK,
@@ -283,36 +301,32 @@ export class MatchController extends Component {
 
     private async initialize(): Promise<void> {
         try {
-            const [victoryPrefab, championshipPrefab, defeatPrefab, font, commentaryLibrary, matchRewards] = await Promise.all([
-                this.loadResource<Prefab>(WIN_PREFAB_PATH, Prefab),
-                this.loadResource<Prefab>(CHAMPIONSHIP_PREFAB_PATH, Prefab),
-                this.loadResource<Prefab>(LOSE_PREFAB_PATH, Prefab),
-                this.loadResource<Font>(FONT_PATH, Font),
-                this.loadResource<JsonAsset>(MATCH_MEME_COMMENTARY_PATH, JsonAsset),
-                loadJson<MatchRewardsConfig>('data/balance/match_rewards'),
-            ]);
+            const [victoryPrefab, championshipPrefab, defeatPrefab, font, commentaryLibrary, matchRewards]
+                = await loadMatchRuntimeAssets();
             if (!this.isValid || !this.page || !this.session) {
                 return;
             }
             this.victoryPage = instantiate(victoryPrefab);
+            this.victoryPage.active = false;
             this.championshipPage = instantiate(championshipPrefab);
             this.championshipPage.active = false;
             this.matchRewards = matchRewards;
             this.defeatPage = instantiate(defeatPrefab);
+            this.defeatPage.active = false;
             this.node.addChild(this.victoryPage);
             this.node.addChild(this.championshipPage);
             this.node.addChild(this.defeatPage);
-            this.victoryPage.active = false;
-            this.defeatPage.active = false;
             const championshipCopy = this.championshipPage.getChildByName('全胜之后');
             if (championshipCopy && !championshipCopy.getComponent(RainbowLabelCycle)) {
                 championshipCopy.addComponent(RainbowLabelCycle);
             }
             applyGameFont(this.node.scene, font);
+            this.prepareCommentaryViews();
             this.commentarySelector = MatchCommentarySelector.fromJsonAsset(commentaryLibrary);
             this.bindResultButtons();
             await this.bindCourtPlayers();
             this.startPreparedMatch();
+            this.scheduleOnce(this.preloadHomepage, 1);
         } catch (error) {
             console.error('[MatchController] Failed to initialize match.', error);
         }
@@ -328,7 +342,7 @@ export class MatchController extends Component {
         this.speedMultiplier = 1;
         this.requestedSpeedMultiplier = 1;
         this.elapsedMatchSeconds = 0;
-        this.commentaryLines = [];
+        this.resetCommentary();
         this.commentarySelector.resetMatchState();
         this.nextPlayIndex = 0;
         this.lastStartedQuarter = 0;
@@ -589,7 +603,7 @@ export class MatchController extends Component {
                 );
                 lastTactic = tactic;
                 const rebound = this.pickReboundResult(random);
-                plays.push({
+                const play: MatchPlayEvent = {
                     index: plays.length,
                     quarter,
                     startSecond: quarter * QUARTER_SECONDS
@@ -609,11 +623,48 @@ export class MatchController extends Component {
                     foul: action === 'free-throw' || action === 'and-one',
                     rebound,
                     contestedRebound: random() < 0.58,
+                };
+                const attempts = this.createPossessionAttempts(play);
+                attempts.forEach((attempt, index) => {
+                    plays.push({
+                        ...attempt,
+                        index: plays.length,
+                        startSecond: play.startSecond
+                            + index * QUARTER_SECONDS / POSSESSIONS_PER_QUARTER / attempts.length,
+                    });
                 });
                 offenseTeam = 1 - offenseTeam;
             }
         }
         return plays;
+    }
+
+    private createPossessionAttempts(play: MatchPlayEvent): MatchPlayEvent[] {
+        if (
+            play.rebound === 'opponent'
+            || play.action === 'turnover'
+            || play.action === 'and-one'
+            || (play.action === 'free-throw' && play.points === 2)
+        ) {
+            return [play];
+        }
+        if (play.action === 'free-throw') {
+            // 两罚一中/全失的最后一罚未进，进攻篮板后仍需完成一次进攻。
+            return [play, {
+                ...play,
+                action: 'jumper',
+                points: 0,
+                made: false,
+                foul: false,
+                rebound: 'opponent',
+            }];
+        }
+        // 一次球权可以包含多次出手。先抢到进攻篮板，再完成原定得分的
+        // 二次进攻；最后以进球或防守篮板结束球权，不改变预定的每节比分。
+        return [
+            { ...play, points: 0, made: false },
+            { ...play, rebound: 'opponent' },
+        ];
     }
 
     private createPossessionPoints(
@@ -923,7 +974,21 @@ export class MatchController extends Component {
     };
 
     private onCourtPlayComplete = (): void => {
+        if (this.finished) {
+            return;
+        }
         this.speedMultiplier = this.requestedSpeedMultiplier;
+        // startSecond 是播报/比赛时钟的逻辑时间，不是动画结束后的等待时间。
+        // 动作结束即衔接下一次出手（含进攻篮板续攻），避免原地空等。
+        this.elapsedMatchSeconds = Math.max(
+            this.elapsedMatchSeconds,
+            this.plannedPlays[this.nextPlayIndex]?.startSecond ?? MATCH_SECONDS,
+        );
+        this.refreshClockPresentation();
+        if (this.nextPlayIndex >= this.plannedPlays.length) {
+            this.finishMatch();
+            return;
+        }
         this.startDueCourtPlay();
     };
 
@@ -1011,22 +1076,36 @@ export class MatchController extends Component {
         if (!this.session || !text) {
             return;
         }
-        this.commentaryLines.push({
+        const line = {
             time: this.formatClock(Math.floor(matchSecond)),
             richText: this.createRichCommentary(text, mentions),
-        });
-        this.commentaryLines = this.commentaryLines.slice(-5);
-        const slots = ['过去01', '过去02', '过去03', '过去04', '最新'];
-        slots.forEach((slot, index) => {
-            const line = this.commentaryLines[
-                this.commentaryLines.length - slots.length + index
-            ];
-            this.setLabel(`文字播报/${slot}/时间`, line?.time ?? '--:--');
-            this.setCommentaryRichText(
-                `文字播报/${slot}/播报内容`,
-                line?.richText ?? '',
-            );
-        });
+        };
+        this.commentaryLines.push(line);
+        this.commentaryLines = this.commentaryLines.slice(-COMMENTARY_SLOTS.length);
+        this.pendingCommentaryLines.push(line);
+        if (this.pendingCommentaryLines.length > COMMENTARY_SLOTS.length) {
+            this.pendingCommentaryLines.shift();
+        }
+    }
+
+    private prepareCommentaryViews(): void {
+        const root = this.page?.getChildByName('文字播报');
+        this.commentarySlots = COMMENTARY_SLOTS
+            .map((name) => root?.getChildByName(name))
+            .filter((node): node is Node => Boolean(node));
+        this.commentaryViews = this.commentarySlots.map((slot) => ({
+            time: slot.getChildByName('时间')?.getComponent(Label) ?? null,
+            content: this.createCommentaryRichText(slot.getChildByName('播报内容')),
+        }));
+    }
+
+    private resetCommentary(): void {
+        this.commentaryLines = [];
+        this.pendingCommentaryLines.length = 0;
+        for (const view of this.commentaryViews) {
+            if (view.time) view.time.string = '--:--';
+            if (view.content) view.content.string = '';
+        }
     }
 
     private async bindCourtPlayers(): Promise<void> {
@@ -1534,16 +1613,21 @@ export class MatchController extends Component {
         return minimum + Math.floor(Math.random() * (maximum - minimum + 1));
     }
 
-    private returnToHomepage(openPreMatch: boolean): void {
-        clearCurrentMatchSession();
-        setHomepageReturnTarget(openPreMatch ? 'pre-match' : 'home');
+    private preloadHomepage(): void {
+        director.preloadScene('Homepage', undefined, (error) => {
+            if (error) console.warn('[MatchController] Homepage scene preload failed.', error);
+        });
         void preloadHomepageRuntimeAssets()
             .catch((error) => {
                 console.warn('[MatchController] Homepage runtime preload failed.', error);
-            })
-            .finally(() => {
-                director.loadScene('Homepage');
             });
+    }
+
+    private returnToHomepage(openPreMatch: boolean): void {
+        clearCurrentMatchSession();
+        setHomepageReturnTarget(openPreMatch ? 'pre-match' : 'home');
+        // Preparation runs during the match; a slow/failed warmup must not gate navigation.
+        director.loadScene('Homepage');
     }
 
     private isChampionshipMatch(): boolean {
@@ -1688,16 +1772,18 @@ export class MatchController extends Component {
         return result;
     }
 
-    private setCommentaryRichText(path: string, value: string): void {
-        const node = this.findByPath(this.page, path);
+    private createCommentaryRichText(node: Node | null): RichText | null {
         if (!node) {
-            return;
+            return null;
         }
         const label = node.getComponent(Label);
         let richText = node.getComponent(RichText);
         if (!richText && label) {
             const originalWidth = node.getComponent(UITransform)?.width ?? 0;
             richText = node.addComponent(RichText);
+            richText.enabled = false;
+            richText.cacheMode = Label.CacheMode.CHAR;
+            richText.string = '';
             richText.fontSize = label.fontSize;
             richText.lineHeight = label.lineHeight;
             richText.horizontalAlign = label.horizontalAlign;
@@ -1711,10 +1797,9 @@ export class MatchController extends Component {
             }
             richText.handleTouchEvent = false;
             label.enabled = false;
+            richText.enabled = true;
         }
-        if (richText) {
-            richText.string = value;
-        }
+        return richText;
     }
 
     private colorToHex(color: Readonly<Color>): string {
@@ -1790,18 +1875,4 @@ export class MatchController extends Component {
         this.courtSimulation?.stop();
     }
 
-    private loadResource<TResult>(
-        path: string,
-        type: typeof Prefab | typeof Font,
-    ): Promise<TResult> {
-        return new Promise((resolve, reject) => {
-            resources.load(path, type as never, (error, asset) => {
-                if (error || !asset) {
-                    reject(error ?? new Error(`Missing resource: ${path}`));
-                    return;
-                }
-                resolve(asset as unknown as TResult);
-            });
-        });
-    }
 }

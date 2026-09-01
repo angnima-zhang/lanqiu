@@ -1,5 +1,6 @@
 import { _decorator, Component, director, Label, ProgressBar } from 'cc';
 import { preloadHomepageRuntimeAssets } from '../home/HomepagePreloader';
+import { initializeTapCloudSave } from '../home/TapCloudSaveService';
 
 const { ccclass, property } = _decorator;
 
@@ -49,7 +50,12 @@ export class LoadingController extends Component {
 
     protected start(): void {
         if (this.enabled) {
-            this.preloadHomepage();
+            this.setStatus('正在读取存档');
+            void initializeTapCloudSave().then(() => {
+                if (this.isValid && !this.stopped) {
+                    this.preloadHomepage();
+                }
+            });
         }
     }
 

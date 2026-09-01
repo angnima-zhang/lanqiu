@@ -295,7 +295,8 @@ let economyConfigPromise: Promise<EconomyConfig> | null = null;
 
 export function getBudget(initialBudget = DEFAULT_BUDGET): number {
     const serialized = sys.localStorage.getItem(BUDGET_STORAGE_KEY);
-    if (serialized !== null) {
+    // 小游戏平台缺失存档可能返回空字符串，不能将其转换成有效的 0 预算。
+    if (serialized != null && String(serialized).trim() !== '') {
         const stored = Number(serialized);
         if (Number.isFinite(stored) && stored >= 0) {
             return stored;

@@ -271,6 +271,9 @@ export class RecruitmentController extends Component {
     private recruitButtonOriginalMaterial: Material | null = null;
     private recruitButtonEffectMaterial: Material | null = null;
     private dissolveEffectAsset: EffectAsset | null = null;
+    private dissolveMaterial: Material | null = null;
+    private readonly dissolveParams = new Vec4(0, 0.12, 8.0, 0);
+    private cancelDissolve: (() => void) | null = null;
     private budgetLabel: Label | null = null;
     private continuousRecruitLabel: Label | null = null;
     private continuousRecruitRichText: RichText | null = null;
@@ -418,6 +421,7 @@ export class RecruitmentController extends Component {
     }
 
     protected onDisable(): void {
+        this.cancelDissolve?.();
         this.recruitButton?.node.off(Button.EventType.CLICK, this.onRecruitClicked, this);
         this.recruitButton?.node.off(
             Node.EventType.TOUCH_START,
@@ -658,6 +662,7 @@ export class RecruitmentController extends Component {
             }
             if (dissolveEffect) {
                 this.dissolveEffectAsset = dissolveEffect;
+                this.prepareDissolveMaterial();
             }
             this.budget = getBalance(economyConfig.initialBudget);
             this.roster = loadRoster(this.rosterSlots.length);
@@ -2142,62 +2147,78 @@ export class RecruitmentController extends Component {
         return this.continuousRecruitmentBatchCount > 30 ? 4 : 2;
     }
 
+    private prepareDissolveMaterial(): Material {
+        if (!this.dissolveMaterial) {
+            const material = new Material();
+            material.initialize({
+                effectAsset: this.dissolveEffectAsset!,
+                defines: { USE_TEXTURE: true },
+            });
+            material.setProperty('edgeColor', new Color(255, 160, 30, 255));
+            this.dissolveMaterial = material;
+        }
+        return this.dissolveMaterial;
+    }
+
     private dissolveResultPage(): void {
-        const effect = this.dissolveEffectAsset!;
-        const materials: Material[] = [];
+        const material = this.prepareDissolveMaterial();
         const sprites: Sprite[] = [];
         const originalMaterials: Array<Material | null> = [];
-        const labels: { label: Label; originalColor: Color }[] = [];
+        const labels: { label: Label; originalColor: Color; fadeColor: Color }[] = [];
+
+        // 所有图片的溶解参数相同，共用材质和参数，避免每次关闭逐图创建 GPU 资源。
+        this.dissolveParams.x = 0;
+        material.setProperty('dissolveParams', this.dissolveParams);
 
         this.collectSprites(this.resultPage!, (sprite) => {
-            const mat = new Material();
-            mat.initialize({ effectAsset: effect, defines: { USE_TEXTURE: true } });
-            mat.setProperty('dissolveParams', new Vec4(0, 0.12, 8.0, 0));
-            mat.setProperty('edgeColor', new Color(255, 160, 30, 255));
             originalMaterials.push(sprite.customMaterial);
-            sprite.customMaterial = mat;
-            materials.push(mat);
+            sprite.customMaterial = material;
             sprites.push(sprite);
         });
 
         this.collectLabels(this.resultPage!, (label) => {
-            labels.push({ label, originalColor: label.color.clone() });
+            labels.push({ label, originalColor: label.color.clone(), fadeColor: label.color.clone() });
         });
 
         const duration = 0.5 / this.getResultPageSpeedMultiplier();
-        const startTime = Date.now();
-        const tick = (): void => {
-            const elapsed = (Date.now() - startTime) / 1000;
-            const t = Math.min(elapsed / duration, 1);
-            materials.forEach((m) => {
-                m.setProperty('dissolveParams', new Vec4(t, 0.12, 8.0, 0));
+        let elapsed = 0;
+        const restore = (): void => {
+            this.unschedule(tick);
+            this.cancelDissolve = null;
+            // 溶解只是临时材质，不能清掉 bg 等节点的常驻 Shader。
+            sprites.forEach((sprite, index) => {
+                if (sprite.isValid && sprite.customMaterial === material) {
+                    const original = originalMaterials[index];
+                    sprite.customMaterial = original?.isValid ? original : null;
+                }
             });
             labels.forEach(({ label, originalColor }) => {
-                const c = originalColor.clone();
-                c.a = Math.round(originalColor.a * (1 - t));
-                label.color = c;
+                if (label.isValid) label.color = originalColor;
+            });
+        };
+        const tick = (deltaTime: number): void => {
+            elapsed += deltaTime;
+            const t = Math.min(elapsed / duration, 1);
+            this.dissolveParams.x = t;
+            material.setProperty('dissolveParams', this.dissolveParams);
+            labels.forEach(({ label, originalColor, fadeColor }) => {
+                if (!label.isValid) return;
+                fadeColor.a = Math.round(originalColor.a * (1 - t));
+                label.color = fadeColor;
             });
             if (t >= 1) {
-                // 溶解只是临时材质，不能清掉 bg 等节点的常驻 Shader。
-                sprites.forEach((sprite, index) => {
-                    if (sprite.isValid && sprite.customMaterial === materials[index]) {
-                        const original = originalMaterials[index];
-                        sprite.customMaterial = original?.isValid ? original : null;
-                    }
-                });
-                labels.forEach(({ label, originalColor }) => { label.color = originalColor; });
-                materials.forEach((m) => m.destroy());
+                restore();
                 this.finishCloseResultPage();
-            } else {
-                setTimeout(tick, 16);
             }
         };
-        tick();
+        this.cancelDissolve = restore;
+        this.schedule(tick);
     }
 
     private collectLabels(node: Node, fn: (label: Label) => void): void {
+        if (!node.activeInHierarchy) return;
         const label = node.getComponent(Label);
-        if (label && label.string.trim()) {
+        if (label?.enabled && label.string.trim()) {
             fn(label);
         }
         for (const child of node.children) {
@@ -2206,8 +2227,9 @@ export class RecruitmentController extends Component {
     }
 
     private collectSprites(node: Node, fn: (sprite: Sprite) => void): void {
+        if (!node.activeInHierarchy) return;
         const sprite = node.getComponent(Sprite);
-        if (sprite && sprite.spriteFrame) {
+        if (sprite?.enabled && sprite.spriteFrame) {
             fn(sprite);
         }
         for (const child of node.children) {
@@ -2528,6 +2550,8 @@ export class RecruitmentController extends Component {
     }
 
     protected onDestroy(): void {
+        this.dissolveMaterial?.destroy();
+        this.dissolveMaterial = null;
         this.recruitmentInputBlocker?.destroy();
         this.recruitmentInputBlocker = null;
         if (

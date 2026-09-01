@@ -46,6 +46,7 @@ import {
 import { playFullScreenExit as exitWithFade } from './FullScreenEntrance';
 import { playPreMatchEntrance, stopPreMatchEntrance } from './PreMatchEntrance';
 import { MatchController } from './MatchController';
+import { preloadMatchAssets } from './MatchPreloader';
 import {
     MatchSessionSnapshot,
     setCurrentMatchSession,
@@ -213,6 +214,9 @@ export class PreMatchController extends Component {
         if (!this.page) {
             return;
         }
+        void preloadMatchAssets().catch((error) => {
+            console.warn('[PreMatchController] Match preload failed; entry will retry.', error);
+        });
         const requestVersion = ++this.pageRequestVersion;
         const parent = this.page.parent;
         if (parent) {
@@ -414,6 +418,9 @@ export class PreMatchController extends Component {
             isStandardProgressionMatch: match.isStandardProgressionMatch,
             temporaryBonusPercent: 0,
         };
+        void preloadMatchAssets(this.preparedMatch).catch((error) => {
+            console.warn('[PreMatchController] Match lineup preload failed.', error);
+        });
         if (this.startButton) {
             this.startButton.interactable = occupiedRosterCount >= 5
                 && !this.startingMatch
