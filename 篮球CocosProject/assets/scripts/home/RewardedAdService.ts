@@ -1,3 +1,4 @@
+import { Label, Node, RichText, Sprite } from 'cc';
 import { PREVIEW } from 'cc/env';
 import { gameAudio } from './GameAudio';
 import {
@@ -39,9 +40,33 @@ interface MiniGameAdPlatform {
     createRewardedVideoAd(options: RewardedVideoAdOptions): RewardedVideoAd;
 }
 
+interface WechatShareOptions {
+    title: string;
+    query: string;
+}
+
+interface WechatSharePlatform {
+    shareAppMessage?(options: WechatShareOptions): void;
+    showShareMenu?(options: {
+        menus: string[];
+        success?: () => void;
+        fail?: (error?: { errMsg?: string }) => void;
+    }): void;
+    onShareAppMessage?(callback: () => WechatShareOptions): void;
+    offShareAppMessage?(callback: () => WechatShareOptions): void;
+    onShareTimeline?(callback: () => WechatShareOptions): void;
+    offShareTimeline?(callback: () => WechatShareOptions): void;
+    onCopyUrl?(callback: () => { query: string }): void;
+    offCopyUrl?(callback: () => { query: string }): void;
+    onHide?(callback: () => void): void;
+    offHide?(callback: () => void): void;
+    onShow?(callback: () => void): void;
+    offShow?(callback: () => void): void;
+}
+
 interface RewardedAdGlobals {
     tap?: MiniGameAdPlatform;
-    wx?: MiniGameAdPlatform;
+    wx?: Partial<MiniGameAdPlatform> & WechatSharePlatform;
 }
 
 type RewardedAdPlatformKind = keyof RewardedAdUnitIds;
@@ -53,13 +78,117 @@ interface CachedRewardedVideoAd {
 }
 
 let cachedRewardedVideoAd: CachedRewardedVideoAd | null = null;
+let initializedWechatSharePlatform: WechatSharePlatform | null = null;
 let isRewardedVideoShowing = false;
+const WECHAT_SHARE_MIN_HIDDEN_MS = 2_000;
+const WECHAT_SHARE_TITLE = '我正在打造自己的篮球王朝，快来一起组建梦之队！';
+const onWechatShareAppMessage = (): WechatShareOptions => createWechatShareOptions('menu_share');
+const onWechatShareTimeline = (): WechatShareOptions => createWechatShareOptions('timeline_share');
+const onWechatCopyUrl = (): { query: string } => ({ query: 'from=copy_link' });
 
 export function configureRewardedAdUnitIds(
     adUnitIds: RewardedAdUnitIds,
 ): void {
     configuredAdUnitIds.wechat = adUnitIds.wechat.trim();
     configuredAdUnitIds.tapTap = adUnitIds.tapTap.trim();
+}
+
+/** TapTap 可能提供 wx 兼容层，因此必须先排除 TapTap。 */
+export function isWechatSharePlatform(): boolean {
+    const globals = globalThis as unknown as RewardedAdGlobals;
+    return !globals.tap && Boolean(globals.wx);
+}
+
+export function initializeWechatShareCapabilities(): void {
+    if (!isWechatSharePlatform()) {
+        return;
+    }
+    const globals = globalThis as unknown as RewardedAdGlobals;
+    const platform = globals.wx!;
+    if (initializedWechatSharePlatform === platform) {
+        return;
+    }
+
+    initializedWechatSharePlatform?.offShareAppMessage?.(onWechatShareAppMessage);
+    initializedWechatSharePlatform?.offShareTimeline?.(onWechatShareTimeline);
+    initializedWechatSharePlatform?.offCopyUrl?.(onWechatCopyUrl);
+    initializedWechatSharePlatform = platform;
+
+    platform.showShareMenu?.({
+        menus: ['shareAppMessage', 'shareTimeline'],
+        success: () => console.log('[RewardedAdService] WeChat share menu enabled.'),
+        fail: (error) => console.warn(
+            '[RewardedAdService] Failed to enable WeChat share menu.',
+            error,
+        ),
+    });
+    platform.onShareAppMessage?.(onWechatShareAppMessage);
+    platform.onShareTimeline?.(onWechatShareTimeline);
+    platform.onCopyUrl?.(onWechatCopyUrl);
+}
+
+export function toRewardedActionCopy(text: string): string {
+    if (!isWechatSharePlatform()) {
+        return text;
+    }
+    return text
+        .replace(/观看广告/g, '分享')
+        .replace(/看广告/g, '分享')
+        .replace(/广告/g, '分享');
+}
+
+/** 只改可见组件文本，节点名继续保留供现有逻辑查找。 */
+export function applyWechatShareCopy(root: Node | null): void {
+    if (!root || !isWechatSharePlatform()) {
+        return;
+    }
+    const pending = [root];
+    while (pending.length > 0) {
+        const current = pending.pop()!;
+        const label = current.getComponent(Label);
+        if (label) {
+            label.string = toRewardedActionCopy(label.string);
+        }
+        const richText = current.getComponent(RichText);
+        if (richText) {
+            richText.string = toRewardedActionCopy(richText.string);
+        }
+        applyWechatShareButtonCopy(current);
+        pending.push(...current.children);
+    }
+}
+
+function applyWechatShareButtonCopy(node: Node): void {
+    if (node.name === '看广告' && node.getComponent(Label)?.string === '分享') {
+        return;
+    }
+    const childAdIcon = node.getChildByName('看广告');
+    const adIcon = childAdIcon ?? (node.name === '看广告' ? node : null);
+    if (!adIcon) {
+        return;
+    }
+
+    const buttonRoot = childAdIcon ? node : node.parent;
+    const buttonLabel = buttonRoot?.children
+        .map((child) => child.getComponent(Label))
+        .find((label) => Boolean(label) && !/数值|预算/.test(label!.node.name)) ?? null;
+    if (buttonLabel) {
+        const current = toRewardedActionCopy(buttonLabel.string).replace(/^免费/, '');
+        buttonLabel.string = current.includes('分享') ? current : `分享${current}`;
+        adIcon.active = false;
+        return;
+    }
+
+    const iconSprite = adIcon.getComponent(Sprite);
+    if (!iconSprite) {
+        return;
+    }
+    iconSprite.enabled = false;
+    const shareLabel = adIcon.getComponent(Label) ?? adIcon.addComponent(Label);
+    shareLabel.string = '分享';
+    shareLabel.fontSize = 32;
+    shareLabel.lineHeight = 36;
+    shareLabel.overflow = Label.Overflow.SHRINK;
 }
 
 export async function showRewardedVideo(
@@ -71,16 +200,29 @@ export async function showRewardedVideo(
     }
 
     const globals = globalThis as unknown as RewardedAdGlobals;
+    if (isWechatSharePlatform()) {
+        if (isRewardedVideoShowing) {
+            console.warn('[RewardedAdService] A rewarded share is already active.');
+            return false;
+        }
+        isRewardedVideoShowing = true;
+        try {
+            const completed = await showWechatShare(globals.wx!);
+            if (completed) {
+                notifyRewardedAdCompleted();
+            }
+            return completed;
+        } finally {
+            isRewardedVideoShowing = false;
+        }
+    }
+
     const platformKind: RewardedAdPlatformKind | null = globals.tap?.createRewardedVideoAd
         ? 'tapTap'
-        : globals.wx?.createRewardedVideoAd
-            ? 'wechat'
-            : null;
+        : null;
     const platform = platformKind === 'tapTap'
         ? globals.tap!
-        : platformKind === 'wechat'
-            ? globals.wx!
-            : null;
+        : null;
     const adUnitId = platformKind ? adUnitIds[platformKind].trim() : '';
     if (!platformKind || !platform || !adUnitId) {
         console.error('[RewardedAdService] Missing rewarded-video platform or ad unit ID.');
@@ -116,9 +258,7 @@ export async function showRewardedVideo(
                 resolve(success);
             };
             const onClose = (result?: RewardedAdCloseResult): void => {
-                const completed = result?.isEnded === true
-                    || (platformKind === 'wechat' && result === undefined);
-                finish(completed);
+                finish(result?.isEnded === true);
             };
             const onError = (error?: unknown): void => {
                 console.error('[RewardedAdService] Rewarded video error.', error);
@@ -145,6 +285,61 @@ export async function showRewardedVideo(
     } finally {
         isRewardedVideoShowing = false;
     }
+}
+
+function showWechatShare(platform: WechatSharePlatform): Promise<boolean> {
+    initializeWechatShareCapabilities();
+    if (!platform.shareAppMessage || !platform.onHide || !platform.onShow) {
+        console.error('[RewardedAdService] WeChat share API is unavailable.');
+        return Promise.resolve(false);
+    }
+
+    return new Promise<boolean>((resolve) => {
+        let hiddenAt: number | null = null;
+        let settled = false;
+        const finish = (success: boolean): void => {
+            if (settled) {
+                return;
+            }
+            settled = true;
+            platform.offHide?.(onHide);
+            platform.offShow?.(onShow);
+            resolve(success);
+        };
+        const onHide = (): void => {
+            hiddenAt = Date.now();
+        };
+        const onShow = (): void => {
+            if (hiddenAt === null) {
+                return;
+            }
+            const elapsed = Date.now() - hiddenAt;
+            const completed = elapsed >= WECHAT_SHARE_MIN_HIDDEN_MS;
+            console.log(
+                `[RewardedAdService] WeChat share returned after ${elapsed}ms: ${completed ? 'completed' : 'incomplete'}.`,
+            );
+            finish(completed);
+        };
+
+        platform.onHide!(onHide);
+        platform.onShow!(onShow);
+        try {
+            platform.shareAppMessage!({
+                title: WECHAT_SHARE_TITLE,
+                query: 'from=reward_share',
+            });
+        } catch (error) {
+            console.error('[RewardedAdService] Failed to open WeChat share.', error);
+            finish(false);
+        }
+    });
+}
+
+function createWechatShareOptions(source: string): WechatShareOptions {
+    return {
+        title: WECHAT_SHARE_TITLE,
+        query: `from=${source}`,
+    };
 }
 
 function getRewardedVideoAd(

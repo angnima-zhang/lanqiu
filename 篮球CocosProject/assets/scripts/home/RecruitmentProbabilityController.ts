@@ -36,7 +36,11 @@ import {
     resolveRecruitmentQualityWeights,
     resolveRecruitmentWindow,
 } from './RecruitmentProgression';
-import { showRewardedVideo } from './RewardedAdService';
+import {
+    applyWechatShareCopy,
+    showRewardedVideo,
+    toRewardedActionCopy,
+} from './RewardedAdService';
 import {
     getStoredMarketValueLevel,
     TEAM_PROGRESSION_EVENT_MARKET_VALUE_CHANGED,
@@ -83,6 +87,7 @@ export class RecruitmentProbabilityController extends Component {
             console.error('[RecruitmentProbabilityController] 招募概率弹窗不存在。');
             return;
         }
+        applyWechatShareCopy(this.page);
         this.page.active = false;
     }
 
@@ -338,7 +343,9 @@ export class RecruitmentProbabilityController extends Component {
             );
             this.setLabel(
                 '五档品质概率/品质5/广告保底',
-                `广告保底 ${getRecruitmentAdHighestQualityPityCount()}/${RECRUITMENT_AD_HIGHEST_QUALITY_PITY_LIMIT}`,
+                toRewardedActionCopy(
+                    `广告保底 ${getRecruitmentAdHighestQualityPityCount()}/${RECRUITMENT_AD_HIGHEST_QUALITY_PITY_LIMIT}`,
+                ),
             );
             this.setLabel(
                 '五档品质概率/品质3/广告加成10%',

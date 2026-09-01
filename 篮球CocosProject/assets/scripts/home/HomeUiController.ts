@@ -84,7 +84,11 @@ import {
 } from './PlayerQualityVisuals';
 import { PlayerEventController } from './PlayerEventController';
 import { setGrowingNumber } from './NumberGrowthAnimator';
-import { showRewardedVideo } from './RewardedAdService';
+import {
+    applyWechatShareCopy,
+    initializeWechatShareCapabilities,
+    showRewardedVideo,
+} from './RewardedAdService';
 import {
     addPermanentOverallForPlayerKnowledge,
     advancePlayerKnowledgeQuestion,
@@ -169,6 +173,8 @@ export class HomeUiController extends Component {
 
     protected onLoad(): void {
         this.resolveSceneReferences();
+        initializeWechatShareCapabilities();
+        applyWechatShareCopy(this.node.scene);
         if (
             !this.canvas
             || !this.homeRoot

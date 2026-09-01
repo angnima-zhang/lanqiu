@@ -186,6 +186,7 @@ test('hidden event popup is never activated while attaching it to Homepage', asy
             assert.equal(root.active, false);
             fontApplied = true;
         } },
+        './RewardedAdService': { applyWechatShareCopy() {} },
     });
     const controller = new PlayerEventController();
     Object.assign(controller, {

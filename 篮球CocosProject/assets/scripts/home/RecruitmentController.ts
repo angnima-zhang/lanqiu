@@ -92,7 +92,9 @@ import { playFullScreenExit as exitWithFade } from './FullScreenEntrance';
 
 import {
     configureRewardedAdUnitIds,
+    isWechatSharePlatform,
     showRewardedVideo,
+    toRewardedActionCopy,
 } from './RewardedAdService';
 import { setGrowingNumber } from './NumberGrowthAnimator';
 import { gameAudio } from './GameAudio';
@@ -1657,15 +1659,19 @@ export class RecruitmentController extends Component {
         }
 
         const canUpgrade = this.canUpgradeFromAd(card);
+        let buttonLabel: string;
         if (this.isConceptGod(card)) {
-            this.upgradeAdButtonLabel.string = config.frontend.attributeButtonLabel;
+            buttonLabel = config.frontend.attributeButtonLabel;
         } else if (this.isGoat(card)) {
-            this.upgradeAdButtonLabel.string = this.canBecomeConceptGod(card)
+            buttonLabel = this.canBecomeConceptGod(card)
                 ? config.frontend.eligibleGoatButtonLabel
                 : config.frontend.ineligibleGoatButtonLabel;
         } else {
-            this.upgradeAdButtonLabel.string = config.frontend.normalQualityButtonLabel;
+            buttonLabel = config.frontend.normalQualityButtonLabel;
         }
+        this.upgradeAdButtonLabel.string = isWechatSharePlatform()
+            ? `分享${buttonLabel}`
+            : buttonLabel;
 
         this.upgradeAdButton.interactable = canUpgrade
             && !forceDisabled
@@ -2375,7 +2381,7 @@ export class RecruitmentController extends Component {
         const pityHint = this.getUpperQualityPityHint();
         const recruitmentHints = this.combineRecruitmentHints(protectionHint, pityHint);
         const text = maximum < 1
-            ? `看广告${AD_RECRUIT_LABEL}${recruitmentHints.text}`
+            ? toRewardedActionCopy(`看广告${AD_RECRUIT_LABEL}${recruitmentHints.text}`)
             : displayCount < CONTINUOUS_RECRUIT_MINIMUM_COUNT
                 ? `点击进行${displayCount}次招募${recruitmentHints.text}`
                 : this.continuousRecruitReady

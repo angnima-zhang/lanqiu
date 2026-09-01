@@ -52,7 +52,7 @@ import {
 } from './PlayerQualityVisuals';
 import { formatPlayerOverall, RosterSlotView } from './RosterSlotView';
 import { setGrowingNumber } from './NumberGrowthAnimator';
-import { showRewardedVideo } from './RewardedAdService';
+import { applyWechatShareCopy, showRewardedVideo } from './RewardedAdService';
 import {
     playFullScreenEntrance,
     playFullScreenExit,
@@ -273,6 +273,7 @@ export class PlayerEventController extends Component {
             this.page.active = false;
             applyGameFont(this.page, gameFont);
             this.canvas.addChild(this.page);
+            applyWechatShareCopy(this.page);
             this.resolvePageButtons();
             this.resolveRosterSlots();
             this.bindSlotEventButtons();

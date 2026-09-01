@@ -32,7 +32,11 @@ import {
 } from './FullScreenEntrance';
 import { playFullScreenExit as exitWithFade } from './FullScreenEntrance';
 import { setGrowingNumber } from './NumberGrowthAnimator';
-import { showRewardedVideo } from './RewardedAdService';
+import {
+    isWechatSharePlatform,
+    showRewardedVideo,
+    toRewardedActionCopy,
+} from './RewardedAdService';
 import { gameAudio } from './GameAudio';
 import {
     getStoredTeamLevel,
@@ -689,7 +693,7 @@ export class ManagementController extends Component {
                     ? '管理层等级不能超过球队等级'
                     : budgetEnabled
                         ? '升级后效果立即生效'
-                        : '预算不足，可观看广告免费升级';
+                        : toRewardedActionCopy('预算不足，可观看广告免费升级');
         }
         if (view.budgetUpgradeButtonLabel) {
             view.budgetUpgradeButtonLabel.string = capped
@@ -699,7 +703,11 @@ export class ManagementController extends Component {
                     : '预算不足';
         }
         if (view.adUpgradeButtonLabel) {
-            view.adUpgradeButtonLabel.string = capped ? '已达上限' : '免费升级';
+            view.adUpgradeButtonLabel.string = capped
+                ? '已达上限'
+                : isWechatSharePlatform()
+                    ? '分享升级'
+                    : '免费升级';
         }
 
         this.setButtonAvailable(view.budgetUpgradeButton, budgetEnabled);

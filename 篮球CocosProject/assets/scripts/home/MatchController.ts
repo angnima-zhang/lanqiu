@@ -38,7 +38,12 @@ import {
 import { preloadHomepageRuntimeAssets } from './HomepagePreloader';
 import { loadMatchRuntimeAssets } from './MatchPreloader';
 import { formatPlayerOverall } from './RosterSlotView';
-import { showRewardedVideo } from './RewardedAdService';
+import {
+    applyWechatShareCopy,
+    initializeWechatShareCapabilities,
+    showRewardedVideo,
+    toRewardedActionCopy,
+} from './RewardedAdService';
 import { gameAudio } from './GameAudio';
 import {
     playFullScreenEntrance,
@@ -204,6 +209,8 @@ export class MatchController extends Component {
     protected onLoad(): void {
         gameAudio.initialize();
         this.page = this.node.getChildByName('比赛页面');
+        initializeWechatShareCapabilities();
+        applyWechatShareCopy(this.node.scene);
         this.session = getCurrentMatchSession();
         if (!this.page || !this.session) {
             console.error('[MatchController] Missing match page or prepared match session.');
@@ -316,6 +323,8 @@ export class MatchController extends Component {
             this.node.addChild(this.victoryPage);
             this.node.addChild(this.championshipPage);
             this.node.addChild(this.defeatPage);
+            applyWechatShareCopy(this.victoryPage);
+            applyWechatShareCopy(this.defeatPage);
             const championshipCopy = this.championshipPage.getChildByName('全胜之后');
             if (championshipCopy && !championshipCopy.getComponent(RainbowLabelCycle)) {
                 championshipCopy.addComponent(RainbowLabelCycle);
@@ -369,11 +378,11 @@ export class MatchController extends Component {
         this.refreshClockPresentation();
         this.pushCommentary(
             0,
-            forceWin
+            toRewardedActionCopy(forceWin
                 ? '广告助威生效，球队士气被彻底点燃。双方在中圈跳球，第一节重新开始！'
                 : this.retryCount > 0
                     ? `广告加成生效，本场球队总评临时提升${this.session.temporaryBonusPercent}%。双方在中圈跳球，第一节比赛开始！`
-                    : `${this.session.playerTeamName}与${this.session.opponentTeamName}在中圈跳球，第一节比赛正式开始！`,
+                    : `${this.session.playerTeamName}与${this.session.opponentTeamName}在中圈跳球，第一节比赛正式开始！`),
         );
         const openingTeam = this.plannedPlays[0]?.offenseTeam ?? 0;
         this.courtSimulation?.reset(openingTeam);
