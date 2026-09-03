@@ -131,6 +131,12 @@ interface SettingToggleSprites {
     offSprite: SpriteFrame | null;
 }
 
+interface DetailedPlayerRenderOptions {
+    overallAnimationFrom?: number;
+    animateEventOverall?: boolean;
+    releaseKnowledgeRewardTrendOnComplete?: boolean;
+}
+
 interface ConceptGodKnowledgeConfig {
     quality: { conceptGodQualityId: number; conceptGodQualityName: string };
     conceptGodDefinitions: Record<string, Array<{
@@ -163,7 +169,8 @@ export class HomeUiController extends Component {
     private cardRenderVersion = 0;
     private knowledgeRenderVersion = 0;
     private currentKnowledgeSourceName: string | null = null;
-    private readonly playerKnowledgeQuestionWidths = new WeakMap<Node, number>();
+    private holdKnowledgeRewardTrend = false;
+    private applyingKnowledgeReward = false;
     private teamInfoRequestVersion = 0;
     private buttonVisualBindings: ButtonVisualBinding[] = [];
     private readonly buttonGrayscaleOverrides = new WeakMap<Button, boolean>();
@@ -602,7 +609,10 @@ export class HomeUiController extends Component {
         if (!card) {
             return;
         }
-        void this.renderDetailedPlayerCard(this.playerDetailsPage, card);
+        this.holdKnowledgeRewardTrend = false;
+        void this.renderDetailedPlayerCard(this.playerDetailsPage, card, {
+            animateEventOverall: true,
+        });
         this.bringToFront(this.playerDetailsPage, true);
     }
 
@@ -610,6 +620,7 @@ export class HomeUiController extends Component {
         this.cardRenderVersion += 1;
         this.knowledgeRenderVersion += 1;
         this.currentKnowledgeSourceName = null;
+        this.holdKnowledgeRewardTrend = false;
         if (this.playerDetailsPage) {
             void exitWithFade(this.playerDetailsPage).then(() => {
                 this.playerDetailsPage!.active = false;
@@ -765,7 +776,7 @@ export class HomeUiController extends Component {
     private async renderDetailedPlayerCard(
         root: Node | null,
         card: PlayerCard,
-        overallAnimationFrom?: number,
+        options: DetailedPlayerRenderOptions = {},
     ): Promise<void> {
         if (!root) {
             return;
@@ -823,20 +834,18 @@ export class HomeUiController extends Component {
         const overallRoot = root.getChildByName('总评') ?? null;
         const overallLabel = overallRoot?.getChildByName('数值')
             ?.getComponent(Label) ?? null;
-        const eventOverallTrend: OverallTrend = card.activeInjury
-            ? 'injury'
-            : card.activeTraining || card.pendingEvent?.type === 'training'
-                ? 'training'
-                : null;
-        const overallTrend: OverallTrend = overallAnimationFrom !== undefined
-            && card.overall > overallAnimationFrom
-            ? 'training'
-            : eventOverallTrend;
+        const overallTrend = this.getDetailedOverallTrend(
+            card,
+            options.overallAnimationFrom,
+        );
         this.animateDetailedOverall(
             overallLabel,
             card,
             overallTrend,
-            overallAnimationFrom,
+            options,
+            options.releaseKnowledgeRewardTrendOnComplete
+                ? () => this.releaseKnowledgeRewardTrend(root, card.sourcePlayerName)
+                : undefined,
         );
         applyOverallNumberQuality(
             overallLabel,
@@ -902,9 +911,11 @@ export class HomeUiController extends Component {
         label: Label | null,
         card: PlayerCard,
         trend: OverallTrend,
-        fromOverall?: number,
+        options: DetailedPlayerRenderOptions,
+        onComplete?: () => void,
     ): void {
         const target = card.overall;
+        const fromOverall = options.overallAnimationFrom;
         if (fromOverall !== undefined && target > fromOverall) {
             setGrowingNumber(
                 label,
@@ -915,19 +926,30 @@ export class HomeUiController extends Component {
                     duration: 1.5,
                     colorFrom: getOverallDefaultColor(label),
                     colorTo: getOverallTrendColor('training'),
+                    onComplete,
                 },
             );
             return;
         }
         const penalty = card.activeInjury?.overallPenalty ?? 0;
         const bonus = card.activeTraining?.overallBonus ?? 0;
-        if (penalty <= 0 && bonus <= 0) {
-            if (label) {
-                label.string = this.formatOverall(target);
-                label.color = trend
-                    ? getOverallTrendColor(trend)
-                    : getOverallDefaultColor(label);
-            }
+        if (
+            (penalty <= 0 && bonus <= 0)
+            || options.animateEventOverall !== true
+        ) {
+            const color = trend
+                ? getOverallTrendColor(trend)
+                : getOverallDefaultColor(label);
+            setGrowingNumber(
+                label,
+                target,
+                (value) => this.formatOverall(Math.floor(value)),
+                {
+                    animateGrowth: false,
+                    colorFrom: color,
+                    colorTo: color,
+                },
+            );
             return;
         }
         setGrowingNumber(
@@ -946,6 +968,48 @@ export class HomeUiController extends Component {
                 ),
             },
         );
+    }
+
+    private getDetailedOverallTrend(
+        card: PlayerCard,
+        overallAnimationFrom?: number,
+    ): OverallTrend {
+        if (
+            this.holdKnowledgeRewardTrend
+            || overallAnimationFrom !== undefined && card.overall > overallAnimationFrom
+        ) {
+            return 'training';
+        }
+        return card.activeInjury
+            ? 'injury'
+            : card.activeTraining || card.pendingEvent?.type === 'training'
+                ? 'training'
+                : null;
+    }
+
+    private releaseKnowledgeRewardTrend(root: Node, sourcePlayerName: string): void {
+        if (
+            !this.holdKnowledgeRewardTrend
+            || this.currentKnowledgeSourceName !== sourcePlayerName
+            || !root.active
+        ) {
+            return;
+        }
+        this.holdKnowledgeRewardTrend = false;
+        const card = this.getCurrentKnowledgeCard();
+        if (!card) {
+            return;
+        }
+        const overallRoot = root.getChildByName('总评');
+        const overallLabel = overallRoot?.getChildByName('数值')?.getComponent(Label) ?? null;
+        const trend = this.getDetailedOverallTrend(card);
+        if (overallLabel) {
+            overallLabel.string = this.formatOverall(card.overall);
+            overallLabel.color = trend
+                ? getOverallTrendColor(trend)
+                : getOverallDefaultColor(overallLabel);
+        }
+        applyOverallTrendArrow(overallRoot, trend);
     }
 
     private prepareTeamNameEditor(): void {
@@ -1178,25 +1242,52 @@ export class HomeUiController extends Component {
         );
         let overallAnimationFrom: number | undefined;
         if (newlyCorrect) {
-            const rewardOverall = calculatePlayerKnowledgeReward(card.overall);
+            const eventNeutralOverall = Math.max(
+                1,
+                card.overall
+                + (card.activeInjury?.overallPenalty ?? 0)
+                - (card.activeTraining?.overallBonus ?? 0),
+            );
+            const rewardOverall = calculatePlayerKnowledgeReward(eventNeutralOverall);
             recordPlayerKnowledgeReward(
                 card.sourcePlayerName,
                 question.id,
                 rewardOverall,
             );
-            const rewardedCard = addPermanentOverallForPlayerKnowledge(
-                card.sourcePlayerName,
-                rewardOverall,
-            );
+            this.holdKnowledgeRewardTrend = true;
+            this.applyingKnowledgeReward = true;
+            let rewardedCard: PlayerCard | null = null;
+            try {
+                rewardedCard = addPermanentOverallForPlayerKnowledge(
+                    card.sourcePlayerName,
+                    rewardOverall,
+                );
+            } finally {
+                this.applyingKnowledgeReward = false;
+            }
             if (rewardedCard && rewardedCard.overall > card.overall) {
                 overallAnimationFrom = card.overall;
+            } else {
+                this.holdKnowledgeRewardTrend = false;
             }
+        }
+        const latestProgress = getPlayerKnowledgeProgress(card.sourcePlayerName);
+        const completedAllQuestions = entry.questions.every((candidate) => (
+            hasAnsweredPlayerKnowledgeQuestion(latestProgress, candidate.id)
+        ));
+        if (completedAllQuestions && overallAnimationFrom === undefined) {
+            this.holdKnowledgeRewardTrend = false;
         }
         const latestCard = this.getCurrentKnowledgeCard() ?? card;
         await this.renderDetailedPlayerCard(
             this.playerDetailsPage,
             latestCard,
-            overallAnimationFrom,
+            {
+                overallAnimationFrom,
+                animateEventOverall: false,
+                releaseKnowledgeRewardTrendOnComplete: completedAllQuestions
+                    && overallAnimationFrom !== undefined,
+            },
         );
     }
 
@@ -1206,25 +1297,25 @@ export class HomeUiController extends Component {
         highlightedSuffix?: string,
     ): void {
         const transform = label.node.getComponent(UITransform);
-        let richText = label.node.getComponent(RichText);
-        let fixedWidth = this.playerKnowledgeQuestionWidths.get(label.node);
-        if (fixedWidth === undefined && transform) {
-            fixedWidth = transform.width;
-            this.playerKnowledgeQuestionWidths.set(label.node, fixedWidth);
-        }
+        let feedbackNode = label.node.getChildByName('答错提示');
+        let richText = feedbackNode?.getComponent(RichText) ?? null;
         if (!highlightedSuffix) {
             if (richText) {
                 richText.enabled = false;
             }
+            if (feedbackNode) {
+                feedbackNode.active = false;
+            }
             label.enabled = true;
             label.string = question;
-            if (transform && fixedWidth !== undefined) {
-                transform.setContentSize(fixedWidth, transform.height);
-            }
             return;
         }
         if (!richText) {
-            richText = label.node.addComponent(RichText);
+            feedbackNode = new Node('答错提示');
+            feedbackNode.layer = label.node.layer;
+            label.node.addChild(feedbackNode);
+            feedbackNode.addComponent(UITransform);
+            richText = feedbackNode.addComponent(RichText);
             richText.fontSize = label.fontSize;
             richText.lineHeight = label.lineHeight;
             richText.horizontalAlign = label.horizontalAlign;
@@ -1234,7 +1325,13 @@ export class HomeUiController extends Component {
             richText.font = label.font;
             richText.handleTouchEvent = false;
         }
-        richText.maxWidth = fixedWidth ?? 0;
+        const fixedWidth = transform?.width ?? 0;
+        const fixedHeight = transform?.height ?? 0;
+        const feedbackTransform = feedbackNode!.getComponent(UITransform);
+        feedbackTransform?.setAnchorPoint(0, 1);
+        feedbackNode!.setPosition(-fixedWidth / 2, fixedHeight / 2);
+        feedbackNode!.active = true;
+        richText.maxWidth = fixedWidth;
         const baseColor = `#${[label.color.r, label.color.g, label.color.b]
             .map((value) => value.toString(16).padStart(2, '0'))
             .join('')}`;
@@ -1245,9 +1342,6 @@ export class HomeUiController extends Component {
         label.enabled = false;
         richText.enabled = true;
         richText.string = `<color=${baseColor}><b>${escapeRichText(question)}</b></color>\n<color=#FFD15A><b>${escapeRichText(highlightedSuffix)}</b></color>`;
-        if (transform && fixedWidth !== undefined) {
-            transform.setContentSize(fixedWidth, transform.height);
-        }
     }
 
     private async unlockPlayerKnowledgeWithAd(): Promise<void> {
@@ -1322,7 +1416,11 @@ export class HomeUiController extends Component {
         if (this.teamInfoPage?.active) {
             void this.refreshTeamInfoPage();
         }
-        if (this.playerDetailsPage?.active && this.currentKnowledgeSourceName) {
+        if (
+            !this.applyingKnowledgeReward
+            && this.playerDetailsPage?.active
+            && this.currentKnowledgeSourceName
+        ) {
             const card = loadRoster(this.rosterSlots.length).find((candidate) => (
                 candidate?.sourcePlayerName === this.currentKnowledgeSourceName
             ));
