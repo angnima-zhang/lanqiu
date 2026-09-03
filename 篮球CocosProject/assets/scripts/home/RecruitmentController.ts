@@ -92,7 +92,6 @@ import { playFullScreenExit as exitWithFade } from './FullScreenEntrance';
 
 import {
     configureRewardedAdUnitIds,
-    isWechatSharePlatform,
     showRewardedVideo,
     toRewardedActionCopy,
 } from './RewardedAdService';
@@ -1669,9 +1668,7 @@ export class RecruitmentController extends Component {
         } else {
             buttonLabel = config.frontend.normalQualityButtonLabel;
         }
-        this.upgradeAdButtonLabel.string = isWechatSharePlatform()
-            ? `分享${buttonLabel}`
-            : buttonLabel;
+        this.upgradeAdButtonLabel.string = buttonLabel;
 
         this.upgradeAdButton.interactable = canUpgrade
             && !forceDisabled

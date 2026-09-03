@@ -84,11 +84,16 @@ import {
 } from './PlayerQualityVisuals';
 import { PlayerEventController } from './PlayerEventController';
 import { setGrowingNumber } from './NumberGrowthAnimator';
+import { applySafeAreaToCanvasPages } from './MobileSafeArea';
 import {
     applyWechatShareCopy,
     initializeWechatShareCapabilities,
     showRewardedVideo,
 } from './RewardedAdService';
+import {
+    checkWechatGameText,
+    showWechatContentSecurityMessage,
+} from './WechatContentSecurityService';
 import {
     addPermanentOverallForPlayerKnowledge,
     advancePlayerKnowledgeQuestion,
@@ -154,6 +159,7 @@ export class HomeUiController extends Component {
     private teamNameDisplayLabel: Label | null = null;
     private teamNameInputLabel: Label | null = null;
     private editingTeamName = false;
+    private teamNameSecurityChecking = false;
     private cardRenderVersion = 0;
     private knowledgeRenderVersion = 0;
     private currentKnowledgeSourceName: string | null = null;
@@ -173,6 +179,7 @@ export class HomeUiController extends Component {
 
     protected onLoad(): void {
         this.resolveSceneReferences();
+        applySafeAreaToCanvasPages(this.canvas);
         initializeWechatShareCapabilities();
         applyWechatShareCopy(this.node.scene);
         if (
@@ -386,7 +393,7 @@ export class HomeUiController extends Component {
         );
         this.bindButton(
             this.teamInfoPage?.getChildByName('保存并关闭')?.getComponent(Button),
-            this.saveTeamIdentity,
+            () => { void this.saveTeamIdentity(); },
         );
 
         this.bindButton(
@@ -513,7 +520,10 @@ export class HomeUiController extends Component {
         this.teamNameEditBox.focus();
     };
 
-    private saveTeamIdentity = (): void => {
+    private saveTeamIdentity = async (): Promise<void> => {
+        if (this.teamNameSecurityChecking) {
+            return;
+        }
         const oldName = sys.localStorage.getItem(TEAM_NAME_STORAGE_KEY)?.trim()
             || '我的球队';
         const proposedName = this.editingTeamName && this.teamNameEditBox
@@ -523,6 +533,26 @@ export class HomeUiController extends Component {
                 ?.string
                 .trim() ?? oldName;
         const teamName = proposedName || oldName;
+        if (teamName !== oldName) {
+            this.teamNameSecurityChecking = true;
+            let securityResult;
+            try {
+                securityResult = await checkWechatGameText(teamName);
+            } finally {
+                this.teamNameSecurityChecking = false;
+            }
+            if (!this.isValid) {
+                return;
+            }
+            if (securityResult.status !== 'pass') {
+                showWechatContentSecurityMessage(
+                    securityResult.status === 'risky'
+                        ? '名称含有不合规内容，请修改'
+                        : '名称审核暂时不可用，请稍后重试',
+                );
+                return;
+            }
+        }
         const abbreviation = getTeamAbbreviation(teamName);
         this.topTeamInfoController?.setTeamIdentity(teamName);
         if (!this.topTeamInfoController) {

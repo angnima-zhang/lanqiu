@@ -20,6 +20,8 @@ function createHarness(runtime, preview = false) {
     const state = { pity: 0, audio: 0, events: 0, now: 0 };
     class Label {
         static Overflow = { SHRINK: 2 };
+        static HorizontalAlign = { CENTER: 1 };
+        static VerticalAlign = { CENTER: 1 };
     }
     class RichText {}
     class Sprite {}
@@ -253,14 +255,16 @@ test('WeChat reward buttons replace the video icon with explicit share copy', ()
 
     const boostSprite = new h.classes.Sprite();
     boostSprite.enabled = true;
-    const boostIcon = createNode('看广告', h.classes, boostSprite);
+    const boostIcon = createNode('广告', h.classes, boostSprite);
     const boostButton = createNode('广告加成10%', h.classes, null, [boostIcon]);
     const root = createNode('Root', h.classes, null, [button, boostButton]);
 
     h.service.applyWechatShareCopy(root);
 
-    assert.equal(label.string, '分享领取');
-    assert.equal(icon.active, false);
+    assert.equal(label.string, '领取');
+    assert.equal(iconSprite.enabled, false);
+    assert.equal(icon.getComponent(h.classes.Label).string, '分享');
+    assert.equal(icon.active, true);
     assert.equal(boostSprite.enabled, false);
     assert.equal(boostIcon.getComponent(h.classes.Label).string, '分享');
     assert.equal(boostIcon.active, true);

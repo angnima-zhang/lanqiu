@@ -38,6 +38,7 @@ import {
 import { preloadHomepageRuntimeAssets } from './HomepagePreloader';
 import { loadMatchRuntimeAssets } from './MatchPreloader';
 import { formatPlayerOverall } from './RosterSlotView';
+import { applySafeAreaToCanvasPages, applySafeAreaToPage } from './MobileSafeArea';
 import {
     applyWechatShareCopy,
     initializeWechatShareCapabilities,
@@ -208,6 +209,7 @@ export class MatchController extends Component {
 
     protected onLoad(): void {
         gameAudio.initialize();
+        applySafeAreaToCanvasPages(this.node);
         this.page = this.node.getChildByName('比赛页面');
         initializeWechatShareCapabilities();
         applyWechatShareCopy(this.node.scene);
@@ -323,6 +325,9 @@ export class MatchController extends Component {
             this.node.addChild(this.victoryPage);
             this.node.addChild(this.championshipPage);
             this.node.addChild(this.defeatPage);
+            applySafeAreaToPage(this.victoryPage);
+            applySafeAreaToPage(this.championshipPage);
+            applySafeAreaToPage(this.defeatPage);
             applyWechatShareCopy(this.victoryPage);
             applyWechatShareCopy(this.defeatPage);
             const championshipCopy = this.championshipPage.getChildByName('全胜之后');

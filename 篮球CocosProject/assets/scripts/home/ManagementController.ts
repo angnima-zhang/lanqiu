@@ -33,7 +33,6 @@ import {
 import { playFullScreenExit as exitWithFade } from './FullScreenEntrance';
 import { setGrowingNumber } from './NumberGrowthAnimator';
 import {
-    isWechatSharePlatform,
     showRewardedVideo,
     toRewardedActionCopy,
 } from './RewardedAdService';
@@ -703,11 +702,7 @@ export class ManagementController extends Component {
                     : '预算不足';
         }
         if (view.adUpgradeButtonLabel) {
-            view.adUpgradeButtonLabel.string = capped
-                ? '已达上限'
-                : isWechatSharePlatform()
-                    ? '分享升级'
-                    : '免费升级';
+            view.adUpgradeButtonLabel.string = capped ? '已达上限' : '免费升级';
         }
 
         this.setButtonAvailable(view.budgetUpgradeButton, budgetEnabled);

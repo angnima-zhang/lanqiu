@@ -159,23 +159,13 @@ export function applyWechatShareCopy(root: Node | null): void {
 }
 
 function applyWechatShareButtonCopy(node: Node): void {
-    if (node.name === '看广告' && node.getComponent(Label)?.string === '分享') {
+    const isAdIcon = node.name === '看广告' || node.name === '广告';
+    if (isAdIcon && node.getComponent(Label)?.string === '分享') {
         return;
     }
-    const childAdIcon = node.getChildByName('看广告');
-    const adIcon = childAdIcon ?? (node.name === '看广告' ? node : null);
+    const childAdIcon = node.getChildByName('看广告') ?? node.getChildByName('广告');
+    const adIcon = childAdIcon ?? (isAdIcon ? node : null);
     if (!adIcon) {
-        return;
-    }
-
-    const buttonRoot = childAdIcon ? node : node.parent;
-    const buttonLabel = buttonRoot?.children
-        .map((child) => child.getComponent(Label))
-        .find((label) => Boolean(label) && !/数值|预算/.test(label!.node.name)) ?? null;
-    if (buttonLabel) {
-        const current = toRewardedActionCopy(buttonLabel.string).replace(/^免费/, '');
-        buttonLabel.string = current.includes('分享') ? current : `分享${current}`;
-        adIcon.active = false;
         return;
     }
 
@@ -183,11 +173,22 @@ function applyWechatShareButtonCopy(node: Node): void {
     if (!iconSprite) {
         return;
     }
+    const buttonRoot = childAdIcon ? node : node.parent;
+    const buttonLabel = buttonRoot?.children
+        .map((child) => child.getComponent(Label))
+        .find((label) => Boolean(label) && !/数值|预算/.test(label!.node.name)) ?? null;
     iconSprite.enabled = false;
+    adIcon.active = true;
     const shareLabel = adIcon.getComponent(Label) ?? adIcon.addComponent(Label);
     shareLabel.string = '分享';
-    shareLabel.fontSize = 32;
-    shareLabel.lineHeight = 36;
+    shareLabel.font = buttonLabel?.font ?? null;
+    if (buttonLabel) {
+        shareLabel.color = buttonLabel.color;
+    }
+    shareLabel.fontSize = Math.min(buttonLabel?.fontSize ?? 48, 48);
+    shareLabel.lineHeight = Math.min(buttonLabel?.lineHeight ?? 60, 60);
+    shareLabel.horizontalAlign = Label.HorizontalAlign.CENTER;
+    shareLabel.verticalAlign = Label.VerticalAlign.CENTER;
     shareLabel.overflow = Label.Overflow.SHRINK;
 }
 
