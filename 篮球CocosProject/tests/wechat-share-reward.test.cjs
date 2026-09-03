@@ -25,6 +25,7 @@ function createHarness(runtime, preview = false) {
     }
     class RichText {}
     class Sprite {}
+    class Button {}
     const exports = {};
     const context = vm.createContext({
         exports,
@@ -33,7 +34,7 @@ function createHarness(runtime, preview = false) {
         ...runtime,
         require(id) {
             if (id === 'cc/env') return { PREVIEW: preview };
-            if (id === 'cc') return { Label, RichText, Sprite };
+            if (id === 'cc') return { Button, Label, RichText, Sprite };
             if (id === './GameAudio') return {
                 gameAudio: { playAdSuccess: () => { state.audio += 1; } },
             };
@@ -46,7 +47,7 @@ function createHarness(runtime, preview = false) {
         },
     });
     vm.runInContext(compiled, context);
-    return { service: exports, state, classes: { Label, RichText, Sprite } };
+    return { service: exports, state, classes: { Button, Label, RichText, Sprite } };
 }
 
 function createNode(name, classes, component = null, children = []) {
@@ -268,6 +269,28 @@ test('WeChat reward buttons replace the video icon with explicit share copy', ()
     assert.equal(boostSprite.enabled, false);
     assert.equal(boostIcon.getComponent(h.classes.Label).string, '分享');
     assert.equal(boostIcon.active, true);
+});
+
+test('event reward button keeps its frame when both button and icon are named 看广告', () => {
+    const h = createHarness({ wx: createWechatRuntime().wx });
+    const buttonFrame = new h.classes.Sprite();
+    buttonFrame.enabled = true;
+    const iconSprite = new h.classes.Sprite();
+    iconSprite.enabled = true;
+    const label = new h.classes.Label();
+    label.string = '生活大于篮球';
+    const labelNode = createNode('Label', h.classes, label);
+    const icon = createNode('看广告', h.classes, iconSprite);
+    const button = createNode('看广告', h.classes, buttonFrame, [labelNode, icon]);
+    button.addComponent(h.classes.Button);
+    const root = createNode('事件页面', h.classes, null, [button]);
+
+    h.service.applyWechatShareCopy(root);
+
+    assert.equal(buttonFrame.enabled, true);
+    assert.equal(button.getComponent(h.classes.Label), null);
+    assert.equal(iconSprite.enabled, false);
+    assert.equal(icon.getComponent(h.classes.Label).string, '分享');
 });
 
 test('all dynamic rewarded UI copy passes through the platform formatter', () => {

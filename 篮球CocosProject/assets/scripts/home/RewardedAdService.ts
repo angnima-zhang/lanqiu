@@ -1,4 +1,4 @@
-import { Label, Node, RichText, Sprite } from 'cc';
+import { Button, Label, Node, RichText, Sprite } from 'cc';
 import { PREVIEW } from 'cc/env';
 import { gameAudio } from './GameAudio';
 import {
@@ -159,11 +159,13 @@ export function applyWechatShareCopy(root: Node | null): void {
 }
 
 function applyWechatShareButtonCopy(node: Node): void {
-    const isAdIcon = node.name === '看广告' || node.name === '广告';
+    const isAdIcon = (node.name === '看广告' || node.name === '广告')
+        && !node.getComponent(Button);
     if (isAdIcon && node.getComponent(Label)?.string === '分享') {
         return;
     }
-    const childAdIcon = node.getChildByName('看广告') ?? node.getChildByName('广告');
+    const namedChild = node.getChildByName('看广告') ?? node.getChildByName('广告');
+    const childAdIcon = namedChild && !namedChild.getComponent(Button) ? namedChild : null;
     const adIcon = childAdIcon ?? (isAdIcon ? node : null);
     if (!adIcon) {
         return;
