@@ -24,18 +24,24 @@ class SafeArea {
     updateArea() { this.updates += 1; }
 }
 class Widget {}
+const ResolutionPolicy = { FIXED_HEIGHT: 3, FIXED_WIDTH: 4 };
 
-function loadService() {
+function loadService(frameSize = { width: 1080, height: 2160 }) {
+    const resolutionCalls = [];
+    const view = {
+        getFrameSize: () => frameSize,
+        setDesignResolutionSize: (...args) => resolutionCalls.push(args),
+    };
     const exports = {};
     const context = vm.createContext({
         exports,
         require(id) {
-            if (id === 'cc') return { SafeArea, Widget };
+            if (id === 'cc') return { ResolutionPolicy, SafeArea, Widget, view };
             throw new Error(`Unexpected dependency: ${id}`);
         },
     });
     vm.runInContext(compiled, context);
-    return exports;
+    return { service: exports, resolutionCalls };
 }
 
 function createNode(name, children = [], withWidget = false) {
@@ -57,7 +63,7 @@ function createNode(name, children = [], withWidget = false) {
 }
 
 test('safe area is added once to full-screen widget pages but not manager or camera nodes', () => {
-    const service = loadService();
+    const { service } = loadService();
     const homepage = createNode('主页', [], true);
     const result = createNode('招募结果页面', [], true);
     const manager = createNode('manager');
@@ -71,6 +77,22 @@ test('safe area is added once to full-screen widget pages but not manager or cam
     assert.equal(result.safeAreaAdds, 1);
     assert.equal(manager.safeAreaAdds, 0);
     assert.equal(camera.safeAreaAdds, 0);
+});
+
+test('short desktop windows fit height while tall phone screens keep fitting width', () => {
+    const desktop = loadService({ width: 470, height: 837 });
+    desktop.service.applyAdaptiveDesignResolution();
+    assert.deepEqual(
+        desktop.resolutionCalls,
+        [[1080, 2160, ResolutionPolicy.FIXED_HEIGHT]],
+    );
+
+    const phone = loadService({ width: 390, height: 844 });
+    phone.service.applyAdaptiveDesignResolution();
+    assert.deepEqual(
+        phone.resolutionCalls,
+        [[1080, 2160, ResolutionPolicy.FIXED_WIDTH]],
+    );
 });
 
 test('Homepage and Match install safe area before showing their full-screen pages', () => {
