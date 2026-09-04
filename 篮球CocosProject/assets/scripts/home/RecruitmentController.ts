@@ -96,6 +96,7 @@ import {
     toRewardedActionCopy,
 } from './RewardedAdService';
 import { setGrowingNumber } from './NumberGrowthAnimator';
+import { markStartupStage } from '../loading/StartupTiming';
 import { gameAudio } from './GameAudio';
 import {
     applyOverallNumberQuality,
@@ -117,13 +118,12 @@ const OVR_RANGES_PATH = 'data/balance/player_ovr_ranges';
 const RECRUITMENT_PROBABILITY_PATH = 'data/balance/recruitment_probability';
 const ECONOMY_PATH = 'data/balance/economy';
 const CONCEPT_GOD_UPGRADE_PATH = 'data/balance/concept_god_upgrade';
-const DEFAULT_BUDGET = 20;
+const DEFAULT_BUDGET = 50;
 const RECRUITING_BUTTON_SPRITE_PATH = 'images/UI/按钮/招募中/spriteFrame';
 const RECRUIT_BUTTON_SWEEP_EFFECT_PATH = 'effects/recruit-button-sweep';
 const DISSOLVE_EFFECT_PATH = 'effects/dissolve';
 const RECRUITING_DELAY_SECONDS = 1;
-const AD_RECRUIT_COUNT = 10;
-const AD_RECRUIT_LABEL = `${AD_RECRUIT_COUNT}连抽`;
+const AD_RECRUIT_COUNT_PER_LEVEL = 10;
 const RECRUITMENT_PROFILE_HONOR_LIMIT = 5;
 const NEGATIVE_OVERALL_COLOR = new Color(220, 55, 55, 255);
 const CONTINUOUS_RECRUIT_START_DELAY_SECONDS = 1;
@@ -674,6 +674,7 @@ export class RecruitmentController extends Component {
             this.ready = true;
             this.refreshBudgetView();
             this.topTeamInfoController?.refreshOverallFromRoster();
+            markStartupStage('homepage-recruitment-ready');
         } catch (error) {
             console.error('[RecruitmentController] Failed to initialize.', error);
             this.refreshBudgetView();
@@ -956,11 +957,17 @@ export class RecruitmentController extends Component {
             });
     }
 
+    private getAdRecruitmentCount(): number {
+        const teamLevel = this.teamLevelController?.getSnapshot()?.teamLevel ?? getStoredTeamLevel();
+        return AD_RECRUIT_COUNT_PER_LEVEL * Math.max(1, teamLevel);
+    }
+
     private async recruitTripleFromAd(): Promise<void> {
         if (this.processing) {
             return;
         }
 
+        const drawCount = this.getAdRecruitmentCount();
         this.processing = true;
         this.showRecruitingButtonVisual();
         this.refreshBudgetView();
@@ -988,7 +995,8 @@ export class RecruitmentController extends Component {
                     card ? [card.sourcePlayerName] : []
                 )),
             );
-            for (let index = 0; index < AD_RECRUIT_COUNT; index += 1) {
+            // 广告多抽允许同批重复，只保留现有阵容的排除名单。
+            for (let index = 0; index < drawCount; index += 1) {
                 const lowQualityProtectionActive = index < availableLowQualityProtection;
                 const card = this.createRecruitedCard(
                     lowQualityProtectionActive,
@@ -1000,7 +1008,6 @@ export class RecruitmentController extends Component {
                     throw new Error('Failed to create an ad recruitment result.');
                 }
                 cards.push(card);
-                excludedSourceNames.add(card.sourcePlayerName);
                 if (lowQualityProtectionActive) {
                     consumedLowQualityProtection += 1;
                 }
@@ -2377,8 +2384,9 @@ export class RecruitmentController extends Component {
         const protectionHint = this.getLowestQualityProtectionHint();
         const pityHint = this.getUpperQualityPityHint();
         const recruitmentHints = this.combineRecruitmentHints(protectionHint, pityHint);
+        const adRecruitCount = this.getAdRecruitmentCount();
         const text = maximum < 1
-            ? toRewardedActionCopy(`看广告${AD_RECRUIT_LABEL}${recruitmentHints.text}`)
+            ? toRewardedActionCopy(`看广告${adRecruitCount}连抽${recruitmentHints.text}`)
             : displayCount < CONTINUOUS_RECRUIT_MINIMUM_COUNT
                 ? `点击进行${displayCount}次招募${recruitmentHints.text}`
                 : this.continuousRecruitReady
@@ -2397,7 +2405,7 @@ export class RecruitmentController extends Component {
                 baseFontSize + (CONTINUOUS_RECRUIT_MAX_FONT_SIZE - baseFontSize) * progress,
             );
         const highlights = maximum < 1
-            ? [String(AD_RECRUIT_COUNT), ...recruitmentHints.highlights]
+            ? [String(adRecruitCount), ...recruitmentHints.highlights]
             : [String(displayCount), ...recruitmentHints.highlights];
         this.setContinuousRecruitLabel(
             text,

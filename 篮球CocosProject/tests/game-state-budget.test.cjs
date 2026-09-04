@@ -40,19 +40,19 @@ function harness(missingValue, savedBudget) {
 }
 
 for (const missing of [null, undefined, '', ' ', '\t\n']) {
-    test(`missing budget ${JSON.stringify(missing)} initializes exactly once to 20`, () => {
+    test(`missing budget ${JSON.stringify(missing)} initializes exactly once to 50`, () => {
         const { state, storage, writes, key } = harness(missing);
-        assert.equal(state.getBudget(), 20);
-        assert.equal(state.getBalance(), 20);
-        assert.equal(storage.get(key), '20');
-        assert.deepEqual(writes, [[key, '20']]);
+        assert.equal(state.getBudget(), 50);
+        assert.equal(state.getBalance(), 50);
+        assert.equal(storage.get(key), '50');
+        assert.deepEqual(writes, [[key, '50']]);
     });
 }
 
 for (const invalid of ['NaN', 'Infinity', '-1', 'invalid']) {
-    test(`invalid saved budget ${invalid} falls back to 20`, () => {
+    test(`invalid saved budget ${invalid} falls back to 50`, () => {
         const { state } = harness('', invalid);
-        assert.equal(state.getBudget(), 20);
+        assert.equal(state.getBudget(), 50);
     });
 }
 
@@ -64,24 +64,24 @@ for (const saved of ['0', '8', '42.125']) {
     });
 }
 
-test('first spend uses the initial 20 and does not refill a spent balance', () => {
+test('first spend uses the initial 50 and does not refill a spent balance', () => {
     const { state } = harness('');
     assert.equal(state.trySpendBudget(5), true);
-    assert.equal(state.getBudget(), 15);
-    assert.equal(state.trySpendBudget(15), true);
+    assert.equal(state.getBudget(), 45);
+    assert.equal(state.trySpendBudget(45), true);
     assert.equal(state.getBudget(), 0);
     assert.equal(state.trySpendBudget(1), false);
 });
 
-test('income before the first budget read adds to the initial 20', () => {
-    assert.equal(harness('').state.addBudget(3), 23);
+test('income before the first budget read adds to the initial 50', () => {
+    assert.equal(harness('').state.addBudget(3), 53);
 });
 
-test('root and runtime economy both configure initial budget 20', () => {
+test('root and runtime economy both configure initial budget 50', () => {
     for (const filename of [
         path.join(project, '../data/balance/economy.json'),
         path.join(project, 'assets/resources/data/balance/economy.json'),
     ]) {
-        assert.equal(JSON.parse(fs.readFileSync(filename, 'utf8')).initialBudget, 20);
+        assert.equal(JSON.parse(fs.readFileSync(filename, 'utf8')).initialBudget, 50);
     }
 });

@@ -304,7 +304,7 @@ test('hide captures idle state written by later gameplay listeners and persists 
     assert.equal(Number(restarted.storage.get(LAST_UPLOAD)), restarted.state.now);
 });
 
-test('LoadingController waits for cloud restore before Homepage preloading', async () => {
+test('LoadingController starts static preloads immediately but gates saved-state preloads on cloud restore', async () => {
     const loadingSource = fs.readFileSync(path.join(project, 'assets/scripts/loading/LoadingController.ts'), 'utf8');
     const js = ts.transpileModule(loadingSource, { compilerOptions: {
         target: ts.ScriptTarget.ES2020, module: ts.ModuleKind.CommonJS, experimentalDecorators: true,
@@ -314,9 +314,13 @@ test('LoadingController waits for cloud restore before Homepage preloading', asy
         const pendingCloud = new Promise((resolve) => { resolveCloud = resolve; });
         const context = vm.createContext({
             exports: {},
+            console,
             require(id) {
                 if (id.endsWith('TapCloudSaveService')) return { initializeTapCloudSave: () => pendingCloud };
-                if (id.endsWith('HomepagePreloader')) return {};
+                if (id.endsWith('HomepagePreloader')) return {
+                    preloadHomepageRuntimeAssets: () => { runtimePreloads += 1; return Promise.resolve(); },
+                };
+                if (id.endsWith('StartupTiming')) return { markStartupStage() {} };
                 assert.equal(id, 'cc');
                 return {
                     Component: class { enabled = true; isValid = true; },
@@ -327,12 +331,14 @@ test('LoadingController waits for cloud restore before Homepage preloading', asy
         vm.runInContext(js, context);
         const component = new context.exports.LoadingController();
         let preloads = 0;
-        component.preloadHomepage = () => { preloads += 1; };
+        let runtimePreloads = 0;
+        component.preloadHomepage = () => { preloads += 1; void component.preloadHomepageRuntime(); };
         component.start();
-        assert.equal(preloads, 0);
+        assert.equal(preloads, 1);
+        assert.equal(runtimePreloads, 0);
         if (destroyed) component.isValid = false;
         resolveCloud();
         await drain();
-        assert.equal(preloads, destroyed ? 0 : 1);
+        assert.equal(runtimePreloads, destroyed ? 0 : 1);
     }
 });

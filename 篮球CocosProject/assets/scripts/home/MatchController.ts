@@ -1655,7 +1655,7 @@ export class MatchController extends Component {
         }
         const session = this.session!;
         // 使用本场快照的对手等级，避免胜利推进赛程后广告追加奖励取到下一场等级。
-        const baseReward = (Math.max(0, getStoredTeamLevel()) + 1)
+        const baseReward = 2 * (Math.max(0, getStoredTeamLevel()) + 1)
             * Math.max(10, session.opponentLevel);
         return Math.ceil(
             baseReward

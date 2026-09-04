@@ -6,7 +6,7 @@
     "standardMatchCount": 100,
     "regularSeasonMatchCount": 82,
     "playoffWinsPerRound": 4,
-    "baseBudgetFormula": "(currentTeamLevel + 1) * max(opponentLevel, 10)",
+    "baseBudgetFormula": "2 * (currentTeamLevel + 1) * max(opponentLevel, 10)",
     "operationPresidentBonusAppliedAfterBaseReward": true
   },
   "specialMatches": {

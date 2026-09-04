@@ -321,7 +321,7 @@ class TapCloudSaveService {
 
 let initialization: Promise<void> | null = null;
 
-/** Restore before Homepage preloading/initialization can write default progress. */
+/** Restore before save-dependent Homepage initialization; static assets may preload in parallel. */
 export function initializeTapCloudSave(): Promise<void> {
     if (initialization) return initialization;
     const platform = (globalThis as unknown as { tap?: TapCloudPlatform }).tap;
