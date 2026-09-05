@@ -488,11 +488,11 @@ export class IdleIncomeController extends Component {
     }
 
     private getOnlineBaseRewardPerMinute(): number {
-        return this.getCurrentTeamLevel();
+        return this.getCurrentTeamLevel() * 2;
     }
 
     private getOfflineBaseRewardPerMinute(): number {
-        return this.getCurrentTeamLevel() / 2;
+        return this.getCurrentTeamLevel();
     }
 
     private refreshHomeIncomeRateLabels(): void {

@@ -118,12 +118,12 @@ const OVR_RANGES_PATH = 'data/balance/player_ovr_ranges';
 const RECRUITMENT_PROBABILITY_PATH = 'data/balance/recruitment_probability';
 const ECONOMY_PATH = 'data/balance/economy';
 const CONCEPT_GOD_UPGRADE_PATH = 'data/balance/concept_god_upgrade';
-const DEFAULT_BUDGET = 50;
+const DEFAULT_BUDGET = 200;
 const RECRUITING_BUTTON_SPRITE_PATH = 'images/UI/按钮/招募中/spriteFrame';
 const RECRUIT_BUTTON_SWEEP_EFFECT_PATH = 'effects/recruit-button-sweep';
 const DISSOLVE_EFFECT_PATH = 'effects/dissolve';
 const RECRUITING_DELAY_SECONDS = 1;
-const AD_RECRUIT_COUNT_PER_LEVEL = 10;
+const REWARDED_RECRUIT_COUNT_PER_LEVEL = 10;
 const RECRUITMENT_PROFILE_HONOR_LIMIT = 5;
 const NEGATIVE_OVERALL_COLOR = new Color(220, 55, 55, 255);
 const CONTINUOUS_RECRUIT_START_DELAY_SECONDS = 1;
@@ -895,7 +895,7 @@ export class RecruitmentController extends Component {
 
         const cost = this.getRecruitmentCost();
         if (!isCheatModeEnabled() && this.budget < cost) {
-            void this.recruitTripleFromAd();
+            void this.recruitFromRewardedAction();
             return;
         }
 
@@ -957,17 +957,18 @@ export class RecruitmentController extends Component {
             });
     }
 
-    private getAdRecruitmentCount(): number {
+    /** 看广告与微信分享共用同一奖励次数，避免平台奖励规则分叉。 */
+    private getRewardedRecruitmentCount(): number {
         const teamLevel = this.teamLevelController?.getSnapshot()?.teamLevel ?? getStoredTeamLevel();
-        return AD_RECRUIT_COUNT_PER_LEVEL * Math.max(1, teamLevel);
+        return REWARDED_RECRUIT_COUNT_PER_LEVEL * Math.max(1, teamLevel);
     }
 
-    private async recruitTripleFromAd(): Promise<void> {
+    private async recruitFromRewardedAction(): Promise<void> {
         if (this.processing) {
             return;
         }
 
-        const drawCount = this.getAdRecruitmentCount();
+        const drawCount = this.getRewardedRecruitmentCount();
         this.processing = true;
         this.showRecruitingButtonVisual();
         this.refreshBudgetView();
@@ -2384,9 +2385,9 @@ export class RecruitmentController extends Component {
         const protectionHint = this.getLowestQualityProtectionHint();
         const pityHint = this.getUpperQualityPityHint();
         const recruitmentHints = this.combineRecruitmentHints(protectionHint, pityHint);
-        const adRecruitCount = this.getAdRecruitmentCount();
+        const rewardedRecruitCount = this.getRewardedRecruitmentCount();
         const text = maximum < 1
-            ? toRewardedActionCopy(`看广告${adRecruitCount}连抽${recruitmentHints.text}`)
+            ? toRewardedActionCopy(`看广告${rewardedRecruitCount}连抽${recruitmentHints.text}`)
             : displayCount < CONTINUOUS_RECRUIT_MINIMUM_COUNT
                 ? `点击进行${displayCount}次招募${recruitmentHints.text}`
                 : this.continuousRecruitReady

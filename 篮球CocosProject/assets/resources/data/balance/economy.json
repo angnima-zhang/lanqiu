@@ -10,7 +10,7 @@
                                      "媒体团队只加成离线预算，不加成在线、比赛和广告预算。"
                                  ]
               },
-    "initialBudget":  50,
+    "initialBudget":  200,
     "budgetDisplay":  {
                           "displayAsInteger":  true,
                           "allowHiddenFractionalAccumulation":  true,
@@ -30,7 +30,7 @@
                       },
     "budgetSources":  {
                           "onlineIdle":  {
-                                             "baseBudgetPerMinuteFormula":  "currentTeamLevel",
+                                             "baseBudgetPerMinuteFormula":  "currentTeamLevel * 2",
                                              "marketValueMultiplierFormula":  "1 + 0.02 * teamLevel",
                                              "claimTickSeconds":  10,
                                              "operationPresidentBonusApplies":  true
@@ -38,7 +38,7 @@
                           "matchRewards":  {
                                                "settlementGranularity":  "per_won_match",
                                                "rewardBasis":  "current_team_level_and_opponent_level",
-                                               "baseBudgetFormula":  "2 * (currentTeamLevel + 1) * max(opponentLevel, 10)",
+                                               "baseBudgetFormula":  "max(2, 10 - currentTeamLevel / 10) * (currentTeamLevel + 1) * max(opponentLevel, 10)",
                                                "finalBudgetFormula":  "ceil(baseBudgetReward * (1 + operationPresidentBudgetBonus))",
                                                "regularSeasonAndPlayoffsUseSameFormula":  true,
                                                "lossBudget":  0,
@@ -50,7 +50,7 @@
                                                "precomputedTable":  "match_rewards.json"
                                            },
                           "offlineIdle":  {
-                                              "baseBudgetPerMinuteFormula":  "currentTeamLevel / 2",
+                                               "baseBudgetPerMinuteFormula":  "currentTeamLevel",
                                               "marketValueMultiplierFormula":  "1 + 0.02 * teamLevel",
                                               "maxAccrualHours":  10,
                                               "autoOpenMinimumMinutes":  30,
