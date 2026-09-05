@@ -10,7 +10,7 @@
                                      "媒体团队只加成离线预算，不加成在线、比赛和广告预算。"
                                  ]
               },
-    "initialBudget":  200,
+    "initialBudget":  500,
     "budgetDisplay":  {
                           "displayAsInteger":  true,
                           "allowHiddenFractionalAccumulation":  true,

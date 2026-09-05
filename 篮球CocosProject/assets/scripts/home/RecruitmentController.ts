@@ -118,7 +118,7 @@ const OVR_RANGES_PATH = 'data/balance/player_ovr_ranges';
 const RECRUITMENT_PROBABILITY_PATH = 'data/balance/recruitment_probability';
 const ECONOMY_PATH = 'data/balance/economy';
 const CONCEPT_GOD_UPGRADE_PATH = 'data/balance/concept_god_upgrade';
-const DEFAULT_BUDGET = 200;
+const DEFAULT_BUDGET = 500;
 const RECRUITING_BUTTON_SPRITE_PATH = 'images/UI/按钮/招募中/spriteFrame';
 const RECRUIT_BUTTON_SWEEP_EFFECT_PATH = 'effects/recruit-button-sweep';
 const DISSOLVE_EFFECT_PATH = 'effects/dissolve';
@@ -2406,7 +2406,7 @@ export class RecruitmentController extends Component {
                 baseFontSize + (CONTINUOUS_RECRUIT_MAX_FONT_SIZE - baseFontSize) * progress,
             );
         const highlights = maximum < 1
-            ? [String(adRecruitCount), ...recruitmentHints.highlights]
+            ? [String(rewardedRecruitCount), ...recruitmentHints.highlights]
             : [String(displayCount), ...recruitmentHints.highlights];
         this.setContinuousRecruitLabel(
             text,
