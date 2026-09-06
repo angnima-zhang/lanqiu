@@ -1,0 +1,23 @@
+[    1126ms] [TIMEEND] Init Base: 0.98095703125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[    1182ms] [TIMEEND] Init Infrastructure: 56.365966796875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[    1215ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1374ms] [TIMEEND] Init SubSystem: 139.9580078125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[    1375ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1497ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1514ms] [TIMEEND] Init Project: 139.001953125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[    7611ms] [TIMEEND] LoadScene Homepage: 197.2978515625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  264203ms] [TIMEEND] Init Base: 0.615966796875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[  264263ms] [TIMEEND] Init Infrastructure: 59.09619140625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[  264277ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  264393ms] [TIMEEND] Init SubSystem: 102.47705078125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[  264393ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  264505ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  264516ms] [TIMEEND] Init Project: 123.235107421875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[  265260ms] [TIMEEND] Init Base: 0.35498046875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[  265289ms] [TIMEEND] Init Infrastructure: 28.326904296875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[  265303ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  265437ms] [TIMEEND] Init SubSystem: 120.906005859375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[  265437ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  265517ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  265521ms] [TIMEEND] Init Project: 83.5498046875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[  272163ms] [TIMEEND] LoadScene Homepage: 182.425048828125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086

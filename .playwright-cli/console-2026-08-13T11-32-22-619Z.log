@@ -1,0 +1,10 @@
+[     855ms] [TIMEEND] Init Base: 0.7099609375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[     888ms] [TIMEEND] Init Infrastructure: 33.324951171875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[     902ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1058ms] [TIMEEND] Init SubSystem: 139.424072265625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[    1059ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1172ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1186ms] [TIMEEND] Init Project: 127.22900390625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[    7734ms] [TIMEEND] LoadScene Homepage: 185.678955078125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[   49784ms] [LOG] Q12_EVAL_PROBE @ :0
+[   62754ms] [LOG] Q12_RESOURCE_VERIFY:{"loaded":true,"error":null,"uuid":"98c1f917-eea7-40f4-939b-c068bd861e60@f9941"} @ :0

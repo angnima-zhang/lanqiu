@@ -1,0 +1,28 @@
+{
+  "__version__": "3.0.7",
+  "builder": {
+    "options": {
+      "web-desktop": {
+        "configID": "fd144c",
+        "services": []
+      },
+      "wechatgame": {
+        "configID": "fd144c",
+        "services": []
+      }
+    },
+    "taskOptionsMap": {
+      "1785660539875": {
+        "configID": "fd144c",
+        "services": [],
+        "__version__": "3.0.9"
+      }
+    },
+    "__version__": "1.3.9"
+  },
+  "builder-options": {
+    "configID": "fd144c",
+    "services": [],
+    "__version__": "3.0.9"
+  }
+}

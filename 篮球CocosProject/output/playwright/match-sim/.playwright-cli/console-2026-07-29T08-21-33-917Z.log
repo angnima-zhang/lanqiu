@@ -1,0 +1,17 @@
+[    7341ms] [TIMEEND] Init Base: 1.010009765625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[    7398ms] [TIMEEND] Init Infrastructure: 56.213134765625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[    7424ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    7448ms] [LOG] [PHYSICS2D]: register box2d. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    8546ms] [TIMEEND] Init SubSystem: 1073.916015625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[    8547ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    8876ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    8911ms] [TIMEEND] Init Project: 364.0810546875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[   20171ms] [TIMEEND] Init Base: 0.3359375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[   20222ms] [TIMEEND] Init Infrastructure: 48.945068359375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[   20251ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[   20267ms] [LOG] [PHYSICS2D]: register box2d. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[   20850ms] [TIMEEND] Init SubSystem: 537.443115234375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[   20851ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[   21636ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[   21646ms] [TIMEEND] Init Project: 795.14501953125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[   59225ms] [TIMEEND] LoadScene Match: 156.77001953125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086

@@ -1,0 +1,21 @@
+{
+  "__version__": "1.0.1",
+  "builder": {
+    "common": {
+      "binGroupConfig": {
+        "threshold": 16,
+        "enable": false
+      },
+      "polyfills": {
+        "asyncFunctions": true
+      },
+      "name": "赛季全胜",
+      "startScene": "a0a358c7-ff82-4472-8f0a-2071acb3cae6",
+      "overwriteProjectSettings": {
+        "includeModules": {
+          "gfx-webgl2": "off"
+        }
+      }
+    }
+  }
+}

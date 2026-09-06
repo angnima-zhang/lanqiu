@@ -1,0 +1,25 @@
+[    2107ms] [TIMEEND] Init Base: 1.10791015625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[    2174ms] [TIMEEND] Init Infrastructure: 65.2548828125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[    2194ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    2226ms] [LOG] [PHYSICS2D]: register box2d. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    2360ms] [TIMEEND] Init SubSystem: 117.069091796875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[    2360ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    2464ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    2489ms] [TIMEEND] Init Project: 128.798095703125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[   49910ms] [TIMEEND] Init Base: 0.31396484375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[   49951ms] [TIMEEND] Init Infrastructure: 39.715087890625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[   49968ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[   49973ms] [LOG] [PHYSICS2D]: register box2d. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[   50122ms] [TIMEEND] Init SubSystem: 135.81298828125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[   50122ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[   50193ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[   50206ms] [TIMEEND] Init Project: 83.5419921875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[   85074ms] [TIMEEND] LoadScene Match: 185.174072265625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  224285ms] [TIMEEND] Init Base: 1.68896484375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[  224359ms] [TIMEEND] Init Infrastructure: 69.133056640625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[  224439ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  224446ms] [LOG] [PHYSICS2D]: register box2d. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  225173ms] [TIMEEND] Init SubSystem: 694.765869140625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[  225173ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  225301ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  225373ms] [TIMEEND] Init Project: 200.031982421875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164

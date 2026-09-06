@@ -1,0 +1,14 @@
+[     897ms] [TIMEEND] Init Base: 1.44384765625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[     930ms] [TIMEEND] Init Infrastructure: 33.05810546875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[     948ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1123ms] [TIMEEND] Init SubSystem: 157.845947265625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[    1124ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1233ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1246ms] [TIMEEND] Init Project: 122.616943359375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[    7740ms] [TIMEEND] LoadScene Homepage: 197.450927734375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[    8622ms] [LOG] OVR_EDGE_VERIFY:{"edge":true,"effect":null,"params":null} @ :0
+[   34487ms] [LOG] OVR_EDGE_RESOURCE:{"loaded":true,"error":null,"uuid":"ab679110-a5e5-4c73-b3dc-1a330be94ec2"} @ :0
+[   59200ms] [LOG] OVR_EDGE_ACTIVATE_STATE:{"pageActive":true,"labelActive":true,"enabled":true,"enabledInHierarchy":true} @ :0
+[   63242ms] [LOG] OVR_EDGE_POST_ENABLE:{"material":true,"effect":"../resources/effects/overall-number-edge-flow","loadVersion":1} @ :0
+[   82986ms] [LOG] OVR_IMPACT_300MS:{"effect":"../resources/effects/overall-number-shine","progress":0.7630931582951819} @ :0
+[   83386ms] [LOG] OVR_IMPACT_700MS:{"effect":"../resources/effects/overall-number-edge-flow","released":true} @ :0

@@ -1,0 +1,11 @@
+{
+  "deviceOrientation": "portrait",
+  "networkTimeout": {
+    "request": 5000,
+    "connectSocket": 5000,
+    "uploadFile": 5000,
+    "downloadFile": 500000
+  },
+  "productVersion": "0.0.1",
+  "convertScriptVersion": "2.0.4-ts"
+}

@@ -1,0 +1,15778 @@
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return r; }; var t, r = {}, e = Object.prototype, n = e.hasOwnProperty, o = "function" == typeof Symbol ? Symbol : {}, i = o.iterator || "@@iterator", a = o.asyncIterator || "@@asyncIterator", u = o.toStringTag || "@@toStringTag"; function c(t, r, e, n) { return Object.defineProperty(t, r, { value: e, enumerable: !n, configurable: !n, writable: !n }); } try { c({}, ""); } catch (t) { c = function c(t, r, e) { return t[r] = e; }; } function h(r, e, n, o) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype); return c(a, "_invoke", function (r, e, n) { var o = 1; return function (i, a) { if (3 === o) throw Error("Generator is already running"); if (4 === o) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var u = n.delegate; if (u) { var c = d(u, n); if (c) { if (c === f) continue; return c; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (1 === o) throw o = 4, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = 3; var h = s(r, e, n); if ("normal" === h.type) { if (o = n.done ? 4 : 2, h.arg === f) continue; return { value: h.arg, done: n.done }; } "throw" === h.type && (o = 4, n.method = "throw", n.arg = h.arg); } }; }(r, n, new Context(o || [])), !0), a; } function s(t, r, e) { try { return { type: "normal", arg: t.call(r, e) }; } catch (t) { return { type: "throw", arg: t }; } } r.wrap = h; var f = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var l = {}; c(l, i, function () { return this; }); var p = Object.getPrototypeOf, y = p && p(p(x([]))); y && y !== e && n.call(y, i) && (l = y); var v = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(l); function g(t) { ["next", "throw", "return"].forEach(function (r) { c(t, r, function (t) { return this._invoke(r, t); }); }); } function AsyncIterator(t, r) { function e(o, i, a, u) { var c = s(t[o], t, i); if ("throw" !== c.type) { var h = c.arg, f = h.value; return f && "object" == _typeof(f) && n.call(f, "__await") ? r.resolve(f.__await).then(function (t) { e("next", t, a, u); }, function (t) { e("throw", t, a, u); }) : r.resolve(f).then(function (t) { h.value = t, a(h); }, function (t) { return e("throw", t, a, u); }); } u(c.arg); } var o; c(this, "_invoke", function (t, n) { function i() { return new r(function (r, o) { e(t, n, r, o); }); } return o = o ? o.then(i, i) : i(); }, !0); } function d(r, e) { var n = e.method, o = r.i[n]; if (o === t) return e.delegate = null, "throw" === n && r.i["return"] && (e.method = "return", e.arg = t, d(r, e), "throw" === e.method) || "return" !== n && (e.method = "throw", e.arg = new TypeError("The iterator does not provide a '" + n + "' method")), f; var i = s(o, r.i, e.arg); if ("throw" === i.type) return e.method = "throw", e.arg = i.arg, e.delegate = null, f; var a = i.arg; return a ? a.done ? (e[r.r] = a.value, e.next = r.n, "return" !== e.method && (e.method = "next", e.arg = t), e.delegate = null, f) : a : (e.method = "throw", e.arg = new TypeError("iterator result is not an object"), e.delegate = null, f); } function w(t) { this.tryEntries.push(t); } function m(r) { var e = r[4] || {}; e.type = "normal", e.arg = t, r[4] = e; } function Context(t) { this.tryEntries = [[-1]], t.forEach(w, this), this.reset(!0); } function x(r) { if (null != r) { var e = r[i]; if (e) return e.call(r); if ("function" == typeof r.next) return r; if (!isNaN(r.length)) { var o = -1, a = function e() { for (; ++o < r.length;) if (n.call(r, o)) return e.value = r[o], e.done = !1, e; return e.value = t, e.done = !0, e; }; return a.next = a; } } throw new TypeError(_typeof(r) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, c(v, "constructor", GeneratorFunctionPrototype), c(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = c(GeneratorFunctionPrototype, u, "GeneratorFunction"), r.isGeneratorFunction = function (t) { var r = "function" == typeof t && t.constructor; return !!r && (r === GeneratorFunction || "GeneratorFunction" === (r.displayName || r.name)); }, r.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, c(t, u, "GeneratorFunction")), t.prototype = Object.create(v), t; }, r.awrap = function (t) { return { __await: t }; }, g(AsyncIterator.prototype), c(AsyncIterator.prototype, a, function () { return this; }), r.AsyncIterator = AsyncIterator, r.async = function (t, e, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(h(t, e, n, o), i); return r.isGeneratorFunction(e) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, g(v), c(v, u, "Generator"), c(v, i, function () { return this; }), c(v, "toString", function () { return "[object Generator]"; }), r.keys = function (t) { var r = Object(t), e = []; for (var n in r) e.unshift(n); return function t() { for (; e.length;) if ((n = e.pop()) in r) return t.value = n, t.done = !1, t; return t.done = !0, t; }; }, r.values = x, Context.prototype = { constructor: Context, reset: function reset(r) { if (this.prev = this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(m), !r) for (var e in this) "t" === e.charAt(0) && n.call(this, e) && !isNaN(+e.slice(1)) && (this[e] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0][4]; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(r) { if (this.done) throw r; var e = this; function n(t) { a.type = "throw", a.arg = r, e.next = t; } for (var o = e.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i[4], u = this.prev, c = i[1], h = i[2]; if (-1 === i[0]) return n("end"), !1; if (!c && !h) throw Error("try statement without catch or finally"); if (null != i[0] && i[0] <= u) { if (u < c) return this.method = "next", this.arg = t, n(c), !0; if (u < h) return n(h), !1; } } }, abrupt: function abrupt(t, r) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var n = this.tryEntries[e]; if (n[0] > -1 && n[0] <= this.prev && this.prev < n[2]) { var o = n; break; } } o && ("break" === t || "continue" === t) && o[0] <= r && r <= o[2] && (o = null); var i = o ? o[4] : {}; return i.type = t, i.arg = r, o ? (this.method = "next", this.next = o[2], f) : this.complete(i); }, complete: function complete(t, r) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && r && (this.next = r), f; }, finish: function finish(t) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var e = this.tryEntries[r]; if (e[2] === t) return this.complete(e[4], e[3]), m(e), f; } }, "catch": function _catch(t) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var e = this.tryEntries[r]; if (e[0] === t) { var n = e[4]; if ("throw" === n.type) { var o = n.arg; m(e); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(r, e, n) { return this.delegate = { i: x(r), r: e, n: n }, "next" === this.method && (this.arg = t), f; } }, r; }
+System.register("chunks:///_virtual/BottomNavItemView.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (t) {
+  var e, i, n, o, l, r, a, u, c, s;
+  return {
+    setters: [function (t) {
+      e = t.applyDecoratedDescriptor, i = t.inheritsLoose, n = t.initializerDefineProperty, o = t.assertThisInitialized;
+    }, function (t) {
+      l = t.cclegacy, r = t._decorator, a = t.Sprite, u = t.Label, c = t.Button, s = t.Component;
+    }],
+    execute: function execute() {
+      var p, b, f, h, m, v, y, g, L;
+      l._RF.push({}, "37a1fctxxJPLpV3eCR2lQTa", "BottomNavItemView", void 0);
+      var d = r.ccclass,
+        w = r.property;
+      t("BottomNavItemView", (p = d("BottomNavItemView"), b = w(a), f = w(u), h = w(c), p((y = e((v = function (t) {
+        function e() {
+          for (var e, i = arguments.length, l = new Array(i), r = 0; r < i; r++) l[r] = arguments[r];
+          return e = t.call.apply(t, [this].concat(l)) || this, n(e, "icon", y, o(e)), n(e, "titleLabel", g, o(e)), n(e, "button", L, o(e)), e;
+        }
+        i(e, t);
+        var l = e.prototype;
+        return l.onLoad = function () {
+          var t, e;
+          null != this.titleLabel || (this.titleLabel = null != (t = null == (e = this.node.getChildByName("Text")) ? void 0 : e.getComponent(u)) ? t : null), null != this.button || (this.button = this.node.getComponent(c));
+        }, l.setup = function (t) {
+          this.titleLabel && (this.titleLabel.string = t);
+        }, e;
+      }(s)).prototype, "icon", [b], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), g = e(v.prototype, "titleLabel", [f], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), L = e(v.prototype, "button", [h], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), m = v)) || m));
+      l._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/CourtSimulationController.ts", ["./rollupPluginModLoBabelHelpers.js", "cc", "./GameState.ts", "./PlayerAssets.ts"], function (t) {
+  var e, o, n, r, i, a, s, l, c, h, u, d, m, f, v, g, p, A, T, P, w, y;
+  return {
+    setters: [function (t) {
+      e = t.applyDecoratedDescriptor, o = t.inheritsLoose, n = t.initializerDefineProperty, r = t.assertThisInitialized, i = t.createForOfIteratorHelperLoose;
+    }, function (t) {
+      a = t.cclegacy, s = t._decorator, l = t.Node, c = t.Label, h = t.resources, u = t.JsonAsset, d = t.Vec3, m = t.tween, f = t.instantiate, v = t.Sprite, g = t.sys, p = t.Tween, A = t.Component;
+    }, function (t) {
+      T = t.loadRoster, P = t.TEAM_NAME_STORAGE_KEY;
+    }, function (t) {
+      w = t.loadPlayerPortrait, y = t.loadRoundQualityFrame;
+    }],
+    execute: function execute() {
+      var b, M, B, k, C, S, R, N, x, D, O, I, H, F, z;
+      a._RF.push({}, "43ba7ayCSpEIrEYkc3PJMsA", "CourtSimulationController", void 0);
+      var W = s.ccclass,
+        j = s.property,
+        E = ["five-out", "four-out-one-in", "pick-and-roll", "low-post", "horns"],
+        L = {
+          "five-out": {
+            ballHandler: 1.2,
+            offBall: 1,
+            defense: 1.05,
+            action: 1
+          },
+          "four-out-one-in": {
+            ballHandler: 1.28,
+            offBall: 1.1,
+            defense: 1.1,
+            action: 1.1
+          },
+          "pick-and-roll": {
+            ballHandler: 1.15,
+            offBall: .95,
+            defense: 1,
+            action: .92
+          },
+          "low-post": {
+            ballHandler: 1.4,
+            offBall: 1.2,
+            defense: 1.15,
+            action: 1.22
+          },
+          horns: {
+            ballHandler: 1.25,
+            offBall: 1.05,
+            defense: 1.08,
+            action: 1
+          }
+        },
+        Q = {
+          "five-out": {
+            2: [[.72, .68], [.6, .5], [.78, .34], [.58, .78]],
+            3: [[.68, .22], [.78, .42], [.62, .54], [.86, .12]],
+            4: [[.68, .78], [.78, .58], [.62, .46], [.86, .88]]
+          },
+          "four-out-one-in": {
+            1: [[.7, .3], [.58, .52], [.8, .18], [.58, .2]],
+            2: [[.7, .7], [.58, .48], [.8, .82], [.58, .8]],
+            3: [[.68, .28], [.82, .44], [.7, .62], [.82, .14]]
+          },
+          "pick-and-roll": {
+            2: [[.8, .12], [.62, .34], [.76, .48], [.68, .18]],
+            3: [[.8, .88], [.62, .66], [.76, .52], [.68, .82]],
+            4: [[.72, .64], [.82, .42], [.68, .3], [.86, .82]]
+          },
+          "low-post": {
+            1: [[.68, .62], [.54, .42], [.74, .28], [.54, .76]],
+            2: [[.82, .3], [.62, .48], [.78, .62], [.72, .14]],
+            3: [[.62, .7], [.8, .58], [.66, .4], [.72, .86]]
+          },
+          horns: {
+            3: [[.68, .24], [.82, .42], [.64, .56], [.84, .12]],
+            4: [[.68, .76], [.82, .58], [.64, .44], [.84, .88]]
+          }
+        },
+        V = {
+          "three-point": 30,
+          "free-throw": 30,
+          dunk: 15,
+          scrimmage: 120
+        },
+        _ = {
+          threeDrillMade: ["T01", "T02"],
+          threeDrillMissed: ["T03", "T04"],
+          freeThrowDrillMade: ["T05", "T06"],
+          freeThrowDrillMissed: ["T07", "T08"],
+          dunkDrillMade: ["T09", "T10"],
+          dunkDrillMissed: ["T11", "T12"],
+          scrimmage: ["T13", "T14", "T15", "T16"],
+          fiveOut: ["T17", "T18"],
+          fourOutOneIn: ["T19", "T20"],
+          pickAndRoll: ["T21", "T22"],
+          lowPost: ["T23", "T24"],
+          horns: ["T25", "T26"],
+          reboundSelf: ["T27", "T28"],
+          reboundTeammateSingle: ["T29", "T30"],
+          reboundTeammateContested: ["T31", "T32"],
+          reboundOpponentSingle: ["T33", "T34"],
+          reboundOpponentContested: ["T35", "T36"],
+          threeMade: ["A01"],
+          threeCornerMade: ["A04"],
+          threeMissed: ["C01", "C02"],
+          jumperMade: ["A06", "A08", "A09"],
+          jumperMissed: ["C06"],
+          layupMade: ["A16", "A17", "A18", "A19", "A41", "A42"],
+          layupMissed: ["C03", "C05"],
+          dunkMade: ["A11", "A12", "A13", "A15"],
+          dunkMissed: ["C04"],
+          assistMade: ["A33", "A34", "A35", "A36", "A37"]
+        };
+      t("CourtSimulationController", (b = W("CourtSimulationController"), M = j(l), B = j(l), k = j(c), C = j(l), S = j(l), R = j({
+        min: 3
+      }), b((D = e((x = function (t) {
+        function e() {
+          for (var e, o = arguments.length, i = new Array(o), a = 0; a < o; a++) i[a] = arguments[a];
+          return e = t.call.apply(t, [this].concat(i)) || this, n(e, "ballNode", D, r(e)), n(e, "playersRoot", O, r(e)), n(e, "commentaryLabel", I, r(e)), n(e, "courtRange", H, r(e)), n(e, "rosterContainer", F, r(e)), n(e, "actionIntervalSeconds", z, r(e)), e.actors = [], e.commentaryById = new Map(), e.activeTweenTargets = [], e.cornerNodes = [], e.hoopNodes = [], e.ballDropNodes = [], e.ballRetrievers = [], e.ballRetrieverCarriers = [], e.ballRetrieverPlayers = [null, null], e.basketballs = [], e.ballOwners = new Map(), e.freeThrowNodes = [], e.threePointNodes = [[], []], e.possessionTeam = 0, e.eventToken = 0, e.lastCommentaryId = "", e.lastShooterId = "", e.simulationReady = !1, e.currentMode = "scrimmage", e.currentTactic = "five-out", e.lastTactic = null, e.scrimmageTacticAnchors = new Map(), e.scrimmageTacticRoles = [], e.scrimmageMovementSteps = new Map(), e.activeReboundPlan = null, e.scrimmageActionActors = new Set(), e.boundVisualPlayerIds = new Map(), e.modeRound = 0, e.modeElapsedSeconds = 0, e.drillTurns = [0, 0], e.freeThrowQueues = [[], []], e.hasStartedMode = !1, e.scrimmagePossessionActive = !1, e.runNextEvent = function () {
+            if (e.simulationReady) if ("scrimmage" === e.currentMode && e.scrimmagePossessionActive) e.modeElapsedSeconds += e.actionIntervalSeconds;else {
+              e.eventToken += 1;
+              var t = e.eventToken;
+              e.stopAnimations(), e.refreshRosterBindings(), e.hasCompleteRoster() ? ((!e.hasStartedMode || e.modeElapsedSeconds >= V[e.currentMode]) && e.startNextMode(), "scrimmage" === e.currentMode ? e.runScrimmageEvent(t) : e.runDrillEvent(t), e.modeRound += 1, e.modeElapsedSeconds += e.actionIntervalSeconds) : e.showWaitingForRoster();
+            }
+          }, e;
+        }
+        o(e, t);
+        var a = e.prototype;
+        return a.onLoad = function () {
+          var t,
+            e,
+            o,
+            n,
+            r,
+            i,
+            a,
+            s,
+            l,
+            h = "球场模拟" === this.node.name ? this.node : null != (t = null == (e = this.node.parent) ? void 0 : e.getChildByName("球场模拟")) ? t : null;
+          null != this.ballNode || (this.ballNode = null != (o = null == h ? void 0 : h.getChildByName("篮球")) ? o : null), null != this.playersRoot || (this.playersRoot = null != (n = null == h ? void 0 : h.getChildByName("players")) ? n : null), null != this.commentaryLabel || (this.commentaryLabel = null != (r = null == h || null == (i = h.getChildByName("文字播报")) || null == (i = i.getChildByName("播报内容")) ? void 0 : i.getComponent(c)) ? r : null), null != this.courtRange || (this.courtRange = null != (a = null == h ? void 0 : h.getChildByName("球场范围")) ? a : null), null != this.rosterContainer || (this.rosterContainer = null != (s = null == h || null == (l = h.parent) || null == (l = l.getChildByName("球队")) ? void 0 : l.getChildByName("阵容槽位")) ? s : null), this.rosterContainer && this.resolveReferenceNodes() ? (this.collectCourtActors(), this.collectBallRetrieverCarriers(), this.refreshRosterBindings(), this.prepareBasketballs(), this.placeBallRetrievers(), this.sortActorDepth(), this.setCommentary("球队正在进行日常训练……")) : this.enabled = !1;
+        }, a.start = function () {
+          this.enabled && this.loadCommentary();
+        }, a.onDisable = function () {
+          this.stopSimulation();
+        }, a.onDestroy = function () {
+          this.eventToken += 1, this.unscheduleAllCallbacks(), this.stopAnimations(), this.ballOwners.clear();
+        }, a.lateUpdate = function () {
+          for (var t, e = i(this.ballOwners); !(t = e()).done;) {
+            var o = t.value,
+              n = o[0],
+              r = o[1];
+            "anchor" === r.visual && r.actor.node.active && n.setWorldPosition(this.getBallAnchorPosition(r.actor, r.kind));
+          }
+        }, a.refreshRosterBindings = function () {
+          var t, e;
+          if (!(this.actors.length < 10)) {
+            var o = this.readRosterPlayers(),
+              n = [].concat(o).sort(function (t, e) {
+                return e.ovr - t.ovr || t.originalIndex - e.originalIndex;
+              }).slice(0, 10),
+              r = new Set(n.map(function (t) {
+                return t.id;
+              })),
+              a = o.filter(function (t) {
+                return !r.has(t.id);
+              }).sort(function (t, e) {
+                return t.ovr - e.ovr || t.originalIndex - e.originalIndex;
+              }).slice(0, 2);
+            this.ballRetrieverPlayers = [null != (t = a[0]) ? t : null, null != (e = a[1]) ? e : null];
+            for (var s = 0; s < this.ballRetrievers.length; s += 1) {
+              var l, c;
+              this.bindPlayerVisual(this.ballRetrievers[s], null != (l = null == (c = this.ballRetrieverPlayers[s]) ? void 0 : c.card) ? l : null);
+            }
+            for (var h, u = [[], []], d = [0, 0], m = i(n); !(h = m()).done;) {
+              var f = h.value,
+                v = d[0] <= d[1] ? 0 : 1;
+              u[v].length >= 5 && (v = 1 - v), u[v].push(f), d[v] += f.ovr;
+            }
+            for (var g = 0; g < 2; g += 1) for (var p = 0; p < 5; p += 1) {
+              var A,
+                T,
+                P = this.actors[5 * g + p],
+                w = null != (A = u[g][p]) ? A : null;
+              P.team = g, P.facing = 0 === g ? "right" : "left", P.player = w, P.node.active = Boolean(w), this.bindPlayerVisual(P.node, null != (T = null == w ? void 0 : w.card) ? T : null);
+            }
+          }
+        }, a.restartSimulation = function () {
+          this.simulationReady && (this.hasCompleteRoster() ? (this.stopAnimations(), this.unschedule(this.runNextEvent), this.restoreActorsHome(), this.placeBallRetrievers(), this.hasStartedMode = !1, this.startNextMode(), this.runNextEvent(), this.schedule(this.runNextEvent, this.actionIntervalSeconds)) : this.showWaitingForRoster());
+        }, a.loadCommentary = function () {
+          var t = this;
+          h.load("data/basketball_commentary", u, function (e, o) {
+            if (t.isValid && t.enabled) {
+              if (e || !o) return console.error("[CourtSimulationController] Failed to load commentary data.", e), void t.setCommentary("训练播报加载失败");
+              for (var n, r = o.json, a = i(null != (s = r.entries) ? s : []); !(n = a()).done;) {
+                var s,
+                  l = n.value;
+                t.commentaryById.set(l.id, l);
+              }
+              t.simulationReady = !0, t.refreshRosterBindings(), t.restartSimulation();
+            }
+          });
+        }, a.runScrimmageEvent = function (t) {
+          var e, o, n;
+          this.scrimmagePossessionActive = !0;
+          var r = this.possessionTeam,
+            i = this.getTeamActors(r),
+            a = this.getTeamActors(1 - r);
+          this.currentTactic = this.pickScrimmageTactic();
+          var s = this.prepareScrimmageTactic(i, this.currentTactic),
+            l = null != (e = this.findNearestActor(a, s.finisher.node.worldPosition)) ? e : a[0],
+            c = s.finishType,
+            h = Math.random() < this.getSuccessChance(c, null != (o = null == (n = s.finisher.player) ? void 0 : n.ovr) ? o : 70),
+            u = this.basketballs[0];
+          this.setBallOwner(u, s.passer), this.activeReboundPlan = h ? null : this.createReboundPlan(s.finisher, i, a, r), this.scrimmageActionActors = new Set(this.getTacticActionActors(s)), this.moveScrimmageActors(s.finisher, s.passer, r), this.executeScrimmageTactic(s, u, h, t), this.showActionCommentary(s.commentaryCategory, s.finisher, l, s.passer);
+        }, a.runDrillEvent = function (t) {
+          for (var e, o = [], n = 0; n < 2; n += 1) {
+            var r,
+              i,
+              a = this.getTeamActors(n),
+              s = this.drillTurns[n] % a.length,
+              l = "free-throw" === this.currentMode ? this.freeThrowQueues[n] : a,
+              c = "free-throw" === this.currentMode ? l[0] : l[s],
+              h = "free-throw" === this.currentMode ? l[1] : l[(s + 1) % l.length],
+              u = "dunk" === this.currentMode ? "dunk" : "jump-shot",
+              d = null != (r = null == (i = c.player) ? void 0 : i.ovr) ? r : 70,
+              m = "free-throw" === this.currentMode ? Math.max(.45, Math.min(.94, .76 + .007 * (d - 70))) : this.getSuccessChance(u, d);
+            o.push({
+              shooter: c,
+              nextShooter: h,
+              ball: this.basketballs[n],
+              made: Math.random() < m
+            }), this.drillTurns[n] = (s + 1) % a.length;
+          }
+          var f = o[this.modeRound % o.length],
+            v = null != (e = this.findNearestActor(this.getTeamActors(1 - f.shooter.team), f.shooter.node.worldPosition)) ? e : f.nextShooter,
+            g = "three-point" === this.currentMode ? "threeDrillMade" : "free-throw" === this.currentMode ? "freeThrowDrillMade" : "dunkDrillMade",
+            p = "three-point" === this.currentMode ? "threeDrillMissed" : "free-throw" === this.currentMode ? "freeThrowDrillMissed" : "dunkDrillMissed";
+          this.showActionCommentary(f.made ? g : p, f.shooter, v, f.nextShooter);
+          for (var A = 0, T = o; A < T.length; A++) {
+            var P = T[A];
+            "three-point" === this.currentMode ? this.playThreePointDrill(P.shooter, P.nextShooter, P.ball, P.made, t) : "free-throw" === this.currentMode ? this.playFreeThrowDrill(P.shooter, P.nextShooter, P.ball, P.made, t) : this.playDunkDrill(P.shooter, P.nextShooter, P.ball, P.made, t);
+          }
+        }, a.playThreePointDrill = function (t, e, o, n, r) {
+          var i = this.getAttackingHoop(t.team);
+          this.setBallOwner(o, t), this.jumpActor(t, 1.08, .36), this.shootDrillBall(o, t, e, i, n, .72, r), this.returnDrillShooter(t, r);
+        }, a.playFreeThrowDrill = function (t, e, o, n, r) {
+          var i = this,
+            a = this.getAttackingHoop(t.team),
+            s = this.freeThrowNodes[this.hoopNodes.indexOf(a)].worldPosition;
+          this.dribbleTo(o, t, s, .38, r, function () {
+            i.jumpActor(t, 1.05, .32), i.shootDrillBall(o, t, e, a, n, .68, r);
+          }), this.scheduleOnce(function () {
+            return i.rotateFreeThrowQueue(t.team, o, r);
+          }, 2.15);
+        }, a.playDunkDrill = function (t, e, o, n, r) {
+          var i = this,
+            a = this.getAttackingHoop(t.team),
+            s = this.getTakeoffPoint(a, t.team, 72, 0);
+          this.setBallOwner(o, t), this.dribbleTo(o, t, s, .86, r, function () {
+            i.playDunkMotion(o, t, a, n, r, function (t) {
+              i.retrieveDrillBall(o, a, t, e, r);
+            });
+          }), this.returnDrillShooter(t, r, 2.45);
+        }, a.shootDrillBall = function (t, e, o, n, r, i, a) {
+          var s,
+            l,
+            c = this,
+            h = null != (s = null == (l = n.getChildByName("进球点")) ? void 0 : l.worldPosition) ? s : n.worldPosition,
+            u = r ? h : new d(h.x + (Math.random() < .5 ? -24 : 24), h.y + 10, h.z);
+          this.gatherBallForShot(t, e, a, function (e) {
+            c.animateBallArc(t, e, u, i, r ? 92 : 76, a, function () {
+              c.retrieveDrillBall(t, n, u, o, a);
+            });
+          });
+        }, a.retrieveDrillBall = function (t, e, o, n, r) {
+          var i = this,
+            a = this.hoopNodes.indexOf(e),
+            s = this.ballDropNodes[a],
+            l = this.ballRetrievers[a],
+            c = this.ballRetrieverCarriers[a];
+          this.animateBallArc(t, o, s.worldPosition, .34, 10, r, function () {
+            i.pulseNode(l), i.setBallOwner(t, c), i.scheduleOnce(function () {
+              r === i.eventToken && i.passBall(t, i.getBallAnchorPosition(c, "hold"), n, "control", r, function () {});
+            }, .12);
+          });
+        }, a.returnDrillShooter = function (t, e, o) {
+          var n = this;
+          void 0 === o && (o = 2.25), this.scheduleOnce(function () {
+            e === n.eventToken && n.moveActor(t, t.modePosition, .35);
+          }, o);
+        }, a.getTacticActionActors = function (t) {
+          return "five-out" === this.currentTactic ? [t.handler, t.roles[1], t.finisher] : "four-out-one-in" === this.currentTactic ? [t.handler, t.roles[4], t.finisher] : "pick-and-roll" === this.currentTactic ? [t.handler, t.roles[1]] : "low-post" === this.currentTactic ? [t.handler, t.finisher] : [t.handler, t.roles[1], t.roles[2]];
+        }, a.executeScrimmageTactic = function (t, e, o, n) {
+          "five-out" === this.currentTactic ? this.playFiveOutTactic(t, e, o, n) : "four-out-one-in" === this.currentTactic ? this.playFourOutOneInTactic(t, e, o, n) : "pick-and-roll" === this.currentTactic ? this.playPickAndRollTactic(t, e, o, n) : "low-post" === this.currentTactic ? this.playLowPostTactic(t, e, o, n) : this.playHornsTactic(t, e, o, n);
+        }, a.playFiveOutTactic = function (t, e, o, n) {
+          var r = this,
+            i = t.roles[1],
+            a = t.finisher,
+            s = this.getScrimmageAnchor(i),
+            l = this.getScrimmageAnchor(a),
+            c = this.getTacticalMoveDuration(i, s, .28),
+            h = this.getTacticalMoveDuration(a, l, .34);
+          this.moveAndPass(e, t.handler, i, s, c, "control", n, function () {
+            r.moveAndPass(e, i, a, l, h, "shoot", n, function () {
+              r.jumpActor(a, 1.06, .35), r.shootBall(e, a, r.getAttackingHoop(a.team), o, .72, n);
+            });
+          });
+        }, a.playFourOutOneInTactic = function (t, e, o, n) {
+          var r = this,
+            i = t.roles[4],
+            a = t.finisher,
+            s = this.getScrimmageAnchor(i),
+            l = this.getTakeoffPoint(this.getAttackingHoop(a.team), a.team, 94, a === t.roles[2] ? -34 : 34),
+            c = this.getTacticalMoveDuration(i, s, .32),
+            h = this.getTacticalMoveDuration(a, l, .38);
+          this.moveAndPass(e, t.handler, i, s, c, "control", n, function () {
+            r.moveAndPass(e, i, a, l, h, "shoot", n, function () {
+              r.jumpActor(a, 1.1, .42), r.shootBall(e, a, r.getAttackingHoop(a.team), o, .46, n);
+            });
+          });
+        }, a.playPickAndRollTactic = function (t, e, o, n) {
+          var r = this,
+            i = t.handler,
+            a = t.roles[1],
+            s = this.getScrimmageAnchor(a),
+            l = this.getTacticalMoveDuration(a, s, .28);
+          this.moveActor(a, s, l), this.scheduleOnce(function () {
+            if (n === r.eventToken) {
+              var s = r.getAttackingHoop(i.team),
+                l = r.getTakeoffPoint(s, i.team, t.finisher === i ? 174 : 142, -28),
+                c = r.getTacticalMoveDuration(i, l, .42);
+              r.dribbleTo(e, i, l, c, n, function () {
+                if (t.finisher === i) return r.jumpActor(i, 1.06, .34), void r.shootBall(e, i, s, o, .62, n);
+                var l = r.getTakeoffPoint(s, a.team, 86, 26),
+                  c = r.getTacticalMoveDuration(a, l, .34);
+                r.moveAndPass(e, i, a, l, c, "shoot", n, function () {
+                  r.jumpActor(a, 1.1, .4), r.shootBall(e, a, s, o, .46, n);
+                });
+              });
+            }
+          }, Math.min(.26, .5 * l));
+        }, a.playLowPostTactic = function (t, e, o, n) {
+          var r = this,
+            i = t.finisher,
+            a = this.getScrimmageAnchor(i),
+            s = this.getTacticalMoveDuration(i, a, .34);
+          this.moveAndPass(e, t.handler, i, a, s, "control", n, function () {
+            var t = r.getAttackingHoop(i.team),
+              a = r.getTakeoffPoint(t, i.team, 112, 28),
+              s = r.getTacticalMoveDuration(i, a, .46);
+            r.dribbleTo(e, i, a, s, n, function () {
+              r.jumpActor(i, 1.08, .38), r.shootBall(e, i, t, o, .58, n);
+            });
+          });
+        }, a.playHornsTactic = function (t, e, o, n) {
+          var r = this,
+            i = t.handler,
+            a = t.roles[1],
+            s = t.roles[2],
+            l = this.getScrimmageAnchor(a),
+            c = this.getScrimmageAnchor(s);
+          this.moveActor(a, l, this.getTacticalMoveDuration(a, l, .28)), this.moveActor(s, c, this.getTacticalMoveDuration(s, c, .28));
+          var h = this.getScrimmageAnchor(i),
+            u = this.getTacticalMoveDuration(i, h, .38);
+          this.dribbleTo(e, i, h, u, n, function () {
+            r.passBall(e, r.getBallAnchorPosition(i, "hold"), a, "control", n, function () {
+              var t = r.getTakeoffPoint(r.getAttackingHoop(s.team), s.team, 88, -28),
+                i = r.getTacticalMoveDuration(s, t, .36);
+              r.moveAndPass(e, a, s, t, i, "shoot", n, function () {
+                r.jumpActor(s, 1.1, .4), r.shootBall(e, s, r.getAttackingHoop(s.team), o, .46, n);
+              });
+            });
+          });
+        }, a.moveAndPass = function (t, e, o, n, r, i, a, s) {
+          var l = this,
+            c = o.node.worldPosition.clone(),
+            h = "shoot" === i ? .78 : .68,
+            u = d.lerp(new d(), c, n, h),
+            m = Math.max(.4, r * h),
+            f = Math.max(.12, r - m);
+          this.moveActor(o, u, m);
+          var v = e.node.worldPosition.clone(),
+            g = this.getBallAnchorPosition(e, "hold", v),
+            p = this.getBallAnchorPosition(o, "hold", u),
+            A = Math.max(.2, Math.min(.38, d.distance(g, p) / 1100)),
+            T = Math.max(.12, m - A - .08),
+            P = new d();
+          d.subtract(P, u, v);
+          var w = P.length();
+          w > 0 && P.normalize();
+          var y = Math.min(96, .32 * w, 240 * T),
+            b = Math.max(.08, y / 240),
+            M = Math.max(0, T - b),
+            B = v.clone().add3f(P.x * y, P.y * y, 0);
+          this.scheduleOnce(function () {
+            a === l.eventToken && l.dribbleTo(t, e, B, b, a, function () {
+              l.passBall(t, l.getBallAnchorPosition(e, "hold"), o, i, a, function () {
+                "control" !== i ? (l.moveActor(o, n, f), l.scheduleOnce(function () {
+                  a === l.eventToken && s();
+                }, f + .08)) : l.dribbleTo(t, o, n, f, a, s);
+              });
+            });
+          }, M);
+        }, a.getScrimmageAnchor = function (t) {
+          var e, o;
+          return null != (e = null == (o = this.scrimmageTacticAnchors.get(t)) ? void 0 : o.clone()) ? e : t.node.worldPosition.clone();
+        }, a.getTacticalMoveDuration = function (t, e, o) {
+          var n = L[this.currentTactic].action,
+            r = d.distance(t.node.worldPosition, e) / (250 / n);
+          return Math.max(o, r);
+        }, a.playJumpShot = function (t, e, o, n, r, i) {
+          var a,
+            s = this,
+            l = this.getAttackingHoop(t.team),
+            c = this.pickThreePointNode(t.team),
+            h = null != (a = null == c ? void 0 : c.worldPosition) ? a : this.pointInCourt(0 === t.team ? .66 : .34, .5),
+            u = null != c && c.name.includes("底角") ? "threeCornerMade" : "threeMade",
+            d = this.getScrimmageActionDuration(.45);
+          this.showActionCommentary(r ? u : "threeMissed", t, o, e), this.moveAndPass(n, e, t, h, d, "shoot", i, function () {
+            s.shootBall(n, t, l, r, .78, i);
+          });
+        }, a.playLayup = function (t, e, o, n, r) {
+          var i = this,
+            a = this.getAttackingHoop(t.team),
+            s = this.getTakeoffPoint(a, t.team, 86, Math.random() < .5 ? -32 : 32);
+          this.showActionCommentary(n ? "layupMade" : "layupMissed", t, e, t), this.dribbleTo(o, t, s, .82, r, function () {
+            i.jumpActor(t, 1.1, .48), i.shootBall(o, t, a, n, .48, r);
+          });
+        }, a.playDunk = function (t, e, o, n, r) {
+          var i = this,
+            a = this.getAttackingHoop(t.team),
+            s = this.getTakeoffPoint(a, t.team, 72, 0);
+          this.showActionCommentary(n ? "dunkMade" : "dunkMissed", t, e, t), this.dribbleTo(o, t, s, .7, r, function () {
+            var e,
+              s = n ? null : null != (e = i.activeReboundPlan) ? e : {
+                scenario: "self",
+                winner: t,
+                contenders: [t],
+                offenseTeam: t.team
+              },
+              l = s ? i.getReboundPoint(a) : null;
+            s && l && i.startReboundPositioning(s, l, .48, r), i.playDunkMotion(o, t, a, n, r, function (e) {
+              n ? i.retrieveMadeBall(o, a, e, r) : s && l && i.finishRebound(o, a, e, l, s, t, r);
+            });
+          });
+        }, a.playDunkMotion = function (t, e, o, n, r, i) {
+          var a,
+            s,
+            l = this,
+            c = e.node.worldPosition.clone(),
+            h = this.getTakeoffPoint(o, e.team, 48, 0),
+            u = null != (a = null == (s = o.getChildByName("进球点")) ? void 0 : s.worldPosition) ? a : o.worldPosition,
+            f = n ? u.clone() : new d(u.x + (Math.random() < .5 ? -26 : 26), u.y + 12, u.z),
+            v = this.trackTweenTarget({
+              progress: 0
+            }),
+            g = !1;
+          this.setBallMotionOwner(t, e, "shot"), m(v).to(.62, {
+            progress: 1
+          }, {
+            onUpdate: function onUpdate() {
+              if (r === l.eventToken) {
+                var o = d.lerp(new d(), c, h, v.progress),
+                  n = 52 * Math.sin(v.progress * Math.PI),
+                  i = new d(o.x, o.y + n, o.z);
+                e.node.setWorldPosition(i), l.applyPerspectiveScale(e, i);
+                var a = e.node.scale.clone(),
+                  s = 1 + .24 * Math.sin(v.progress * Math.PI);
+                if (e.node.setScale(a.x * s, a.y * s, a.z), !g) {
+                  var u = Math.min(1, v.progress / .48),
+                    m = l.getBallAnchorPosition(e, "hold"),
+                    f = l.getBallAnchorPosition(e, "shot");
+                  t.setWorldPosition(d.lerp(new d(), m, f, u));
+                }
+              }
+            }
+          }).call(function () {
+            l.applyPerspectiveScale(e, h), l.sortActorDepth();
+          }).start(), this.scheduleOnce(function () {
+            if (r === l.eventToken) {
+              g = !0, n && l.shakeHoop(o);
+              var a = l.getBallAnchorPosition(e, "shot");
+              l.animateBallArc(t, a, f, .18, n ? 12 : 32, r, function () {
+                i(f);
+              });
+            }
+          }, .3);
+        }, a.playAssistFinish = function (t, e, o, n, r, i) {
+          var a = this,
+            s = this.getAttackingHoop(t.team),
+            l = this.getTakeoffPoint(s, t.team, 96, Math.random() < .5 ? -42 : 42),
+            c = this.getScrimmageActionDuration(.55);
+          this.showActionCommentary(r ? "assistMade" : "layupMissed", t, o, e), this.moveAndPass(n, e, t, l, c, "shoot", i, function () {
+            a.jumpActor(t, 1.1, .45), a.shootBall(n, t, s, r, .46, i);
+          });
+        }, a.shootBall = function (t, e, o, n, r, i) {
+          var a,
+            s,
+            l,
+            c = this,
+            h = null != (a = null == (s = o.getChildByName("进球点")) ? void 0 : s.worldPosition) ? a : o.worldPosition,
+            u = n ? h : new d(h.x, h.y + 12, h.z),
+            m = n ? null : null != (l = this.activeReboundPlan) ? l : {
+              scenario: "self",
+              winner: e,
+              contenders: [e],
+              offenseTeam: e.team
+            },
+            f = m ? this.getReboundPoint(o) : null;
+          this.gatherBallForShot(t, e, i, function (a) {
+            m && f && c.startReboundPositioning(m, f, r, i), c.animateBallArc(t, a, u, r, n ? 95 : 82, i, function () {
+              n ? c.retrieveMadeBall(t, o, u, i) : m && f && c.finishRebound(t, o, u, f, m, e, i);
+            });
+          });
+        }, a.retrieveMadeBall = function (t, e, o, n) {
+          var r = this,
+            i = this.hoopNodes.indexOf(e),
+            a = this.ballDropNodes[i],
+            s = this.ballRetrievers[i];
+          if (a && s) {
+            if ("scrimmage" === this.currentMode) {
+              var l,
+                c = 1 - (e === this.hoopNodes[1] ? 0 : 1),
+                h = this.getTeamActors(c),
+                u = this.findNearestActor(h, a.worldPosition);
+              if (!u) return void (this.scrimmagePossessionActive = !1);
+              var d = h.filter(function (t) {
+                  return t !== u;
+                }),
+                m = null != (l = d[Math.floor(Math.random() * d.length)]) ? l : u,
+                f = this.getTacticalMoveDuration(u, a.worldPosition, .34);
+              return this.moveActor(u, a.worldPosition, f), this.animateBallArc(t, o, a.worldPosition, .32, 8, n), void this.scheduleOnce(function () {
+                n === r.eventToken && (r.possessionTeam = c, r.setBallOwner(t, u), r.scheduleOnce(function () {
+                  n === r.eventToken && r.passBall(t, r.getBallAnchorPosition(u, "hold"), m, "control", n, function () {
+                    r.completeScrimmagePossession(n);
+                  });
+                }, .18));
+              }, Math.max(.34, f));
+            }
+            this.animateBallArc(t, o, a.worldPosition, .32, 8, n, function () {
+              var e = r.getTeamActors(r.possessionTeam),
+                o = e[Math.floor(Math.random() * e.length)];
+              if (o) {
+                var i = "scrimmage" === r.currentMode ? a.worldPosition : s.worldPosition;
+                "scrimmage" !== r.currentMode && r.pulseNode(s), r.passBall(t, r.getLegacyBallHandPosition(i), o, "control", n, function () {});
+              }
+            });
+          }
+        }, a.completeScrimmagePossession = function (t) {
+          var e = this;
+          t === this.eventToken && "scrimmage" === this.currentMode && this.scrimmagePossessionActive && (this.scrimmagePossessionActive = !1, this.activeReboundPlan = null, this.scheduleOnce(function () {
+            t !== e.eventToken || e.scrimmagePossessionActive || e.runNextEvent();
+          }, .3));
+        }, a.getReboundPoint = function (t) {
+          var e = t === this.hoopNodes[1];
+          return this.pointInCourt(e ? .73 + .08 * Math.random() : .19 + .08 * Math.random(), .34 + .32 * Math.random());
+        }, a.startReboundPositioning = function (t, e, o, n) {
+          for (var r, a = this, s = i(t.contenders); !(r = s()).done;) {
+            var l = r.value;
+            this.scrimmageActionActors.add(l);
+          }
+          for (var c = 0; c < t.contenders.length; c += 1) {
+            var h = t.contenders[c],
+              u = (c / Math.max(1, t.contenders.length - 1) - .5) * Math.PI * .8,
+              m = h === t.winner ? 0 : 24,
+              f = new d(e.x + Math.cos(u) * m, e.y + Math.sin(u) * m, e.z);
+            this.moveActor(h, f, Math.max(.34, .78 * o));
+          }
+          this.scheduleOnce(function () {
+            if (n === a.eventToken) for (var e, o = i(t.contenders); !(e = o()).done;) {
+              var r = e.value;
+              a.jumpActor(r, r === t.winner ? 1.14 : 1.09, .34);
+            }
+          }, Math.max(.2, .7 * o));
+        }, a.finishRebound = function (t, e, o, n, r, i, a) {
+          var s = this;
+          this.animateBallArc(t, o, n, .52, 38, a, function () {
+            if (s.setBallOwner(t, r.winner), s.possessionTeam = r.winner.team, s.showReboundCommentary(r, i), "self" === r.scenario) {
+              var o = s.getTakeoffPoint(e, i.team, 118, Math.random() < .5 ? -34 : 34),
+                n = Math.min(.32, s.getScrimmageActionDuration(.45));
+              s.dribbleTo(t, r.winner, o, n, a, function () {
+                s.setBallOwner(t, r.winner), s.completeScrimmagePossession(a);
+              });
+            } else s.completeScrimmagePossession(a);
+          });
+        }, a.showReboundCommentary = function (t, e) {
+          var o,
+            n = "self" === t.scenario ? "reboundSelf" : "teammate-single" === t.scenario ? "reboundTeammateSingle" : "teammate-contested" === t.scenario ? "reboundTeammateContested" : "opponent-single" === t.scenario ? "reboundOpponentSingle" : "reboundOpponentContested",
+            r = null != (o = t.contenders.find(function (e) {
+              return e.team !== t.winner.team;
+            })) ? o : e;
+          this.showActionCommentary(n, t.winner, r, e);
+        }, a.prepareBasketballs = function () {
+          if (this.ballNode && this.ballNode.parent) {
+            var t = f(this.ballNode);
+            t.name = "训练篮球2", this.ballNode.parent.addChild(t), t.setWorldPosition(this.ballNode.worldPosition), t.active = !1, this.basketballs = [this.ballNode, t];
+          }
+        }, a.startNextMode = function () {
+          var t = this,
+            e = ["three-point", "free-throw", "dunk", "scrimmage"],
+            o = this.hasStartedMode ? e.filter(function (e) {
+              return e !== t.currentMode;
+            }) : e;
+          this.currentMode = o[Math.floor(Math.random() * o.length)], this.hasStartedMode = !0, this.modeRound = 0, this.modeElapsedSeconds = 0, this.drillTurns = [0, 0], this.freeThrowQueues = [[], []], this.configureCurrentMode();
+        }, a.configureCurrentMode = function () {
+          var t = "scrimmage" !== this.currentMode;
+          this.scrimmagePossessionActive = !1, this.clearBallOwners(), this.scrimmageTacticAnchors.clear(), this.activeReboundPlan = null, this.scrimmageActionActors.clear(), this.setBasketballCount(t ? 2 : 1);
+          for (var e, o = i(this.ballRetrievers); !(e = o()).done;) {
+            e.value.active = t;
+          }
+          if (this.placeBallRetrievers(), "scrimmage" !== this.currentMode) {
+            for (var n = 0; n < 2; n += 1) {
+              for (var r = this.getTeamActors(n), a = 0 === n ? 1 : 0, s = "free-throw" === this.currentMode ? this.freeThrowQueues[n] = [].concat(r) : r, l = 0; l < s.length; l += 1) {
+                var c = s[l];
+                c.modePosition = "free-throw" === this.currentMode ? this.getFreeThrowQueuePosition(a, l) : this.threePointNodes[a][l].worldPosition.clone(), c.node.setWorldPosition(c.modePosition), this.applyPerspectiveScale(c, c.modePosition);
+              }
+              if ("free-throw" === this.currentMode) {
+                var h = this.freeThrowQueues[n][0];
+                this.setBallOwner(this.basketballs[n], h);
+              }
+            }
+            this.sortActorDepth();
+          } else this.placeScrimmageStartingFormation();
+        }, a.placeScrimmageStartingFormation = function () {
+          for (var t = [[[.18, .24], [.18, .76], [.32, .16], [.32, .5], [.32, .84]], [[.82, .24], [.82, .76], [.68, .16], [.68, .5], [.68, .84]]], e = 0; e < 2; e += 1) for (var o = this.getTeamActors(e), n = t[e], r = 0; r < o.length; r += 1) {
+            var i,
+              a = o[r],
+              s = null != (i = n[r]) ? i : n[n.length - 1],
+              l = s[0],
+              c = s[1];
+            a.modePosition = this.pointInCourt(l, c), a.node.setWorldPosition(a.modePosition), this.applyPerspectiveScale(a, a.modePosition);
+          }
+          this.sortActorDepth();
+        }, a.setBasketballCount = function (t) {
+          for (var e = 0; e < this.basketballs.length; e += 1) this.basketballs[e].active = e < t;
+        }, a.getFreeThrowQueuePosition = function (t, e) {
+          var o = this.freeThrowNodes[t].worldPosition;
+          if (0 === e) return o.clone();
+          var n = this.hoopNodes[t].worldPosition,
+            r = Math.sign(o.x - n.x);
+          return new d(o.x + r * e * 54, o.y, o.z);
+        }, a.rotateFreeThrowQueue = function (t, e, o) {
+          if (o === this.eventToken && "free-throw" === this.currentMode) {
+            var n = this.freeThrowQueues[t],
+              r = n.shift();
+            if (r) {
+              n.push(r);
+              for (var i = 0 === t ? 1 : 0, a = 0; a < n.length; a += 1) {
+                var s = n[a];
+                s.modePosition = this.getFreeThrowQueuePosition(i, a), 0 === a ? this.dribbleTo(e, s, s.modePosition, .36, o) : this.moveActor(s, s.modePosition, .36);
+              }
+            }
+          }
+        }, a.pickScrimmageTactic = function () {
+          var t = this,
+            e = this.lastTactic ? E.filter(function (e) {
+              return e !== t.lastTactic;
+            }) : E,
+            o = e[Math.floor(Math.random() * e.length)];
+          return this.lastTactic = o, o;
+        }, a.createReboundPlan = function (t, e, o, n) {
+          var r = ["self", "teammate-single", "teammate-contested", "opponent-single", "opponent-contested"],
+            i = r[Math.floor(Math.random() * r.length)],
+            a = e.filter(function (e) {
+              return e !== t;
+            });
+          if ("self" === i) return {
+            scenario: i,
+            winner: t,
+            contenders: [t],
+            offenseTeam: n
+          };
+          if ("teammate-single" === i || "teammate-contested" === i) {
+            var s = a[Math.floor(Math.random() * a.length)],
+              l = "teammate-single" === i ? [s] : [s].concat(this.pickDistinctActors(o, 2));
+            return {
+              scenario: i,
+              winner: s,
+              contenders: l,
+              offenseTeam: n
+            };
+          }
+          var c = o[Math.floor(Math.random() * o.length)],
+            h = "opponent-single" === i ? [c] : [c, t].concat(this.pickDistinctActors(a, 1));
+          return {
+            scenario: i,
+            winner: c,
+            contenders: h,
+            offenseTeam: n
+          };
+        }, a.pickDistinctActors = function (t, e) {
+          for (var o = [].concat(t), n = []; o.length > 0 && n.length < e;) {
+            var r = Math.floor(Math.random() * o.length);
+            n.push(o.splice(r, 1)[0]);
+          }
+          return n;
+        }, a.prepareScrimmageTactic = function (t, e) {
+          var o,
+            n,
+            r,
+            i = this,
+            a = null == (o = this.ballOwners.get(this.basketballs[0])) ? void 0 : o.actor,
+            s = null != (n = t.find(function (t) {
+              return t === a;
+            })) ? n : this.pickShooter(t),
+            l = 0,
+            c = "fiveOut",
+            h = "layup";
+          "five-out" === e ? (r = [[.42, .5], [.58, .22], [.58, .78], [.86, .12], [.86, .88]], l = Math.random() < .5 ? 3 : 4, h = "jump-shot") : "four-out-one-in" === e ? (r = [[.4, .5], [.58, .2], [.58, .8], [.82, .14], [.84, .62]], l = Math.random() < .5 ? 2 : 3, c = "fourOutOneIn") : "pick-and-roll" === e ? (r = [[.38, .5], [.48, .5], [.68, .18], [.68, .82], [.86, .82]], h = 0 === (l = Math.random() < .45 ? 0 : 1) ? "jump-shot" : "layup", c = "pickAndRoll") : "low-post" === e ? (r = [[.48, .28], [.54, .76], [.72, .14], [.72, .86], [.88, .62]], l = 4, h = "jump-shot", c = "lowPost") : (r = [[.34, .5], [.55, .4], [.55, .6], [.84, .12], [.84, .88]], l = 2, c = "horns");
+          for (var u = [s], m = t.filter(function (t) {
+              return t !== s;
+            }), f = function f() {
+              var t = r[v],
+                e = t[0],
+                o = t[1],
+                n = i.getAttackingHalfPoint(s.team, e, o);
+              m.sort(function (t, e) {
+                return d.distance(t.node.worldPosition, n) - d.distance(e.node.worldPosition, n);
+              }), u.push(m.shift());
+            }, v = 1; v < r.length; v += 1) f();
+          this.scrimmageTacticAnchors.clear(), this.scrimmageTacticRoles = u, this.scrimmageMovementSteps.clear();
+          for (var g = 0; g < u.length; g += 1) {
+            var p = r[g],
+              A = p[0],
+              T = p[1];
+            this.scrimmageTacticAnchors.set(u[g], this.getAttackingHalfPoint(u[g].team, A, T));
+          }
+          return {
+            roles: u,
+            handler: s,
+            finisher: u[l],
+            passer: s,
+            commentaryCategory: c,
+            finishType: h
+          };
+        }, a.getAttackingHalfPoint = function (t, e, o) {
+          var n = 0 === t ? .5 + .46 * e : .5 - .46 * e;
+          return this.pointInCourt(n, o);
+        }, a.moveScrimmageActors = function (t, e, o) {
+          for (var n, r = i(this.actors); !(n = r()).done;) {
+            var a = n.value;
+            a === t || this.scrimmageActionActors.has(a) || this.moveScrimmageActorContinuously(a, t, e, o, this.eventToken);
+          }
+        }, a.moveScrimmageActorContinuously = function (t, e, o, n, r) {
+          var i = this;
+          if (r === this.eventToken && "scrimmage" === this.currentMode && t !== e && !this.scrimmageActionActors.has(t)) {
+            var a = t.node.worldPosition.clone(),
+              s = this.getScrimmageMovementTarget(t, n),
+              l = this.trackTweenTarget({
+                progress: 0
+              }),
+              c = this.getScrimmageMovementDuration(t, o, n, s);
+            m(l).to(c, {
+              progress: 1
+            }, {
+              onUpdate: function onUpdate() {
+                if (r === i.eventToken && !i.scrimmageActionActors.has(t)) {
+                  var e = d.lerp(new d(), a, s, l.progress);
+                  t.node.setWorldPosition(e), i.applyPerspectiveScale(t, e);
+                }
+              }
+            }).call(function () {
+              i.sortActorDepth();
+              var a = Math.max(0, i.scrimmageTacticRoles.indexOf(t)),
+                s = t.team === n ? .08 + a % 3 * .04 : .04;
+              i.scheduleOnce(function () {
+                i.moveScrimmageActorContinuously(t, e, o, n, r);
+              }, s);
+            }).start();
+          }
+        }, a.getScrimmageMovementDuration = function (t, e, o, n) {
+          var r = L[this.currentTactic],
+            i = t === e ? r.ballHandler : t.team === o ? r.offBall : r.defense,
+            a = d.distance(t.node.worldPosition, n),
+            s = 240 + 40 * Math.random();
+          return Math.max(.12, a / s * i);
+        }, a.getScrimmageActionDuration = function (t) {
+          return "scrimmage" !== this.currentMode ? t : Math.max(.45, 1.45 * t * L[this.currentTactic].action);
+        }, a.getScrimmageMovementTarget = function (t, e) {
+          var o;
+          if (t.team === e) {
+            var n = this.scrimmageTacticRoles.indexOf(t),
+              r = Q[this.currentTactic][n];
+            if (r && r.length > 0) {
+              var i,
+                a = null != (i = this.scrimmageMovementSteps.get(t)) ? i : 0;
+              this.scrimmageMovementSteps.set(t, a + 1);
+              var s = r[a % r.length],
+                l = s[0],
+                c = s[1];
+              return this.getAttackingHalfPoint(t.team, l, c);
+            }
+            var h = this.scrimmageTacticAnchors.get(t);
+            return h ? h.clone() : this.pointInCourt(.5, .5);
+          }
+          var u = this.getTeamActors(e),
+            m = this.getTeamActors(t.team).indexOf(t),
+            f = null != (o = this.scrimmageTacticRoles[Math.max(0, m)]) ? o : u[Math.max(0, m) % u.length],
+            v = this.getAttackingHoop(e),
+            g = "pick-and-roll" === this.currentTactic && m < 2 ? .2 : "low-post" === this.currentTactic && 4 !== m ? .16 : .12,
+            p = d.lerp(new d(), f.node.worldPosition, v.worldPosition, g),
+            A = new d();
+          d.subtract(A, v.worldPosition, f.node.worldPosition), A.length() > 0 && A.normalize();
+          var T = 6 * (m - 2);
+          return p.add3f(-A.y * T, A.x * T, 0), p;
+        }, a.placeBallRetrievers = function () {
+          for (var t = 0; t < this.ballRetrievers.length; t += 1) this.ballRetrievers[t].setWorldPosition(this.ballDropNodes[t].worldPosition);
+        }, a.restoreActorsHome = function () {
+          for (var t, e = i(this.actors); !(t = e()).done;) {
+            var o = t.value;
+            o.node.setWorldPosition(o.homePosition), o.node.setScale(o.homeScale);
+          }
+          this.sortActorDepth();
+        }, a.collectCourtActors = function () {
+          var t = this;
+          this.playersRoot && (this.actors = [].concat(this.playersRoot.children).filter(function (t) {
+            return /^球员\d+$/.test(t.name);
+          }).sort(function (t, e) {
+            return t.name.localeCompare(e.name, "zh-CN", {
+              numeric: !0
+            });
+          }).slice(0, 10).map(function (e, o) {
+            var n = {
+              node: e,
+              ballAnchors: t.collectBallAnchors(e),
+              facing: o < 5 ? "right" : "left",
+              homePosition: e.worldPosition.clone(),
+              modePosition: e.worldPosition.clone(),
+              homeScale: e.scale.clone(),
+              homePerspectiveFactor: t.getPerspectiveFactor(e.worldPosition),
+              player: null,
+              team: o < 5 ? 0 : 1
+            };
+            return t.hideActorBallAnchors(n), n;
+          }));
+        }, a.collectBallRetrieverCarriers = function () {
+          var t = this;
+          this.ballRetrieverCarriers = this.ballRetrievers.map(function (e, o) {
+            var n = {
+              node: e,
+              ballAnchors: t.collectBallAnchors(e),
+              facing: 0 === o ? "right" : "left"
+            };
+            return t.hideActorBallAnchors(n), n;
+          });
+        }, a.collectBallAnchors = function (t) {
+          return {
+            left: {
+              hold: t.getChildByName("持球点-左"),
+              dribble: t.getChildByName("运球点-左"),
+              shot: t.getChildByName("投射点-左")
+            },
+            right: {
+              hold: t.getChildByName("持球点-右"),
+              dribble: t.getChildByName("运球点-右"),
+              shot: t.getChildByName("投射点-右")
+            }
+          };
+        }, a.readRosterPlayers = function () {
+          return T().map(function (t, e) {
+            return t ? {
+              id: t.instanceId,
+              name: t.displayName,
+              ovr: t.overall,
+              originalIndex: e,
+              card: t
+            } : null;
+          }).filter(function (t) {
+            return Boolean(t);
+          });
+        }, a.bindPlayerVisual = function (t, e) {
+          var o,
+            n,
+            r,
+            i,
+            a,
+            s = this,
+            l = null != (o = null == e ? void 0 : e.instanceId) ? o : "";
+          if (this.boundVisualPlayerIds.get(t) !== l) {
+            this.boundVisualPlayerIds.set(t, l);
+            var c = null != (n = null == (r = t.getChildByName("头像")) ? void 0 : r.getComponent(v)) ? n : null,
+              h = null != (i = null == (a = t.getChildByName("边框")) ? void 0 : a.getComponent(v)) ? i : null;
+            e ? Promise.all([w(e), y(e.qualityId)]).then(function (o) {
+              var n = o[0],
+                r = o[1];
+              s.boundVisualPlayerIds.get(t) === e.instanceId && (c && (c.spriteFrame = n), h && r && (h.spriteFrame = r));
+            }) : c && (c.spriteFrame = null);
+          }
+        }, a.hasCompleteRoster = function () {
+          return 10 === this.actors.length && this.actors.every(function (t) {
+            return Boolean(t.player);
+          }) && this.ballRetrieverPlayers.every(function (t) {
+            return Boolean(t);
+          });
+        }, a.showWaitingForRoster = function () {
+          this.eventToken += 1, this.scrimmagePossessionActive = !1, this.unscheduleAllCallbacks(), this.stopAnimations(), this.clearBallOwners(), this.setBasketballCount(0);
+          for (var t, e = i(this.ballRetrievers); !(t = e()).done;) {
+            t.value.active = !1;
+          }
+          this.setCommentary("暂无足够球员，请先完成招募");
+        }, a.resolveReferenceNodes = function () {
+          var t = this;
+          if (!(this.ballNode && this.playersRoot && this.commentaryLabel && this.courtRange && this.rosterContainer)) return console.error("[CourtSimulationController] Missing ball, players, commentary, court range, or roster."), !1;
+          return this.cornerNodes = ["左上角", "右上角", "左下角", "右下角"].map(function (e) {
+            var o, n;
+            return null != (o = null == (n = t.courtRange) ? void 0 : n.getChildByName(e)) ? o : null;
+          }).filter(function (t) {
+            return Boolean(t);
+          }), this.hoopNodes = ["篮筐1", "篮筐2"].map(function (e) {
+            var o, n;
+            return null != (o = null == (n = t.courtRange) ? void 0 : n.getChildByName(e)) ? o : null;
+          }).filter(function (t) {
+            return Boolean(t);
+          }), this.ballDropNodes = ["进球后下落终点1", "进球后下落终点2"].map(function (e) {
+            var o, n;
+            return null != (o = null == (n = t.courtRange) ? void 0 : n.getChildByName(e)) ? o : null;
+          }).filter(function (t) {
+            return Boolean(t);
+          }), this.ballRetrievers = ["捡球球员1", "捡球球员2"].map(function (e) {
+            var o, n;
+            return null != (o = null == (n = t.playersRoot) ? void 0 : n.getChildByName(e)) ? o : null;
+          }).filter(function (t) {
+            return Boolean(t);
+          }), this.freeThrowNodes = ["罚球点2", "罚球点1"].map(function (e) {
+            var o, n;
+            return null != (o = null == (n = t.courtRange) ? void 0 : n.getChildByName(e)) ? o : null;
+          }).filter(function (t) {
+            return Boolean(t);
+          }), this.threePointNodes = [this.courtRange.children.filter(function (t) {
+            return t.name.startsWith("左半场-") && t.name.includes("三分");
+          }), this.courtRange.children.filter(function (t) {
+            return t.name.startsWith("右半场-") && t.name.includes("三分");
+          })], 4 === this.cornerNodes.length && 2 === this.hoopNodes.length && 2 === this.ballDropNodes.length && 2 === this.ballRetrievers.length && 2 === this.freeThrowNodes.length && !this.threePointNodes.some(function (t) {
+            return t.length < 5;
+          }) || (console.error("[CourtSimulationController] Court corners, hoops, free throws, ball drops, or retrievers are incomplete."), !1);
+        }, a.pickAction = function () {
+          var t = Math.random();
+          return t < .34 ? "jump-shot" : t < .62 ? "layup" : t < .82 ? "dunk" : "assist";
+        }, a.getSuccessChance = function (t, e) {
+          var o = Math.max(-.12, Math.min(.16, .008 * (e - 70))),
+            n = "jump-shot" === t ? .56 : "dunk" === t ? .82 : .7;
+          return Math.max(.35, Math.min(.92, n + o));
+        }, a.pickShooter = function (t) {
+          var e,
+            o,
+            n,
+            r = this,
+            i = t.filter(function (t) {
+              var e;
+              return (null == (e = t.player) ? void 0 : e.id) !== r.lastShooterId;
+            }),
+            a = null != (e = i[Math.floor(Math.random() * i.length)]) ? e : t[0];
+          return this.lastShooterId = null != (o = null == (n = a.player) ? void 0 : n.id) ? o : "", a;
+        }, a.pickDifferentActor = function (t, e) {
+          var o,
+            n = t.filter(function (t) {
+              return t !== e;
+            });
+          return null != (o = n[Math.floor(Math.random() * n.length)]) ? o : e;
+        }, a.getTeamActors = function (t) {
+          return this.actors.filter(function (e) {
+            return e.team === t && e.node.active && Boolean(e.player);
+          });
+        }, a.getAttackingHoop = function (t) {
+          return 0 === t ? this.hoopNodes[1] : this.hoopNodes[0];
+        }, a.pickThreePointNode = function (t) {
+          var e,
+            o = 0 === t ? this.threePointNodes[1] : this.threePointNodes[0];
+          return null != (e = o[Math.floor(Math.random() * o.length)]) ? e : null;
+        }, a.pointInCourt = function (t, e) {
+          var o = new d(),
+            n = new d();
+          return d.lerp(o, this.cornerNodes[0].worldPosition, this.cornerNodes[1].worldPosition, t), d.lerp(n, this.cornerNodes[2].worldPosition, this.cornerNodes[3].worldPosition, t), d.lerp(new d(), o, n, e);
+        }, a.getTakeoffPoint = function (t, e, o, n) {
+          var r,
+            i,
+            a = null != (r = null == (i = this.courtRange) || null == (i = i.getChildByName("中场点")) ? void 0 : i.worldPosition) ? r : this.pointInCourt(.5, .5),
+            s = new d();
+          d.subtract(s, a, t.worldPosition).normalize();
+          var l = new d(-s.y, s.x, 0),
+            c = t.worldPosition.clone();
+          return c.add3f(s.x * o, s.y * o, 0), c.add3f(l.x * n, l.y * n, 0), c;
+        }, a.moveActor = function (t, e, o) {
+          var n = this,
+            r = t.node.worldPosition.clone(),
+            i = this.trackTweenTarget({
+              progress: 0
+            });
+          m(i).to(o, {
+            progress: 1
+          }, {
+            onUpdate: function onUpdate() {
+              var o = d.lerp(new d(), r, e, i.progress);
+              t.node.setWorldPosition(o), n.applyPerspectiveScale(t, o);
+            }
+          }).call(function () {
+            return n.sortActorDepth();
+          }).start();
+        }, a.dribbleTo = function (t, e, o, n, r, i) {
+          var a = this;
+          void 0 === i && (i = function i() {}), this.setBallMotionOwner(t, e, "dribble");
+          var s = e.node.worldPosition.clone(),
+            l = Math.max(1, Math.round(n / .32)),
+            c = this.trackTweenTarget({
+              progress: 0
+            });
+          m(c).to(n, {
+            progress: 1
+          }, {
+            onUpdate: function onUpdate() {
+              if (r === a.eventToken) {
+                var n = d.lerp(new d(), s, o, c.progress);
+                e.node.setWorldPosition(n), a.applyPerspectiveScale(e, n);
+                var i = a.getBallAnchorPosition(e, "hold"),
+                  h = a.getBallAnchorPosition(e, "dribble"),
+                  u = Math.abs(Math.sin(c.progress * Math.PI * l));
+                t.setWorldPosition(d.lerp(new d(), i, h, u));
+              }
+            }
+          }).call(function () {
+            a.sortActorDepth(), r === a.eventToken && (a.setBallOwner(t, e, "hold"), i());
+          }).start();
+        }, a.gatherBallForShot = function (t, e, o, n) {
+          var r = this;
+          this.setBallMotionOwner(t, e, "shot");
+          var i = this.trackTweenTarget({
+            progress: 0
+          });
+          m(i).to(.12, {
+            progress: 1
+          }, {
+            onUpdate: function onUpdate() {
+              if (o === r.eventToken) {
+                var n = r.getBallAnchorPosition(e, "hold"),
+                  a = r.getBallAnchorPosition(e, "shot");
+                t.setWorldPosition(d.lerp(new d(), n, a, i.progress));
+              }
+            }
+          }).call(function () {
+            if (o === r.eventToken) {
+              var i = r.getBallAnchorPosition(e, "shot");
+              t.setWorldPosition(i), n(i);
+            }
+          }).start();
+        }, a.passBall = function (t, e, o, n, r, i) {
+          var a = this,
+            s = new d(e.x, e.y, e.z),
+            l = this.getBallAnchorPosition(o, "hold"),
+            c = .08 + this.getPassFlightDuration(s, o),
+            h = .08 / c,
+            u = l.x >= s.x ? 1 : -1,
+            f = new d(s.x + 18 * u, s.y + 10, s.z),
+            v = d.distance(s, l),
+            g = Math.min(52, 18 + .06 * v),
+            p = this.trackTweenTarget({
+              progress: 0
+            });
+          this.releaseBall(t), t.setWorldPosition(s), m(p).to(c, {
+            progress: 1
+          }, {
+            onUpdate: function onUpdate() {
+              if (r === a.eventToken) if (p.progress < h) {
+                var e = p.progress / h;
+                t.setWorldPosition(d.lerp(new d(), s, f, e));
+              } else {
+                var n = (p.progress - h) / (1 - h),
+                  i = a.getBallAnchorPosition(o, "hold"),
+                  l = d.lerp(new d(), f, i, .5);
+                l.y += g;
+                var c = 1 - n;
+                t.setWorldPosition(new d(c * c * f.x + 2 * c * n * l.x + n * n * i.x, c * c * f.y + 2 * c * n * l.y + n * n * i.y, i.z));
+              }
+            }
+          }).call(function () {
+            if (r === a.eventToken) {
+              if (t.setWorldPosition(a.getBallAnchorPosition(o, "hold")), a.setBallOwner(t, o), "shoot" === n) return void i();
+              a.scheduleOnce(function () {
+                r === a.eventToken && i();
+              }, .16);
+            }
+          }).start();
+        }, a.getPassFlightDuration = function (t, e) {
+          var o = this.getBallAnchorPosition(e, "hold");
+          return Math.max(.2, Math.min(.38, d.distance(t, o) / 1100));
+        }, a.animateBallArc = function (t, e, o, n, r, i, a) {
+          var s = this;
+          this.releaseBall(t);
+          var l = this.trackTweenTarget({
+            progress: 0
+          });
+          t.setWorldPosition(e), m(l).to(n, {
+            progress: 1
+          }, {
+            onUpdate: function onUpdate() {
+              if (i === s.eventToken) {
+                var n = d.lerp(new d(), e, o, l.progress);
+                n.y += Math.sin(l.progress * Math.PI) * r, t.setWorldPosition(n);
+              }
+            }
+          }).call(function () {
+            i === s.eventToken && (null == a || a());
+          }).start();
+        }, a.jumpActor = function (t, e, o) {
+          var n = t.node.scale.clone(),
+            r = new d(n.x * e, n.y * e, n.z);
+          m(t.node).to(.45 * o, {
+            scale: r
+          }).to(.55 * o, {
+            scale: n
+          }).start();
+        }, a.pulseNode = function (t) {
+          var e = t.scale.clone();
+          m(t).to(.1, {
+            scale: new d(1.08 * e.x, 1.08 * e.y, e.z)
+          }).to(.12, {
+            scale: e
+          }).start();
+        }, a.shakeHoop = function (t) {
+          var e = t.scale.clone();
+          m(t).to(.08, {
+            scale: new d(1.08 * e.x, .92 * e.y, e.z)
+          }).to(.12, {
+            scale: e
+          }).start();
+        }, a.applyPerspectiveScale = function (t, e) {
+          var o = this.getPerspectiveFactor(e) / t.homePerspectiveFactor;
+          t.node.setScale(t.homeScale.x * o, t.homeScale.y * o, t.homeScale.z);
+        }, a.getPerspectiveFactor = function (t) {
+          var e = .5 * (this.cornerNodes[0].worldPosition.y + this.cornerNodes[1].worldPosition.y),
+            o = .5 * (this.cornerNodes[2].worldPosition.y + this.cornerNodes[3].worldPosition.y);
+          return .82 + .22 * Math.max(0, Math.min(1, (e - t.y) / (e - o)));
+        }, a.sortActorDepth = function () {
+          [].concat(this.actors).filter(function (t) {
+            return t.node.active;
+          }).sort(function (t, e) {
+            return e.node.worldPosition.y - t.node.worldPosition.y;
+          }).forEach(function (t, e) {
+            return t.node.setSiblingIndex(e);
+          });
+        }, a.findNearestActor = function (t, e) {
+          for (var o, n = null, r = Number.POSITIVE_INFINITY, a = i(t); !(o = a()).done;) {
+            var s = o.value,
+              l = d.distance(s.node.worldPosition, e);
+            l < r && (n = s, r = l);
+          }
+          return n;
+        }, a.getLegacyBallHandPosition = function (t) {
+          return new d(t.x + 15, t.y + 12, t.z);
+        }, a.getBallAnchorPosition = function (t, e, o) {
+          void 0 === o && (o = t.node.worldPosition);
+          var n = t.ballAnchors[t.facing][e];
+          if (!n) {
+            var r = "dribble" === e ? -6 : "shot" === e ? 30 : 12,
+              i = "right" === t.facing ? 1 : -1;
+            return new d(o.x + 15 * i, o.y + r, o.z);
+          }
+          var a = t.node.worldPosition,
+            s = n.worldPosition;
+          return new d(o.x + s.x - a.x, o.y + s.y - a.y, o.z + s.z - a.z);
+        }, a.setBallOwner = function (t, e, o) {
+          void 0 === o && (o = "hold");
+          var n = this.ballOwners.get(t);
+          n && this.hideActorBallAnchors(n.actor), this.ballOwners.set(t, {
+            actor: e,
+            kind: o,
+            visual: "anchor"
+          }), this.showActorBallAnchor(e, o), t.setWorldPosition(this.getBallAnchorPosition(e, o)), t.active = !1;
+        }, a.setBallMotionOwner = function (t, e, o) {
+          var n = this.ballOwners.get(t);
+          n && this.hideActorBallAnchors(n.actor), this.hideActorBallAnchors(e), this.ballOwners.set(t, {
+            actor: e,
+            kind: o,
+            visual: "motion"
+          }), t.setWorldPosition(this.getBallAnchorPosition(e, "hold")), t.active = !0;
+        }, a.releaseBall = function (t) {
+          var e = this.ballOwners.get(t);
+          e && this.hideActorBallAnchors(e.actor), this.ballOwners["delete"](t), t.active = !0;
+        }, a.clearBallOwners = function () {
+          for (var t = 0, e = [].concat(this.actors, this.ballRetrieverCarriers); t < e.length; t++) {
+            var o = e[t];
+            this.hideActorBallAnchors(o);
+          }
+          this.ballOwners.clear();
+        }, a.hideActorBallAnchors = function (t) {
+          for (var e = 0, o = [t.ballAnchors.left, t.ballAnchors.right]; e < o.length; e++) for (var n = o[e], r = 0, i = [n.hold, n.dribble, n.shot]; r < i.length; r++) {
+            var a = i[r];
+            a && (a.active = !1);
+          }
+        }, a.showActorBallAnchor = function (t, e) {
+          this.hideActorBallAnchors(t);
+          var o = t.ballAnchors[t.facing][e];
+          o && (o.active = !0);
+        }, a.showActionCommentary = function (t, e, o, n) {
+          var r,
+            i,
+            a,
+            s,
+            l,
+            c,
+            h,
+            u,
+            d = this,
+            m = null != (r = _[t]) ? r : [],
+            f = m.filter(function (t) {
+              return t !== d.lastCommentaryId;
+            }),
+            v = (f.length > 0 ? f : m)[Math.floor(Math.random() * Math.max(1, f.length || m.length))],
+            p = this.commentaryById.get(v);
+          if (p) {
+            this.lastCommentaryId = v;
+            for (var A = (null == (i = g.localStorage.getItem(P)) ? void 0 : i.trim()) || "我的球队", T = {
+                "{{player}}": null != (a = null == (s = e.player) ? void 0 : s.name) ? a : e.node.name,
+                "{{defender}}": null != (l = null == (c = o.player) ? void 0 : c.name) ? l : o.node.name,
+                "{{teammate}}": null != (h = null == (u = n.player) ? void 0 : u.name) ? h : n.node.name,
+                "{{team}}": A + (0 === e.team ? "A队" : "B队"),
+                "{{opponent_team}}": A + (0 === e.team ? "B队" : "A队"),
+                "{{coach}}": "球队教练"
+              }, w = p.text, y = 0, b = Object.entries(T); y < b.length; y++) {
+              var M = b[y],
+                B = M[0],
+                k = M[1];
+              w = w.split(B).join(k);
+            }
+            this.setCommentary(w);
+          } else {
+            var C, S;
+            this.setCommentary((null != (C = null == (S = e.player) ? void 0 : S.name) ? C : "球员") + "正在进行训练。");
+          }
+        }, a.setCommentary = function (t) {
+          this.commentaryLabel && (this.commentaryLabel.string = t);
+        }, a.trackTweenTarget = function (t) {
+          return this.activeTweenTargets.push(t), t;
+        }, a.stopAnimations = function () {
+          for (var t, e = i(this.activeTweenTargets); !(t = e()).done;) {
+            var o = t.value;
+            p.stopAllByTarget(o);
+          }
+          this.activeTweenTargets.length = 0;
+          for (var n, r = i(this.actors); !(n = r()).done;) {
+            var a = n.value;
+            p.stopAllByTarget(a.node);
+          }
+          for (var s, l = i(this.hoopNodes); !(s = l()).done;) {
+            var c = s.value;
+            p.stopAllByTarget(c);
+          }
+          for (var h, u = i(this.ballRetrievers); !(h = u()).done;) {
+            var d = h.value;
+            p.stopAllByTarget(d);
+          }
+          for (var m, f = i(this.basketballs); !(m = f()).done;) {
+            var v = m.value;
+            p.stopAllByTarget(v);
+          }
+        }, a.stopSimulation = function () {
+          this.eventToken += 1, this.scrimmagePossessionActive = !1, this.unscheduleAllCallbacks(), this.stopAnimations(), this.clearBallOwners(), this.restoreActorsHome(), this.setBasketballCount(1);
+          for (var t, e = i(this.ballRetrievers); !(t = e()).done;) {
+            t.value.active = !0;
+          }
+          this.placeBallRetrievers(), this.simulationReady = !1;
+        }, e;
+      }(A)).prototype, "ballNode", [M], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), O = e(x.prototype, "playersRoot", [B], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), I = e(x.prototype, "commentaryLabel", [k], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), H = e(x.prototype, "courtRange", [C], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), F = e(x.prototype, "rosterContainer", [S], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), z = e(x.prototype, "actionIntervalSeconds", [R], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 3;
+        }
+      }), N = x)) || N));
+      a._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/EdgeLuminescence.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (e) {
+  var t, i, n, r, o, s, a, l, c, u, p, d, h, f;
+  return {
+    setters: [function (e) {
+      t = e.applyDecoratedDescriptor, i = e.inheritsLoose, n = e.initializerDefineProperty, r = e.assertThisInitialized, o = e.asyncToGenerator;
+    }, function (e) {
+      s = e.cclegacy, a = e._decorator, l = e.Color, c = e.Vec4, u = e.Component, p = e.Sprite, d = e.Material, h = e.resources, f = e.EffectAsset;
+    }],
+    execute: function execute() {
+      var g, m, y, _, b, E, v, w, T, L, M;
+      s._RF.push({}, "5fda5hRaHhKLbfdTUgiPdgT", "EdgeLuminescence", void 0);
+      var C = a.ccclass,
+        S = a.property,
+        P = null,
+        z = null;
+      e("EdgeLuminescence", (g = C("EdgeLuminescence"), m = S({
+        type: l,
+        tooltip: "边缘发光颜色"
+      }), y = S({
+        tooltip: "边缘宽度 (0.5 ~ 15)",
+        slide: !0,
+        range: [.5, 15, .5]
+      }), _ = S({
+        tooltip: "发光强度 (0 ~ 5)",
+        slide: !0,
+        range: [0, 5, .1]
+      }), b = S({
+        tooltip: "脉冲呼吸速度 (0 = 不脉冲)",
+        slide: !0,
+        range: [0, 8, .1]
+      }), g((w = t((v = function (e) {
+        function t() {
+          for (var t, i = arguments.length, o = new Array(i), s = 0; s < i; s++) o[s] = arguments[s];
+          return t = e.call.apply(e, [this].concat(o)) || this, n(t, "edgeColor", w, r(t)), n(t, "edgeWidth", T, r(t)), n(t, "intensity", L, r(t)), n(t, "pulseSpeed", M, r(t)), t._material = null, t._sprite = null, t._applied = !1, t;
+        }
+        i(t, e);
+        var s = t.prototype;
+        return s.onLoad = function () {
+          var e = o( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+            var e;
+            return _regeneratorRuntime().wrap(function _callee$(_context2) {
+              while (1) switch (_context2.prev = _context2.next) {
+                case 0:
+                  if (!(this._sprite = this.node.getComponent(p), this._sprite)) {
+                    _context2.next = 7;
+                    break;
+                  }
+                  _context2.next = 3;
+                  return P ? Promise.resolve(P) : z || (z = new Promise(function (e) {
+                    h.load("effects/edge-luminescence", f, function (t, i) {
+                      if (t || !i) return console.error("[EdgeLuminescence] Failed to load effect.", t), void e(null);
+                      P = i, e(i);
+                    });
+                  }));
+                case 3:
+                  e = _context2.sent;
+                  e ? (this._material = new d(), this._material.initialize({
+                    effectAsset: e,
+                    defines: {
+                      USE_TEXTURE: !0
+                    }
+                  }), this._sprite.customMaterial = this._material, this._applied = !0, this.syncToMaterial()) : console.warn("[EdgeLuminescence] Effect not found.");
+                  _context2.next = 8;
+                  break;
+                case 7:
+                  console.warn("[EdgeLuminescence] Node has no Sprite component.");
+                case 8:
+                case "end":
+                  return _context2.stop();
+              }
+            }, _callee, this);
+          }));
+          return function () {
+            return e.apply(this, arguments);
+          };
+        }(), s.onDestroy = function () {
+          this._sprite && this._applied && (this._sprite.customMaterial = null), this._material && (this._material.destroy(), this._material = null), this._applied = !1;
+        }, s.syncToMaterial = function () {
+          if (this._material) {
+            var e = this.edgeColor;
+            this._material.setProperty("edgeColor", new c(e.r / 255, e.g / 255, e.b / 255, e.a / 255)), this._material.setProperty("params", new c(this.edgeWidth, this.intensity, this.pulseSpeed, 0));
+          }
+        }, s.setEdgeColor = function (e, t, i, n) {
+          void 0 === n && (n = 255), this.edgeColor = new l(e, t, i, n), this.syncToMaterial();
+        }, s.setEdgeWidth = function (e) {
+          this.edgeWidth = e, this.syncToMaterial();
+        }, s.setIntensity = function (e) {
+          this.intensity = e, this.syncToMaterial();
+        }, s.setPulseSpeed = function (e) {
+          this.pulseSpeed = e, this.syncToMaterial();
+        }, s.getMaterial = function () {
+          return this._material;
+        }, t;
+      }(u)).prototype, "edgeColor", [m], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return new l(255, 214, 0, 255);
+        }
+      }), T = t(v.prototype, "edgeWidth", [y], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 3;
+        }
+      }), L = t(v.prototype, "intensity", [_], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 1.2;
+        }
+      }), M = t(v.prototype, "pulseSpeed", [b], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 0;
+        }
+      }), E = v)) || E));
+      s._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/FireOverlay.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (e) {
+  var t, i, r, n, o, a, l, s, u, f, c, p, h, y;
+  return {
+    setters: [function (e) {
+      t = e.applyDecoratedDescriptor, i = e.inheritsLoose, r = e.initializerDefineProperty, n = e.assertThisInitialized, o = e.asyncToGenerator;
+    }, function (e) {
+      a = e.cclegacy, l = e._decorator, s = e.Color, u = e.Vec4, f = e.Component, c = e.Sprite, p = e.Material, h = e.resources, y = e.EffectAsset;
+    }],
+    execute: function execute() {
+      var d, _, m, b, v, g, w, O, C, D, M, T, I, z, F;
+      a._RF.push({}, "56147tZTrBDWq5y5OAN5hhr", "FireOverlay", void 0);
+      var S = l.ccclass,
+        P = l.property,
+        E = null,
+        A = null;
+      e("FireOverlay", (d = S("FireOverlay"), _ = P({
+        type: s,
+        tooltip: "火焰内层颜色（高温区）"
+      }), m = P({
+        type: s,
+        tooltip: "火焰外层颜色（低温区）"
+      }), b = P({
+        tooltip: "火焰强度 (0 ~ 3)",
+        slide: !0,
+        range: [0, 3, .1]
+      }), v = P({
+        tooltip: "动画速度 (0.2 ~ 5)",
+        slide: !0,
+        range: [.2, 5, .1]
+      }), g = P({
+        tooltip: "火焰细节密度 (3 ~ 25)",
+        slide: !0,
+        range: [3, 25, .5]
+      }), w = P({
+        tooltip: "热浪扭曲强度 (0 ~ 1)",
+        slide: !0,
+        range: [0, 1, .05]
+      }), d((D = t((C = function (e) {
+        function t() {
+          for (var t, i = arguments.length, o = new Array(i), a = 0; a < i; a++) o[a] = arguments[a];
+          return t = e.call.apply(e, [this].concat(o)) || this, r(t, "fireColorInner", D, n(t)), r(t, "fireColorOuter", M, n(t)), r(t, "fireIntensity", T, n(t)), r(t, "fireSpeed", I, n(t)), r(t, "fireDetail", z, n(t)), r(t, "distortion", F, n(t)), t._material = null, t._sprite = null, t._applied = !1, t;
+        }
+        i(t, e);
+        var a = t.prototype;
+        return a.onLoad = function () {
+          var e = o( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+            var e;
+            return _regeneratorRuntime().wrap(function _callee2$(_context3) {
+              while (1) switch (_context3.prev = _context3.next) {
+                case 0:
+                  if (!(this._sprite = this.node.getComponent(c), this._sprite)) {
+                    _context3.next = 7;
+                    break;
+                  }
+                  _context3.next = 3;
+                  return E ? Promise.resolve(E) : A || (A = new Promise(function (e) {
+                    h.load("effects/fire-overlay", y, function (t, i) {
+                      if (t || !i) return console.error("[FireOverlay] load failed.", t), void e(null);
+                      E = i, e(i);
+                    });
+                  }));
+                case 3:
+                  e = _context3.sent;
+                  e ? (this._material = new p(), this._material.initialize({
+                    effectAsset: e,
+                    defines: {
+                      USE_TEXTURE: !0
+                    }
+                  }), this._sprite.customMaterial = this._material, this._applied = !0, this.syncToMaterial()) : console.warn("[FireOverlay] Effect not found.");
+                  _context3.next = 8;
+                  break;
+                case 7:
+                  console.warn("[FireOverlay] No Sprite.");
+                case 8:
+                case "end":
+                  return _context3.stop();
+              }
+            }, _callee2, this);
+          }));
+          return function () {
+            return e.apply(this, arguments);
+          };
+        }(), a.onDestroy = function () {
+          this._sprite && this._applied && (this._sprite.customMaterial = null), this._material && (this._material.destroy(), this._material = null), this._applied = !1;
+        }, a.syncToMaterial = function () {
+          if (this._material) {
+            var e = this.fireColorInner,
+              t = this.fireColorOuter;
+            this._material.setProperty("fireColorInner", new u(e.r / 255, e.g / 255, e.b / 255, e.a / 255)), this._material.setProperty("fireColorOuter", new u(t.r / 255, t.g / 255, t.b / 255, t.a / 255)), this._material.setProperty("params", new u(this.fireIntensity, this.fireSpeed, this.fireDetail, this.distortion));
+          }
+        }, a.setIntensity = function (e) {
+          this.fireIntensity = e, this.syncToMaterial();
+        }, a.setSpeed = function (e) {
+          this.fireSpeed = e, this.syncToMaterial();
+        }, a.setDetail = function (e) {
+          this.fireDetail = e, this.syncToMaterial();
+        }, a.setDistortion = function (e) {
+          this.distortion = e, this.syncToMaterial();
+        }, a.getMaterial = function () {
+          return this._material;
+        }, t;
+      }(f)).prototype, "fireColorInner", [_], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return new s(255, 230, 25, 255);
+        }
+      }), M = t(C.prototype, "fireColorOuter", [m], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return new s(255, 50, 0, 255);
+        }
+      }), T = t(C.prototype, "fireIntensity", [b], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 1.2;
+        }
+      }), I = t(C.prototype, "fireSpeed", [v], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 1.5;
+        }
+      }), z = t(C.prototype, "fireDetail", [g], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 10;
+        }
+      }), F = t(C.prototype, "distortion", [w], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return .3;
+        }
+      }), O = C)) || O));
+      a._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/FlameFrame.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (e) {
+  var t, i, r, a, n, l, o, s, f, u, c, m, p, h;
+  return {
+    setters: [function (e) {
+      t = e.applyDecoratedDescriptor, i = e.inheritsLoose, r = e.initializerDefineProperty, a = e.assertThisInitialized, n = e.asyncToGenerator;
+    }, function (e) {
+      l = e.cclegacy, o = e._decorator, s = e.Color, f = e.Vec4, u = e.Component, c = e.Sprite, m = e.Material, p = e.resources, h = e.EffectAsset;
+    }],
+    execute: function execute() {
+      var y, d, _, g, b, F, w, C, v, M, I, S, T, z, D;
+      l._RF.push({}, "2f403XfSSFCr7j82UfYkuS4", "FlameFrame", void 0);
+      var P = o.ccclass,
+        H = o.property,
+        O = null,
+        E = null;
+      e("FlameFrame", (y = P("FlameFrame"), d = H({
+        type: s,
+        tooltip: "火焰内层颜色（根部，明亮区）"
+      }), _ = H({
+        type: s,
+        tooltip: "火焰外层颜色（尖端，暗红区）"
+      }), g = H({
+        tooltip: "火焰高度 (1 ~ 20)",
+        slide: !0,
+        range: [1, 20, .5]
+      }), b = H({
+        tooltip: "火焰亮度强度 (0.2 ~ 4)",
+        slide: !0,
+        range: [.2, 4, .1]
+      }), F = H({
+        tooltip: "火焰动画速度 (0.2 ~ 5)",
+        slide: !0,
+        range: [.2, 5, .1]
+      }), w = H({
+        tooltip: "火焰细节密度 (3 ~ 20)，越高火舌越细碎",
+        slide: !0,
+        range: [3, 20, .5]
+      }), y((M = t((v = function (e) {
+        function t() {
+          for (var t, i = arguments.length, n = new Array(i), l = 0; l < i; l++) n[l] = arguments[l];
+          return t = e.call.apply(e, [this].concat(n)) || this, r(t, "flameColorInner", M, a(t)), r(t, "flameColorOuter", I, a(t)), r(t, "flameHeight", S, a(t)), r(t, "flameIntensity", T, a(t)), r(t, "flameSpeed", z, a(t)), r(t, "flameDetail", D, a(t)), t._material = null, t._sprite = null, t._applied = !1, t;
+        }
+        i(t, e);
+        var l = t.prototype;
+        return l.onLoad = function () {
+          var e = n( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+            var e;
+            return _regeneratorRuntime().wrap(function _callee3$(_context4) {
+              while (1) switch (_context4.prev = _context4.next) {
+                case 0:
+                  if (!(this._sprite = this.node.getComponent(c), this._sprite)) {
+                    _context4.next = 7;
+                    break;
+                  }
+                  _context4.next = 3;
+                  return O ? Promise.resolve(O) : E || (E = new Promise(function (e) {
+                    p.load("effects/flame-frame", h, function (t, i) {
+                      if (t || !i) return console.error("[FlameFrame] Failed to load effect.", t), void e(null);
+                      O = i, e(i);
+                    });
+                  }));
+                case 3:
+                  e = _context4.sent;
+                  e ? (this._material = new m(), this._material.initialize({
+                    effectAsset: e,
+                    defines: {
+                      USE_TEXTURE: !0
+                    }
+                  }), this._sprite.customMaterial = this._material, this._applied = !0, this.syncToMaterial()) : console.warn("[FlameFrame] Effect not found.");
+                  _context4.next = 8;
+                  break;
+                case 7:
+                  console.warn("[FlameFrame] Node has no Sprite component.");
+                case 8:
+                case "end":
+                  return _context4.stop();
+              }
+            }, _callee3, this);
+          }));
+          return function () {
+            return e.apply(this, arguments);
+          };
+        }(), l.onDestroy = function () {
+          this._sprite && this._applied && (this._sprite.customMaterial = null), this._material && (this._material.destroy(), this._material = null), this._applied = !1;
+        }, l.syncToMaterial = function () {
+          if (this._material) {
+            var e = this.flameColorInner,
+              t = this.flameColorOuter;
+            this._material.setProperty("flameColorInner", new f(e.r / 255, e.g / 255, e.b / 255, e.a / 255)), this._material.setProperty("flameColorOuter", new f(t.r / 255, t.g / 255, t.b / 255, t.a / 255)), this._material.setProperty("params", new f(this.flameHeight, this.flameIntensity, this.flameSpeed, this.flameDetail));
+          }
+        }, l.setInnerColor = function (e, t, i, r) {
+          void 0 === r && (r = 255), this.flameColorInner = new s(e, t, i, r), this.syncToMaterial();
+        }, l.setOuterColor = function (e, t, i, r) {
+          void 0 === r && (r = 255), this.flameColorOuter = new s(e, t, i, r), this.syncToMaterial();
+        }, l.setFlameHeight = function (e) {
+          this.flameHeight = e, this.syncToMaterial();
+        }, l.setIntensity = function (e) {
+          this.flameIntensity = e, this.syncToMaterial();
+        }, l.setSpeed = function (e) {
+          this.flameSpeed = e, this.syncToMaterial();
+        }, l.setDetail = function (e) {
+          this.flameDetail = e, this.syncToMaterial();
+        }, l.getMaterial = function () {
+          return this._material;
+        }, t;
+      }(u)).prototype, "flameColorInner", [d], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return new s(255, 242, 51, 255);
+        }
+      }), I = t(v.prototype, "flameColorOuter", [_], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return new s(255, 64, 0, 255);
+        }
+      }), S = t(v.prototype, "flameHeight", [g], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 6;
+        }
+      }), T = t(v.prototype, "flameIntensity", [b], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 1.5;
+        }
+      }), z = t(v.prototype, "flameSpeed", [F], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 1.2;
+        }
+      }), D = t(v.prototype, "flameDetail", [w], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 8;
+        }
+      }), C = v)) || C));
+      l._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/FrameFlow.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (t) {
+  var e, i, r, a, n, o, l, s, h, u, c, p, f, d;
+  return {
+    setters: [function (t) {
+      e = t.applyDecoratedDescriptor, i = t.inheritsLoose, r = t.initializerDefineProperty, a = t.assertThisInitialized, n = t.asyncToGenerator;
+    }, function (t) {
+      o = t.cclegacy, l = t._decorator, s = t.Color, h = t.Vec4, u = t.Component, c = t.Sprite, p = t.Material, f = t.resources, d = t.EffectAsset;
+    }],
+    execute: function execute() {
+      var _, m, y, g, w, b, F, M, v, S, z;
+      o._RF.push({}, "e9c7154w9hMbJF5u/UaM7n3", "FrameFlow", void 0);
+      var C = l.ccclass,
+        E = l.property,
+        P = null,
+        T = null;
+      t("FrameFlow", (_ = C("FrameFlow"), m = E({
+        type: s,
+        tooltip: "流光颜色"
+      }), y = E({
+        tooltip: "流光强度 (0 ~ 3)",
+        slide: !0,
+        range: [0, 3, .1]
+      }), g = E({
+        tooltip: "旋转速度 (0.1 ~ 5)",
+        slide: !0,
+        range: [.1, 5, .1]
+      }), w = E({
+        tooltip: "光束宽度 (1 ~ 8), 越大越窄",
+        slide: !0,
+        range: [1, 8, .5]
+      }), _((M = e((F = function (t) {
+        function e() {
+          for (var e, i = arguments.length, n = new Array(i), o = 0; o < i; o++) n[o] = arguments[o];
+          return e = t.call.apply(t, [this].concat(n)) || this, r(e, "lightColor", M, a(e)), r(e, "lightStrength", v, a(e)), r(e, "rotationSpeed", S, a(e)), r(e, "lightWidth", z, a(e)), e._material = null, e._sprite = null, e._destroyed = !1, e._loadVersion = 0, e;
+        }
+        i(e, t);
+        var o = e.prototype;
+        return o.onLoad = function () {
+          var t = n( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+            return _regeneratorRuntime().wrap(function _callee4$(_context5) {
+              while (1) switch (_context5.prev = _context5.next) {
+                case 0:
+                  this._sprite = this.node.getComponent(c);
+                  if (!this._sprite) {
+                    _context5.next = 6;
+                    break;
+                  }
+                  _context5.next = 4;
+                  return this.applyMaterial();
+                case 4:
+                  _context5.next = 7;
+                  break;
+                case 6:
+                  console.warn("[FrameFlow] No Sprite.");
+                case 7:
+                case "end":
+                  return _context5.stop();
+              }
+            }, _callee4, this);
+          }));
+          return function () {
+            return t.apply(this, arguments);
+          };
+        }(), o.onEnable = function () {
+          this._sprite && this.applyMaterial();
+        }, o.onDisable = function () {
+          this._loadVersion++, this.cleanupMaterial();
+        }, o.onDestroy = function () {
+          this._destroyed = !0, this._loadVersion++, this._material && (this._material.destroy(), this._material = null);
+        }, o.applyMaterial = function () {
+          var t = n( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+            var t, e;
+            return _regeneratorRuntime().wrap(function _callee5$(_context6) {
+              while (1) switch (_context6.prev = _context6.next) {
+                case 0:
+                  if (!(!this._destroyed && this.enabledInHierarchy)) {
+                    _context6.next = 7;
+                    break;
+                  }
+                  t = ++this._loadVersion;
+                  this.cleanupMaterial();
+                  _context6.next = 5;
+                  return P ? Promise.resolve(P) : T || (T = new Promise(function (t) {
+                    f.load("effects/frame-flow", d, function (e, i) {
+                      if (e || !i) return console.error("[FrameFlow] load failed.", e), void t(null);
+                      P = i, t(i);
+                    });
+                  }));
+                case 5:
+                  e = _context6.sent;
+                  !this._destroyed && t === this._loadVersion && this.enabledInHierarchy && e ? (this._material = new p(), this._material.initialize({
+                    effectAsset: e,
+                    defines: {
+                      USE_TEXTURE: !0
+                    }
+                  }), this._sprite && (this._sprite.customMaterial = this._material), this.syncToMaterial()) : e || console.warn("[FrameFlow] Effect not found.");
+                case 7:
+                case "end":
+                  return _context6.stop();
+              }
+            }, _callee5, this);
+          }));
+          return function () {
+            return t.apply(this, arguments);
+          };
+        }(), o.cleanupMaterial = function () {
+          this._sprite && this._material && this._sprite.customMaterial === this._material && (this._sprite.customMaterial = null), this._material && (this._material.destroy(), this._material = null);
+        }, o.syncToMaterial = function () {
+          if (this._material) {
+            var t = this.lightColor;
+            this._material.setProperty("lightColor", new h(t.r / 255, t.g / 255, t.b / 255, t.a / 255)), this._material.setProperty("params", new h(this.lightStrength, this.rotationSpeed, this.lightWidth, 0));
+          }
+        }, o.getMaterial = function () {
+          return this._material;
+        }, e;
+      }(u)).prototype, "lightColor", [m], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return new s(255, 230, 102, 255);
+        }
+      }), v = e(F.prototype, "lightStrength", [y], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 1;
+        }
+      }), S = e(F.prototype, "rotationSpeed", [g], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 1;
+        }
+      }), z = e(F.prototype, "lightWidth", [w], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 3;
+        }
+      }), b = F)) || b));
+      o._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/FrameLightning.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (n) {
+  var e, t, o, r, i, l, s;
+  return {
+    setters: [function (n) {
+      e = n.asyncToGenerator;
+    }, function (n) {
+      t = n.cclegacy, o = n.resources, r = n.EffectAsset, i = n.Material, l = n.Vec4, s = n.UITransform;
+    }],
+    execute: function execute() {
+      n({
+        applyFrameLightning: y,
+        applyLightningPreset: d,
+        createFrameLightningMaterial: w,
+        installFrameLightning: function installFrameLightning(n, e) {
+          return h.apply(this, arguments);
+        },
+        loadFrameLightningEffect: c,
+        removeFrameLightning: p,
+        syncFrameLightningSize: function syncFrameLightningSize(n, e) {
+          if (!e.node.getComponent(s)) return;
+        },
+        uninstallFrameLightning: function uninstallFrameLightning(n, e) {
+          p(n), e.destroy();
+        }
+      }), t._RF.push({}, "827c6QQpaBEA6yv4oac25qY", "FrameLightning", void 0);
+      var a = "effects/frame-lightning",
+        g = null,
+        u = null;
+      function c() {
+        return f.apply(this, arguments);
+      }
+      function f() {
+        return (f = e( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+          return _regeneratorRuntime().wrap(function _callee6$(_context7) {
+            while (1) switch (_context7.prev = _context7.next) {
+              case 0:
+                return _context7.abrupt("return", g || u || (u = new Promise(function (n) {
+                  o.load(a, r, function (e, t) {
+                    if (e || !t) return console.error("[FrameLightning] Failed to load effect.", e), void n(null);
+                    g = t, n(t);
+                  });
+                })));
+              case 1:
+              case "end":
+                return _context7.stop();
+            }
+          }, _callee6);
+        }))).apply(this, arguments);
+      }
+      function w(n) {
+        var e = new i();
+        return e.initialize({
+          effectAsset: n,
+          defines: {
+            IS_GRAY: !1,
+            USE_TEXTURE: !0
+          }
+        }), e;
+      }
+      function y(n, e) {
+        n.customMaterial = e;
+      }
+      function p(n) {
+        n.customMaterial = null;
+      }
+      var C = {
+        8: {
+          boltColor: new l(1, 1, 1, 1),
+          glowColor: new l(.2, .5, 1, 1),
+          intensity: 1,
+          jaggedness: .9
+        },
+        7: {
+          boltColor: new l(1, 1, 1, 1),
+          glowColor: new l(.2, .5, 1, 1),
+          intensity: 1,
+          jaggedness: .9
+        },
+        6: {
+          boltColor: new l(1, 1, 1, 1),
+          glowColor: new l(.2, .5, 1, 1),
+          intensity: 1,
+          jaggedness: .9
+        },
+        5: {
+          boltColor: new l(1, 1, 1, 1),
+          glowColor: new l(.2, .5, 1, 1),
+          intensity: 1,
+          jaggedness: .9
+        },
+        4: {
+          boltColor: new l(1, 1, 1, 1),
+          glowColor: new l(.2, .5, 1, 1),
+          intensity: 1,
+          jaggedness: .9
+        },
+        3: {
+          boltColor: new l(1, 1, 1, 1),
+          glowColor: new l(.2, .5, 1, 1),
+          intensity: 1,
+          jaggedness: .9
+        },
+        2: {
+          boltColor: new l(1, 1, 1, 1),
+          glowColor: new l(.2, .5, 1, 1),
+          intensity: 1,
+          jaggedness: .9
+        },
+        1: {
+          boltColor: new l(1, 1, 1, 1),
+          glowColor: new l(.2, .5, 1, 1),
+          intensity: .2,
+          jaggedness: .9
+        },
+        0: {
+          boltColor: new l(1, 1, 1, 1),
+          glowColor: new l(.2, .5, 1, 1),
+          intensity: .1,
+          jaggedness: .9
+        }
+      };
+      function d(n, e) {
+        var t,
+          o = null != (t = C[Math.max(0, Math.min(8, Math.floor(e)))]) ? t : C[0];
+        n.setProperty("boltColor", o.boltColor), n.setProperty("glowColor", o.glowColor), n.setProperty("intensity", o.intensity), n.setProperty("jaggedness", o.jaggedness);
+      }
+      function h() {
+        return (h = e( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(n, e) {
+          var t, o;
+          return _regeneratorRuntime().wrap(function _callee7$(_context8) {
+            while (1) switch (_context8.prev = _context8.next) {
+              case 0:
+                _context8.next = 2;
+                return c();
+              case 2:
+                t = _context8.sent;
+                if (t) {
+                  _context8.next = 5;
+                  break;
+                }
+                return _context8.abrupt("return", null);
+              case 5:
+                o = w(t);
+                return _context8.abrupt("return", (d(o, e), y(n, o), o));
+              case 7:
+              case "end":
+                return _context8.stop();
+            }
+          }, _callee7);
+        }))).apply(this, arguments);
+      }
+      t._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/FullScreenEntrance.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (n) {
+  var t, e, r, o, a, i;
+  return {
+    setters: [function (n) {
+      t = n.createForOfIteratorHelperLoose;
+    }, function (n) {
+      e = n.cclegacy, r = n.Tween, o = n.UITransform, a = n.UIOpacity, i = n.tween;
+    }],
+    execute: function execute() {
+      n({
+        playFullScreenEntrance: function playFullScreenEntrance(n, e) {
+          var f, p, s, h;
+          void 0 === e && (e = {});
+          c(n), n.active = !0;
+          for (var g, d = Math.max(1, null != (f = e.speedMultiplier) ? f : 1), v = null != (p = null == (s = n.parent) ? void 0 : s.getComponent(o)) ? p : n.getComponent(o), m = (F = null != (h = e.backgroundNodes) ? h : n.children.filter(function (n) {
+              if (u.has(n.name)) return !0;
+              var t = n.getComponent(o);
+              return Boolean(v && t && t.width >= .9 * v.width && t.height >= .9 * v.height);
+            }), Array.from(new Set(F))), y = new Set(m), w = e.moduleGroups ? function (n, t) {
+              var e = new Set(t);
+              return n.map(function (n, t) {
+                return {
+                  group: n,
+                  index: t
+                };
+              }).sort(function (n, t) {
+                var e, r;
+                return (null != (e = n.group.order) ? e : n.index) - (null != (r = t.group.order) ? r : t.index);
+              }).map(function (n) {
+                return n.group.nodes.filter(function (n) {
+                  return !(!n.active || e.has(n)) && (e.add(n), !0);
+                });
+              }).filter(function (n) {
+                return n.length > 0;
+              });
+            }(e.moduleGroups, y) : n.children.filter(function (n) {
+              return n.active && !y.has(n);
+            }).sort(function (n, t) {
+              return t.position.y - n.position.y;
+            }).map(function (n) {
+              return [n];
+            }), C = m.map(function (n) {
+              var t;
+              return null != (t = n.getComponent(a)) ? t : n.addComponent(a);
+            }), E = w.map(function (n) {
+              return n.map(function (n) {
+                var t;
+                return null != (t = n.getComponent(a)) ? t : n.addComponent(a);
+              });
+            }), S = E.reduce(function (n, t) {
+              return n.push.apply(n, t), n;
+            }, [].concat(C)), x = t(S); !(g = x()).done;) {
+            var B = g.value;
+            r.stopAllByTarget(B), B.opacity = 0;
+          }
+          var F;
+          if (0 === S.length) return Promise.resolve();
+          var M = .2 / d,
+            b = .08 / d,
+            I = M + b * Math.max(0, E.length - 1);
+          return new Promise(function (t) {
+            var e = !1,
+              r = function r() {
+                var o;
+                e || (e = !0, (null == (o = l.get(n)) ? void 0 : o.finish) === r && l["delete"](n), t());
+              };
+            l.set(n, {
+              opacities: S,
+              finish: r
+            }), C.forEach(function (n, t) {
+              var e = i(n).to(I, {
+                opacity: 255
+              }, {
+                easing: "quadOut"
+              });
+              0 === E.length && t === C.length - 1 && e.call(r), e.start();
+            }), 0 !== E.length && E.forEach(function (n, t) {
+              n.forEach(function (e, o) {
+                var a = i(e).delay(t * b).to(M, {
+                  opacity: 255
+                }, {
+                  easing: "quadOut"
+                });
+                t === E.length - 1 && o === n.length - 1 && a.call(r), a.start();
+              });
+            });
+          });
+        },
+        playFullScreenExit: function playFullScreenExit(n, e) {
+          var l, f;
+          void 0 === e && (e = 1);
+          c(n);
+          var p = null != (l = null == (f = n.parent) ? void 0 : f.getComponent(o)) ? l : n.getComponent(o),
+            s = n.children.filter(function (n) {
+              if (!n.active) return !1;
+              if (u.has(n.name)) return !0;
+              var t = n.getComponent(o);
+              return Boolean(p && t && t.width >= .9 * p.width && t.height >= .9 * p.height);
+            }),
+            h = new Set(s),
+            g = n.children.filter(function (n) {
+              return n.active && !h.has(n);
+            }).sort(function (n, t) {
+              return t.position.y - n.position.y;
+            }),
+            d = s.map(function (n) {
+              return n.getComponent(a);
+            }).filter(function (n) {
+              return Boolean(n && n.opacity > 0);
+            }),
+            v = g.map(function (n) {
+              return n.getComponent(a);
+            }).filter(function (n) {
+              return Boolean(n && n.opacity > 0);
+            });
+          if (0 === d.length && 0 === v.length) return Promise.resolve();
+          for (var m = Math.max(1, e), y = .1 / m, w = .04 / m, C = y + w * Math.max(0, v.length - 1), E = 0, S = [].concat(d, v); E < S.length; E++) {
+            var x = S[E];
+            r.stopAllByTarget(x);
+          }
+          return new Promise(function (n) {
+            for (var e, r = 0, o = d.length + v.length, a = function a() {
+                ++r === o && n();
+              }, u = t(d); !(e = u()).done;) {
+              var l = e.value;
+              i(l).to(C, {
+                opacity: 0
+              }, {
+                easing: "quadIn"
+              }).call(a).start();
+            }
+            [].concat(v).reverse().forEach(function (n, t) {
+              i(n).delay(t * w).to(y, {
+                opacity: 0
+              }, {
+                easing: "quadIn"
+              }).call(a).start();
+            });
+          });
+        },
+        stopFullScreenEntrance: c
+      }), e._RF.push({}, "fbbf2d+Y8ZEy5/3wKVj2Cuh", "FullScreenEntrance", void 0);
+      var u = new Set(["bg", "bg-001"]),
+        l = new WeakMap();
+      function c(n) {
+        var t = l.get(n);
+        t && (t.opacities.forEach(function (n) {
+          r.stopAllByTarget(n), n.opacity = 255;
+        }), t.finish());
+      }
+      e._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/GameAudio.ts", ["./rollupPluginModLoBabelHelpers.js", "cc", "./GameState.ts"], function (o) {
+  var e, t, i, n, s, u, r, c;
+  return {
+    setters: [function (o) {
+      e = o.asyncToGenerator;
+    }, function (o) {
+      t = o.cclegacy, i = o.director, n = o.Node, s = o.AudioSource, u = o.resources, r = o.AudioClip;
+    }, function (o) {
+      c = o.loadGameSettings;
+    }],
+    execute: function execute() {
+      t._RF.push({}, "51adblUe1RCj5h8Df5alxNE", "GameAudio", void 0);
+      var a = {
+        bgm: "audios/bgm",
+        victory: "audios/胜利",
+        "ad-success": "audios/看广告成功",
+        "upgrade-success": "audios/升级成功"
+      };
+      o("gameAudio", new (function () {
+        function o() {
+          this.root = null, this.bgmSource = null, this.soundSource = null, this.clips = new Map(), this.loading = new Map();
+        }
+        var t = o.prototype;
+        return t.initialize = function () {
+          this.ensureSources() && this.syncSettings();
+        }, t.syncSettings = function () {
+          var o;
+          c().musicEnabled ? this.playBgm() : null == (o = this.bgmSource) || o.stop();
+        }, t.playVictory = function () {
+          this.playSound("victory");
+        }, t.playAdSuccess = function () {
+          this.playSound("ad-success");
+        }, t.playUpgradeSuccess = function () {
+          this.playSound("upgrade-success");
+        }, t.playBgm = function () {
+          var o = e( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+            var o;
+            return _regeneratorRuntime().wrap(function _callee8$(_context9) {
+              while (1) switch (_context9.prev = _context9.next) {
+                case 0:
+                  if (!(this.ensureSources() && c().musicEnabled)) {
+                    _context9.next = 13;
+                    break;
+                  }
+                  _context9.prev = 1;
+                  _context9.next = 4;
+                  return this.loadClip("bgm");
+                case 4:
+                  o = _context9.sent;
+                  if (!(!this.bgmSource || !c().musicEnabled)) {
+                    _context9.next = 7;
+                    break;
+                  }
+                  return _context9.abrupt("return");
+                case 7:
+                  this.bgmSource.clip !== o && (this.bgmSource.stop(), this.bgmSource.clip = o), this.bgmSource.loop = !0, this.bgmSource.volume = .4, this.bgmSource.playing || this.bgmSource.play();
+                  _context9.next = 13;
+                  break;
+                case 10:
+                  _context9.prev = 10;
+                  _context9.t0 = _context9["catch"](1);
+                  console.error("[GameAudio] Failed to play BGM.", _context9.t0);
+                case 13:
+                case "end":
+                  return _context9.stop();
+              }
+            }, _callee8, this, [[1, 10]]);
+          }));
+          return function () {
+            return o.apply(this, arguments);
+          };
+        }(), t.playSound = function (o) {
+          var e = this;
+          this.ensureSources() && c().soundEnabled && this.loadClip(o).then(function (o) {
+            e.soundSource && c().soundEnabled && e.soundSource.playOneShot(o);
+          })["catch"](function (e) {
+            console.error("[GameAudio] Failed to play " + o + ".", e);
+          });
+        }, t.ensureSources = function () {
+          if (this.root && this.bgmSource && this.soundSource) return !0;
+          var o = i.getScene();
+          return !!o && (this.root = new n("__GameAudio"), o.addChild(this.root), i.addPersistRootNode(this.root), this.bgmSource = this.root.addComponent(s), this.soundSource = this.root.addComponent(s), this.bgmSource.playOnAwake = !1, this.soundSource.playOnAwake = !1, !0);
+        }, t.loadClip = function (o) {
+          var e = this,
+            t = this.clips.get(o);
+          if (t) return Promise.resolve(t);
+          var i = this.loading.get(o);
+          if (i) return i;
+          var n = new Promise(function (t, i) {
+            u.load(a[o], r, function (n, s) {
+              !n && s ? (e.clips.set(o, s), t(s)) : i(null != n ? n : new Error("Missing audio clip: " + o));
+            });
+          });
+          return this.loading.set(o, n), n.then(function () {
+            return e.loading["delete"](o);
+          }, function () {
+            return e.loading["delete"](o);
+          }), n;
+        }, o;
+      }())());
+      t._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/GameFont.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (e) {
+  var n, t, o;
+  return {
+    setters: [function (e) {
+      n = e.createForOfIteratorHelperLoose;
+    }, function (e) {
+      t = e.cclegacy, o = e.Label;
+    }],
+    execute: function execute() {
+      e({
+        applyGameFont: function e(t, r) {
+          for (var a, i = n(t.getComponents(o)); !(a = i()).done;) {
+            a.value.font = r;
+          }
+          for (var l, u = n(t.children); !(l = u()).done;) {
+            var c = l.value;
+            e(c, r);
+          }
+        },
+        applyGameFontInBatches: function applyGameFontInBatches(e, n, t) {
+          var r = e.getComponentsInChildren(o).filter(function (e) {
+            return e.font !== n;
+          });
+          t.schedule(function o() {
+            if (e.isValid && t.isValid) {
+              for (var a = 0; a < 8 && r.length > 0; a += 1) {
+                var i = r.findIndex(function (e) {
+                    return e.isValid && e.node.activeInHierarchy;
+                  }),
+                  l = r.splice(Math.max(0, i), 1)[0];
+                l.isValid && l.font !== n && (l.font = n);
+              }
+              0 === r.length && t.unschedule(o);
+            } else t.unschedule(o);
+          });
+        }
+      }), t._RF.push({}, "1d3a8Sor5xAsYiuf5AyMA6/", "GameFont", void 0), t._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/GameState.ts", ["./rollupPluginModLoBabelHelpers.js", "cc", "./SeasonRoute.ts"], function (e) {
+  var t, n, a, r, i, o, u, c, l, s;
+  return {
+    setters: [function (e) {
+      t = e["extends"], n = e.asyncToGenerator, a = e.createForOfIteratorHelperLoose;
+    }, function (e) {
+      r = e.cclegacy, i = e.sys, o = e.EventTarget, u = e.resources, c = e.JsonAsset;
+    }, function (e) {
+      l = e.STANDARD_MATCH_COUNT, s = e.getScheduleDescriptor;
+    }],
+    execute: function execute() {
+      e({
+        add: function add(e) {
+          return ee(e);
+        },
+        addBudget: ee,
+        addLowestRecruitmentQualityProtection: function addLowestRecruitmentQualityProtection(e) {
+          void 0 === e && (e = P);
+          var t = Math.min(d, ne() + Math.max(0, Ke(e, 0)));
+          return ce(t), t;
+        },
+        addRecruitmentAdProbabilityBoost: function addRecruitmentAdProbabilityBoost(e, t) {
+          void 0 === t && (t = U);
+          var n = Math.min(d, oe(e) + Math.max(0, Ke(t, 0)));
+          return ue(e, n), n;
+        },
+        advanceSeasonAfterWin: function advanceSeasonAfterWin(e) {
+          var t = Se();
+          if (!Ge(t, e) || t.lastAdvancedMatchId === e) return !1;
+          var n = Math.min(d, t.officialWins + 1);
+          t.lastAdvancedMatchId = e, t.officialWins = n, t.opponentInjuredPlayerIndices = [], t.infiniteMode ? (t.infiniteWins = Math.min(d, t.infiniteWins + 1), t.infiniteMatchNumber = Math.min(d, t.infiniteMatchNumber + 1)) : t.matchNumber < l ? t.matchNumber += 1 : (t.infiniteMode = !0, t.infiniteMatchNumber = 1, t.infiniteWins = 0);
+          return t.conceptGodUpgradeUnlocked = t.infiniteMode, be(t), !0;
+        },
+        applyPermanentOpponentInjuries: function applyPermanentOpponentInjuries(e, t, n) {
+          var r = new Set(Ue(t));
+          if (e.forEach(function (e, t) {
+            if (r.has(t) && !e.activeInjury) {
+              for (var n, i = Math.max(1, Math.floor(e.overall)), o = Math.max(1, Math.round(i * f)), u = Math.max(1, i - o), c = i - u, l = a([].concat(J).sort(function (t, n) {
+                  return e.attributes[n] - e.attributes[t];
+                })); !(n = l()).done;) {
+                var s = n.value,
+                  m = Math.min(e.attributes[s], c);
+                if (e.attributes[s] -= m, (c -= m) <= 0) break;
+              }
+              e.overall = u, e.activeInjury = {
+                overallPenalty: Math.max(1, i - u),
+                remainingMatches: d
+              };
+            }
+          }), e.length === m && e.every(function (e, t) {
+            return r.has(t);
+          })) return function (e, t) {
+            for (var n, r = e.map(function (e) {
+                var t, n;
+                return Math.max(1, Math.floor(e.overall) + Math.max(0, null != (t = null == (n = e.activeInjury) ? void 0 : n.overallPenalty) ? t : 0));
+              }), i = r.reduce(function (e, t) {
+                return e + t;
+              }, 0), o = Math.min(d, Math.max(e.length, Math.floor(Math.max(0, t) * v))), u = Math.min(i, o), c = u - e.length, l = i - e.length, s = r.map(function (e) {
+                if (l <= 0) return 1;
+                var t = (e - 1) / l * c;
+                return 1 + Math.floor(t);
+              }), m = u - s.reduce(function (e, t) {
+                return e + t;
+              }, 0), f = r.map(function (e, t) {
+                return {
+                  index: t,
+                  remainder: l <= 0 ? 0 : (e - 1) / l * c - Math.floor((e - 1) / l * c)
+                };
+              }).sort(function (e, t) {
+                return t.remainder - e.remainder || e.index - t.index;
+              }), M = a(f); !(n = M()).done;) {
+              var h = n.value.index;
+              if (m <= 0) break;
+              s[h] < r[h] && (s[h] += 1, m -= 1);
+            }
+            return e.forEach(function (e, t) {
+              var n = r[t],
+                i = s[t];
+              !function (e, t) {
+                var n = Math.max(1, Math.floor(e.overall)) - t;
+                if (n > 0) for (var r, i = a([].concat(J).sort(function (t, n) {
+                    return e.attributes[n] - e.attributes[t];
+                  })); !(r = i()).done;) {
+                  var o = r.value,
+                    u = Math.min(e.attributes[o], n);
+                  if (e.attributes[o] -= u, (n -= u) <= 0) break;
+                } else if (n < 0) {
+                  var c = J.reduce(function (t, n) {
+                    return e.attributes[n] > e.attributes[t] ? n : t;
+                  }, J[0]);
+                  e.attributes[c] += -n;
+                }
+                e.overall = t;
+              }(e, i), e.activeInjury = {
+                overallPenalty: Math.max(0, n - i),
+                remainingMatches: d
+              };
+            }), u;
+          }(e, n);
+          return Math.min(d, e.reduce(function (e, t) {
+            return e + Math.max(1, t.overall);
+          }, 0));
+        },
+        calculateTeamOverall: function calculateTeamOverall(e, t) {
+          var n = e.reduce(function (e, t) {
+            var n;
+            return Math.min(d, e + (null != (n = null == t ? void 0 : t.overall) ? n : 0));
+          }, 0);
+          return Math.min(d, Math.floor(n * (1 + Math.max(0, t))));
+        },
+        canAffordBudget: function canAffordBudget(e) {
+          if (Q()) return !0;
+          var t = Number.isFinite(e) ? Math.max(0, e) : 0;
+          return Z() + Number.EPSILON >= t;
+        },
+        clearAllBasketballSaveData: function clearAllBasketballSaveData() {
+          for (var e = [], t = 0; t < i.localStorage.length; t += 1) {
+            var n = i.localStorage.key(t);
+            null != n && n.startsWith("basketball.") && e.push(n);
+          }
+          return e.forEach(function (e) {
+            return i.localStorage.removeItem(e);
+          }), e.length;
+        },
+        consumeLowestRecruitmentQualityProtection: function consumeLowestRecruitmentQualityProtection() {
+          var e = Math.max(0, ne() - 1);
+          return ce(e), e;
+        },
+        consumeRecruitmentAdHighestQualityPity: function consumeRecruitmentAdHighestQualityPity() {
+          ie(re() - x);
+        },
+        consumeRecruitmentAdProbabilityBoost: function consumeRecruitmentAdProbabilityBoost(e, t) {
+          void 0 === t && (t = 1);
+          var n = Math.max(0, oe(e) - Math.max(0, Ke(t, 0)));
+          return ue(e, n), n;
+        },
+        emitMatchSettled: function emitMatchSettled(e) {
+          var n = we(e.matchId);
+          if (!n) return;
+          var a = Se();
+          a.lastSettledMatchId !== n && (a.lastSettledMatchId = n, a.lastSettledPlayerInstanceIds = xe(e.participatingPlayerInstanceIds), be(a));
+          var r = t({}, e, {
+            matchId: n,
+            baseReward: Ve(e.baseReward),
+            adReward: Ve(e.adReward),
+            participatingPlayerInstanceIds: xe(e.participatingPlayerInstanceIds),
+            seasonState: t({}, Se())
+          });
+          A.emit(E, r);
+        },
+        getBalance: function getBalance(e) {
+          void 0 === e && (e = 500);
+          return Z(e);
+        },
+        getBudget: Z,
+        getConceptGodAcquisitionCount: function getConceptGodAcquisitionCount() {
+          return Math.max(0, Ke(je().conceptGodAcquiredCount, 0));
+        },
+        getCurrentMatchId: Ae,
+        getInfiniteGoatProbabilityBonus: function getInfiniteGoatProbabilityBonus(e) {
+          void 0 === e && (e = Se());
+          return e.infiniteMode ? Math.min(.5, .005 * Math.max(0, e.infiniteWins)) : 0;
+        },
+        getLowestRecruitmentQualityProtectionCount: ne,
+        getManagementEffects: function getManagementEffects() {
+          return Ee.apply(this, arguments);
+        },
+        getManagementUpgradeCost: function getManagementUpgradeCost(e) {
+          return Me.apply(this, arguments);
+        },
+        getPlayerAcquisitionCount: function getPlayerAcquisitionCount(e) {
+          return Ke(je().acquiredCounts[Ye(e)], 0);
+        },
+        getPlayerServiceDurationMs: function getPlayerServiceDurationMs(e, t, n) {
+          void 0 === t && (t = le());
+          void 0 === n && (n = Date.now());
+          var a = Ye(e),
+            r = Je(je().serviceDurationMsByDisplayName[a]);
+          return t.reduce(function (e, t) {
+            var r;
+            if (!t || Ye(t.displayName) !== a) return e;
+            var i = null != (r = t.lineupSinceMs) ? r : t.acquiredAtMs,
+              o = Math.max(0, n - i);
+            return Math.min(Number.MAX_SAFE_INTEGER, e + o);
+          }, r);
+        },
+        getRecruitmentAdHighestQualityPityCount: re,
+        getRecruitmentAdProbabilityBoostCount: oe,
+        getRecruitmentAutoDismissEnabled: function getRecruitmentAutoDismissEnabled() {
+          return "true" === i.localStorage.getItem(w);
+        },
+        getRecruitmentUpperQualityPityMissCount: ae,
+        getRosterSnapshot: de,
+        getTeamAbbreviation: function getTeamAbbreviation(e, t) {
+          var n;
+          void 0 === t && (t = "我");
+          return null != (n = Array.from(e.trim())[0]) ? n : t;
+        },
+        getTotalRecruitmentCount: function getTotalRecruitmentCount() {
+          return Object.values(je().acquiredCounts).reduce(function (e, t) {
+            return Math.min(d, e + Math.max(0, Ke(t, 0)));
+          }, 0);
+        },
+        isCheatModeEnabled: Q,
+        isConceptGodUpgradeUnlocked: function isConceptGodUpgradeUnlocked(e) {
+          void 0 === e && (e = Se());
+          return e.conceptGodUpgradeUnlocked;
+        },
+        loadGameSettings: function loadGameSettings() {
+          var e = {
+              musicEnabled: !0,
+              soundEnabled: !0
+            },
+            t = i.localStorage.getItem(j);
+          if (!t) return ye(e), e;
+          try {
+            var n = JSON.parse(t);
+            return {
+              musicEnabled: "boolean" == typeof n.musicEnabled ? n.musicEnabled : e.musicEnabled,
+              soundEnabled: "boolean" == typeof n.soundEnabled ? n.soundEnabled : e.soundEnabled
+            };
+          } catch (t) {
+            return e;
+          }
+        },
+        loadIdleState: function loadIdleState(e) {
+          void 0 === e && (e = Date.now());
+          var t = {
+              version: 2,
+              accrualStartedAtMs: e,
+              lastOnlineTickAtMs: e,
+              offlineStartedAtMs: null,
+              hasRecordedOfflineSession: !1,
+              pendingOfflineSeconds: 0,
+              unpromptedOfflineSeconds: 0
+            },
+            n = i.localStorage.getItem(W);
+          if (!n) return Ie(t), t;
+          try {
+            var a = JSON.parse(n),
+              r = Number(a.offlineStartedAtMs);
+            return {
+              version: 2,
+              accrualStartedAtMs: Ze(a.accrualStartedAtMs, e),
+              lastOnlineTickAtMs: Ze(a.lastOnlineTickAtMs, e),
+              offlineStartedAtMs: Number.isFinite(r) && r > 0 ? Math.floor(r) : null,
+              hasRecordedOfflineSession: Boolean(a.hasRecordedOfflineSession) || Number.isFinite(r) && r > 0,
+              pendingOfflineSeconds: Math.max(0, Number.isFinite(Number(a.pendingOfflineSeconds)) ? Number(a.pendingOfflineSeconds) : 0),
+              unpromptedOfflineSeconds: Math.max(0, Number.isFinite(Number(a.unpromptedOfflineSeconds)) ? Number(a.unpromptedOfflineSeconds) : 0)
+            };
+          } catch (e) {
+            return t;
+          }
+        },
+        loadJson: Te,
+        loadManagementEffectsConfig: ge,
+        loadManagementLevels: me,
+        loadRoster: le,
+        loadSeasonState: Se,
+        migratePlayerHistoryToDisplayNames: function migratePlayerHistoryToDisplayNames(e, t) {
+          for (var n = je(), a = new Map(e.map(function (e) {
+              return [e.id, Ye(e.displayName)];
+            })), r = {}, i = {}, o = 0, u = Object.entries(n.acquiredCounts); o < u.length; o++) {
+            var c,
+              l = u[o],
+              s = l[0],
+              d = Ke(l[1], 0);
+            if (!(d <= 0)) {
+              var m = null != (c = a.get(s)) ? c : Ye(s);
+              r[m] = Ke(r[m], 0) + d;
+            }
+          }
+          for (var f = Fe(t), v = 0, M = Object.entries(f); v < M.length; v++) {
+            var h = M[v],
+              g = h[0],
+              p = h[1];
+            r[g] = Math.max(Ke(r[g], 0), p);
+          }
+          for (var E = 0, y = Object.entries(n.serviceDurationMsByDisplayName); E < y.length; E++) {
+            var I,
+              S = y[E],
+              b = S[0],
+              A = S[1],
+              T = null != (I = a.get(b)) ? I : Ye(b);
+            i[T] = Math.min(Number.MAX_SAFE_INTEGER, Je(i[T]) + Je(A));
+          }
+          We({
+            version: 4,
+            acquiredCounts: r,
+            conceptGodAcquiredCount: n.conceptGodAcquiredCount,
+            serviceDurationMsByDisplayName: i
+          });
+        },
+        notifyValidOperationCompleted: T,
+        recordConceptGodAcquisition: function recordConceptGodAcquisition() {
+          var e = je();
+          return e.version = 4, e.conceptGodAcquiredCount = Math.max(0, Ke(e.conceptGodAcquiredCount, 0)) + 1, We(e), e.conceptGodAcquiredCount;
+        },
+        recordPlayerAcquisition: function recordPlayerAcquisition(e) {
+          var t = je(),
+            n = Ye(e.displayName),
+            a = Ke(t.acquiredCounts[n], 0);
+          return t.version = 4, t.acquiredCounts[n] = a + 1, We(t), t.acquiredCounts[n];
+        },
+        recordRandomOpponentInjuryAfterDefeat: function recordRandomOpponentInjuryAfterDefeat(e, t) {
+          var n = Se();
+          if (!Ge(n, e)) return null;
+          var a = new Set(n.opponentInjuredPlayerIndices),
+            r = t.map(function (e, t) {
+              return {
+                card: e,
+                index: t
+              };
+            }).filter(function (e) {
+              var t = e.card,
+                n = e.index;
+              return Boolean(t) && !a.has(n);
+            });
+          if (0 === r.length) return null;
+          var i = r[Math.floor(Math.random() * r.length)];
+          return n.opponentInjuredPlayerIndices = [].concat(n.opponentInjuredPlayerIndices, [i.index]), be(n), i.index;
+        },
+        recordRecruitmentUpperQualityPityResult: function recordRecruitmentUpperQualityPityResult(e) {
+          var t = e ? 0 : Math.min(B, ae() + 1);
+          return i.localStorage.setItem(D, String(t)), t;
+        },
+        recordRewardedAdForRecruitmentPity: function recordRewardedAdForRecruitmentPity() {
+          var e = Math.min(d, re() + 1);
+          return ie(e), e;
+        },
+        saveGameSettings: ye,
+        saveIdleState: Ie,
+        saveManagementLevels: fe,
+        saveRoster: function saveRoster(e) {
+          se(e, !0);
+        },
+        saveSeasonState: be,
+        setBudget: $,
+        setRecruitmentAutoDismissEnabled: function setRecruitmentAutoDismissEnabled(e) {
+          i.localStorage.setItem(w, String(e));
+        },
+        settleAdMatchReward: function settleAdMatchReward(e, t) {
+          return Be(e, t, "ad");
+        },
+        settleBaseMatchReward: function settleBaseMatchReward(e, t) {
+          return Be(e, t, "base");
+        },
+        trySpend: function trySpend(e) {
+          return te(e);
+        },
+        trySpendBudget: te,
+        upgradeManagementWithAd: function upgradeManagementWithAd(e, n) {
+          var a,
+            r = me();
+          if (!_e(e)) return Ne(!1, "invalid-role", r, 0, 0);
+          var i = r[e];
+          if (i >= Y) return Ne(!1, "max-level", r, i, 0);
+          if (i >= ze(n)) return Ne(!1, "team-level-cap", r, i, 0);
+          var o = t({}, r, ((a = {})[e] = i + 1, a));
+          return fe(o), Ne(!0, "ok", o, i, 0);
+        },
+        upgradeManagementWithBudget: function upgradeManagementWithBudget(e, t) {
+          return he.apply(this, arguments);
+        }
+      }), r._RF.push({}, "7ee74HBOgBJko857oW+3i03", "GameState", void 0);
+      var d = e("INT32_MAX", 2147483647),
+        m = e("ROSTER_SLOT_COUNT", 12),
+        f = e("OPPONENT_PERMANENT_INJURY_PERCENT", .08),
+        v = e("FULLY_INJURED_OPPONENT_PLAYER_OVERALL_MULTIPLIER", 1.1),
+        M = e("GAME_STATE_EVENT_BUDGET_CHANGED", "game-state-budget-changed"),
+        h = e("GAME_STATE_EVENT_ROSTER_CHANGED", "game-state-roster-changed"),
+        g = (e("GAME_STATE_EVENT_TEAM_IDENTITY_CHANGED", "game-state-team-identity-changed"), e("GAME_STATE_EVENT_PLAYER_DETAILS_REQUESTED", "game-state-player-details-requested"), e("GAME_STATE_EVENT_MANAGEMENT_CHANGED", "game-state-management-changed")),
+        p = e("GAME_STATE_EVENT_SEASON_CHANGED", "game-state-season-changed"),
+        E = e("GAME_STATE_EVENT_MATCH_SETTLED", "game-state-match-settled"),
+        y = (e("GAME_STATE_EVENT_REWARDED_AD_COMPLETED", "game-state-rewarded-ad-completed"), e("GAME_STATE_EVENT_VALID_OPERATION_COMPLETED", "game-state-valid-operation-completed")),
+        I = e("GAME_STATE_EVENT_RECRUITMENT_PROTECTION_CHANGED", "game-state-recruitment-protection-changed"),
+        S = e("GAME_STATE_EVENT_RECRUITMENT_AD_PITY_CHANGED", "game-state-recruitment-ad-pity-changed"),
+        b = e("GAME_STATE_EVENT_RECRUITMENT_AD_PROBABILITY_BOOST_CHANGED", "game-state-recruitment-ad-probability-boost-changed"),
+        A = e("gameStateEvents", new o());
+      function T(e) {
+        void 0 === e && (e = 1), e <= 0 || A.emit(y, e);
+      }
+      var N = e("BUDGET_STORAGE_KEY", "basketball.economy.budget.v2"),
+        _ = e("ROSTER_STORAGE_KEY", "basketball.roster.v2"),
+        R = e("TEAM_NAME_STORAGE_KEY", "basketball.team.name.v2"),
+        O = (e("TEAM_ABBREVIATION_STORAGE_KEY", "basketball.team.abbreviation.v2"), e("CHEAT_MODE_TEAM_NAME", "怎么作弊啊")),
+        C = e("RECRUITMENT_LOWEST_QUALITY_PROTECTION_STORAGE_KEY", "basketball.recruitment.lowest-quality-protection.v1"),
+        P = e("RECRUITMENT_LOWEST_QUALITY_PROTECTION_RECRUITMENT_COUNT", 10),
+        D = e("RECRUITMENT_UPPER_QUALITY_PITY_MISS_STORAGE_KEY", "basketball.recruitment.upper-quality-pity-miss.v1"),
+        B = e("RECRUITMENT_UPPER_QUALITY_PITY_MISS_LIMIT", 10),
+        G = e("RECRUITMENT_AD_HIGHEST_QUALITY_PITY_STORAGE_KEY", "basketball.recruitment.ad-highest-quality-pity.v1"),
+        x = e("RECRUITMENT_AD_HIGHEST_QUALITY_PITY_LIMIT", 10),
+        U = e("RECRUITMENT_AD_PROBABILITY_BOOST_DRAW_COUNT", 10),
+        w = "basketball.recruitment.auto-dismiss.v1",
+        L = {
+          5: "basketball.recruitment.ad-probability-boost-5.v1",
+          10: "basketball.recruitment.ad-probability-boost-10.v1"
+        },
+        q = "basketball.management.v2",
+        k = "basketball.player-history.v2",
+        j = "basketball.settings.v1",
+        W = "basketball.idle.v2",
+        F = "basketball.season.v2",
+        Y = 100,
+        H = 1e6,
+        J = e("ATTRIBUTE_KEYS", ["scoring", "rebound", "assist", "steal", "block"]);
+      function Q() {
+        return i.localStorage.getItem(R) === O;
+      }
+      var V = {
+          operationPresident: 0,
+          headCoach: 0,
+          scoutingDirector: 0,
+          medicalTeam: 0,
+          mediaTeam: 0
+        },
+        K = {
+          operationPresidentBudgetBonus: 0,
+          headCoachBattleOvrBonus: 0,
+          scoutingDirectorHighestQualityWeightBonus: 0,
+          medicalTeamInjuryRiskReduction: 0,
+          mediaTeamOfflineBudgetBonus: 0
+        },
+        X = null,
+        z = null;
+      function Z(e) {
+        void 0 === e && (e = 500);
+        var t = i.localStorage.getItem(N);
+        if (null != t && "" !== String(t).trim()) {
+          var n = Number(t);
+          if (Number.isFinite(n) && n >= 0) return n;
+        }
+        var a = Ve(e);
+        return i.localStorage.setItem(N, String(a)), a;
+      }
+      function $(e) {
+        var t = Ve(e);
+        return i.localStorage.setItem(N, String(t)), A.emit(M, t), t;
+      }
+      function ee(e) {
+        var t = Number.isFinite(e) ? Math.max(0, e) : 0;
+        return $(Z() + t);
+      }
+      function te(e) {
+        var t = Number.isFinite(e) ? Math.max(0, e) : 0;
+        if (Q()) return !0;
+        var n = Z();
+        return !(n + Number.EPSILON < t) && ($(n - t), !0);
+      }
+      function ne() {
+        return Math.min(d, Math.max(0, Ke(i.localStorage.getItem(C), 0)));
+      }
+      function ae() {
+        return Math.min(B, Math.max(0, Ke(i.localStorage.getItem(D), 0)));
+      }
+      function re() {
+        return Math.min(d, Math.max(0, Ke(i.localStorage.getItem(G), 0)));
+      }
+      function ie(e) {
+        var t = Math.min(d, Math.max(0, Ke(e, 0)));
+        i.localStorage.setItem(G, String(t)), A.emit(S, t);
+      }
+      function oe(e) {
+        return Math.min(d, Math.max(0, Ke(i.localStorage.getItem(L[e]), 0)));
+      }
+      function ue(e, t) {
+        var n = Math.min(d, Math.max(0, Ke(t, 0)));
+        i.localStorage.setItem(L[e], String(n)), A.emit(b, e, n);
+      }
+      function ce(e) {
+        var t = Math.min(d, Math.max(0, Ke(e, 0)));
+        i.localStorage.setItem(C, String(t)), A.emit(I, t);
+      }
+      function le(e) {
+        void 0 === e && (e = m);
+        var t = Array(e).fill(null),
+          n = i.localStorage.getItem(_);
+        if (!n) return se(t, !1), t;
+        try {
+          var a = JSON.parse(n);
+          if (!Array.isArray(a.cards)) return t;
+          var r = Date.now(),
+            o = t.map(function (e, t) {
+              return Le(a.cards[t], r);
+            });
+          return se(o, !1), function (e) {
+            var t = je(),
+              n = 4 !== t.version;
+            t.version = 4;
+            for (var a = Fe(e), r = 0, i = Object.entries(a); r < i.length; r++) {
+              var o = i[r],
+                u = o[0],
+                c = o[1];
+              Ke(t.acquiredCounts[u], 0) < c && (t.acquiredCounts[u] = c, n = !0);
+            }
+            n && We(t);
+          }(o), o;
+        } catch (e) {
+          return t;
+        }
+      }
+      function se(e, t) {
+        var n = Date.now(),
+          r = Array(m).fill(null).map(function (t, n) {
+            return e[n] ? qe(e[n]) : null;
+          });
+        t && function (e, t) {
+          for (var n = function (e) {
+              var t = i.localStorage.getItem(_);
+              if (!t) return [];
+              try {
+                var n = JSON.parse(t);
+                return Array.isArray(n.cards) ? n.cards.map(function (t) {
+                  return Le(t, e);
+                }) : [];
+              } catch (e) {
+                return [];
+              }
+            }(t), r = new Set(e.flatMap(function (e) {
+              return e ? [e.instanceId] : [];
+            })), o = new Set(n.flatMap(function (e) {
+              return e ? [e.instanceId] : [];
+            })), u = je(), c = !1, l = 0, s = n; l < s.length; l++) {
+            var d,
+              m = s[l];
+            if (m && !r.has(m.instanceId)) {
+              var f = Ye(m.displayName),
+                v = null != (d = m.lineupSinceMs) ? d : m.acquiredAtMs,
+                M = Math.max(0, t - v);
+              u.serviceDurationMsByDisplayName[f] = Math.min(Number.MAX_SAFE_INTEGER, Je(u.serviceDurationMsByDisplayName[f]) + M), c = !0;
+            }
+          }
+          for (var h, g = a(e); !(h = g()).done;) {
+            var p = h.value;
+            p && !o.has(p.instanceId) && (p.lineupSinceMs = t);
+          }
+          c && We(u);
+        }(r, n);
+        var o = {
+          version: 2,
+          cards: r
+        };
+        i.localStorage.setItem(_, JSON.stringify(o)), t && A.emit(h, de(r));
+      }
+      function de(e) {
+        return (null != e ? e : le()).map(function (e) {
+          return e ? qe(e) : null;
+        });
+      }
+      function me() {
+        var e = t({}, V),
+          n = i.localStorage.getItem(q);
+        if (!n) return ve(e, !1), e;
+        try {
+          var a = JSON.parse(n),
+            r = {
+              operationPresident: Xe(a.operationPresident),
+              headCoach: Xe(a.headCoach),
+              scoutingDirector: Xe(a.scoutingDirector),
+              medicalTeam: Xe(a.medicalTeam),
+              mediaTeam: Xe(a.mediaTeam)
+            };
+          return ve(r, !1), r;
+        } catch (t) {
+          return ve(e, !1), e;
+        }
+      }
+      function fe(e) {
+        ve(e, !0);
+      }
+      function ve(e, n) {
+        var a = {
+          operationPresident: Xe(e.operationPresident),
+          headCoach: Xe(e.headCoach),
+          scoutingDirector: Xe(e.scoutingDirector),
+          medicalTeam: Xe(e.medicalTeam),
+          mediaTeam: Xe(e.mediaTeam)
+        };
+        i.localStorage.setItem(q, JSON.stringify(a)), n && A.emit(g, t({}, a));
+      }
+      function Me() {
+        return (Me = n( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9(e) {
+          var t, n, a, r;
+          return _regeneratorRuntime().wrap(function _callee9$(_context10) {
+            while (1) switch (_context10.prev = _context10.next) {
+              case 0:
+                _context10.next = 2;
+                return pe();
+              case 2:
+                a = _context10.sent;
+                r = Xe(e);
+                return _context10.abrupt("return", r >= Re(a) ? 0 : null != (t = null == (n = Oe(a, r)) ? void 0 : n.budgetCost) ? t : 0);
+              case 5:
+              case "end":
+                return _context10.stop();
+            }
+          }, _callee9);
+        }))).apply(this, arguments);
+      }
+      function he() {
+        return (he = n( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10(e, n) {
+          var a, r, i, o, u, c, l, s;
+          return _regeneratorRuntime().wrap(function _callee10$(_context11) {
+            while (1) switch (_context11.prev = _context11.next) {
+              case 0:
+                o = me();
+                if (_e(e)) {
+                  _context11.next = 3;
+                  break;
+                }
+                return _context11.abrupt("return", Ne(!1, "invalid-role", o, 0, 0));
+              case 3:
+                _context11.next = 5;
+                return pe();
+              case 5:
+                u = _context11.sent;
+                c = (o = me())[e];
+                if (!(c >= Re(u))) {
+                  _context11.next = 9;
+                  break;
+                }
+                return _context11.abrupt("return", Ne(!1, "max-level", o, c, 0));
+              case 9:
+                l = null != (a = null == (r = Oe(u, c)) ? void 0 : r.budgetCost) ? a : 0;
+                if (!(c >= ze(n))) {
+                  _context11.next = 12;
+                  break;
+                }
+                return _context11.abrupt("return", Ne(!1, "team-level-cap", o, c, l));
+              case 12:
+                s = Z();
+                return _context11.abrupt("return", l > 0 && !te(l) ? Ne(!1, "insufficient-budget", o, c, l) : (fe(o = t({}, o, ((i = {})[e] = c + 1, i))), Z() + Number.EPSILON < s && T(), Ne(!0, "ok", o, c, l)));
+              case 14:
+              case "end":
+                return _context11.stop();
+            }
+          }, _callee10);
+        }))).apply(this, arguments);
+      }
+      function ge() {
+        return null != X || (X = Te("data/balance/management_effects").then(function (e) {
+          if (!Array.isArray(e.levelEffects) || 0 === e.levelEffects.length) throw new Error("Invalid management effects configuration.");
+          return e;
+        })), X;
+      }
+      function pe() {
+        return null != z || (z = Te("data/balance/economy").then(function (e) {
+          if (!e.managementUpgradeCost || !Number.isFinite(e.managementUpgradeCost.currentLevelBudgetMultiplier) || !Number.isFinite(e.managementUpgradeCost.currentLevelOffset)) throw new Error("Invalid management upgrade cost configuration.");
+          return e;
+        })), z;
+      }
+      function Ee() {
+        return (Ee = n( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
+          var e, n;
+          return _regeneratorRuntime().wrap(function _callee11$(_context12) {
+            while (1) switch (_context12.prev = _context12.next) {
+              case 0:
+                _context12.prev = 0;
+                _context12.next = 3;
+                return ge();
+              case 3:
+                e = _context12.sent;
+                n = me();
+                return _context12.abrupt("return", {
+                  operationPresidentBudgetBonus: Qe(e, n.operationPresident).operationPresidentBudgetBonus,
+                  headCoachBattleOvrBonus: Qe(e, n.headCoach).headCoachBattleOvrBonus,
+                  scoutingDirectorHighestQualityWeightBonus: Qe(e, n.scoutingDirector).scoutingDirectorHighestQualityWeightBonus,
+                  medicalTeamInjuryRiskReduction: Qe(e, n.medicalTeam).medicalTeamInjuryRiskReduction,
+                  mediaTeamOfflineBudgetBonus: Qe(e, n.mediaTeam).mediaTeamOfflineBudgetBonus
+                });
+              case 8:
+                _context12.prev = 8;
+                _context12.t0 = _context12["catch"](0);
+                return _context12.abrupt("return", (console.error("[GameState] Failed to load management effects.", _context12.t0), t({}, K)));
+              case 11:
+              case "end":
+                return _context12.stop();
+            }
+          }, _callee11, null, [[0, 8]]);
+        }))).apply(this, arguments);
+      }
+      function ye(e) {
+        i.localStorage.setItem(j, JSON.stringify({
+          musicEnabled: Boolean(e.musicEnabled),
+          soundEnabled: Boolean(e.soundEnabled)
+        }));
+      }
+      function Ie(e) {
+        i.localStorage.setItem(W, JSON.stringify({
+          version: 2,
+          accrualStartedAtMs: Ze(e.accrualStartedAtMs, Date.now()),
+          lastOnlineTickAtMs: Ze(e.lastOnlineTickAtMs, Date.now()),
+          offlineStartedAtMs: null === e.offlineStartedAtMs ? null : Ze(e.offlineStartedAtMs, Date.now()),
+          hasRecordedOfflineSession: Boolean(e.hasRecordedOfflineSession),
+          pendingOfflineSeconds: Math.max(0, Number.isFinite(e.pendingOfflineSeconds) ? e.pendingOfflineSeconds : 0),
+          unpromptedOfflineSeconds: Math.max(0, Number.isFinite(e.unpromptedOfflineSeconds) ? e.unpromptedOfflineSeconds : 0)
+        }));
+      }
+      function Se() {
+        var e = Ce(),
+          t = i.localStorage.getItem(F);
+        if (!t) return De(e, !1), e;
+        try {
+          var n = Pe(JSON.parse(t));
+          return De(n, !1), n;
+        } catch (t) {
+          return e;
+        }
+      }
+      function be(e) {
+        var t = Pe(e);
+        return De(t, !0), t;
+      }
+      function Ae(e) {
+        return void 0 === e && (e = Se()), e.infiniteMode ? "infinite-" + e.infiniteMatchNumber : "standard-" + e.matchNumber;
+      }
+      function Te(e) {
+        return new Promise(function (t, n) {
+          u.load(e, c, function (a, r) {
+            !a && r ? t(r.json) : n(null != a ? a : new Error("Missing JSON asset: " + e));
+          });
+        });
+      }
+      function Ne(e, n, a, r, i) {
+        return {
+          success: e,
+          reason: n,
+          levels: t({}, a),
+          previousLevel: r,
+          newLevel: e ? r + 1 : r,
+          budgetCost: Ve(i)
+        };
+      }
+      function _e(e) {
+        return "string" == typeof e && Object.prototype.hasOwnProperty.call(V, e);
+      }
+      function Re(e) {
+        return Math.min(Y, Math.max(0, Ke(e.managementUpgradeCost.maxLevel, Y)));
+      }
+      function Oe(e, t) {
+        if (t < 0 || t >= Re(e)) return null;
+        var n = Ve(e.managementUpgradeCost.currentLevelBudgetMultiplier);
+        return {
+          fromLevel: t,
+          toLevel: t + 1,
+          budgetCost: Ve((t + Math.max(0, Ke(e.managementUpgradeCost.currentLevelOffset, 0))) * n)
+        };
+      }
+      function Ce() {
+        return {
+          version: 3,
+          seasonNumber: 1,
+          matchNumber: 1,
+          officialWins: 0,
+          schedulePhase: "regular-season",
+          playoffRound: 0,
+          playoffWinsInRound: 0,
+          infiniteMode: !1,
+          infiniteMatchNumber: 1,
+          infiniteWins: 0,
+          conceptGodUpgradeUnlocked: !1,
+          lastSettledMatchId: null,
+          lastSettledPlayerInstanceIds: [],
+          lastBaseRewardMatchId: null,
+          lastAdRewardMatchId: null,
+          lastAdvancedMatchId: null,
+          opponentInjuredPlayerIndices: []
+        };
+      }
+      function Pe(e) {
+        if (3 !== Ke(e.version, 0)) return {
+          version: 3,
+          seasonNumber: 1,
+          matchNumber: 1,
+          officialWins: 0,
+          schedulePhase: "regular-season",
+          playoffRound: 0,
+          playoffWinsInRound: 0,
+          infiniteMode: !1,
+          infiniteMatchNumber: 1,
+          infiniteWins: 0,
+          conceptGodUpgradeUnlocked: !1,
+          lastSettledMatchId: null,
+          lastSettledPlayerInstanceIds: [],
+          lastBaseRewardMatchId: null,
+          lastAdRewardMatchId: null,
+          lastAdvancedMatchId: null,
+          opponentInjuredPlayerIndices: []
+        };
+        var n = Boolean(e.infiniteMode),
+          a = n ? l : Math.min(l, Math.max(1, Ke(e.matchNumber, 1))),
+          r = Math.max(1, Ke(e.infiniteMatchNumber, 1)),
+          i = Math.max(0, Ke(e.infiniteWins, 0)),
+          o = n ? l + i : a - 1,
+          u = Math.max(0, Ke(e.officialWins, o)),
+          c = Math.min(d, Math.max(o, u)),
+          m = function (e, t) {
+            var n = s({
+              infiniteMode: t,
+              infiniteMatchNumber: 1,
+              matchNumber: e
+            });
+            return {
+              schedulePhase: n.phase,
+              playoffRound: n.playoffRound,
+              playoffWinsInRound: n.playoffWinsInRound
+            };
+          }(a, n);
+        return t({
+          version: 3,
+          seasonNumber: 1,
+          matchNumber: a,
+          officialWins: c
+        }, m, {
+          infiniteMode: n,
+          infiniteMatchNumber: r,
+          infiniteWins: i,
+          conceptGodUpgradeUnlocked: n,
+          lastSettledMatchId: we(e.lastSettledMatchId),
+          lastSettledPlayerInstanceIds: xe(e.lastSettledPlayerInstanceIds),
+          lastBaseRewardMatchId: we(e.lastBaseRewardMatchId),
+          lastAdRewardMatchId: we(e.lastAdRewardMatchId),
+          lastAdvancedMatchId: we(e.lastAdvancedMatchId),
+          opponentInjuredPlayerIndices: Ue(e.opponentInjuredPlayerIndices)
+        });
+      }
+      function De(e, n) {
+        var a = Pe(e);
+        i.localStorage.setItem(F, JSON.stringify(a)), n && A.emit(p, t({}, a));
+      }
+      function Be(e, t, n) {
+        var a = we(e),
+          r = Ve(t);
+        if (!a || r <= 0) return !1;
+        var i = Se();
+        return !(!function (e, t) {
+          return Ge(e, t) || e.lastAdvancedMatchId === t || e.lastSettledMatchId === t;
+        }(i, a) || ("base" === n ? i.lastBaseRewardMatchId === a : i.lastAdRewardMatchId === a)) && ("base" === n ? i.lastBaseRewardMatchId = a : i.lastAdRewardMatchId = a, be(i), ee(r), !0);
+      }
+      function Ge(e, t) {
+        var n = we(t);
+        return Boolean(n) && Ae(e) === n;
+      }
+      function xe(e) {
+        if (!Array.isArray(e)) return [];
+        for (var t, n = new Set(), r = a(e); !(t = r()).done;) {
+          var i = t.value;
+          if ("string" == typeof i) {
+            var o = i.trim();
+            if (o && n.add(o), n.size >= m) break;
+          }
+        }
+        return Array.from(n);
+      }
+      function Ue(e) {
+        if (!Array.isArray(e)) return [];
+        for (var t, n = new Set(), r = a(e); !(t = r()).done;) {
+          var i = Ke(t.value, -1);
+          i >= 0 && i < m && n.add(i);
+        }
+        return Array.from(n).sort(function (e, t) {
+          return e - t;
+        });
+      }
+      function we(e) {
+        if ("string" != typeof e) return null;
+        var t = e.trim();
+        return t || null;
+      }
+      function Le(e, n) {
+        var a, r, i;
+        if (!e || "object" != _typeof(e)) return null;
+        var o = e,
+          u = Ke(o.overall, 0);
+        if (!o.instanceId || !o.templateId || !o.sourcePlayerName || !o.displayName || u <= 0) return null;
+        var c = null != (a = o.attributes) ? a : {},
+          l = J.reduce(function (e, t) {
+            return e[t] = Ke(c[t], 0), e;
+          }, {}),
+          s = function (e, t) {
+            if (!e || "object" != _typeof(e)) return null;
+            var n = e;
+            if ("injury" !== n.type && "retirement" !== n.type && "training" !== n.type) return null;
+            return {
+              type: n.type,
+              occurredAtMs: Ze(n.occurredAtMs, t),
+              descriptionTemplate: "string" == typeof n.descriptionTemplate && n.descriptionTemplate.trim().length > 0 ? n.descriptionTemplate : void 0,
+              overallDelta: Ke(n.overallDelta, 0),
+              recoveryMatches: Math.max(0, Ke(n.recoveryMatches, 0))
+            };
+          }(o.pendingEvent, n),
+          d = function (e) {
+            if (!e || "object" != _typeof(e)) return null;
+            var t = e,
+              n = Ke(t.overallPenalty, 0),
+              a = Ke(t.remainingMatches, 0);
+            if (n <= 0 || a <= 0) return null;
+            return {
+              overallPenalty: n,
+              remainingMatches: a
+            };
+          }(o.activeInjury),
+          m = function (e) {
+            if (!e || "object" != _typeof(e)) return null;
+            var t = e,
+              n = Ke(t.overallBonus, 0),
+              a = Ke(t.remainingMatches, 0);
+            if (n <= 0 || a <= 0) return null;
+            return {
+              overallBonus: n,
+              remainingMatches: a
+            };
+          }(o.activeTraining),
+          f = "string" == typeof o.conceptGodId ? o.conceptGodId.trim() : "";
+        return t({
+          instanceId: String(o.instanceId),
+          templateId: String(o.templateId),
+          sourcePlayerName: String(o.sourcePlayerName),
+          displayName: String(o.displayName),
+          position: String(null != (r = o.position) ? r : ""),
+          qualityId: Ke(o.qualityId, 3),
+          qualityName: String(null != (i = o.qualityName) ? i : ""),
+          isConceptGod: Boolean(o.isConceptGod)
+        }, o.isConceptGod && f ? {
+          conceptGodId: f
+        } : {}, {
+          overall: u,
+          attributes: l,
+          acquiredAtMs: Ze(o.acquiredAtMs, n),
+          lineupSinceMs: null === o.lineupSinceMs ? null : Ze(o.lineupSinceMs, n),
+          matchesPlayed: Math.max(0, Ke(o.matchesPlayed, 0)),
+          retirementMatchLimit: ke(o.retirementMatchLimit, String(o.instanceId))
+        }, we(o.lastCountedMatchId) ? {
+          lastCountedMatchId: we(o.lastCountedMatchId)
+        } : {}, s ? {
+          pendingEvent: s
+        } : {}, d ? {
+          activeInjury: d
+        } : {}, m ? {
+          activeTraining: m
+        } : {});
+      }
+      function qe(e) {
+        return t({}, e, {
+          attributes: t({}, e.attributes)
+        }, e.pendingEvent ? {
+          pendingEvent: t({}, e.pendingEvent)
+        } : {}, e.activeInjury ? {
+          activeInjury: t({}, e.activeInjury)
+        } : {}, e.activeTraining ? {
+          activeTraining: t({}, e.activeTraining)
+        } : {});
+      }
+      function ke(e, t) {
+        var n = Ke(e, 0);
+        if (n > 0) return Math.min(5, n);
+        for (var r, i = 0, o = a(t); !(r = o()).done;) {
+          i = 31 * i + r.value.codePointAt(0) >>> 0;
+        }
+        return 3 + i % 3;
+      }
+      function je() {
+        var e = {
+            version: 4,
+            acquiredCounts: {},
+            conceptGodAcquiredCount: 0,
+            serviceDurationMsByDisplayName: {}
+          },
+          n = i.localStorage.getItem(k);
+        if (!n) return e;
+        try {
+          var a = JSON.parse(n);
+          return {
+            version: Ke(a.version, 1),
+            acquiredCounts: a.acquiredCounts && "object" == _typeof(a.acquiredCounts) ? t({}, a.acquiredCounts) : {},
+            conceptGodAcquiredCount: Math.max(0, Ke(a.conceptGodAcquiredCount, 0)),
+            serviceDurationMsByDisplayName: a.serviceDurationMsByDisplayName && "object" == _typeof(a.serviceDurationMsByDisplayName) ? He(a.serviceDurationMsByDisplayName) : {}
+          };
+        } catch (t) {
+          return e;
+        }
+      }
+      function We(e) {
+        var n = {
+          version: 4,
+          acquiredCounts: t({}, e.acquiredCounts),
+          conceptGodAcquiredCount: Math.max(0, Ke(e.conceptGodAcquiredCount, 0)),
+          serviceDurationMsByDisplayName: He(e.serviceDurationMsByDisplayName)
+        };
+        i.localStorage.setItem(k, JSON.stringify(n));
+      }
+      function Fe(e) {
+        for (var t, n = {}, r = a(e); !(t = r()).done;) {
+          var i = t.value;
+          if (i) {
+            var o = Ye(i.displayName);
+            n[o] = Ke(n[o], 0) + 1;
+          }
+        }
+        return n;
+      }
+      function Ye(e) {
+        return e.trim();
+      }
+      function He(e) {
+        for (var t = {}, n = 0, a = Object.entries(e); n < a.length; n++) {
+          var r = a[n],
+            i = r[0],
+            o = r[1],
+            u = Ye(i);
+          u && (t[u] = Math.min(Number.MAX_SAFE_INTEGER, Je(t[u]) + Je(o)));
+        }
+        return t;
+      }
+      function Je(e) {
+        var t = Number(e);
+        return Number.isFinite(t) ? Math.min(Number.MAX_SAFE_INTEGER, Math.max(0, Math.floor(t))) : 0;
+      }
+      function Qe(e, t) {
+        var n;
+        return null != (n = e.levelEffects[Math.min(Xe(t), e.levelEffects.length - 1)]) ? n : e.levelEffects[0];
+      }
+      function Ve(e) {
+        var t = Number.isFinite(e) ? Math.max(0, e) : 0;
+        return Math.round(Math.min(Number.MAX_SAFE_INTEGER, t) * H) / H;
+      }
+      function Ke(e, t) {
+        var n = Number(e);
+        return Number.isFinite(n) ? Math.floor(n) : t;
+      }
+      function Xe(e) {
+        return Math.min(Y, Math.max(0, Ke(e, 0)));
+      }
+      function ze(e) {
+        return Math.min(Y, Math.max(0, Ke(e, 0)));
+      }
+      function Ze(e, t) {
+        var n = Number(e);
+        return Number.isFinite(n) && n > 0 ? Math.floor(n) : t;
+      }
+      r._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/GoldAdButtonGlow.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (t) {
+  var e, n, o, i, r, l, a, s, u, d, c, h, p;
+  return {
+    setters: [function (t) {
+      e = t.inheritsLoose, n = t.createForOfIteratorHelperLoose;
+    }, function (t) {
+      o = t.cclegacy, i = t._decorator, r = t.Sprite, l = t.UITransform, a = t.Material, s = t.Vec4, u = t.Button, d = t.resources, c = t.EffectAsset, h = t.Label, p = t.Component;
+    }],
+    execute: function execute() {
+      var f;
+      t("installGoldAdButtonGlows", function (t) {
+        var e = t.getComponentsInChildren(u),
+          o = t.getComponent(u);
+        o && e.push(o);
+        for (var i, r = 0, l = n(e); !(i = l()).done;) {
+          var a,
+            s = i.value;
+          if (s.isValid && M(s)) (null != (a = s.node.getComponent(G)) ? a : s.node.addComponent(G)).bind(s), r += 1;
+        }
+        return r;
+      }), o._RF.push({}, "10ea4VZsoFEXoS/N/UjpNmw", "GoldAdButtonGlow", void 0);
+      var m = i.ccclass,
+        v = /广告|\bad\b/i,
+        g = null,
+        w = null;
+      function y(t) {
+        return !!v.test(t.name) || t.children.some(function (t) {
+          return y(t);
+        });
+      }
+      function M(t) {
+        for (var e = t.node; e;) {
+          if (v.test(e.name)) return !0;
+          e = e.parent;
+        }
+        return !!y(t.node) || t.node.getComponentsInChildren(h).some(function (t) {
+          return v.test(t.string);
+        });
+      }
+      var G = t("GoldAdButtonGlow", m("GoldAdButtonGlow")(f = function (t) {
+        function n() {
+          for (var e, n = arguments.length, o = new Array(n), i = 0; i < n; i++) o[i] = arguments[i];
+          return (e = t.call.apply(t, [this].concat(o)) || this).button = null, e.sprite = null, e.originalMaterial = null, e.material = null, e.loading = !1, e.destroyed = !1, e;
+        }
+        e(n, t);
+        var o = n.prototype;
+        return o.bind = function (t) {
+          var e, n, o;
+          this.button !== t && (this.removeMaterial(!0), this.button = t, this.sprite = null != (e = null != (n = null == (o = t.target) ? void 0 : o.getComponent(r)) ? n : t.node.getComponent(r)) ? e : null);
+        }, o.update = function () {
+          this.shouldGlow() ? this.applyMaterial() : this.removeMaterial(!0);
+        }, o.onDisable = function () {
+          this.removeMaterial(!0);
+        }, o.onDestroy = function () {
+          this.destroyed = !0, this.removeMaterial(!1);
+        }, o.shouldGlow = function () {
+          var t, e;
+          return Boolean((null == (t = this.button) ? void 0 : t.isValid) && this.button.interactable && (null == (e = this.sprite) ? void 0 : e.isValid) && this.sprite.spriteFrame);
+        }, o.applyMaterial = function () {
+          var t = this;
+          this.material || this.loading || !this.sprite || (this.loading = !0, (g ? Promise.resolve(g) : w || (w = new Promise(function (t) {
+            d.load("effects/recruit-button-glow", c, function (e, n) {
+              if (e || !n) return console.warn("[GoldAdButtonGlow] Failed to load effect.", e), void t(null);
+              g = n, t(n);
+            });
+          }))).then(function (e) {
+            if (t.loading = !1, !t.destroyed && e && t.shouldGlow() && t.sprite) {
+              var n = t.sprite.node.getComponent(l);
+              if (n) {
+                var o = new a();
+                o.initialize({
+                  effectAsset: e,
+                  defines: {
+                    IS_GRAY: !1,
+                    USE_TEXTURE: !0
+                  }
+                }), o.setProperty("shineColor", new s(1, 201 / 255, 66 / 255, 1)), o.setProperty("spriteRect", new s(n.width, n.height, n.anchorPoint.x, n.anchorPoint.y)), o.setProperty("sweepParams", new s(.16, 2.2, .18, .62)), o.setProperty("pulseParams", new s(.08, 1.6, 0, 0)), t.originalMaterial = t.sprite.customMaterial, t.material = o, t.sprite.customMaterial = o;
+              }
+            }
+          }));
+        }, o.removeMaterial = function (t) {
+          var e;
+          t && this.sprite && this.sprite.isValid && this.material && this.sprite.customMaterial === this.material && (this.sprite.customMaterial = this.originalMaterial), null == (e = this.material) || e.destroy(), this.material = null, this.originalMaterial = null;
+        }, n;
+      }(p)) || f);
+      o._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/HomepageDebugManager.ts", ["./rollupPluginModLoBabelHelpers.js", "cc", "./GameState.ts"], function (e) {
+  var t, a, r, n, o, i, l, c;
+  return {
+    setters: [function (e) {
+      t = e.applyDecoratedDescriptor, a = e.inheritsLoose, r = e.initializerDefineProperty, n = e.assertThisInitialized;
+    }, function (e) {
+      o = e.cclegacy, i = e._decorator, l = e.Component;
+    }, function (e) {
+      c = e.clearAllBasketballSaveData;
+    }],
+    execute: function execute() {
+      var s, u, p, g, f, b;
+      o._RF.push({}, "136dePGbK5ObLfZ5f8NXcuD", "HomepageDebugManager", void 0);
+      var m = i.ccclass,
+        v = i.executionOrder,
+        y = i.property,
+        D = !1;
+      e("HomepageDebugManager", (s = m("HomepageDebugManager"), u = v(-1e3), p = y({
+        displayName: "启动时重置全部存档",
+        tooltip: "勾选并保存 Homepage.scene 后，每次启动游戏首次进入 Homepage 时清除一次本游戏全部存档。"
+      }), s(g = u((b = t((f = function (e) {
+        function t() {
+          for (var t, a = arguments.length, o = new Array(a), i = 0; i < a; i++) o[i] = arguments[i];
+          return t = e.call.apply(e, [this].concat(o)) || this, r(t, "resetAllSavesOnStart", b, n(t)), t;
+        }
+        return a(t, e), t.prototype.onLoad = function () {
+          if (!D && (D = !0, this.resetAllSavesOnStart)) {
+            var e = c();
+            console.info("[HomepageDebugManager] 启动时已清除 " + e + " 项存档。");
+          }
+        }, t;
+      }(l)).prototype, "resetAllSavesOnStart", [p], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return !1;
+        }
+      }), g = f)) || g) || g));
+      o._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/HomepagePreloader.ts", ["cc", "./GameState.ts", "./PlayerAssets.ts"], function (a) {
+  var e, t, n, o, r, l, c, u;
+  return {
+    setters: [function (a) {
+      e = a.cclegacy;
+    }, function (a) {
+      t = a.loadJson, n = a.getManagementEffects, o = a.loadRoster;
+    }, function (a) {
+      r = a.loadPlayerPortrait, l = a.loadQualityFrame, c = a.loadRoundQualityFrame, u = a.loadRecruitmentBackground;
+    }],
+    execute: function execute() {
+      a({
+        preloadHomepageRuntimeAssets: function preloadHomepageRuntimeAssets() {
+          return Promise.all([s(), n()].concat(o().flatMap(function (a) {
+            return a ? [r(a), l(a.qualityId), c(a.qualityId), u(a.qualityId)] : [];
+          }))).then(function () {});
+        },
+        preloadHomepageStaticAssets: s
+      }), e._RF.push({}, "b31eaM8PxpMsYqedQyh+jzO", "HomepagePreloader", void 0);
+      var i = ["data/player_config_fame_v3", "data/player_events", "data/player_knowledge", "data/balance/economy", "data/balance/player_ovr_ranges", "data/balance/recruitment_probability", "data/balance/concept_god_upgrade", "data/balance/management_effects"],
+        d = null;
+      function s() {
+        return null != d || (d = Promise.all([].concat(i.map(function (a) {
+          return t(a);
+        }))).then(function () {})["catch"](function (a) {
+          throw d = null, a;
+        })), d;
+      }
+      e._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/HomeSceneController.ts", ["./rollupPluginModLoBabelHelpers.js", "cc", "./PlayerAvatarChip.ts", "./RosterSlotView.ts", "./ManagerSlotView.ts", "./BottomNavItemView.ts", "./ProgressBarView.ts", "./PrimaryButtonView.ts"], function (e) {
+  var t, r, o, i, n, a, l, u, c, s, p, f, m, y;
+  return {
+    setters: [function (e) {
+      t = e.applyDecoratedDescriptor, r = e.inheritsLoose, o = e.initializerDefineProperty, i = e.assertThisInitialized;
+    }, function (e) {
+      n = e.cclegacy, a = e._decorator, l = e.Node, u = e.Component;
+    }, function (e) {
+      c = e.PlayerAvatarChip;
+    }, function (e) {
+      s = e.RosterSlotView;
+    }, function (e) {
+      p = e.ManagerSlotView;
+    }, function (e) {
+      f = e.BottomNavItemView;
+    }, function (e) {
+      m = e.ProgressBarView;
+    }, function (e) {
+      y = e.PrimaryButtonView;
+    }],
+    execute: function execute() {
+      var b, g, w, S, v, B, P, V, d, h, z, C, R, H, I, L, N;
+      n._RF.push({}, "2038ds719BLRKbRWgS54Fa5", "HomeSceneController", void 0);
+      var _ = a.ccclass,
+        A = a.property;
+      e("HomeSceneController", (b = _("HomeSceneController"), g = A({
+        type: [c]
+      }), w = A({
+        type: [s]
+      }), S = A({
+        type: [p]
+      }), v = A({
+        type: [f]
+      }), B = A(m), P = A(y), V = A(l), b((z = t((h = function (e) {
+        function t() {
+          for (var t, r = arguments.length, n = new Array(r), a = 0; a < r; a++) n[a] = arguments[a];
+          return t = e.call.apply(e, [this].concat(n)) || this, o(t, "courtPlayers", z, i(t)), o(t, "rosterSlots", C, i(t)), o(t, "managerSlots", R, i(t)), o(t, "bottomNavItems", H, i(t)), o(t, "spiritBar", I, i(t)), o(t, "recruitButton", L, i(t)), o(t, "modalLayer", N, i(t)), t;
+        }
+        return r(t, e), t;
+      }(u)).prototype, "courtPlayers", [g], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return [];
+        }
+      }), C = t(h.prototype, "rosterSlots", [w], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return [];
+        }
+      }), R = t(h.prototype, "managerSlots", [S], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return [];
+        }
+      }), H = t(h.prototype, "bottomNavItems", [v], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return [];
+        }
+      }), I = t(h.prototype, "spiritBar", [B], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), L = t(h.prototype, "recruitButton", [P], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), N = t(h.prototype, "modalLayer", [V], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), d = h)) || d));
+      n._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/HomeUiController.ts", ["./rollupPluginModLoBabelHelpers.js", "cc", "./GameState.ts", "./PlayerAssets.ts", "./RosterSlotView.ts", "./TeamLevelController.ts", "./TopTeamInfoController.ts", "./PreMatchController.ts", "./GameFont.ts", "./FullScreenEntrance.ts", "./ManagementController.ts", "./ManagerSlotView.ts", "./MatchSession.ts", "./IdleIncomeController.ts", "./RecruitmentProbabilityController.ts", "./GameAudio.ts", "./GoldAdButtonGlow.ts", "./PlayerQualityVisuals.ts", "./PlayerEventController.ts", "./NumberGrowthAnimator.ts", "./MobileSafeArea.ts", "./RewardedAdService.ts", "./WechatContentSecurityService.ts", "./PlayerKnowledge.ts"], function (e) {
+  var t, n, l, i, a, o, r, s, u, d, h, g, m, c, f, v, p, y, P, C, b, B, w, N, S, I, T, E, R, A, K, D, M, V, F, x, H, L, O, G, _, q, Q, k, U, z, W, j, Y, X, J, Z, $, ee, te, ne, le, ie, ae, oe, re, se, ue, de, he, ge, me, ce, fe, ve, pe, ye, Pe, Ce, be, Be, we, Ne, Se, Ie, Te, Ee, Re, Ae, Ke, De, Me, Ve, Fe;
+  return {
+    setters: [function (e) {
+      t = e.inheritsLoose, n = e.createForOfIteratorHelperLoose, l = e.asyncToGenerator;
+    }, function (e) {
+      i = e.cclegacy, a = e._decorator, o = e.Color, r = e.Button, s = e.resources, u = e.EffectAsset, d = e.Sprite, h = e.UITransform, g = e.Material, m = e.Vec4, c = e.Label, f = e.Node, v = e.EditBox, p = e.Font, y = e.sys, P = e.RichText, C = e.Component;
+    }, function (e) {
+      b = e.gameStateEvents, B = e.GAME_STATE_EVENT_ROSTER_CHANGED, w = e.GAME_STATE_EVENT_TEAM_IDENTITY_CHANGED, N = e.GAME_STATE_EVENT_PLAYER_DETAILS_REQUESTED, S = e.GAME_STATE_EVENT_MANAGEMENT_CHANGED, I = e.loadRoster, T = e.loadGameSettings, E = e.TEAM_NAME_STORAGE_KEY, R = e.loadManagementLevels, A = e.INT32_MAX, K = e.getTeamAbbreviation, D = e.TEAM_ABBREVIATION_STORAGE_KEY, M = e.saveGameSettings, V = e.getManagementEffects, F = e.calculateTeamOverall, x = e.getTotalRecruitmentCount, H = e.getPlayerAcquisitionCount, L = e.getPlayerServiceDurationMs, O = e.loadJson;
+    }, function (e) {
+      G = e.loadPlayerPortrait, _ = e.loadThinQualityFrame, q = e.loadRecruitmentBackground, Q = e.loadQualityWheat, k = e.loadQualityFrame, U = e.loadQualityNameplate, z = e.loadQualityBadge, W = e.loadQualityPosition, j = e.loadPlayerEventIcon;
+    }, function (e) {
+      Y = e.formatPlayerOverall, X = e.RosterSlotView;
+    }, function (e) {
+      J = e.teamProgressionEvents, Z = e.TEAM_PROGRESSION_EVENT_WIN_UPGRADE_REQUESTED, $ = e.TEAM_PROGRESSION_EVENT_LEVEL_CHANGED;
+    }, function (e) {
+      ee = e.TopTeamInfoController;
+    }, function (e) {
+      te = e.PreMatchController;
+    }, function (e) {
+      ne = e.applyGameFontInBatches;
+    }, function (e) {
+      le = e.playFullScreenEntrance, ie = e.playFullScreenExit;
+    }, function (e) {
+      ae = e.ManagementController;
+    }, function (e) {
+      oe = e.ManagerSlotView;
+    }, function (e) {
+      re = e.consumeHomepageReturnTarget;
+    }, function (e) {
+      se = e.IdleIncomeController;
+    }, function (e) {
+      ue = e.RecruitmentProbabilityController;
+    }, function (e) {
+      de = e.gameAudio;
+    }, function (e) {
+      he = e.installGoldAdButtonGlows;
+    }, function (e) {
+      ge = e.getOverallDefaultColor, me = e.getOverallTrendColor, ce = e.applyOverallTrendArrow, fe = e.applyOverallNumberQuality, ve = e.applyPlayerQualityVisuals;
+    }, function (e) {
+      pe = e.PlayerEventController;
+    }, function (e) {
+      ye = e.setGrowingNumber;
+    }, function (e) {
+      Pe = e.applySafeAreaToCanvasPages;
+    }, function (e) {
+      Ce = e.initializeWechatShareCapabilities, be = e.applyWechatShareCopy, Be = e.showRewardedVideo;
+    }, function (e) {
+      we = e.checkWechatGameText, Ne = e.showWechatContentSecurityMessage;
+    }, function (e) {
+      Se = e.loadPlayerKnowledgeConfig, Ie = e.getPlayerKnowledgeProgress, Te = e.hasAnsweredPlayerKnowledgeQuestion, Ee = e.formatPlayerProfile, Re = e.formatPlayerKnowledgeText, Ae = e.recordPlayerKnowledgeAnswer, Ke = e.calculatePlayerKnowledgeReward, De = e.recordPlayerKnowledgeReward, Me = e.addPermanentOverallForPlayerKnowledge, Ve = e.unlockPlayerKnowledgeAnswers, Fe = e.advancePlayerKnowledgeQuestion;
+    }],
+    execute: function execute() {
+      var xe;
+      i._RF.push({}, "ca63f9bcMhAcabdvi/S1EzA", "HomeUiController", void 0);
+      var He = a.ccclass,
+        Le = new o(150, 150, 150, 255);
+      e("HomeUiController", He("HomeUiController")(xe = function (e) {
+        function i() {
+          for (var t, n = arguments.length, i = new Array(n), a = 0; a < n; a++) i[a] = arguments[a];
+          return (t = e.call.apply(e, [this].concat(i)) || this).canvas = null, t.homeRoot = null, t.teamInfoPage = null, t.settingsPage = null, t.playerDetailsPage = null, t.managementPage = null, t.managementController = null, t.idleIncomeController = null, t.recruitmentProbabilityController = null, t.playerEventController = null, t.topTeamInfoController = null, t.rosterSlots = [], t.boundButtons = [], t.teamNameEditBox = null, t.teamNameDisplayLabel = null, t.teamNameInputLabel = null, t.editingTeamName = !1, t.teamNameSecurityChecking = !1, t.cardRenderVersion = 0, t.knowledgeRenderVersion = 0, t.currentKnowledgeSourceName = null, t.holdKnowledgeRewardTrend = !1, t.applyingKnowledgeReward = !1, t.teamInfoRequestVersion = 0, t.buttonVisualBindings = [], t.buttonGrayscaleOverrides = new WeakMap(), t.recruitButtonWithPressedSprite = null, t.settingToggleSprites = new WeakMap(), t.probabilityHighlightRequestVersion = 0, t.probabilityHighlightElapsed = 0, t.probabilityHighlightBindings = [], t.openTeamInfoPage = function () {
+            var e = ++t.teamInfoRequestVersion;
+            t.cancelTeamNameEdit(), t.refreshTeamInfoPage().then(function () {
+              e === t.teamInfoRequestVersion && (t.bringToFront(t.teamInfoPage), t.playTeamInfoEntrance());
+            });
+          }, t.closeTeamInfoPage = function () {
+            t.teamInfoRequestVersion += 1, t.cancelTeamNameEdit(), t.teamInfoPage && ie(t.teamInfoPage).then(function () {
+              t.teamInfoPage.active = !1;
+            });
+          }, t.beginTeamNameEdit = function () {
+            var e,
+              n,
+              l = null != (e = null == (n = t.findByPath(t.teamInfoPage, "球队名/名字")) ? void 0 : n.getComponent(c)) ? e : null;
+            l && t.teamNameEditBox && (t.editingTeamName = !0, l.enabled = !1, t.teamNameInputLabel && (t.teamNameInputLabel.enabled = !0), t.teamNameEditBox.enabled = !0, t.teamNameEditBox.string = l.string, t.teamNameEditBox.focus());
+          }, t.saveTeamIdentity = l( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
+            var e, n, l, i, a, o, r, s;
+            return _regeneratorRuntime().wrap(function _callee12$(_context13) {
+              while (1) switch (_context13.prev = _context13.next) {
+                case 0:
+                  if (t.teamNameSecurityChecking) {
+                    _context13.next = 17;
+                    break;
+                  }
+                  a = (null == (e = y.localStorage.getItem(E)) ? void 0 : e.trim()) || "我的球队", o = (t.editingTeamName && t.teamNameEditBox ? t.teamNameEditBox.string.trim() : null != (n = null == (l = t.findByPath(t.teamInfoPage, "球队名/名字")) || null == (l = l.getComponent(c)) ? void 0 : l.string.trim()) ? n : a) || a;
+                  if (!(o !== a)) {
+                    _context13.next = 15;
+                    break;
+                  }
+                  t.teamNameSecurityChecking = !0;
+                  _context13.prev = 4;
+                  _context13.next = 7;
+                  return we(o);
+                case 7:
+                  r = _context13.sent;
+                case 8:
+                  _context13.prev = 8;
+                  t.teamNameSecurityChecking = !1;
+                  return _context13.finish(8);
+                case 11:
+                  if (t.isValid) {
+                    _context13.next = 13;
+                    break;
+                  }
+                  return _context13.abrupt("return");
+                case 13:
+                  if (!("pass" !== r.status)) {
+                    _context13.next = 15;
+                    break;
+                  }
+                  return _context13.abrupt("return", void Ne("risky" === r.status ? "名称含有不合规内容，请修改" : "名称审核暂时不可用，请稍后重试"));
+                case 15:
+                  s = K(o);
+                  null == (i = t.topTeamInfoController) || i.setTeamIdentity(o), t.topTeamInfoController || (y.localStorage.setItem(E, o), y.localStorage.setItem(D, s), b.emit(w, o, s)), t.closeTeamInfoPage();
+                case 17:
+                case "end":
+                  return _context13.stop();
+              }
+            }, _callee12, null, [[4,, 8, 11]]);
+          })), t.openSettingsPage = function () {
+            t.teamInfoRequestVersion += 1, t.refreshSettingsPage(), t.bringToFront(t.settingsPage, !0);
+          }, t.closeSettingsPage = function () {
+            t.settingsPage && ie(t.settingsPage).then(function () {
+              t.settingsPage.active = !1;
+            });
+          }, t.toggleMusic = function () {
+            var e = T();
+            e.musicEnabled = !e.musicEnabled, M(e), de.syncSettings(), t.refreshSettingsPage();
+          }, t.toggleSound = function () {
+            var e = T();
+            e.soundEnabled = !e.soundEnabled, M(e), de.syncSettings(), t.refreshSettingsPage();
+          }, t.closePlayerDetails = function () {
+            t.cardRenderVersion += 1, t.knowledgeRenderVersion += 1, t.currentKnowledgeSourceName = null, t.holdKnowledgeRewardTrend = !1, t.playerDetailsPage && ie(t.playerDetailsPage).then(function () {
+              t.playerDetailsPage.active = !1;
+            });
+          }, t.openPreMatchPage = function () {
+            var e,
+              n = function n() {
+                var e;
+                t.closeFullScreenPages(), null == (e = te.instance) || e.openPage();
+              };
+            null != (e = t.playerEventController) && e.runAfterPendingEvents(n) || n();
+          }, t.openIdleIncomePage = function () {
+            var e;
+            null == (e = t.idleIncomeController) || e.openPage();
+          }, t.closeFullScreenPages = function () {
+            var e, n, l, i;
+            null != (e = t.playerDetailsPage) && e.active && ie(t.playerDetailsPage).then(function () {
+              t.playerDetailsPage.active = !1;
+            }), null == (n = te.instance) || n.closePage(), null == (l = t.managementController) || l.closeManagement(), null == (i = t.playerEventController) || i.closePage();
+          }, t;
+        }
+        t(i, e);
+        var a = i.prototype;
+        return a.onLoad = function () {
+          var e, t, n, l, i;
+          if (this.resolveSceneReferences(), Pe(this.canvas), Ce(), be(this.node.scene), !(this.canvas && this.homeRoot && this.teamInfoPage && this.settingsPage && this.playerDetailsPage)) return console.error("[HomeUiController] Missing Homepage UI references."), void (this.enabled = !1);
+          this.teamInfoPage.active = !1, this.settingsPage.active = !1, this.playerDetailsPage.active = !1, this.ensurePlayerKnowledgeButtons(), this.playerEventController = null != (e = this.node.getComponent(pe)) ? e : this.node.addComponent(pe), this.managementController = null != (t = this.node.getComponent(ae)) ? t : this.node.addComponent(ae), this.recruitmentProbabilityController = null != (n = this.node.getComponent(ue)) ? n : this.node.addComponent(ue), this.recruitButtonWithPressedSprite = null != (l = null == (i = this.findByPath(this.homeRoot, "底部按钮/招募/招募")) ? void 0 : i.getComponent(r)) ? l : null, this.captureSettingToggleSprites(), this.prepareAllButtonVisuals(this.canvas), he(this.canvas), this.syncDisabledButtonVisuals(!0), this.prepareTeamNameEditor();
+        }, a.lateUpdate = function (e) {
+          this.syncDisabledButtonVisuals(!1), this.updateProbabilityHighlight(e);
+        }, a.start = function () {
+          this.scheduleOnce(this.applyHomepageFont, .25), this.scheduleOnce(function () {
+            return de.initialize();
+          }, .5), "pre-match" === re() && this.scheduleOnce(this.openPreMatchPage, 0);
+        }, a.onEnable = function () {
+          this.bindAllButtons(), b.on(B, this.onRosterChanged, this), b.on(w, this.onTeamIdentityChanged, this), b.on(N, this.openPlayerDetails, this), b.on(S, this.onManagementChanged, this), J.on(Z, this.openPreMatchPage, this), J.on($, this.highlightRecruitmentProbability, this);
+        }, a.onDisable = function () {
+          for (var e, t = n(this.boundButtons); !(e = t()).done;) {
+            var l = e.value;
+            l.button.node.off(r.EventType.CLICK, l.callback, this);
+          }
+          this.boundButtons = [], b.off(B, this.onRosterChanged, this), b.off(w, this.onTeamIdentityChanged, this), b.off(N, this.openPlayerDetails, this), b.off(S, this.onManagementChanged, this), J.off(Z, this.openPreMatchPage, this), J.off($, this.highlightRecruitmentProbability, this), this.probabilityHighlightRequestVersion += 1, this.clearProbabilityHighlight();
+        }, a.highlightRecruitmentProbability = function () {
+          var e = this,
+            t = ++this.probabilityHighlightRequestVersion;
+          this.clearProbabilityHighlight();
+          var l = this.findByPath(this.homeRoot, "底部按钮/左侧2个/招募概率");
+          l && s.load("effects/slot-new-player-sweep", u, function (i, a) {
+            if (t === e.probabilityHighlightRequestVersion && l.isValid) if (!i && a) for (var r, s = n(l.getComponentsInChildren(d)); !(r = s()).done;) {
+              var u = r.value,
+                c = u.node.getComponent(h);
+              if (u.spriteFrame && c) {
+                var f = new g();
+                f.initialize({
+                  effectAsset: a,
+                  defines: {
+                    IS_GRAY: !1,
+                    USE_TEXTURE: !0
+                  }
+                }), f.setProperty("spriteRect", new m(c.width, c.height, c.anchorPoint.x, c.anchorPoint.y)), f.setProperty("shineColor", new o(255, 255, 255, 255)), f.setProperty("sweepParams", new m(.28, .7, .32, 1)), f.setProperty("pulseParams", new m(.3, .5, 0, 0)), f.setProperty("timingParams", new m(0, 0, 0, 0)), e.probabilityHighlightBindings.push({
+                  sprite: u,
+                  originalMaterial: u.customMaterial,
+                  material: f
+                }), u.customMaterial = f;
+              }
+            } else console.warn("[HomeUiController] Recruitment probability highlight is unavailable.", i);
+          });
+        }, a.updateProbabilityHighlight = function (e) {
+          if (0 !== this.probabilityHighlightBindings.length) if (this.probabilityHighlightElapsed += Math.max(0, e), this.probabilityHighlightElapsed >= .7 * 3) this.clearProbabilityHighlight();else for (var t, l = this.probabilityHighlightElapsed % .7, i = n(this.probabilityHighlightBindings); !(t = i()).done;) {
+            t.value.material.setProperty("timingParams", new m(l, 0, 0, 0));
+          }
+        }, a.clearProbabilityHighlight = function () {
+          for (var e, t = n(this.probabilityHighlightBindings); !(e = t()).done;) {
+            var l = e.value;
+            l.sprite.isValid && l.sprite.customMaterial === l.material && (l.sprite.customMaterial = l.originalMaterial), l.material.destroy();
+          }
+          this.probabilityHighlightBindings = [], this.probabilityHighlightElapsed = 0;
+        }, a.bindAllButtons = function () {
+          var e,
+            t,
+            n,
+            l,
+            i,
+            a,
+            o,
+            s,
+            u,
+            d,
+            h,
+            g,
+            m,
+            c,
+            f,
+            v,
+            p,
+            y,
+            P,
+            C = this;
+          this.bindButton(null == (e = this.findByPath(this.homeRoot, "顶部球队信息/球队简称")) ? void 0 : e.getComponent(r), this.openTeamInfoPage), this.bindButton(null == (t = this.findByPath(this.homeRoot, "顶部球队信息/设置")) ? void 0 : t.getComponent(r), this.openSettingsPage), this.bindButton(null == (n = this.teamInfoPage) || null == (n = n.getChildByName("关闭")) ? void 0 : n.getComponent(r), this.closeTeamInfoPage), this.bindButton(null == (l = this.findByPath(this.teamInfoPage, "球队名/改名")) ? void 0 : l.getComponent(r), this.beginTeamNameEdit), this.bindButton(null == (i = this.teamInfoPage) || null == (i = i.getChildByName("保存并关闭")) ? void 0 : i.getComponent(r), function () {
+            C.saveTeamIdentity();
+          }), this.bindButton(null == (a = this.findByPath(this.settingsPage, "标题/关闭")) ? void 0 : a.getComponent(r), this.closeSettingsPage), this.bindButton(null == (o = this.findByPath(this.settingsPage, "音乐/开关")) ? void 0 : o.getComponent(r), this.toggleMusic), this.bindButton(null == (s = this.findByPath(this.settingsPage, "音效/开关")) ? void 0 : s.getComponent(r), this.toggleSound), this.bindButton(null == (u = this.playerDetailsPage) || null == (u = u.getChildByName("返回")) ? void 0 : u.getComponent(r), this.closePlayerDetails), this.bindButton(null == (d = this.findByPath(this.playerDetailsPage, "球员知识/是")) ? void 0 : d.getComponent(r), function () {
+            C.answerPlayerKnowledge(!0);
+          }), this.bindButton(null == (h = this.findByPath(this.playerDetailsPage, "球员知识/否")) ? void 0 : h.getComponent(r), function () {
+            C.answerPlayerKnowledge(!1);
+          }), this.bindButton(null == (g = this.findByPath(this.playerDetailsPage, "球员知识/答对全部")) ? void 0 : g.getComponent(r), function () {
+            C.unlockPlayerKnowledgeWithAd();
+          }), this.bindButton(null == (m = this.findByPath(this.playerDetailsPage, "球员知识/下一题")) ? void 0 : m.getComponent(r), function () {
+            C.showNextPlayerKnowledgeQuestion();
+          });
+          var b = null == (c = this.findByPath(this.homeRoot, "底部按钮/右侧2个/赛季")) ? void 0 : c.getComponentInChildren(r);
+          this.bindButton(b, this.openPreMatchPage);
+          var B = null == (f = this.findByPath(this.homeRoot, "底部按钮/左侧2个/球队")) ? void 0 : f.getComponentInChildren(r);
+          this.bindButton(B, this.openTeamInfoPage);
+          var w = null == (v = this.findByPath(this.homeRoot, "底部按钮/左侧2个/招募概率")) ? void 0 : v.getComponentInChildren(r);
+          this.bindButton(w, null != (p = null == (y = this.recruitmentProbabilityController) ? void 0 : y.openPage) ? p : function () {});
+          var N = null == (P = this.findByPath(this.homeRoot, "底部按钮/右侧2个/训练")) ? void 0 : P.getComponentInChildren(r);
+          this.bindButton(N, this.openIdleIncomePage), this.rosterSlots.forEach(function (e, t) {
+            C.bindButton(e.selectButton, function () {
+              return C.openPlayerDetails(t);
+            });
+          }), this.bindManagementEntrypoints();
+        }, a.ensurePlayerKnowledgeButtons = function () {
+          for (var e = 0, t = ["是", "否", "答对全部", "下一题"]; e < t.length; e++) {
+            var n = t[e],
+              l = this.findByPath(this.playerDetailsPage, "球员知识/" + n);
+            l && !l.getComponent(r) && l.addComponent(r);
+          }
+        }, a.bindButton = function (e, t) {
+          e && (e.node.on(r.EventType.CLICK, t, this), this.boundButtons.push({
+            button: e,
+            callback: t
+          }));
+        }, a.openPlayerDetails = function (e) {
+          var t = I(this.rosterSlots.length)[e];
+          t && (this.holdKnowledgeRewardTrend = !1, this.renderDetailedPlayerCard(this.playerDetailsPage, t, {
+            animateEventOverall: !0
+          }), this.bringToFront(this.playerDetailsPage, !0));
+        }, a.refreshTeamInfoPage = function () {
+          var e = l( /*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
+            var e, t, n, l, i, a, o, r, s, u, h, g, m, c, f, v;
+            return _regeneratorRuntime().wrap(function _callee13$(_context14) {
+              while (1) switch (_context14.prev = _context14.next) {
+                case 0:
+                  if (!this.teamInfoPage) {
+                    _context14.next = 18;
+                    break;
+                  }
+                  o = I(this.rosterSlots.length);
+                  _context14.next = 4;
+                  return V();
+                case 4:
+                  r = _context14.sent;
+                  s = (null == (e = y.localStorage.getItem(E)) ? void 0 : e.trim()) || "我的球队";
+                  u = F(o, r.headCoachBattleOvrBonus);
+                  h = o.reduce(function (e, t) {
+                    return !t || e && e.overall >= t.overall ? e : t;
+                  }, null);
+                  this.setLabel("球队名/名字", s, this.teamInfoPage), this.setLabel("球队总评/总评数值", this.formatOverall(u), this.teamInfoPage), this.setLabel("累计招募次数/招募次数", String(x()), this.teamInfoPage), this.setLabel("最佳球员/名字", null != (t = null == h ? void 0 : h.displayName) ? t : "暂无球员", this.teamInfoPage), this.setLabel("最佳球员/总评", h ? this.formatOverall(h.overall) : "0", this.teamInfoPage);
+                  g = null != (n = null == (l = this.findByPath(this.teamInfoPage, "最佳球员/头像")) ? void 0 : l.getComponent(d)) ? n : null, m = null != (i = null == (a = this.findByPath(this.teamInfoPage, "最佳球员/边框")) ? void 0 : a.getComponent(d)) ? i : null;
+                  if (h) {
+                    _context14.next = 12;
+                    break;
+                  }
+                  return _context14.abrupt("return", (g && (g.spriteFrame = null), void (m && (m.spriteFrame = null))));
+                case 12:
+                  _context14.next = 14;
+                  return Promise.all([G(h), _(h.qualityId)]);
+                case 14:
+                  c = _context14.sent;
+                  f = c[0];
+                  v = c[1];
+                  g && (g.spriteFrame = f), m && v && (m.spriteFrame = v);
+                case 18:
+                case "end":
+                  return _context14.stop();
+              }
+            }, _callee13, this);
+          }));
+          return function () {
+            return e.apply(this, arguments);
+          };
+        }(), a.refreshSettingsPage = function () {
+          var e = T();
+          this.setLabel("音乐/开关/状态", e.musicEnabled ? "开" : "关", this.settingsPage), this.setLabel("音效/开关/状态", e.soundEnabled ? "开" : "关", this.settingsPage), this.refreshSettingsToggle("音乐/开关", e.musicEnabled), this.refreshSettingsToggle("音效/开关", e.soundEnabled);
+        }, a.captureSettingToggleSprites = function () {
+          this.captureSettingToggleSpritesAtPath("音乐/开关"), this.captureSettingToggleSpritesAtPath("音效/开关");
+        }, a.captureSettingToggleSpritesAtPath = function (e) {
+          var t,
+            n,
+            l = null != (t = null == (n = this.findByPath(this.settingsPage, e)) ? void 0 : n.getComponent(r)) ? t : null;
+          l && !this.settingToggleSprites.has(l) && this.settingToggleSprites.set(l, {
+            onSprite: l.normalSprite,
+            offSprite: l.disabledSprite
+          });
+        }, a.refreshSettingsToggle = function (e, t) {
+          var n,
+            l,
+            i,
+            a,
+            o,
+            s = null != (n = null == (l = this.findByPath(this.settingsPage, e)) ? void 0 : l.getComponent(r)) ? n : null;
+          if (s) {
+            var u = this.settingToggleSprites.get(s),
+              h = t ? null == u ? void 0 : u.onSprite : null != (i = null == u ? void 0 : u.offSprite) ? i : null == u ? void 0 : u.onSprite;
+            if (h) {
+              s.normalSprite = h, s.interactable = !0;
+              var g = null != (a = null == (o = s.target) ? void 0 : o.getComponent(d)) ? a : s.node.getComponent(d);
+              g && (g.spriteFrame = h);
+            }
+          }
+        }, a.renderDetailedPlayerCard = function () {
+          var e = l( /*#__PURE__*/_regeneratorRuntime().mark(function _callee14(e, t, n) {
+            var l, i, a, o, r, s, u, h, g, m, f, v, p, y, P, C, b, B, w, N, S, T, E, R, A, K, D, M, V, F, x, O, _, Y, X, J, Z, $, ee, te, ne, le, ie, ae, oe, re;
+            return _regeneratorRuntime().wrap(function _callee14$(_context15) {
+              while (1) switch (_context15.prev = _context15.next) {
+                case 0:
+                  S = this;
+                  if (!(void 0 === n && (n = {}), e)) {
+                    _context15.next = 20;
+                    break;
+                  }
+                  T = ++this.cardRenderVersion, E = e.getChildByName("球员头像"), R = null != (l = null == E || null == (i = E.getChildByName("头像")) ? void 0 : i.getComponent(d)) ? l : null, A = null != (a = null == E || null == (o = E.getChildByName("bg")) ? void 0 : o.getComponent(d)) ? a : null, K = null != (r = null == E ? void 0 : E.children.filter(function (e) {
+                    return "麦穗" === e.name;
+                  }).map(function (e) {
+                    return e.getComponent(d);
+                  }).filter(function (e) {
+                    return Boolean(e);
+                  })) ? r : [], D = null != (s = null == E || null == (u = E.getChildByName("头像框")) ? void 0 : u.getComponent(d)) ? s : null, M = null != (h = null == E || null == (g = E.getChildByName("名牌")) ? void 0 : g.getComponent(d)) ? h : null, V = null != (m = null == E || null == (f = E.getChildByName("品质标签")) ? void 0 : f.getComponent(d)) ? m : null, F = null != (v = null == E || null == (p = E.getChildByName("位置")) ? void 0 : p.getComponent(d)) ? v : null, x = null != (y = null == E ? void 0 : E.getChildByName("事件")) ? y : null, O = null != (P = null == x ? void 0 : x.getComponent(d)) ? P : null, _ = null != (C = null == (b = t.pendingEvent) ? void 0 : b.type) ? C : t.activeInjury ? "injury" : t.activeTraining ? "training" : null;
+                  x && (x.active = null !== _), O && (O.spriteFrame = null), this.setLabel("球员头像/名牌/名字", t.displayName, e), this.setLabel("球员头像/品质标签/品质", t.qualityName, e), this.setLabel("球员头像/位置/位置", t.position, e);
+                  Y = I(this.rosterSlots.length);
+                  this.setLabel("累计获得次数/累计获得次数数值", String(Math.max(1, H(t.displayName))), e), this.setLabel("效力时长/累计效力时长数值", this.formatPlayerServiceDuration(L(t.displayName, Y)), e);
+                  X = null != (B = e.getChildByName("总评")) ? B : null, J = null != (w = null == X || null == (N = X.getChildByName("数值")) ? void 0 : N.getComponent(c)) ? w : null, Z = this.getDetailedOverallTrend(t, n.overallAnimationFrom);
+                  this.animateDetailedOverall(J, t, Z, n, n.releaseKnowledgeRewardTrendOnComplete ? function () {
+                    return S.releaseKnowledgeRewardTrend(e, t.sourcePlayerName);
+                  } : void 0), fe(J, t.qualityId), ce(X, Z), this.currentKnowledgeSourceName = t.sourcePlayerName, this.renderPlayerKnowledge(e, t);
+                  _context15.next = 10;
+                  return Promise.all([G(t), q(t.qualityId), Q(t.qualityId), k(t.qualityId), U(t.qualityId), z(t.qualityId), W(t.qualityId), _ ? j(_) : Promise.resolve(null)]);
+                case 10:
+                  $ = _context15.sent;
+                  ee = $[0];
+                  te = $[1];
+                  ne = $[2];
+                  le = $[3];
+                  ie = $[4];
+                  ae = $[5];
+                  oe = $[6];
+                  re = $[7];
+                  T === this.cardRenderVersion && (R && ee && (R.spriteFrame = ee), A && te && (A.spriteFrame = te), ne && K.forEach(function (e) {
+                    e.spriteFrame = ne;
+                  }), D && le && (D.spriteFrame = le), M && ie && (M.spriteFrame = ie), V && ae && (V.spriteFrame = ae), F && oe && (F.spriteFrame = oe), O && re && (O.spriteFrame = re), ve(null != E ? E : null, t.qualityId));
+                case 20:
+                case "end":
+                  return _context15.stop();
+              }
+            }, _callee14, this);
+          }));
+          return function (t, n, l) {
+            return e.apply(this, arguments);
+          };
+        }(), a.animateDetailedOverall = function (e, t, n, l, i) {
+          var a,
+            o,
+            r,
+            s,
+            u = this,
+            d = t.overall,
+            h = l.overallAnimationFrom;
+          if (void 0 !== h && d > h) ye(e, d, function (e) {
+            return u.formatOverall(Math.floor(e));
+          }, {
+            from: h,
+            duration: 1.5,
+            colorFrom: ge(e),
+            colorTo: me("training"),
+            onComplete: i
+          });else {
+            var g = null != (a = null == (o = t.activeInjury) ? void 0 : o.overallPenalty) ? a : 0,
+              m = null != (r = null == (s = t.activeTraining) ? void 0 : s.overallBonus) ? r : 0;
+            if (g <= 0 && m <= 0 || !0 !== l.animateEventOverall) {
+              var c = n ? me(n) : ge(e);
+              ye(e, d, function (e) {
+                return u.formatOverall(Math.floor(e));
+              }, {
+                animateGrowth: !1,
+                colorFrom: c,
+                colorTo: c
+              });
+            } else ye(e, d, function (e) {
+              return u.formatOverall(Math.floor(e));
+            }, {
+              from: g > 0 ? d + g : Math.max(1, d - m),
+              duration: 1.5,
+              animateDecrease: g > 0,
+              colorFrom: ge(e),
+              colorTo: me(g > 0 ? "injury" : "training")
+            });
+          }
+        }, a.getDetailedOverallTrend = function (e, t) {
+          var n;
+          return this.holdKnowledgeRewardTrend || void 0 !== t && e.overall > t ? "training" : e.activeInjury ? "injury" : e.activeTraining || "training" === (null == (n = e.pendingEvent) ? void 0 : n.type) ? "training" : null;
+        }, a.releaseKnowledgeRewardTrend = function (e, t) {
+          var n, l;
+          if (this.holdKnowledgeRewardTrend && this.currentKnowledgeSourceName === t && e.active) {
+            this.holdKnowledgeRewardTrend = !1;
+            var i = this.getCurrentKnowledgeCard();
+            if (i) {
+              var a = e.getChildByName("总评"),
+                o = null != (n = null == a || null == (l = a.getChildByName("数值")) ? void 0 : l.getComponent(c)) ? n : null,
+                r = this.getDetailedOverallTrend(i);
+              o && (o.string = this.formatOverall(i.overall), o.color = r ? me(r) : ge(o)), ce(a, r);
+            }
+          }
+        }, a.prepareTeamNameEditor = function () {
+          var e,
+            t,
+            n,
+            l = null != (e = null == (t = this.findByPath(this.teamInfoPage, "球队名/名字")) ? void 0 : t.getComponent(c)) ? e : null;
+          if (l) {
+            var i = new f("球队名输入文本");
+            l.node.addChild(i);
+            var a = l.node.getComponent(h),
+              o = i.addComponent(h);
+            a && (o.setContentSize(a.contentSize), o.setAnchorPoint(0, 1));
+            var r = i.addComponent(c);
+            r.font = l.font, r.fontSize = l.fontSize, r.lineHeight = l.lineHeight, r.color = l.color, r.horizontalAlign = l.horizontalAlign, r.verticalAlign = l.verticalAlign, r.overflow = l.overflow, r.enableWrapText = !1, r.enabled = !1, this.teamNameDisplayLabel = l, this.teamNameInputLabel = r, this.teamNameEditBox = null != (n = l.getComponent(v)) ? n : l.addComponent(v), this.teamNameEditBox.textLabel = r, this.teamNameEditBox.maxLength = 12, this.teamNameEditBox.string = l.string, this.teamNameEditBox.enabled = !1;
+          }
+        }, a.applyHomepageFont = function () {
+          var e = this;
+          this.canvas && s.load("fonts/zpix", p, function (t, n) {
+            var l;
+            !t && n && null != (l = e.canvas) && l.isValid ? ne(e.canvas, n, e) : console.error("[HomeUiController] Failed to apply zpix font.", t);
+          });
+        }, a.cancelTeamNameEdit = function () {
+          var e;
+          this.editingTeamName = !1, this.teamNameEditBox && (this.teamNameEditBox.blur(), this.teamNameEditBox.enabled = !1), this.teamNameInputLabel && (this.teamNameInputLabel.enabled = !1), this.teamNameDisplayLabel && (this.teamNameDisplayLabel.enabled = !0);
+          var t = (null == (e = y.localStorage.getItem(E)) ? void 0 : e.trim()) || "我的球队";
+          this.setLabel("球队名/名字", t, this.teamInfoPage);
+        }, a.renderPlayerKnowledge = function () {
+          var e = l( /*#__PURE__*/_regeneratorRuntime().mark(function _callee15(e, t) {
+            var n, l, i, a, o, s, u, d, h, g, m, f, v, p, y, P, C, b, B, w, N, S, I, T, E, R, A, K, D, M, V, F, x, H, L, G, _, q;
+            return _regeneratorRuntime().wrap(function _callee15$(_context16) {
+              while (1) switch (_context16.prev = _context16.next) {
+                case 0:
+                  v = ++this.knowledgeRenderVersion, p = e.getChildByName("球员知识"), y = null != (n = null == p || null == (l = p.getChildByName("题目")) ? void 0 : l.getComponent(c)) ? n : null, P = null != (i = null == p || null == (a = p.getChildByName("问题")) ? void 0 : a.getComponent(c)) ? i : null, C = null != (o = null == p || null == (s = p.getChildByName("是")) ? void 0 : s.getComponent(r)) ? o : null, b = null != (u = null == p || null == (d = p.getChildByName("否")) ? void 0 : d.getComponent(r)) ? u : null, B = null != (h = null == p || null == (g = p.getChildByName("答对全部")) ? void 0 : g.getComponent(r)) ? h : null, w = null != (m = null == p || null == (f = p.getChildByName("下一题")) ? void 0 : f.getComponent(r)) ? m : null;
+                  if (!(p && y && P && C && b)) {
+                    _context16.next = 34;
+                    break;
+                  }
+                  _context16.prev = 2;
+                  _context16.next = 5;
+                  return Se();
+                case 5:
+                  N = _context16.sent;
+                  if (!(v !== this.knowledgeRenderVersion || this.currentKnowledgeSourceName !== t.sourcePlayerName)) {
+                    _context16.next = 8;
+                    break;
+                  }
+                  return _context16.abrupt("return");
+                case 8:
+                  S = N.players[t.sourcePlayerName];
+                  if (!(!S || 0 === S.questions.length)) {
+                    _context16.next = 11;
+                    break;
+                  }
+                  return _context16.abrupt("return", (y.string = "球员知识", this.setPlayerKnowledgeQuestionText(P, "该球员的资料正在整理中。"), C.node.active = !1, b.node.active = !1, B && (B.node.active = !1), void (w && (w.node.active = !1))));
+                case 11:
+                  I = Ie(t.sourcePlayerName);
+                  if (!(S.questions.filter(function (e) {
+                    return Te(I, e.id);
+                  }).length >= S.questions.length)) {
+                    _context16.next = 20;
+                    break;
+                  }
+                  _context16.next = 15;
+                  return O("data/balance/concept_god_upgrade");
+                case 15:
+                  A = _context16.sent;
+                  if (!(v !== this.knowledgeRenderVersion || this.currentKnowledgeSourceName !== t.sourcePlayerName)) {
+                    _context16.next = 18;
+                    break;
+                  }
+                  return _context16.abrupt("return");
+                case 18:
+                  K = t.isConceptGod || t.qualityId === A.quality.conceptGodQualityId || t.qualityName === A.quality.conceptGodQualityName, D = null != (T = A.conceptGodDefinitions[t.sourcePlayerName]) ? T : [], M = K ? null != (E = D.find(function (e) {
+                    return e.conceptGodId === t.conceptGodId;
+                  })) ? E : D.find(function (e) {
+                    return e.displayName === t.displayName;
+                  }) : null;
+                  return _context16.abrupt("return", (y.string = M ? "这无敌了吧" : "球员荣誉", this.setPlayerKnowledgeQuestionText(P, null != (R = null == M ? void 0 : M.lore) ? R : Ee(S.profile)), C.node.active = !1, b.node.active = !1, B && (B.node.active = !1), void (w && (w.node.active = !1))));
+                case 20:
+                  V = I.currentQuestionIndex % S.questions.length, F = S.questions[V];
+                  y.string = "球员知识 " + (V + 1) + "/" + S.questions.length;
+                  x = I.correctQuestionIds.includes(F.id), H = I.wrongQuestionIds.includes(F.id), L = F.answer ? C : b, G = F.answer ? b : C;
+                  if (!(C.node.active = !0, b.node.active = !0, x)) {
+                    _context16.next = 26;
+                    break;
+                  }
+                  q = null != (_ = I.rewardOverallByQuestionId[F.id]) ? _ : F.rewardOverall;
+                  return _context16.abrupt("return", (this.setPlayerKnowledgeQuestionText(P, "答对了！" + t.displayName + " 总评永久提升 " + q + "。"), this.setKnowledgeAnswerButtonState(L, !1, !1), this.setKnowledgeAnswerButtonState(G, !1, !0), B && (B.node.active = !1), void (w && (w.node.active = !0, this.setKnowledgeAnswerButtonState(w, !0, !1)))));
+                case 26:
+                  if (!H) {
+                    _context16.next = 28;
+                    break;
+                  }
+                  return _context16.abrupt("return", (this.setPlayerKnowledgeQuestionText(P, Re(F.text, t.displayName), "可惜了，正确答案是：" + (F.answer ? "是" : "否")), this.setKnowledgeAnswerButtonState(L, !1, !1), this.setKnowledgeAnswerButtonState(G, !1, !0), B && (B.node.active = !1), void (w && (w.node.active = !0, this.setKnowledgeAnswerButtonState(w, !0, !1)))));
+                case 28:
+                  this.setPlayerKnowledgeQuestionText(P, Re(F.text, t.displayName)), this.setKnowledgeAnswerButtonState(L, !0, !1), this.setKnowledgeAnswerButtonState(G, !I.answerAllUnlocked, I.answerAllUnlocked), B && (B.node.active = !I.answerAllUnlocked, I.answerAllUnlocked || this.setKnowledgeAnswerButtonState(B, !0, !1)), w && (w.node.active = I.answerAllUnlocked, I.answerAllUnlocked && this.setKnowledgeAnswerButtonState(w, !1, !0));
+                  _context16.next = 34;
+                  break;
+                case 31:
+                  _context16.prev = 31;
+                  _context16.t0 = _context16["catch"](2);
+                  console.error("[HomeUiController] Failed to load player knowledge.", _context16.t0), y.string = "球员知识", this.setPlayerKnowledgeQuestionText(P, "资料加载失败，请稍后重试。");
+                case 34:
+                case "end":
+                  return _context16.stop();
+              }
+            }, _callee15, this, [[2, 31]]);
+          }));
+          return function (t, n) {
+            return e.apply(this, arguments);
+          };
+        }(), a.answerPlayerKnowledge = function () {
+          var e = l( /*#__PURE__*/_regeneratorRuntime().mark(function _callee16(e) {
+            var t, n, l, i, a, o, r, s, u, d, h, g, m, c, f, v, p;
+            return _regeneratorRuntime().wrap(function _callee16$(_context17) {
+              while (1) switch (_context17.prev = _context17.next) {
+                case 0:
+                  n = this.getCurrentKnowledgeCard();
+                  if (!(n && this.playerDetailsPage)) {
+                    _context17.next = 14;
+                    break;
+                  }
+                  _context17.next = 4;
+                  return Se();
+                case 4:
+                  _context17.t0 = n.sourcePlayerName;
+                  l = _context17.sent.players[_context17.t0];
+                  if (!(l && 0 !== l.questions.length)) {
+                    _context17.next = 14;
+                    break;
+                  }
+                  a = Ie(n.sourcePlayerName), o = l.questions[a.currentQuestionIndex % l.questions.length], r = e === o.answer;
+                  if (Ae(n.sourcePlayerName, o.id, r)) {
+                    g = Math.max(1, n.overall + (null != (s = null == (u = n.activeInjury) ? void 0 : u.overallPenalty) ? s : 0) - (null != (d = null == (h = n.activeTraining) ? void 0 : h.overallBonus) ? d : 0)), m = Ke(g);
+                    De(n.sourcePlayerName, o.id, m), this.holdKnowledgeRewardTrend = !0, this.applyingKnowledgeReward = !0;
+                    c = null;
+                    try {
+                      c = Me(n.sourcePlayerName, m);
+                    } finally {
+                      this.applyingKnowledgeReward = !1;
+                    }
+                    c && c.overall > n.overall ? i = n.overall : this.holdKnowledgeRewardTrend = !1;
+                  }
+                  f = Ie(n.sourcePlayerName), v = l.questions.every(function (e) {
+                    return Te(f, e.id);
+                  });
+                  v && void 0 === i && (this.holdKnowledgeRewardTrend = !1);
+                  p = null != (t = this.getCurrentKnowledgeCard()) ? t : n;
+                  _context17.next = 14;
+                  return this.renderDetailedPlayerCard(this.playerDetailsPage, p, {
+                    overallAnimationFrom: i,
+                    animateEventOverall: !1,
+                    releaseKnowledgeRewardTrendOnComplete: v && void 0 !== i
+                  });
+                case 14:
+                case "end":
+                  return _context17.stop();
+              }
+            }, _callee16, this);
+          }));
+          return function (t) {
+            return e.apply(this, arguments);
+          };
+        }(), a.setPlayerKnowledgeQuestionText = function (e, t, n) {
+          var l,
+            i,
+            a,
+            o,
+            r = e.node.getComponent(h),
+            s = e.node.getChildByName("答错提示"),
+            u = null != (l = null == (i = s) ? void 0 : i.getComponent(P)) ? l : null;
+          if (!n) return u && (u.enabled = !1), s && (s.active = !1), e.enabled = !0, void (e.string = t);
+          u || ((s = new f("答错提示")).layer = e.node.layer, e.node.addChild(s), s.addComponent(h), (u = s.addComponent(P)).fontSize = e.fontSize, u.lineHeight = e.lineHeight, u.horizontalAlign = e.horizontalAlign, u.verticalAlign = e.verticalAlign, u.useSystemFont = e.useSystemFont, u.fontFamily = e.fontFamily, u.font = e.font, u.handleTouchEvent = !1);
+          var d = null != (a = null == r ? void 0 : r.width) ? a : 0,
+            g = null != (o = null == r ? void 0 : r.height) ? o : 0,
+            m = s.getComponent(h);
+          null == m || m.setAnchorPoint(0, 1), s.setPosition(-d / 2, g / 2), s.active = !0, u.maxWidth = d;
+          var c = "#" + [e.color.r, e.color.g, e.color.b].map(function (e) {
+              return e.toString(16).padStart(2, "0");
+            }).join(""),
+            v = function v(e) {
+              return e.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            };
+          e.enabled = !1, u.enabled = !0, u.string = "<color=" + c + "><b>" + v(t) + "</b></color>\n<color=#FFD15A><b>" + v(n) + "</b></color>";
+        }, a.unlockPlayerKnowledgeWithAd = function () {
+          var e = l( /*#__PURE__*/_regeneratorRuntime().mark(function _callee17() {
+            var e, t, n, l, i, a;
+            return _regeneratorRuntime().wrap(function _callee17$(_context18) {
+              while (1) switch (_context18.prev = _context18.next) {
+                case 0:
+                  l = this.getCurrentKnowledgeCard();
+                  if (!(l && this.playerDetailsPage)) {
+                    _context18.next = 12;
+                    break;
+                  }
+                  i = null != (e = null == (t = this.findByPath(this.playerDetailsPage, "球员知识/答对全部")) ? void 0 : t.getComponent(r)) ? e : null;
+                  i && (i.interactable = !1);
+                  _context18.next = 6;
+                  return Be();
+                case 6:
+                  _context18.t0 = _context18.sent;
+                  if (!_context18.t0) {
+                    _context18.next = 9;
+                    break;
+                  }
+                  Ve(l.sourcePlayerName);
+                case 9:
+                  a = null != (n = this.getCurrentKnowledgeCard()) ? n : l;
+                  _context18.next = 12;
+                  return this.renderDetailedPlayerCard(this.playerDetailsPage, a);
+                case 12:
+                case "end":
+                  return _context18.stop();
+              }
+            }, _callee17, this);
+          }));
+          return function () {
+            return e.apply(this, arguments);
+          };
+        }(), a.showNextPlayerKnowledgeQuestion = function () {
+          var e = l( /*#__PURE__*/_regeneratorRuntime().mark(function _callee18() {
+            var e, t, n, l;
+            return _regeneratorRuntime().wrap(function _callee18$(_context19) {
+              while (1) switch (_context19.prev = _context19.next) {
+                case 0:
+                  e = this.getCurrentKnowledgeCard();
+                  if (!(e && this.playerDetailsPage)) {
+                    _context19.next = 16;
+                    break;
+                  }
+                  _context19.next = 4;
+                  return Se();
+                case 4:
+                  _context19.t0 = e.sourcePlayerName;
+                  t = _context19.sent.players[_context19.t0];
+                  if (!t) {
+                    _context19.next = 16;
+                    break;
+                  }
+                  n = Ie(e.sourcePlayerName), l = t.questions[n.currentQuestionIndex % t.questions.length];
+                  if (!(l && Te(n, l.id))) {
+                    _context19.next = 14;
+                    break;
+                  }
+                  Fe(e.sourcePlayerName, t.questions);
+                  _context19.next = 12;
+                  return this.renderDetailedPlayerCard(this.playerDetailsPage, e);
+                case 12:
+                  _context19.next = 16;
+                  break;
+                case 14:
+                  _context19.next = 16;
+                  return this.renderDetailedPlayerCard(this.playerDetailsPage, e);
+                case 16:
+                case "end":
+                  return _context19.stop();
+              }
+            }, _callee18, this);
+          }));
+          return function () {
+            return e.apply(this, arguments);
+          };
+        }(), a.getCurrentKnowledgeCard = function () {
+          var e,
+            t = this;
+          return this.currentKnowledgeSourceName && null != (e = I(this.rosterSlots.length).find(function (e) {
+            return (null == e ? void 0 : e.sourcePlayerName) === t.currentKnowledgeSourceName;
+          })) ? e : null;
+        }, a.refreshVisibleRosterSlots = function () {
+          var e = l( /*#__PURE__*/_regeneratorRuntime().mark(function _callee20() {
+            var e, t;
+            return _regeneratorRuntime().wrap(function _callee20$(_context21) {
+              while (1) switch (_context21.prev = _context21.next) {
+                case 0:
+                  t = I(this.rosterSlots.length);
+                  _context21.next = 3;
+                  return Promise.all(this.rosterSlots.map(l( /*#__PURE__*/_regeneratorRuntime().mark(function _callee19(e, n) {
+                    var l;
+                    return _regeneratorRuntime().wrap(function _callee19$(_context20) {
+                      while (1) switch (_context20.prev = _context20.next) {
+                        case 0:
+                          l = t[n];
+                          if (!l) {
+                            _context20.next = 11;
+                            break;
+                          }
+                          _context20.t0 = e;
+                          _context20.t1 = l.overall;
+                          _context20.t2 = l.qualityId;
+                          _context20.next = 7;
+                          return G(l);
+                        case 7:
+                          _context20.t3 = _context20.sent;
+                          _context20.t0.setup.call(_context20.t0, _context20.t1, _context20.t2, _context20.t3);
+                          _context20.next = 12;
+                          break;
+                        case 11:
+                          e.clear();
+                        case 12:
+                        case "end":
+                          return _context20.stop();
+                      }
+                    }, _callee19);
+                  }))));
+                case 3:
+                  null == (e = this.topTeamInfoController) || e.refreshOverallFromRoster();
+                case 4:
+                case "end":
+                  return _context21.stop();
+              }
+            }, _callee20, this);
+          }));
+          return function () {
+            return e.apply(this, arguments);
+          };
+        }(), a.onRosterChanged = function () {
+          var e,
+            t,
+            n = this;
+          if (this.refreshVisibleRosterSlots(), null != (e = this.teamInfoPage) && e.active && this.refreshTeamInfoPage(), !this.applyingKnowledgeReward && null != (t = this.playerDetailsPage) && t.active && this.currentKnowledgeSourceName) {
+            var l = I(this.rosterSlots.length).find(function (e) {
+              return (null == e ? void 0 : e.sourcePlayerName) === n.currentKnowledgeSourceName;
+            });
+            l && this.renderDetailedPlayerCard(this.playerDetailsPage, l);
+          }
+        }, a.onTeamIdentityChanged = function () {
+          var e;
+          null != (e = this.teamInfoPage) && e.active && this.refreshTeamInfoPage();
+        }, a.onManagementChanged = function () {
+          var e;
+          this.refreshManagementSlotLevels(), null != (e = this.teamInfoPage) && e.active && this.refreshTeamInfoPage();
+        }, a.bindManagementEntrypoints = function () {
+          var e = this,
+            t = this.findByPath(this.homeRoot, "球队/管理层");
+          if (t) {
+            for (var n = function n() {
+                var n,
+                  a,
+                  o,
+                  s,
+                  u,
+                  d,
+                  h,
+                  g,
+                  m,
+                  c,
+                  f = i[l],
+                  v = f[0],
+                  p = f[1],
+                  y = e.findDescendantByName(t, v),
+                  P = null != (n = null != (a = null != (o = null == y ? void 0 : y.getComponent(oe)) ? o : null == y ? void 0 : y.getComponentInChildren(oe)) ? a : null == y ? void 0 : y.addComponent(oe)) ? n : null,
+                  C = null != (s = null != (u = null != (d = null != (h = null != (g = null == P ? void 0 : P.resolveOpenButton()) ? g : null == y || null == (m = y.getChildByName("bg")) ? void 0 : m.getComponent(r)) ? h : null == y || null == (c = y.getChildByName("背景")) ? void 0 : c.getComponent(r)) ? d : null == y ? void 0 : y.getComponent(r)) ? u : null == y ? void 0 : y.getComponentInChildren(r)) ? s : null;
+                e.bindButton(C, function () {
+                  var t;
+                  e.closeFullScreenPages(), null == (t = e.managementController) || t.openManagement(p);
+                });
+              }, l = 0, i = [["运营", "operationPresident"], ["教练", "headCoach"], ["球探", "scoutingDirector"], ["队医", "medicalTeam"], ["管理层-长方", "mediaTeam"]]; l < i.length; l++) n();
+            this.refreshManagementSlotLevels();
+          }
+        }, a.refreshManagementSlotLevels = function () {
+          var e = this.findByPath(this.homeRoot, "球队/管理层");
+          if (e) for (var t = R(), n = 0, l = [["运营", "operationPresident"], ["教练", "headCoach"], ["球探", "scoutingDirector"], ["队医", "medicalTeam"], ["管理层-长方", "mediaTeam"]]; n < l.length; n++) {
+            var i,
+              a,
+              o,
+              r,
+              s,
+              u,
+              d = l[n],
+              h = d[0],
+              g = d[1],
+              m = this.findDescendantByName(e, h),
+              f = null != (i = null != (a = null == m ? void 0 : m.getComponent(oe)) ? a : null == m ? void 0 : m.getComponentInChildren(oe)) ? i : null;
+            if (f) f.setup("Lv." + t[g]);else {
+              var v = null != (o = null != (r = null == m || null == (s = m.getChildByName("等级")) ? void 0 : s.getComponent(c)) ? r : null == m || null == (u = m.getChildByName("LevelText")) ? void 0 : u.getComponent(c)) ? o : null;
+              v && (v.string = "Lv." + t[g]);
+            }
+          }
+        }, a.playTeamInfoEntrance = function () {
+          this.teamInfoPage && le(this.teamInfoPage, {
+            backgroundNodes: [this.teamInfoPage.getChildByName("遮罩"), this.teamInfoPage.getChildByName("bg"), this.teamInfoPage.getChildByName("内容背景")].filter(function (e) {
+              return Boolean(e);
+            }),
+            moduleGroups: [{
+              nodes: [this.teamInfoPage.getChildByName("球队信息"), this.teamInfoPage.getChildByName("关闭")].filter(function (e) {
+                return Boolean(e);
+              }),
+              order: 0
+            }, {
+              nodes: this.namedChildren(this.teamInfoPage, ["球队名"]),
+              order: 1
+            }, {
+              nodes: this.namedChildren(this.teamInfoPage, ["球队总评"]),
+              order: 2
+            }, {
+              nodes: this.namedChildren(this.teamInfoPage, ["最佳球员"]),
+              order: 3
+            }, {
+              nodes: this.namedChildren(this.teamInfoPage, ["累计招募次数"]),
+              order: 4
+            }, {
+              nodes: this.namedChildren(this.teamInfoPage, ["保存并关闭"]),
+              order: 5
+            }]
+          });
+        }, a.prepareAllButtonVisuals = function (e) {
+          for (var t, l = n(e.getComponents(r)); !(t = l()).done;) {
+            var i,
+              a,
+              s,
+              u,
+              h = t.value,
+              g = null != (i = null == (a = h.target) ? void 0 : a.getComponent(d)) ? i : h.node.getComponent(d);
+            h.hoverSprite = null, h !== this.recruitButtonWithPressedSprite && (h.pressedSprite = null), h.disabledSprite = null, !h.interactable && h.transition === r.Transition.SPRITE && h.normalSprite && g && (g.spriteFrame = h.normalSprite), this.buttonVisualBindings.push({
+              button: h,
+              sprite: g,
+              originalColor: null != (s = null == g ? void 0 : g.color.clone()) ? s : o.WHITE.clone(),
+              originalGrayscale: null != (u = null == g ? void 0 : g.grayscale) && u,
+              lastInteractable: null
+            });
+          }
+          for (var m, c = n(e.children); !(m = c()).done;) {
+            var f = m.value;
+            this.prepareAllButtonVisuals(f);
+          }
+        }, a.syncDisabledButtonVisuals = function (e) {
+          for (var t, l = n(this.buttonVisualBindings); !(t = l()).done;) {
+            var i,
+              a = t.value;
+            if (a.button.isValid) {
+              var o = a.button.interactable,
+                r = this.buttonGrayscaleOverrides.get(a.button);
+              if ((e || a.lastInteractable !== o || void 0 !== r) && (a.lastInteractable = o, null != (i = a.sprite) && i.isValid)) {
+                var s = null != r ? r : !o || a.originalGrayscale;
+                a.sprite.grayscale = s, void 0 !== r && (a.sprite.color = s ? Le.clone() : a.originalColor.clone());
+              }
+            }
+          }
+        }, a.setKnowledgeAnswerButtonState = function (e, t, n) {
+          var l, i, a;
+          e.interactable = t, this.buttonGrayscaleOverrides.set(e, n);
+          var o = this.buttonVisualBindings.find(function (t) {
+              return t.button === e;
+            }),
+            r = null != (l = null != (i = null == o ? void 0 : o.sprite) ? i : null == (a = e.target) ? void 0 : a.getComponent(d)) ? l : e.node.getComponent(d);
+          null != r && r.isValid && (r.grayscale = n, o && (r.color = n ? Le.clone() : o.originalColor.clone())), o && (o.lastInteractable = t);
+        }, a.bringToFront = function (e, t) {
+          if (void 0 === t && (t = !1), e) {
+            var n = e.parent;
+            n && e.setSiblingIndex(n.children.length - 1), t ? le(e) : e.active = !0;
+          }
+        }, a.setLabel = function (e, t, n) {
+          var l,
+            i = null == (l = this.findByPath(n, e)) ? void 0 : l.getComponent(c);
+          i && (i.string = t);
+        }, a.formatOverall = function (e) {
+          return e >= A ? "MAX" : Y(e);
+        }, a.formatPlayerServiceDuration = function (e) {
+          var t = Math.max(0, Math.floor(e / 1e3));
+          return Math.floor(t / 3600) + "H-" + Math.floor(t % 3600 / 60) + "M-" + t % 60 + "S";
+        }, a.resolveSceneReferences = function () {
+          var e, t, n, l, i, a, o, r, s, u, d, h;
+          this.canvas = this.node.parent, this.homeRoot = null != (e = null == (t = this.canvas) ? void 0 : t.getChildByName("主页")) ? e : null, this.teamInfoPage = null != (n = null == (l = this.canvas) ? void 0 : l.getChildByName("球队信息弹窗")) ? n : null, this.settingsPage = null != (i = null == (a = this.canvas) ? void 0 : a.getChildByName("设置弹窗")) ? i : null, this.playerDetailsPage = null != (o = null == (r = this.canvas) ? void 0 : r.getChildByName("球员详情页面")) ? o : null, this.managementPage = null != (s = null == (u = this.canvas) ? void 0 : u.getChildByName("管理层页面")) ? s : null, this.idleIncomeController = this.node.getComponent(se), this.topTeamInfoController = null != (d = null == (h = this.homeRoot) ? void 0 : h.getComponentInChildren(ee)) ? d : null;
+          var g = this.findByPath(this.homeRoot, "球队/阵容槽位");
+          this.rosterSlots = g ? g.children.map(function (e) {
+            return e.getComponent(X);
+          }).filter(function (e) {
+            return Boolean(e);
+          }).sort(function (e, t) {
+            return e.node.name.localeCompare(t.node.name, "zh-CN", {
+              numeric: !0
+            });
+          }) : [];
+        }, a.namedChildren = function (e, t) {
+          return t.flatMap(function (t) {
+            var n = e.getChildByName(t);
+            return n ? [n] : [];
+          });
+        }, a.findDescendantByName = function (e, t) {
+          if (e.name === t) return e;
+          for (var l, i = n(e.children); !(l = i()).done;) {
+            var a = l.value,
+              o = this.findDescendantByName(a, t);
+            if (o) return o;
+          }
+          return null;
+        }, a.findByPath = function (e, t) {
+          for (var l, i = e, a = n(t.split("/")); !(l = a()).done;) {
+            var o,
+              r,
+              s = l.value;
+            if (!(i = null != (o = null == (r = i) ? void 0 : r.getChildByName(s)) ? o : null)) return null;
+          }
+          return i;
+        }, i;
+      }(C)) || xe);
+      i._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/IdleIncomeController.ts", ["./rollupPluginModLoBabelHelpers.js", "cc", "./GameState.ts", "./RosterSlotView.ts", "./TeamLevelController.ts", "./NumberGrowthAnimator.ts", "./RewardedAdService.ts", "./FullScreenEntrance.ts"], function (e) {
+  var t, n, i, a, l, o, s, r, h, d, u, f, c, m, g, p, S, v, C, R, B, M, w, b, L, I, O, P;
+  return {
+    setters: [function (e) {
+      t = e.inheritsLoose, n = e.createForOfIteratorHelperLoose, i = e.asyncToGenerator;
+    }, function (e) {
+      a = e.cclegacy, l = e._decorator, o = e.Button, s = e.game, r = e.Game, h = e.Label, d = e.Component;
+    }, function (e) {
+      u = e.gameStateEvents, f = e.GAME_STATE_EVENT_MANAGEMENT_CHANGED, c = e.saveIdleState, m = e.add, g = e.loadJson, p = e.getManagementEffects, S = e.getBalance, v = e.loadIdleState;
+    }, function (e) {
+      C = e.formatPlayerOverall;
+    }, function (e) {
+      R = e.teamProgressionEvents, B = e.TEAM_PROGRESSION_EVENT_LEVEL_CHANGED, M = e.TeamLevelController, w = e.getStoredMarketValueLevel, b = e.getStoredTeamLevel;
+    }, function (e) {
+      L = e.setGrowingNumber;
+    }, function (e) {
+      I = e.showRewardedVideo;
+    }, function (e) {
+      O = e.playFullScreenEntrance, P = e.playFullScreenExit;
+    }],
+    execute: function execute() {
+      var y;
+      a._RF.push({}, "5664bpkR3BHf4sw2HrVBpQ4", "IdleIncomeController", void 0);
+      var E = l.ccclass;
+      e("IdleIncomeController", E("IdleIncomeController")(y = function (e) {
+        function a() {
+          for (var t, n = arguments.length, i = new Array(n), a = 0; a < n; a++) i[a] = arguments[a];
+          return (t = e.call.apply(e, [this].concat(i)) || this).homeRoot = null, t.page = null, t.closeButton = null, t.claimButton = null, t.adClaimButton = null, t.durationLabel = null, t.remainingLabel = null, t.reachedCapLabel = null, t.baseRewardLabel = null, t.mediaBonusLabel = null, t.claimRewardLabel = null, t.adRewardLabel = null, t.offlineIncomeRateLabel = null, t.onlineIncomeRateLabel = null, t.config = null, t.idleState = null, t.operationPresidentBonus = 0, t.mediaTeamBonus = 0, t.initialized = !1, t.adClaimProcessing = !1, t.onOnlineTick = function () {
+            t.initialized && t.flushOnlineIncome(Date.now());
+          }, t.onManagementChanged = function () {
+            t.refreshManagementEffects().then(function () {
+              return t.refreshPage();
+            });
+          }, t.onTeamLevelChanged = function () {
+            t.refreshHomeIncomeRateLabels(), t.refreshPage();
+          }, t;
+        }
+        t(a, e);
+        var l = a.prototype;
+        return l.onLoad = function () {
+          if (this.resolveSceneReferences(), !(this.page && this.closeButton && this.claimButton && this.adClaimButton)) return console.error("[IdleIncomeController] Missing offline income UI references."), void (this.enabled = !1);
+          this.page.active = !1;
+        }, l.onEnable = function () {
+          var e, t, n;
+          null == (e = this.closeButton) || e.node.on(o.EventType.CLICK, this.closePage, this), null == (t = this.claimButton) || t.node.on(o.EventType.CLICK, this.claimOfflineIncome, this), null == (n = this.adClaimButton) || n.node.on(o.EventType.CLICK, this.onAdClaimClicked, this), s.on(r.EVENT_HIDE, this.onGameHide, this), s.on(r.EVENT_SHOW, this.onGameShow, this), u.on(f, this.onManagementChanged, this), R.on(B, this.onTeamLevelChanged, this);
+        }, l.start = function () {
+          var e = this;
+          this.scheduleOnce(function () {
+            e.initialize();
+          }, .5);
+        }, l.onDisable = function () {
+          var e, t, n;
+          null == (e = this.closeButton) || e.node.off(o.EventType.CLICK, this.closePage, this), null == (t = this.claimButton) || t.node.off(o.EventType.CLICK, this.claimOfflineIncome, this), null == (n = this.adClaimButton) || n.node.off(o.EventType.CLICK, this.onAdClaimClicked, this), s.off(r.EVENT_HIDE, this.onGameHide, this), s.off(r.EVENT_SHOW, this.onGameShow, this), u.off(f, this.onManagementChanged, this), R.off(B, this.onTeamLevelChanged, this), this.unschedule(this.onOnlineTick);
+        }, l.initialize = function () {
+          var e = i( /*#__PURE__*/_regeneratorRuntime().mark(function _callee21() {
+            var e, t, n, i, a, l;
+            return _regeneratorRuntime().wrap(function _callee21$(_context22) {
+              while (1) switch (_context22.prev = _context22.next) {
+                case 0:
+                  e = this;
+                  _context22.prev = 1;
+                  _context22.next = 4;
+                  return Promise.all([g("data/balance/economy"), p()]);
+                case 4:
+                  t = _context22.sent;
+                  n = t[0];
+                  i = t[1];
+                  this.config = n, this.operationPresidentBonus = i.operationPresidentBudgetBonus, this.mediaTeamBonus = i.mediaTeamOfflineBudgetBonus, this.refreshHomeIncomeRateLabels(), S(n.initialBudget);
+                  a = Date.now();
+                  this.idleState = v(a);
+                  if (!(null !== this.idleState.offlineStartedAtMs)) {
+                    _context22.next = 14;
+                    break;
+                  }
+                  this.accumulateOfflineSeconds(a);
+                  _context22.next = 16;
+                  break;
+                case 14:
+                  _context22.next = 16;
+                  return this.flushOnlineIncome(a);
+                case 16:
+                  this.initialized = !0;
+                  l = Math.max(1, Math.floor(n.budgetSources.onlineIdle.claimTickSeconds));
+                  this.schedule(this.onOnlineTick, l), this.refreshPage(), this.shouldAutoOpenPage() && this.scheduleOnce(function () {
+                    return e.openPageForNewOfflineIncome();
+                  }, 0);
+                  _context22.next = 24;
+                  break;
+                case 21:
+                  _context22.prev = 21;
+                  _context22.t0 = _context22["catch"](1);
+                  console.error("[IdleIncomeController] Failed to initialize.", _context22.t0);
+                case 24:
+                case "end":
+                  return _context22.stop();
+              }
+            }, _callee21, this, [[1, 21]]);
+          }));
+          return function () {
+            return e.apply(this, arguments);
+          };
+        }(), l.onGameHide = function () {
+          var e = this;
+          if (this.initialized) {
+            var t = Date.now();
+            this.flushOnlineIncome(t)["finally"](function () {
+              e.idleState && (e.idleState.accrualStartedAtMs = t, e.idleState.lastOnlineTickAtMs = t, e.idleState.offlineStartedAtMs = t, e.idleState.hasRecordedOfflineSession = !0, c(e.idleState));
+            });
+          }
+        }, l.onGameShow = function () {
+          var e = this;
+          this.initialized && this.refreshManagementEffects().then(function () {
+            var t;
+            if (null !== (null == (t = e.idleState) ? void 0 : t.offlineStartedAtMs)) {
+              var n = Date.now();
+              e.accumulateOfflineSeconds(n), e.refreshPage(), e.shouldAutoOpenPage() && e.openPageForNewOfflineIncome();
+            }
+          });
+        }, l.flushOnlineIncome = function () {
+          var e = i( /*#__PURE__*/_regeneratorRuntime().mark(function _callee22(e) {
+            var t, n, i;
+            return _regeneratorRuntime().wrap(function _callee22$(_context23) {
+              while (1) switch (_context23.prev = _context23.next) {
+                case 0:
+                  if (!(this.config && this.idleState)) {
+                    _context23.next = 6;
+                    break;
+                  }
+                  _context23.next = 3;
+                  return this.refreshManagementEffects();
+                case 3:
+                  t = Math.max(0, (e - this.idleState.lastOnlineTickAtMs) / 1e3);
+                  if (t > 0) {
+                    n = this.getMarketValueMultiplier(), i = t / 60 * this.getOnlineBaseRewardPerMinute() * n * (1 + this.operationPresidentBonus);
+                    i > 0 && m(i);
+                  }
+                  this.idleState.lastOnlineTickAtMs = e, this.idleState.accrualStartedAtMs = e, c(this.idleState);
+                case 6:
+                case "end":
+                  return _context23.stop();
+              }
+            }, _callee22, this);
+          }));
+          return function (t) {
+            return e.apply(this, arguments);
+          };
+        }(), l.accumulateOfflineSeconds = function (e) {
+          if (this.config && this.idleState) {
+            var t = Math.max(0, 3600 * this.config.budgetSources.offlineIdle.maxAccrualHours),
+              n = this.idleState.offlineStartedAtMs;
+            if (null !== n) {
+              var i = Math.max(0, (e - n) / 1e3);
+              this.idleState.pendingOfflineSeconds = Math.min(t, this.idleState.pendingOfflineSeconds + i), this.idleState.unpromptedOfflineSeconds = Math.min(t, this.idleState.unpromptedOfflineSeconds + i), this.idleState.accrualStartedAtMs = e, this.idleState.lastOnlineTickAtMs = e, this.idleState.offlineStartedAtMs = null, c(this.idleState);
+            }
+          }
+        }, l.refreshManagementEffects = function () {
+          var e = i( /*#__PURE__*/_regeneratorRuntime().mark(function _callee23() {
+            var e;
+            return _regeneratorRuntime().wrap(function _callee23$(_context24) {
+              while (1) switch (_context24.prev = _context24.next) {
+                case 0:
+                  _context24.next = 2;
+                  return p();
+                case 2:
+                  e = _context24.sent;
+                  this.operationPresidentBonus = e.operationPresidentBudgetBonus, this.mediaTeamBonus = e.mediaTeamOfflineBudgetBonus, this.refreshHomeIncomeRateLabels();
+                case 4:
+                case "end":
+                  return _context24.stop();
+              }
+            }, _callee23, this);
+          }));
+          return function () {
+            return e.apply(this, arguments);
+          };
+        }(), l.claimOfflineIncome = function () {
+          this.adClaimProcessing || this.settleOfflineIncome(1);
+        }, l.onAdClaimClicked = function () {
+          this.claimDoubleOfflineIncome();
+        }, l.claimDoubleOfflineIncome = function () {
+          var e = i( /*#__PURE__*/_regeneratorRuntime().mark(function _callee24() {
+            var e;
+            return _regeneratorRuntime().wrap(function _callee24$(_context25) {
+              while (1) switch (_context25.prev = _context25.next) {
+                case 0:
+                  if (this.adClaimProcessing || this.getRewardSnapshot().totalReward < 1) {
+                    _context25.next = 11;
+                    break;
+                  }
+                  this.adClaimProcessing = !0, this.refreshPage();
+                  _context25.prev = 2;
+                  _context25.next = 5;
+                  return I();
+                case 5:
+                  _context25.t0 = _context25.sent;
+                  if (!_context25.t0) {
+                    _context25.next = 8;
+                    break;
+                  }
+                  this.settleOfflineIncome(2);
+                case 8:
+                  _context25.prev = 8;
+                  this.adClaimProcessing = !1, null != (e = this.page) && e.active && this.refreshPage();
+                  return _context25.finish(8);
+                case 11:
+                case "end":
+                  return _context25.stop();
+              }
+            }, _callee24, this, [[2,, 8, 11]]);
+          }));
+          return function () {
+            return e.apply(this, arguments);
+          };
+        }(), l.settleOfflineIncome = function (e) {
+          if (this.idleState) {
+            var t = this.getRewardSnapshot(e);
+            if (!(t.totalReward < 1)) {
+              m(t.totalReward);
+              var n = Date.now();
+              this.idleState.pendingOfflineSeconds = 0, this.idleState.unpromptedOfflineSeconds = 0, this.idleState.accrualStartedAtMs = n, this.idleState.lastOnlineTickAtMs = n, this.idleState.offlineStartedAtMs = null, c(this.idleState), this.closePage();
+            }
+          }
+        }, l.openPage = function () {
+          var e = this;
+          if (this.page) {
+            var t = this.page.parent;
+            t && this.page.setSiblingIndex(t.children.length - 1), this.refreshPage(!0), this.refreshManagementEffects().then(function () {
+              return e.refreshPage(!0);
+            }), O(this.page, {
+              backgroundNodes: [this.page.getChildByName("遮罩"), this.page.getChildByName("bg")].filter(function (e) {
+                return Boolean(e);
+              }),
+              moduleGroups: [{
+                nodes: [this.page.getChildByName("标题"), this.page.getChildByName("关闭")].filter(function (e) {
+                  return Boolean(e);
+                }),
+                order: 0
+              }, {
+                nodes: this.namedChildren(["计时"]),
+                order: 1
+              }, {
+                nodes: this.namedChildren(["基础收益"]),
+                order: 2
+              }, {
+                nodes: this.namedChildren(["媒体团队加成"]),
+                order: 3
+              }, {
+                nodes: this.namedChildren(["领取"]),
+                order: 4
+              }, {
+                nodes: this.namedChildren(["看广告双倍领取"]),
+                order: 5
+              }]
+            });
+          }
+        }, l.openPageForNewOfflineIncome = function () {
+          this.idleState && this.shouldAutoOpenPage() && (this.idleState.unpromptedOfflineSeconds = 0, c(this.idleState), this.openPage());
+        }, l.closePage = function () {
+          var e = this;
+          this.page && P(this.page).then(function () {
+            e.page.active = !1;
+          });
+        }, l.refreshPage = function (e) {
+          if (void 0 === e && (e = !1), this.config && this.idleState) {
+            var t = this.getRewardSnapshot(),
+              n = this.getRewardSnapshot(2),
+              i = 3600 * this.config.budgetSources.offlineIdle.maxAccrualHours,
+              a = Math.max(0, i - t.seconds);
+            this.durationLabel && (this.durationLabel.string = "已离线 " + this.formatDuration(t.seconds)), this.remainingLabel && (this.remainingLabel.node.active = a > 0, this.remainingLabel.string = a > 0 ? "距离上限还有 " + this.formatDuration(a) : "离线收益已达到上限"), this.reachedCapLabel && (this.reachedCapLabel.node.active = a <= 0), this.setRewardLabel(this.baseRewardLabel, t.baseReward, e), this.setRewardLabel(this.mediaBonusLabel, t.mediaBonusReward, e), this.setRewardLabel(this.claimRewardLabel, t.totalReward, e), this.setRewardLabel(this.adRewardLabel, n.totalReward, e), this.claimButton && (this.claimButton.interactable = t.totalReward >= 1 && !this.adClaimProcessing), this.adClaimButton && (this.adClaimButton.interactable = t.totalReward >= 1 && !this.adClaimProcessing);
+          }
+        }, l.getRewardSnapshot = function (e) {
+          return void 0 === e && (e = 1), this.config && this.idleState ? this.getRewardSnapshotForSeconds(this.idleState.pendingOfflineSeconds, e) : {
+            seconds: 0,
+            baseReward: 0,
+            mediaBonusReward: 0,
+            totalReward: 0
+          };
+        }, l.getRewardSnapshotForSeconds = function (e, t) {
+          if (void 0 === t && (t = 1), !this.config) return {
+            seconds: 0,
+            baseReward: 0,
+            mediaBonusReward: 0,
+            totalReward: 0
+          };
+          var n = Math.max(0, e),
+            i = Math.max(1, Math.floor(t)),
+            a = this.floorReward(n / 60 * this.getOfflineBaseRewardPerMinute() * this.getMarketValueMultiplier()),
+            l = a * i,
+            o = this.floorReward(a * Math.max(0, this.mediaTeamBonus)) * i;
+          return {
+            seconds: n,
+            baseReward: l,
+            mediaBonusReward: o,
+            totalReward: l + o
+          };
+        }, l.shouldAutoOpenPage = function () {
+          var e, t;
+          if (!this.idleState) return !1;
+          var n = 60 * Math.max(0, null != (e = null == (t = this.config) ? void 0 : t.budgetSources.offlineIdle.autoOpenMinimumMinutes) ? e : 30);
+          return this.idleState.hasRecordedOfflineSession && this.idleState.unpromptedOfflineSeconds >= n && this.getRewardSnapshot().totalReward >= 1;
+        }, l.getMarketValueMultiplier = function () {
+          var e,
+            t,
+            n = null != (e = null == (t = M.instance) || null == (t = t.getSnapshot()) ? void 0 : t.marketValueLevel) ? e : w();
+          return 1 + .02 * Math.max(0, n);
+        }, l.getCurrentTeamLevel = function () {
+          var e, t;
+          return Math.max(0, null != (e = null == (t = M.instance) || null == (t = t.getSnapshot()) ? void 0 : t.teamLevel) ? e : b());
+        }, l.getOnlineBaseRewardPerMinute = function () {
+          return 2 * this.getCurrentTeamLevel();
+        }, l.getOfflineBaseRewardPerMinute = function () {
+          return this.getCurrentTeamLevel();
+        }, l.refreshHomeIncomeRateLabels = function () {
+          if (this.config) {
+            var e = this.getMarketValueMultiplier(),
+              t = this.getOnlineBaseRewardPerMinute() * e * (1 + this.operationPresidentBonus),
+              n = this.getOfflineBaseRewardPerMinute() * e * (1 + this.mediaTeamBonus);
+            this.offlineIncomeRateLabel && (this.offlineIncomeRateLabel.string = "离线奖励：每分钟" + this.formatIncomeRate(n)), this.onlineIncomeRateLabel && (this.onlineIncomeRateLabel.string = "在线奖励：每分钟" + this.formatIncomeRate(t));
+          }
+        }, l.formatIncomeRate = function (e) {
+          return (Math.floor(10 * Math.max(0, e)) / 10).toFixed(1);
+        }, l.setRewardLabel = function (e, t, n) {
+          void 0 === n && (n = !1);
+          var i = this.floorReward(t);
+          L(e, i, function (e) {
+            return C(Math.floor(Math.max(0, e)));
+          }, {
+            animateGrowth: !0,
+            from: n ? 0 : void 0
+          });
+        }, l.floorReward = function (e) {
+          return Math.floor(Math.max(0, e));
+        }, l.formatDuration = function (e) {
+          var t = Math.max(0, Math.floor(e)),
+            n = Math.floor(t / 3600),
+            i = Math.floor(t % 3600 / 60);
+          return n + "小时" + String(i).padStart(2, "0") + "分";
+        }, l.resolveSceneReferences = function () {
+          var e,
+            t,
+            n,
+            i,
+            a,
+            l,
+            s,
+            r,
+            d,
+            u,
+            f,
+            c,
+            m,
+            g,
+            p,
+            S,
+            v,
+            C,
+            R,
+            B,
+            M,
+            w,
+            b,
+            L,
+            I,
+            O,
+            P = this.node.parent;
+          this.homeRoot = null != (e = null == P ? void 0 : P.getChildByName("主页")) ? e : null, this.page = null != (t = null == P ? void 0 : P.getChildByName("离线收益弹窗")) ? t : null, this.closeButton = null != (n = null == (i = this.page) || null == (i = i.getChildByName("关闭")) ? void 0 : i.getComponent(o)) ? n : null, this.claimButton = null != (a = null == (l = this.page) || null == (l = l.getChildByName("领取")) ? void 0 : l.getComponent(o)) ? a : null, this.adClaimButton = null != (s = null == (r = this.page) || null == (r = r.getChildByName("看广告双倍领取")) ? void 0 : r.getComponent(o)) ? s : null, this.durationLabel = null != (d = null == (u = this.findByPath(this.page, "计时/离线时长")) ? void 0 : u.getComponent(h)) ? d : null, this.remainingLabel = null != (f = null == (c = this.findByPath(this.page, "计时/剩余时间")) ? void 0 : c.getComponent(h)) ? f : null, this.reachedCapLabel = null != (m = null == (g = this.findByPath(this.page, "计时/已到上限")) ? void 0 : g.getComponent(h)) ? m : null, this.baseRewardLabel = null != (p = null == (S = this.findByPath(this.page, "基础收益/基础数值")) ? void 0 : S.getComponent(h)) ? p : null, this.mediaBonusLabel = null != (v = null == (C = this.findByPath(this.page, "媒体团队加成/加成数值")) ? void 0 : C.getComponent(h)) ? v : null, this.claimRewardLabel = null != (R = null == (B = this.findByPath(this.page, "领取/基础数值")) ? void 0 : B.getComponent(h)) ? R : null, this.adRewardLabel = null != (M = null == (w = this.findByPath(this.page, "看广告双倍领取/数值")) ? void 0 : w.getComponent(h)) ? M : null, this.offlineIncomeRateLabel = null != (b = null == (L = this.findDescendantByName(this.homeRoot, "离线奖励")) ? void 0 : L.getComponent(h)) ? b : null, this.onlineIncomeRateLabel = null != (I = null == (O = this.findDescendantByName(this.homeRoot, "在线奖励")) ? void 0 : O.getComponent(h)) ? I : null;
+        }, l.findByPath = function (e, t) {
+          for (var i, a = e, l = n(t.split("/")); !(i = l()).done;) {
+            var o,
+              s,
+              r = i.value;
+            if (!(a = null != (o = null == (s = a) ? void 0 : s.getChildByName(r)) ? o : null)) return null;
+          }
+          return a;
+        }, l.findDescendantByName = function (e, t) {
+          if (!e) return null;
+          for (var n = [e]; n.length > 0;) {
+            var i = n.pop();
+            if (i.name === t) return i;
+            n.push.apply(n, i.children);
+          }
+          return null;
+        }, l.namedChildren = function (e) {
+          var t = this;
+          return this.page ? e.flatMap(function (e) {
+            var n = t.page.getChildByName(e);
+            return n ? [n] : [];
+          }) : [];
+        }, a;
+      }(d)) || y);
+      a._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/LoadingController.ts", ["./rollupPluginModLoBabelHelpers.js", "cc", "./HomepagePreloader.ts", "./TapCloudSaveService.ts", "./StartupTiming.ts"], function (e) {
+  var t, s, r, o, a, i, n, l, d, u, p, h, c, g, m;
+  return {
+    setters: [function (e) {
+      t = e.applyDecoratedDescriptor, s = e.inheritsLoose, r = e.initializerDefineProperty, o = e.assertThisInitialized, a = e.asyncToGenerator;
+    }, function (e) {
+      i = e.cclegacy, n = e._decorator, l = e.ProgressBar, d = e.Label, u = e.director, p = e.Component;
+    }, function (e) {
+      h = e.preloadHomepageStaticAssets, c = e.preloadHomepageRuntimeAssets;
+    }, function (e) {
+      g = e.initializeTapCloudSave;
+    }, function (e) {
+      m = e.markStartupStage;
+    }],
+    execute: function execute() {
+      var P, f, S, b, L, y, C, v, H;
+      i._RF.push({}, "920dbfH201DRKPGS01ijUDH", "LoadingController", void 0);
+      var w = n.ccclass,
+        I = n.property,
+        T = "Homepage";
+      e("LoadingController", (P = w("LoadingController"), f = I(l), S = I(d), b = I(d), P((C = t((y = function (e) {
+        function t() {
+          for (var t, s = arguments.length, a = new Array(s), i = 0; i < s; i++) a[i] = arguments[i];
+          return t = e.call.apply(e, [this].concat(a)) || this, r(t, "progressBar", C, o(t)), r(t, "progressLabel", v, o(t)), r(t, "statusLabel", H, o(t)), t.targetProgress = 0, t.displayProgress = 0, t.elapsedSeconds = 0, t.dotElapsedSeconds = 0, t.dotCount = 0, t.retryCount = 0, t.homepagePreloadProgress = 0, t.cloudRestorePromise = Promise.resolve(), t.scenePreloadPromise = null, t.runtimePreloadPromise = null, t.loadComplete = !1, t.switchingScene = !1, t.stopped = !1, t.statusText = "正在初始化", t;
+        }
+        s(t, e);
+        var i = t.prototype;
+        return i.onLoad = function () {
+          if (m("loading-scene-onload"), null != this.progressBar || (this.progressBar = this.node.getComponentInChildren(l)), null != this.progressLabel || (this.progressLabel = this.findLabel("progress-num")), null != this.statusLabel || (this.statusLabel = this.findLabel("loading")), !this.progressBar || !this.progressLabel || !this.statusLabel) return console.error("[LoadingController] Missing ProgressBar, progress-num Label, or loading Label."), void (this.enabled = !1);
+          this.updateProgressUI(0), this.updateStatusUI();
+        }, i.start = function () {
+          var e = this;
+          this.enabled && (this.setStatus("正在读取存档并加载资源"), m("cloud-restore-start"), this.cloudRestorePromise = g().then(function () {
+            e.isValid && !e.stopped && (m("cloud-restore-ready"), e.setStatus("正在加载游戏资源"));
+          }), this.preloadHomepage());
+        }, i.update = function (e) {
+          this.stopped || (this.elapsedSeconds += e, this.updateLoadingDots(e), this.displayProgress < this.targetProgress && (this.displayProgress = Math.min(this.targetProgress, this.displayProgress + 4 * e), this.updateProgressUI(this.displayProgress)), this.loadComplete && this.elapsedSeconds >= .2 && this.displayProgress >= .999 && this.enterHomepage());
+        }, i.onDestroy = function () {
+          this.stopped = !0, this.unscheduleAllCallbacks();
+        }, i.preloadHomepage = function () {
+          var e = this;
+          m("homepage-static-start"), Promise.all([h().then(function () {
+            return m("homepage-static-ready");
+          }), this.preloadHomepageScene(), this.preloadHomepageRuntime()]).then(function () {
+            e.isValid && !e.stopped && (e.targetProgress = 1, e.loadComplete = !0, m("homepage-dependencies-ready"), e.setStatus("加载完成", !1));
+          })["catch"](function (t) {
+            e.isValid && !e.stopped && e.handleLoadError(t, function () {
+              return e.preloadHomepage();
+            });
+          });
+        }, i.preloadHomepageRuntime = function () {
+          var e = this;
+          return null != this.runtimePreloadPromise || (this.runtimePreloadPromise = this.cloudRestorePromise.then(a( /*#__PURE__*/_regeneratorRuntime().mark(function _callee25() {
+            return _regeneratorRuntime().wrap(function _callee25$(_context26) {
+              while (1) switch (_context26.prev = _context26.next) {
+                case 0:
+                  _context26.t0 = e.isValid && !e.stopped;
+                  if (!_context26.t0) {
+                    _context26.next = 6;
+                    break;
+                  }
+                  m("homepage-roster-warmup-start");
+                  _context26.next = 5;
+                  return c();
+                case 5:
+                  m("homepage-roster-warmup-ready");
+                case 6:
+                case "end":
+                  return _context26.stop();
+              }
+            }, _callee25);
+          })))["catch"](function (t) {
+            throw e.runtimePreloadPromise = null, t;
+          })), this.runtimePreloadPromise;
+        }, i.preloadHomepageScene = function () {
+          var e = this;
+          return null != this.scenePreloadPromise || (this.scenePreloadPromise = new Promise(function (t, s) {
+            m("homepage-scene-preload-start"), u.preloadScene(T, function (t, s) {
+              if (!(!e.isValid || e.stopped || s <= 0)) {
+                var r = Math.min(1, t / s);
+                e.homepagePreloadProgress = Math.max(e.homepagePreloadProgress, r), e.updateTargetProgress();
+              }
+            }, function (r) {
+              r ? s(r) : (m("homepage-scene-preload-ready"), e.homepagePreloadProgress = 1, e.isValid && !e.stopped && e.updateTargetProgress(), t());
+            });
+          })["catch"](function (t) {
+            throw e.scenePreloadPromise = null, t;
+          })), this.scenePreloadPromise;
+        }, i.updateTargetProgress = function () {
+          this.targetProgress = Math.max(this.targetProgress, .9 * this.homepagePreloadProgress);
+        }, i.handleLoadError = function (e, t) {
+          var s = this;
+          if (console.error("[LoadingController] Failed to load:", e), this.retryCount < 1) return this.retryCount += 1, this.setStatus("加载失败，正在重试"), void this.scheduleOnce(function () {
+            s.isValid && !s.stopped && t();
+          }, 1);
+          this.stopped = !0, this.setStatus("加载失败，请重新启动游戏", !1);
+        }, i.enterHomepage = function () {
+          var e = this;
+          this.switchingScene || (this.switchingScene = !0, this.updateProgressUI(1), this.setStatus("加载完成", !1), m("homepage-activation-start"), u.loadScene(T, function (t, s) {
+            if (t) return e.loadComplete = !1, e.switchingScene = !1, void e.handleLoadError(t, function () {
+              return e.enterHomepage();
+            });
+            m("homepage-scene-activated");
+          }));
+        }, i.updateProgressUI = function (e) {
+          var t = Math.max(0, Math.min(1, e));
+          this.progressBar && (this.progressBar.progress = t), this.progressLabel && (this.progressLabel.string = Math.floor(100 * t) + "%");
+        }, i.updateLoadingDots = function (e) {
+          this.loadComplete || (this.dotElapsedSeconds += e, this.dotElapsedSeconds < .35 || (this.dotElapsedSeconds = 0, this.dotCount = (this.dotCount + 1) % 4, this.updateStatusUI()));
+        }, i.setStatus = function (e, t) {
+          void 0 === t && (t = !0), this.statusText = e, t || (this.dotCount = 0), this.updateStatusUI(t);
+        }, i.updateStatusUI = function (e) {
+          void 0 === e && (e = !this.loadComplete), this.statusLabel && (this.statusLabel.string = this.statusText + (e ? ".".repeat(this.dotCount) : ""));
+        }, i.findLabel = function (e) {
+          var t;
+          return null != (t = this.node.getComponentsInChildren(d).find(function (t) {
+            return t.node.name === e;
+          })) ? t : null;
+        }, t;
+      }(p)).prototype, "progressBar", [f], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), v = t(y.prototype, "progressLabel", [S], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), H = t(y.prototype, "statusLabel", [b], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), L = y)) || L));
+      i._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/MagicCrystalBg.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (t) {
+  var e, i, r, a, n, o, l, s, c, u, p, h, f, m;
+  return {
+    setters: [function (t) {
+      e = t.applyDecoratedDescriptor, i = t.inheritsLoose, r = t.initializerDefineProperty, a = t.assertThisInitialized, n = t.asyncToGenerator;
+    }, function (t) {
+      o = t.cclegacy, l = t._decorator, s = t.Color, c = t.Sprite, u = t.Vec4, p = t.Component, h = t.Material, f = t.resources, m = t.EffectAsset;
+    }],
+    execute: function execute() {
+      var y, _, d, g, b, w, M, v, z, P, S, C, B, E, F, D, L;
+      o._RF.push({}, "bc082BwH6dFaoXL8Y9yLjcH", "MagicCrystalBg", void 0);
+      var x = l.ccclass,
+        T = l.property,
+        A = null,
+        H = null;
+      t("MagicCrystalBg", (y = x("MagicCrystalBg"), _ = T({
+        tooltip: "流动速度 0~2",
+        slide: !0,
+        range: [0, 2, .1]
+      }), d = T({
+        tooltip: "噪波缩放 1~10",
+        slide: !0,
+        range: [1, 10, .5]
+      }), g = T({
+        tooltip: "色带分界线浓度 0~1",
+        slide: !0,
+        range: [0, 1, .01]
+      }), b = T({
+        tooltip: "边缘光强度 0~1",
+        slide: !0,
+        range: [0, 1, .01]
+      }), w = T({
+        type: s,
+        tooltip: "颜色1"
+      }), M = T({
+        type: s,
+        tooltip: "颜色2"
+      }), v = T({
+        tooltip: "覆盖强度 0~1",
+        slide: !0,
+        range: [0, 1, .01]
+      }), y((S = e((P = function (t) {
+        function e() {
+          for (var e, i = arguments.length, n = new Array(i), o = 0; o < i; o++) n[o] = arguments[o];
+          return e = t.call.apply(t, [this].concat(n)) || this, r(e, "speed", S, a(e)), r(e, "noiseScale", C, a(e)), r(e, "bandWidth", B, a(e)), r(e, "rimStrength", E, a(e)), r(e, "color1", F, a(e)), r(e, "color2", D, a(e)), r(e, "mixFactor", L, a(e)), e._material = null, e._sprite = null, e._destroyed = !1, e;
+        }
+        i(e, t);
+        var o = e.prototype;
+        return o.onLoad = function () {
+          this._sprite = this.node.getComponent(c), this._sprite || console.warn("[MagicCrystalBg] 未找到 Sprite 组件。");
+        }, o.start = function () {
+          var t = n( /*#__PURE__*/_regeneratorRuntime().mark(function _callee26() {
+            var t;
+            return _regeneratorRuntime().wrap(function _callee26$(_context27) {
+              while (1) switch (_context27.prev = _context27.next) {
+                case 0:
+                  if (!this._sprite) {
+                    _context27.next = 5;
+                    break;
+                  }
+                  _context27.next = 3;
+                  return A ? Promise.resolve(A) : H || (H = new Promise(function (t) {
+                    f.load("effects/magic-crystal", m, function (e, i) {
+                      if (e || !i) return console.error("[MagicCrystalBg] Effect load failed.", e), void t(null);
+                      A = i, t(i);
+                    });
+                  }));
+                case 3:
+                  t = _context27.sent;
+                  !this._destroyed && t && (this.cleanupMaterial(), this._material = new h(), this._material.initialize({
+                    effectAsset: t,
+                    defines: {
+                      USE_TEXTURE: !0
+                    }
+                  }), this.syncParams(), this._sprite.customMaterial = this._material);
+                case 5:
+                case "end":
+                  return _context27.stop();
+              }
+            }, _callee26, this);
+          }));
+          return function () {
+            return t.apply(this, arguments);
+          };
+        }(), o.onEnable = function () {
+          this._sprite && this._material && (this._sprite.customMaterial = this._material);
+        }, o.onDisable = function () {
+          this.cleanupMaterial();
+        }, o.onDestroy = function () {
+          this._destroyed = !0, this._material && (this._material.destroy(), this._material = null);
+        }, o.syncParams = function () {
+          if (this._material) {
+            var t = this.color1,
+              e = this.color2;
+            this._material.setProperty("params", new u(this.speed, this.noiseScale, this.bandWidth, this.rimStrength)), this._material.setProperty("color1", new u(t.r / 255, t.g / 255, t.b / 255, t.a / 255)), this._material.setProperty("color2", new u(e.r / 255, e.g / 255, e.b / 255, e.a / 255)), this._material.setProperty("params2", new u(this.mixFactor, 0, 0, 0));
+          }
+        }, o.cleanupMaterial = function () {
+          this._sprite && this._material && this._sprite.isValid && this._sprite.customMaterial === this._material && (this._sprite.customMaterial = null), this._material && (this._material.destroy(), this._material = null);
+        }, e;
+      }(p)).prototype, "speed", [_], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 1;
+        }
+      }), C = e(P.prototype, "noiseScale", [d], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 3;
+        }
+      }), B = e(P.prototype, "bandWidth", [g], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return .5;
+        }
+      }), E = e(P.prototype, "rimStrength", [b], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return .5;
+        }
+      }), F = e(P.prototype, "color1", [w], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return new s(26, 77, 204, 255);
+        }
+      }), D = e(P.prototype, "color2", [M], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return new s(204, 51, 153, 255);
+        }
+      }), L = e(P.prototype, "mixFactor", [v], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return .6;
+        }
+      }), z = P)) || z));
+      o._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/ManagementController.ts", ["./rollupPluginModLoBabelHelpers.js", "cc", "./GameState.ts", "./FullScreenEntrance.ts", "./NumberGrowthAnimator.ts", "./RewardedAdService.ts", "./GameAudio.ts", "./TeamLevelController.ts"], function (e) {
+  var t, n, i, o, a, l, r, s, u, d, c, h, g, f, v, p, m, C, b, y, B, L, R, E, N, M, T, U, w, P, D, S, V, A;
+  return {
+    setters: [function (e) {
+      t = e.inheritsLoose, n = e.createForOfIteratorHelperLoose, i = e.createClass, o = e["extends"], a = e.asyncToGenerator;
+    }, function (e) {
+      l = e.cclegacy, r = e._decorator, s = e.Color, u = e.director, d = e.Label, c = e.Button, h = e.Sprite, g = e.ProgressBar, f = e.Component;
+    }, function (e) {
+      v = e.gameStateEvents, p = e.GAME_STATE_EVENT_BUDGET_CHANGED, m = e.GAME_STATE_EVENT_MANAGEMENT_CHANGED, C = e.loadManagementEffectsConfig, b = e.loadJson, y = e.loadManagementLevels, B = e.getBudget, L = e.canAffordBudget, R = e.upgradeManagementWithBudget, E = e.upgradeManagementWithAd;
+    }, function (e) {
+      N = e.stopFullScreenEntrance, M = e.playFullScreenEntrance, T = e.playFullScreenExit;
+    }, function (e) {
+      U = e.setGrowingNumber;
+    }, function (e) {
+      w = e.toRewardedActionCopy, P = e.showRewardedVideo;
+    }, function (e) {
+      D = e.gameAudio;
+    }, function (e) {
+      S = e.teamProgressionEvents, V = e.TEAM_PROGRESSION_EVENT_LEVEL_CHANGED, A = e.getStoredTeamLevel;
+    }],
+    execute: function execute() {
+      var F, H;
+      l._RF.push({}, "eb6efu13F1N9buNjelxjm/q", "ManagementController", void 0);
+      var G = r.ccclass,
+        x = 100,
+        k = new s(112, 112, 112, 255),
+        _ = ["operationPresident", "headCoach", "scoutingDirector", "medicalTeam", "mediaTeam"],
+        K = {
+          operationPresident: {
+            nodeName: "管理层-运营",
+            tabName: "运营",
+            effectDescription: "在线收益和比赛预算奖励",
+            effectKey: "operationPresidentBudgetBonus",
+            percentDisplay: !0
+          },
+          headCoach: {
+            nodeName: "管理层-教练",
+            tabName: "教练",
+            effectDescription: "比赛球队总评",
+            effectKey: "headCoachBattleOvrBonus",
+            percentDisplay: !0
+          },
+          scoutingDirector: {
+            nodeName: "管理层-球探",
+            tabName: "球探",
+            effectDescription: "招募池最高品质概率",
+            effectKey: "scoutingDirectorHighestQualityWeightBonus",
+            percentDisplay: !1,
+            percentagePointDisplay: !0
+          },
+          medicalTeam: {
+            nodeName: "管理层-队医",
+            tabName: "队医",
+            effectDescription: "伤病发生风险降低",
+            effectKey: "medicalTeamInjuryRiskReduction",
+            percentDisplay: !0
+          },
+          mediaTeam: {
+            nodeName: "管理层-媒体",
+            tabName: "媒体",
+            effectDescription: "离线收益",
+            effectKey: "mediaTeamOfflineBudgetBonus",
+            percentDisplay: !0
+          }
+        };
+      e("ManagementController", G("ManagementController")(((H = function (e) {
+        function l() {
+          for (var t, n = arguments.length, i = new Array(n), o = 0; o < n; o++) i[o] = arguments[o];
+          return (t = e.call.apply(e, [this].concat(i)) || this).navigationRoot = null, t.budgetLabel = null, t.backButton = null, t.roleViews = new Map(), t.tabButtons = new Map(), t.tabHandlers = new Map(), t.budgetUpgradeHandlers = new Map(), t.adUpgradeHandlers = new Map(), t.originalSpriteGrayscale = new WeakMap(), t.originalLabelColors = new WeakMap(), t.selectedTabSpriteFrame = null, t.unselectedTabSpriteFrame = null, t.selectedTabLabelColor = null, t.unselectedTabLabelColor = null, t.selectedRole = "operationPresident", t.effectsConfig = null, t.economyConfig = null, t.loadingPromise = null, t.budgetUpgradeProcessing = !1, t.adUpgradeProcessing = !1, t.eventsBound = !1, t;
+        }
+        t(l, e);
+        var r = l.prototype;
+        return r.onLoad = function () {
+          l.instance = this, this.resolveHierarchy(), this.initializeVisibility();
+        }, r.onEnable = function () {
+          this.resolveHierarchy(), this.bindEvents();
+        }, r.onDisable = function () {
+          this.unbindEvents();
+        }, r.onDestroy = function () {
+          this.unbindEvents(), l.instance === this && (l.instance = null);
+        }, r.openManagement = function (e) {
+          var t,
+            i,
+            o = this;
+          if (this.resolveHierarchy(), this.navigationRoot && this.roleViews.size === _.length) {
+            var a = e && _.includes(e) ? e : this.selectedRole;
+            this.selectedRole = a;
+            for (var l, r = n(this.roleViews); !(l = r()).done;) {
+              var s = l.value,
+                u = s[0];
+              s[1].root.active = u === a;
+            }
+            this.refreshTabStates(), this.navigationRoot.active = !0, this.navigationRoot.setSiblingIndex(Math.max(0, (null != (t = null == (i = this.navigationRoot.parent) ? void 0 : i.children.length) ? t : 1) - 1)), this.refreshCurrentRole(!1), this.ensureConfigurations().then(function () {
+              return o.refreshCurrentRole(!1);
+            }), this.playCombinedEntrance(a);
+          } else console.error("[ManagementController] Management navigation or role content is missing.");
+        }, r.switchRole = function (e) {
+          var t,
+            i,
+            o = this;
+          if (_.includes(e)) {
+            if (this.resolveHierarchy(), this.navigationRoot && this.navigationRoot.active) {
+              if (e !== this.selectedRole || null == (t = this.roleViews.get(e)) || !t.root.active) {
+                N(this.navigationRoot);
+                for (var a, l = n(this.roleViews); !(a = l()).done;) {
+                  var r = a.value,
+                    s = r[0],
+                    u = r[1];
+                  this.resetEntrance(u.root), u.root.active = s === e;
+                }
+                this.selectedRole = e, this.refreshTabStates(), this.refreshCurrentRole(!1), this.ensureConfigurations().then(function () {
+                  return o.refreshCurrentRole(!1);
+                });
+                var d = null == (i = this.roleViews.get(e)) ? void 0 : i.root;
+                d && M(d);
+              }
+            } else this.openManagement(e);
+          } else console.warn("[ManagementController] Unknown management role.", e);
+        }, r.closeManagement = function () {
+          var e = this;
+          this.resolveHierarchy(), this.navigationRoot && this.navigationRoot.active && T(this.navigationRoot).then(function () {
+            for (var t, i = n(e.roleViews.values()); !(t = i()).done;) {
+              t.value.root.active = !1;
+            }
+            e.navigationRoot.active = !1;
+          });
+        }, r.resolveHierarchy = function () {
+          var e,
+            t,
+            n,
+            i,
+            o,
+            a = u.getScene();
+          if (a && (this.navigationRoot = null != (e = this.findDescendantByName(a, "管理层-导航")) ? e : this.findCompatibleNavigationRoot(a), this.navigationRoot)) {
+            this.budgetLabel = null != (t = null == (n = this.findByPath(this.navigationRoot, "顶部/预算/预算数量")) ? void 0 : n.getComponent(d)) ? t : null, this.backButton = null != (i = null == (o = this.findByPath(this.navigationRoot, "顶部/返回")) ? void 0 : o.getComponent(c)) ? i : null;
+            for (var l = 0, r = _; l < r.length; l++) {
+              var s,
+                h = r[l],
+                g = K[h],
+                f = this.findDescendantByName(this.navigationRoot, g.nodeName);
+              if (f) {
+                var v = this.createRoleView(f);
+                this.roleViews.set(h, v);
+                var p = null == (s = this.findByPath(this.navigationRoot, "五个管理层/" + g.tabName)) ? void 0 : s.getComponent(c);
+                p && this.tabButtons.set(h, p);
+              }
+            }
+            this.captureTabVisualTemplates();
+          }
+        }, r.captureTabVisualTemplates = function () {
+          var e, t, n, i, o, a, l, r, s, u;
+          if (!(this.selectedTabSpriteFrame && this.unselectedTabSpriteFrame && this.selectedTabLabelColor && this.unselectedTabLabelColor)) {
+            var c = this.tabButtons.get("operationPresident"),
+              g = this.tabButtons.get("headCoach");
+            this.selectedTabSpriteFrame = null != (e = null != (t = null == c ? void 0 : c.normalSprite) ? t : null == c || null == (n = c.target) || null == (n = n.getComponent(h)) ? void 0 : n.spriteFrame) ? e : null, this.unselectedTabSpriteFrame = null != (i = null != (o = null == g ? void 0 : g.normalSprite) ? o : null == g || null == (a = g.target) || null == (a = a.getComponent(h)) ? void 0 : a.spriteFrame) ? i : null, this.selectedTabLabelColor = null != (l = null == c || null == (r = c.node.getChildByName("Label")) || null == (r = r.getComponent(d)) ? void 0 : r.color.clone()) ? l : null, this.unselectedTabLabelColor = null != (s = null == g || null == (u = g.node.getChildByName("Label")) || null == (u = u.getComponent(d)) ? void 0 : u.color.clone()) ? s : null;
+          }
+        }, r.refreshTabStates = function () {
+          this.captureTabVisualTemplates();
+          for (var e, t = n(this.tabButtons); !(e = t()).done;) {
+            var i,
+              o,
+              a,
+              l = e.value,
+              r = l[0],
+              s = l[1],
+              u = r === this.selectedRole,
+              c = u ? this.selectedTabSpriteFrame : this.unselectedTabSpriteFrame,
+              g = null != (i = null == (o = s.target) ? void 0 : o.getComponent(h)) ? i : s.node.getComponent(h);
+            c && (s.normalSprite = c, g && (g.spriteFrame = c));
+            var f = u ? this.selectedTabLabelColor : this.unselectedTabLabelColor,
+              v = null == (a = s.node.getChildByName("Label")) ? void 0 : a.getComponent(d);
+            f && v && (v.color = f.clone());
+          }
+        }, r.createRoleView = function (e) {
+          var t,
+            n,
+            i,
+            o,
+            a,
+            l,
+            r,
+            s,
+            u,
+            h,
+            f,
+            v,
+            p,
+            m,
+            C,
+            b,
+            y,
+            B,
+            L,
+            R,
+            E,
+            N,
+            M,
+            T,
+            U,
+            w,
+            P,
+            D,
+            S = e.getChildByName("效果"),
+            V = null != (t = null == S ? void 0 : S.children.find(function (e) {
+              return "当前效果" === e.name && null !== e.getChildByName("效果数值");
+            })) ? t : null,
+            A = null != (n = null == S ? void 0 : S.getChildByName("下级效果")) ? n : null,
+            F = null != (i = null == (o = e.getChildByName("使用预算升级")) ? void 0 : o.getComponent(c)) ? i : null,
+            H = null != (a = null == (l = e.getChildByName("看广告升级")) ? void 0 : l.getComponent(c)) ? a : null;
+          return {
+            root: e,
+            levelLabel: null != (r = null == (s = this.findByPath(e, "图/等级")) ? void 0 : s.getComponent(d)) ? r : null,
+            progressBar: null != (u = null == (h = this.findByPath(e, "图/ProgressBar")) ? void 0 : h.getComponent(g)) ? u : null,
+            currentDescriptionLabel: null != (f = null == V || null == (v = V.getChildByName("效果描述")) ? void 0 : v.getComponent(d)) ? f : null,
+            currentEffectLabel: null != (p = null == V || null == (m = V.getChildByName("效果数值")) ? void 0 : m.getComponent(d)) ? p : null,
+            nextDescriptionLabel: null != (C = null == A || null == (b = A.getChildByName("效果描述")) ? void 0 : b.getComponent(d)) ? C : null,
+            nextEffectLabel: null != (y = null == A || null == (B = A.getChildByName("下级效果数值")) ? void 0 : B.getComponent(d)) ? y : null,
+            deltaEffectLabel: null != (L = null == A || null == (R = A.getChildByName("升级提升数值")) ? void 0 : R.getComponent(d)) ? L : null,
+            hintLabel: null != (E = null == (N = this.findByPath(S, "提示/提示")) ? void 0 : N.getComponent(d)) ? E : null,
+            costLabel: null != (M = null == (T = this.findByPath(e, "升级消耗/消耗数值")) ? void 0 : T.getComponent(d)) ? M : null,
+            budgetUpgradeButton: F,
+            budgetUpgradeButtonLabel: null != (U = null == F || null == (w = F.node.getChildByName("Label")) ? void 0 : w.getComponent(d)) ? U : null,
+            adUpgradeButton: H,
+            adUpgradeButtonLabel: null != (P = null == H || null == (D = H.node.getChildByName("Label")) ? void 0 : D.getComponent(d)) ? P : null
+          };
+        }, r.initializeVisibility = function () {
+          if (this.navigationRoot) if (this.roleViews.size === _.length) {
+            if (this.navigationRoot.active) for (var e, t = n(this.roleViews); !(e = t()).done;) {
+              var i = e.value,
+                o = i[0];
+              i[1].root.active = o === this.selectedRole;
+            } else for (var a, l = n(this.roleViews.values()); !(a = l()).done;) {
+              a.value.root.active = !1;
+            }
+          } else this.navigationRoot.active = !1;
+        }, r.bindEvents = function () {
+          var e,
+            t = this;
+          if (!this.eventsBound) {
+            this.eventsBound = !0, null == (e = this.backButton) || e.node.on(c.EventType.CLICK, this.closeManagement, this);
+            for (var n = function n() {
+                var e,
+                  n,
+                  a,
+                  l = o[i],
+                  r = function r() {
+                    return t.switchRole(l);
+                  },
+                  s = function s() {
+                    t.onBudgetUpgradeClicked(l);
+                  },
+                  u = function u() {
+                    t.onAdUpgradeClicked(l);
+                  };
+                t.tabHandlers.set(l, r), t.budgetUpgradeHandlers.set(l, s), t.adUpgradeHandlers.set(l, u), null == (e = t.tabButtons.get(l)) || e.node.on(c.EventType.CLICK, r, t), null == (n = t.roleViews.get(l)) || null == (n = n.budgetUpgradeButton) || n.node.on(c.EventType.CLICK, s, t), null == (a = t.roleViews.get(l)) || null == (a = a.adUpgradeButton) || a.node.on(c.EventType.CLICK, u, t);
+              }, i = 0, o = _; i < o.length; i++) n();
+            v.on(p, this.onBudgetChanged, this), v.on(m, this.onManagementChanged, this), S.on(V, this.onTeamLevelChanged, this);
+          }
+        }, r.unbindEvents = function () {
+          var e;
+          if (this.eventsBound) {
+            this.eventsBound = !1, null == (e = this.backButton) || e.node.off(c.EventType.CLICK, this.closeManagement, this);
+            for (var t = 0, n = _; t < n.length; t++) {
+              var i,
+                o,
+                a,
+                l = n[t],
+                r = this.tabHandlers.get(l),
+                s = this.budgetUpgradeHandlers.get(l),
+                u = this.adUpgradeHandlers.get(l);
+              if (r) null == (i = this.tabButtons.get(l)) || i.node.off(c.EventType.CLICK, r, this);
+              if (s) null == (o = this.roleViews.get(l)) || null == (o = o.budgetUpgradeButton) || o.node.off(c.EventType.CLICK, s, this);
+              if (u) null == (a = this.roleViews.get(l)) || null == (a = a.adUpgradeButton) || a.node.off(c.EventType.CLICK, u, this);
+            }
+            this.tabHandlers.clear(), this.budgetUpgradeHandlers.clear(), this.adUpgradeHandlers.clear(), v.off(p, this.onBudgetChanged, this), v.off(m, this.onManagementChanged, this), S.off(V, this.onTeamLevelChanged, this);
+          }
+        }, r.onBudgetUpgradeClicked = function () {
+          var e = a( /*#__PURE__*/_regeneratorRuntime().mark(function _callee27(e) {
+            var t, n;
+            return _regeneratorRuntime().wrap(function _callee27$(_context28) {
+              while (1) switch (_context28.prev = _context28.next) {
+                case 0:
+                  if (!(!this.budgetUpgradeProcessing && !this.adUpgradeProcessing)) {
+                    _context28.next = 17;
+                    break;
+                  }
+                  t = y()[e];
+                  if (!this.canUpgrade(e, !0)) {
+                    _context28.next = 17;
+                    break;
+                  }
+                  this.budgetUpgradeProcessing = !0, this.refreshCurrentRole(!1);
+                  _context28.prev = 4;
+                  _context28.next = 7;
+                  return R(e, A());
+                case 7:
+                  n = y()[e] > t;
+                  n && D.playUpgradeSuccess(), this.refreshCurrentRole(n);
+                  _context28.next = 14;
+                  break;
+                case 11:
+                  _context28.prev = 11;
+                  _context28.t0 = _context28["catch"](4);
+                  console.error("[ManagementController] Budget upgrade failed.", _context28.t0);
+                case 14:
+                  _context28.prev = 14;
+                  this.budgetUpgradeProcessing = !1, this.refreshCurrentRole(!1);
+                  return _context28.finish(14);
+                case 17:
+                case "end":
+                  return _context28.stop();
+              }
+            }, _callee27, this, [[4, 11, 14, 17]]);
+          }));
+          return function (t) {
+            return e.apply(this, arguments);
+          };
+        }(), r.onAdUpgradeClicked = function () {
+          var e = a( /*#__PURE__*/_regeneratorRuntime().mark(function _callee28(e) {
+            var t, n;
+            return _regeneratorRuntime().wrap(function _callee28$(_context29) {
+              while (1) switch (_context29.prev = _context29.next) {
+                case 0:
+                  if (!(!this.adUpgradeProcessing && !this.budgetUpgradeProcessing && this.canUpgrade(e, !1))) {
+                    _context29.next = 19;
+                    break;
+                  }
+                  this.adUpgradeProcessing = !0, this.refreshCurrentRole(!1);
+                  _context29.prev = 2;
+                  _context29.next = 5;
+                  return P();
+                case 5:
+                  if (_context29.sent) {
+                    _context29.next = 7;
+                    break;
+                  }
+                  return _context29.abrupt("return");
+                case 7:
+                  t = y()[e];
+                  E(e, A());
+                  n = y()[e] > t;
+                  this.refreshCurrentRole(n);
+                  _context29.next = 16;
+                  break;
+                case 13:
+                  _context29.prev = 13;
+                  _context29.t0 = _context29["catch"](2);
+                  console.error("[ManagementController] Ad upgrade failed.", _context29.t0);
+                case 16:
+                  _context29.prev = 16;
+                  this.adUpgradeProcessing = !1, this.refreshCurrentRole(!1);
+                  return _context29.finish(16);
+                case 19:
+                case "end":
+                  return _context29.stop();
+              }
+            }, _callee28, this, [[2, 13, 16, 19]]);
+          }));
+          return function (t) {
+            return e.apply(this, arguments);
+          };
+        }(), r.onBudgetChanged = function () {
+          this.refreshCurrentRole(!1);
+        }, r.onManagementChanged = function () {
+          this.refreshCurrentRole(!0);
+        }, r.onTeamLevelChanged = function () {
+          this.refreshCurrentRole(!1);
+        }, r.ensureConfigurations = function () {
+          var e = this;
+          return null != this.loadingPromise || (this.loadingPromise = Promise.all([C(), b("data/balance/economy")]).then(function (t) {
+            var n = t[0],
+              i = t[1];
+            e.effectsConfig = n, e.economyConfig = i;
+          })["catch"](function (e) {
+            console.error("[ManagementController] Failed to load management configuration.", e);
+          })), this.loadingPromise;
+        }, r.refreshCurrentRole = function (e) {
+          var t,
+            n,
+            i = this,
+            o = this.roleViews.get(this.selectedRole);
+          if (o) {
+            var a = this.selectedRole,
+              l = K[a],
+              r = y()[a],
+              s = A(),
+              u = r >= Math.min(x, s),
+              d = this.getEffectRow(r),
+              c = this.getEffectRow(r + 1),
+              h = null != (t = null == d ? void 0 : d[l.effectKey]) ? t : 0,
+              g = null != (n = null == c ? void 0 : c[l.effectKey]) ? n : h,
+              f = Math.max(0, g - h),
+              v = this.getUpgradeCost(r),
+              p = B(),
+              m = !u && null !== v && L(v) && !this.budgetUpgradeProcessing && !this.adUpgradeProcessing,
+              C = !u && !this.budgetUpgradeProcessing && !this.adUpgradeProcessing;
+            U(this.budgetLabel, p, function (e) {
+              return String(Math.floor(e));
+            }, {
+              animateGrowth: e
+            }), U(o.levelLabel, r, function (e) {
+              return "Lv. " + Math.floor(e) + " / " + x;
+            }, {
+              animateGrowth: e
+            }), o.progressBar && (o.progressBar.progress = Math.max(0, Math.min(1, r / x))), o.currentDescriptionLabel && (o.currentDescriptionLabel.string = l.effectDescription), o.nextDescriptionLabel && (o.nextDescriptionLabel.string = l.effectDescription), U(o.currentEffectLabel, h, function (e) {
+              return i.formatEffect(e, l.percentDisplay, l.percentagePointDisplay);
+            }, {
+              animateGrowth: e
+            }), U(o.nextEffectLabel, g, function (e) {
+              return i.formatEffect(e, l.percentDisplay, l.percentagePointDisplay);
+            }, {
+              animateGrowth: e
+            }), U(o.deltaEffectLabel, f, function (e) {
+              return i.formatEffect(e, l.percentDisplay, l.percentagePointDisplay);
+            }, {
+              animateGrowth: e
+            }), U(o.costLabel, null != v ? v : 0, function (e) {
+              return u ? "MAX" : String(Math.floor(e));
+            }, {
+              animateGrowth: e
+            }), o.hintLabel && (o.hintLabel.string = r >= x ? "已达到100级上限" : r >= s ? "管理层等级不能超过球队等级" : m ? "升级后效果立即生效" : w("预算不足，可观看广告免费升级")), o.budgetUpgradeButtonLabel && (o.budgetUpgradeButtonLabel.string = u ? "已达上限" : m ? "升级" : "预算不足"), o.adUpgradeButtonLabel && (o.adUpgradeButtonLabel.string = u ? "已达上限" : "免费升级"), this.setButtonAvailable(o.budgetUpgradeButton, m), this.setButtonAvailable(o.adUpgradeButton, C);
+          }
+        }, r.canUpgrade = function (e, t) {
+          var n = y()[e];
+          if (n >= Math.min(x, A())) return !1;
+          if (!t) return !0;
+          var i = this.getUpgradeCost(n);
+          return null !== i && L(i);
+        }, r.getEffectRow = function (e) {
+          var t, n, i;
+          if (null == (t = this.effectsConfig) || !t.levelEffects.length) return null;
+          var o = Math.min(x, Math.max(0, Math.floor(e)));
+          return null != (n = null != (i = this.effectsConfig.levelEffects.find(function (e) {
+            return e.managementLevel === o;
+          })) ? i : this.effectsConfig.levelEffects[Math.min(o, this.effectsConfig.levelEffects.length - 1)]) ? n : null;
+        }, r.getUpgradeCost = function (e) {
+          var t,
+            n = null == (t = this.economyConfig) ? void 0 : t.managementUpgradeCost;
+          return !n || e >= Math.min(x, n.maxLevel) ? null : Number.isFinite(n.currentLevelBudgetMultiplier) && Number.isFinite(n.currentLevelOffset) ? (Math.max(0, Math.floor(e)) + Math.max(0, Math.floor(n.currentLevelOffset))) * Math.max(0, Math.floor(n.currentLevelBudgetMultiplier)) : null;
+        }, r.formatEffect = function (e, t, n) {
+          void 0 === n && (n = !1);
+          var i = Number.isFinite(e) ? Math.max(0, e) : 0;
+          return t ? "+" + this.trimTrailingZeros(100 * i) + "%" : n ? "+" + this.trimTrailingZeros(i) + "%" : "+" + this.trimTrailingZeros(i);
+        }, r.trimTrailingZeros = function (e) {
+          return e.toFixed(2).replace(/\.?0+$/, "");
+        }, r.setButtonAvailable = function (e, t) {
+          if (e) {
+            e.enabled = !0, e.interactable = t, e.hoverSprite = null, e.disabledSprite = null;
+            for (var i, o = n(e.node.getComponentsInChildren(h)); !(i = o()).done;) {
+              var a,
+                l = i.value,
+                r = null != (a = this.originalSpriteGrayscale.get(l)) ? a : l.grayscale;
+              this.originalSpriteGrayscale.set(l, r), l.grayscale = !t || r;
+            }
+            for (var s, u = n(e.node.getComponentsInChildren(d)); !(s = u()).done;) {
+              var c,
+                g = s.value,
+                f = null != (c = this.originalLabelColors.get(g)) ? c : g.color.clone();
+              this.originalLabelColors.set(g, f), g.color = t ? f.clone() : k.clone();
+            }
+          }
+        }, r.playCombinedEntrance = function (e) {
+          var t;
+          if (this.navigationRoot) {
+            var n = null == (t = this.roleViews.get(e)) ? void 0 : t.root;
+            if (n) {
+              var i = this.navigationRoot.getChildByName("bg"),
+                o = this.navigationRoot.getChildByName("顶部"),
+                a = this.navigationRoot.getChildByName("五个管理层"),
+                l = n.getChildByName("图"),
+                r = n.getChildByName("效果"),
+                s = n.getChildByName("升级消耗"),
+                u = n.getChildByName("使用预算升级"),
+                d = n.getChildByName("看广告升级");
+              M(this.navigationRoot, {
+                backgroundNodes: i ? [i] : [],
+                moduleGroups: [{
+                  nodes: [o, a].filter(function (e) {
+                    return Boolean(e);
+                  }),
+                  order: 0
+                }, {
+                  nodes: [l].filter(function (e) {
+                    return Boolean(e);
+                  }),
+                  order: 1
+                }, {
+                  nodes: [r].filter(function (e) {
+                    return Boolean(e);
+                  }),
+                  order: 2
+                }, {
+                  nodes: [s].filter(function (e) {
+                    return Boolean(e);
+                  }),
+                  order: 3
+                }, {
+                  nodes: [u, d].filter(function (e) {
+                    return Boolean(e);
+                  }),
+                  order: 4
+                }]
+              });
+            }
+          }
+        }, r.resetEntrance = function (e) {
+          N(e);
+        }, r.findCompatibleNavigationRoot = function (e) {
+          var t = this,
+            n = this.findDescendantByName(e, "管理层页面");
+          return n && _.every(function (e) {
+            return t.findDescendantByName(n, K[e].nodeName);
+          }) ? n : null;
+        }, r.findDescendantByName = function (e, t) {
+          if (e.name === t) return e;
+          for (var i, o = n(e.children); !(i = o()).done;) {
+            var a = i.value,
+              l = this.findDescendantByName(a, t);
+            if (l) return l;
+          }
+          return null;
+        }, r.findByPath = function (e, t) {
+          for (var i, o = e, a = n(t.split("/")); !(i = a()).done;) {
+            var l,
+              r,
+              s = i.value;
+            if (!(o = null != (l = null == (r = o) ? void 0 : r.getChildByName(s)) ? l : null)) return null;
+          }
+          return o;
+        }, i(l, [{
+          key: "currentRole",
+          get: function get() {
+            return this.selectedRole;
+          }
+        }, {
+          key: "managementLevelsSnapshot",
+          get: function get() {
+            return o({}, y());
+          }
+        }]), l;
+      }(f)).instance = null, F = H)) || F);
+      l._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/ManagerSlotView.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (e) {
+  var t, n, l, i, o, r, u, a, p, s;
+  return {
+    setters: [function (e) {
+      t = e.applyDecoratedDescriptor, n = e.inheritsLoose, l = e.initializerDefineProperty, i = e.assertThisInitialized;
+    }, function (e) {
+      o = e.cclegacy, r = e._decorator, u = e.Sprite, a = e.Label, p = e.Button, s = e.Component;
+    }],
+    execute: function execute() {
+      var c, h, g, d, b, f, v, m, y;
+      o._RF.push({}, "41008hGiwRI6JubA5qLFukl", "ManagerSlotView", void 0);
+      var C = r.ccclass,
+        L = r.property;
+      e("ManagerSlotView", (c = C("ManagerSlotView"), h = L(u), g = L(a), d = L(p), c((v = t((f = function (e) {
+        function t() {
+          for (var t, n = arguments.length, o = new Array(n), r = 0; r < n; r++) o[r] = arguments[r];
+          return t = e.call.apply(e, [this].concat(o)) || this, l(t, "icon", v, i(t)), l(t, "titleLabel", m, i(t)), l(t, "openButton", y, i(t)), t;
+        }
+        n(t, e);
+        var o = t.prototype;
+        return o.onLoad = function () {
+          var e, t, n, l;
+          null != this.titleLabel || (this.titleLabel = null != (e = null != (t = null == (n = this.node.getChildByName("等级")) ? void 0 : n.getComponent(a)) ? t : null == (l = this.node.getChildByName("LevelText")) ? void 0 : l.getComponent(a)) ? e : null), this.openButton = this.resolveOpenButton();
+        }, o.resolveOpenButton = function () {
+          var e, t, n, l, i, o;
+          return null != (e = null != (t = null != (n = null != (l = null == (i = this.node.getChildByName("bg")) ? void 0 : i.getComponent(p)) ? l : null == (o = this.node.getChildByName("背景")) ? void 0 : o.getComponent(p)) ? n : this.node.getComponent(p)) ? t : this.node.getComponentInChildren(p)) ? e : null;
+        }, o.setup = function (e) {
+          this.titleLabel && (this.titleLabel.string = e);
+        }, t;
+      }(s)).prototype, "icon", [h], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), m = t(f.prototype, "titleLabel", [g], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), y = t(f.prototype, "openButton", [d], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), b = f)) || b));
+      o._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/MatchCommentarySelector.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (e) {
+  var t, r;
+  return {
+    setters: [function (e) {
+      t = e.createForOfIteratorHelperLoose;
+    }, function (e) {
+      r = e.cclegacy;
+    }],
+    execute: function execute() {
+      r._RF.push({}, "f3405MSLlZMPJyiSP5PW+6K", "MatchCommentarySelector", void 0);
+      e("MatchCommentarySelector", function () {
+        function e(e) {
+          this.rules = void 0, this.lastEventByRule = new Map(), this.triggerCountByRule = new Map(), this.usedTexts = new Set(), this.rules = this.readRules(e);
+        }
+        e.fromJsonAsset = function (t) {
+          return new e(t.json);
+        };
+        var r = e.prototype;
+        return r.resetMatchState = function () {
+          this.lastEventByRule.clear(), this.triggerCountByRule.clear(), this.usedTexts.clear();
+        }, r.select = function (e) {
+          var r = this,
+            n = this.rules.filter(function (t) {
+              return r.matches(t, e);
+            });
+          if (0 === n.length) return null;
+          for (var o, i, s = Array.from(new Set(n.map(function (e) {
+              var t;
+              return null != (t = e.priority) ? t : 0;
+            }))).sort(function (e, t) {
+              return t - e;
+            }), c = function c() {
+              var t = i.value,
+                o = n.filter(function (e) {
+                  var r;
+                  return (null != (r = e.priority) ? r : 0) === t;
+                }).filter(function (t) {
+                  return !r.isCoolingDown(t, e.event.index);
+                }).filter(function (e) {
+                  return !r.hasReachedTriggerLimit(e);
+                }).filter(function (t) {
+                  return r.passesChance(t, e);
+                });
+              if (0 === o.length) return 0;
+              for (var s = r.seed(e.event, e.actor) % o.length, c = 0; c < o.length; c += 1) {
+                var a,
+                  u = o[(s + c) % o.length],
+                  l = r.pickSeries(u, e);
+                if (l) return r.lastEventByRule.set(u.id, e.event.index), r.triggerCountByRule.set(u.id, (null != (a = r.triggerCountByRule.get(u.id)) ? a : 0) + 1), r.usedTexts.add(l.join("\0")), {
+                  v: l
+                };
+              }
+            }, a = t(s); !(i = a()).done;) if (0 !== (o = c()) && o) return o.v;
+          return null;
+        }, r.readRules = function (e) {
+          if (!e || "object" != _typeof(e)) return [];
+          var t = e,
+            r = (Array.isArray(t.rules) ? t.rules : []).filter(function (e) {
+              return Boolean(e) && "string" == typeof e.id && (Array.isArray(e.texts) && e.texts.some(function (e) {
+                return "string" == typeof e && e.length > 0;
+              }) || Array.isArray(e.series) && e.series.some(function (e) {
+                return Array.isArray(e) && e.some(function (e) {
+                  return "string" == typeof e && e.length > 0;
+                });
+              }));
+            });
+          return [].concat(this.expandConceptGodRules(t.conceptGodRules), r);
+        }, r.expandConceptGodRules = function (e) {
+          if (!Array.isArray(e)) return [];
+          var t = [];
+          return e.forEach(function (e, r) {
+            var n;
+            if (e && "object" == _typeof(e)) {
+              var o = e;
+              if ("string" == typeof o.conceptGodId && "string" == typeof o.signature && "string" == typeof o.reverse && Array.isArray(o.clutch) && o.clutch.every(function (e) {
+                return "string" == typeof e;
+              })) {
+                var i = Array.isArray(o.madeActions) ? o.madeActions : void 0,
+                  s = Array.isArray(o.reverseActions) ? o.reverseActions : i;
+                t.push({
+                  id: "concept_" + (r + 1) + "_signature",
+                  priority: 1100,
+                  actions: i,
+                  outcome: "made",
+                  actorConceptGodIds: [o.conceptGodId],
+                  maxTriggersPerMatch: 2,
+                  cooldownEvents: 4,
+                  chance: .35,
+                  texts: [o.signature]
+                }, {
+                  id: "concept_" + (r + 1) + "_reverse",
+                  priority: 1100,
+                  actions: s,
+                  outcome: null != (n = o.reverseOutcome) ? n : "missed",
+                  actorConceptGodIds: [o.conceptGodId],
+                  maxTriggersPerMatch: 1,
+                  cooldownEvents: 4,
+                  chance: .25,
+                  texts: [o.reverse]
+                }, {
+                  id: "concept_" + (r + 1) + "_clutch",
+                  priority: 1250,
+                  actions: i,
+                  outcome: "made",
+                  actorConceptGodIds: [o.conceptGodId],
+                  clutch: !0,
+                  maxTriggersPerMatch: 1,
+                  cooldownEvents: 0,
+                  chance: 1,
+                  series: [o.clutch]
+                });
+              }
+            }
+          }), t;
+        }, r.matches = function (e, t) {
+          var r = t.event;
+          return (!e.action || e.action === r.action) && !(Array.isArray(e.actions) && !e.actions.includes(r.action)) && (!e.outcome || e.outcome === t.outcome) && !(e.tactics && !e.tactics.includes(r.tactic)) && (void 0 === e.clutch || e.clutch === this.isClutch(r)) && !!this.hasActor(e.actors, t.actor) && !!this.hasConceptGod(e.actorConceptGodIds, t.actor) && !!this.hasAll(e.teamHasAll, t.ownRoster) && !!this.hasAll(e.opponentHasAll, t.opponentRoster) && this.hasActor(e.passerMustBe, t.passer) && this.hasConceptGod(e.passerConceptGodIds, t.passer);
+        }, r.hasActor = function (e, t) {
+          return !e || 0 === e.length || Boolean(t && e.includes(t.sourcePlayerName));
+        }, r.hasConceptGod = function (e, t) {
+          return !e || 0 === e.length || Boolean((null == t ? void 0 : t.isConceptGod) && t.conceptGodId && e.includes(t.conceptGodId));
+        }, r.hasAll = function (e, t) {
+          if (!e || 0 === e.length) return !0;
+          var r = new Set(t.filter(function (e) {
+            return Boolean(e);
+          }).map(function (e) {
+            return e.sourcePlayerName;
+          }));
+          return e.every(function (e) {
+            return r.has(e);
+          });
+        }, r.isClutch = function (e) {
+          return 3 === e.quarter && e.startSecond >= 225;
+        }, r.isCoolingDown = function (e, t) {
+          var r,
+            n = this.lastEventByRule.get(e.id),
+            o = Math.max(0, Math.floor(null != (r = e.cooldownEvents) ? r : 2));
+          return void 0 !== n && t - n <= o;
+        }, r.hasReachedTriggerLimit = function (e) {
+          var t, r;
+          if (!Number.isFinite(e.maxTriggersPerMatch)) return !1;
+          var n = Math.max(0, Math.floor(null != (t = e.maxTriggersPerMatch) ? t : 0));
+          return (null != (r = this.triggerCountByRule.get(e.id)) ? r : 0) >= n;
+        }, r.passesChance = function (e, t) {
+          var r,
+            n = Math.min(1, Math.max(0, null != (r = e.chance) ? r : 1));
+          return n >= 1 || !(n <= 0) && (this.seed(t.event, t.actor) + this.hash(e.id)) % 1e4 < Math.floor(1e4 * n);
+        }, r.pickSeries = function (e, t) {
+          var r,
+            n,
+            o = this,
+            i = [].concat((null != (r = e.texts) ? r : []).filter(function (e) {
+              return "string" == typeof e && e.length > 0;
+            }).map(function (e) {
+              return [e];
+            }), (null != (n = e.series) ? n : []).filter(function (e) {
+              return Array.isArray(e) && e.length > 0 && e.every(function (e) {
+                return "string" == typeof e && e.length > 0;
+              });
+            }));
+          if (0 === i.length) return null;
+          for (var s = this.seed(t.event, t.actor) % i.length, c = 0; c < i.length; c += 1) {
+            var a = i[(s + c) % i.length].map(function (e) {
+              return o.render(e, t);
+            });
+            if (!this.usedTexts.has(a.join("\0"))) return a;
+          }
+          return i[s].map(function (e) {
+            return o.render(e, t);
+          });
+        }, r.render = function (e, t) {
+          var r, n, o, i;
+          return e.replace(/\{\{player\}\}/g, null != (r = null == (n = t.actor) ? void 0 : n.displayName) ? r : "球员").replace(/\{\{teammate\}\}/g, null != (o = null == (i = t.passer) ? void 0 : i.displayName) ? o : "队友");
+        }, r.seed = function (e, t) {
+          var r,
+            n = null != (r = null == t ? void 0 : t.sourcePlayerName.length) ? r : 0;
+          return 31 * e.index + 11 * e.quarter + 7 * n;
+        }, r.hash = function (e) {
+          for (var t = 0, r = 0; r < e.length; r += 1) t = 31 * t + e.charCodeAt(r) >>> 0;
+          return t;
+        }, e;
+      }());
+      r._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/MatchController.ts", ["./rollupPluginModLoBabelHelpers.js", "cc", "./GameState.ts", "./MatchSession.ts", "./PlayerAssets.ts", "./HomepagePreloader.ts", "./MatchPreloader.ts", "./RosterSlotView.ts", "./MobileSafeArea.ts", "./RewardedAdService.ts", "./GameAudio.ts", "./FullScreenEntrance.ts", "./NumberGrowthAnimator.ts", "./RainbowLabelCycle.ts", "./SeasonRoute.ts", "./GameFont.ts", "./CourtSimulationController.ts", "./TeamLevelController.ts", "./GoldAdButtonGlow.ts", "./MatchCommentarySelector.ts", "./MatchCourtSimulation.ts"], function (e) {
+  var t, n, i, a, r, o, s, l, h, u, c, d, p, m, f, y, g, v, M, S, C, P, b, B, k, w, x, T, I, R, A, L, N, j, W, Q, F, G, H, O, V, E, D, z, K, q, J, _, U, X, Y;
+  return {
+    setters: [function (e) {
+      t = e.inheritsLoose, n = e["extends"], i = e.createForOfIteratorHelperLoose, a = e.asyncToGenerator;
+    }, function (e) {
+      r = e.cclegacy, o = e._decorator, s = e.Button, l = e.Label, h = e.director, u = e.Sprite, c = e.RichText, d = e.UITransform, p = e.TTFFont, m = e.Color, f = e.Component, y = e.instantiate;
+    }, function (e) {
+      g = e.INT32_MAX, v = e.isCheatModeEnabled, M = e.settleBaseMatchReward, S = e.advanceSeasonAfterWin, C = e.emitMatchSettled, P = e.loadSeasonState, b = e.recordRandomOpponentInjuryAfterDefeat, B = e.applyPermanentOpponentInjuries, k = e.settleAdMatchReward;
+    }, function (e) {
+      w = e.getCurrentMatchSession, x = e.clearCurrentMatchSession, T = e.setHomepageReturnTarget;
+    }, function (e) {
+      I = e.loadPlayerPortrait, R = e.loadRoundQualityFrame;
+    }, function (e) {
+      A = e.preloadHomepageRuntimeAssets;
+    }, function (e) {
+      L = e.loadMatchRuntimeAssets;
+    }, function (e) {
+      N = e.formatPlayerOverall;
+    }, function (e) {
+      j = e.applySafeAreaToCanvasPages, W = e.applySafeAreaToPage;
+    }, function (e) {
+      Q = e.initializeWechatShareCapabilities, F = e.applyWechatShareCopy, G = e.toRewardedActionCopy, H = e.showRewardedVideo;
+    }, function (e) {
+      O = e.gameAudio;
+    }, function (e) {
+      V = e.stopFullScreenEntrance, E = e.playFullScreenEntrance;
+    }, function (e) {
+      D = e.setGrowingNumber;
+    }, function (e) {
+      z = e.RainbowLabelCycle;
+    }, function (e) {
+      K = e.STANDARD_MATCH_COUNT;
+    }, function (e) {
+      q = e.applyGameFont;
+    }, function (e) {
+      J = e.CourtSimulationController;
+    }, function (e) {
+      _ = e.getStoredTeamLevel;
+    }, function (e) {
+      U = e.installGoldAdButtonGlows;
+    }, function (e) {
+      X = e.MatchCommentarySelector;
+    }, function (e) {
+      Y = e.MatchCourtSimulation;
+    }],
+    execute: function execute() {
+      var $;
+      r._RF.push({}, "a02d8uLMcFGvpOkZX2YlnOH", "MatchController", void 0);
+      var Z = o.ccclass,
+        ee = 60,
+        te = 240,
+        ne = ["过去01", "过去02", "过去03", "过去04", "最新"],
+        ie = {
+          PG: {
+            handler: 1.55,
+            three: 1.2,
+            jumper: 1.12,
+            layup: 1.18,
+            dunk: .24,
+            post: .12
+          },
+          SG: {
+            handler: 1.18,
+            three: 1.32,
+            jumper: 1.26,
+            layup: 1.05,
+            dunk: .54,
+            post: .2
+          },
+          SF: {
+            handler: .88,
+            three: 1,
+            jumper: 1.16,
+            layup: 1.08,
+            dunk: .9,
+            post: .62
+          },
+          PF: {
+            handler: .48,
+            three: .48,
+            jumper: .98,
+            layup: 1.08,
+            dunk: 1.08,
+            post: 1.3
+          },
+          C: {
+            handler: .28,
+            three: .12,
+            jumper: .72,
+            layup: 1.16,
+            dunk: 1.32,
+            post: 1.7
+          }
+        },
+        ae = {
+          handler: .8,
+          three: .8,
+          jumper: 1,
+          layup: 1,
+          dunk: .7,
+          post: .5
+        },
+        re = {
+          "Stephen Curry": {
+            handler: 1.48,
+            three: 2.45,
+            jumper: .82,
+            layup: .82,
+            dunk: .05
+          },
+          "Klay Thompson": {
+            handler: .72,
+            three: 2.25,
+            jumper: 1.05,
+            layup: .68,
+            dunk: .18
+          },
+          "Damian Lillard": {
+            handler: 1.5,
+            three: 2.15,
+            jumper: .9,
+            layup: 1.05,
+            dunk: .16
+          },
+          "Trae Young": {
+            handler: 1.55,
+            three: 1.9,
+            jumper: 1.06,
+            layup: 1.18,
+            dunk: .04
+          },
+          "Ray Allen": {
+            three: 2.1,
+            jumper: 1.2,
+            layup: .7,
+            dunk: .16
+          },
+          "Reggie Miller": {
+            three: 2.15,
+            jumper: 1.1,
+            layup: .76,
+            dunk: .12
+          },
+          "James Harden": {
+            handler: 1.55,
+            three: 1.72,
+            jumper: 1.08,
+            layup: 1.16,
+            dunk: .28
+          },
+          "Luka Dončić": {
+            handler: 1.58,
+            three: 1.42,
+            jumper: 1.28,
+            layup: 1.1,
+            dunk: .16,
+            post: 1.16
+          },
+          "Kyrie Irving": {
+            handler: 1.5,
+            three: 1.32,
+            jumper: 1.24,
+            layup: 1.52,
+            dunk: .1
+          },
+          "Chris Paul": {
+            handler: 1.52,
+            three: 1.18,
+            jumper: 1.45,
+            layup: .82,
+            dunk: .04
+          },
+          "Steve Nash": {
+            handler: 1.5,
+            three: 1.32,
+            jumper: 1.28,
+            layup: .9,
+            dunk: .04
+          },
+          "Magic Johnson": {
+            handler: 1.45,
+            three: .35,
+            jumper: 1.1,
+            layup: 1.22,
+            dunk: .48,
+            post: 1.35
+          },
+          "Kobe Bryant": {
+            handler: 1.24,
+            three: .92,
+            jumper: 1.68,
+            layup: 1.1,
+            dunk: .92,
+            post: 1.08
+          },
+          "Michael Jordan": {
+            handler: 1.22,
+            three: .44,
+            jumper: 1.75,
+            layup: 1.28,
+            dunk: 1.16,
+            post: 1.12
+          },
+          "Kevin Durant": {
+            handler: 1.16,
+            three: 1.36,
+            jumper: 1.72,
+            layup: 1.04,
+            dunk: .72,
+            post: 1.18
+          },
+          "LeBron James": {
+            handler: 1.42,
+            three: .82,
+            jumper: .88,
+            layup: 1.42,
+            dunk: 1.5,
+            post: 1.08
+          },
+          "Giannis Antetokounmpo": {
+            handler: 1.12,
+            three: .16,
+            jumper: .5,
+            layup: 1.42,
+            dunk: 1.75,
+            post: 1.22
+          },
+          "Russell Westbrook": {
+            handler: 1.48,
+            three: .5,
+            jumper: .78,
+            layup: 1.3,
+            dunk: 1.4
+          },
+          "Shaquille O'Neal": {
+            three: .02,
+            jumper: .18,
+            layup: 1.38,
+            dunk: 2.35,
+            post: 2.5
+          },
+          "Dwight Howard": {
+            three: .04,
+            jumper: .26,
+            layup: 1.3,
+            dunk: 1.95,
+            post: 1.62
+          },
+          "Wilt Chamberlain": {
+            three: .04,
+            jumper: .48,
+            layup: 1.42,
+            dunk: 1.8,
+            post: 2.2
+          },
+          "Kareem Abdul-Jabbar": {
+            three: .03,
+            jumper: 1.3,
+            layup: 1.2,
+            dunk: .72,
+            post: 2.35
+          },
+          "Hakeem Olajuwon": {
+            three: .12,
+            jumper: 1.18,
+            layup: 1.2,
+            dunk: 1.02,
+            post: 2.25
+          },
+          "Tim Duncan": {
+            three: .1,
+            jumper: 1.12,
+            layup: 1.22,
+            dunk: 1.06,
+            post: 2.05
+          },
+          "Nikola Jokić": {
+            handler: 1.08,
+            three: 1.12,
+            jumper: 1.35,
+            layup: 1.2,
+            dunk: .2,
+            post: 1.92
+          },
+          "Joel Embiid": {
+            three: 1.05,
+            jumper: 1.34,
+            layup: 1.1,
+            dunk: 1.08,
+            post: 1.9
+          },
+          "Anthony Davis": {
+            three: .58,
+            jumper: 1.12,
+            layup: 1.24,
+            dunk: 1.38,
+            post: 1.35
+          },
+          "Dirk Nowitzki": {
+            three: .78,
+            jumper: 2,
+            layup: .72,
+            dunk: .16,
+            post: 1.9
+          },
+          "Larry Bird": {
+            three: 1.5,
+            jumper: 1.62,
+            layup: .78,
+            dunk: .1,
+            post: 1.02
+          },
+          "Karl Malone": {
+            three: .1,
+            jumper: 1.08,
+            layup: 1.22,
+            dunk: 1.35,
+            post: 1.9
+          }
+        };
+      e("MatchController", Z("MatchController")($ = function (e) {
+        function r() {
+          for (var t, n = arguments.length, a = new Array(n), r = 0; r < n; r++) a[r] = arguments[r];
+          return (t = e.call.apply(e, [this].concat(a)) || this).page = null, t.session = null, t.result = null, t.victoryPage = null, t.championshipPage = null, t.matchRewards = null, t.defeatPage = null, t.doubleSpeedButton = null, t.forcedWinButton = null, t.skipButton = null, t.speedMultiplier = 1, t.requestedSpeedMultiplier = 1, t.elapsedMatchSeconds = 0, t.commentaryLines = [], t.pendingCommentaryLines = [], t.commentarySlots = [], t.commentaryViews = [], t.plannedPlays = [], t.nextPlayIndex = 0, t.lastStartedQuarter = 0, t.playerQuarterScores = [0, 0, 0, 0], t.opponentQuarterScores = [0, 0, 0, 0], t.awardedPointsByPlay = new Map(), t.commentaryTeamColors = [new m(65, 147, 132, 255), new m(204, 87, 40, 255)], t.courtSimulation = null, t.commentarySelector = new X({}), t.initialized = !1, t.finished = !1, t.adProcessing = !1, t.retryCount = 0, t.originalButtonGrayscale = new WeakMap(), t.onCourtScore = function (e, n, i) {
+            var a;
+            if (!(t.finished || n <= 0)) {
+              var r = null != (a = t.awardedPointsByPlay.get(i.index)) ? a : 0,
+                o = Math.max(0, i.points - r),
+                s = Math.min(n, o);
+              if (!(s <= 0)) (0 === e ? t.playerQuarterScores : t.opponentQuarterScores)[i.quarter] += s, t.awardedPointsByPlay.set(i.index, r + s), t.refreshScorePresentation(!0);
+            }
+          }, t.onCourtCommentary = function (e, n, a) {
+            for (var r, o = i("string" == typeof e ? [e] : e); !(r = o()).done;) {
+              var s = r.value;
+              t.pushCommentary(n.startSecond, s, a);
+            }
+          }, t.onCourtPlayComplete = function () {
+            var e, n;
+            t.finished || (t.speedMultiplier = t.requestedSpeedMultiplier, t.elapsedMatchSeconds = Math.max(t.elapsedMatchSeconds, null != (e = null == (n = t.plannedPlays[t.nextPlayIndex]) ? void 0 : n.startSecond) ? e : te), t.refreshClockPresentation(), t.nextPlayIndex >= t.plannedPlays.length ? t.finishMatch() : t.startDueCourtPlay());
+          }, t.claimVictoryAdReward = function () {
+            t.claimVictoryAdRewardAsync();
+          }, t.retryWithAdBonus = function () {
+            t.retryWithAdBonusAsync();
+          }, t.onForcedWinClicked = function () {
+            t.forceWinWithAd();
+          }, t.toggleDoubleSpeed = function () {
+            var e;
+            t.requestedSpeedMultiplier = t.requestedSpeedMultiplier >= 3 ? 1 : t.requestedSpeedMultiplier + 1, null != (e = t.courtSimulation) && e.isBusy || (t.speedMultiplier = t.requestedSpeedMultiplier), t.setButtonLabel(t.doubleSpeedButton, 1 === t.requestedSpeedMultiplier ? "二倍速" : 2 === t.requestedSpeedMultiplier ? "三倍速" : "一倍速");
+          }, t.skipMatch = function () {
+            t.initialized && !t.finished && (t.settleSkippedMatch(), t.elapsedMatchSeconds = te, t.finishMatch());
+          }, t;
+        }
+        t(r, e);
+        var o = r.prototype;
+        return o.onLoad = function () {
+          var e;
+          if (O.initialize(), j(this.node), this.page = this.node.getChildByName("比赛页面"), Q(), F(this.node.scene), this.session = w(), !this.page || !this.session) return console.error("[MatchController] Missing match page or prepared match session."), void (this.enabled = !1);
+          var t = null == (e = this.findByPath(this.page, "球场模拟")) ? void 0 : e.getComponent(J);
+          t && (t.enabled = !1), this.resolveButtons(), this.prepareButtonVisuals(this.node), U(this.node);
+        }, o.onEnable = function () {
+          var e, t, n;
+          null == (e = this.doubleSpeedButton) || e.node.on(s.EventType.CLICK, this.toggleDoubleSpeed, this), null == (t = this.forcedWinButton) || t.node.on(s.EventType.CLICK, this.onForcedWinClicked, this), null == (n = this.skipButton) || n.node.on(s.EventType.CLICK, this.skipMatch, this);
+        }, o.start = function () {
+          this.initialize();
+        }, o.update = function (e) {
+          var t, n, i, a;
+          if (this.initialized && !this.finished && this.result) {
+            var r = null != (t = this.courtSimulation) && t.isBusy && null != (n = null == (i = this.plannedPlays[this.nextPlayIndex]) ? void 0 : i.startSecond) ? n : te;
+            this.elapsedMatchSeconds = Math.min(r, this.elapsedMatchSeconds + e * this.speedMultiplier), this.refreshClockPresentation(), this.startDueCourtPlay(), this.elapsedMatchSeconds >= te && this.nextPlayIndex >= this.plannedPlays.length && (null == (a = this.courtSimulation) || !a.isBusy) && this.finishMatch();
+          }
+        }, o.lateUpdate = function () {
+          var e = this;
+          if (0 !== this.pendingCommentaryLines.length && 0 !== this.commentaryViews.length) {
+            var t = this.pendingCommentaryLines.shift(),
+              n = this.commentaryViews.shift();
+            this.commentaryViews.push(n), this.commentaryViews.forEach(function (t, n) {
+              var i,
+                a,
+                r = e.commentarySlots[n];
+              null == (i = t.time) || i.node.setParent(r), null == (a = t.content) || a.node.setParent(r);
+            }), n.time && (n.time.string = t.time), n.content && (n.content.string = t.richText);
+          }
+        }, o.onDisable = function () {
+          var e, t, n;
+          null == (e = this.doubleSpeedButton) || e.node.off(s.EventType.CLICK, this.toggleDoubleSpeed, this), null == (t = this.forcedWinButton) || t.node.off(s.EventType.CLICK, this.onForcedWinClicked, this), null == (n = this.skipButton) || n.node.off(s.EventType.CLICK, this.skipMatch, this), this.championshipPage && V(this.championshipPage), this.stopAllMotion();
+        }, o.initialize = function () {
+          var e = a( /*#__PURE__*/_regeneratorRuntime().mark(function _callee29() {
+            var e, t, n, i, a, r, o, s;
+            return _regeneratorRuntime().wrap(function _callee29$(_context30) {
+              while (1) switch (_context30.prev = _context30.next) {
+                case 0:
+                  _context30.prev = 0;
+                  _context30.next = 3;
+                  return L();
+                case 3:
+                  e = _context30.sent;
+                  t = e[0];
+                  n = e[1];
+                  i = e[2];
+                  a = e[3];
+                  r = e[4];
+                  o = e[5];
+                  if (!(!this.isValid || !this.page || !this.session)) {
+                    _context30.next = 12;
+                    break;
+                  }
+                  return _context30.abrupt("return");
+                case 12:
+                  this.victoryPage = y(t), this.victoryPage.active = !1, this.championshipPage = y(n), this.championshipPage.active = !1, this.matchRewards = o, this.defeatPage = y(i), this.defeatPage.active = !1, this.node.addChild(this.victoryPage), this.node.addChild(this.championshipPage), this.node.addChild(this.defeatPage), W(this.victoryPage), W(this.championshipPage), W(this.defeatPage), F(this.victoryPage), F(this.defeatPage);
+                  s = this.championshipPage.getChildByName("全胜之后");
+                  s && !s.getComponent(z) && s.addComponent(z);
+                  q(this.node.scene, a);
+                  this.prepareCommentaryViews();
+                  this.commentarySelector = X.fromJsonAsset(r);
+                  this.bindResultButtons();
+                  _context30.next = 21;
+                  return this.bindCourtPlayers();
+                case 21:
+                  this.startPreparedMatch();
+                  this.scheduleOnce(this.preloadHomepage, 1);
+                  _context30.next = 28;
+                  break;
+                case 25:
+                  _context30.prev = 25;
+                  _context30.t0 = _context30["catch"](0);
+                  console.error("[MatchController] Failed to initialize match.", _context30.t0);
+                case 28:
+                case "end":
+                  return _context30.stop();
+              }
+            }, _callee29, this, [[0, 25]]);
+          }));
+          return function () {
+            return e.apply(this, arguments);
+          };
+        }(), o.startPreparedMatch = function (e) {
+          var t,
+            n,
+            i,
+            a,
+            r = this;
+          if (void 0 === e && (e = !1), this.session) {
+            this.stopAllMotion(), this.finished = !1, this.adProcessing = !1, this.speedMultiplier = 1, this.requestedSpeedMultiplier = 1, this.elapsedMatchSeconds = 0, this.resetCommentary(), this.commentarySelector.resetMatchState(), this.nextPlayIndex = 0, this.lastStartedQuarter = 0, this.initialized = !1, this.playerQuarterScores = [0, 0, 0, 0], this.opponentQuarterScores = [0, 0, 0, 0], this.awardedPointsByPlay.clear(), this.result = this.createMatchResult(e), this.plannedPlays = this.createPlayPlan(this.result), this.victoryPage && (this.victoryPage.active = !1), this.championshipPage && (this.championshipPage.active = !1), this.defeatPage && (this.defeatPage.active = !1), this.setButtonLabel(this.doubleSpeedButton, "二倍速"), this.forcedWinButton && (this.forcedWinButton.node.active = "uncertain" === this.result.band && !this.result.won, this.setButtonAvailable(this.forcedWinButton, this.forcedWinButton.node.active)), this.refreshTeamIdentity(), this.refreshScorePresentation(!1), this.refreshClockPresentation(), this.pushCommentary(0, G(e ? "广告助威生效，球队士气被彻底点燃。双方在中圈跳球，第一节重新开始！" : this.retryCount > 0 ? "广告加成生效，本场球队总评临时提升" + this.session.temporaryBonusPercent + "%。双方在中圈跳球，第一节比赛开始！" : this.session.playerTeamName + "与" + this.session.opponentTeamName + "在中圈跳球，第一节比赛正式开始！"));
+            var o = null != (t = null == (n = this.plannedPlays[0]) ? void 0 : n.offenseTeam) ? t : 0;
+            null == (i = this.courtSimulation) || i.reset(o);
+            var s = function s() {
+              r.isValid && !r.finished && (r.initialized = !0, r.startDueCourtPlay());
+            };
+            null != (a = this.courtSimulation) && a.playOpeningJumpBall(o, s) || s();
+          }
+        }, o.createMatchResult = function (e) {
+          var t = this.session,
+            n = Math.min(g, Math.floor(t.playerOverall * (1 + Math.max(0, t.temporaryBonusPercent) / 100))),
+            i = t.playerRoster.length >= 12 && t.playerRoster.every(function (e) {
+              return null == e ? void 0 : e.isConceptGod;
+            }),
+            a = v(),
+            r = t.opponentOverall > 0 ? n / t.opponentOverall : Number.POSITIVE_INFINITY,
+            o = a ? "auto-win" : i ? "full-concept" : r >= 1.1 ? "auto-win" : r <= .9 ? "auto-lose" : "uncertain",
+            s = this.createSeededRandom(t.matchId + ":" + this.retryCount + ":" + t.temporaryBonusPercent),
+            l = a || e || "full-concept" === o || "auto-win" === o || "uncertain" === o && Math.random() < this.calculateUncertainWinProbability(r),
+            h = this.calculateRawScore(t.playerRoster, s),
+            u = this.calculateRawScore(t.opponentRoster, s),
+            c = Math.abs(n - t.opponentOverall) / Math.max(1, n, t.opponentOverall),
+            d = l ? h : u,
+            p = l ? u : h,
+            m = Math.max(1, Math.ceil(d * (.01 + .25 * c + .03 * s()))),
+            f = "uncertain" === o ? Math.min(m, Math.max(1, Math.ceil(.12 * d))) : m,
+            y = Math.min(g - 1, p),
+            M = Math.min(g, Math.max(d, y + f)),
+            S = l ? M : y,
+            C = l ? y : M,
+            P = this.normalizeVisibleScores(S, C, l, l ? n : t.opponentOverall, s),
+            b = P[0],
+            B = P[1];
+          return {
+            band: o,
+            won: l,
+            forcedWin: e,
+            playerFinalScore: b,
+            opponentFinalScore: B,
+            playerQuarterScores: this.distributeQuarterScores(b, s),
+            opponentQuarterScores: this.distributeQuarterScores(B, s)
+          };
+        }, o.calculateRawScore = function (e, t) {
+          var n = e.filter(function (e) {
+            return Boolean(e);
+          });
+          if (0 === n.length) return 0;
+          var i = n.reduce(function (e, t) {
+              return e + Math.max(0, t.attributes.scoring);
+            }, 0) / n.length,
+            a = Math.min(1.35, Math.max(.25, i / 180));
+          return Math.min(g, Math.floor((22 + 12 * a) * (.9 + .2 * t())));
+        }, o.distributeQuarterScores = function (e, t) {
+          for (var n = Array.from({
+              length: 4
+            }, function () {
+              return Math.floor(e / 4);
+            }), i = e % 4, a = [0, 1, 2, 3].sort(function () {
+              return t() - .5;
+            }), r = 0; i > 0; r += 1, i -= 1) n[a[r % a.length]] += 1;
+          return n;
+        }, o.normalizeVisibleScores = function (e, t, n, i, a) {
+          var r = Math.max(1, e, t),
+            o = Math.min(1, 60 / r),
+            s = e > 0 ? Math.max(1, Math.floor(e * o)) : 0,
+            l = t > 0 ? Math.max(1, Math.floor(t * o)) : 0,
+            h = Math.min(60, this.calculateScoreCorrectionMargin(i, a));
+          return n && s <= l ? (s = Math.min(60, l + h), l = Math.max(0, Math.min(l, s - h))) : !n && l <= s && (l = Math.min(60, s + h), s = Math.max(0, Math.min(s, l - h))), [s, l];
+        }, o.calculateUncertainWinProbability = function (e) {
+          if (1 === e) return .5;
+          var t = Math.floor(100 * e) % 10;
+          return e > 1 ? .1 * t : .05 * t;
+        }, o.calculateScoreCorrectionMargin = function (e, t) {
+          return void 0 === t && (t = Math.random), Math.max(1, Math.ceil(Math.max(0, e) * t() * .01));
+        }, o.createPlayPlan = function (e) {
+          for (var t, i = this, a = this.createSeededRandom((null == (t = this.session) ? void 0 : t.matchId) + ":plays:" + this.retryCount + ":" + e.forcedWin), r = [], o = a() < .5 ? 0 : 1, s = null, l = 0; l < 4; l += 1) for (var h = [this.createPossessionPoints(e.playerQuarterScores[l], a), this.createPossessionPoints(e.opponentQuarterScores[l], a)], u = [0, 0], c = function c() {
+              var e,
+                t,
+                c,
+                p,
+                m,
+                f = h[o][u[o]];
+              u[o] += 1;
+              var y = i.getTopFive(0 === o ? null != (e = null == (t = i.session) ? void 0 : t.playerRoster) ? e : [] : null != (c = null == (p = i.session) ? void 0 : p.opponentRoster) ? c : []),
+                g = i.pickPlayAction(f, y, a),
+                v = i.pickShooterIndex(y, g, a),
+                M = null != (m = y[v]) ? m : null,
+                S = i.pickHandlerIndex(y, a),
+                C = i.pickTactic(g, M, s, a);
+              s = C;
+              var P = i.pickReboundResult(a),
+                b = {
+                  index: r.length,
+                  quarter: l,
+                  startSecond: l * ee + 6 * d,
+                  offenseTeam: o,
+                  tactic: C,
+                  action: g,
+                  points: f,
+                  shooterIndex: v,
+                  handlerIndex: i.shouldShooterHandle(g, a) ? v : S,
+                  passerIndex: S,
+                  made: f > 0,
+                  foul: "free-throw" === g || "and-one" === g,
+                  rebound: P,
+                  contestedRebound: a() < .58
+                },
+                B = i.createPossessionAttempts(b);
+              B.forEach(function (e, t) {
+                r.push(n({}, e, {
+                  index: r.length,
+                  startSecond: b.startSecond + t * ee / 10 / B.length
+                }));
+              }), o = 1 - o;
+            }, d = 0; d < 10; d += 1) c();
+          return r;
+        }, o.createPossessionAttempts = function (e) {
+          return "opponent" === e.rebound || "turnover" === e.action || "and-one" === e.action || "free-throw" === e.action && 2 === e.points ? [e] : "free-throw" === e.action ? [e, n({}, e, {
+            action: "jumper",
+            points: 0,
+            made: !1,
+            foul: !1,
+            rebound: "opponent"
+          })] : [n({}, e, {
+            points: 0,
+            made: !1
+          }), n({}, e, {
+            rebound: "opponent"
+          })];
+        }, o.createPossessionPoints = function (e, t) {
+          for (var n = this, i = Math.max(1, Math.floor(5)), a = Array.from({
+              length: i
+            }, function () {
+              return 0;
+            }), r = Math.max(0, Math.min(3 * i, e)), o = function o() {
+              var e = a.length - s - 1,
+                i = Math.max(0, r - 3 * e),
+                o = Math.min(3, r);
+              if (o <= i) a[s] = i;else {
+                var l = Array.from({
+                  length: o - i + 1
+                }, function (e, t) {
+                  return i + t;
+                });
+                a[s] = n.pickWeightedPointValue(l, t);
+              }
+              r -= a[s];
+            }, s = 0; s < a.length; s += 1) o();
+          return a.sort(function () {
+            return t() - .5;
+          });
+        }, o.pickPlayAction = function (e, t, n) {
+          if (3 === e) return n() < .94 ? "three" : "and-one";
+          if (2 === e) return n() < .06 ? "free-throw" : this.pickShotAction(t, ["jumper", "layup", "dunk"], [.3, .43, .27], n);
+          if (1 === e) return "free-throw";
+          var i = n();
+          return i < .14 ? "turnover" : i < .2 ? "free-throw" : this.pickShotAction(t, ["three", "jumper", "layup", "dunk"], [.23, .23, .35, .19], n);
+        }, o.pickWeightedPointValue = function (e, t) {
+          for (var n, a, r = {
+              0: .38,
+              1: .07,
+              2: .45,
+              3: .1
+            }, o = e.reduce(function (e, t) {
+              var n;
+              return e + (null != (n = r[t]) ? n : .01);
+            }, 0), s = t() * o, l = i(e); !(a = l()).done;) {
+            var h,
+              u = a.value;
+            if ((s -= null != (h = r[u]) ? h : .01) <= 0) return u;
+          }
+          return null != (n = e[e.length - 1]) ? n : 0;
+        }, o.pickShotAction = function (e, t, n, i) {
+          for (var a, r = this, o = t.map(function (t, i) {
+              var a;
+              return Math.max(.01, null != (a = n[i]) ? a : 0) * r.getTeamActionTendency(e, t);
+            }), s = o.reduce(function (e, t) {
+              return e + t;
+            }, 0), l = i() * s, h = 0; h < t.length; h += 1) if ((l -= o[h]) <= 0) return t[h];
+          return null != (a = t[t.length - 1]) ? a : "jumper";
+        }, o.pickShooterIndex = function (e, t, n) {
+          var i = this;
+          if (0 === e.length) return 0;
+          var a = e.reduce(function (e, t) {
+              return e + Math.max(1, t.attributes.scoring);
+            }, 0) / e.length,
+            r = e.map(function (e) {
+              var n = .7 + Math.max(1, e.attributes.scoring) / Math.max(1, a) * .3;
+              return "free-throw" === t ? n : "turnover" === t ? i.getOffensiveTendency(e).handler * n : i.getActionTendency(e, "and-one" === t ? "layup" : t) * n;
+            });
+          return this.pickWeightedIndex(r, n);
+        }, o.pickHandlerIndex = function (e, t) {
+          var n = this;
+          return this.pickWeightedIndex(e.map(function (e) {
+            return n.getOffensiveTendency(e).handler;
+          }), t);
+        }, o.pickWeightedIndex = function (e, t) {
+          for (var n = e.reduce(function (e, t) {
+              return e + Math.max(.01, t);
+            }, 0), i = t() * n, a = 0; a < e.length; a += 1) if ((i -= Math.max(.01, e[a])) <= 0) return a;
+          return Math.max(0, e.length - 1);
+        }, o.shouldShooterHandle = function (e, t) {
+          return "turnover" === e || "free-throw" === e || ("layup" === e || "dunk" === e || "and-one" === e ? t() < .62 : t() < .3);
+        }, o.pickTactic = function (e, t, n, a) {
+          for (var r, o, s, l = t ? this.getOffensiveTendency(t) : ae, h = "three" === e ? [["five-out", .46], ["pick-and-roll", .32], ["horns", .22]] : l.post >= 1.5 && "turnover" !== e && "free-throw" !== e ? [["low-post", .58], ["four-out-one-in", .26], ["horns", .16]] : "layup" === e || "dunk" === e || "and-one" === e ? [["pick-and-roll", .46], ["four-out-one-in", .31], ["horns", .23]] : [["horns", .38], ["pick-and-roll", .34], ["five-out", .28]], u = h.filter(function (e) {
+              return e[0] !== n;
+            }), c = u.length > 0 ? u : h, d = c.reduce(function (e, t) {
+              return e + t[1];
+            }, 0), p = a() * d, m = i(c); !(s = m()).done;) {
+            var f = s.value,
+              y = f[0];
+            if ((p -= f[1]) <= 0) return y;
+          }
+          return null != (r = null == (o = c[c.length - 1]) ? void 0 : o[0]) ? r : "horns";
+        }, o.getTeamActionTendency = function (e, t) {
+          var n = this;
+          return 0 === e.length ? 1 : e.reduce(function (e, i) {
+            return e + n.getActionTendency(i, t);
+          }, 0) / e.length;
+        }, o.getActionTendency = function (e, t) {
+          return this.getOffensiveTendency(e)[t];
+        }, o.getOffensiveTendency = function (e) {
+          var t,
+            n,
+            i,
+            a,
+            r,
+            o,
+            s,
+            l = null != (t = ie[e.position]) ? t : ae,
+            h = re[e.sourcePlayerName];
+          return {
+            handler: l.handler * (null != (n = null == h ? void 0 : h.handler) ? n : 1),
+            three: l.three * (null != (i = null == h ? void 0 : h.three) ? i : 1),
+            jumper: l.jumper * (null != (a = null == h ? void 0 : h.jumper) ? a : 1),
+            layup: l.layup * (null != (r = null == h ? void 0 : h.layup) ? r : 1),
+            dunk: l.dunk * (null != (o = null == h ? void 0 : h.dunk) ? o : 1),
+            post: l.post * (null != (s = null == h ? void 0 : h.post) ? s : 1)
+          };
+        }, o.pickReboundResult = function (e) {
+          var t = e();
+          return t < .16 ? "self" : t < .42 ? "teammate" : "opponent";
+        }, o.startDueCourtPlay = function () {
+          if (!(!this.courtSimulation || this.courtSimulation.isBusy || this.nextPlayIndex >= this.plannedPlays.length)) {
+            var e = this.plannedPlays[this.nextPlayIndex];
+            e.startSecond > this.elapsedMatchSeconds + .001 || this.courtSimulation.play(e, this.speedMultiplier) && (e.quarter > this.lastStartedQuarter && (this.pushQuarterTransition(e.quarter, e.startSecond), this.lastStartedQuarter = e.quarter), this.nextPlayIndex += 1);
+          }
+        }, o.pushQuarterTransition = function (e, t) {
+          var n = this.playerQuarterScores.slice(0, e).reduce(function (e, t) {
+              return e + t;
+            }, 0) + "-" + this.opponentQuarterScores.slice(0, e).reduce(function (e, t) {
+              return e + t;
+            }, 0),
+            i = 2 === e ? "上半场结束，比分" + n + "。下半场开始！" : "第" + e + "节结束，比分" + n + "。第" + (e + 1) + "节开始。";
+          this.pushCommentary(t, i);
+        }, o.refreshScorePresentation = function (e) {
+          if (this.page) {
+            for (var t = 0; t < 4; t += 1) this.setGrowingScoreLabel("比分/每节比分/Q" + (t + 1) + "/自己", this.playerQuarterScores[t], e), this.setGrowingScoreLabel("比分/每节比分/Q" + (t + 1) + "/对方", this.opponentQuarterScores[t], e);
+            this.setGrowingScoreLabel("比分/总比分/自己", this.playerQuarterScores.reduce(function (e, t) {
+              return e + t;
+            }, 0), e), this.setGrowingScoreLabel("比分/总比分/对方", this.opponentQuarterScores.reduce(function (e, t) {
+              return e + t;
+            }, 0), e);
+          }
+        }, o.refreshClockPresentation = function () {
+          if (this.page) {
+            var e = Math.min(3, Math.floor(this.elapsedMatchSeconds / ee)),
+              t = this.elapsedMatchSeconds >= te ? ee : this.elapsedMatchSeconds % ee,
+              n = Math.max(0, Math.ceil(ee - t));
+            this.setLabel("标题", "第" + (e + 1) + "节 " + this.formatClock(n));
+          }
+        }, o.refreshTeamIdentity = function () {
+          var e,
+            t,
+            n = this.session;
+          this.setLabel("比分/我的球队/球队简称/Label", null != (e = Array.from(n.playerTeamName)[0]) ? e : "我"), this.setLabel("比分/我的球队/球队名", n.playerTeamName), this.setLabel("比分/对方球队/球队简称/Label", null != (t = Array.from(n.opponentTeamName)[0]) ? t : "敌"), this.setLabel("比分/对方球队/球队名", n.opponentTeamName), this.captureCommentaryTeamColors();
+          for (var i = 0; i < 4; i += 1) this.setLabel("比分/每节比分/Q" + (i + 1) + "/自己", "0"), this.setLabel("比分/每节比分/Q" + (i + 1) + "/对方", "0");
+        }, o.pushCommentary = function (e, t, n) {
+          if (void 0 === n && (n = []), this.session && t) {
+            var i = {
+              time: this.formatClock(Math.floor(e)),
+              richText: this.createRichCommentary(t, n)
+            };
+            this.commentaryLines.push(i), this.commentaryLines = this.commentaryLines.slice(-ne.length), this.pendingCommentaryLines.push(i), this.pendingCommentaryLines.length > ne.length && this.pendingCommentaryLines.shift();
+          }
+        }, o.prepareCommentaryViews = function () {
+          var e,
+            t = this,
+            n = null == (e = this.page) ? void 0 : e.getChildByName("文字播报");
+          this.commentarySlots = ne.map(function (e) {
+            return null == n ? void 0 : n.getChildByName(e);
+          }).filter(function (e) {
+            return Boolean(e);
+          }), this.commentaryViews = this.commentarySlots.map(function (e) {
+            var n, i;
+            return {
+              time: null != (n = null == (i = e.getChildByName("时间")) ? void 0 : i.getComponent(l)) ? n : null,
+              content: t.createCommentaryRichText(e.getChildByName("播报内容"))
+            };
+          });
+        }, o.resetCommentary = function () {
+          this.commentaryLines = [], this.pendingCommentaryLines.length = 0;
+          for (var e, t = i(this.commentaryViews); !(e = t()).done;) {
+            var n = e.value;
+            n.time && (n.time.string = "--:--"), n.content && (n.content.string = "");
+          }
+        }, o.bindCourtPlayers = function () {
+          var e = a( /*#__PURE__*/_regeneratorRuntime().mark(function _callee31() {
+            var e, t, n, i, r, o, s;
+            return _regeneratorRuntime().wrap(function _callee31$(_context32) {
+              while (1) switch (_context32.prev = _context32.next) {
+                case 0:
+                  if (!(this.page && this.session)) {
+                    _context32.next = 8;
+                    break;
+                  }
+                  e = this.findByPath(this.page, "球场模拟/players");
+                  if (!e) {
+                    _context32.next = 8;
+                    break;
+                  }
+                  t = [].concat(e.children.filter(function (e) {
+                    return /^我方球员\d+$/.test(e.name);
+                  }), e.children.filter(function (e) {
+                    return /^敌方球员\d+$/.test(e.name);
+                  })).slice(0, 10), n = this.getTopFive(this.session.playerRoster), i = this.getTopFive(this.session.opponentRoster), r = [].concat(n, i);
+                  _context32.next = 6;
+                  return Promise.all(t.map(a( /*#__PURE__*/_regeneratorRuntime().mark(function _callee30(e, t) {
+                    var n, i, a, o, s, h, c, d, p, m, f, y, v, M, S;
+                    return _regeneratorRuntime().wrap(function _callee30$(_context31) {
+                      while (1) switch (_context31.prev = _context31.next) {
+                        case 0:
+                          s = null != (n = r[t]) ? n : null;
+                          if (!(e.active = Boolean(s), s)) {
+                            _context31.next = 12;
+                            break;
+                          }
+                          h = null == (i = e.getChildByName("头像")) ? void 0 : i.getComponent(u);
+                          c = null == (a = e.getChildByName("边框")) ? void 0 : a.getComponent(u);
+                          d = null == (o = e.getChildByName("ovr")) ? void 0 : o.getComponent(l);
+                          _context31.next = 7;
+                          return Promise.all([I(s), R(s.qualityId)]);
+                        case 7:
+                          p = _context31.sent;
+                          m = p[0];
+                          f = p[1];
+                          h && (h.spriteFrame = m), c && f && (c.spriteFrame = f), d && (d.string = s.overall >= g ? "MAX" : N(s.overall));
+                          for (y = 0, v = ["持球点-右", "运球点-右", "投射点-右", "持球点-左", "运球点-左", "投射点-左"]; y < v.length; y++) {
+                            M = v[y], S = e.getChildByName(M);
+                            S && (S.active = !1);
+                          }
+                        case 12:
+                        case "end":
+                          return _context31.stop();
+                      }
+                    }, _callee30);
+                  }))));
+                case 6:
+                  o = this.findByPath(this.page, "球场模拟/球场范围"), s = this.findByPath(this.page, "球场模拟/篮球");
+                  o && s ? (this.courtSimulation = new Y(e, o, s, n, i, {
+                    onScore: this.onCourtScore,
+                    onCommentary: this.onCourtCommentary,
+                    onPlayComplete: this.onCourtPlayComplete
+                  }, this.commentarySelector), this.courtSimulation.isReady || (console.error("[MatchController] Match court simulation references are incomplete."), this.courtSimulation = null)) : console.error("[MatchController] Match court markers or ball are incomplete.");
+                case 8:
+                case "end":
+                  return _context32.stop();
+              }
+            }, _callee31, this);
+          }));
+          return function () {
+            return e.apply(this, arguments);
+          };
+        }(), o.finishMatch = function () {
+          !this.finished && this.result && this.session && (this.finished = !0, this.elapsedMatchSeconds = te, this.refreshClockPresentation(), this.refreshScorePresentation(!1), this.stopAllMotion(), this.forcedWinButton && (this.forcedWinButton.node.active = !1), this.result.won ? this.showVictory() : this.showDefeat());
+        }, o.showVictory = function () {
+          var e,
+            t,
+            n,
+            i,
+            a = this.isChampionshipMatch(),
+            r = a ? this.championshipPage : this.victoryPage;
+          if (r && this.result && this.session) {
+            var o = this.calculateMatchReward(),
+              h = M(this.session.matchId, o),
+              u = S(this.session.matchId);
+            C({
+              matchId: this.session.matchId,
+              won: !0,
+              baseReward: h ? o : 0,
+              adReward: 0,
+              advanced: u,
+              participatingPlayerInstanceIds: this.getParticipatingPlayerInstanceIds()
+            }), a || this.setResultPageLabels(r);
+            var c = null != (e = null == (t = this.findByPath(r, a ? "领取/数值" : "本场奖励/管理层-选中背景/获得数值")) ? void 0 : t.getComponent(l)) ? e : null,
+              d = !a && P().lastAdRewardMatchId === this.session.matchId;
+            D(c, d ? 2 * o : o, function (e) {
+              return a ? N(Math.floor(e)).replace(/\.00(?=[KMBTQ]$)/, "") : "+" + N(Math.floor(e));
+            }, {
+              from: 0,
+              animateGrowth: !0
+            }), this.setNodeLabel(r, "看广告双倍领取/数值", N(2 * o));
+            var p = null == (n = r.getChildByName("看广告双倍领取")) ? void 0 : n.getComponent(s),
+              m = null == (i = r.getChildByName("继续下一场")) ? void 0 : i.getComponent(s);
+            p && (p.node.active = !a, this.setButtonAvailable(p, !a && !d)), this.setButtonAvailable(null != m ? m : null, !0), O.playVictory(), E(r, {
+              backgroundNodes: this.nodes(r, ["遮罩", "bg"]),
+              moduleGroups: [{
+                nodes: this.nodes(r, ["顶部装饰"]),
+                order: 0
+              }, {
+                nodes: this.nodes(r, ["赛程"]),
+                order: 1
+              }, {
+                nodes: this.nodes(r, ["比分", "全胜之后"]),
+                order: 2
+              }, {
+                nodes: this.nodes(r, ["本场奖励"]),
+                order: 3
+              }, {
+                nodes: this.nodes(r, ["看广告双倍领取", "领取"]),
+                order: 4
+              }, {
+                nodes: this.nodes(r, ["继续下一场", "返回"]),
+                order: 5
+              }]
+            });
+          }
+        }, o.showDefeat = function () {
+          if (this.defeatPage && this.result && this.session) {
+            if (null !== b(this.session.matchId, this.session.opponentRoster)) {
+              var e = P().opponentInjuredPlayerIndices;
+              this.session.opponentOverall = B(this.session.opponentRoster, e, this.session.playerOverall);
+            }
+            C({
+              matchId: this.session.matchId,
+              won: !1,
+              baseReward: 0,
+              adReward: 0,
+              advanced: !1,
+              participatingPlayerInstanceIds: this.getParticipatingPlayerInstanceIds()
+            }), this.setResultPageLabels(this.defeatPage), E(this.defeatPage, {
+              backgroundNodes: this.nodes(this.defeatPage, ["遮罩", "bg"]),
+              moduleGroups: [{
+                nodes: this.nodes(this.defeatPage, ["失败"]),
+                order: 0
+              }, {
+                nodes: this.nodes(this.defeatPage, ["赛程"]),
+                order: 1
+              }, {
+                nodes: this.nodes(this.defeatPage, ["比分"]),
+                order: 2
+              }, {
+                nodes: this.nodes(this.defeatPage, ["看广告获得加成重来"]),
+                order: 3
+              }, {
+                nodes: this.nodes(this.defeatPage, ["调整阵容"]),
+                order: 4
+              }]
+            });
+          }
+        }, o.setResultPageLabels = function (e) {
+          this.session && this.result && (this.setNodeLabel(e, "赛程/赛程", this.session.scheduleLabel), this.setNodeLabel(e, "比分/总比分/自己", String(this.result.playerFinalScore)), this.setNodeLabel(e, "比分/总比分/对方", String(this.result.opponentFinalScore)), this.setNodeLabel(e, "比分/自己球队名", this.session.playerTeamName), this.setNodeLabel(e, "比分/对手球队名", this.session.opponentTeamName));
+        }, o.bindResultButtons = function () {
+          var e,
+            t,
+            n,
+            i,
+            a = this,
+            r = null == (e = this.victoryPage) || null == (e = e.getChildByName("看广告双倍领取")) ? void 0 : e.getComponent(s),
+            o = null == (t = this.defeatPage) || null == (t = t.getChildByName("看广告获得加成重来")) ? void 0 : t.getComponent(s),
+            l = null == (n = this.defeatPage) || null == (n = n.getChildByName("调整阵容")) ? void 0 : n.getComponent(s);
+          null == r || r.node.on(s.EventType.CLICK, this.claimVictoryAdReward, this);
+          for (var h = 0, u = [this.victoryPage, this.championshipPage]; h < u.length; h++) {
+            var c,
+              d,
+              p = u[h];
+            null == p || null == (c = p.getChildByName("继续下一场")) || c.on(s.EventType.CLICK, function () {
+              return a.returnToHomepage(!0);
+            }, this), null == p || null == (d = p.getChildByName("返回")) || d.on(s.EventType.CLICK, function () {
+              return a.returnToHomepage(!1);
+            }, this);
+          }
+          null == (i = this.championshipPage) || null == (i = i.getChildByName("领取")) || i.on(s.EventType.CLICK, function () {
+            return a.returnToHomepage(!1);
+          }, this), null == o || o.node.on(s.EventType.CLICK, this.retryWithAdBonus, this), null == l || l.node.on(s.EventType.CLICK, function () {
+            return a.returnToHomepage(!1);
+          }, this), this.prepareButtonVisuals(this.node), U(this.node);
+        }, o.claimVictoryAdRewardAsync = function () {
+          var e = a( /*#__PURE__*/_regeneratorRuntime().mark(function _callee32() {
+            var e, t, n, i, a, r;
+            return _regeneratorRuntime().wrap(function _callee32$(_context33) {
+              while (1) switch (_context33.prev = _context33.next) {
+                case 0:
+                  if (!(!this.adProcessing && this.session && this.victoryPage && !this.isChampionshipMatch())) {
+                    _context33.next = 13;
+                    break;
+                  }
+                  t = null == (e = this.victoryPage.getChildByName("看广告双倍领取")) ? void 0 : e.getComponent(s);
+                  this.adProcessing = !0, this.setButtonAvailable(null != t ? t : null, !1);
+                  _context33.prev = 3;
+                  _context33.next = 6;
+                  return H();
+                case 6:
+                  if (_context33.sent) {
+                    _context33.next = 8;
+                    break;
+                  }
+                  return _context33.abrupt("return");
+                case 8:
+                  n = this.calculateMatchReward();
+                  if (k(this.session.matchId, n)) {
+                    C({
+                      matchId: this.session.matchId,
+                      won: !0,
+                      baseReward: 0,
+                      adReward: n,
+                      advanced: !1,
+                      participatingPlayerInstanceIds: this.getParticipatingPlayerInstanceIds()
+                    });
+                    r = null != (i = null == (a = this.findByPath(this.victoryPage, "本场奖励/管理层-选中背景/获得数值")) ? void 0 : a.getComponent(l)) ? i : null;
+                    D(r, 2 * n, function (e) {
+                      return "+" + N(Math.floor(e));
+                    }, {
+                      from: n,
+                      animateGrowth: !0
+                    });
+                  }
+                case 10:
+                  _context33.prev = 10;
+                  this.adProcessing = !1, t && this.session && this.setButtonAvailable(t, P().lastAdRewardMatchId !== this.session.matchId);
+                  return _context33.finish(10);
+                case 13:
+                case "end":
+                  return _context33.stop();
+              }
+            }, _callee32, this, [[3,, 10, 13]]);
+          }));
+          return function () {
+            return e.apply(this, arguments);
+          };
+        }(), o.retryWithAdBonusAsync = function () {
+          var e = a( /*#__PURE__*/_regeneratorRuntime().mark(function _callee33() {
+            var e, t;
+            return _regeneratorRuntime().wrap(function _callee33$(_context34) {
+              while (1) switch (_context34.prev = _context34.next) {
+                case 0:
+                  if (!(!this.adProcessing && this.session && this.defeatPage)) {
+                    _context34.next = 12;
+                    break;
+                  }
+                  t = null == (e = this.defeatPage.getChildByName("看广告获得加成重来")) ? void 0 : e.getComponent(s);
+                  this.adProcessing = !0, this.setButtonAvailable(null != t ? t : null, !1);
+                  _context34.prev = 3;
+                  _context34.next = 6;
+                  return H();
+                case 6:
+                  if (_context34.sent) {
+                    _context34.next = 8;
+                    break;
+                  }
+                  return _context34.abrupt("return");
+                case 8:
+                  this.retryCount += 1, this.session.temporaryBonusPercent = Math.floor(11 * Math.random()) + 10, V(this.defeatPage), this.defeatPage.active = !1, this.startPreparedMatch();
+                case 9:
+                  _context34.prev = 9;
+                  this.adProcessing = !1, null != t && t.isValid && this.setButtonAvailable(t, !0);
+                  return _context34.finish(9);
+                case 12:
+                case "end":
+                  return _context34.stop();
+              }
+            }, _callee33, this, [[3,, 9, 12]]);
+          }));
+          return function () {
+            return e.apply(this, arguments);
+          };
+        }(), o.forceWinWithAd = function () {
+          var e = a( /*#__PURE__*/_regeneratorRuntime().mark(function _callee34() {
+            return _regeneratorRuntime().wrap(function _callee34$(_context35) {
+              while (1) switch (_context35.prev = _context35.next) {
+                case 0:
+                  if (!(!this.adProcessing && this.result && "uncertain" === this.result.band && !this.result.won)) {
+                    _context35.next = 11;
+                    break;
+                  }
+                  this.adProcessing = !0, this.setButtonAvailable(this.forcedWinButton, !1);
+                  _context35.prev = 2;
+                  _context35.next = 5;
+                  return H();
+                case 5:
+                  if (_context35.sent) {
+                    _context35.next = 7;
+                    break;
+                  }
+                  return _context35.abrupt("return");
+                case 7:
+                  this.result = this.createMatchResult(!0), this.settleSkippedMatch(), this.finishMatch();
+                case 8:
+                  _context35.prev = 8;
+                  this.adProcessing = !1, this.forcedWinButton && this.forcedWinButton.node.active && this.result && this.setButtonAvailable(this.forcedWinButton, !this.result.won);
+                  return _context35.finish(8);
+                case 11:
+                case "end":
+                  return _context35.stop();
+              }
+            }, _callee34, this, [[2,, 8, 11]]);
+          }));
+          return function () {
+            return e.apply(this, arguments);
+          };
+        }(), o.settleSkippedMatch = function () {
+          var e;
+          if (this.session && this.result) {
+            null == (e = this.courtSimulation) || e.settleImmediately();
+            var t = Math.min(g, Math.floor(this.session.playerOverall * (1 + Math.max(0, this.session.temporaryBonusPercent) / 100))),
+              i = this.calculateSkippedMatchScore(t),
+              a = this.calculateSkippedMatchScore(this.session.opponentOverall),
+              r = this.result.won,
+              o = this.randomizeSkippedMatchScores(i, a, r, t, this.session.opponentOverall);
+            i = o[0], a = o[1];
+            var s = this.createSeededRandom(this.session.matchId + ":skip:" + this.session.matchNumber + ":" + this.retryCount),
+              l = this.distributeQuarterScores(i, s),
+              h = this.distributeQuarterScores(a, s);
+            this.result = n({}, this.result, {
+              won: r,
+              playerFinalScore: i,
+              opponentFinalScore: a,
+              playerQuarterScores: l,
+              opponentQuarterScores: h
+            }), this.playerQuarterScores = [].concat(l), this.opponentQuarterScores = [].concat(h), this.nextPlayIndex = this.plannedPlays.length, this.refreshScorePresentation(!1);
+          }
+        }, o.calculateSkippedMatchScore = function (e) {
+          var t,
+            n,
+            i = .05 + .001 * Math.min(100, Math.max(1, Math.floor(null != (t = null == (n = this.session) ? void 0 : n.matchNumber) ? t : 1)));
+          return Math.max(50, Math.ceil(Math.max(0, e) * i));
+        }, o.randomizeSkippedMatchScores = function (e, t, n, i, a) {
+          var r = Math.max(50, Math.ceil(.9 * e)),
+            o = Math.max(r, Math.floor(1.1 * e)),
+            s = Math.max(50, Math.ceil(.9 * t)),
+            l = Math.max(s, Math.floor(1.1 * t)),
+            h = this.randomInteger(r, o),
+            u = this.randomInteger(s, l),
+            c = this.calculateScoreCorrectionMargin(n ? i : a);
+          return n && h <= u ? h = u + c : !n && u <= h && (u = h + c), [h, u];
+        }, o.randomInteger = function (e, t) {
+          return e + Math.floor(Math.random() * (t - e + 1));
+        }, o.preloadHomepage = function () {
+          h.preloadScene("Homepage", void 0, function (e) {
+            e && console.warn("[MatchController] Homepage scene preload failed.", e);
+          }), A()["catch"](function (e) {
+            console.warn("[MatchController] Homepage runtime preload failed.", e);
+          });
+        }, o.returnToHomepage = function (e) {
+          x(), T(e ? "pre-match" : "home"), h.loadScene("Homepage");
+        }, o.isChampionshipMatch = function () {
+          var e;
+          return Boolean((null == (e = this.session) ? void 0 : e.isStandardProgressionMatch) && this.session.matchNumber === K);
+        }, o.calculateMatchReward = function () {
+          if (this.isChampionshipMatch()) return this.matchRewards.championship.budgetReward;
+          var e = this.session,
+            t = Math.max(0, _()),
+            n = Math.max(2, 10 - t / 10) * (t + 1) * Math.max(10, e.opponentLevel);
+          return Math.ceil(n * Math.max(0, e.rewardMultiplier) * (1 + Math.max(0, e.operationPresidentBonus)));
+        }, o.resolveButtons = function () {
+          var e, t, n, i, a, r;
+          this.doubleSpeedButton = null != (e = null == (t = this.page) || null == (t = t.getChildByName("二倍速")) ? void 0 : t.getComponent(s)) ? e : null, this.forcedWinButton = null != (n = null == (i = this.page) || null == (i = i.getChildByName("看广告获胜")) ? void 0 : i.getComponent(s)) ? n : null, this.skipButton = null != (a = null == (r = this.page) || null == (r = r.getChildByName("跳过")) ? void 0 : r.getComponent(s)) ? a : null;
+        }, o.prepareButtonVisuals = function (e) {
+          for (var t, n = i(e.getComponentsInChildren(s)); !(t = n()).done;) {
+            var a,
+              r,
+              o = t.value;
+            o.hoverSprite = null, o.pressedSprite = null, o.disabledSprite = null;
+            var l = null != (a = null == (r = o.target) ? void 0 : r.getComponent(u)) ? a : o.node.getComponent(u);
+            l && (this.originalButtonGrayscale.has(l) || this.originalButtonGrayscale.set(l, l.grayscale), l.grayscale = !o.interactable || this.originalButtonGrayscale.get(l));
+          }
+        }, o.setButtonAvailable = function (e, t) {
+          var n, i;
+          if (e) {
+            e.enabled = !0, e.interactable = t, e.hoverSprite = null, e.pressedSprite = null, e.disabledSprite = null;
+            var a = null != (n = null == (i = e.target) ? void 0 : i.getComponent(u)) ? n : e.node.getComponent(u);
+            a && (this.originalButtonGrayscale.has(a) || this.originalButtonGrayscale.set(a, a.grayscale), a.grayscale = !t || this.originalButtonGrayscale.get(a));
+          }
+        }, o.setButtonLabel = function (e, t) {
+          var n,
+            i = null == e || null == (n = e.node.getChildByName("Label")) ? void 0 : n.getComponent(l);
+          i && (i.string = t);
+        }, o.setLabel = function (e, t) {
+          this.setNodeLabel(this.page, e, t);
+        }, o.setGrowingScoreLabel = function (e, t, n) {
+          var i,
+            a,
+            r = null != (i = null == (a = this.findByPath(this.page, e)) ? void 0 : a.getComponent(l)) ? i : null;
+          D(r, t, function (e) {
+            return String(Math.floor(e));
+          }, {
+            animateGrowth: n
+          });
+        }, o.setNodeLabel = function (e, t, n) {
+          var i,
+            a = null == (i = this.findByPath(e, t)) ? void 0 : i.getComponent(l);
+          a && (a.string = n);
+        }, o.captureCommentaryTeamColors = function () {
+          var e,
+            t,
+            n = null == (e = this.findByPath(this.page, "比分/我的球队/球队名")) || null == (e = e.getComponent(l)) ? void 0 : e.color,
+            i = null == (t = this.findByPath(this.page, "比分/对方球队/球队名")) || null == (t = t.getComponent(l)) ? void 0 : t.color;
+          n && this.commentaryTeamColors[0].set(n), i && this.commentaryTeamColors[1].set(i);
+        }, o.createRichCommentary = function (e, t) {
+          for (var n, a = 0, r = "", o = i(t); !(n = o()).done;) {
+            var s = n.value,
+              l = e.indexOf(s.name, a);
+            l < 0 || (r += this.escapeRichText(e.slice(a, l)), r += "<color=" + this.colorToHex(this.commentaryTeamColors[1 === s.team ? 1 : 0]) + ">" + this.escapeRichText(s.name) + "</color>", a = l + s.name.length);
+          }
+          return r += this.escapeRichText(e.slice(a));
+        }, o.createCommentaryRichText = function (e) {
+          if (!e) return null;
+          var t = e.getComponent(l),
+            n = e.getComponent(c);
+          if (!n && t) {
+            var i,
+              a,
+              r = null != (i = null == (a = e.getComponent(d)) ? void 0 : a.width) ? i : 0;
+            (n = e.addComponent(c)).enabled = !1, n.cacheMode = l.CacheMode.CHAR, n.string = "", n.fontSize = t.fontSize, n.lineHeight = t.lineHeight, n.horizontalAlign = t.horizontalAlign, n.verticalAlign = t.verticalAlign, n.fontColor = t.color.clone(), n.maxWidth = r, n.useSystemFont = t.useSystemFont, n.fontFamily = t.fontFamily, t.font instanceof p && (n.font = t.font), n.handleTouchEvent = !1, t.enabled = !1, n.enabled = !0;
+          }
+          return n;
+        }, o.colorToHex = function (e) {
+          return "#" + [e.r, e.g, e.b].map(function (e) {
+            return e.toString(16).padStart(2, "0");
+          }).join("");
+        }, o.escapeRichText = function (e) {
+          return e.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }, o.nodes = function (e, t) {
+          return t.flatMap(function (t) {
+            var n = e.getChildByName(t);
+            return n ? [n] : [];
+          });
+        }, o.findByPath = function (e, t) {
+          for (var n, a = e, r = i(t.split("/")); !(n = r()).done;) {
+            var o,
+              s,
+              l = n.value;
+            if (!(a = null != (o = null == (s = a) ? void 0 : s.getChildByName(l)) ? o : null)) return null;
+          }
+          return a;
+        }, o.getTopFive = function (e) {
+          return e.filter(function (e) {
+            return Boolean(e);
+          }).sort(function (e, t) {
+            return t.overall - e.overall;
+          }).slice(0, 5);
+        }, o.getParticipatingPlayerInstanceIds = function () {
+          return this.session ? this.getTopFive(this.session.playerRoster).map(function (e) {
+            return e.instanceId;
+          }) : [];
+        }, o.formatClock = function (e) {
+          var t = Math.max(0, Math.floor(e));
+          return String(Math.floor(t / 60)).padStart(2, "0") + ":" + String(t % 60).padStart(2, "0");
+        }, o.createSeededRandom = function (e) {
+          for (var t, n = 2166136261, a = i(e); !(t = a()).done;) {
+            var r = t.value;
+            n ^= r.charCodeAt(0), n = Math.imul(n, 16777619);
+          }
+          return function () {
+            return n ^= n << 13, n ^= n >>> 17, ((n ^= n << 5) >>> 0) / 4294967296;
+          };
+        }, o.stopAllMotion = function () {
+          var e;
+          null == (e = this.courtSimulation) || e.stop();
+        }, r;
+      }(f)) || $);
+      r._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/MatchCourtSimulation.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (t) {
+  var e, o, n, i, r, a;
+  return {
+    setters: [function (t) {
+      e = t.createForOfIteratorHelperLoose, o = t.createClass;
+    }, function (t) {
+      n = t.cclegacy, i = t.Vec3, r = t.tween, a = t.Tween;
+    }],
+    execute: function execute() {
+      n._RF.push({}, "eaa4d7Ba8FAaKD5XJpd9Ojh", "MatchCourtSimulation", void 0);
+      var s = {
+          "five-out": "五外拉开",
+          "four-out-one-in": "四外一内",
+          "pick-and-roll": "高位挡拆",
+          "low-post": "低位单打",
+          horns: "牛角战术"
+        },
+        l = {
+          "five-out": [[.38, .5], [.58, .2], [.58, .8], [.86, .12], [.86, .88]],
+          "four-out-one-in": [[.4, .5], [.6, .2], [.6, .8], [.84, .15], [.86, .62]],
+          "pick-and-roll": [[.38, .5], [.5, .5], [.7, .18], [.7, .82], [.86, .82]],
+          "low-post": [[.46, .28], [.54, .76], [.72, .14], [.72, .86], [.88, .62]],
+          horns: [[.34, .5], [.56, .4], [.56, .6], [.84, .12], [.84, .88]]
+        },
+        c = [[[.18, .24], [.18, .76], [.32, .16], [.32, .5], [.32, .84]], [[.82, .24], [.82, .76], [.68, .16], [.68, .5], [.68, .84]]];
+      t("MatchCourtSimulation", function () {
+        function t(t, e, o, n, i, r, a) {
+          this.actors = [], this.cornerNodes = [], this.hoopNodes = [], this.freeThrowNodes = [], this.ballDropNodes = [], this.threePointNodes = [[], []], this.activeTweenTargets = [], this.callbacks = void 0, this.ballOwners = new Map(), this.token = 0, this.speedMultiplier = 1, this.busy = !1, this.activeEvent = null, this.playersRoot = t, this.courtRange = e, this.ball = o, this.commentarySelector = a, this.callbacks = r, this.collectCourtReferences(), this.collectActors(n, i);
+        }
+        var n = t.prototype;
+        return n.reset = function (t) {
+          void 0 === t && (t = 0), this.stop(), this.placeStartingFormation();
+          var e = this.getTeamActors(t)[0];
+          e && (this.faceTeamTowardAttack(t), this.setBallOwner(e));
+        }, n.playOpeningJumpBall = function (t, e) {
+          var o,
+            n,
+            r,
+            a,
+            s = this;
+          if (!this.isReady || this.busy) return !1;
+          var l = [null != (o = this.getTeamActors(0)[4]) ? o : this.getTeamActors(0)[0], null != (n = this.getTeamActors(1)[4]) ? n : this.getTeamActors(1)[0]],
+            c = this.getTeamActors(t)[0];
+          if (!l[0] || !l[1] || !c) return !1;
+          this.busy = !0, this.activeEvent = null, this.speedMultiplier = 1, this.token += 1;
+          var h = this.token;
+          this.stopTweens(), this.placeStartingFormation(), this.faceTeamTowardAttack(t);
+          var u = null != (r = null == (a = this.courtRange.getChildByName("中场点")) ? void 0 : a.worldPosition.clone()) ? r : this.pointInCourt(.5, .5);
+          return this.moveActor(l[0], new i(u.x - 26, u.y, u.z), .2), this.moveActor(l[1], new i(u.x + 26, u.y, u.z), .2), this.after(.24, h, function () {
+            s.clearBallOwner(), s.ball.active = !0, s.ball.setWorldPosition(u), s.jumpActor(l[0], 1.14, .34), s.jumpActor(l[1], 1.14, .34), s.animateBallArc(u, s.getBallAnchorPosition(c, "hold"), .36, 68, h, function () {
+              h === s.token && (s.setBallOwner(c), s.busy = !1, e());
+            });
+          }), !0;
+        }, n.play = function (t, e) {
+          var o,
+            n,
+            i = this;
+          if (!this.isReady || this.busy) return !1;
+          this.busy = !0, this.activeEvent = t, this.speedMultiplier = Math.max(1, e), this.token += 1;
+          var r = this.token;
+          this.stopTweens(), this.faceTeamTowardAttack(t.offenseTeam);
+          var a = this.createTacticSetup(t),
+            s = null != (o = null == (n = this.ballOwners.get(this.ball)) ? void 0 : n.actor) ? o : null,
+            l = (null == s ? void 0 : s.team) === t.offenseTeam ? s : a.handler;
+          s !== l && this.setBallOwner(l);
+          var c = function c() {
+            i.moveIntoTactic(a, l, r, function () {
+              i.executeTactic(a, t, r);
+            });
+          };
+          return t.quarter > 0 && t.startSecond === 60 * t.quarter ? this.playQuarterOpeningInbound(a, t, r, c) : c(), !0;
+        }, n.stop = function () {
+          this.token += 1, this.busy = !1, this.activeEvent = null, this.stopTweens(), this.clearBallOwner();
+        }, n.settleImmediately = function () {
+          this.stop();
+        }, n.collectCourtReferences = function () {
+          var t,
+            e,
+            o,
+            n,
+            i = this;
+          (t = this.cornerNodes).push.apply(t, ["左上角", "右上角", "左下角", "右下角"].map(function (t) {
+            return i.courtRange.getChildByName(t);
+          }).filter(function (t) {
+            return Boolean(t);
+          })), (e = this.hoopNodes).push.apply(e, ["篮筐1", "篮筐2"].map(function (t) {
+            return i.courtRange.getChildByName(t);
+          }).filter(function (t) {
+            return Boolean(t);
+          })), (o = this.freeThrowNodes).push.apply(o, ["罚球点1", "罚球点2"].map(function (t) {
+            return i.courtRange.getChildByName(t);
+          }).filter(function (t) {
+            return Boolean(t);
+          })), (n = this.ballDropNodes).push.apply(n, ["进球后下落终点1", "进球后下落终点2"].map(function (t) {
+            return i.courtRange.getChildByName(t);
+          }).filter(function (t) {
+            return Boolean(t);
+          })), this.threePointNodes[0] = this.courtRange.children.filter(function (t) {
+            return t.name.startsWith("左半场-") && t.name.includes("三分");
+          }), this.threePointNodes[1] = this.courtRange.children.filter(function (t) {
+            return t.name.startsWith("右半场-") && t.name.includes("三分");
+          });
+        }, n.collectActors = function (t, e) {
+          var o = this,
+            n = [].concat(this.playersRoot.children.filter(function (t) {
+              return /^我方球员\d+$/.test(t.name);
+            }), this.playersRoot.children.filter(function (t) {
+              return /^敌方球员\d+$/.test(t.name);
+            })),
+            i = [].concat(t.slice(0, 5), e.slice(0, 5));
+          n.slice(0, 10).forEach(function (t, e) {
+            var n,
+              r = e < 5 ? 0 : 1,
+              a = {
+                node: t,
+                team: r,
+                teamIndex: e % 5,
+                card: null != (n = i[e]) ? n : null,
+                homeScale: t.scale.clone(),
+                homePerspectiveFactor: o.getPerspectiveFactor(t.worldPosition),
+                facing: 0 === r ? "right" : "left",
+                ballAnchors: o.collectBallAnchors(t)
+              };
+            o.hideActorBallAnchors(a), o.actors.push(a);
+          });
+        }, n.collectBallAnchors = function (t) {
+          return {
+            left: {
+              hold: t.getChildByName("持球点-左"),
+              dribble: t.getChildByName("运球点-左"),
+              shot: t.getChildByName("投射点-左")
+            },
+            right: {
+              hold: t.getChildByName("持球点-右"),
+              dribble: t.getChildByName("运球点-右"),
+              shot: t.getChildByName("投射点-右")
+            }
+          };
+        }, n.placeStartingFormation = function () {
+          for (var t = this, e = function e() {
+              var e = t.getTeamActors(o),
+                n = c[o];
+              e.forEach(function (e, o) {
+                var i = n[o],
+                  r = i[0],
+                  a = i[1],
+                  s = t.pointInCourt(r, a);
+                e.node.setWorldPosition(s), t.applyPerspectiveScale(e, s);
+              });
+            }, o = 0; o < 2; o += 1) e();
+          this.sortActorDepth();
+        }, n.createTacticSetup = function (t) {
+          var e,
+            o,
+            n,
+            i,
+            r,
+            a = this.getTeamActors(t.offenseTeam),
+            s = this.getTeamActors(1 - t.offenseTeam),
+            c = null != (e = a[t.handlerIndex % a.length]) ? e : a[0],
+            h = null != (o = a[t.shooterIndex % a.length]) ? o : a[0],
+            u = null != (n = a[t.passerIndex % a.length]) ? n : c,
+            f = null != (i = null != (r = a.find(function (t) {
+              return t !== c && t !== h && t !== u;
+            })) ? r : a[1]) ? i : c;
+          return {
+            offense: a,
+            defense: s,
+            handler: c,
+            passer: u,
+            shooter: h,
+            helper: f,
+            points: l[t.tactic]
+          };
+        }, n.playQuarterOpeningInbound = function (t, e, o, n) {
+          var i,
+            r,
+            a,
+            s,
+            l = this,
+            c = null != (i = t.offense[(e.handlerIndex + 1) % t.offense.length]) ? i : t.handler,
+            h = c === t.handler ? null != (r = t.offense[(e.handlerIndex + 2) % t.offense.length]) ? r : c : t.handler,
+            u = this.getAttackingHoop(1 - e.offenseTeam),
+            f = this.hoopNodes.indexOf(u),
+            d = null != (a = null == (s = this.ballDropNodes[f]) ? void 0 : s.worldPosition.clone()) ? a : c.node.worldPosition.clone(),
+            m = this.pointInCourt(0 === e.offenseTeam ? .24 : .76, e.index % 2 == 0 ? .44 : .56);
+          this.clearBallOwner(), this.ball.active = !0, this.ball.setWorldPosition(d), this.moveActor(c, d, this.scaled(.22)), this.moveActor(h, m, this.scaled(.22)), this.after(.24, o, function () {
+            l.setBallOwner(c), l.passBall(c, h, o, n);
+          });
+        }, n.moveIntoTactic = function (t, e, o, n) {
+          var r,
+            a = this,
+            s = this.orderRolesForTactic(t),
+            l = new Map();
+          s.forEach(function (e, o) {
+            var n = t.points[o],
+              i = n[0],
+              r = n[1];
+            l.set(e, a.getAttackingHalfPoint(e.team, i, r));
+          });
+          var c = Math.max.apply(Math, s.map(function (t) {
+              var e;
+              return i.distance(t.node.worldPosition, null != (e = l.get(t)) ? e : t.node.worldPosition);
+            })),
+            h = Math.max(.78, Math.min(1.9, c / 230));
+          s.forEach(function (t, o) {
+            if (t !== e) {
+              var n = l.get(t);
+              n && a.moveActor(t, n, a.scaled(h));
+            }
+          }), t.defense.forEach(function (e, o) {
+            var n,
+              r,
+              l,
+              c = null != (n = s[o]) ? n : t.offense[o],
+              u = a.getAttackingHoop(t.handler.team),
+              f = t.points[o],
+              d = f[0],
+              m = f[1],
+              p = a.getAttackingHalfPoint(c.team, d, m),
+              v = i.lerp(new i(), p, u.worldPosition, function (t, e) {
+                if ("pick-and-roll" === t && e < 2) return .22;
+                if ("low-post" === t && 4 !== e) return .18;
+                return .12;
+              }(null != (r = null == (l = a.activeEvent) ? void 0 : l.tactic) ? r : "five-out", o)),
+              g = new i();
+            i.subtract(g, u.worldPosition, p), g.length() > 0 && g.normalize();
+            var y = o % 2 == 0 ? -1 : 1,
+              w = 12 + 4 * Math.floor(o / 2);
+            v.add3f(-g.y * w * y, g.x * w * y, 0), a.moveActor(e, v, a.scaled(h));
+          });
+          var u = null != (r = l.get(e)) ? r : e.node.worldPosition.clone();
+          this.dribbleTo(e, u, h, o, function () {
+            if (o === a.token) {
+              var i = function i() {
+                a.startOffBallRoutes(t, s, o), n();
+              };
+              e === t.handler ? i() : a.passBall(e, t.handler, o, i);
+            }
+          });
+        }, n.orderRolesForTactic = function (t) {
+          for (var o = [t.handler], n = 0, i = [t.helper, t.passer, t.shooter]; n < i.length; n++) {
+            var r = i[n];
+            o.includes(r) || o.push(r);
+          }
+          for (var a, s = e(t.offense); !(a = s()).done;) {
+            var l = a.value;
+            o.includes(l) || o.push(l);
+          }
+          return o.slice(0, 5);
+        }, n.startOffBallRoutes = function (t, e, o) {
+          var n = this;
+          e.forEach(function (e, i) {
+            if (e !== t.handler && e !== t.passer && e !== t.shooter) {
+              var r = t.points[i],
+                a = r[0],
+                s = r[1],
+                l = n.getAttackingHalfPoint(e.team, Math.max(.4, a - .12), 1 - s),
+                c = n.getAttackingHalfPoint(e.team, a, s);
+              n.moveActor(e, l, n.scaled(.62), function () {
+                o === n.token && n.moveActor(e, c, n.scaled(.58));
+              });
+            }
+          }), t.defense.forEach(function (o, r) {
+            var a,
+              s = null != (a = e[r]) ? a : t.offense[r],
+              l = i.lerp(new i(), o.node.worldPosition, s.node.worldPosition, .58);
+            n.moveActor(o, l, n.scaled(.82));
+          });
+        }, n.executeTactic = function (t, e, o) {
+          if ("free-throw" !== e.action) {
+            if ("turnover" !== e.action) switch (e.tactic) {
+              case "five-out":
+                this.playFiveOut(t, e, o);
+                break;
+              case "four-out-one-in":
+                this.playFourOutOneIn(t, e, o);
+                break;
+              case "pick-and-roll":
+                this.playPickAndRoll(t, e, o);
+                break;
+              case "low-post":
+                this.playLowPost(t, e, o);
+                break;
+              default:
+                this.playHorns(t, e, o);
+            } else this.playTurnover(t, e, o);
+          } else this.playFreeThrows(t, e, o);
+        }, n.playFiveOut = function (t, e, o) {
+          var n = this,
+            i = t.helper,
+            r = this.getAttackingHalfPoint(e.offenseTeam, .62, .28);
+          this.dribbleTo(t.handler, r, .34, o, function () {
+            n.passBall(t.handler, i, o, function () {
+              var r = n.getFinishPoint(e, t.shooter, 0);
+              n.moveAndPass(i, t.shooter, r, o, function () {
+                n.finishPlayAtBasket(t, e, o);
+              });
+            });
+          });
+        }, n.playFourOutOneIn = function (t, e, o) {
+          var n = this,
+            i = t.passer === t.handler ? t.helper : t.passer,
+            r = this.getAttackingHalfPoint(e.offenseTeam, .82, .62);
+          this.moveAndPass(t.handler, i, r, o, function () {
+            var r = n.getFinishPoint(e, t.shooter, 34);
+            n.moveAndPass(i, t.shooter, r, o, function () {
+              n.finishPlayAtBasket(t, e, o);
+            });
+          });
+        }, n.playPickAndRoll = function (t, e, o) {
+          var n = this,
+            i = t.helper,
+            r = this.getAttackingHalfPoint(e.offenseTeam, .5, .5);
+          this.moveActor(i, r, this.scaled(.28));
+          var a = this.getFinishPoint(e, t.handler, -26);
+          this.after(.16, o, function () {
+            n.dribbleTo(t.handler, a, .54, o, function () {
+              if (t.shooter !== t.handler) {
+                var i = n.getFinishPoint(e, t.shooter, 24);
+                n.moveAndPass(t.handler, t.shooter, i, o, function () {
+                  return n.finishPlayAtBasket(t, e, o);
+                });
+              } else n.finishPlayAtBasket(t, e, o);
+            });
+          });
+        }, n.playLowPost = function (t, e, o) {
+          var n = this,
+            i = t.shooter,
+            r = this.getAttackingHalfPoint(e.offenseTeam, .84, .62);
+          this.moveAndPass(t.handler, i, r, o, function () {
+            var r = n.getFinishPoint(e, i, 26);
+            n.dribbleTo(i, r, .5, o, function () {
+              n.finishPlayAtBasket(t, e, o);
+            });
+          });
+        }, n.playHorns = function (t, e, o) {
+          var n = this,
+            i = t.helper,
+            r = this.getAttackingHalfPoint(e.offenseTeam, .58, .42);
+          this.moveActor(i, r, this.scaled(.3));
+          var a = this.getAttackingHalfPoint(e.offenseTeam, .5, .5);
+          this.dribbleTo(t.handler, a, .38, o, function () {
+            n.passBall(t.handler, i, o, function () {
+              var r = n.getFinishPoint(e, t.shooter, -30);
+              n.moveAndPass(i, t.shooter, r, o, function () {
+                n.finishPlayAtBasket(t, e, o);
+              });
+            });
+          });
+        }, n.finishPlayAtBasket = function (t, e, o) {
+          var n = this;
+          "and-one" !== e.action ? this.shootBall(t.shooter, e, o, e.points) : this.shootBall(t.shooter, e, o, 2, function () {
+            n.after(.12, o, function () {
+              n.playSingleAndOneFreeThrow(t, e, o);
+            });
+          });
+        }, n.playSingleAndOneFreeThrow = function (t, e, o) {
+          var n = this,
+            i = this.getFreeThrowPoint(e.offenseTeam);
+          this.moveActor(t.shooter, i, this.scaled(.24), function () {
+            o === n.token && (n.setBallOwner(t.shooter), n.animateFreeThrowShot(t.shooter, !0, o, function () {
+              n.callbacks.onScore(e.offenseTeam, 1, e), n.emitCommentary(n.playerName(t.shooter) + "突破出手时遭遇犯规，打成2+1。加罚命中，本回合得到3分。", e, t.shooter), n.completeMadePlay(e, o);
+            }));
+          });
+        }, n.playFreeThrows = function (t, e, o) {
+          var n = this,
+            i = t.shooter,
+            r = this.getFreeThrowPoint(e.offenseTeam),
+            a = this.getAttackingHoop(e.offenseTeam),
+            s = [this.getTakeoffPoint(a, 150, -72), this.getTakeoffPoint(a, 150, 72), this.getTakeoffPoint(a, 190, -88), this.getTakeoffPoint(a, 190, 88)];
+          [].concat(t.offense.filter(function (t) {
+            return t !== i;
+          }), t.defense).slice(0, 8).forEach(function (t, e) {
+            n.moveActor(t, s[e % s.length], n.scaled(.34));
+          }), this.moveActor(i, r, this.scaled(.34), function () {
+            if (o === n.token) {
+              n.setBallOwner(i);
+              var t = Math.max(0, Math.min(2, e.points));
+              n.animateFreeThrowSequence(i, e, o, 0, t);
+            }
+          });
+        }, n.animateFreeThrowSequence = function (t, e, o, n, i) {
+          var r = this;
+          if (n >= 2) {
+            var a,
+              s = (2 === i ? "两罚两中" : 1 === i ? "两罚一中" : "两罚全部偏出") + "，得到" + i + "分",
+              l = this.playerName(t) + "突破出手时遭遇犯规，站上罚球线",
+              c = this.selectCommentary(t, e, "free-throw"),
+              h = this.composeCommentarySeries(c, this.joinCommentarySentences(l, null != (a = null == c ? void 0 : c[0]) ? a : "", s));
+            2 === i ? (this.emitCommentary(h, e, t), this.completeMadePlay(e, o)) : this.resolveMissedShot(t, e, o, h);
+          } else {
+            var u = n < i;
+            this.animateFreeThrowShot(t, u, o, function () {
+              if (u && r.callbacks.onScore(e.offenseTeam, 1, e), o === r.token) if (n + 1 >= 2) r.animateFreeThrowSequence(t, e, o, n + 1, i);else {
+                var a = r.getBallAnchorPosition(t, "hold");
+                r.after(.12, o, function () {
+                  r.animateBallArc(r.ball.worldPosition.clone(), a, .18, 12, o, function () {
+                    r.setBallOwner(t), r.animateFreeThrowSequence(t, e, o, n + 1, i);
+                  });
+                });
+              }
+            });
+          }
+        }, n.animateFreeThrowShot = function (t, e, o, n) {
+          var r,
+            a,
+            s = this,
+            l = this.getAttackingHoop(t.team),
+            c = null != (r = null == (a = l.getChildByName("进球点")) ? void 0 : a.worldPosition) ? r : l.worldPosition,
+            h = e ? c : new i(c.x, c.y + 16, c.z);
+          this.gatherBallForShot(t, o, function (t) {
+            s.animateBallArc(t, h, .42, e ? 78 : 64, o, n);
+          });
+        }, n.playTurnover = function (t, e, o) {
+          var n = this,
+            r = t.defense[(e.shooterIndex + e.handlerIndex) % t.defense.length],
+            a = i.lerp(new i(), t.handler.node.worldPosition, r.node.worldPosition, .48);
+          this.after(.58, o, function () {
+            n.dribbleTo(t.handler, a, .5, o, function () {
+              var a = i.lerp(new i(), t.handler.node.worldPosition, r.node.worldPosition, .72);
+              n.moveActor(r, a, n.scaled(.24)), n.passBall(t.handler, r, o, function () {
+                var i = n.selectCommentary(t.handler, e, "turnover");
+                n.emitCommentary(i ? n.composeCommentarySeries(i, n.joinCommentarySentences(i[0], n.playerName(r) + "完成抢断，球权交换")) : [s[e.tactic] + "没有打成，" + n.playerName(r) + "判断传球路线完成抢断，球权交换。"], e, r), n.completePlay(1 - e.offenseTeam, e, o);
+              });
+            });
+          });
+        }, n.shootBall = function (t, e, o, n, r) {
+          var a,
+            s,
+            l = this,
+            c = this.getAttackingHoop(e.offenseTeam),
+            h = null != (a = null == (s = c.getChildByName("进球点")) ? void 0 : s.worldPosition) ? a : c.worldPosition,
+            u = e.made ? h : new i(h.x + (e.index % 2 == 0 ? -24 : 24), h.y + 14, h.z);
+          "dunk" !== e.action ? (this.jumpActor(t, "layup" === e.action ? 1.1 : 1.06, .36), this.gatherBallForShot(t, o, function (i) {
+            var a = "three" === e.action ? 92 : "jumper" === e.action ? 76 : 58;
+            l.animateBallArc(i, u, .52, a, o, function () {
+              if (e.made) {
+                if (n > 0 && l.callbacks.onScore(e.offenseTeam, n, e), r) return void r();
+                l.emitCommentary(l.createMadeCommentary(t, e), e, t), l.completeMadePlay(e, o);
+              } else l.resolveMissedShot(t, e, o);
+            });
+          })) : this.playDunkMotion(t, c, u, e, o, n, r);
+        }, n.playDunkMotion = function (t, e, o, n, a, s, l) {
+          var c = this,
+            h = t.node.worldPosition.clone(),
+            u = this.getTakeoffPoint(e, 42, 0),
+            f = this.trackTweenTarget({
+              progress: 0
+            }),
+            d = !1;
+          this.setBallMotionOwner(t, "shot"), r(f).to(this.scaled(.5), {
+            progress: 1
+          }, {
+            onUpdate: function onUpdate() {
+              if (a === c.token) {
+                var e = i.lerp(new i(), h, u, f.progress);
+                e.y += 48 * Math.sin(f.progress * Math.PI), t.node.setWorldPosition(e), c.applyPerspectiveScale(t, e);
+                var o = t.node.scale.clone(),
+                  n = 1 + .18 * Math.sin(f.progress * Math.PI);
+                if (t.node.setScale(o.x * n, o.y * n, o.z), !d) {
+                  var r = c.getBallAnchorPosition(t, "hold"),
+                    s = c.getBallAnchorPosition(t, "shot");
+                  c.ball.setWorldPosition(i.lerp(new i(), r, s, Math.min(1, f.progress / .48)));
+                }
+              }
+            }
+          }).start(), this.after(.24, a, function () {
+            d = !0;
+            var e = c.getBallAnchorPosition(t, "shot");
+            c.animateBallArc(e, o, .18, n.made ? 10 : 32, a, function () {
+              if (n.made) {
+                if (s > 0 && c.callbacks.onScore(n.offenseTeam, s, n), l) return void l();
+                c.emitCommentary(c.createMadeCommentary(t, n), n, t), c.completeMadePlay(n, a);
+              } else c.resolveMissedShot(t, n, a);
+            });
+          });
+        }, n.resolveMissedShot = function (t, e, o, n) {
+          var r,
+            a = this;
+          void 0 === n && (n = []);
+          var s,
+            l = this.getTeamActors(e.offenseTeam),
+            c = this.getTeamActors(1 - e.offenseTeam),
+            h = this.getReboundPoint(this.getAttackingHoop(e.offenseTeam), e.index),
+            u = t;
+          if ("teammate" === e.rebound) u = null != (s = l.find(function (e) {
+            return e !== t;
+          })) ? s : t;else if ("opponent" === e.rebound) {
+            var f;
+            u = null != (f = c[e.shooterIndex % c.length]) ? f : c[0];
+          }
+          var d = e.contestedRebound ? [u].concat(u.team === e.offenseTeam ? c.slice(0, 2) : [t, null != (r = l.find(function (e) {
+            return e !== t;
+          })) ? r : t]) : [u];
+          d.forEach(function (t, e) {
+            var o = .65 * (e - (d.length - 1) / 2),
+              n = t === u ? 0 : 22,
+              r = new i(h.x + Math.cos(o) * n, h.y + Math.sin(o) * n, h.z);
+            a.moveActor(t, r, a.scaled(.34));
+          }), this.after(.28, o, function () {
+            d.forEach(function (t) {
+              a.jumpActor(t, t === u ? 1.14 : 1.08, .32);
+            });
+          });
+          var m = this.ball.worldPosition.clone();
+          this.animateBallArc(m, h, .42, 34, o, function () {
+            a.setBallOwner(u);
+            var i = e.contestedRebound ? "多人争抢后" : "",
+              r = u === t ? "自投自抢" : u.team === e.offenseTeam ? "队友保护下进攻篮板" : "防守方收下篮板",
+              s = n.length > 0 ? n : a.createMissedCommentary(t, e);
+            a.emitCommentary([].concat(s, [a.joinCommentarySentences("" + i + a.playerName(u) + r)]), e, t, u), a.completePlay(u.team, e, o);
+          });
+        }, n.completeMadePlay = function (t, e) {
+          var o,
+            n = this,
+            i = this.getAttackingHoop(t.offenseTeam),
+            r = this.hoopNodes.indexOf(i),
+            a = this.ballDropNodes[r],
+            s = 1 - t.offenseTeam,
+            l = this.getTeamActors(s),
+            c = null != (o = l[t.index % l.length]) ? o : l[0];
+          if (a && c) {
+            var h = this.ball.worldPosition.clone();
+            this.animateBallArc(h, a.worldPosition, .22, 8, e, function () {
+              n.moveActor(c, a.worldPosition, n.scaled(.2), function () {
+                var o;
+                if (e === n.token) {
+                  n.setBallOwner(c);
+                  var i = null != (o = l[(t.index + 1) % l.length]) ? o : c;
+                  if (i !== c) {
+                    var r = n.pointInCourt(0 === s ? .25 : .75, t.index % 2 == 0 ? .44 : .56);
+                    n.moveActor(i, r, n.scaled(.16)), n.after(.06, e, function () {
+                      n.passBall(c, i, e, function () {
+                        n.completePlay(s, t, e);
+                      });
+                    });
+                  } else n.completePlay(s, t, e);
+                }
+              });
+            });
+          } else this.completePlay(s, t, e);
+        }, n.completePlay = function (t, e, o) {
+          o === this.token && this.activeEvent === e && (this.busy = !1, this.activeEvent = null, this.callbacks.onPlayComplete(t, e));
+        }, n.createMadeCommentary = function (t, e) {
+          var o = this.selectCommentary(t, e, "made");
+          if (o) return this.composeCommentarySeries(o, this.joinCommentarySentences(o[0], this.createMadeResultCommentary(t, e)));
+          var n = s[e.tactic],
+            i = this.playerName(t);
+          return "three" === e.action ? [n + "拉出空位，" + i + "三分命中，比分增加3分。"] : "dunk" === e.action ? [n + "撕开防线，" + i + "完成扣篮，比分增加2分。"] : "layup" === e.action ? [n + "形成突破，" + i + "上篮得手，比分增加2分。"] : [n + "创造出手机会，" + i + "中距离命中，比分增加2分。"];
+        }, n.createMissedCommentary = function (t, e) {
+          var o = this.selectCommentary(t, e, "missed");
+          return o ? this.composeCommentarySeries(o, this.joinCommentarySentences(o[0], "" + this.playerName(t) + this.actionName(e.action) + "打铁")) : ["" + this.playerName(t) + this.actionName(e.action) + "偏出"];
+        }, n.createMadeResultCommentary = function (t, e) {
+          var o = this.playerName(t);
+          return "three" === e.action ? o + "三分命中，得到3分" : "dunk" === e.action ? o + "扣篮得手，得到2分" : "layup" === e.action ? o + "上篮得手，得到2分" : o + "中距离命中，得到2分";
+        }, n.joinCommentarySentences = function () {
+          for (var t = arguments.length, e = new Array(t), o = 0; o < t; o++) e[o] = arguments[o];
+          return e.map(function (t) {
+            return t.trim();
+          }).filter(Boolean).map(function (t) {
+            var e = t.replace(/[,:;\u3001\uFF0C\uFF1A\uFF1B]+$/, "");
+            return /[!\?\u3002\uFF01\uFF1F]$/.test(e) ? e : e + "。";
+          }).join("");
+        }, n.composeCommentarySeries = function (t, e) {
+          var o,
+            n = this;
+          return [e].concat(null != (o = null == t ? void 0 : t.slice(1).map(function (t) {
+            return n.joinCommentarySentences(t);
+          })) ? o : []);
+        }, n.selectCommentary = function (t, e, o) {
+          var n,
+            i = this.getTeamActors(e.offenseTeam),
+            r = null != (n = i[e.passerIndex % i.length]) ? n : null;
+          return this.commentarySelector.select({
+            event: e,
+            outcome: o,
+            actor: t.card,
+            passer: r.card,
+            ownRoster: i.map(function (t) {
+              return t.card;
+            }),
+            opponentRoster: this.getTeamActors(1 - e.offenseTeam).map(function (t) {
+              return t.card;
+            })
+          });
+        }, n.emitCommentary = function (t, e) {
+          for (var o = this, n = arguments.length, i = new Array(n > 2 ? n - 2 : 0), r = 2; r < n; r++) i[r - 2] = arguments[r];
+          this.callbacks.onCommentary(t, e, i.map(function (t) {
+            return {
+              name: o.playerName(t),
+              team: t.team
+            };
+          }));
+        }, n.moveAndPass = function (t, e, o, n, r) {
+          var a = this,
+            s = e.node.worldPosition.clone(),
+            l = i.lerp(new i(), s, o, .7);
+          this.moveActor(e, l, this.scaled(.34));
+          var c = new i();
+          i.subtract(c, l, t.node.worldPosition), c.length() > 0 && c.normalize();
+          var h = Math.min(72, .28 * i.distance(t.node.worldPosition, l)),
+            u = t.node.worldPosition.clone().add3f(c.x * h, c.y * h, 0);
+          this.dribbleTo(t, u, .26, n, function () {
+            a.passBall(t, e, n, function () {
+              a.moveActor(e, o, a.scaled(.2), r);
+            });
+          });
+        }, n.dribbleTo = function (t, e, o, n, a) {
+          var s = this;
+          this.setBallMotionOwner(t, "dribble");
+          var l = t.node.worldPosition.clone(),
+            c = this.trackTweenTarget({
+              progress: 0
+            }),
+            h = this.scaled(o),
+            u = Math.max(1, Math.round(o / .22));
+          r(c).to(h, {
+            progress: 1
+          }, {
+            onUpdate: function onUpdate() {
+              if (n === s.token) {
+                var o = i.lerp(new i(), l, e, c.progress);
+                t.node.setWorldPosition(o), s.applyPerspectiveScale(t, o);
+                var r = s.getBallAnchorPosition(t, "hold"),
+                  a = s.getBallAnchorPosition(t, "dribble"),
+                  h = Math.abs(Math.sin(c.progress * Math.PI * u));
+                s.ball.setWorldPosition(i.lerp(new i(), r, a, h));
+              }
+            }
+          }).call(function () {
+            n === s.token && (s.setBallOwner(t), a());
+          }).start();
+        }, n.passBall = function (t, e, o, n) {
+          var a = this,
+            s = this.getBallAnchorPosition(t, "hold"),
+            l = new i(s.x + (e.node.worldPosition.x >= s.x ? 18 : -18), s.y + 10, s.z),
+            c = this.getBallAnchorPosition(e, "hold"),
+            h = i.distance(s, c),
+            u = this.scaled(Math.max(.2, Math.min(.36, h / 1050))),
+            f = this.trackTweenTarget({
+              progress: 0
+            });
+          this.clearBallOwner(), this.ball.active = !0, this.ball.setWorldPosition(s), r(f).to(u, {
+            progress: 1
+          }, {
+            onUpdate: function onUpdate() {
+              if (o === a.token) {
+                var t = a.getBallAnchorPosition(e, "hold"),
+                  n = i.lerp(new i(), l, t, .5);
+                n.y += Math.min(52, 18 + .06 * h);
+                var r = f.progress,
+                  s = 1 - r;
+                a.ball.setWorldPosition(new i(s * s * l.x + 2 * s * r * n.x + r * r * t.x, s * s * l.y + 2 * s * r * n.y + r * r * t.y, t.z));
+              }
+            }
+          }).call(function () {
+            o === a.token && (a.setBallOwner(e), n());
+          }).start();
+        }, n.gatherBallForShot = function (t, e, o) {
+          var n = this;
+          this.setBallMotionOwner(t, "shot");
+          var a = this.trackTweenTarget({
+            progress: 0
+          });
+          r(a).to(this.scaled(.12), {
+            progress: 1
+          }, {
+            onUpdate: function onUpdate() {
+              if (e === n.token) {
+                var o = n.getBallAnchorPosition(t, "hold"),
+                  r = n.getBallAnchorPosition(t, "shot");
+                n.ball.setWorldPosition(i.lerp(new i(), o, r, a.progress));
+              }
+            }
+          }).call(function () {
+            e === n.token && o(n.getBallAnchorPosition(t, "shot"));
+          }).start();
+        }, n.animateBallArc = function (t, e, o, n, a, s) {
+          var l = this;
+          this.clearBallOwner(), this.ball.active = !0;
+          var c = this.trackTweenTarget({
+            progress: 0
+          });
+          this.ball.setWorldPosition(t), r(c).to(this.scaled(o), {
+            progress: 1
+          }, {
+            onUpdate: function onUpdate() {
+              if (a === l.token) {
+                var o = i.lerp(new i(), t, e, c.progress);
+                o.y += Math.sin(c.progress * Math.PI) * n, l.ball.setWorldPosition(o);
+              }
+            }
+          }).call(function () {
+            a === l.token && s();
+          }).start();
+        }, n.moveActor = function (t, e, o, n) {
+          var a = this,
+            s = t.node.worldPosition.clone(),
+            l = this.trackTweenTarget({
+              progress: 0
+            });
+          r(l).to(o, {
+            progress: 1
+          }, {
+            onUpdate: function onUpdate() {
+              var o = i.lerp(new i(), s, e, l.progress);
+              t.node.setWorldPosition(o), a.applyPerspectiveScale(t, o);
+            }
+          }).call(function () {
+            a.sortActorDepth(), null == n || n();
+          }).start();
+        }, n.jumpActor = function (t, e, o) {
+          var n = t.node.scale.clone(),
+            a = new i(n.x * e, n.y * e, n.z);
+          r(t.node).to(this.scaled(.45 * o), {
+            scale: a
+          }).to(this.scaled(.55 * o), {
+            scale: n
+          }).start();
+        }, n.getFinishPoint = function (t, e, o) {
+          if ("three" === t.action) {
+            var n,
+              r = 0 === t.offenseTeam ? 1 : 0,
+              a = this.threePointNodes[r],
+              s = a[(t.index + e.teamIndex) % a.length];
+            return null != (n = null == s ? void 0 : s.worldPosition.clone()) ? n : this.getAttackingHalfPoint(t.offenseTeam, .72, .5);
+          }
+          if ("jumper" === t.action) {
+            var l = this.getFreeThrowPoint(t.offenseTeam);
+            return new i(l.x, l.y + .4 * o, l.z);
+          }
+          var c = "dunk" === t.action ? 68 : 88;
+          return this.getTakeoffPoint(this.getAttackingHoop(t.offenseTeam), c, o);
+        }, n.getFreeThrowPoint = function (t) {
+          var e, o;
+          return null != (e = null == (o = this.freeThrowNodes[t]) ? void 0 : o.worldPosition.clone()) ? e : this.getAttackingHalfPoint(t, .62, .5);
+        }, n.getAttackingHoop = function (t) {
+          return 0 === t ? this.hoopNodes[1] : this.hoopNodes[0];
+        }, n.getAttackingHalfPoint = function (t, e, o) {
+          var n = 0 === t ? .5 + .46 * e : .5 - .46 * e;
+          return this.pointInCourt(n, o);
+        }, n.pointInCourt = function (t, e) {
+          var o = i.lerp(new i(), this.cornerNodes[0].worldPosition, this.cornerNodes[1].worldPosition, t),
+            n = i.lerp(new i(), this.cornerNodes[2].worldPosition, this.cornerNodes[3].worldPosition, t);
+          return i.lerp(new i(), o, n, e);
+        }, n.getTakeoffPoint = function (t, e, o) {
+          var n,
+            r,
+            a = null != (n = null == (r = this.courtRange.getChildByName("中场点")) ? void 0 : r.worldPosition) ? n : this.pointInCourt(.5, .5),
+            s = new i();
+          i.subtract(s, a, t.worldPosition), s.length() > 0 && s.normalize();
+          var l = new i(-s.y, s.x, 0);
+          return t.worldPosition.clone().add3f(s.x * e + l.x * o, s.y * e + l.y * o, 0);
+        }, n.getReboundPoint = function (t, e) {
+          var o = t === this.hoopNodes[1] ? .72 + e % 3 * .035 : .28 - e % 3 * .035,
+            n = .38 + e % 4 * .08;
+          return this.pointInCourt(o, n);
+        }, n.faceTeamTowardAttack = function (t) {
+          for (var o, n = e(this.getTeamActors(t)); !(o = n()).done;) {
+            var i = o.value;
+            i.facing = 0 === t ? "right" : "left", this.hideActorBallAnchors(i);
+          }
+          for (var r, a = e(this.getTeamActors(1 - t)); !(r = a()).done;) {
+            var s = r.value;
+            s.facing = 0 === t ? "left" : "right", this.hideActorBallAnchors(s);
+          }
+        }, n.getTeamActors = function (t) {
+          return this.actors.filter(function (e) {
+            return e.team === t && e.node.active && Boolean(e.card);
+          });
+        }, n.getBallAnchorPosition = function (t, e, o) {
+          void 0 === o && (o = t.node.worldPosition);
+          var n = t.ballAnchors[t.facing][e];
+          if (!n) {
+            var r = "dribble" === e ? -6 : "shot" === e ? 30 : 12,
+              a = "right" === t.facing ? 1 : -1;
+            return new i(o.x + 15 * a, o.y + r, o.z);
+          }
+          var s = t.node.worldPosition,
+            l = n.worldPosition;
+          return new i(o.x + l.x - s.x, o.y + l.y - s.y, o.z + l.z - s.z);
+        }, n.setBallOwner = function (t, e) {
+          void 0 === e && (e = "hold"), this.clearBallOwner(), this.ballOwners.set(this.ball, {
+            actor: t,
+            kind: e,
+            visual: "anchor"
+          }), this.showActorBallAnchor(t, e), this.ball.setWorldPosition(this.getBallAnchorPosition(t, e)), this.ball.active = !1;
+        }, n.setBallMotionOwner = function (t, e) {
+          this.clearBallOwner(), this.hideActorBallAnchors(t), this.ballOwners.set(this.ball, {
+            actor: t,
+            kind: e,
+            visual: "motion"
+          }), this.ball.setWorldPosition(this.getBallAnchorPosition(t, "hold")), this.ball.active = !0;
+        }, n.clearBallOwner = function () {
+          var t = this.ballOwners.get(this.ball);
+          t && this.hideActorBallAnchors(t.actor), this.ballOwners["delete"](this.ball);
+        }, n.hideActorBallAnchors = function (t) {
+          for (var e = 0, o = [t.ballAnchors.left, t.ballAnchors.right]; e < o.length; e++) for (var n = o[e], i = 0, r = [n.hold, n.dribble, n.shot]; i < r.length; i++) {
+            var a = r[i];
+            a && (a.active = !1);
+          }
+        }, n.showActorBallAnchor = function (t, e) {
+          this.hideActorBallAnchors(t);
+          var o = t.ballAnchors[t.facing][e];
+          o && (o.active = !0);
+        }, n.getPerspectiveFactor = function (t) {
+          if (this.cornerNodes.length < 4) return 1;
+          var e = .5 * (this.cornerNodes[0].worldPosition.y + this.cornerNodes[1].worldPosition.y),
+            o = e - .5 * (this.cornerNodes[2].worldPosition.y + this.cornerNodes[3].worldPosition.y);
+          return .82 + .22 * (0 === o ? .5 : Math.max(0, Math.min(1, (e - t.y) / o)));
+        }, n.applyPerspectiveScale = function (t, e) {
+          var o = this.getPerspectiveFactor(e) / (t.homePerspectiveFactor || 1);
+          t.node.setScale(t.homeScale.x * o * .86, t.homeScale.y * o * .86, t.homeScale.z);
+        }, n.sortActorDepth = function () {
+          [].concat(this.actors).filter(function (t) {
+            return t.node.active;
+          }).sort(function (t, e) {
+            return e.node.worldPosition.y - t.node.worldPosition.y;
+          }).forEach(function (t, e) {
+            return t.node.setSiblingIndex(e);
+          }), this.ball.parent && this.ball.setSiblingIndex(this.ball.parent.children.length - 1);
+        }, n.playerName = function (t) {
+          var e, o;
+          return null != (e = null == (o = t.card) ? void 0 : o.displayName) ? e : t.node.name;
+        }, n.actionName = function (t) {
+          return "three" === t ? "三分投篮" : "dunk" === t ? "扣篮" : "layup" === t ? "上篮" : "投篮";
+        }, n.scaled = function (t) {
+          return t / this.speedMultiplier;
+        }, n.after = function (t, e, o) {
+          var n = this,
+            i = this.trackTweenTarget({});
+          r(i).delay(this.scaled(t)).call(function () {
+            e === n.token && o();
+          }).start();
+        }, n.trackTweenTarget = function (t) {
+          return this.activeTweenTargets.push(t), t;
+        }, n.stopTweens = function () {
+          for (var t, o = e(this.activeTweenTargets); !(t = o()).done;) {
+            var n = t.value;
+            a.stopAllByTarget(n);
+          }
+          this.activeTweenTargets.length = 0;
+          for (var i, r = e(this.actors); !(i = r()).done;) {
+            var s = i.value;
+            a.stopAllByTarget(s.node);
+          }
+          a.stopAllByTarget(this.ball);
+          for (var l, c = e(this.hoopNodes); !(l = c()).done;) {
+            var h = l.value;
+            a.stopAllByTarget(h);
+          }
+        }, o(t, [{
+          key: "isReady",
+          get: function get() {
+            return 10 === this.actors.length && 4 === this.cornerNodes.length && 2 === this.hoopNodes.length && 2 === this.freeThrowNodes.length;
+          }
+        }, {
+          key: "isBusy",
+          get: function get() {
+            return this.busy;
+          }
+        }]), t;
+      }());
+      n._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/MatchPreloader.ts", ["./rollupPluginModLoBabelHelpers.js", "cc", "./GameState.ts", "./PlayerAssets.ts"], function (n) {
+  var t, e, r, o, a, u, c, l, i, s;
+  return {
+    setters: [function (n) {
+      t = n.asyncToGenerator;
+    }, function (n) {
+      e = n.cclegacy, r = n.resources, o = n.Prefab, a = n.Font, u = n.JsonAsset, c = n.director;
+    }, function (n) {
+      l = n.loadJson;
+    }, function (n) {
+      i = n.loadPlayerPortrait, s = n.loadRoundQualityFrame;
+    }],
+    execute: function execute() {
+      n({
+        loadMatchRuntimeAssets: m,
+        preloadMatchAssets: function preloadMatchAssets(n) {
+          return h.apply(this, arguments);
+        }
+      }), e._RF.push({}, "728cd3OJBhI1K9qXzLMU8BI", "MatchPreloader", void 0);
+      var f = null,
+        p = null;
+      function d(n, t) {
+        return new Promise(function (e, o) {
+          r.load(n, t, function (t, r) {
+            t || !r ? o(null != t ? t : new Error("Missing resource: " + n)) : e(r);
+          });
+        });
+      }
+      function m() {
+        return null != f || (f = Promise.all([d("prefabs/比赛/胜利弹窗", o), d("prefabs/比赛/夺冠弹窗", o), d("prefabs/比赛/失败弹窗", o), d("fonts/zpix", a), d("data/match_meme_commentary", u), l("data/balance/match_rewards")])["catch"](function (n) {
+          throw f = null, n;
+        })), f;
+      }
+      function h() {
+        return (h = t( /*#__PURE__*/_regeneratorRuntime().mark(function _callee35(n) {
+          var t;
+          return _regeneratorRuntime().wrap(function _callee35$(_context36) {
+            while (1) switch (_context36.prev = _context36.next) {
+              case 0:
+                null != p || (p = new Promise(function (n, t) {
+                  c.preloadScene("Match", void 0, function (e) {
+                    e ? t(e) : n();
+                  });
+                })["catch"](function (n) {
+                  throw p = null, n;
+                }));
+                t = n ? [n.playerRoster, n.opponentRoster].flatMap(function (n) {
+                  return n.filter(function (n) {
+                    return Boolean(n);
+                  }).sort(function (n, t) {
+                    return t.overall - n.overall;
+                  }).slice(0, 5);
+                }) : [];
+                _context36.next = 4;
+                return Promise.all([p, m()].concat(t.map(function (n) {
+                  return i(n);
+                }), Array.from(new Set(t.map(function (n) {
+                  return n.qualityId;
+                }))).map(function (n) {
+                  return s(n);
+                })));
+              case 4:
+              case "end":
+                return _context36.stop();
+            }
+          }, _callee35);
+        }))).apply(this, arguments);
+      }
+      e._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/MatchProgression.ts", ["cc", "./SeasonRoute.ts"], function (e) {
+  var a, t;
+  return {
+    setters: [function (e) {
+      a = e.cclegacy;
+    }, function (e) {
+      t = e.getScheduleDescriptor;
+    }],
+    execute: function execute() {
+      e("resolveMatchDefinition", function (e, a) {
+        var r = t(a);
+        if (a.infiniteMode) return {
+          scheduleLabel: r.title + " 第" + r.phaseMatchNumber + "场",
+          rewardMultiplier: Math.max(0, e.endless.budgetRewardMultiplier),
+          isStandardProgressionMatch: !1
+        };
+        var i = 1;
+        if ("cup" === r.phase) i = e.specialMatches.cup.budgetRewardMultiplier;else if ("all-star" === r.phase) i = e.specialMatches.allStar.budgetRewardMultiplier;else if ("playoffs" === r.phase) {
+          var s;
+          i = null != (s = e.playoffRoundRewardMultipliers[Math.max(0, r.playoffRound - 1)]) ? s : 1;
+        }
+        return {
+          scheduleLabel: r.title + " 第" + r.phaseMatchNumber + "场",
+          rewardMultiplier: Math.max(0, i),
+          isStandardProgressionMatch: !0
+        };
+      }), a._RF.push({}, "38a8amM0nhI+JaO2XTCdP52", "MatchProgression", void 0), a._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/MatchSession.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (t) {
+  var e, n;
+  return {
+    setters: [function (t) {
+      e = t["extends"];
+    }, function (t) {
+      n = t.cclegacy;
+    }],
+    execute: function execute() {
+      t({
+        clearCurrentMatchSession: function clearCurrentMatchSession() {
+          r = null;
+        },
+        consumeHomepageReturnTarget: function consumeHomepageReturnTarget() {
+          var t = u;
+          return u = "home", t;
+        },
+        getCurrentMatchSession: function getCurrentMatchSession() {
+          return r ? o(r) : null;
+        },
+        setCurrentMatchSession: function setCurrentMatchSession(t) {
+          r = o(t);
+        },
+        setHomepageReturnTarget: function setHomepageReturnTarget(t) {
+          u = t;
+        }
+      }), n._RF.push({}, "ba011lyU9xFJ5KfgdTP08+t", "MatchSession", void 0);
+      var r = null,
+        u = "home";
+      function o(t) {
+        return e({}, t, {
+          playerRoster: t.playerRoster.map(function (t) {
+            return t ? s(t) : null;
+          }),
+          opponentRoster: t.opponentRoster.map(s)
+        });
+      }
+      function s(t) {
+        return e({}, t, {
+          attributes: e({}, t.attributes)
+        });
+      }
+      n._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/MobileSafeArea.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (e) {
+  var t, o, a, i, n, r;
+  return {
+    setters: [function (e) {
+      t = e.createForOfIteratorHelperLoose;
+    }, function (e) {
+      o = e.cclegacy, a = e.view, i = e.ResolutionPolicy, n = e.Widget, r = e.SafeArea;
+    }],
+    execute: function execute() {
+      e({
+        applyAdaptiveDesignResolution: u,
+        applySafeAreaToCanvasPages: function applySafeAreaToCanvasPages(e) {
+          if (!e) return;
+          u();
+          for (var o, a = t(e.children); !(o = a()).done;) {
+            l(o.value);
+          }
+        },
+        applySafeAreaToPage: l
+      }), o._RF.push({}, "59ee7unP1lAVqP7AG5F6rUI", "MobileSafeArea", void 0);
+      function u() {
+        var e = a.getFrameSize();
+        if (!(e.width <= 0 || e.height <= 0)) {
+          var t = e.width / e.height > .5 ? i.FIXED_HEIGHT : i.FIXED_WIDTH;
+          a.setDesignResolutionSize(1080, 2160, t);
+        }
+      }
+      function l(e) {
+        if (e && e.getComponent(n) && !e.getComponent(r)) {
+          var t = e.addComponent(r);
+          t.symmetric = !1, t.updateArea();
+        }
+      }
+      o._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/NumberGrowthAnimator.ts", ["cc"], function (o) {
+  var e, r, l, t;
+  return {
+    setters: [function (o) {
+      e = o.cclegacy, r = o.Tween, l = o.tween, t = o.Color;
+    }],
+    execute: function execute() {
+      o({
+        forgetGrowingNumber: function forgetGrowingNumber(o) {
+          if (!o) return;
+          var e = a.get(o);
+          e && r.stopAllByTarget(e);
+          a["delete"](o), n["delete"](o);
+        },
+        setGrowingNumber: function setGrowingNumber(o, e, u, i) {
+          var s, c, g, v, d, m, f;
+          void 0 === i && (i = {});
+          if (!o || !o.isValid) return;
+          var p = Number.isFinite(e) ? e : 0,
+            h = a.get(o);
+          h && (r.stopAllByTarget(h), a["delete"](o));
+          var w = null != (s = null != (c = i.from) ? c : null == h ? void 0 : h.value) ? s : n.get(o),
+            b = !1 !== i.animateGrowth && void 0 !== w && (p > w || !0 === i.animateDecrease && p < w),
+            M = Boolean(i.colorFrom && i.colorTo),
+            T = null != (g = null == (v = i.colorFrom) ? void 0 : v.clone()) ? g : null,
+            A = null != (d = null == (m = i.colorTo) ? void 0 : m.clone()) ? d : null;
+          if (!b) return o.string = u(p), n.set(o, p), M && A && (o.color = A), void (null == i.onComplete || i.onComplete());
+          var G = {
+              value: w,
+              colorProgress: 0
+            },
+            P = Math.max(.05, null != (f = i.duration) ? f : .5);
+          o.string = u(w), n.set(o, w), M && T && (o.color = T);
+          a.set(o, G), l(G).to(P, {
+            value: p,
+            colorProgress: 1
+          }, {
+            easing: "cubicOut",
+            onUpdate: function onUpdate() {
+              o.isValid ? (o.string = u(G.value), n.set(o, G.value), M && T && A && (o.color = new t(Math.round(T.r + (A.r - T.r) * G.colorProgress), Math.round(T.g + (A.g - T.g) * G.colorProgress), Math.round(T.b + (A.b - T.b) * G.colorProgress), Math.round(T.a + (A.a - T.a) * G.colorProgress)))) : r.stopAllByTarget(G);
+            }
+          }).call(function () {
+            o.isValid && (o.string = u(p), n.set(o, p), M && A && (o.color = A), null == i.onComplete || i.onComplete()), a["delete"](o);
+          }).start();
+        }
+      }), e._RF.push({}, "aa53a0vOGdEf4sMiQTvRt5A", "NumberGrowthAnimator", void 0);
+      var n = new WeakMap(),
+        a = new WeakMap();
+      e._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/OverallNumberEdgeFlow.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (e) {
+  var t, l, i, r, a, o, n, s, h, u, c, d;
+  return {
+    setters: [function (e) {
+      t = e.inheritsLoose, l = e.asyncToGenerator;
+    }, function (e) {
+      i = e.cclegacy, r = e._decorator, a = e.Label, o = e.Vec4, n = e.isValid, s = e.Color, h = e.Component, u = e.Material, c = e.resources, d = e.EffectAsset;
+    }],
+    execute: function execute() {
+      var m;
+      e("installOverallNumberEdgeFlow", function (e) {
+        var t;
+        if (!e) return null;
+        return null != (t = e.node.getComponent(y)) ? t : e.node.addComponent(y);
+      }), i._RF.push({}, "d39aaRyzdtLwYJDD1LY6sfq", "OverallNumberEdgeFlow", void 0);
+      var f = r.ccclass,
+        g = null,
+        p = null;
+      var y = e("OverallNumberEdgeFlow", f("OverallNumberEdgeFlow")(m = function (e) {
+        function i() {
+          for (var t, l = arguments.length, i = new Array(l), r = 0; r < l; r++) i[r] = arguments[r];
+          return (t = e.call.apply(e, [this].concat(i)) || this).label = null, t.material = null, t.originalMaterial = null, t.loadVersion = 0, t.destroyed = !1, t.edgeColor = new s(255, 219, 89, 255), t.glintColor = new s(255, 244, 208, 255), t.flowParams = new o(2, .32, .18, .95), t.prismAmount = 0, t;
+        }
+        t(i, e);
+        var r = i.prototype;
+        return r.onLoad = function () {
+          this.label = this.node.getComponent(a);
+        }, r.onEnable = function () {
+          this.applyMaterial();
+        }, r.onDisable = function () {
+          this.loadVersion++, this.cleanupMaterial();
+        }, r.onDestroy = function () {
+          var e;
+          this.destroyed = !0, this.loadVersion++, null == (e = this.material) || e.destroy(), this.material = null;
+        }, r.applyMaterial = function () {
+          var e = l( /*#__PURE__*/_regeneratorRuntime().mark(function _callee36() {
+            var e, t, l;
+            return _regeneratorRuntime().wrap(function _callee36$(_context37) {
+              while (1) switch (_context37.prev = _context37.next) {
+                case 0:
+                  if (!(null != this.label || (this.label = this.node.getComponent(a)), this.label && !this.destroyed && this.enabledInHierarchy)) {
+                    _context37.next = 7;
+                    break;
+                  }
+                  e = ++this.loadVersion;
+                  this.cleanupMaterial();
+                  _context37.next = 5;
+                  return g ? Promise.resolve(g) : p || (p = new Promise(function (e) {
+                    c.load("effects/overall-number-edge-flow", d, function (t, l) {
+                      if (t || !l) return console.warn("[OverallNumberEdgeFlow] Failed to load effect.", t), void e(null);
+                      g = l, e(l);
+                    });
+                  }));
+                case 5:
+                  t = _context37.sent;
+                  if (!this.destroyed && e === this.loadVersion && this.enabledInHierarchy && this.label.isValid && t) {
+                    l = new u();
+                    l.initialize({
+                      effectAsset: t,
+                      defines: {
+                        IS_GRAY: !1,
+                        USE_TEXTURE: !0
+                      }
+                    }), this.originalMaterial = this.label.customMaterial, this.material = l, this.syncProperties(), this.label.customMaterial = l;
+                  }
+                case 7:
+                case "end":
+                  return _context37.stop();
+              }
+            }, _callee36, this);
+          }));
+          return function () {
+            return e.apply(this, arguments);
+          };
+        }(), r.apply = function (e, t, l, i) {
+          this.edgeColor = e.clone(), this.glintColor = t.clone(), this.flowParams = l.clone(), this.prismAmount = i, this.syncProperties();
+        }, r.syncProperties = function () {
+          this.material && (this.material.setProperty("edgeColor", new o(this.edgeColor.r / 255, this.edgeColor.g / 255, this.edgeColor.b / 255, this.edgeColor.a / 255)), this.material.setProperty("glintColor", new o(this.glintColor.r / 255, this.glintColor.g / 255, this.glintColor.b / 255, this.glintColor.a / 255)), this.material.setProperty("flowParams", this.flowParams), this.material.setProperty("prismAmount", this.prismAmount));
+        }, r.cleanupMaterial = function () {
+          var e;
+          this.label && this.label.isValid && this.material && this.label.customMaterial === this.material && (this.label.customMaterial = this.enabledInHierarchy && this.originalMaterial && n(this.originalMaterial, !0) ? this.originalMaterial : null), null == (e = this.material) || e.destroy(), this.material = null, this.originalMaterial = null;
+        }, i;
+      }(h)) || m);
+      i._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/OverallNumberShine.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (t) {
+  var e, a, i, l, r, n, s, o, c, h, u, p, m, d;
+  return {
+    setters: [function (t) {
+      e = t.inheritsLoose, a = t.asyncToGenerator;
+    }, function (t) {
+      i = t.cclegacy, l = t._decorator, r = t.Label, n = t.Tween, s = t.isValid, o = t.Color, c = t.Component, h = t.Material, u = t.Vec4, p = t.tween, m = t.resources, d = t.EffectAsset;
+    }],
+    execute: function execute() {
+      var f;
+      t("triggerOverallNumberImpact", function (t, e, a) {
+        var i;
+        void 0 === e && (e = new o(255, 209, 77, 255));
+        void 0 === a && (a = .78);
+        if (!t) return;
+        (null != (i = t.node.getComponent(y)) ? i : t.node.addComponent(y)).trigger(e, a);
+      }), i._RF.push({}, "8f61e6NbENMWJ2SrlLROdJH", "OverallNumberShine", void 0);
+      var g = l.ccclass,
+        v = null,
+        b = null;
+      var y = t("OverallNumberImpact", g("OverallNumberImpact")(f = function (t) {
+        function i() {
+          for (var e, a = arguments.length, i = new Array(a), l = 0; l < a; l++) i[l] = arguments[l];
+          return (e = t.call.apply(t, [this].concat(i)) || this).label = null, e.material = null, e.originalMaterial = null, e.impactState = null, e.originalScale = null, e.loadVersion = 0, e.destroyed = !1, e;
+        }
+        e(i, t);
+        var l = i.prototype;
+        return l.onLoad = function () {
+          this.label = this.node.getComponent(r);
+        }, l.onDisable = function () {
+          this.loadVersion++, this.stopImpact(), this.cleanupMaterial();
+        }, l.onDestroy = function () {
+          var t;
+          this.destroyed = !0, this.loadVersion++, this.stopImpact(), null == (t = this.material) || t.destroy(), this.material = null;
+        }, l.trigger = function (t, e) {
+          if (null != this.label || (this.label = this.node.getComponent(r)), this.label && this.label.isValid && !this.destroyed && this.enabledInHierarchy) {
+            var a = ++this.loadVersion;
+            this.stopImpact(), this.cleanupMaterial(), this.playImpact(a, t.clone(), e);
+          }
+        }, l.playImpact = function () {
+          var t = a( /*#__PURE__*/_regeneratorRuntime().mark(function _callee37(t, e, a) {
+            var i, l, r, n, s, o;
+            return _regeneratorRuntime().wrap(function _callee37$(_context38) {
+              while (1) switch (_context38.prev = _context38.next) {
+                case 0:
+                  i = this;
+                  _context38.next = 3;
+                  return v ? Promise.resolve(v) : b || (b = new Promise(function (t) {
+                    m.load("effects/overall-number-shine", d, function (e, a) {
+                      if (e || !a) return console.warn("[OverallNumberShine] Failed to load effect.", e), void t(null);
+                      v = a, t(a);
+                    });
+                  }));
+                case 3:
+                  l = _context38.sent;
+                  if (!this.destroyed && t === this.loadVersion && this.enabledInHierarchy && this.label.isValid && l) {
+                    r = new h();
+                    r.initialize({
+                      effectAsset: l,
+                      defines: {
+                        IS_GRAY: !1,
+                        USE_TEXTURE: !0
+                      }
+                    }), r.setProperty("impactColor", new u(e.r / 255, e.g / 255, e.b / 255, e.a / 255)), r.setProperty("impactParams", new u(0, a, 0, 0)), this.originalMaterial = this.label.customMaterial, this.material = r, this.label.customMaterial = r;
+                    n = this.node.scale.clone();
+                    this.originalScale = n;
+                    s = {
+                      progress: 0
+                    };
+                    this.impactState = s;
+                    o = function o() {
+                      if (i.material && i.impactState === s) {
+                        var t = 1 + .075 * Math.sin(Math.PI * s.progress);
+                        i.node.setScale(n.x * t, n.y * t, n.z), i.material.setProperty("impactParams", new u(s.progress, a, 0, 0));
+                      }
+                    };
+                    o(), p(s).to(.52, {
+                      progress: 1
+                    }, {
+                      easing: "quadOut",
+                      onUpdate: o
+                    }).call(function () {
+                      i.impactState === s && (i.stopImpact(), i.cleanupMaterial());
+                    }).start();
+                  }
+                case 5:
+                case "end":
+                  return _context38.stop();
+              }
+            }, _callee37, this);
+          }));
+          return function (e, a, i) {
+            return t.apply(this, arguments);
+          };
+        }(), l.stopImpact = function () {
+          this.impactState && (n.stopAllByTarget(this.impactState), this.impactState = null), this.originalScale && this.node.isValid && this.node.setScale(this.originalScale), this.originalScale = null;
+        }, l.cleanupMaterial = function () {
+          var t;
+          this.label && this.label.isValid && this.material && this.label.customMaterial === this.material && (this.label.customMaterial = this.enabledInHierarchy && this.originalMaterial && s(this.originalMaterial, !0) ? this.originalMaterial : null), null == (t = this.material) || t.destroy(), this.material = null, this.originalMaterial = null;
+        }, i;
+      }(c)) || f);
+      i._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/PlayerAssets.ts", ["cc", "./RosterSlotView.ts"], function (e) {
+  var n, a, i, r;
+  return {
+    setters: [function (e) {
+      n = e.cclegacy, a = e.resources, i = e.SpriteFrame;
+    }, function (e) {
+      r = e.getQualityFrameIndex;
+    }],
+    execute: function execute() {
+      e({
+        loadPlayerEventIcon: function loadPlayerEventIcon(e) {
+          return s(l[e]);
+        },
+        loadPlayerPortrait: function loadPlayerPortrait(e) {
+          var n,
+            a,
+            i = null != (n = o[e.sourcePlayerName]) ? n : e.sourcePlayerName;
+          return s("images/头像/" + (null != (a = t[i]) ? a : e.displayName) + "_" + i + "/spriteFrame");
+        },
+        loadQualityBadge: function loadQualityBadge(e) {
+          return s("images/UI/球员/品质标签/品质标签" + u(e) + "/spriteFrame");
+        },
+        loadQualityFrame: function loadQualityFrame(e) {
+          return s("images/UI/球员/头像框-方/头像框" + u(e) + "-方/spriteFrame");
+        },
+        loadQualityNameplate: function loadQualityNameplate(e) {
+          return s("images/UI/球员/名牌/名牌" + u(e) + "/spriteFrame");
+        },
+        loadQualityPosition: function loadQualityPosition(e) {
+          return s("images/UI/球员/位置/位置" + u(e) + "/spriteFrame");
+        },
+        loadQualityWheat: function loadQualityWheat(e) {
+          return s("images/UI/球员/麦穗/麦穗" + u(e) + "/spriteFrame");
+        },
+        loadRecruitmentBackground: function loadRecruitmentBackground(e) {
+          return s("images/UI/球员/招募背景/招募背景" + u(e) + "/spriteFrame");
+        },
+        loadRoundQualityFrame: function loadRoundQualityFrame(e) {
+          return s("images/UI/球员/头像框-圆/头像框" + u(e) + "-圆/spriteFrame");
+        },
+        loadSpriteFrame: s,
+        loadThinQualityFrame: function loadThinQualityFrame(e) {
+          return s("images/UI/球员/细边框/细边框" + u(e) + "/spriteFrame");
+        }
+      }), n._RF.push({}, "16b968Rz2VELZtLFz0F7DhT", "PlayerAssets", void 0);
+      var o = {
+          "阿不都沙拉木": "Abudushalamu Abudurexiti",
+          "巴特尔": "Mengke Bateer",
+          "丁彦雨航": "Ding Yanyuhang",
+          "杜锋": "Du Feng",
+          "巩晓彬": "Gong Xiaobin",
+          "贺希宁": "He Xining",
+          "胡金秋": "Hu Jinqiu",
+          "胡卫东": "Hu Weidong",
+          "刘玉栋": "Liu Yudong",
+          "马健": "Ma Jian",
+          "孙军": "Sun Jun",
+          "唐正东": "Tang Zhengdong",
+          "王仕鹏": "Wang Shipeng",
+          "王哲林": "Wang Zhelin",
+          "王治郅": "Wang Zhizhi",
+          "吴前": "Wu Qian",
+          "姚明": "Yao Ming",
+          "易建联": "Yi Jianlian",
+          "张卫平": "Zhang Weiping",
+          "赵继伟": "Zhao Jiwei",
+          "朱芳雨": "Zhu Fangyu"
+        },
+        t = {
+          "Abudushalamu Abudurexiti": "雅不都沙拉木",
+          "Allen Iverson": "爱弗森",
+          "Alonzo Mourning": "墨宁",
+          "Amar'e Stoudemire": "司塔德迈尔",
+          "Amen Thompson": "唐普森",
+          "Andrew Wiggins": "维津斯",
+          "Antawn Jamison": "假米森",
+          "Anthony Davis": "戴维思",
+          "Anthony Edwards": "爱得划兹",
+          "Arvydas Sabonis": "飒博尼斯",
+          "Ben Simmons": "熙蒙斯",
+          "Ben Wallace": "桦莱士",
+          "Bill Russell": "啦塞尔",
+          "Bill Walton": "渥顿",
+          "Blake Griffin": "阁里芬",
+          "Bob Pettit": "沛蒂特",
+          "Cade Cunningham": "侃宁安",
+          "Carmelo Anthony": "桉东尼",
+          "Charles Barkley": "芭克利",
+          "Chauncey Billups": "比炉普斯",
+          "Chet Holmgren": "豁姆格伦",
+          "Chris Bosh": "泊什",
+          "Chris Mullin": "木林",
+          "Chris Paul": "宝罗",
+          "Chris Webber": "维伯",
+          "Clyde Drexler": "得雷克斯勒",
+          "Cooper Flagg": "芙拉格",
+          "Cui Yongxi": "崔勇熙",
+          "Damian Lillard": "立拉德",
+          "David Robinson": "洛宾逊",
+          "Deandre Ayton": "爱顿",
+          "DeMarcus Cousins": "烤辛斯",
+          "Dennis Rodman": "洛德曼",
+          "Derrick Rose": "洛斯",
+          "Devin Booker": "步克",
+          "Dikembe Mutombo": "慕托姆博",
+          "Ding Yanyuhang": "玎彦雨航",
+          "Dirk Nowitzki": "糯维茨基",
+          "Dominique Wilkins": "维尔金斯",
+          "Donovan Mitchell": "弥切尔",
+          "Draymond Green": "阁林",
+          "Du Feng": "渡锋",
+          "Dwight Howard": "豁华德",
+          "Dwyane Wade": "维德",
+          "Dylan Harper": "哈魄",
+          "Evan Mobley": "墨布里",
+          "Franz Wagner": "瓦阁纳",
+          "Fred VanVleet": "范芙利特",
+          "Gary Payton": "沛顿",
+          "George Gervin": "格雯",
+          "George Mikan": "麦垦",
+          "Giannis Antetokounmpo": "雅德托昆博",
+          "Gong Xiaobin": "汞小彬",
+          "Grant Hill": "熙尔",
+          "Greg Oden": "傲登",
+          "Hakeem Olajuwon": "傲拉朱旺",
+          "He Xining": "鹤希宁",
+          "Hu Jinqiu": "湖金秋",
+          "Hu Weidong": "湖卫东",
+          "Isiah Thomas": "拓马斯",
+          "J.R. Smith": "JR史秘司",
+          "Jalen Brunson": "步伦森",
+          "Jalen Green": "阁林",
+          "Jalen Williams": "维廉姆斯",
+          "James Harden": "哈灯",
+          "James Worthy": "渥西",
+          "Jason Kidd": "吉德",
+          "Jason Terry": "忒里",
+          "Jaylen Brown": "步朗",
+          "Jayson Tatum": "榙图姆",
+          "Jeremy Lamb": "蓝姆",
+          "Jeremy Lin": "林书皓",
+          "Jerry West": "维斯特",
+          "Jimmy Butler": "芭特勒",
+          "Joe Dumars": "杜码斯",
+          "Joel Embiid": "蒽比德",
+          "John Stockton": "思托克顿",
+          "John Wall": "我尔",
+          "Julius Erving": "殴文",
+          "Kareem Abdul-Jabbar": "佳巴尔",
+          "Karl Malone": "玛龙",
+          "Kawhi Leonard": "纶纳德",
+          "Kevin Durant": "渡兰特",
+          "Kevin Garnett": "嘉内特",
+          "Kevin Johnson": "越翰逊",
+          "Kevin McHale": "迈克海尔",
+          "Klay Thompson": "唐普森",
+          "Kobe Bryant": "颗比",
+          "Kyle Anderson": "理凯尔",
+          "Kyrie Irving": "殴文",
+          "LaMarcus Aldridge": "阿尔德里齐",
+          "Larry Bird": "柏德",
+          "LeBron James": "瞻姆斯",
+          "Liu Yudong": "柳玉栋",
+          "Luka Dončić": "冬契奇",
+          "Ma Jian": "玛健",
+          "Magic Johnson": "魔术师",
+          "Manu Ginóbili": "季诺比利",
+          "Marc Gasol": "嘉索尔",
+          "Mengke Bateer": "芭特尔",
+          "Michael Jordan": "侨丹",
+          "Moses Malone": "玛龙",
+          "Nick Young": "阳",
+          "Nikola Jokić": "约吉奇",
+          "Oscar Robertson": "洛伯特森",
+          "Paolo Banchero": "班恺罗",
+          "Patrick Ewing": "游因",
+          "Pau Gasol": "嘉索尔",
+          "Paul George": "侨治",
+          "Paul Pierce": "琵尔斯",
+          "Rajon Rondo": "胧多",
+          "Ray Allen": "雅伦",
+          "Reggie Miller": "米乐",
+          "Robert Parish": "琶里什",
+          "Russell Westbrook": "维司布鲁克",
+          "Scottie Barnes": "芭恩斯",
+          "Scottie Pippen": "琵蓬",
+          "Shai Gilgeous-Alexander": "鸭梨山大",
+          "Shaquille O'Neal": "傲尼尔",
+          "Stephen Curry": "酷里",
+          "Stephon Castle": "喀斯尔",
+          "Steve Nash": "娜什",
+          "Sun Jun": "荪军",
+          "Sun Yue": "荪悦",
+          "Tang Zhengdong": "塘正东",
+          "Tim Duncan": "登肯",
+          "Toni Kukoč": "库颗奇",
+          "Tony Parker": "琶克",
+          "Tracy McGrady": "卖迪",
+          "Trae Young": "阳",
+          "Tyrese Haliburton": "哈里搏顿",
+          "Victor Wembanyama": "文般亚玛",
+          "Vince Carter": "喀特",
+          "VJ Edgecombe": "埃奇酷姆",
+          "Vlade Divac": "迪瓦慈",
+          "Walt Frazier": "芙雷泽",
+          "Wang Shipeng": "望仕鹏",
+          "Wang Zhelin": "望哲林",
+          "Wang Zhizhi": "望治郅",
+          "Wilt Chamberlain": "璋伯伦",
+          "Wu Qian": "梧前",
+          "Yang Hansen": "阳瀚森",
+          "Yao Ming": "尧明",
+          "Yi Jianlian": "奕建联",
+          "Zach LaVine": "啦文",
+          "Zhang Weiping": "璋卫平",
+          "Zhao Jiwei": "照继伟",
+          "Zhou Qi": "洲琦",
+          "Zhu Fangyu": "珠芳雨",
+          "Zion Williamson": "锡暗"
+        },
+        l = {
+          injury: "images/UI/事件/伤病/spriteFrame",
+          retirement: "images/UI/事件/退役/spriteFrame",
+          training: "images/UI/事件/训练/spriteFrame"
+        };
+      function u(e) {
+        return String(r(e)).padStart(2, "0");
+      }
+      function s(e) {
+        return new Promise(function (n) {
+          a.load(e, i, function (a, i) {
+            if (a || !i) return console.error("[PlayerAssets] Failed to load SpriteFrame: " + e, a), void n(null);
+            n(i);
+          });
+        });
+      }
+      n._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/PlayerAvatarChip.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (e) {
+  var t, r, i, a, n, l, o, u, p, c;
+  return {
+    setters: [function (e) {
+      t = e.applyDecoratedDescriptor, r = e.inheritsLoose, i = e.initializerDefineProperty, a = e.assertThisInitialized;
+    }, function (e) {
+      n = e.cclegacy, l = e._decorator, o = e.Sprite, u = e.Label, p = e.Node, c = e.Component;
+    }],
+    execute: function execute() {
+      var s, y, h, v, b, f, d, m, g;
+      n._RF.push({}, "26469DzO6VJCKdbtnT+oeEV", "PlayerAvatarChip", void 0);
+      var L = l.ccclass,
+        C = l.property;
+      e("PlayerAvatarChip", (s = L("PlayerAvatarChip"), y = C(o), h = C(u), v = C(p), s((d = t((f = function (e) {
+        function t() {
+          for (var t, r = arguments.length, n = new Array(r), l = 0; l < r; l++) n[l] = arguments[l];
+          return t = e.call.apply(e, [this].concat(n)) || this, i(t, "portrait", d, a(t)), i(t, "ovrLabel", m, a(t)), i(t, "qualityFrame", g, a(t)), t;
+        }
+        r(t, e);
+        var n = t.prototype;
+        return n.onLoad = function () {
+          var e, t, r;
+          null != this.ovrLabel || (this.ovrLabel = null != (e = null == (t = this.node.getChildByName("OVR")) ? void 0 : t.getComponent(u)) ? e : null), null != this.qualityFrame || (this.qualityFrame = null != (r = this.node.getChildByName("QualityFrame")) ? r : null);
+        }, n.setup = function (e) {
+          this.ovrLabel && (this.ovrLabel.string = String(e));
+        }, t;
+      }(c)).prototype, "portrait", [y], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), m = t(f.prototype, "ovrLabel", [h], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), g = t(f.prototype, "qualityFrame", [v], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), b = f)) || b));
+      n._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/PlayerEventController.ts", ["./rollupPluginModLoBabelHelpers.js", "cc", "./GameState.ts", "./PlayerAssets.ts", "./PlayerQualityVisuals.ts", "./RosterSlotView.ts", "./NumberGrowthAnimator.ts", "./RewardedAdService.ts", "./FullScreenEntrance.ts", "./GameFont.ts"], function (t) {
+  var e, n, i, a, r, l, o, s, u, c, d, v, h, f, g, p, m, y, E, C, M, P, B, A, R, T, I, b, S, N, x, O, D, w, L, F, V, j, _, z, W, q, k, Q, G, H, K, J, U, Y;
+  return {
+    setters: [function (t) {
+      e = t.inheritsLoose, n = t.createForOfIteratorHelperLoose, i = t.asyncToGenerator;
+    }, function (t) {
+      a = t.cclegacy, r = t._decorator, l = t.Color, o = t.Button, s = t.Label, u = t.RichText, c = t.UITransform, d = t.TTFFont, v = t.Sprite, h = t.resources, f = t.JsonAsset, g = t.Prefab, p = t.Font, m = t.Component, y = t.instantiate;
+    }, function (t) {
+      E = t.gameStateEvents, C = t.GAME_STATE_EVENT_VALID_OPERATION_COMPLETED, M = t.GAME_STATE_EVENT_REWARDED_AD_COMPLETED, P = t.GAME_STATE_EVENT_ROSTER_CHANGED, B = t.GAME_STATE_EVENT_MATCH_SETTLED, A = t.loadRoster, R = t.loadSeasonState, T = t.ROSTER_SLOT_COUNT, I = t.saveRoster, b = t.ATTRIBUTE_KEYS, S = t.getManagementEffects;
+    }, function (t) {
+      N = t.loadSpriteFrame, x = t.loadPlayerPortrait, O = t.loadRecruitmentBackground, D = t.loadQualityWheat, w = t.loadQualityFrame, L = t.loadQualityNameplate, F = t.loadQualityBadge, V = t.loadQualityPosition;
+    }, function (t) {
+      j = t.getOverallDefaultColor, _ = t.getOverallTrendColor, z = t.applyOverallTrendArrow, W = t.applyOverallNumberQuality, q = t.applyPlayerQualityVisuals;
+    }, function (t) {
+      k = t.formatPlayerOverall, Q = t.RosterSlotView;
+    }, function (t) {
+      G = t.setGrowingNumber;
+    }, function (t) {
+      H = t.applyWechatShareCopy, K = t.showRewardedVideo;
+    }, function (t) {
+      J = t.playFullScreenEntrance, U = t.playFullScreenExit;
+    }, function (t) {
+      Y = t.applyGameFont;
+    }],
+    execute: function execute() {
+      var X;
+      a._RF.push({}, "68c3emmnuxAA7QTzX7+TYfj", "PlayerEventController", void 0);
+      var Z = r.ccclass,
+        $ = new l(91, 220, 128, 255),
+        tt = new l(220, 55, 55, 255),
+        et = new l(160, 160, 160, 255),
+        nt = [["食物中毒", "食物中毒"], ["发烧", "发烧"], ["旧伤", "旧伤复发"]],
+        it = [["手指", "手指骨折"], ["脚底筋膜", "足底筋膜炎"], ["脚踝", "脚踝伤病"], ["膝盖", "膝盖伤病"], ["大腿", "大腿拉伤"], ["小腿", "小腿拉伤"], ["腰部", "腰部扭伤"], ["脚部", "脚部伤病"], ["肩部", "肩部拉伤"], ["手腕", "手腕挫伤"]];
+      t("PlayerEventController", Z("PlayerEventController")(X = function (t) {
+        function a() {
+          for (var e, n = arguments.length, i = new Array(n), a = 0; a < n; a++) i[a] = arguments[a];
+          return (e = t.call.apply(t, [this].concat(i)) || this).canvas = null, e.page = null, e.confirmButton = null, e.adButton = null, e.config = null, e.definitions = new Map(), e.rosterSlots = [], e.slotEventBindings = [], e.initializationPromise = null, e.initialized = !1, e.generatingEvent = !1, e.resolvingEvent = !1, e.eventPageRenderVersion = 0, e.eventIndicatorRenderVersion = 0, e.activePlayerInstanceId = null, e.activeEventOccurredAtMs = 0, e.queuedActionAfterPendingEvents = null, e.eventPageReady = !1, e.adResultShown = !1, e.onValidOperationCompleted = function (t) {
+            void 0 === t && (t = 1), e.tryCreateRandomEvent(t);
+          }, e.onRewardedAdCompleted = function () {
+            e.resolvingEvent || e.tryCreateRandomEvent();
+          }, e.onRosterChanged = function (t) {
+            e.syncRosterSlotOveralls(t), e.syncEventIndicators();
+          }, e.onMatchSettled = function (t) {
+            null != t && t.matchId && e.advancePlayerMatchState(t.matchId, t.participatingPlayerInstanceIds);
+          }, e.confirmEvent = function () {
+            e.resolveActiveEvent(!1);
+          }, e.resolveEventWithAd = function () {
+            e.resolveActiveEvent(!0);
+          }, e;
+        }
+        e(a, t);
+        var r = a.prototype;
+        return r.onLoad = function () {
+          this.canvas = this.node.parent, this.initializationPromise = this.initialize();
+        }, r.onEnable = function () {
+          this.initialized && this.reconcileLastSettledMatch(), E.on(C, this.onValidOperationCompleted, this), E.on(M, this.onRewardedAdCompleted, this), E.on(P, this.onRosterChanged, this), E.on(B, this.onMatchSettled, this);
+        }, r.onDisable = function () {
+          E.off(C, this.onValidOperationCompleted, this), E.off(M, this.onRewardedAdCompleted, this), E.off(P, this.onRosterChanged, this), E.off(B, this.onMatchSettled, this);
+        }, r.onDestroy = function () {
+          var t, e, n;
+          this.unbindSlotEventButtons(), null == (t = this.confirmButton) || t.node.off(o.EventType.CLICK, this.confirmEvent, this), null == (e = this.adButton) || e.node.off(o.EventType.CLICK, this.resolveEventWithAd, this), null == (n = this.page) || n.destroy(), this.page = null;
+        }, r.closePage = function () {
+          this.closePageAndWait();
+        }, r.runAfterPendingEvents = function (t) {
+          var e,
+            n = this;
+          return !!this.queuedActionAfterPendingEvents || (this.queuedActionAfterPendingEvents = t, this.initialized ? !!this.generatingEvent || (null === this.findNextPendingEventIndex() ? (this.queuedActionAfterPendingEvents = null, !1) : (this.openNextQueuedEventOrRunAction(), !0)) : ((null != (e = this.initializationPromise) ? e : this.initialize()).then(function () {
+            n.openNextQueuedEventOrRunAction();
+          }), !0));
+        }, r.closePageAndWait = function () {
+          var t = i( /*#__PURE__*/_regeneratorRuntime().mark(function _callee38() {
+            var t, e;
+            return _regeneratorRuntime().wrap(function _callee38$(_context39) {
+              while (1) switch (_context39.prev = _context39.next) {
+                case 0:
+                  _context39.t0 = (this.eventPageReady = !1, this.setButtonsInteractable(!1), this.eventPageRenderVersion += 1, this.activePlayerInstanceId = null, this.activeEventOccurredAtMs = 0, null != (t = this.page) && t.active);
+                  if (!_context39.t0) {
+                    _context39.next = 5;
+                    break;
+                  }
+                  _context39.next = 4;
+                  return U(this.page);
+                case 4:
+                  null != (e = this.page) && e.isValid && (this.page.active = !1);
+                case 5:
+                case "end":
+                  return _context39.stop();
+              }
+            }, _callee38, this);
+          }));
+          return function () {
+            return t.apply(this, arguments);
+          };
+        }(), r.initialize = function () {
+          var t = i( /*#__PURE__*/_regeneratorRuntime().mark(function _callee39() {
+            var t, e, n, i;
+            return _regeneratorRuntime().wrap(function _callee39$(_context40) {
+              while (1) switch (_context40.prev = _context40.next) {
+                case 0:
+                  _context40.prev = 0;
+                  _context40.next = 3;
+                  return Promise.all([this.loadJson("data/player_events"), this.loadPrefab(), this.loadGameFont()]);
+                case 3:
+                  t = _context40.sent;
+                  e = t[0];
+                  n = t[1];
+                  i = t[2];
+                  if (!(!this.node.isValid || !this.canvas || !this.isConfigValid(e))) {
+                    _context40.next = 9;
+                    break;
+                  }
+                  throw new Error("Invalid player event configuration.");
+                case 9:
+                  this.config = e;
+                  this.definitions = new Map(e.events.map(function (t) {
+                    return [t.id, t];
+                  }));
+                  this.page = y(n);
+                  this.page.active = !1;
+                  Y(this.page, i);
+                  this.canvas.addChild(this.page);
+                  H(this.page);
+                  this.resolvePageButtons();
+                  this.resolveRosterSlots();
+                  this.bindSlotEventButtons();
+                  this.initialized = !0;
+                  this.reconcileLastSettledMatch();
+                  _context40.next = 23;
+                  return this.syncEventIndicators();
+                case 23:
+                  _context40.next = 28;
+                  break;
+                case 25:
+                  _context40.prev = 25;
+                  _context40.t0 = _context40["catch"](0);
+                  console.error("[PlayerEventController] Failed to initialize player events.", _context40.t0);
+                case 28:
+                case "end":
+                  return _context40.stop();
+              }
+            }, _callee39, this, [[0, 25]]);
+          }));
+          return function () {
+            return t.apply(this, arguments);
+          };
+        }(), r.tryCreateRandomEvent = function () {
+          var t = i( /*#__PURE__*/_regeneratorRuntime().mark(function _callee40(t) {
+            var e, n;
+            return _regeneratorRuntime().wrap(function _callee40$(_context41) {
+              while (1) switch (_context41.prev = _context41.next) {
+                case 0:
+                  if (!(void 0 === t && (t = 1), !(!this.initialized || !this.config || this.generatingEvent || this.resolvingEvent || null != (e = this.page) && e.active))) {
+                    _context41.next = 13;
+                    break;
+                  }
+                  this.generatingEvent = !0;
+                  _context41.prev = 2;
+                  n = 0;
+                case 4:
+                  if (!(n < t)) {
+                    _context41.next = 10;
+                    break;
+                  }
+                  _context41.next = 7;
+                  return this.createRandomEvent();
+                case 7:
+                  n += 1;
+                  _context41.next = 4;
+                  break;
+                case 10:
+                  _context41.prev = 10;
+                  this.generatingEvent = !1, this.queuedActionAfterPendingEvents && this.openNextQueuedEventOrRunAction();
+                  return _context41.finish(10);
+                case 13:
+                case "end":
+                  return _context41.stop();
+              }
+            }, _callee40, this, [[2,, 10, 13]]);
+          }));
+          return function (e) {
+            return t.apply(this, arguments);
+          };
+        }(), r.createRandomEvent = function () {
+          var t = i( /*#__PURE__*/_regeneratorRuntime().mark(function _callee41() {
+            var t, e, n, i, a, r, l, o, s, u, c, d, v, h, f, g, p, m, y;
+            return _regeneratorRuntime().wrap(function _callee41$(_context42) {
+              while (1) switch (_context42.prev = _context42.next) {
+                case 0:
+                  i = this;
+                  if (Math.random() >= this.config.triggerProbability) {
+                    _context42.next = 16;
+                    break;
+                  }
+                  a = A(T), r = a.map(function (t, e) {
+                    return {
+                      card: t,
+                      index: e
+                    };
+                  }).filter(function (t) {
+                    return Boolean(t.card);
+                  }).filter(function (t) {
+                    return !t.card.pendingEvent;
+                  }), l = r.filter(function (t) {
+                    var e = t.card;
+                    return !e.activeInjury && !e.activeTraining;
+                  });
+                  if (!(0 !== r.length)) {
+                    _context42.next = 16;
+                    break;
+                  }
+                  o = r.filter(function (t) {
+                    var e,
+                      n = t.card;
+                    return (null != (e = n.matchesPlayed) ? e : 0) >= i.getRetirementMatchLimit(n);
+                  }), s = this.config.events.filter(function (t) {
+                    return "retirement" === t.id ? o.length > 0 : l.length > 0;
+                  });
+                  if (!(0 !== s.length)) {
+                    _context42.next = 16;
+                    break;
+                  }
+                  _context42.next = 8;
+                  return S();
+                case 8:
+                  u = _context42.sent;
+                  c = new Map(s.map(function (t) {
+                    return [t, Math.max(.01, Number(t.selectionWeight) || 1)];
+                  }));
+                  d = s.find(function (t) {
+                    return "injury" === t.id;
+                  });
+                  v = d && null != (t = c.get(d)) ? t : 0;
+                  h = Array.from(c.entries()).filter(function (t) {
+                    return t[0] !== d;
+                  }).reduce(function (t, e) {
+                    return t + e[1];
+                  }, 0);
+                  if (d && v > 0 && h > 0) {
+                    f = v / (v + h) * (1 - Math.max(0, Math.min(1, u.medicalTeamInjuryRiskReduction)));
+                    c.set(d, h * f / (1 - f));
+                  }
+                  g = this.pickWeighted(s, function (t) {
+                    var e;
+                    return null != (e = c.get(t)) ? e : 1;
+                  });
+                  if (g) {
+                    p = "retirement" === g.id ? o : l, m = null == (e = this.pickEventTarget(g.id, p)) ? void 0 : e.index;
+                    if (void 0 !== m) {
+                      y = a[m];
+                      y && ("injury" !== g.id && "training" !== g.id || !y.activeInjury && !y.activeTraining) && (y.pendingEvent = {
+                        type: g.id,
+                        occurredAtMs: Date.now(),
+                        descriptionTemplate: this.pickEventDescription(y, g),
+                        overallDelta: this.resolveOverallDelta(g, y.overall),
+                        recoveryMatches: Math.max(0, Math.floor(null != (n = g.recoveryMatches) ? n : 0))
+                      }, I(a));
+                    }
+                  }
+                case 16:
+                case "end":
+                  return _context42.stop();
+              }
+            }, _callee41, this);
+          }));
+          return function () {
+            return t.apply(this, arguments);
+          };
+        }(), r.openEventAt = function (t) {
+          var e = this,
+            n = A(this.rosterSlots.length)[t];
+          if (null != n && n.pendingEvent && this.page && this.initialized) {
+            var i = n.pendingEvent,
+              a = this.renderEventPage(n, i),
+              r = this.eventPageRenderVersion;
+            a.then(function () {
+              var t, a;
+              e.page && e.eventPageRenderVersion === r && e.activePlayerInstanceId === n.instanceId && e.activeEventOccurredAtMs === i.occurredAtMs && (e.page.setSiblingIndex(Math.max(0, (null != (t = null == (a = e.page.parent) ? void 0 : a.children.length) ? t : 1) - 1)), J(e.page).then(function () {
+                e.isCurrentEventPresentation(n, i, r) && (e.eventPageReady = !0, e.setButtonsInteractable(!e.resolvingEvent), e.scheduleOnce(function () {
+                  var t, a;
+                  if (e.isCurrentEventPresentation(n, i, r)) {
+                    var l = null != (t = null == (a = e.page) || null == (a = a.getChildByName("总评")) || null == (a = a.getChildByName("数值")) ? void 0 : a.getComponent(s)) ? t : null;
+                    e.animateEventOverall(l, n, i);
+                  }
+                }, .5));
+              }));
+            });
+          }
+        }, r.isCurrentEventPresentation = function (t, e, n) {
+          var i;
+          return !0 === (null == (i = this.page) ? void 0 : i.active) && this.eventPageRenderVersion === n && this.activePlayerInstanceId === t.instanceId && this.activeEventOccurredAtMs === e.occurredAtMs;
+        }, r.renderEventPage = function () {
+          var t = i( /*#__PURE__*/_regeneratorRuntime().mark(function _callee42(t, e) {
+            var n, i, a, r, l, o, u, c, d, h, f, g, p, m, y, E, C, M;
+            return _regeneratorRuntime().wrap(function _callee42$(_context43) {
+              while (1) switch (_context43.prev = _context43.next) {
+                case 0:
+                  d = this.definitions.get(e.type);
+                  if (!(this.page && d)) {
+                    _context43.next = 11;
+                    break;
+                  }
+                  h = ++this.eventPageRenderVersion;
+                  this.activePlayerInstanceId = t.instanceId, this.activeEventOccurredAtMs = e.occurredAtMs, this.eventPageReady = !1, this.adResultShown = !1;
+                  g = this.page.getChildByName("事件"), p = null != (n = null == g || null == (i = g.getChildByName("事件名称")) ? void 0 : i.getComponent(s)) ? n : null, m = null != (a = null == g ? void 0 : g.getChildByName("事件描述")) ? a : null, y = null != (r = null == g || null == (l = g.getChildByName("图标")) ? void 0 : l.getComponent(v)) ? r : null, E = "positive" === d.tone ? $ : tt;
+                  if (p && (p.string = d.title, p.color = E), m) this.setEventDescriptionRichText(m, this.formatDescription(null != (f = e.descriptionTemplate) ? f : d.description, t, e), E);
+                  this.setButtonLabel(this.confirmButton, d.confirmLabel), this.setButtonLabel(this.adButton, d.adLabel), this.setAdButtonResolvedVisual(!1), this.setButtonsInteractable(!1);
+                  _context43.next = 9;
+                  return Promise.all([N(d.iconPath), this.renderPlayerPresentation(this.page, t, h)]);
+                case 9:
+                  C = _context43.sent[0];
+                  if (h === this.eventPageRenderVersion) {
+                    y && C && (y.spriteFrame = C);
+                    M = null != (o = this.page.getChildByName("总评")) ? o : null;
+                    u = null == M || null == (c = M.getChildByName("数值")) ? void 0 : c.getComponent(s);
+                    z(M, this.getOverallTrend(t, e));
+                  }
+                case 11:
+                case "end":
+                  return _context43.stop();
+              }
+            }, _callee42, this);
+          }));
+          return function (e, n) {
+            return t.apply(this, arguments);
+          };
+        }(), r.renderPlayerPresentation = function () {
+          var t = i( /*#__PURE__*/_regeneratorRuntime().mark(function _callee43(t, e, n) {
+            var i, a, r, l, o, u, c, d, h, f, g, p, m, y, E, C, M, P, B, A, R, T, I, b, S, N, j, _, z, Q, G, H;
+            return _regeneratorRuntime().wrap(function _callee43$(_context44) {
+              while (1) switch (_context44.prev = _context44.next) {
+                case 0:
+                  C = t.getChildByName("球员"), M = null != (i = null == C || null == (a = C.getChildByName("头像")) ? void 0 : a.getComponent(v)) ? i : null, P = null != (r = null == C || null == (l = C.getChildByName("bg")) ? void 0 : l.getComponent(v)) ? r : null, B = null != (o = null == C ? void 0 : C.children.filter(function (t) {
+                    return "麦穗" === t.name;
+                  }).map(function (t) {
+                    return t.getComponent(v);
+                  }).filter(function (t) {
+                    return Boolean(t);
+                  })) ? o : [], A = null != (u = null == C || null == (c = C.getChildByName("头像框")) ? void 0 : c.getComponent(v)) ? u : null, R = null != (d = null == C || null == (h = C.getChildByName("名牌")) ? void 0 : h.getComponent(v)) ? d : null, T = null != (f = null == C || null == (g = C.getChildByName("品质标签")) ? void 0 : g.getComponent(v)) ? f : null, I = null != (p = null == C || null == (m = C.getChildByName("位置")) ? void 0 : m.getComponent(v)) ? p : null;
+                  this.setLabel("球员/名牌/名字", e.displayName, t), this.setLabel("球员/品质标签/品质", e.qualityName, t), this.setLabel("球员/位置/位置", e.position, t);
+                  b = null != (y = null == (E = t.getChildByName("总评")) || null == (E = E.getChildByName("数值")) ? void 0 : E.getComponent(s)) ? y : null;
+                  b && (b.string = k(e.overall)), W(b, e.qualityId);
+                  _context44.next = 6;
+                  return Promise.all([x(e), O(e.qualityId), D(e.qualityId), w(e.qualityId), L(e.qualityId), F(e.qualityId), V(e.qualityId)]);
+                case 6:
+                  S = _context44.sent;
+                  N = S[0];
+                  j = S[1];
+                  _ = S[2];
+                  z = S[3];
+                  Q = S[4];
+                  G = S[5];
+                  H = S[6];
+                  n === this.eventPageRenderVersion && (M && N && (M.spriteFrame = N), P && j && (P.spriteFrame = j), _ && B.forEach(function (t) {
+                    t.spriteFrame = _;
+                  }), A && z && (A.spriteFrame = z), R && Q && (R.spriteFrame = Q), T && G && (T.spriteFrame = G), I && H && (I.spriteFrame = H), q(null != C ? C : null, e.qualityId));
+                case 15:
+                case "end":
+                  return _context44.stop();
+              }
+            }, _callee43, this);
+          }));
+          return function (e, n, i) {
+            return t.apply(this, arguments);
+          };
+        }(), r.animateEventOverall = function (t, e, n) {
+          var i = e.overall,
+            a = Math.max(1, Math.abs(n.overallDelta)),
+            r = "injury" === n.type ? Math.max(1, i - a) : "training" === n.type ? i + a : i,
+            l = this.getOverallTrend(e, n);
+          G(t, r, function (t) {
+            return k(Math.floor(t));
+          }, {
+            from: i,
+            duration: 1.5,
+            animateDecrease: r < i,
+            colorFrom: j(t),
+            colorTo: l ? _(l) : j(t)
+          });
+        }, r.resolveActiveEvent = function () {
+          var t = i( /*#__PURE__*/_regeneratorRuntime().mark(function _callee44(t) {
+            var e, n, i, a, r, l;
+            return _regeneratorRuntime().wrap(function _callee44$(_context45) {
+              while (1) switch (_context45.prev = _context45.next) {
+                case 0:
+                  e = this;
+                  if (!(this.eventPageReady && !this.resolvingEvent && this.activePlayerInstanceId)) {
+                    _context45.next = 25;
+                    break;
+                  }
+                  this.resolvingEvent = !0, this.setButtonsInteractable(!1);
+                  _context45.prev = 3;
+                  _context45.t0 = t;
+                  if (!_context45.t0) {
+                    _context45.next = 9;
+                    break;
+                  }
+                  _context45.next = 8;
+                  return K();
+                case 8:
+                  _context45.t0 = !_context45.sent;
+                case 9:
+                  if (!_context45.t0) {
+                    _context45.next = 11;
+                    break;
+                  }
+                  return _context45.abrupt("return");
+                case 11:
+                  n = A(T), i = n.findIndex(function (t) {
+                    var n;
+                    return (null == t ? void 0 : t.instanceId) === e.activePlayerInstanceId && (null == (n = t.pendingEvent) ? void 0 : n.occurredAtMs) === e.activeEventOccurredAtMs;
+                  }), a = i >= 0 ? n[i] : null;
+                  if (!(null == a || !a.pendingEvent)) {
+                    _context45.next = 16;
+                    break;
+                  }
+                  _context45.next = 15;
+                  return this.closePageAndWait();
+                case 15:
+                  return _context45.abrupt("return", void this.openNextQueuedEventOrRunAction());
+                case 16:
+                  r = a.pendingEvent;
+                  if (!(this.applyEventResolution(n, i, a, t), I(n), t)) {
+                    _context45.next = 19;
+                    break;
+                  }
+                  return _context45.abrupt("return", void this.showAdResolvedEventResult(a, r));
+                case 19:
+                  _context45.next = 21;
+                  return this.closePageAndWait();
+                case 21:
+                  this.openNextQueuedEventOrRunAction();
+                case 22:
+                  _context45.prev = 22;
+                  this.resolvingEvent = !1, null != (l = this.page) && l.active && (this.setButtonsInteractable(this.eventPageReady && !this.adResultShown), this.eventPageReady && this.adResultShown && this.confirmButton && (this.confirmButton.interactable = !0));
+                  return _context45.finish(22);
+                case 25:
+                case "end":
+                  return _context45.stop();
+              }
+            }, _callee44, this, [[3,, 22, 25]]);
+          }));
+          return function (e) {
+            return t.apply(this, arguments);
+          };
+        }(), r.showAdResolvedEventResult = function (t, e) {
+          var n, i, a, r;
+          this.eventPageRenderVersion += 1, this.adResultShown = !0, this.setButtonLabel(this.confirmButton, this.getAdResolvedConfirmLabel(e.type)), this.updateAdResolvedDescription(t, e), this.setAdButtonResolvedVisual(!0);
+          var l = null != (n = null == (i = this.page) ? void 0 : i.getChildByName("总评")) ? n : null,
+            o = null != (a = null == l || null == (r = l.getChildByName("数值")) ? void 0 : r.getComponent(s)) ? a : null,
+            u = "training" === e.type ? "training" : t.activeInjury ? "injury" : null;
+          if (z(l, u), "retirement" !== e.type) {
+            var c = Math.max(1, t.overall - Math.max(1, Math.abs(e.overallDelta)));
+            G(o, t.overall, function (t) {
+              return k(Math.floor(t));
+            }, {
+              from: c,
+              duration: 1.5,
+              colorFrom: "injury" === e.type ? _("injury") : j(o),
+              colorTo: u ? _(u) : j(o)
+            });
+          } else o && (o.color = j(o));
+        }, r.getOverallTrend = function (t, e) {
+          return "injury" === e.type ? "injury" : "training" === e.type ? "training" : t.activeInjury ? "injury" : t.activeTraining ? "training" : null;
+        }, r.getAdResolvedConfirmLabel = function (t) {
+          return "injury" === t ? "爷复活辣！" : "training" === t ? "堪比去少林寺！" : "我要破出勤记录！";
+        }, r.updateAdResolvedDescription = function (t, e) {
+          var n,
+            i,
+            a = this.definitions.get(e.type),
+            r = null != (n = null == (i = this.page) || null == (i = i.getChildByName("事件")) ? void 0 : i.getChildByName("事件描述")) ? n : null;
+          if (null != a && a.adResolvedDescription && r) {
+            var l = this.getAdResolvedBaseDescription(t, e),
+              o = this.resolveDescriptionTemplate(a.adResolvedDescription, t, e),
+              s = "positive" === a.tone ? $ : tt;
+            this.setEventDescriptionRichText(r, "" + l + o, s);
+          }
+        }, r.applyEventResolution = function (t, e, n, i) {
+          var a = n.pendingEvent;
+          if ("injury" !== a.type) {
+            if ("retirement" !== a.type) {
+              if ("training" === a.type) {
+                var r = Math.max(1, a.overallDelta) * (i ? 2 : 1);
+                return this.applyOverallDelta(n, r), n.activeTraining = {
+                  overallBonus: r,
+                  remainingMatches: Math.max(1, a.recoveryMatches)
+                }, void delete n.pendingEvent;
+              }
+            } else i ? delete n.pendingEvent : t[e] = null;
+          } else {
+            if (!i) {
+              var l = Math.max(1, Math.abs(a.overallDelta));
+              this.applyOverallDelta(n, -l), n.activeInjury = {
+                overallPenalty: l,
+                remainingMatches: Math.max(1, a.recoveryMatches)
+              };
+            }
+            delete n.pendingEvent;
+          }
+        }, r.reconcileLastSettledMatch = function () {
+          var t = R();
+          t.lastSettledMatchId && this.advancePlayerMatchState(t.lastSettledMatchId, t.lastSettledPlayerInstanceIds);
+        }, r.advancePlayerMatchState = function (t, e) {
+          var i = new Set(e);
+          if (0 !== i.size) {
+            for (var a, r = A(T), l = !1, o = n(r); !(a = o()).done;) {
+              var s,
+                u = a.value;
+              u && i.has(u.instanceId) && u.lastCountedMatchId !== t && (u.lastCountedMatchId = t, u.matchesPlayed = Math.min(2147483647, Math.max(0, null != (s = u.matchesPlayed) ? s : 0) + 1), u.activeInjury && (u.activeInjury.remainingMatches -= 1, u.activeInjury.remainingMatches <= 0 && (this.applyOverallDelta(u, u.activeInjury.overallPenalty), delete u.activeInjury)), u.activeTraining && (u.activeTraining.remainingMatches -= 1, u.activeTraining.remainingMatches <= 0 && (this.applyOverallDelta(u, -u.activeTraining.overallBonus), delete u.activeTraining)), l = !0);
+            }
+            l && I(r);
+          }
+        }, r.applyOverallDelta = function (t, e) {
+          var i = Math.max(1, Math.floor(t.overall)),
+            a = Math.max(1, i + Math.floor(e)),
+            r = a - i;
+          if (r > 0) t.attributes.scoring += r;else for (var l, o = n([].concat(b).sort(function (e, n) {
+              return t.attributes[n] - t.attributes[e];
+            })); !(l = o()).done;) {
+            var s = l.value,
+              u = Math.min(t.attributes[s], Math.abs(r));
+            if (t.attributes[s] -= u, 0 === (r += u)) break;
+          }
+          t.overall = a;
+        }, r.resolveOverallDelta = function (t, e) {
+          var n,
+            i = Number(t.overallPercent) || 0;
+          if (0 === i) return 0;
+          var a = Math.max(Math.max(1, Math.floor(null != (n = t.minimumOverallDelta) ? n : 1)), Math.round(Math.max(1, e) * Math.abs(i)));
+          return i < 0 ? -a : a;
+        }, r.pickEventDescription = function (t, e) {
+          var n,
+            i,
+            a,
+            r,
+            l = null != (n = null == (i = this.config) || null == (i = i.playerEventDescriptionVariants) || null == (i = i[t.sourcePlayerName]) ? void 0 : i[e.id]) ? n : [],
+            o = [e.description].concat(null != (a = e.descriptionVariants) ? a : [], l).filter(function (t) {
+              return "string" == typeof t && t.trim().length > 0;
+            });
+          return null != (r = o[Math.floor(Math.random() * o.length)]) ? r : e.description;
+        }, r.pickEventTarget = function (t, e) {
+          var n = this;
+          return "injury" === t ? this.pickWeighted(e, function (t) {
+            var e = t.card;
+            return 1 - n.getPlayerTraits(e).health;
+          }) : "training" === t ? this.pickWeighted(e, function (t) {
+            var e = t.card;
+            return n.getPlayerTraits(e).training;
+          }) : "retirement" === t ? this.pickWeighted(e, function (t) {
+            var e = t.card;
+            return n.getPlayerTraits(e).age - 17;
+          }) : this.pickWeighted(e, function () {
+            return 1;
+          });
+        }, r.pickWeighted = function (t, e) {
+          for (var n, i = t.map(function (t) {
+              return Math.max(.01, e(t));
+            }), a = i.reduce(function (t, e) {
+              return t + e;
+            }, 0), r = Math.random() * a, l = 0; l < t.length; l += 1) if ((r -= i[l]) <= 0) return t[l];
+          return null != (n = t[t.length - 1]) ? n : null;
+        }, r.getPlayerTraits = function (t) {
+          var e,
+            n,
+            i,
+            a,
+            r,
+            l,
+            o = null != (e = null == (n = this.config) ? void 0 : n.defaultPlayerTraits) ? e : {
+              health: .6,
+              age: 28,
+              training: .5
+            },
+            s = null == (i = this.config) || null == (i = i.playerTraitOverrides) ? void 0 : i[t.sourcePlayerName];
+          return {
+            health: this.clampTrait(null != (a = null == s ? void 0 : s.health) ? a : o.health),
+            age: Math.min(50, Math.max(18, Math.floor(null != (r = null == s ? void 0 : s.age) ? r : o.age))),
+            training: this.clampTrait(null != (l = null == s ? void 0 : s.training) ? l : o.training)
+          };
+        }, r.getRetirementMatchLimit = function (t) {
+          var e,
+            n = Math.max(1, Math.min(5, null != (e = t.retirementMatchLimit) ? e : 3)),
+            i = this.getPlayerTraits(t).age,
+            a = i >= 38 ? 2 : i >= 33 ? 1 : 0;
+          return Math.max(1, n - a);
+        }, r.clampTrait = function (t) {
+          return Math.min(1, Math.max(0, Number.isFinite(t) ? t : 0));
+        }, r.formatDescription = function (t, e, n) {
+          var i = this.resolveDescriptionTemplate(t, e, n),
+            a = k(Math.abs(n.overallDelta)),
+            r = Math.max(1, n.recoveryMatches);
+          return "injury" === n.type ? i + " 接下来" + r + "场比赛中总评暂时下降" + a + "。" : "training" === n.type ? i + " 接下来" + r + "场比赛中总评暂时提升" + a + "。" : i;
+        }, r.resolveDescriptionTemplate = function (t, e, n) {
+          return t.replace(/\{\{player\}\}/g, e.displayName).replace(/\{\{value\}\}/g, k(Math.abs(n.overallDelta))).replace(/\{\{matches\}\}/g, String(Math.max(1, n.recoveryMatches)));
+        }, r.getAdResolvedBaseDescription = function (t, e) {
+          var n = k(Math.abs(e.overallDelta));
+          if ("injury" === e.type) {
+            var i,
+              a,
+              r,
+              l,
+              o = null != (i = e.descriptionTemplate) ? i : "",
+              s = null == (a = nt.find(function (t) {
+                var e = t[0];
+                return o.includes(e);
+              })) ? void 0 : a[1];
+            if (s) return "" + t.displayName + s + "，总评下降" + n + "。";
+            var u = null != (r = null == (l = it.find(function (t) {
+              var e = t[0];
+              return o.includes(e);
+            })) ? void 0 : l[1]) ? r : "伤病";
+            return t.displayName + "发生了" + u + "，总评下降" + n + "。";
+          }
+          return "training" === e.type ? t.displayName + "参加训练，总评提升" + n + "。" : t.displayName + "宣布退役。";
+        }, r.setEventDescriptionRichText = function (t, e, n) {
+          var i,
+            a,
+            r = t.getComponent(s),
+            l = t.getComponent(u);
+          !l && r && ((l = t.addComponent(u)).fontSize = r.fontSize, l.lineHeight = r.lineHeight, l.horizontalAlign = r.horizontalAlign, l.verticalAlign = r.verticalAlign, l.fontColor = n.clone(), l.maxWidth = null != (i = null == (a = t.getComponent(c)) ? void 0 : a.width) ? i : 0, l.useSystemFont = r.useSystemFont, l.fontFamily = r.fontFamily, r.font instanceof d && (l.font = r.font), l.handleTouchEvent = !1, r.enabled = !1);
+          l && (l.string = this.createEventDescriptionRichText(e, n));
+        }, r.createEventDescriptionRichText = function (t, e) {
+          var n = this.escapeRichText(t).replace(/(?:\d+场比赛|(?:下降|提升)[\d.]+[KMBTQ]?)/g, function (t) {
+            return "<color=#FFD15A>" + t + "</color>";
+          });
+          return "<outline color=#000000 width=2><b><color=" + this.colorToHex(e) + ">" + n + "</color></b></outline>";
+        }, r.colorToHex = function (t) {
+          return "#" + [t.r, t.g, t.b].map(function (t) {
+            return t.toString(16).padStart(2, "0");
+          }).join("");
+        }, r.escapeRichText = function (t) {
+          return t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }, r.syncEventIndicators = function () {
+          var t = i( /*#__PURE__*/_regeneratorRuntime().mark(function _callee45() {
+            var t, e, n, i;
+            return _regeneratorRuntime().wrap(function _callee45$(_context46) {
+              while (1) switch (_context46.prev = _context46.next) {
+                case 0:
+                  t = this;
+                  if (!this.initialized) {
+                    _context46.next = 8;
+                    break;
+                  }
+                  e = ++this.eventIndicatorRenderVersion;
+                  n = A(this.rosterSlots.length);
+                  _context46.next = 6;
+                  return Promise.all(n.map(function (e) {
+                    var n = null != e && e.pendingEvent ? t.definitions.get(e.pendingEvent.type) : null;
+                    return n ? N(n.iconPath) : Promise.resolve(null);
+                  }));
+                case 6:
+                  i = _context46.sent;
+                  e === this.eventIndicatorRenderVersion && this.rosterSlots.forEach(function (t, e) {
+                    var n;
+                    t.setEventIcon(null != (n = i[e]) ? n : null);
+                  });
+                case 8:
+                case "end":
+                  return _context46.stop();
+              }
+            }, _callee45, this);
+          }));
+          return function () {
+            return t.apply(this, arguments);
+          };
+        }(), r.syncRosterSlotOveralls = function (t) {
+          this.rosterSlots.forEach(function (e, n) {
+            var i,
+              a = null != (i = t[n]) ? i : null;
+            a ? e.setOverall(a.overall) : e.getOverall() > 0 && e.clear();
+          });
+        }, r.resolvePageButtons = function () {
+          var t, e, n, i, a, r;
+          this.confirmButton = null != (t = null == (e = this.page) || null == (e = e.getChildByName("确认")) ? void 0 : e.getComponent(o)) ? t : null, this.adButton = null != (n = null == (i = this.page) || null == (i = i.getChildByName("看广告")) ? void 0 : i.getComponent(o)) ? n : null, this.adButton && (this.adButton.transition = o.Transition.COLOR, this.adButton.normalColor = l.WHITE, this.adButton.hoverColor = l.WHITE, this.adButton.pressedColor = new l(225, 225, 225, 255), this.adButton.disabledColor = et), null == (a = this.confirmButton) || a.node.on(o.EventType.CLICK, this.confirmEvent, this), null == (r = this.adButton) || r.node.on(o.EventType.CLICK, this.resolveEventWithAd, this);
+        }, r.resolveRosterSlots = function () {
+          var t,
+            e,
+            n = null != (t = null == (e = this.canvas) || null == (e = e.getChildByName("主页")) || null == (e = e.getChildByName("球队")) ? void 0 : e.getChildByName("阵容槽位")) ? t : null;
+          this.rosterSlots = n ? n.children.map(function (t) {
+            return t.getComponent(Q);
+          }).filter(function (t) {
+            return Boolean(t);
+          }).sort(function (t, e) {
+            return t.node.name.localeCompare(e.node.name, "zh-CN", {
+              numeric: !0
+            });
+          }) : [];
+        }, r.bindSlotEventButtons = function () {
+          var t = this;
+          this.unbindSlotEventButtons(), this.rosterSlots.forEach(function (e, n) {
+            var i = e.eventButton;
+            if (i) {
+              var a = function a() {
+                return t.openEventAt(n);
+              };
+              i.node.on(o.EventType.CLICK, a, t), t.slotEventBindings.push({
+                button: i,
+                callback: a
+              });
+            }
+          });
+        }, r.unbindSlotEventButtons = function () {
+          for (var t, e = n(this.slotEventBindings); !(t = e()).done;) {
+            var i = t.value;
+            i.button.node.off(o.EventType.CLICK, i.callback, this);
+          }
+          this.slotEventBindings = [];
+        }, r.setButtonLabel = function (t, e) {
+          var n,
+            i,
+            a = null != (n = null == t || null == (i = t.node.getChildByName("Label")) ? void 0 : i.getComponent(s)) ? n : null;
+          a && (a.string = e);
+        }, r.setAdButtonResolvedVisual = function (t) {
+          if (this.adButton) for (var e, i = n(this.adButton.node.getComponentsInChildren(v)); !(e = i()).done;) {
+            e.value.grayscale = t;
+          }
+        }, r.setButtonsInteractable = function (t) {
+          this.confirmButton && (this.confirmButton.interactable = t), this.adButton && (this.adButton.interactable = t);
+        }, r.findNextPendingEventIndex = function () {
+          var t,
+            e = A(T).map(function (t, e) {
+              return {
+                card: t,
+                index: e
+              };
+            }).filter(function (t) {
+              var e;
+              return Boolean(null == (e = t.card) ? void 0 : e.pendingEvent);
+            }).sort(function (t, e) {
+              return t.card.pendingEvent.occurredAtMs - e.card.pendingEvent.occurredAtMs || t.index - e.index;
+            })[0];
+          return null != (t = null == e ? void 0 : e.index) ? t : null;
+        }, r.openNextQueuedEventOrRunAction = function () {
+          var t = this.queuedActionAfterPendingEvents;
+          if (t) {
+            if (!this.initialized) return this.queuedActionAfterPendingEvents = null, void t();
+            var e = this.findNextPendingEventIndex();
+            null === e ? (this.queuedActionAfterPendingEvents = null, t()) : this.openEventAt(e);
+          }
+        }, r.setLabel = function (t, e, n) {
+          var i,
+            a,
+            r = null != (i = null == (a = this.findByPath(n, t)) ? void 0 : a.getComponent(s)) ? i : null;
+          r && (r.string = e);
+        }, r.findByPath = function (t, e) {
+          for (var i, a = t, r = n(e.split("/")); !(i = r()).done;) {
+            var l,
+              o,
+              s = i.value;
+            if (!(a = null != (l = null == (o = a) ? void 0 : o.getChildByName(s)) ? l : null)) return null;
+          }
+          return a;
+        }, r.loadJson = function (t) {
+          return new Promise(function (e, n) {
+            h.load(t, f, function (i, a) {
+              !i && a ? e(a.json) : n(null != i ? i : new Error("Missing JSON asset: " + t));
+            });
+          });
+        }, r.loadPrefab = function () {
+          return new Promise(function (t, e) {
+            h.load("prefabs/球员/事件页面", g, function (n, i) {
+              !n && i ? t(i) : e(null != n ? n : new Error("Missing event page prefab."));
+            });
+          });
+        }, r.loadGameFont = function () {
+          return new Promise(function (t, e) {
+            h.load("fonts/zpix", p, function (n, i) {
+              !n && i ? t(i) : e(null != n ? n : new Error("Missing game font: fonts/zpix"));
+            });
+          });
+        }, r.isConfigValid = function (t) {
+          return Number.isFinite(t.triggerProbability) && Array.isArray(t.events) && t.events.length > 0 && t.events.every(function (t) {
+            return "injury" === t.id || "training" === t.id || "retirement" === t.id;
+          }) && Boolean(t.defaultPlayerTraits);
+        }, a;
+      }(m)) || X);
+      a._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/PlayerKnowledge.ts", ["./rollupPluginModLoBabelHelpers.js", "cc", "./GameState.ts"], function (e) {
+  var r, n, t, o, a, l, u;
+  return {
+    setters: [function (e) {
+      r = e["extends"];
+    }, function (e) {
+      n = e.cclegacy, t = e.sys;
+    }, function (e) {
+      o = e.loadJson, a = e.recordPlayerAcquisition, l = e.loadRoster, u = e.saveRoster;
+    }],
+    execute: function execute() {
+      e({
+        addPermanentOverallForPlayerKnowledge: function addPermanentOverallForPlayerKnowledge(e, n) {
+          var t = Math.max(0, Math.floor(n));
+          if (t <= 0) return null;
+          var o = null,
+            a = l().map(function (n) {
+              if (!n || n.sourcePlayerName !== e) return n;
+              var a = r({}, n, {
+                overall: Math.max(1, n.overall + t)
+              });
+              return o = a, a;
+            });
+          o && u(a);
+          return o;
+        },
+        advancePlayerKnowledgeQuestion: function advancePlayerKnowledgeQuestion(e, r) {
+          if (0 === r.length) return;
+          for (var n = g(), t = m(n[e]), o = Math.max(0, t.currentQuestionIndex % r.length), a = 1; a <= r.length; a += 1) {
+            var l = (o + a) % r.length;
+            if (!c(t, r[l].id)) return t.currentQuestionIndex = l, n[e] = t, void y(n);
+          }
+          t.currentQuestionIndex = o, n[e] = t, y(n);
+        },
+        calculatePlayerKnowledgeReward: function calculatePlayerKnowledgeReward(e, r) {
+          void 0 === r && (r = Math.random());
+          var n = .01 + .01 * Math.min(1, Math.max(0, r));
+          return Math.max(1, Math.ceil(Math.max(1, e) * n));
+        },
+        formatPlayerHonors: f,
+        formatPlayerKnowledgeText: function formatPlayerKnowledgeText(e, r) {
+          return e.replace(/\{\{playerName\}\}/g, r);
+        },
+        formatPlayerProfile: function formatPlayerProfile(e, r) {
+          if (!e) return "资料整理中";
+          var n = e.peakSeason;
+          return [f(e, r), "国籍：" + e.country, "生涯：" + e.careerSpan, "代表赛季：" + n.season + " " + n.team, "场均：" + n.pointsPerGame.toFixed(1) + "分 " + n.reboundsPerGame.toFixed(1) + "板 " + n.assistsPerGame.toFixed(1) + "助 " + n.stealsPerGame.toFixed(1) + "断 " + n.blocksPerGame.toFixed(1) + "帽"].join("\n");
+        },
+        getPlayerKnowledgeProgress: function getPlayerKnowledgeProgress(e) {
+          return m(g()[e]);
+        },
+        hasAnsweredPlayerKnowledgeQuestion: c,
+        loadPlayerKnowledgeConfig: function loadPlayerKnowledgeConfig() {
+          return null != s || (s = o("data/player_knowledge")), s;
+        },
+        recordPlayerAcquisitionWithKnowledgeReset: function recordPlayerAcquisitionWithKnowledgeReset(e) {
+          var r = a(e);
+          r > 1 && d(e.sourcePlayerName);
+          return r;
+        },
+        recordPlayerKnowledgeAnswer: function recordPlayerKnowledgeAnswer(e, r, n) {
+          var t = g(),
+            o = m(t[e]);
+          if (n) {
+            if (o.correctQuestionIds.includes(r)) return !1;
+            o.correctQuestionIds.push(r), o.wrongQuestionIds = o.wrongQuestionIds.filter(function (e) {
+              return e !== r;
+            });
+          } else o.wrongQuestionIds.includes(r) || o.wrongQuestionIds.push(r);
+          return t[e] = o, y(t), n;
+        },
+        recordPlayerKnowledgeReward: function recordPlayerKnowledgeReward(e, r, n) {
+          var t = Math.max(1, Math.ceil(n)),
+            o = g(),
+            a = m(o[e]);
+          a.rewardOverallByQuestionId[r] = t, o[e] = a, y(o);
+        },
+        resetPlayerKnowledgeProgress: d,
+        unlockPlayerKnowledgeAnswers: function unlockPlayerKnowledgeAnswers(e) {
+          var r = g(),
+            n = m(r[e]);
+          n.answerAllUnlocked = !0, r[e] = n, y(r);
+        }
+      }), n._RF.push({}, "de660G6FKNJS4RiLWUThH8+", "PlayerKnowledge", void 0);
+      var i = "basketball.player-knowledge.v1",
+        s = null;
+      function c(e, r) {
+        return e.correctQuestionIds.includes(r) || e.wrongQuestionIds.includes(r);
+      }
+      function d(e) {
+        var r = g();
+        delete r[e], y(r);
+      }
+      function f(e, r) {
+        return e ? "荣誉：" + (void 0 === r ? e.honors : e.honors.slice(0, Math.max(0, Math.floor(r)))).join(" · ") : "荣誉：资料整理中";
+      }
+      function g() {
+        var e = t.localStorage.getItem(i);
+        if (!e) return {};
+        try {
+          var r = JSON.parse(e);
+          return Object.fromEntries(Object.entries(r).map(function (e) {
+            return [e[0], m(e[1])];
+          }));
+        } catch (e) {
+          return {};
+        }
+      }
+      function y(e) {
+        t.localStorage.setItem(i, JSON.stringify(e));
+      }
+      function m(e) {
+        var r = e && "object" == _typeof(e) ? e : {};
+        return {
+          currentQuestionIndex: Math.max(0, Math.floor(Number(r.currentQuestionIndex) || 0)),
+          correctQuestionIds: w(r.correctQuestionIds),
+          wrongQuestionIds: w(r.wrongQuestionIds),
+          rewardOverallByQuestionId: v(r.rewardOverallByQuestionId),
+          answerAllUnlocked: Boolean(r.answerAllUnlocked)
+        };
+      }
+      function w(e) {
+        return Array.isArray(e) ? Array.from(new Set(e.filter(function (e) {
+          return "string" == typeof e;
+        }))) : [];
+      }
+      function v(e) {
+        if (!e || "object" != _typeof(e) || Array.isArray(e)) return {};
+        for (var r = {}, n = 0, t = Object.entries(e); n < t.length; n++) {
+          var o = t[n],
+            a = o[0],
+            l = o[1],
+            u = Math.ceil(Number(l));
+          a && Number.isFinite(u) && u >= 1 && (r[a] = u);
+        }
+        return r;
+      }
+      n._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/PlayerQualityVisuals.ts", ["./rollupPluginModLoBabelHelpers.js", "cc", "./FrameFlow.ts", "./OverallNumberEdgeFlow.ts", "./OverallNumberShine.ts", "./QualityFrameShader.ts", "./UniverseWithin.ts"], function (e) {
+  var n, r, a, m, u, i, l, t, s, w;
+  return {
+    setters: [function (e) {
+      n = e["extends"];
+    }, function (e) {
+      r = e.cclegacy, a = e.Color, m = e.Vec4, u = e.Sprite;
+    }, function (e) {
+      i = e.FrameFlow;
+    }, function (e) {
+      l = e.OverallNumberEdgeFlow;
+    }, function (e) {
+      t = e.triggerOverallNumberImpact;
+    }, function (e) {
+      s = e.QualityFrameShader;
+    }, function (e) {
+      w = e.UniverseWithin;
+    }],
+    execute: function execute() {
+      e({
+        applyOverallNumberQuality: function applyOverallNumberQuality(e, n) {
+          var r;
+          if (!e) return;
+          var a = f(n);
+          (null != (r = e.node.getComponent(l)) ? r : e.node.addComponent(l)).apply(a.numberEdge, a.numberGlint, a.numberFlow, a.numberPrism);
+        },
+        applyOverallTrendArrow: function applyOverallTrendArrow(e, n) {
+          var r,
+            a = null != (r = null == e ? void 0 : e.getChildByName("箭头")) ? r : null;
+          if (a) {
+            var m;
+            a.active = null !== n, a.angle = "training" === n ? 180 : 0;
+            var i = null != (m = a.getComponent(u)) ? m : a.getComponentInChildren(u);
+            i && n && (i.color = y(n));
+          }
+        },
+        applyPlayerQualityVisuals: function applyPlayerQualityVisuals(e, n) {
+          var r, a, m, u;
+          if (!e) return;
+          var l = f(n),
+            t = null != (r = e.getChildByName("头像框")) ? r : null,
+            c = null != (a = null == t ? void 0 : t.getComponent(i)) ? a : null;
+          c && (c.enabled = !1);
+          if (t) {
+            var o;
+            (null != (o = t.getComponent(s)) ? o : t.addComponent(s)).apply(l.frameKind, l.framePrimary, l.frameSecondary, l.frameParams);
+          }
+          var v = null != (m = null == (u = e.getChildByName("bg")) ? void 0 : u.getComponent(w)) ? m : null;
+          v && (v.rotationSpeed = .055, v.glowIntensity = l.universeGlow, v.blendStrength = l.universeBlend, v.sparkleBoost = l.universeSparkle, v.setPalette(l.universeBase, l.universeAccent, l.universePrism), v.enabled = !0, v.syncResolution(), v.syncTune());
+        },
+        getOverallDefaultColor: function getOverallDefaultColor(e) {
+          if (!e) return a.WHITE.clone();
+          v.has(e) || v.set(e, e.color.clone());
+          return v.get(e).clone();
+        },
+        getOverallTrendColor: y,
+        triggerOverallNumberQualityImpact: function triggerOverallNumberQualityImpact(e, n) {
+          var r = f(n);
+          t(e, r.numberImpact, r.numberImpactIntensity);
+        }
+      }), r._RF.push({}, "64d92qBJ1BF1LIbnV3V8lVy", "PlayerQualityVisuals", void 0);
+      var c = new a(210, 99, 92, 255),
+        o = new a(95, 176, 118, 255),
+        v = new WeakMap(),
+        b = {
+          frameKind: "metal",
+          framePrimary: new a(136, 72, 40, 255),
+          frameSecondary: new a(216, 136, 88, 255),
+          frameParams: new m(6.4, .11, .13, 30),
+          universeGlow: .46,
+          universeBlend: .13,
+          universeSparkle: .16,
+          universeBase: new a(122, 56, 24, 255),
+          universeAccent: new a(232, 184, 120, 255),
+          universePrism: 0,
+          numberEdge: new a(184, 120, 88, 255),
+          numberGlint: new a(232, 192, 136, 255),
+          numberFlow: new m(1.9, .24, .18, .46),
+          numberPrism: 0,
+          numberImpact: new a(240, 192, 128, 255),
+          numberImpactIntensity: .48
+        },
+        d = {
+          3: b,
+          4: n({}, b, {
+            framePrimary: new a(88, 120, 120, 255),
+            frameSecondary: new a(216, 248, 248, 255),
+            frameParams: new m(6.8, .1, .11, 32),
+            universeGlow: .48,
+            universeBlend: .14,
+            universeSparkle: .18,
+            universeBase: new a(53, 92, 104, 255),
+            universeAccent: new a(184, 232, 232, 255),
+            numberEdge: new a(120, 168, 184, 255),
+            numberGlint: new a(232, 255, 255, 255),
+            numberFlow: new m(1.95, .25, .17, .44),
+            numberImpact: new a(232, 255, 255, 255),
+            numberImpactIntensity: .45
+          }),
+          5: n({}, b, {
+            framePrimary: new a(136, 88, 8, 255),
+            frameSecondary: new a(248, 216, 88, 255),
+            frameParams: new m(5.8, .11, .16, 34),
+            universeGlow: .54,
+            universeBlend: .16,
+            universeSparkle: .22,
+            universeBase: new a(122, 72, 0, 255),
+            universeAccent: new a(248, 216, 88, 255),
+            numberEdge: new a(200, 136, 8, 255),
+            numberGlint: new a(255, 240, 168, 255),
+            numberFlow: new m(2, .26, .18, .5),
+            numberImpact: new a(255, 240, 168, 255),
+            numberImpactIntensity: .54
+          }),
+          6: n({}, b, {
+            frameKind: "crystal",
+            framePrimary: new a(8, 120, 8, 255),
+            frameSecondary: new a(168, 248, 216, 255),
+            frameParams: new m(6.8, 7, .16, .42),
+            universeGlow: .58,
+            universeBlend: .18,
+            universeSparkle: .26,
+            universeBase: new a(7, 92, 28, 255),
+            universeAccent: new a(168, 248, 216, 255),
+            numberEdge: new a(8, 184, 8, 255),
+            numberGlint: new a(184, 255, 216, 255),
+            numberFlow: new m(2, .27, .18, .52),
+            numberImpact: new a(184, 255, 216, 255),
+            numberImpactIntensity: .56
+          }),
+          7: n({}, b, {
+            frameKind: "crystal",
+            framePrimary: new a(8, 72, 184, 255),
+            frameSecondary: new a(120, 200, 255, 255),
+            frameParams: new m(6.6, 7.5, .18, .45),
+            universeGlow: .65,
+            universeBlend: .2,
+            universeSparkle: .32,
+            universeBase: new a(8, 38, 96, 255),
+            universeAccent: new a(120, 200, 255, 255),
+            numberEdge: new a(24, 104, 216, 255),
+            numberGlint: new a(184, 232, 255, 255),
+            numberFlow: new m(2, .28, .19, .56),
+            numberImpact: new a(184, 232, 255, 255),
+            numberImpactIntensity: .6
+          }),
+          8: n({}, b, {
+            frameKind: "crystal",
+            framePrimary: new a(184, 8, 8, 255),
+            frameSecondary: new a(255, 152, 120, 255),
+            frameParams: new m(6.3, 8, .19, .48),
+            universeGlow: .7,
+            universeBlend: .22,
+            universeSparkle: .38,
+            universeBase: new a(104, 8, 8, 255),
+            universeAccent: new a(255, 152, 120, 255),
+            numberEdge: new a(216, 24, 24, 255),
+            numberGlint: new a(255, 192, 168, 255),
+            numberFlow: new m(2, .29, .19, .6),
+            numberImpact: new a(255, 192, 168, 255),
+            numberImpactIntensity: .64
+          }),
+          9: n({}, b, {
+            frameKind: "crystal",
+            framePrimary: new a(136, 8, 184, 255),
+            frameSecondary: new a(240, 184, 255, 255),
+            frameParams: new m(6.1, 8.5, .21, .52),
+            universeGlow: .78,
+            universeBlend: .25,
+            universeSparkle: .46,
+            universeBase: new a(58, 8, 96, 255),
+            universeAccent: new a(240, 184, 255, 255),
+            numberEdge: new a(168, 56, 216, 255),
+            numberGlint: new a(255, 208, 255, 255),
+            numberFlow: new m(2.05, .3, .2, .66),
+            numberImpact: new a(255, 208, 255, 255),
+            numberImpactIntensity: .7
+          }),
+          10: n({}, b, {
+            frameKind: "crystal",
+            framePrimary: new a(88, 136, 168, 255),
+            frameSecondary: new a(168, 216, 248, 255),
+            frameParams: new m(6, 8.5, .22, .55),
+            universeGlow: .86,
+            universeBlend: .27,
+            universeSparkle: .54,
+            universeBase: new a(24, 56, 80, 255),
+            universeAccent: new a(168, 216, 248, 255),
+            numberEdge: new a(120, 168, 200, 255),
+            numberGlint: new a(216, 248, 255, 255),
+            numberFlow: new m(2.05, .31, .2, .7),
+            numberImpact: new a(216, 248, 255, 255),
+            numberImpactIntensity: .74
+          }),
+          11: n({}, b, {
+            frameKind: "crystal",
+            framePrimary: new a(200, 40, 120, 255),
+            frameSecondary: new a(255, 192, 216, 255),
+            frameParams: new m(5.8, 9, .24, .58),
+            universeGlow: .94,
+            universeBlend: .19,
+            universeSparkle: 1.64,
+            universeBase: new a(112, 8, 48, 255),
+            universeAccent: new a(255, 192, 216, 255),
+            numberEdge: new a(232, 88, 152, 255),
+            numberGlint: new a(255, 224, 238, 255),
+            numberFlow: new m(2.1, .32, .21, .75),
+            numberImpact: new a(255, 224, 238, 255),
+            numberImpactIntensity: .8
+          }),
+          12: n({}, b, {
+            frameKind: "crystal",
+            framePrimary: new a(168, 200, 248, 255),
+            frameSecondary: new a(255, 216, 232, 255),
+            frameParams: new m(5.7, 9.5, .28, .6),
+            universeGlow: .98,
+            universeBlend: .31,
+            universeSparkle: .73,
+            universeBase: new a(130, 197, 232, 255),
+            universeAccent: new a(245, 180, 220, 255),
+            universePrism: .3,
+            numberEdge: new a(168, 200, 248, 255),
+            numberGlint: new a(255, 224, 242, 255),
+            numberFlow: new m(2.1, .33, .22, .82),
+            numberPrism: .3,
+            numberImpact: new a(255, 240, 252, 255),
+            numberImpactIntensity: .88
+          }),
+          13: n({}, b, {
+            frameKind: "crystal",
+            framePrimary: new a(40, 168, 184, 255),
+            frameSecondary: new a(184, 248, 248, 255),
+            frameParams: new m(5.6, 10, .28, .62),
+            universeGlow: 1.08,
+            universeBlend: .34,
+            universeSparkle: .84,
+            universeBase: new a(4, 76, 88, 255),
+            universeAccent: new a(184, 248, 248, 255),
+            numberEdge: new a(56, 184, 200, 255),
+            numberGlint: new a(208, 255, 255, 255),
+            numberFlow: new m(2.15, .34, .22, .86),
+            numberImpact: new a(208, 255, 255, 255),
+            numberImpactIntensity: .94
+          }),
+          14: n({}, b, {
+            frameKind: "crystal",
+            framePrimary: new a(72, 136, 200, 255),
+            frameSecondary: new a(232, 255, 255, 255),
+            frameParams: new m(5.5, 10.5, .3, .65),
+            universeGlow: 1.2,
+            universeBlend: .37,
+            universeSparkle: .95,
+            universeBase: new a(39, 104, 168, 255),
+            universeAccent: new a(232, 255, 255, 255),
+            numberEdge: new a(120, 184, 232, 255),
+            numberGlint: new a(255, 255, 255, 255),
+            numberFlow: new m(2.15, .35, .23, .92),
+            numberImpact: new a(255, 255, 255, 255),
+            numberImpactIntensity: 1
+          }),
+          15: n({}, b, {
+            frameKind: "lightning",
+            framePrimary: new a(255, 240, 184, 255),
+            frameSecondary: new a(248, 168, 8, 255),
+            frameParams: new m(4.8, .72, 24, 2),
+            universeGlow: 1.38,
+            universeBlend: .42,
+            universeSparkle: 1.1,
+            universeBase: new a(168, 90, 0, 255),
+            universeAccent: new a(255, 240, 184, 255),
+            numberEdge: new a(248, 200, 8, 255),
+            numberGlint: new a(255, 248, 208, 255),
+            numberFlow: new m(2.2, .36, .24, 1.08),
+            numberImpact: new a(255, 248, 208, 255),
+            numberImpactIntensity: 1.15
+          }),
+          16: n({}, b, {
+            frameKind: "conceptGod",
+            framePrimary: new a(248, 200, 104, 255),
+            frameSecondary: new a(255, 240, 184, 255),
+            frameParams: new m(5.2, .16, .34, .66),
+            universeGlow: 1.58,
+            universeBlend: .46,
+            universeSparkle: 1.34,
+            universeBase: new a(184, 102, 8, 255),
+            universeAccent: new a(248, 184, 232, 255),
+            universePrism: .62,
+            numberEdge: new a(248, 200, 104, 255),
+            numberGlint: new a(255, 240, 184, 255),
+            numberFlow: new m(2.2, .36, .25, 1.18),
+            numberPrism: .68,
+            numberImpact: new a(255, 240, 184, 255),
+            numberImpactIntensity: 1.28
+          })
+        };
+      function f(e) {
+        var n;
+        return null != (n = d[e]) ? n : b;
+      }
+      function y(e) {
+        return ("training" === e ? o : c).clone();
+      }
+      r._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/PortraitUpgradeReveal.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (e) {
+  var t, s, i, n, a, l, o, r, h, d, c, p, u, f, v, y, M, g, w, m;
+  return {
+    setters: [function (e) {
+      t = e.inheritsLoose, s = e.asyncToGenerator, i = e.createForOfIteratorHelperLoose;
+    }, function (e) {
+      n = e.cclegacy, a = e._decorator, l = e.Vec4, o = e.isValid, r = e.Rect, h = e.Component, d = e.UITransform, c = e.Vec3, p = e.instantiate, u = e.UIRenderer, f = e.UIOpacity, v = e.Material, y = e.Mask, M = e.Node, g = e.Sprite, w = e.resources, m = e.EffectAsset;
+    }],
+    execute: function execute() {
+      var x;
+      n._RF.push({}, "7fac206QBBGZ6F4yKLzC99I", "PortraitUpgradeReveal", void 0);
+      var b = a.ccclass,
+        I = null;
+      e("PortraitUpgradeReveal", b("PortraitUpgradeReveal")(x = function (e) {
+        function n() {
+          for (var t, s = arguments.length, i = new Array(s), n = 0; n < s; n++) i[n] = arguments[n];
+          return (t = e.call.apply(e, [this].concat(i)) || this).snapshot = null, t.snapshotMaterials = [], t.newMask = null, t.oldMask = null, t.flash = null, t.flashMaterial = null, t.bounds = new r(), t.elapsed = 0, t.playing = !1, t.version = 0, t.resolveAnimation = null, t.originalSiblingIndex = -1, t;
+        }
+        t(n, e);
+        var a = n.prototype;
+        return a.play = function () {
+          var e = s( /*#__PURE__*/_regeneratorRuntime().mark(function _callee46(e) {
+            var t, s, n, a, o, r, x, b, S, C, k, P, R, A, T, U, V;
+            return _regeneratorRuntime().wrap(function _callee46$(_context47) {
+              while (1) switch (_context47.prev = _context47.next) {
+                case 0:
+                  t = this;
+                  this.cancel();
+                  s = this.version;
+                  _context47.next = 5;
+                  return null != I || (I = new Promise(function (e) {
+                    w.load("effects/portrait-upgrade-sweep", m, function (t, s) {
+                      t && console.warn("[PortraitUpgradeReveal] Sweep effect unavailable.", t), e(t ? null : s);
+                    });
+                  })), I;
+                case 5:
+                  n = _context47.sent;
+                  if (!(this.enabledInHierarchy && s === this.version)) {
+                    _context47.next = 33;
+                    break;
+                  }
+                  if (!n) {
+                    _context47.next = 31;
+                    break;
+                  }
+                  a = this.node.getComponent(d), o = a.getBoundingBoxToWorld(), r = a.convertToNodeSpaceAR(new c(o.xMin, o.yMin, 0)), x = a.convertToNodeSpaceAR(new c(o.xMax, o.yMax, 0));
+                  this.bounds.set(r.x, r.y, x.x - r.x, x.y - r.y), this.snapshot = p(this.node), this.snapshot.name = "品质升级-旧图";
+                  for (S = i(this.snapshot.getComponentsInChildren(h)); !(b = S()).done;) {
+                    C = b.value;
+                    C instanceof d || C instanceof u || C instanceof f || C.destroy();
+                  }
+                  for (P = i(this.snapshot.getComponentsInChildren(u)); !(k = P()).done;) {
+                    R = k.value;
+                    if (R.customMaterial) {
+                      A = new v();
+                      A.copy(R.customMaterial), R.customMaterial = A, this.snapshotMaterials.push(A);
+                    }
+                  }
+                  this.originalSiblingIndex = this.node.getSiblingIndex(), this.node.setSiblingIndex(this.node.parent.children.length - 1), this.snapshot.parent = this.node.parent, this.snapshot.setSiblingIndex(this.node.getSiblingIndex() + 1), this.oldMask = this.snapshot.addComponent(y), this.oldMask.type = y.Type.GRAPHICS_STENCIL, this.newMask = this.node.addComponent(y), this.newMask.type = y.Type.GRAPHICS_STENCIL, this.drawMasks(0), this.flash = new M("品质升级-上扫闪光"), this.flash.layer = this.node.layer, this.flash.parent = this.node.parent, this.flash.setSiblingIndex(this.snapshot.getSiblingIndex() + 1);
+                  T = this.flash.addComponent(d);
+                  T.setContentSize(o.width, o.height), this.flash.setWorldPosition(o.center.x, o.center.y, this.node.worldPosition.z);
+                  U = this.flash.parent.worldScale;
+                  T.setContentSize(o.width / Math.abs(U.x), o.height / Math.abs(U.y));
+                  V = this.flash.addComponent(g);
+                  V.sizeMode = g.SizeMode.CUSTOM, V.spriteFrame = this.node.getComponentInChildren(g).spriteFrame, this.flashMaterial = new v(), this.flashMaterial.initialize({
+                    effectAsset: n
+                  }), this.flashMaterial.setProperty("worldRect", new l(o.x, o.y, o.width, o.height)), V.customMaterial = this.flashMaterial, this.flash.active = !1;
+                  _context47.prev = 19;
+                  _context47.next = 22;
+                  return e();
+                case 22:
+                  if (!(s !== this.version || !this.enabledInHierarchy)) {
+                    _context47.next = 24;
+                    break;
+                  }
+                  return _context47.abrupt("return");
+                case 24:
+                  _context47.next = 26;
+                  return new Promise(function (e) {
+                    t.resolveAnimation = e, t.elapsed = -.3, t.playing = !0;
+                  });
+                case 26:
+                  _context47.prev = 26;
+                  s === this.version && this.clearVisuals();
+                  return _context47.finish(26);
+                case 29:
+                  _context47.next = 33;
+                  break;
+                case 31:
+                  _context47.next = 33;
+                  return e();
+                case 33:
+                case "end":
+                  return _context47.stop();
+              }
+            }, _callee46, this, [[19,, 26, 29]]);
+          }));
+          return function (t) {
+            return e.apply(this, arguments);
+          };
+        }(), a.update = function (e) {
+          if (this.playing && (this.elapsed += e, !(this.elapsed < 0))) {
+            var t = Math.min(1, this.elapsed / 1);
+            if (this.drawMasks(t), this.flash.active = t < 1, this.flashMaterial.setProperty("sweep", new l(t, .045, 0, 0)), t >= 1) {
+              this.playing = !1;
+              var s = this.resolveAnimation;
+              this.resolveAnimation = null, null == s || s();
+            }
+          }
+        }, a.onDisable = function () {
+          this.cancel();
+        }, a.drawMasks = function (e) {
+          var t = this.bounds,
+            s = t.x,
+            i = t.y,
+            n = t.width,
+            a = t.height,
+            l = a * e,
+            o = this.newMask.subComp,
+            r = this.oldMask.subComp;
+          o.clear(), r.clear(), o.rect(s, 0 === e ? i - 2 : i, n, Math.max(l, .001)), o.fill(), r.rect(s, i + l, n, Math.max(a - l, .001)), r.fill();
+        }, a.cancel = function () {
+          this.version += 1, this.playing = !1, this.clearVisuals();
+          var e = this.resolveAnimation;
+          this.resolveAnimation = null, null == e || e();
+        }, a.clearVisuals = function () {
+          var e,
+            t,
+            s,
+            i,
+            n = this;
+          if (null != (e = this.newMask) && e.isValid) {
+            var a = this.newMask.subComp;
+            this.newMask.enabled = !1, this.newMask.destroy(), null == a || a.destroy();
+          }
+          if (this.newMask = null, this.oldMask = null, null != (t = this.snapshot) && t.isValid && (this.snapshot.active = !1, this.snapshot.destroy()), this.snapshot = null, null != (s = this.flash) && s.isValid && (this.flash.active = !1, this.flash.destroy()), this.flash = null, null == (i = this.flashMaterial) || i.destroy(), this.flashMaterial = null, this.snapshotMaterials.forEach(function (e) {
+            return e.destroy();
+          }), this.snapshotMaterials = [], this.originalSiblingIndex >= 0) {
+            var l = this.originalSiblingIndex;
+            this.originalSiblingIndex = -1, Promise.resolve().then(function () {
+              o(n.node, !0) && n.node.setSiblingIndex(l);
+            });
+          }
+        }, n;
+      }(h)) || x);
+      n._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/PreMatchController.ts", ["./rollupPluginModLoBabelHelpers.js", "cc", "./GameState.ts", "./MatchProgression.ts", "./PlayerAssets.ts", "./FullScreenEntrance.ts", "./PreMatchEntrance.ts", "./MatchController.ts", "./MatchPreloader.ts", "./MatchSession.ts", "./TeamLevelController.ts", "./SeasonRoute.ts", "./PlayerEventController.ts", "./RecruitmentProgression.ts"], function (t) {
+  var e, n, a, r, i, o, l, s, u, c, h, d, p, f, m, g, v, y, C, M, P, b, B, R, T, E, N, I, S, A, O, _, w, q, L, D, x, G, F, V, Q, W, K, U, H;
+  return {
+    setters: [function (t) {
+      e = t.inheritsLoose, n = t.createForOfIteratorHelperLoose, a = t["extends"], r = t.asyncToGenerator;
+    }, function (t) {
+      i = t.cclegacy, o = t._decorator, l = t.director, s = t.find, u = t.Button, c = t.UITransform, h = t.Sprite, d = t.Label, p = t.Component, f = t.sys, m = t.Color, g = t.UIOpacity;
+    }, function (t) {
+      v = t.loadRoster, y = t.gameStateEvents, C = t.GAME_STATE_EVENT_ROSTER_CHANGED, M = t.GAME_STATE_EVENT_TEAM_IDENTITY_CHANGED, P = t.GAME_STATE_EVENT_MANAGEMENT_CHANGED, b = t.loadJson, B = t.ATTRIBUTE_KEYS, R = t.INT32_MAX, T = t.GAME_STATE_EVENT_PLAYER_DETAILS_REQUESTED, E = t.loadSeasonState, N = t.getManagementEffects, I = t.calculateTeamOverall, S = t.getCurrentMatchId, A = t.applyPermanentOpponentInjuries, O = t.TEAM_NAME_STORAGE_KEY;
+    }, function (t) {
+      _ = t.resolveMatchDefinition;
+    }, function (t) {
+      w = t.loadPlayerPortrait, q = t.loadThinQualityFrame;
+    }, function (t) {
+      L = t.stopFullScreenEntrance, D = t.playFullScreenExit;
+    }, function (t) {
+      x = t.stopPreMatchEntrance, G = t.playPreMatchEntrance;
+    }, function (t) {
+      F = t.MatchController;
+    }, function (t) {
+      V = t.preloadMatchAssets;
+    }, function (t) {
+      Q = t.setCurrentMatchSession;
+    }, function (t) {
+      W = t.TeamLevelController;
+    }, function (t) {
+      K = t.STANDARD_MATCH_COUNT;
+    }, function (t) {
+      U = t.PlayerEventController;
+    }, function (t) {
+      H = t.resolveOpponentQualityWeights;
+    }],
+    execute: function execute() {
+      var k, z;
+      i._RF.push({}, "0333bHUYfdOVqz4M3W06Ukd", "PreMatchController", void 0);
+      var Y = o.ccclass,
+        j = ["投一个试试", "太久没打了", "膝盖有伤", "鲲鲲", "走步观光团", "篮板搬运工", "五大囧常客", "打铁基建队", "发配CBA", "三拒投", "勾手老大爷", "矮壮篮板怪", "灵活死胖子", "高瘦远投王", "半裸暴汗男", "装备党", "好球！", "我系个鞋带", "加一个，不太会", "把球给我我要回家"];
+      t("PreMatchController", Y("PreMatchController")(((z = function (t) {
+        function i() {
+          for (var e, n = arguments.length, a = new Array(n), r = 0; r < n; r++) a[r] = arguments[r];
+          return (e = t.call.apply(t, [this].concat(a)) || this).page = null, e.returnButton = null, e.startButton = null, e.playerTeamCardsRoot = null, e.opponentTeamCardsRoot = null, e.playerConfig = null, e.playerOvrRanges = null, e.matchRewards = null, e.recruitmentProbability = null, e.conceptGodConfig = null, e.loadPromise = null, e.cardRenderVersion = 0, e.pageRequestVersion = 0, e.playerCardButtons = [], e.previewPlayerRoster = [], e.preparedMatch = null, e.defaultQualityFrames = new WeakMap(), e.startingMatch = !1, e.portraitBounds = new WeakMap(), e.closePage = function () {
+            var t = ++e.pageRequestVersion;
+            if (e.cardRenderVersion += 1, e.page) {
+              var n = e.page;
+              if (x(n), L(n), !n.active) return;
+              D(n).then(function () {
+                n.isValid && t === e.pageRequestVersion && (n.active = !1);
+              });
+            }
+          }, e.startMatch = function () {
+            var t, n, a, r;
+            if (!(e.startingMatch || !e.preparedMatch || v().filter(Boolean).length < 5 || null == (t = W.instance)) && t.canStartProgressionMatch()) {
+              var i = null != (n = null != (a = e.node.getComponent(U)) ? a : null == (r = e.node.parent) ? void 0 : r.getComponent(U)) ? n : null;
+              null != i && i.runAfterPendingEvents(e.startMatch) || (e.startingMatch = !0, e.startButton && (e.startButton.interactable = !1), Q(e.preparedMatch), l.loadScene("Match", function (t) {
+                if (t) return console.error("[PreMatchController] Failed to load Match scene.", t), e.startingMatch = !1, void (e.startButton && (e.startButton.interactable = !0));
+                var n = s("Canvas");
+                n ? n.getComponent(F) || n.addComponent(F) : console.error("[PreMatchController] Match scene is missing Canvas.");
+              }));
+            }
+          }, e;
+        }
+        e(i, t);
+        var o = i.prototype;
+        return o.onLoad = function () {
+          if (i.instance = this, this.resolveSceneReferences(), !this.page || !this.returnButton || !this.startButton) return console.error("[PreMatchController] Missing pre-match UI references."), void (this.enabled = !1);
+          this.page.active = !1, this.startButton.interactable = !1;
+        }, o.onEnable = function () {
+          var t, e;
+          null == (t = this.returnButton) || t.node.on(u.EventType.CLICK, this.closePage, this), null == (e = this.startButton) || e.node.on(u.EventType.CLICK, this.startMatch, this), y.on(C, this.onDataChanged, this), y.on(M, this.onDataChanged, this), y.on(P, this.onDataChanged, this), this.bindPlayerCardButtons();
+        }, o.onDisable = function () {
+          var t, e;
+          this.pageRequestVersion += 1, this.cardRenderVersion += 1, this.page && x(this.page), null == (t = this.returnButton) || t.node.off(u.EventType.CLICK, this.closePage, this), null == (e = this.startButton) || e.node.off(u.EventType.CLICK, this.startMatch, this), y.off(C, this.onDataChanged, this), y.off(M, this.onDataChanged, this), y.off(P, this.onDataChanged, this);
+          for (var a, r = n(this.playerCardButtons); !(a = r()).done;) {
+            var i = a.value;
+            i.button.node.off(u.EventType.CLICK, i.callback, this);
+          }
+          this.playerCardButtons = [];
+        }, o.onDestroy = function () {
+          i.instance === this && (i.instance = null);
+        }, o.openPage = function () {
+          var t = r( /*#__PURE__*/_regeneratorRuntime().mark(function _callee47() {
+            var t, e, n, a, r, i, o, l, s, u;
+            return _regeneratorRuntime().wrap(function _callee47$(_context48) {
+              while (1) switch (_context48.prev = _context48.next) {
+                case 0:
+                  if (!this.page) {
+                    _context48.next = 14;
+                    break;
+                  }
+                  V()["catch"](function (t) {
+                    console.warn("[PreMatchController] Match preload failed; entry will retry.", t);
+                  });
+                  t = ++this.pageRequestVersion, e = this.page.parent;
+                  e && this.page.setSiblingIndex(e.children.length - 1);
+                  _context48.next = 6;
+                  return this.ensureDataLoaded();
+                case 6:
+                  _context48.t0 = t === this.pageRequestVersion;
+                  if (!_context48.t0) {
+                    _context48.next = 11;
+                    break;
+                  }
+                  _context48.next = 10;
+                  return this.refreshPage();
+                case 10:
+                  _context48.t0 = t === this.pageRequestVersion;
+                case 11:
+                  if (!_context48.t0) {
+                    _context48.next = 14;
+                    break;
+                  }
+                  o = this.findByPath(this.page, "双方阵容/球队总览/我方球队"), l = this.findByPath(this.page, "双方阵容/球队总览/对方球队"), s = null != (n = null == (a = this.playerTeamCardsRoot) ? void 0 : a.children.filter(function (t) {
+                    return t.active;
+                  })) ? n : [], u = null != (r = null == (i = this.opponentTeamCardsRoot) ? void 0 : i.children.filter(function (t) {
+                    return t.active;
+                  })) ? r : [];
+                  G(this.page, {
+                    playerTeam: o,
+                    opponentTeam: l
+                  }, s, u, this.namedChildren(["bg"]), this.namedChildren(["顶部"]), this.namedChildren(["管理层加成"]), this.namedChildren(["底部按钮"]));
+                case 14:
+                case "end":
+                  return _context48.stop();
+              }
+            }, _callee47, this);
+          }));
+          return function () {
+            return t.apply(this, arguments);
+          };
+        }(), o.ensureDataLoaded = function () {
+          var t = this;
+          return null != this.loadPromise || (this.loadPromise = Promise.all([b("data/player_config_fame_v3"), b("data/balance/player_ovr_ranges"), b("data/balance/match_rewards"), b("data/balance/recruitment_probability"), b("data/balance/concept_god_upgrade")]).then(function (e) {
+            var n = e[0],
+              a = e[1],
+              r = e[2],
+              i = e[3],
+              o = e[4];
+            if (!Array.isArray(n.players) || !Array.isArray(a.ranges) || !Array.isArray(i.qualities) || !Array.isArray(i.qualityWindows) || i.qualityWindows.some(function (t) {
+              return !Array.isArray(t.baseWeights) || 5 !== t.baseWeights.length;
+            })) throw new Error("Invalid pre-match configuration.");
+            t.playerConfig = n, t.playerOvrRanges = a, t.matchRewards = r, t.recruitmentProbability = i, t.conceptGodConfig = o;
+          })["catch"](function (t) {
+            console.error("[PreMatchController] Failed to load pre-match data.", t);
+          })), this.loadPromise;
+        }, o.refreshPage = function () {
+          var t = r( /*#__PURE__*/_regeneratorRuntime().mark(function _callee48() {
+            var t, e, n, r, i, o, l, s, u, c, h, d, p, m, g, y, C, M, P, b, B, R, T, w, q, L, D;
+            return _regeneratorRuntime().wrap(function _callee48$(_context49) {
+              while (1) switch (_context49.prev = _context49.next) {
+                case 0:
+                  s = this;
+                  if (!(this.page && this.playerConfig && this.playerOvrRanges && this.matchRewards && this.recruitmentProbability && this.conceptGodConfig)) {
+                    _context49.next = 16;
+                    break;
+                  }
+                  u = E(), c = _(this.matchRewards, u);
+                  if (!c) {
+                    _context49.next = 16;
+                    break;
+                  }
+                  h = ++this.cardRenderVersion;
+                  d = v();
+                  _context49.next = 8;
+                  return N();
+                case 8:
+                  p = _context49.sent;
+                  if (!(h === this.cardRenderVersion)) {
+                    _context49.next = 16;
+                    break;
+                  }
+                  y = I(d, p.headCoachBattleOvrBonus), C = S(u), M = this.resolveOpponentLevel(u), P = this.createOpponentRoster(M, C), b = A(P, u.opponentInjuredPlayerIndices, y), B = P.reduce(function (t, e) {
+                    return !t || e.qualityId > t.qualityId ? e : t;
+                  }, null), R = a({}, c, {
+                    opponentOvr: b,
+                    difficultyQualityId: null != (t = null == B ? void 0 : B.qualityId) ? t : 3,
+                    difficultyQualityName: null != (e = null == B ? void 0 : B.qualityName) ? e : "新秀"
+                  }), T = (null == (n = f.localStorage.getItem(O)) ? void 0 : n.trim()) || "我的球队", w = this.getOpponentTeamName(u), q = d.filter(Boolean).length;
+                  if (this.setLabel("顶部/赛程", R.scheduleLabel), this.setLabel("双方阵容/球队总览/我方球队/球队总评/球队名", T), this.setLabel("双方阵容/球队总览/我方球队/球队总评/球队总评", this.formatOverall(y)), this.setLabel("双方阵容/球队总览/对方球队/球队总评/球队名", w), this.setLabel("双方阵容/球队总览/对方球队/球队总评/球队总评", this.formatOverall(R.opponentOvr)), this.setLabel("管理层加成/总裁/数值", "+" + (100 * p.operationPresidentBudgetBonus).toFixed(2) + "%"), this.setLabel("管理层加成/教练/数值", "+" + (100 * p.headCoachBattleOvrBonus).toFixed(2) + "%"), this.preparedMatch = {
+                    matchId: C,
+                    seasonNumber: u.seasonNumber,
+                    matchNumber: u.infiniteMode ? u.infiniteMatchNumber : u.matchNumber,
+                    difficultyQualityName: R.difficultyQualityName,
+                    scheduleLabel: R.scheduleLabel,
+                    playerTeamName: T,
+                    opponentTeamName: w,
+                    playerRoster: d,
+                    opponentRoster: P,
+                    playerOverall: y,
+                    opponentOverall: R.opponentOvr,
+                    opponentLevel: M,
+                    operationPresidentBonus: p.operationPresidentBudgetBonus,
+                    rewardMultiplier: R.rewardMultiplier,
+                    isStandardProgressionMatch: R.isStandardProgressionMatch,
+                    temporaryBonusPercent: 0
+                  }, V(this.preparedMatch)["catch"](function (t) {
+                    console.warn("[PreMatchController] Match lineup preload failed.", t);
+                  }), this.startButton) this.startButton.interactable = q >= 5 && !this.startingMatch && Boolean(this.preparedMatch) && null != (m = null == (g = W.instance) ? void 0 : g.canStartProgressionMatch()) && m;
+                  L = null != (r = null == (i = this.playerTeamCardsRoot) ? void 0 : i.children) ? r : [], D = null != (o = null == (l = this.opponentTeamCardsRoot) ? void 0 : l.children) ? o : [];
+                  this.previewPlayerRoster = [].concat(d.filter(function (t) {
+                    return Boolean(t);
+                  }).sort(function (t, e) {
+                    return e.overall - t.overall;
+                  }), Array(Math.max(0, 12 - q)).fill(null));
+                  _context49.next = 16;
+                  return Promise.all([].concat(L.slice(0, 12).map(function (t, e) {
+                    var n;
+                    return s.renderCompactCard(t, null != (n = s.previewPlayerRoster[e]) ? n : null, h);
+                  }), D.slice(0, 12).map(function (t, e) {
+                    var n;
+                    return s.renderCompactCard(t, null != (n = P[e]) ? n : null, h);
+                  })));
+                case 16:
+                case "end":
+                  return _context49.stop();
+              }
+            }, _callee48, this);
+          }));
+          return function () {
+            return t.apply(this, arguments);
+          };
+        }(), o.createOpponentRoster = function (t, e) {
+          var n = this,
+            a = H(this.recruitmentProbability, t);
+          if (!a) return console.error("[PreMatchController] Missing opponent recruitment profile.", t), [];
+          var r = new Map(),
+            i = e.startsWith("standard-") ? "standard-opponent-progression" : e + "-opponent-recruitment",
+            o = this.shuffleDeterministically(Array.from({
+              length: 12
+            }, function (t, e) {
+              return (e + .5) / 12;
+            }), this.getStableSeed(i + "-quality-order")),
+            l = e === "standard-" + K,
+            s = e.startsWith("infinite-"),
+            u = Array.from({
+              length: 12
+            }, function (t, u) {
+              var c,
+                h,
+                d,
+                p = o[u],
+                f = n.createDeterministicRandom(i + "-overall-" + u)(),
+                m = n.drawWeightedIndex(a.weights, p),
+                g = l || s ? n.conceptGodConfig.quality.goatQualityId : a.qualityIds[m],
+                v = n.playerOvrRanges.ranges.find(function (t) {
+                  return t.qualityId === g;
+                }),
+                y = null != (c = null == v ? void 0 : v.qualityName) ? c : a.qualityNames[m],
+                C = Math.max(1, Math.floor(null != (h = null == v ? void 0 : v.minOvr) ? h : 1)),
+                M = Math.max(C, Math.floor(null != (d = null == v ? void 0 : v.maxOvr) ? d : C)),
+                P = C + Math.floor(f * (M - C + 1)),
+                b = r.get(g);
+              if (!b) {
+                var B = n.playerConfig.players.filter(function (t) {
+                  return t.quality === g;
+                });
+                b = n.shuffleDeterministically(B.length > 0 ? B : n.playerConfig.players, n.getStableSeed(e + "-" + g)), r.set(g, b);
+              }
+              var R = b[u % b.length];
+              return {
+                instanceId: "opponent-" + e + "-" + u,
+                templateId: R.id,
+                sourcePlayerName: R.sourcePlayerName,
+                displayName: R.displayName,
+                position: R.position,
+                qualityId: g,
+                qualityName: y,
+                overall: P,
+                attributes: n.allocateAttributes(P, R.attributes),
+                acquiredAtMs: 0,
+                lineupSinceMs: null
+              };
+            });
+          return s && this.applyInfiniteOpponentLineup(u, e), u;
+        }, o.applyInfiniteOpponentLineup = function (t, e) {
+          var n = this,
+            r = this.conceptGodConfig,
+            i = this.playerOvrRanges.ranges.find(function (t) {
+              return t.qualityId === r.quality.goatQualityId;
+            }),
+            o = new Set(),
+            l = this.playerConfig.players.filter(function (t) {
+              return t.quality === r.quality.goatQualityId && r.eligibleSourcePlayerNames.includes(t.sourcePlayerName);
+            }).flatMap(function (t) {
+              var e;
+              return (null != (e = r.conceptGodDefinitions[t.sourcePlayerName]) ? e : []).map(function (e) {
+                return {
+                  template: t,
+                  definition: e
+                };
+              });
+            }).filter(function (t) {
+              var e = t.definition;
+              return !o.has(e.conceptGodId) && (o.add(e.conceptGodId), !0);
+            }).sort(function (t, e) {
+              return t.definition.conceptGodId.localeCompare(e.definition.conceptGodId);
+            });
+          if (!i || 0 === l.length) throw new Error("Missing opponent concept-god templates or GOAT OVR range.");
+          var s = Number(e.slice("infinite-".length)) - 1,
+            u = s < l.length ? [l[s]] : this.shuffleDeterministically(l, this.getStableSeed(e + "-concept-god-lineup")).slice(0, 12),
+            c = this.createDeterministicRandom(e + "-opponent-concept-god"),
+            h = Math.floor(1.01 * i.minOvr),
+            d = Math.floor(1.01 * i.maxOvr);
+          u.forEach(function (e, i) {
+            var o = e.template,
+              l = e.definition,
+              s = h + Math.floor(c() * (d - h + 1));
+            t[i] = a({}, t[i], {
+              templateId: o.id,
+              sourcePlayerName: o.sourcePlayerName,
+              displayName: l.displayName,
+              position: o.position,
+              qualityId: r.quality.conceptGodQualityId,
+              qualityName: r.quality.conceptGodQualityName,
+              isConceptGod: !0,
+              conceptGodId: l.conceptGodId,
+              overall: s,
+              attributes: n.allocateAttributes(s, o.attributes)
+            });
+          });
+        }, o.resolveOpponentLevel = function (t) {
+          return t.infiniteMode ? 100 : Math.max(0, Math.min(100, Math.floor(t.matchNumber)));
+        }, o.getOpponentTeamName = function (t) {
+          var e, n;
+          if (t.infiniteMode) return "篮球概念神";
+          var a = Math.max(1, Math.floor(null != (e = null == (n = this.matchRewards) ? void 0 : n.standardMatchCount) ? e : 100)),
+            r = Math.max(1, Math.min(a, Math.floor(t.matchNumber))),
+            i = Math.min(j.length - 1, Math.floor((r - 1) * j.length / a));
+          return j[i];
+        }, o.renderCompactCard = function () {
+          var t = r( /*#__PURE__*/_regeneratorRuntime().mark(function _callee49(t, e, n) {
+            var a, r, i, o, l, s, u, c, p, f, v, y, C, M, P, b, B, R, T;
+            return _regeneratorRuntime().wrap(function _callee49$(_context50) {
+              while (1) switch (_context50.prev = _context50.next) {
+                case 0:
+                  p = null != (a = null == (r = t.getChildByName("头像")) ? void 0 : r.getComponent(h)) ? a : null, f = null != (i = null == (o = t.getChildByName("名字")) ? void 0 : o.getComponent(d)) ? i : null, v = null != (l = null == (s = t.getChildByName("总评")) ? void 0 : s.getComponent(d)) ? l : null, y = null != (u = null == (c = t.getChildByName("边框")) ? void 0 : c.getComponent(h)) ? u : null;
+                  if (v) {
+                    v.overflow = d.Overflow.SHRINK, v.enableWrapText = !1, v.node.active = !0, v.enabled = !0, v.color = new m(234, 158, 2, 255);
+                    C = v.node.getComponent(g);
+                    C && (C.opacity = 255), v.node.setSiblingIndex(t.children.length - 1);
+                  }
+                  M = t.getChildByName("伤病"), P = t.getChildByName("训练");
+                  if (!(M && (M.active = Boolean(null == e ? void 0 : e.activeInjury)), P && (P.active = Boolean(null == e ? void 0 : e.activeTraining)), y && !this.defaultQualityFrames.has(y) && this.defaultQualityFrames.set(y, y.spriteFrame), !e)) {
+                    _context50.next = 6;
+                    break;
+                  }
+                  if (p && (p.spriteFrame = null), y) y.spriteFrame = null != (b = this.defaultQualityFrames.get(y)) ? b : null;
+                  return _context50.abrupt("return", (f && (f.string = "空缺"), void (v && (v.string = ""))));
+                case 6:
+                  f && (f.string = e.displayName), v && (v.string = this.formatOverall(e.overall));
+                  _context50.next = 9;
+                  return Promise.all([w(e), q(e.qualityId)]);
+                case 9:
+                  B = _context50.sent;
+                  R = B[0];
+                  T = B[1];
+                  n === this.cardRenderVersion && (p && this.setPortraitFramePreservingAspect(p, R), y && T && (y.spriteFrame = T));
+                case 13:
+                case "end":
+                  return _context50.stop();
+              }
+            }, _callee49, this);
+          }));
+          return function (e, n, a) {
+            return t.apply(this, arguments);
+          };
+        }(), o.setPortraitFramePreservingAspect = function (t, e) {
+          var n = t.getComponent(c);
+          if (n) {
+            var a = this.portraitBounds.get(n);
+            a || (a = n.contentSize.clone(), this.portraitBounds.set(n, a)), t.sizeMode = h.SizeMode.CUSTOM, t.spriteFrame = e;
+            var r = null == e ? void 0 : e.originalSize;
+            if (!r || r.width <= 0 || r.height <= 0) n.setContentSize(a);else {
+              var i = Math.min(a.width / r.width, a.height / r.height);
+              n.setContentSize(r.width * i, r.height * i);
+            }
+          } else t.spriteFrame = e;
+        }, o.bindPlayerCardButtons = function () {
+          var t,
+            e,
+            n = this;
+          (null != (t = null == (e = this.playerTeamCardsRoot) ? void 0 : e.children.slice(0, 12)) ? t : []).forEach(function (t, e) {
+            var a,
+              r = null != (a = t.getComponent(u)) ? a : t.addComponent(u),
+              i = function i() {
+                var t = n.previewPlayerRoster[e],
+                  a = t ? v().findIndex(function (e) {
+                    return (null == e ? void 0 : e.instanceId) === t.instanceId;
+                  }) : -1;
+                a >= 0 && y.emit(T, a);
+              };
+            r.node.on(u.EventType.CLICK, i, n), n.playerCardButtons.push({
+              button: r,
+              callback: i
+            });
+          });
+        }, o.onDataChanged = function () {
+          var t,
+            e = this;
+          null != (t = this.page) && t.active && this.ensureDataLoaded().then(function () {
+            return e.refreshPage();
+          });
+        }, o.allocateAttributes = function (t, e) {
+          for (var n = B.map(function (t) {
+              var n;
+              return Math.max(0, null != (n = e[t]) ? n : 0);
+            }), a = n.reduce(function (t, e) {
+              return t + e;
+            }, 0) > 0 ? n : B.map(function () {
+              return 1;
+            }), r = a.reduce(function (t, e) {
+              return t + e;
+            }, 0), i = a.map(function (e) {
+              return t * e / r;
+            }), o = i.map(Math.floor), l = t - o.reduce(function (t, e) {
+              return t + e;
+            }, 0), s = i.map(function (t, e) {
+              return {
+                index: e,
+                fraction: t - Math.floor(t)
+              };
+            }).sort(function (t, e) {
+              return e.fraction - t.fraction;
+            }); l > 0;) o[s[(t - l) % s.length].index] += 1, l -= 1;
+          return {
+            scoring: o[0],
+            rebound: o[1],
+            assist: o[2],
+            steal: o[3],
+            block: o[4]
+          };
+        }, o.shuffleDeterministically = function (t, e) {
+          for (var n = [].concat(t), a = this.createDeterministicRandom(e), r = n.length - 1; r > 0; r -= 1) {
+            var i = Math.floor(a() * (r + 1)),
+              o = [n[i], n[r]];
+            n[r] = o[0], n[i] = o[1];
+          }
+          return n;
+        }, o.drawWeightedIndex = function (t, e) {
+          var n = t.reduce(function (t, e) {
+            return t + Math.max(0, e);
+          }, 0);
+          if (n <= 0) return Math.max(0, t.length - 1);
+          for (var a = Math.max(0, Math.min(1, e)) * n, r = 0; r < t.length; r += 1) if ((a -= Math.max(0, t[r])) < 0) return r;
+          return Math.max(0, t.length - 1);
+        }, o.createDeterministicRandom = function (t) {
+          var e = ("number" == typeof t ? t : this.getStableSeed(t)) || 1;
+          return function () {
+            return e ^= e << 13, e ^= e >>> 17, ((e ^= e << 5) >>> 0) / 4294967296;
+          };
+        }, o.getStableSeed = function (t) {
+          for (var e, a = 2166136261, r = n(t); !(e = r()).done;) {
+            a ^= e.value.charCodeAt(0), a = Math.imul(a, 16777619);
+          }
+          return a >>> 0;
+        }, o.setLabel = function (t, e) {
+          var n,
+            a = null == (n = this.findByPath(this.page, t)) ? void 0 : n.getComponent(d);
+          a && (a.string = e);
+        }, o.formatOverall = function (t) {
+          return t >= R ? "MAX" : String(Math.round(Math.max(0, t)));
+        }, o.resolveSceneReferences = function () {
+          var t,
+            e,
+            n,
+            a,
+            r,
+            i = this.node.parent;
+          this.page = null != (t = null == i ? void 0 : i.getChildByName("备赛页面")) ? t : null, this.returnButton = null != (e = null == (n = this.findByPath(this.page, "顶部/返回")) ? void 0 : n.getComponent(u)) ? e : null, this.startButton = null != (a = null == (r = this.findByPath(this.page, "底部按钮/Button")) ? void 0 : r.getComponent(u)) ? a : null, this.playerTeamCardsRoot = this.findByPath(this.page, "双方阵容/球队总览/我方球队/球员"), this.opponentTeamCardsRoot = this.findByPath(this.page, "双方阵容/球队总览/对方球队/球员");
+        }, o.findByPath = function (t, e) {
+          for (var a, r = t, i = n(e.split("/")); !(a = i()).done;) {
+            var o,
+              l,
+              s = a.value;
+            if (!(r = null != (o = null == (l = r) ? void 0 : l.getChildByName(s)) ? o : null)) return null;
+          }
+          return r;
+        }, o.namedChildren = function (t) {
+          var e = this;
+          return this.page ? t.flatMap(function (t) {
+            var n = e.page.getChildByName(t);
+            return n ? [n] : [];
+          }) : [];
+        }, i;
+      }(p)).instance = null, k = z)) || k);
+      i._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/PreMatchEntrance.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (e) {
+  var n, t, o, a, l, i, r, c, s;
+  return {
+    setters: [function (e) {
+      n = e.createForOfIteratorHelperLoose, t = e.asyncToGenerator;
+    }, function (e) {
+      o = e.cclegacy, a = e.UIOpacity, l = e.Tween, i = e.UITransform, r = e.Widget, c = e.tween, s = e.Vec3;
+    }],
+    execute: function execute() {
+      e({
+        playPreMatchEntrance: function playPreMatchEntrance(e, n, t, o, a, l, i, r) {
+          return d.apply(this, arguments);
+        },
+        stopPreMatchEntrance: u
+      }), o._RF.push({}, "5ce8aNPpINDIbxxNqmhQgF8", "PreMatchEntrance", void 0);
+      var p = new WeakMap();
+      function u(e) {
+        var t = p.get(e);
+        if (t) {
+          p["delete"](e), t.cancelled = !0, t.timers.forEach(function (e) {
+            return clearTimeout(e);
+          }), t.timers.clear(), P(e);
+          for (var o, a = n(t.nodes); !(o = a()).done;) {
+            var l = o.value,
+              i = l[0],
+              r = l[1];
+            i.isValid && (r.position && i.setPosition(r.position), r.scale && i.setScale(r.scale), r.opacity.opacity = 255);
+          }
+          t.pendingSteps.forEach(function (e) {
+            return e();
+          });
+        }
+      }
+      function d() {
+        return (d = t( /*#__PURE__*/_regeneratorRuntime().mark(function _callee50(e, n, t, o, i, r, c, s) {
+          var d, y, T, w, C, S, x, I, M, E, b, q, A, O, k;
+          return _regeneratorRuntime().wrap(function _callee50$(_context52) {
+            while (1) switch (_context52.prev = _context52.next) {
+              case 0:
+                u(e), P(e), e.active = !0, h(e);
+                d = new Set([n.playerTeam, n.opponentTeam].concat(t, o)), y = new Set(s), T = Array.from(new Set([].concat(i, r, c, [n.playerTeam, n.opponentTeam], t, o, s))), w = {
+                  cancelled: !1,
+                  nodes: new Map(),
+                  pendingSteps: new Set(),
+                  timers: new Set()
+                };
+                p.set(e, w);
+                for (C = 0, S = T; C < S.length; C++) {
+                  I = S[C], M = null != (x = I.getComponent(a)) ? x : I.addComponent(a);
+                  w.nodes.set(I, {
+                    position: d.has(I) ? I.position.clone() : null,
+                    scale: y.has(I) ? I.scale.clone() : null,
+                    opacity: M
+                  }), l.stopAllByTarget(M), M.opacity = 0;
+                }
+                _context52.next = 6;
+                return f([].concat(i, r, c), .2, w);
+              case 6:
+                if (w.cancelled) {
+                  _context52.next = 28;
+                  break;
+                }
+                E = w.nodes.get(n.playerTeam).position, b = w.nodes.get(n.opponentTeam).position;
+                _context52.next = 10;
+                return Promise.all([g(n.playerTeam, "left", E, w), g(n.opponentTeam, "right", b, w)]);
+              case 10:
+                if (w.cancelled) {
+                  _context52.next = 28;
+                  break;
+                }
+                q = Math.max(t.length, o.length), A = [], O = /*#__PURE__*/_regeneratorRuntime().mark(function O(e) {
+                  var n;
+                  return _regeneratorRuntime().wrap(function O$(_context51) {
+                    while (1) switch (_context51.prev = _context51.next) {
+                      case 0:
+                        n = v(.08 * e, w).then(function () {
+                          if (!w.cancelled) return Promise.all([e < t.length ? g(t[e], "left", w.nodes.get(t[e]).position, w) : Promise.resolve(), e < o.length ? g(o[e], "right", w.nodes.get(o[e]).position, w) : Promise.resolve()]).then(function () {});
+                        });
+                        A.push(n);
+                      case 2:
+                      case "end":
+                        return _context51.stop();
+                    }
+                  }, O);
+                }), k = 0;
+              case 12:
+                if (!(k < q)) {
+                  _context52.next = 17;
+                  break;
+                }
+                return _context52.delegateYield(O(k), "t0", 14);
+              case 14:
+                k++;
+                _context52.next = 12;
+                break;
+              case 17:
+                _context52.next = 19;
+                return Promise.all(A);
+              case 19:
+                _context52.t1 = w.cancelled;
+                if (_context52.t1) {
+                  _context52.next = 28;
+                  break;
+                }
+                _context52.next = 23;
+                return v(.05, w);
+              case 23:
+                _context52.t2 = w.cancelled;
+                if (_context52.t2) {
+                  _context52.next = 28;
+                  break;
+                }
+                _context52.next = 27;
+                return m(s, w);
+              case 27:
+                w.cancelled || p["delete"](e);
+              case 28:
+              case "end":
+                return _context52.stop();
+            }
+          }, _callee50);
+        }))).apply(this, arguments);
+      }
+      function f(e, t, o) {
+        return 0 === e.length ? Promise.resolve() : y(o, function (o) {
+          for (var l, i = 0, r = n(e); !(l = r()).done;) {
+            var s,
+              p = l.value,
+              u = null != (s = p.getComponent(a)) ? s : p.addComponent(a);
+            u.opacity = 0, c(u).to(t, {
+              opacity: 255
+            }, {
+              easing: "quadOut"
+            }).call(function () {
+              ++i === e.length && o();
+            }).start();
+          }
+        });
+      }
+      function g(e, n, t, o) {
+        var l,
+          r,
+          p,
+          u,
+          d = null != (l = e.getComponent(a)) ? l : e.addComponent(a);
+        d.opacity = 0;
+        var f = e.getComponent(i),
+          g = null != (r = null == (p = e.parent) || null == (p = p.getComponent(i)) ? void 0 : p.width) ? r : 1080,
+          m = null != (u = null == f ? void 0 : f.width) ? u : 200,
+          v = "left" === n ? -(g / 2 + m) : g / 2 + m,
+          h = "left" === n ? t.x + 30 : t.x - 30;
+        return e.setPosition(v, t.y, 0), y(o, function (n) {
+          c(e).parallel(c(d).to(.05, {
+            opacity: 180
+          })).to(.07, {
+            position: new s(h, t.y, 0)
+          }, {
+            easing: "quadIn"
+          }).to(.15, {
+            position: new s(t.x, t.y, 0)
+          }, {
+            easing: "backOut"
+          }).call(function () {
+            d.opacity = 255, n();
+          }).start();
+        });
+      }
+      function m(e, t) {
+        return 0 === e.length ? Promise.resolve() : y(t, function (o) {
+          for (var l, i = 0, r = n(e); !(l = r()).done;) {
+            var p,
+              u = l.value,
+              d = null != (p = u.getComponent(a)) ? p : u.addComponent(a);
+            d.opacity = 0;
+            var f = t.nodes.get(u).scale;
+            u.setScale(.3 * f.x, .3 * f.y, f.z), c(u).parallel(c(d).to(.2, {
+              opacity: 255
+            }, {
+              easing: "quadIn"
+            })).to(.2 * .7, {
+              scale: new s(1.15 * f.x, 1.15 * f.y, f.z)
+            }, {
+              easing: "quadIn"
+            }).to(.06, {
+              scale: f.clone()
+            }, {
+              easing: "backOut"
+            }).call(function () {
+              ++i === e.length && o();
+            }).start();
+          }
+        });
+      }
+      function v(e, n) {
+        return y(n, function (t) {
+          var o = setTimeout(function () {
+            n.timers["delete"](o), t();
+          }, 1e3 * e);
+          n.timers.add(o);
+        });
+      }
+      function y(e, n) {
+        return e.cancelled ? Promise.resolve() : new Promise(function (t) {
+          var o = function n() {
+            e.pendingSteps["delete"](n), t();
+          };
+          e.pendingSteps.add(o), n(o);
+        });
+      }
+      function h(e) {
+        var t = e.getComponent(r);
+        null != t && t.enabled && t.updateAlignment();
+        for (var o, a = n(e.children); !(o = a()).done;) {
+          h(o.value);
+        }
+      }
+      function P(e) {
+        !function e(t) {
+          l.stopAllByTarget(t);
+          var o = t.getComponent(a);
+          o && l.stopAllByTarget(o);
+          for (var i, r = n(t.children); !(i = r()).done;) {
+            e(i.value);
+          }
+        }(e);
+      }
+      o._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/PrimaryButtonView.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (t) {
+  var e, i, n, r, o, l, u, a, s;
+  return {
+    setters: [function (t) {
+      e = t.applyDecoratedDescriptor, i = t.inheritsLoose, n = t.initializerDefineProperty, r = t.assertThisInitialized;
+    }, function (t) {
+      o = t.cclegacy, l = t._decorator, u = t.Button, a = t.Label, s = t.Component;
+    }],
+    execute: function execute() {
+      var c, p, b, h, f, y, g;
+      o._RF.push({}, "67f54Yc0i1KPqgsqW9jL835", "PrimaryButtonView", void 0);
+      var m = l.ccclass,
+        L = l.property;
+      t("PrimaryButtonView", (c = m("PrimaryButtonView"), p = L(u), b = L(a), c((y = e((f = function (t) {
+        function e() {
+          for (var e, i = arguments.length, o = new Array(i), l = 0; l < i; l++) o[l] = arguments[l];
+          return e = t.call.apply(t, [this].concat(o)) || this, n(e, "button", y, r(e)), n(e, "titleLabel", g, r(e)), e;
+        }
+        i(e, t);
+        var o = e.prototype;
+        return o.onLoad = function () {
+          var t, e;
+          null != this.button || (this.button = this.node.getComponent(u)), null != this.titleLabel || (this.titleLabel = null != (t = null == (e = this.node.getChildByName("Text")) ? void 0 : e.getComponent(a)) ? t : null);
+        }, o.setup = function (t) {
+          this.titleLabel && (this.titleLabel.string = t);
+        }, e;
+      }(s)).prototype, "button", [p], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), g = e(f.prototype, "titleLabel", [b], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), h = f)) || h));
+      o._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/ProgressBarView.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (e) {
+  var t, r, i, n, a, o, l, s, u, c;
+  return {
+    setters: [function (e) {
+      t = e.applyDecoratedDescriptor, r = e.inheritsLoose, i = e.initializerDefineProperty, n = e.assertThisInitialized;
+    }, function (e) {
+      a = e.cclegacy, o = e._decorator, l = e.Node, s = e.Label, u = e.UITransform, c = e.Component;
+    }],
+    execute: function execute() {
+      var p, f, h, g, b, v, m;
+      a._RF.push({}, "ed661DMrphFuaeWNelSXKDD", "ProgressBarView", void 0);
+      var y = o.ccclass,
+        d = o.property;
+      e("ProgressBarView", (p = y("ProgressBarView"), f = d(l), h = d(s), p((v = t((b = function (e) {
+        function t() {
+          for (var t, r = arguments.length, a = new Array(r), o = 0; o < r; o++) a[o] = arguments[o];
+          return t = e.call.apply(e, [this].concat(a)) || this, i(t, "fill", v, n(t)), i(t, "valueLabel", m, n(t)), t;
+        }
+        return r(t, e), t.prototype.setup = function (e, t) {
+          var r = Math.max(1, t),
+            i = Math.max(0, Math.min(1, e / r));
+          if (this.fill) {
+            var n = this.fill.getComponent(u),
+              a = this.node.getComponent(u);
+            n && a && n.setContentSize(a.contentSize.width * i, n.contentSize.height);
+          }
+          this.valueLabel && (this.valueLabel.string = e + "/" + t);
+        }, t;
+      }(c)).prototype, "fill", [f], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), m = t(b.prototype, "valueLabel", [h], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), g = b)) || g));
+      a._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/QualityFrameShader.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (t) {
+  var e, r, i, a, s, n, o, l, u;
+  return {
+    setters: [function (t) {
+      e = t.inheritsLoose;
+    }, function (t) {
+      r = t.cclegacy, i = t._decorator, a = t.Sprite, s = t.Material, n = t.Vec4, o = t.resources, l = t.EffectAsset, u = t.Component;
+    }],
+    execute: function execute() {
+      var c;
+      r._RF.push({}, "19ca9GMD8hI8LN1W25U24Sb", "QualityFrameShader", void 0);
+      var p = i.ccclass,
+        f = {
+          metal: "effects/quality-metal-frame",
+          crystal: "effects/quality-crystal-frame",
+          lightning: "effects/frame-lightning",
+          conceptGod: "effects/concept-god-frame"
+        },
+        h = new Map(),
+        y = new Map();
+      function m(t) {
+        return new n(t.r / 255, t.g / 255, t.b / 255, t.a / 255);
+      }
+      t("QualityFrameShader", p("QualityFrameShader")(c = function (t) {
+        function r() {
+          for (var e, r = arguments.length, i = new Array(r), a = 0; a < r; a++) i[a] = arguments[a];
+          return (e = t.call.apply(t, [this].concat(i)) || this).sprite = null, e.material = null, e.requestVersion = 0, e.destroyed = !1, e;
+        }
+        e(r, t);
+        var i = r.prototype;
+        return i.onLoad = function () {
+          this.sprite = this.node.getComponent(a);
+        }, i.onDisable = function () {
+          this.requestVersion++, this.clearMaterial();
+        }, i.onDestroy = function () {
+          var t;
+          this.destroyed = !0, this.requestVersion++, null == (t = this.material) || t.destroy(), this.material = null;
+        }, i.apply = function (t, e, r, i) {
+          var n = this;
+          if (null != this.sprite || (this.sprite = this.node.getComponent(a)), this.sprite) {
+            var u = ++this.requestVersion;
+            this.clearMaterial(), function (t) {
+              var e = h.get(t);
+              if (e) return Promise.resolve(e);
+              var r = y.get(t);
+              if (r) return r;
+              var i = new Promise(function (e) {
+                o.load(t, l, function (r, i) {
+                  if (y["delete"](t), r || !i) return console.warn("[QualityFrameShader] Failed to load effect.", t, r), void e(null);
+                  h.set(t, i), e(i);
+                });
+              });
+              return y.set(t, i), i;
+            }(f[t]).then(function (a) {
+              var o;
+              if (!n.destroyed && u === n.requestVersion && a && null != (o = n.sprite) && o.isValid) {
+                var l = new s();
+                l.initialize({
+                  effectAsset: a,
+                  defines: {
+                    IS_GRAY: !1,
+                    USE_TEXTURE: !0
+                  }
+                }), n.applyProperties(l, t, e, r, i), n.material = l, n.sprite.customMaterial = l;
+              }
+            });
+          }
+        }, i.getMaterial = function () {
+          return this.material;
+        }, i.applyProperties = function (t, e, r, i, a) {
+          "metal" === e ? (t.setProperty("baseTint", m(r)), t.setProperty("shineTint", m(i))) : "crystal" === e ? (t.setProperty("crystalTint", m(r)), t.setProperty("glintColor", m(i))) : "lightning" === e ? (t.setProperty("boltColor", m(r)), t.setProperty("glowColor", m(i))) : (t.setProperty("goldColor", m(r)), t.setProperty("glintColor", m(i))), t.setProperty("params", a);
+        }, i.clearMaterial = function () {
+          var t;
+          this.sprite && this.sprite.isValid && this.material && this.sprite.customMaterial === this.material && (this.sprite.customMaterial = null), null == (t = this.material) || t.destroy(), this.material = null;
+        }, r;
+      }(u)) || c);
+      r._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/RainbowLabelCycle.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (e) {
+  var a, n, o, t, l, r;
+  return {
+    setters: [function (e) {
+      a = e.inheritsLoose, n = e.createForOfIteratorHelperLoose;
+    }, function (e) {
+      o = e.cclegacy, t = e._decorator, l = e.Label, r = e.Component;
+    }],
+    execute: function execute() {
+      var i;
+      o._RF.push({}, "6d287tRgyRFs6OrOGXWEPfO", "RainbowLabelCycle", void 0);
+      var s = t.ccclass;
+      e("RainbowLabelCycle", s("RainbowLabelCycle")(i = function (e) {
+        function o() {
+          for (var a, n = arguments.length, o = new Array(n), t = 0; t < n; t++) o[t] = arguments[t];
+          return (a = e.call.apply(e, [this].concat(o)) || this).labels = [], a.phase = 0, a;
+        }
+        a(o, e);
+        var t = o.prototype;
+        return t.onLoad = function () {
+          this.labels = this.node.getComponentsInChildren(l).map(function (e) {
+            return {
+              label: e,
+              original: e.color.clone(),
+              animated: e.color.clone()
+            };
+          });
+        }, t.onEnable = function () {
+          this.phase = 0, this.update(0);
+        }, t.update = function (e) {
+          var a = this;
+          this.phase = (this.phase + e / 5.4) % 1, this.labels.forEach(function (e, n) {
+            var o = e.label,
+              t = e.original,
+              l = e.animated;
+            if (o.isValid) {
+              var r = a.phase + n / Math.max(1, a.labels.length),
+                i = function i(e) {
+                  return Math.round(255 * (.72 + .28 * Math.cos(2 * Math.PI * (r + e))));
+                };
+              l.set(i(0), i(1 / 3), i(2 / 3), t.a), o.color = l;
+            }
+          });
+        }, t.onDisable = function () {
+          for (var e, a = n(this.labels); !(e = a()).done;) {
+            var o = e.value,
+              t = o.label,
+              l = o.original;
+            t.isValid && (t.color = l);
+          }
+        }, o;
+      }(r)) || i);
+      o._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/RecruitmentController.ts", ["./rollupPluginModLoBabelHelpers.js", "cc", "./RosterSlotView.ts", "./TeamLevelController.ts", "./TopTeamInfoController.ts", "./RecruitmentRules.ts", "./CourtSimulationController.ts", "./GameState.ts", "./RecruitmentProgression.ts", "./PlayerAssets.ts", "./FullScreenEntrance.ts", "./RewardedAdService.ts", "./NumberGrowthAnimator.ts", "./StartupTiming.ts", "./GameAudio.ts", "./PlayerQualityVisuals.ts", "./PlayerEventController.ts", "./PortraitUpgradeReveal.ts", "./PlayerKnowledge.ts"], function (t) {
+  var e, i, n, o, r, s, l, u, a, c, d, h, m, g, p, f, v, C, y, R, B, b, A, P, w, I, L, T, S, M, E, D, N, H, x, F, q, U, G, O, Q, V, k, _, z, W, K, J, Y, X, j, $, Z, tt, et, it, nt, ot, rt, st, lt, ut, at, ct, dt, ht, mt, gt, pt, ft, vt, Ct, yt, Rt, Bt, bt, At, Pt, wt, It, Lt, Tt, St, Mt, Et, Dt, Nt, Ht, xt, Ft;
+  return {
+    setters: [function (t) {
+      e = t.applyDecoratedDescriptor, i = t.inheritsLoose, n = t.initializerDefineProperty, o = t.assertThisInitialized, r = t.createForOfIteratorHelperLoose, s = t.asyncToGenerator;
+    }, function (t) {
+      l = t.cclegacy, u = t._decorator, a = t.Color, c = t.Button, d = t.Vec4, h = t.Node, m = t.Sprite, g = t.Label, p = t.RichText, f = t.UITransform, v = t.BlockInputEvents, C = t.Graphics, y = t.Material, R = t.resources, B = t.EffectAsset, b = t.JsonAsset, A = t.Component;
+    }, function (t) {
+      P = t.RosterSlotView, w = t.formatPlayerOverall, I = t.getQualityFrameIndex;
+    }, function (t) {
+      L = t.getStoredTeamLevel, T = t.teamProgressionEvents, S = t.TEAM_PROGRESSION_EVENT_LEVEL_CHANGED, M = t.TEAM_PROGRESSION_EVENT_WILLPOWER_CHANGED, E = t.TeamLevelController, D = t.getStoredMarketValueLevel;
+    }, function (t) {
+      N = t.TopTeamInfoController;
+    }, function (t) {
+      H = t.evaluateRecruitmentResult;
+    }, function (t) {
+      x = t.CourtSimulationController;
+    }, function (t) {
+      F = t.loadRoster, q = t.getLowestRecruitmentQualityProtectionCount, U = t.getRecruitmentAdProbabilityBoostCount, G = t.getBalance, O = t.trySpend, Q = t.consumeLowestRecruitmentQualityProtection, V = t.consumeRecruitmentAdProbabilityBoost, k = t.isCheatModeEnabled, _ = t.notifyValidOperationCompleted, z = t.getRecruitmentAutoDismissEnabled, W = t.gameStateEvents, K = t.GAME_STATE_EVENT_BUDGET_CHANGED, J = t.GAME_STATE_EVENT_RECRUITMENT_PROTECTION_CHANGED, Y = t.setRecruitmentAutoDismissEnabled, X = t.saveRoster, j = t.recordConceptGodAcquisition, $ = t.ATTRIBUTE_KEYS, Z = t.isConceptGodUpgradeUnlocked, tt = t.consumeRecruitmentAdHighestQualityPity, et = t.recordRecruitmentUpperQualityPityResult, it = t.loadSeasonState, nt = t.getRecruitmentAdHighestQualityPityCount, ot = t.RECRUITMENT_AD_HIGHEST_QUALITY_PITY_LIMIT, rt = t.getRecruitmentUpperQualityPityMissCount, st = t.RECRUITMENT_UPPER_QUALITY_PITY_MISS_LIMIT, lt = t.getRosterSnapshot, ut = t.getManagementEffects, at = t.migratePlayerHistoryToDisplayNames, ct = t.calculateTeamOverall;
+    }, function (t) {
+      dt = t.resolveRecruitmentWindow, ht = t.resolveRecruitmentQualityWeights;
+    }, function (t) {
+      mt = t.loadPlayerPortrait, gt = t.loadSpriteFrame, pt = t.loadRecruitmentBackground, ft = t.loadQualityWheat, vt = t.loadQualityFrame, Ct = t.loadQualityNameplate, yt = t.loadQualityBadge, Rt = t.loadQualityPosition;
+    }, function (t) {
+      Bt = t.playFullScreenExit, bt = t.playFullScreenEntrance;
+    }, function (t) {
+      At = t.configureRewardedAdUnitIds, Pt = t.toRewardedActionCopy, wt = t.showRewardedVideo;
+    }, function (t) {
+      It = t.setGrowingNumber;
+    }, function (t) {
+      Lt = t.markStartupStage;
+    }, function (t) {
+      Tt = t.gameAudio;
+    }, function (t) {
+      St = t.applyOverallNumberQuality, Mt = t.applyPlayerQualityVisuals, Et = t.triggerOverallNumberQualityImpact;
+    }, function (t) {
+      Dt = t.PlayerEventController;
+    }, function (t) {
+      Nt = t.PortraitUpgradeReveal;
+    }, function (t) {
+      Ht = t.recordPlayerAcquisitionWithKnowledgeReset, xt = t.loadPlayerKnowledgeConfig, Ft = t.formatPlayerProfile;
+    }],
+    execute: function execute() {
+      var qt, Ut, Gt, Ot, Qt, Vt, kt;
+      l._RF.push({}, "c1c67O51lxPOISndhPmqzxg", "RecruitmentController", void 0);
+      var _t = u.ccclass,
+        zt = u.property,
+        Wt = new a(220, 55, 55, 255),
+        Kt = ["#F0B27A", "#F4FBFF", "#FFE06A", "#7BFF9C", "#79BCFF", "#FF8590", "#E39AFF", "#C9EEFF", "#FF9CCD", "#FFF2FF", "#A3FAFF", "#B8E9FF", "#FFEE9A"];
+      t("RecruitmentController", (qt = _t("RecruitmentController"), Ut = zt({
+        displayName: "微信激励视频广告位ID",
+        tooltip: "微信小游戏后台创建的激励视频广告位ID。Creator预览无需填写。"
+      }), Gt = zt({
+        displayName: "TapTap激励视频广告位ID",
+        tooltip: "TapTap小游戏后台创建的激励视频广告位ID。Creator预览无需填写。"
+      }), qt((Vt = e((Qt = function (t) {
+        function e() {
+          for (var e, i = arguments.length, r = new Array(i), s = 0; s < i; s++) r[s] = arguments[s];
+          return e = t.call.apply(t, [this].concat(r)) || this, n(e, "wechatRewardedAdUnitId", Vt, o(e)), n(e, "tapRewardedAdUnitId", kt, o(e)), e.homeRoot = null, e.resultPage = null, e.rosterSlots = [], e.recruitButton = null, e.recruitButtonTargetSprite = null, e.recruitButtonNormalSprite = null, e.recruitButtonTransition = c.Transition.NONE, e.recruitingButtonSprite = null, e.recruitButtonOriginalMaterial = null, e.recruitButtonEffectMaterial = null, e.dissolveEffectAsset = null, e.dissolveMaterial = null, e.dissolveParams = new d(0, .12, 8, 0), e.cancelDissolve = null, e.budgetLabel = null, e.continuousRecruitLabel = null, e.continuousRecruitRichText = null, e.continuousRecruitLabelBaseFontSize = 0, e.continuousRecruitLabelLocked = !1, e.continuousRecruitLockedCount = 0, e.dismissButton = null, e.autoDismissLabel = null, e.autoDismissDefaultText = "", e.autoDismissEnabled = !1, e.autoDismissCount = 0, e.autoDismissBatchLocked = !1, e.recruitmentInputBlocker = null, e.dismissHoldStartedAtMs = 0, e.suppressNextDismissClick = !1, e.dismissHoldFill = null, e.replaceButton = null, e.replaceButtonLabel = null, e.upgradeAdButton = null, e.upgradeAdButtonLabel = null, e.replacementPanel = null, e.replacedSlot = null, e.replacedNameLabel = null, e.overallIncreaseValueLabel = null, e.overallIncreaseValueDefaultColor = null, e.candidatePortrait = null, e.recruitBackground = null, e.wheatSprites = [], e.candidateFrame = null, e.candidateNameplate = null, e.candidateQualityBadge = null, e.candidatePositionBadge = null, e.candidateNameLabel = null, e.candidateQualityLabel = null, e.candidatePositionLabel = null, e.candidateOverallLabel = null, e.candidateProfileTitleLabel = null, e.candidateProfileLabel = null, e.willpowerTextLabel = null, e.willpowerValueLabel = null, e.teamLevelController = null, e.topTeamInfoController = null, e.courtSimulationController = null, e.playerConfig = null, e.ovrConfig = null, e.probabilityConfig = null, e.economyConfig = null, e.conceptGodUpgradeConfig = null, e.managementEffects = {
+            operationPresidentBudgetBonus: 0,
+            headCoachBattleOvrBonus: 0,
+            scoutingDirectorHighestQualityWeightBonus: 0,
+            medicalTeamInjuryRiskReduction: 0,
+            mediaTeamOfflineBudgetBonus: 0
+          }, e.roster = [], e.budget = 500, e.pendingCard = null, e.pendingDecision = null, e.pendingWillpowerAdded = 0, e.upgradeAdProcessing = !1, e.pendingUpgradeAdUsed = !1, e.queuedAdRecruitments = [], e.queuedContinuousRecruitments = [], e.adTripleRecruitmentActive = !1, e.continuousRecruitmentActive = !1, e.continuousRecruitmentBatchCount = 0, e.continuousRecruitmentEventCheckCount = 0, e.resultPageClosing = !1, e.pendingContinuousRecruitmentCount = 0, e.continuousRecruitCount = 0, e.continuousRecruitHolding = !1, e.continuousRecruitHoldStartedAtMs = 0, e.continuousRecruitReady = !1, e.ready = !1, e.processing = !1, e.onRecruitTouchStart = function () {
+            !e.ready || e.processing || e.getMaxContinuousRecruitmentCount() < 2 || (e.continuousRecruitHolding = !0, e.continuousRecruitHoldStartedAtMs = Date.now(), e.continuousRecruitReady = !1, e.continuousRecruitCount = 0, e.scheduleOnce(e.activateContinuousRecruitment, 1));
+          }, e.onRecruitTouchEnd = function () {
+            e.continuousRecruitReady && e.growContinuousRecruitment();
+            var t = e.continuousRecruitReady ? e.continuousRecruitCount : 0;
+            e.stopContinuousRecruitHold(), t >= 2 && (e.lockContinuousRecruitLabel(t), e.pendingContinuousRecruitmentCount = t);
+          }, e.onRecruitTouchCancel = function () {
+            e.stopContinuousRecruitHold();
+          }, e.activateContinuousRecruitment = function () {
+            if (e.continuousRecruitHolding) {
+              var t = e.getMaxContinuousRecruitmentCount();
+              t < 2 ? e.stopContinuousRecruitHold() : (e.continuousRecruitReady = !0, e.growContinuousRecruitment(), e.continuousRecruitCount < t && e.schedule(e.growContinuousRecruitment, .1));
+            }
+          }, e.growContinuousRecruitment = function () {
+            var t, i;
+            if (e.continuousRecruitHolding) {
+              var n = e.getMaxContinuousRecruitmentCount(),
+                o = Math.min(5, n),
+                r = Math.max(0, Date.now() - e.continuousRecruitHoldStartedAtMs - 1e3),
+                s = null == (t = e.teamLevelController) ? void 0 : t.getSnapshot(),
+                l = (null != (i = null == s ? void 0 : s.maxLevel) ? i : L() >= 100) ? 50 : s && s.willpower >= s.currentRequirement ? 10 : 0,
+                u = l > 0 ? r * l / 1e3 : (n - o) * Math.min(1, r / 2e3);
+              e.continuousRecruitCount = Math.min(n, Math.floor(o + u)), e.refreshContinuousRecruitLabel(), e.continuousRecruitCount >= n && e.unschedule(e.growContinuousRecruitment);
+            } else e.unschedule(e.growContinuousRecruitment);
+          }, e.beginContinuousRecruitment = function (t) {
+            if (e.ready && !e.processing && e.economyConfig) {
+              var i = Math.min(Math.max(0, Math.floor(t)), e.getMaxContinuousRecruitmentCount());
+              if (i < 2) return e.resetContinuousRecruitLabel(), void e.beginRecruitment();
+              for (var n = [], o = new Set(F(e.rosterSlots.length).flatMap(function (t) {
+                  return t ? [t.sourcePlayerName] : [];
+                })), r = q(), s = U(10), l = U(5), u = 0; u < i; u += 1) {
+                var a = e.createRecruitedCard(u < r, o, u < s, u < l);
+                if (!a) break;
+                n.push(a), o.add(a.sourcePlayerName);
+              }
+              if (n.length < 2) return e.resetContinuousRecruitLabel(), void e.beginRecruitment();
+              for (var c = e.getRecruitmentCost(), d = G(e.economyConfig.initialBudget), h = [], m = 0, g = n; m < g.length; m++) {
+                var p = g[m];
+                if (!O(c)) break;
+                h.push(p);
+              }
+              if (0 === h.length) return e.resetContinuousRecruitLabel(), e.budget = G(e.economyConfig.initialBudget), void e.refreshBudgetView();
+              for (var f = 0; f < Math.min(r, h.length); f += 1) Q();
+              s > 0 && V(10, Math.min(s, h.length)), l > 0 && V(5, Math.min(l, h.length));
+              var v = G(e.economyConfig.initialBudget);
+              e.processing = !0, e.continuousRecruitmentActive = !0, e.continuousRecruitmentBatchCount = h.length, e.autoDismissCount = 0, e.setAutoDismissBatchLocked(e.autoDismissEnabled), e.showRecruitingButtonVisual(), e.budget = v, e.refreshBudgetView(), e.continuousRecruitmentEventCheckCount = v + Number.EPSILON < d ? Math.floor(h.length / 10) : 0, e.queuedContinuousRecruitments = h.map(function (t) {
+                var i, n;
+                return Ht(t), {
+                  card: t,
+                  willpowerAdded: null != (i = null == (n = e.teamLevelController) ? void 0 : n.addRecruitWillpower()) ? i : 0
+                };
+              }), (e.autoDismissEnabled ? Promise.resolve() : e.waitForSeconds(1)).then(function () {
+                return e.showNextContinuousRecruitmentResult();
+              })["catch"](function (t) {
+                console.error("[RecruitmentController] Continuous recruitment failed.", t), e.finishContinuousRecruitment();
+              });
+            }
+          }, e.beginRecruitment = function () {
+            var t, i;
+            if (e.ready && !e.processing && e.economyConfig) {
+              var n = e.getRecruitmentCost();
+              if (!k() && e.budget < n) e.recruitFromRewardedAction();else {
+                var o = q() > 0,
+                  r = U(10) > 0,
+                  s = U(5) > 0,
+                  l = e.createRecruitedCard(o, new Set(), r, s);
+                if (l) {
+                  var u = G(e.economyConfig.initialBudget);
+                  if (!O(n)) return e.budget = G(e.economyConfig.initialBudget), void e.refreshBudgetView();
+                  o && Q(), r && V(10), s && V(5);
+                  var a = G(e.economyConfig.initialBudget);
+                  e.processing = !0, e.showRecruitingButtonVisual(), e.budget = a, e.refreshBudgetView(), a + Number.EPSILON < u && _(), Ht(l);
+                  var c = null != (t = null == (i = e.teamLevelController) ? void 0 : i.addRecruitWillpower()) ? t : 0;
+                  e.pendingCard = l, e.pendingWillpowerAdded = c, e.upgradeAdProcessing = !1, e.pendingUpgradeAdUsed = !1, e.pendingDecision = e.getCurrentRecruitmentDecision(), e.showRecruitmentResultAfterDelay(l, e.pendingDecision, c)["finally"](function () {
+                    e.restoreRecruitButtonVisual(), e.processing = !1, e.refreshBudgetView();
+                  });
+                }
+              }
+            }
+          }, e;
+        }
+        i(e, t);
+        var l = e.prototype;
+        return l.onLoad = function () {
+          if (At({
+            wechat: this.wechatRewardedAdUnitId,
+            tapTap: this.tapRewardedAdUnitId
+          }), this.autoDismissEnabled = z(), this.resolveSceneReferences(), !this.hasRequiredReferences()) return console.error("[RecruitmentController] Missing recruitment UI references."), void (this.enabled = !1);
+          this.resultPage.active = !1;
+        }, l.onEnable = function () {
+          var t, e, i, n, o, r, s, l, u, a, d;
+          null == (t = this.recruitButton) || t.node.on(c.EventType.CLICK, this.onRecruitClicked, this), null == (e = this.recruitButton) || e.node.on(h.EventType.TOUCH_START, this.onRecruitTouchStart, this, !0), null == (i = this.recruitButton) || i.node.on(h.EventType.TOUCH_END, this.onRecruitTouchEnd, this, !0), null == (n = this.recruitButton) || n.node.on(h.EventType.TOUCH_CANCEL, this.onRecruitTouchCancel, this, !0), null == (o = this.dismissButton) || o.node.on(c.EventType.CLICK, this.onDismissClicked, this), null == (r = this.dismissButton) || r.node.on(h.EventType.TOUCH_START, this.onDismissTouchStart, this, !0), null == (s = this.dismissButton) || s.node.on(h.EventType.TOUCH_MOVE, this.onDismissTouchMove, this, !0), null == (l = this.dismissButton) || l.node.on(h.EventType.TOUCH_END, this.onDismissTouchEnd, this, !0), null == (u = this.dismissButton) || u.node.on(h.EventType.TOUCH_CANCEL, this.onDismissTouchCancel, this, !0), null == (a = this.replaceButton) || a.node.on(c.EventType.CLICK, this.onReplaceClicked, this), null == (d = this.upgradeAdButton) || d.node.on(c.EventType.CLICK, this.onUpgradeAdClicked, this), W.on(K, this.onBudgetChanged, this), W.on(J, this.refreshBudgetView, this), T.on(S, this.refreshBudgetView, this), T.on(M, this.refreshBudgetView, this);
+        }, l.start = function () {
+          var t = this;
+          this.scheduleOnce(function () {
+            t.initialize();
+          }, .75);
+        }, l.onDisable = function () {
+          var t, e, i, n, o, r, s, l, u, a, d, m;
+          null == (t = this.cancelDissolve) || t.call(this), null == (e = this.recruitButton) || e.node.off(c.EventType.CLICK, this.onRecruitClicked, this), null == (i = this.recruitButton) || i.node.off(h.EventType.TOUCH_START, this.onRecruitTouchStart, this, !0), null == (n = this.recruitButton) || n.node.off(h.EventType.TOUCH_END, this.onRecruitTouchEnd, this, !0), null == (o = this.recruitButton) || o.node.off(h.EventType.TOUCH_CANCEL, this.onRecruitTouchCancel, this, !0), null == (r = this.dismissButton) || r.node.off(c.EventType.CLICK, this.onDismissClicked, this), null == (s = this.dismissButton) || s.node.off(h.EventType.TOUCH_START, this.onDismissTouchStart, this, !0), null == (l = this.dismissButton) || l.node.off(h.EventType.TOUCH_MOVE, this.onDismissTouchMove, this, !0), null == (u = this.dismissButton) || u.node.off(h.EventType.TOUCH_END, this.onDismissTouchEnd, this, !0), null == (a = this.dismissButton) || a.node.off(h.EventType.TOUCH_CANCEL, this.onDismissTouchCancel, this, !0), this.stopDismissHold(), this.setAutoDismissBatchLocked(!1), null == (d = this.replaceButton) || d.node.off(c.EventType.CLICK, this.onReplaceClicked, this), null == (m = this.upgradeAdButton) || m.node.off(c.EventType.CLICK, this.onUpgradeAdClicked, this), W.off(K, this.onBudgetChanged, this), W.off(J, this.refreshBudgetView, this), T.off(S, this.refreshBudgetView, this), T.off(M, this.refreshBudgetView, this);
+        }, l.resolveSceneReferences = function () {
+          var t,
+            e,
+            i,
+            n,
+            o,
+            r,
+            s,
+            l,
+            u,
+            a,
+            d,
+            h,
+            f,
+            v,
+            C,
+            y,
+            R,
+            B,
+            b,
+            A,
+            w,
+            I,
+            L,
+            T,
+            S,
+            M,
+            D,
+            H,
+            F,
+            q,
+            U,
+            G,
+            O,
+            Q,
+            V,
+            k,
+            _,
+            z,
+            W,
+            K,
+            J,
+            Y,
+            X,
+            j,
+            $,
+            Z,
+            tt,
+            et,
+            it,
+            nt,
+            ot,
+            rt,
+            st,
+            lt,
+            ut,
+            at,
+            ct,
+            dt,
+            ht,
+            mt,
+            gt,
+            pt,
+            ft,
+            vt,
+            Ct,
+            yt,
+            Rt,
+            Bt,
+            bt,
+            At,
+            Pt,
+            wt,
+            It,
+            Lt,
+            Tt,
+            Mt,
+            Et,
+            Dt,
+            Nt,
+            Ht,
+            xt,
+            Ft,
+            qt = this.node.parent;
+          this.homeRoot = null != (t = null == qt ? void 0 : qt.getChildByName("主页")) ? t : null, this.resultPage = null != (e = null == qt ? void 0 : qt.getChildByName("招募结果页面")) ? e : null;
+          var Ut = this.findByPath(this.homeRoot, "球队/阵容槽位");
+          if (this.rosterSlots = Ut ? Ut.children.map(function (t) {
+            return t.getComponent(P);
+          }).filter(function (t) {
+            return Boolean(t);
+          }).sort(function (t, e) {
+            return t.node.name.localeCompare(e.node.name, "zh-CN", {
+              numeric: !0
+            });
+          }) : [], this.recruitButton = null != (i = null == (n = this.findByPath(this.homeRoot, "底部按钮/招募/招募")) ? void 0 : n.getComponent(c)) ? i : null, this.recruitButtonTargetSprite = null != (o = null != (r = null == (s = this.recruitButton) || null == (s = s.target) ? void 0 : s.getComponent(m)) ? r : null == (l = this.recruitButton) ? void 0 : l.node.getComponent(m)) ? o : null, this.recruitButtonOriginalMaterial = null != (u = null == (a = this.recruitButtonTargetSprite) ? void 0 : a.customMaterial) ? u : null, this.recruitButtonNormalSprite = null != (d = null != (h = null == (f = this.recruitButton) ? void 0 : f.normalSprite) ? h : null == (v = this.recruitButtonTargetSprite) ? void 0 : v.spriteFrame) ? d : null, this.recruitButtonTransition = null != (C = null == (y = this.recruitButton) ? void 0 : y.transition) ? C : c.Transition.NONE, this.budgetLabel = null != (R = null == (B = this.findByPath(this.homeRoot, "底部按钮/招募/预算余额")) ? void 0 : B.getComponent(g)) ? R : null, this.continuousRecruitLabel = null != (b = null == (A = this.findByPath(this.homeRoot, "底部按钮/招募/连续招募")) ? void 0 : A.getComponent(g)) ? b : null, this.continuousRecruitLabelBaseFontSize = null != (w = null == (I = this.continuousRecruitLabel) ? void 0 : I.fontSize) ? w : 0, this.continuousRecruitLabel) {
+            var Gt,
+              Ot = this.continuousRecruitLabel.node;
+            this.continuousRecruitRichText = null != (Gt = Ot.getComponent(p)) ? Gt : Ot.addComponent(p), this.continuousRecruitRichText.font = this.continuousRecruitLabel.font, this.continuousRecruitRichText.fontSize = this.continuousRecruitLabel.fontSize, this.continuousRecruitRichText.lineHeight = this.continuousRecruitLabel.lineHeight, this.continuousRecruitRichText.horizontalAlign = this.continuousRecruitLabel.horizontalAlign, this.continuousRecruitRichText.fontColor = this.continuousRecruitLabel.color, this.continuousRecruitRichText.maxWidth = 0, this.continuousRecruitRichText.handleTouchEvent = !1, this.continuousRecruitLabel.enabled = !1;
+          }
+          if (this.teamLevelController = null != (L = null == (T = this.homeRoot) ? void 0 : T.getComponentInChildren(E)) ? L : null, this.topTeamInfoController = null != (S = null == (M = this.homeRoot) ? void 0 : M.getComponentInChildren(N)) ? S : null, this.courtSimulationController = null != (D = null == (H = this.homeRoot) ? void 0 : H.getComponentInChildren(x)) ? D : null, this.resultPage) {
+            var Qt = this.resultPage.getChildByName("球员头像");
+            this.candidatePortrait = null != (F = null != (q = null == Qt || null == (U = Qt.getChildByName("头像")) ? void 0 : U.getComponent(m)) ? q : null == Qt || null == (G = Qt.children.find(function (t) {
+              return t.name.includes("_");
+            })) ? void 0 : G.getComponent(m)) ? F : null, this.recruitBackground = null != (O = null == Qt || null == (Q = Qt.getChildByName("bg")) ? void 0 : Q.getComponent(m)) ? O : null, this.wheatSprites = null != (V = null == Qt ? void 0 : Qt.children.filter(function (t) {
+              return "麦穗" === t.name;
+            }).map(function (t) {
+              return t.getComponent(m);
+            }).filter(function (t) {
+              return Boolean(t);
+            })) ? V : [], this.candidateFrame = null != (k = null == Qt || null == (_ = Qt.getChildByName("头像框")) ? void 0 : _.getComponent(m)) ? k : null, this.candidateNameplate = null != (z = null == Qt || null == (W = Qt.getChildByName("名牌")) ? void 0 : W.getComponent(m)) ? z : null, this.candidateQualityBadge = null != (K = null == Qt || null == (J = Qt.getChildByName("品质标签")) ? void 0 : J.getComponent(m)) ? K : null, this.candidatePositionBadge = null != (Y = null == Qt || null == (X = Qt.getChildByName("位置")) ? void 0 : X.getComponent(m)) ? Y : null, this.candidateNameLabel = null != (j = null == ($ = this.findByPath(Qt, "名牌/名字")) ? void 0 : $.getComponent(g)) ? j : null, this.candidateQualityLabel = null != (Z = null == (tt = this.findByPath(Qt, "品质标签/品质")) ? void 0 : tt.getComponent(g)) ? Z : null, this.candidatePositionLabel = null != (et = null == (it = this.findByPath(Qt, "位置/位置")) ? void 0 : it.getComponent(g)) ? et : null, this.candidateOverallLabel = null != (nt = null == (ot = this.findByPath(this.resultPage, "总评/数值")) ? void 0 : ot.getComponent(g)) ? nt : null, St(this.candidateOverallLabel, 3), this.candidateProfileTitleLabel = null != (rt = null == (st = this.findByPath(this.resultPage, "球员资料/题目")) ? void 0 : st.getComponent(g)) ? rt : null, this.candidateProfileLabel = null != (lt = null == (ut = this.findByPath(this.resultPage, "球员资料/资料")) ? void 0 : ut.getComponent(g)) ? lt : null, this.replacementPanel = null != (at = this.resultPage.children.find(function (t) {
+              return "替换" === t.name && !t.getComponent(c);
+            })) ? at : null, this.replacedSlot = null != (ct = null == (dt = this.replacementPanel) ? void 0 : dt.getComponentInChildren(P)) ? ct : null, this.replacedNameLabel = null != (ht = null == (mt = this.replacementPanel) || null == (mt = mt.getChildByName("被替换球员名字")) ? void 0 : mt.getComponent(g)) ? ht : null, this.overallIncreaseValueLabel = null != (gt = null == (pt = this.replacementPanel) || null == (pt = pt.getChildByName("总评提升数值")) ? void 0 : pt.getComponent(g)) ? gt : null, this.overallIncreaseValueDefaultColor = null != (ft = null == (vt = this.overallIncreaseValueLabel) ? void 0 : vt.color.clone()) ? ft : null, this.dismissButton = null != (Ct = null == (yt = this.resultPage.getChildByName("解雇")) ? void 0 : yt.getComponent(c)) ? Ct : null, this.autoDismissLabel = null != (Rt = null == (Bt = this.dismissButton) || null == (Bt = Bt.node.getChildByName("自动解雇")) ? void 0 : Bt.getComponent(g)) ? Rt : null, this.autoDismissDefaultText = null != (bt = null == (At = this.autoDismissLabel) ? void 0 : At.string) ? bt : "", this.refreshAutoDismissLabel(), this.replaceButton = null != (Pt = null == (wt = this.resultPage.children.find(function (t) {
+              return "替换" === t.name && Boolean(t.getComponent(c));
+            })) ? void 0 : wt.getComponent(c)) ? Pt : null, this.replaceButtonLabel = null != (It = null == (Lt = this.replaceButton) || null == (Lt = Lt.node.getChildByName("Label")) ? void 0 : Lt.getComponent(g)) ? It : null, this.upgradeAdButton = null != (Tt = null == (Mt = this.resultPage.getChildByName("看广告升级")) ? void 0 : Mt.getComponent(c)) ? Tt : null, this.upgradeAdButtonLabel = null != (Et = null == (Dt = this.upgradeAdButton) || null == (Dt = Dt.node.getChildByName("Label")) ? void 0 : Dt.getComponent(g)) ? Et : null, this.willpowerTextLabel = null != (Nt = null == (Ht = this.resultPage.getChildByName("获得斗志")) ? void 0 : Ht.getComponent(g)) ? Nt : null, this.willpowerValueLabel = null != (xt = null == (Ft = this.findByPath(this.resultPage, "获得斗志/斗志数值")) ? void 0 : Ft.getComponent(g)) ? xt : null;
+          }
+        }, l.hasRequiredReferences = function () {
+          return Boolean(this.homeRoot && this.resultPage && 12 === this.rosterSlots.length && this.recruitButton && this.budgetLabel && this.dismissButton && this.replaceButton && this.replaceButtonLabel && this.upgradeAdButton && this.upgradeAdButtonLabel && this.replacementPanel && this.replacedSlot && this.candidatePortrait && this.candidateNameLabel && this.candidateQualityLabel && this.candidatePositionLabel && this.candidateOverallLabel);
+        }, l.initialize = function () {
+          var t = s( /*#__PURE__*/_regeneratorRuntime().mark(function _callee51() {
+            var t, e, i, n, o, r, s, l, u, a, c, d, h;
+            return _regeneratorRuntime().wrap(function _callee51$(_context53) {
+              while (1) switch (_context53.prev = _context53.next) {
+                case 0:
+                  _context53.prev = 0;
+                  _context53.next = 3;
+                  return Promise.all([this.loadJson("data/player_config_fame_v3"), this.loadJson("data/balance/player_ovr_ranges"), this.loadJson("data/balance/recruitment_probability"), this.loadJson("data/balance/economy"), this.loadJson("data/balance/concept_god_upgrade"), ut(), gt("images/UI/按钮/招募中/spriteFrame"), this.loadRecruitButtonEffect(), this.loadDissolveEffect()]);
+                case 3:
+                  n = _context53.sent;
+                  o = n[0];
+                  r = n[1];
+                  s = n[2];
+                  l = n[3];
+                  u = n[4];
+                  a = n[5];
+                  c = n[6];
+                  d = n[7];
+                  h = n[8];
+                  if (Array.isArray(o.players) && Array.isArray(r.ranges) && Array.isArray(s.qualityWindows) && Number.isFinite(l.initialBudget) && l.recruit && Number.isFinite(null == (t = l.recruit.budgetCostFormula) ? void 0 : t.teamLevelMultiplier) && Number.isFinite(null == (e = l.recruit.budgetCostFormula) ? void 0 : e.baseCost) && Array.isArray(u.eligibleSourcePlayerNames) && u.conceptGodDefinitions) {
+                    _context53.next = 15;
+                    break;
+                  }
+                  throw new Error("Invalid recruitment configuration.");
+                case 15:
+                  this.playerConfig = o;
+                  this.ovrConfig = r;
+                  this.probabilityConfig = s;
+                  this.economyConfig = l;
+                  this.conceptGodUpgradeConfig = u;
+                  this.managementEffects = a;
+                  this.recruitingButtonSprite = c;
+                  d && this.installRecruitButtonEffect(d);
+                  h && (this.dissolveEffectAsset = h, this.prepareDissolveMaterial());
+                  this.budget = G(l.initialBudget);
+                  this.roster = F(this.rosterSlots.length);
+                  this.migrateRosterDisplayNames();
+                  at(o.players, this.roster);
+                  _context53.next = 30;
+                  return this.refreshRosterSlots();
+                case 30:
+                  this.refreshCourtSimulation();
+                  this.ready = !0;
+                  this.refreshBudgetView();
+                  null == (i = this.topTeamInfoController) || i.refreshOverallFromRoster();
+                  Lt("homepage-recruitment-ready");
+                  _context53.next = 40;
+                  break;
+                case 37:
+                  _context53.prev = 37;
+                  _context53.t0 = _context53["catch"](0);
+                  console.error("[RecruitmentController] Failed to initialize.", _context53.t0), this.refreshBudgetView();
+                case 40:
+                case "end":
+                  return _context53.stop();
+              }
+            }, _callee51, this, [[0, 37]]);
+          }));
+          return function () {
+            return t.apply(this, arguments);
+          };
+        }(), l.onRecruitClicked = function () {
+          var t,
+            e,
+            i,
+            n = this;
+          if (this.ready && !this.processing && this.economyConfig) {
+            var o = this.pendingContinuousRecruitmentCount;
+            this.pendingContinuousRecruitmentCount = 0;
+            var r = o >= 2 ? function () {
+                return n.beginContinuousRecruitment(o);
+              } : this.beginRecruitment,
+              s = null != (t = null != (e = this.node.getComponent(Dt)) ? e : null == (i = this.node.parent) ? void 0 : i.getComponent(Dt)) ? t : null;
+            null != s && s.runAfterPendingEvents(r) || r();
+          }
+        }, l.stopContinuousRecruitHold = function () {
+          this.continuousRecruitHolding = !1, this.continuousRecruitHoldStartedAtMs = 0, this.continuousRecruitReady = !1, this.continuousRecruitCount = 0, this.unschedule(this.activateContinuousRecruitment), this.unschedule(this.growContinuousRecruitment), this.refreshContinuousRecruitLabel();
+        }, l.getRewardedRecruitmentCount = function () {
+          var t,
+            e,
+            i = null != (t = null == (e = this.teamLevelController) || null == (e = e.getSnapshot()) ? void 0 : e.teamLevel) ? t : L();
+          return 10 * Math.max(1, i);
+        }, l.recruitFromRewardedAction = function () {
+          var t = s( /*#__PURE__*/_regeneratorRuntime().mark(function _callee52() {
+            var t, e, i, n, o, r, s, l, u, a, c, d;
+            return _regeneratorRuntime().wrap(function _callee52$(_context54) {
+              while (1) switch (_context54.prev = _context54.next) {
+                case 0:
+                  t = this;
+                  if (this.processing) {
+                    _context54.next = 40;
+                    break;
+                  }
+                  e = this.getRewardedRecruitmentCount();
+                  this.processing = !0, this.showRecruitingButtonVisual(), this.refreshBudgetView();
+                  _context54.prev = 4;
+                  _context54.next = 7;
+                  return wt({
+                    wechat: this.wechatRewardedAdUnitId,
+                    tapTap: this.tapRewardedAdUnitId
+                  });
+                case 7:
+                  if (_context54.sent) {
+                    _context54.next = 9;
+                    break;
+                  }
+                  return _context54.abrupt("return");
+                case 9:
+                  _context54.next = 11;
+                  return this.waitForPendingPlayerEvents();
+                case 11:
+                  if (this.node.isValid) {
+                    _context54.next = 13;
+                    break;
+                  }
+                  return _context54.abrupt("return");
+                case 13:
+                  i = [], n = q(), o = U(10), r = U(5), s = 0, l = new Set(F(this.rosterSlots.length).flatMap(function (t) {
+                    return t ? [t.sourcePlayerName] : [];
+                  })), u = 0;
+                case 14:
+                  if (!(u < e)) {
+                    _context54.next = 22;
+                    break;
+                  }
+                  a = u < n, c = this.createRecruitedCard(a, l, u < o, u < r);
+                  if (c) {
+                    _context54.next = 18;
+                    break;
+                  }
+                  throw new Error("Failed to create an ad recruitment result.");
+                case 18:
+                  i.push(c), a && (s += 1);
+                case 19:
+                  u += 1;
+                  _context54.next = 14;
+                  break;
+                case 22:
+                  for (d = 0; d < s; d += 1) Q();
+                  o > 0 && V(10, Math.min(o, i.length));
+                  r > 0 && V(5, Math.min(r, i.length));
+                  this.queuedAdRecruitments = i.map(function (e) {
+                    var i, n;
+                    return Ht(e), {
+                      card: e,
+                      willpowerAdded: null != (i = null == (n = t.teamLevelController) ? void 0 : n.addRecruitWillpower()) ? i : 0
+                    };
+                  });
+                  this.adTripleRecruitmentActive = !0;
+                  this.autoDismissCount = 0;
+                  this.setAutoDismissBatchLocked(this.autoDismissEnabled);
+                  this.refreshBudgetView();
+                  _context54.next = 32;
+                  return this.showNextAdRecruitmentResult();
+                case 32:
+                  _context54.next = 37;
+                  break;
+                case 34:
+                  _context54.prev = 34;
+                  _context54.t0 = _context54["catch"](4);
+                  console.error("[RecruitmentController] Ad triple recruitment failed.", _context54.t0), this.queuedAdRecruitments = [], this.adTripleRecruitmentActive = !1;
+                case 37:
+                  _context54.prev = 37;
+                  this.adTripleRecruitmentActive || (this.setAutoDismissBatchLocked(!1), this.processing = !1, this.restoreRecruitButtonVisual(), this.refreshBudgetView());
+                  return _context54.finish(37);
+                case 40:
+                case "end":
+                  return _context54.stop();
+              }
+            }, _callee52, this, [[4, 34, 37, 40]]);
+          }));
+          return function () {
+            return t.apply(this, arguments);
+          };
+        }(), l.waitForPendingPlayerEvents = function () {
+          var t,
+            e,
+            i,
+            n = null != (t = null != (e = this.node.getComponent(Dt)) ? e : null == (i = this.node.parent) ? void 0 : i.getComponent(Dt)) ? t : null;
+          return n ? new Promise(function (t) {
+            n.runAfterPendingEvents(t) || t();
+          }) : Promise.resolve();
+        }, l.showNextAdRecruitmentResult = function () {
+          var t = s( /*#__PURE__*/_regeneratorRuntime().mark(function _callee53() {
+            var t;
+            return _regeneratorRuntime().wrap(function _callee53$(_context55) {
+              while (1) switch (_context55.prev = _context55.next) {
+                case 0:
+                  t = this;
+                  _context55.next = 3;
+                  return this.showNextQueuedRecruitmentResult(this.queuedAdRecruitments, function () {
+                    return t.finishAdTripleRecruitment();
+                  });
+                case 3:
+                case "end":
+                  return _context55.stop();
+              }
+            }, _callee53, this);
+          }));
+          return function () {
+            return t.apply(this, arguments);
+          };
+        }(), l.showNextContinuousRecruitmentResult = function () {
+          var t = s( /*#__PURE__*/_regeneratorRuntime().mark(function _callee54() {
+            var t;
+            return _regeneratorRuntime().wrap(function _callee54$(_context56) {
+              while (1) switch (_context56.prev = _context56.next) {
+                case 0:
+                  t = this;
+                  _context56.next = 3;
+                  return this.showNextQueuedRecruitmentResult(this.queuedContinuousRecruitments, function () {
+                    return t.finishContinuousRecruitment();
+                  });
+                case 3:
+                case "end":
+                  return _context56.stop();
+              }
+            }, _callee54, this);
+          }));
+          return function () {
+            return t.apply(this, arguments);
+          };
+        }(), l.showNextQueuedRecruitmentResult = function () {
+          var t = s( /*#__PURE__*/_regeneratorRuntime().mark(function _callee55(t, e) {
+            var i, n, o, r, s, l, u;
+            return _regeneratorRuntime().wrap(function _callee55$(_context58) {
+              while (1) switch (_context58.prev = _context58.next) {
+                case 0:
+                  i = this, n = this.autoDismissEnabled, o = this.autoDismissCount, r = Date.now(), s = r + 1500;
+                  n && (this.setAutoDismissBatchLocked(!0), this.refreshBudgetView());
+                  u = /*#__PURE__*/_regeneratorRuntime().mark(function u() {
+                    var e, o, l, u, a, c, d, h;
+                    return _regeneratorRuntime().wrap(function u$(_context57) {
+                      while (1) switch (_context57.prev = _context57.next) {
+                        case 0:
+                          if (!n) {
+                            _context57.next = 10;
+                            break;
+                          }
+                          e = i.getCurrentRecruitmentDecision(), o = t.findIndex(function (t) {
+                            return !i.shouldAutoDismiss(t.card, e);
+                          }), l = o < 0 ? t.length : o + 1, u = s - (o < 0 ? 300 : 0);
+                          r += Math.max(0, u - r) / l;
+                          a = Math.max(0, r - Date.now()) / 1e3;
+                          _context57.t0 = a > 0;
+                          if (!_context57.t0) {
+                            _context57.next = 8;
+                            break;
+                          }
+                          _context57.next = 8;
+                          return i.waitForSeconds(a);
+                        case 8:
+                          if (!(!i.isValid || !i.enabledInHierarchy)) {
+                            _context57.next = 10;
+                            break;
+                          }
+                          return _context57.abrupt("return", {
+                            v: void 0
+                          });
+                        case 10:
+                          c = t[0], d = i.getCurrentRecruitmentDecision();
+                          if (!(n && !i.shouldAutoDismiss(c.card, d))) {
+                            _context57.next = 19;
+                            break;
+                          }
+                          h = Math.max(0, s - Date.now()) / 1e3;
+                          if (!(h > 0)) {
+                            _context57.next = 19;
+                            break;
+                          }
+                          _context57.next = 16;
+                          return i.waitForSeconds(h);
+                        case 16:
+                          if (!(!i.isValid || !i.enabledInHierarchy)) {
+                            _context57.next = 18;
+                            break;
+                          }
+                          return _context57.abrupt("return", {
+                            v: void 0
+                          });
+                        case 18:
+                          d = i.getCurrentRecruitmentDecision();
+                        case 19:
+                          t.shift();
+                          if (!i.shouldAutoDismiss(c.card, d)) {
+                            _context57.next = 24;
+                            break;
+                          }
+                          _context57.t1 = (i.autoDismissCount += 1, i.refreshContinuousRecruitLabel(), 0);
+                          _context57.next = 32;
+                          break;
+                        case 24:
+                          i.pendingCard = c.card;
+                          i.pendingWillpowerAdded = c.willpowerAdded;
+                          i.upgradeAdProcessing = !1;
+                          i.pendingUpgradeAdUsed = !1;
+                          i.pendingDecision = d;
+                          _context57.next = 31;
+                          return i.showRecruitmentResult(c.card, d, c.willpowerAdded);
+                        case 31:
+                          _context57.t1 = {
+                            v: void 0
+                          };
+                        case 32:
+                          return _context57.abrupt("return", _context57.t1);
+                        case 33:
+                        case "end":
+                          return _context57.stop();
+                      }
+                    }, u);
+                  });
+                case 3:
+                  if (!(t.length > 0)) {
+                    _context58.next = 13;
+                    break;
+                  }
+                  return _context58.delegateYield(u(), "t1", 5);
+                case 5:
+                  _context58.t2 = l = _context58.t1;
+                  _context58.t0 = 0 !== _context58.t2;
+                  if (!_context58.t0) {
+                    _context58.next = 9;
+                    break;
+                  }
+                  _context58.t0 = l;
+                case 9:
+                  if (!_context58.t0) {
+                    _context58.next = 11;
+                    break;
+                  }
+                  return _context58.abrupt("return", l.v);
+                case 11:
+                  _context58.next = 3;
+                  break;
+                case 13:
+                  _context58.t3 = n && this.autoDismissCount > o;
+                  if (!_context58.t3) {
+                    _context58.next = 18;
+                    break;
+                  }
+                  _context58.next = 17;
+                  return this.waitForSeconds(Math.max(.3, (s - Date.now()) / 1e3));
+                case 17:
+                  _context58.t3 = !this.isValid || !this.enabledInHierarchy;
+                case 18:
+                  _context58.t4 = _context58.t3;
+                  if (_context58.t4) {
+                    _context58.next = 21;
+                    break;
+                  }
+                  e();
+                case 21:
+                case "end":
+                  return _context58.stop();
+              }
+            }, _callee55, this);
+          }));
+          return function (e, i) {
+            return t.apply(this, arguments);
+          };
+        }(), l.setAutoDismissBatchLocked = function (t) {
+          var e, i;
+          this.autoDismissBatchLocked = t;
+          var n = null == (e = this.resultPage) ? void 0 : e.parent;
+          if (t && n) {
+            if (!this.recruitmentInputBlocker) {
+              var o = new h("自动解雇输入锁");
+              o.layer = n.layer, n.addChild(o), o.addComponent(f), o.addComponent(v), this.recruitmentInputBlocker = o;
+            }
+            var r = n.getComponent(f),
+              s = this.recruitmentInputBlocker.getComponent(f);
+            s.setContentSize(r.contentSize), s.setAnchorPoint(r.anchorPoint), this.recruitmentInputBlocker.setSiblingIndex(n.children.length - 1);
+          }
+          null != (i = this.recruitmentInputBlocker) && i.isValid && (this.recruitmentInputBlocker.active = t);
+        }, l.showRecruitmentResultAfterDelay = function () {
+          var t = s( /*#__PURE__*/_regeneratorRuntime().mark(function _callee56(t, e, i) {
+            return _regeneratorRuntime().wrap(function _callee56$(_context59) {
+              while (1) switch (_context59.prev = _context59.next) {
+                case 0:
+                  _context59.next = 2;
+                  return this.waitForSeconds(1);
+                case 2:
+                  _context59.next = 4;
+                  return this.showRecruitmentResult(t, e, i);
+                case 4:
+                case "end":
+                  return _context59.stop();
+              }
+            }, _callee56, this);
+          }));
+          return function (e, i, n) {
+            return t.apply(this, arguments);
+          };
+        }(), l.getCurrentRecruitmentDecision = function () {
+          return this.roster = F(this.rosterSlots.length), H(this.roster.map(function (t) {
+            var e;
+            return null != (e = null == t ? void 0 : t.overall) ? e : null;
+          }));
+        }, l.refreshAutoDismissLabel = function () {
+          this.autoDismissLabel && (this.autoDismissLabel.string = this.autoDismissEnabled ? "长按2秒关闭自动解雇" : this.autoDismissDefaultText);
+        }, l.onDismissTouchStart = function () {
+          var t, e;
+          if (this.stopDismissHold(), this.suppressNextDismissClick = !1, null != (t = this.dismissButton) && t.interactable && null != (e = this.resultPage) && e.activeInHierarchy && !this.resultPageClosing && this.pendingCard) {
+            var i = this.dismissButton.node.getComponent(f);
+            if (i) {
+              if (!this.dismissHoldFill) {
+                var n = new h("自动解雇长按进度");
+                n.active = !1, n.layer = this.dismissButton.node.layer, this.dismissButton.node.addChild(n), n.setSiblingIndex(0), n.addComponent(f), this.dismissHoldFill = n.addComponent(C), this.dismissHoldFill.fillColor = new a(48, 220, 170, 150);
+              }
+              var o = this.dismissHoldFill.node.getComponent(f);
+              o.setContentSize(i.contentSize), o.setAnchorPoint(i.anchorPoint), this.dismissHoldFill.clear(), this.dismissHoldFill.node.active = !0;
+            }
+            this.dismissHoldStartedAtMs = Date.now();
+          }
+        }, l.updateDismissHoldProgress = function () {
+          var t, e;
+          if (this.dismissHoldStartedAtMs) if (null != (t = this.dismissButton) && t.interactable && null != (e = this.resultPage) && e.activeInHierarchy && !this.resultPageClosing) {
+            var i = Math.min(1, (Date.now() - this.dismissHoldStartedAtMs) / 2e3);
+            if (this.dismissHoldFill) {
+              var n = this.dismissHoldFill.node.getComponent(f);
+              this.dismissHoldFill.clear(), this.dismissHoldFill.rect(-n.width * n.anchorX + 6, -n.height * n.anchorY + 6, Math.max(0, n.width - 12) * i, Math.max(0, n.height - 12)), this.dismissHoldFill.fill();
+            }
+            i >= 1 && (this.dismissHoldStartedAtMs = 0, this.suppressNextDismissClick = !0, this.autoDismissEnabled = !this.autoDismissEnabled, Y(this.autoDismissEnabled), this.refreshAutoDismissLabel(), this.autoDismissEnabled && ((this.continuousRecruitmentActive || this.adTripleRecruitmentActive) && (this.autoDismissCount += 1, this.setAutoDismissBatchLocked(!0), this.refreshBudgetView()), this.closeResultPage("dissolve")), this.refreshContinuousRecruitLabel());
+          } else this.stopDismissHold();
+        }, l.onDismissTouchMove = function (t) {
+          var e,
+            i = null == (e = this.dismissButton) ? void 0 : e.node.getComponent(f);
+          t.touch && i && !i.hitTest(t.touch.getLocation(), t.windowId) && this.onDismissTouchCancel();
+        }, l.onDismissTouchEnd = function () {
+          this.updateDismissHoldProgress(), this.stopDismissHold();
+        }, l.onDismissTouchCancel = function () {
+          this.stopDismissHold(), this.suppressNextDismissClick = !0;
+        }, l.stopDismissHold = function () {
+          var t;
+          this.dismissHoldStartedAtMs = 0, null != (t = this.dismissHoldFill) && t.isValid && (this.dismissHoldFill.node.active = !1);
+        }, l.shouldAutoDismiss = function (t, e) {
+          if (this.isGoat(t)) return !1;
+          if (!this.autoDismissEnabled || !this.continuousRecruitmentActive && !this.adTripleRecruitmentActive || "replace" !== e.mode || null === e.targetIndex) return !1;
+          var i = this.roster[e.targetIndex];
+          return Boolean(i && t.qualityId < i.qualityId);
+        }, l.onDismissClicked = function () {
+          var t;
+          this.suppressNextDismissClick ? this.suppressNextDismissClick = !1 : !this.resultPageClosing && this.pendingCard && "empty-slot" !== (null == (t = this.pendingDecision) ? void 0 : t.mode) && this.closeResultPage("dissolve");
+        }, l.onReplaceClicked = function () {
+          var t, e;
+          if (!this.resultPageClosing) {
+            var i = this.pendingCard,
+              n = null == (t = this.pendingDecision) ? void 0 : t.targetIndex;
+            i && null != n && (this.replaceButton.interactable = !1, this.roster = F(this.rosterSlots.length), i.lineupSinceMs = Date.now(), this.roster[n] = i, X(this.roster), this.applyCardToSlot(this.rosterSlots[n], i, !0), null == (e = this.topTeamInfoController) || e.refreshOverallFromRoster(), this.refreshCourtSimulation(), this.closeResultPage("fade"));
+          }
+        }, l.onUpgradeAdClicked = function () {
+          this.upgradePendingCardFromAd();
+        }, l.upgradePendingCardFromAd = function () {
+          var t = s( /*#__PURE__*/_regeneratorRuntime().mark(function _callee57() {
+            var t, e, i, n, o, r, s, l, u, a;
+            return _regeneratorRuntime().wrap(function _callee57$(_context60) {
+              while (1) switch (_context60.prev = _context60.next) {
+                case 0:
+                  t = this, e = this.pendingCard;
+                  if (!(e && this.pendingDecision && !this.resultPageClosing && this.conceptGodUpgradeConfig && !this.upgradeAdProcessing && !this.pendingUpgradeAdUsed && this.canUpgradeFromAd(e))) {
+                    _context60.next = 40;
+                    break;
+                  }
+                  this.upgradeAdProcessing = !0, this.dismissButton.interactable = !1, this.replaceButton.interactable = !1, this.refreshUpgradeAdButton(e, !0);
+                  _context60.prev = 3;
+                  _context60.next = 6;
+                  return wt({
+                    wechat: this.wechatRewardedAdUnitId,
+                    tapTap: this.tapRewardedAdUnitId
+                  });
+                case 6:
+                  _context60.t4 = !_context60.sent;
+                  if (_context60.t4) {
+                    _context60.next = 9;
+                    break;
+                  }
+                  _context60.t4 = this.pendingCard !== e;
+                case 9:
+                  _context60.t3 = _context60.t4;
+                  if (_context60.t3) {
+                    _context60.next = 12;
+                    break;
+                  }
+                  _context60.t3 = !this.isValid;
+                case 12:
+                  _context60.t2 = _context60.t3;
+                  if (_context60.t2) {
+                    _context60.next = 15;
+                    break;
+                  }
+                  _context60.t2 = null == (i = this.resultPage);
+                case 15:
+                  _context60.t1 = _context60.t2;
+                  if (_context60.t1) {
+                    _context60.next = 18;
+                    break;
+                  }
+                  _context60.t1 = !i.activeInHierarchy;
+                case 18:
+                  _context60.t0 = _context60.t1;
+                  if (_context60.t0) {
+                    _context60.next = 21;
+                    break;
+                  }
+                  _context60.t0 = this.resultPageClosing;
+                case 21:
+                  if (!_context60.t0) {
+                    _context60.next = 23;
+                    break;
+                  }
+                  return _context60.abrupt("return");
+                case 23:
+                  this.pendingUpgradeAdUsed = !0;
+                  o = e.qualityId;
+                  if (this.isConceptGod(e) ? this.upgradeRandomAttribute(e) : this.isGoat(e) ? this.canBecomeConceptGod(e) ? this.upgradeGoatToConceptGod(e) : this.upgradeGoatOverall(e) : this.upgradeNormalQuality(e)) {
+                    _context60.next = 27;
+                    break;
+                  }
+                  return _context60.abrupt("return", void (this.pendingUpgradeAdUsed = !1));
+                case 27:
+                  this.pendingDecision = this.getCurrentRecruitmentDecision();
+                  r = function r() {
+                    return t.showRecruitmentResult(e, t.pendingDecision, t.pendingWillpowerAdded, !1);
+                  }, s = null == (n = this.resultPage) ? void 0 : n.getChildByName("球员头像");
+                  if (!(s && e.qualityId !== o)) {
+                    _context60.next = 35;
+                    break;
+                  }
+                  u = null != (l = s.getComponent(Nt)) ? l : s.addComponent(Nt);
+                  _context60.next = 33;
+                  return u.play(r);
+                case 33:
+                  _context60.next = 37;
+                  break;
+                case 35:
+                  _context60.next = 37;
+                  return r();
+                case 37:
+                  _context60.prev = 37;
+                  this.upgradeAdProcessing = !1, this.isValid && null != (a = this.resultPage) && a.activeInHierarchy && this.pendingCard && this.pendingDecision && (this.restoreResultButtons(this.pendingDecision), this.refreshUpgradeAdButton(this.pendingCard));
+                  return _context60.finish(37);
+                case 40:
+                case "end":
+                  return _context60.stop();
+              }
+            }, _callee57, this, [[3,, 37, 40]]);
+          }));
+          return function () {
+            return t.apply(this, arguments);
+          };
+        }(), l.upgradeNormalQuality = function (t) {
+          var e;
+          if (!this.ovrConfig || !this.playerConfig) return !1;
+          var i = this.ovrConfig.ranges.find(function (e) {
+              return e.qualityId === t.qualityId;
+            }),
+            n = this.getNextNormalQualityRange(t.qualityId);
+          if (!i || !n) return !1;
+          var o = Math.max(1, i.maxOvr - i.minOvr),
+            r = Math.min(1, Math.max(0, (t.overall - i.minOvr) / o)),
+            s = Math.round(n.minOvr + r * (n.maxOvr - n.minOvr)),
+            l = this.playerConfig.players.find(function (e) {
+              return e.sourcePlayerName === t.sourcePlayerName && e.quality === n.qualityId;
+            });
+          return t.templateId = null != (e = null == l ? void 0 : l.id) ? e : t.templateId, t.qualityId = n.qualityId, t.qualityName = n.qualityName, t.overall = s, t.attributes = this.allocateAttributes(s, t.attributes), !0;
+        }, l.upgradeGoatToConceptGod = function (t) {
+          var e,
+            i = this.conceptGodUpgradeConfig,
+            n = null == (e = this.ovrConfig) ? void 0 : e.ranges.find(function (t) {
+              return t.qualityId === (null == i ? void 0 : i.quality.goatQualityId);
+            }),
+            o = this.selectConceptGodDefinition(t);
+          if (!(i && n && o && this.canBecomeConceptGod(t))) return !1;
+          var r = 1 + .01 * j(),
+            s = Math.floor(n.minOvr * r),
+            l = Math.floor(n.maxOvr * r),
+            u = Math.max(t.overall, this.rollOverall(s, l));
+          return t.qualityId = i.quality.conceptGodQualityId, t.qualityName = i.quality.conceptGodQualityName, t.isConceptGod = !0, t.conceptGodId = o.conceptGodId, t.displayName = o.displayName, t.overall = u, t.attributes = this.allocateAttributes(u, t.attributes), !0;
+        }, l.migrateRosterDisplayNames = function () {
+          var t = this;
+          if (this.playerConfig) {
+            for (var e, i = !1, n = function n() {
+                var n = e.value;
+                if (!n) return 0;
+                if (t.isConceptGod(n)) {
+                  var o = t.selectConceptGodDefinition(n),
+                    r = t.conceptGodUpgradeConfig;
+                  return o && r ? (n.isConceptGod && n.conceptGodId === o.conceptGodId && n.displayName === o.displayName && n.qualityId === r.quality.conceptGodQualityId && n.qualityName === r.quality.conceptGodQualityName || (n.isConceptGod = !0, n.conceptGodId = o.conceptGodId, n.displayName = o.displayName, n.qualityId = r.quality.conceptGodQualityId, n.qualityName = r.quality.conceptGodQualityName, i = !0), 0) : 0;
+                }
+                var s = t.playerConfig.players.find(function (t) {
+                    return t.sourcePlayerName === n.sourcePlayerName && t.quality === n.qualityId;
+                  }),
+                  l = null == s ? void 0 : s.displayName;
+                if (!s || !l) return 0;
+                n.templateId === s.id && n.displayName === l && n.position === s.position && n.qualityName === s.qualityName || (n.templateId = s.id, n.displayName = l, n.position = s.position, n.qualityName = s.qualityName, i = !0);
+              }, o = r(this.roster); !(e = o()).done;) n();
+            i && X(this.roster);
+          }
+        }, l.upgradeGoatOverall = function (t) {
+          var e,
+            i = null == (e = this.conceptGodUpgradeConfig) ? void 0 : e.goatOverallUpgrade;
+          if (!i || t.overall >= i.integerMaximum) return !1;
+          var n = t.overall;
+          return t.overall = Math.min(i.integerMaximum, Math.round(n * (1 + i.increasePercent))), t.overall > n;
+        }, l.upgradeRandomAttribute = function (t) {
+          var e,
+            i = null == (e = this.conceptGodUpgradeConfig) ? void 0 : e.attributeUpgrade;
+          if (!i) return !1;
+          var n = $.filter(function (e) {
+            return t.attributes[e] < i.integerMaximum;
+          });
+          if (0 === n.length) return !1;
+          var o = n[Math.floor(Math.random() * n.length)],
+            r = Math.max(0, t.attributes[o]),
+            s = Math.max(i.minimumIncrease, Math.ceil(r * i.increasePercent)),
+            l = Math.min(i.integerMaximum, r + s);
+          return t.attributes[o] = l, t.overall = Math.min(i.integerMaximum, t.overall + l - r), l > r;
+        }, l.getNextNormalQualityRange = function (t) {
+          var e, i;
+          return null != (e = null == (i = this.ovrConfig) ? void 0 : i.ranges.filter(function (e) {
+            return e.qualityId > t;
+          }).sort(function (t, e) {
+            return t.qualityId - e.qualityId;
+          })[0]) ? e : null;
+        }, l.isGoat = function (t) {
+          var e;
+          return t.qualityId === (null == (e = this.conceptGodUpgradeConfig) ? void 0 : e.quality.goatQualityId);
+        }, l.isConceptGod = function (t) {
+          var e = this.conceptGodUpgradeConfig;
+          return Boolean(t.isConceptGod || e && (t.qualityId === e.quality.conceptGodQualityId || t.qualityName === e.quality.conceptGodQualityName));
+        }, l.canBecomeConceptGod = function (t) {
+          var e;
+          return Boolean(this.isGoat(t) && Z() && (null == (e = this.conceptGodUpgradeConfig) ? void 0 : e.eligibleSourcePlayerNames.includes(t.sourcePlayerName)) && this.getConceptGodDefinitions(t).length > 0);
+        }, l.getConceptGodDefinitions = function (t) {
+          var e, i;
+          return null != (e = null == (i = this.conceptGodUpgradeConfig) ? void 0 : i.conceptGodDefinitions[t.sourcePlayerName]) ? e : [];
+        }, l.selectConceptGodDefinition = function (t) {
+          var e = this.getConceptGodDefinitions(t);
+          if (0 === e.length) return null;
+          var i = e.find(function (e) {
+            return e.conceptGodId === t.conceptGodId;
+          });
+          return i || e[this.stableIndex(t.instanceId, e.length)];
+        }, l.stableIndex = function (t, e) {
+          for (var i = 0, n = 0; n < t.length; n += 1) i = 31 * i + t.charCodeAt(n) >>> 0;
+          return i % e;
+        }, l.canUpgradeAttribute = function (t) {
+          var e,
+            i = null == (e = this.conceptGodUpgradeConfig) ? void 0 : e.attributeUpgrade.integerMaximum;
+          return !(void 0 === i || !Number.isFinite(i)) && $.some(function (e) {
+            return t.attributes[e] < i;
+          });
+        }, l.canUpgradeFromAd = function (t) {
+          if (this.isConceptGod(t)) return this.canUpgradeAttribute(t);
+          if (this.isGoat(t)) {
+            var e,
+              i = null == (e = this.conceptGodUpgradeConfig) ? void 0 : e.goatOverallUpgrade;
+            return this.canBecomeConceptGod(t) || Boolean(i && t.overall < i.integerMaximum);
+          }
+          return Boolean(this.getNextNormalQualityRange(t.qualityId));
+        }, l.refreshUpgradeAdButton = function (t, e) {
+          var i;
+          void 0 === e && (e = !1);
+          var n = this.conceptGodUpgradeConfig;
+          if (this.upgradeAdButton && this.upgradeAdButtonLabel && n) {
+            var o,
+              r = this.canUpgradeFromAd(t);
+            o = this.isConceptGod(t) ? n.frontend.attributeButtonLabel : this.isGoat(t) ? this.canBecomeConceptGod(t) ? n.frontend.eligibleGoatButtonLabel : n.frontend.ineligibleGoatButtonLabel : n.frontend.normalQualityButtonLabel, this.upgradeAdButtonLabel.string = o, this.upgradeAdButton.interactable = r && !e && !this.upgradeAdProcessing && !this.pendingUpgradeAdUsed;
+            var s = null == (i = this.upgradeAdButton.target) ? void 0 : i.getComponent(m);
+            s && (s.grayscale = !this.upgradeAdButton.interactable);
+          }
+        }, l.restoreResultButtons = function (t) {
+          this.dismissButton.interactable = "empty-slot" !== t.mode, this.replaceButton.interactable = "dismiss-only" !== t.mode;
+        }, l.createRecruitedCard = function (t, e, i, n) {
+          var o, r;
+          if (void 0 === t && (t = !1), void 0 === e && (e = new Set()), void 0 === i && (i = !1), void 0 === n && (n = !1), !this.playerConfig || !this.ovrConfig || !this.probabilityConfig) return null;
+          var s = this.drawQualityId(t, i, n),
+            l = null != (o = null == (r = this.teamLevelController) || null == (r = r.getSnapshot()) ? void 0 : r.teamLevel) ? o : L(),
+            u = k() || l > 80,
+            a = u ? new Set() : new Set(F(this.rosterSlots.length).flatMap(function (t) {
+              return t ? [t.sourcePlayerName] : [];
+            })),
+            c = this.playerConfig.players.filter(function (t) {
+              return t.quality === s.qualityId && !a.has(t.sourcePlayerName) && (u || !e.has(t.sourcePlayerName));
+            }),
+            d = this.ovrConfig.ranges.find(function (t) {
+              return t.qualityId === s.qualityId;
+            });
+          if (0 === c.length || !d) return console.error("[RecruitmentController] Empty player pool or missing OVR range.", s.qualityId), null;
+          s.adHighestQualityPityApplied && tt(), null !== s.secondHighestQualityId && et(s.qualityId >= s.secondHighestQualityId);
+          var h = c[Math.floor(Math.random() * c.length)],
+            m = this.rollOverall(d.minOvr, d.maxOvr),
+            g = Date.now();
+          return {
+            instanceId: "recruit-" + Date.now() + "-" + Math.floor(1e6 * Math.random()),
+            templateId: h.id,
+            sourcePlayerName: h.sourcePlayerName,
+            displayName: h.displayName,
+            position: h.position,
+            qualityId: h.quality,
+            qualityName: h.qualityName,
+            overall: m,
+            attributes: this.allocateAttributes(m, h.attributes),
+            acquiredAtMs: g,
+            lineupSinceMs: null
+          };
+        }, l.drawQualityId = function (t, e, i) {
+          var n, o, s, l, u, a;
+          void 0 === t && (t = !1), void 0 === e && (e = !1), void 0 === i && (i = !1);
+          var c = null == (n = this.teamLevelController) ? void 0 : n.getSnapshot(),
+            d = null != (o = null == c ? void 0 : c.marketValueLevel) ? o : D(),
+            h = dt(this.probabilityConfig, d, it());
+          if (!h) return console.error("[RecruitmentController] Missing recruitment window.", d), {
+            qualityId: 3,
+            secondHighestQualityId: null,
+            adHighestQualityPityApplied: !1
+          };
+          var m = [].concat(h.recruitableQualityIds).sort(function (t, e) {
+              return t - e;
+            }),
+            g = null != (s = m[m.length - 2]) ? s : null,
+            p = null != (l = m[m.length - 1]) ? l : 3;
+          if (nt() >= ot) return {
+            qualityId: p,
+            secondHighestQualityId: g,
+            adHighestQualityPityApplied: !0
+          };
+          if (k()) return {
+            qualityId: p,
+            secondHighestQualityId: g,
+            adHighestQualityPityApplied: !1
+          };
+          if (null !== g && rt() >= st) return {
+            qualityId: g,
+            secondHighestQualityId: g,
+            adHighestQualityPityApplied: !1
+          };
+          for (var f, v = ht(this.probabilityConfig, h, this.managementEffects.scoutingDirectorHighestQualityWeightBonus, t ? 1 : 0, e, i), C = this.probabilityConfig.qualities.map(function (t, e) {
+              var i;
+              return {
+                qualityId: t.qualityId,
+                weight: Math.max(0, null != (i = v[e]) ? i : 0)
+              };
+            }).filter(function (t) {
+              return t.weight > 0;
+            }), y = C.reduce(function (t, e) {
+              return t + e.weight;
+            }, 0), R = Math.random() * y, B = r(C); !(f = B()).done;) {
+            var b = f.value;
+            if ((R -= b.weight) <= 0) return {
+              qualityId: b.qualityId,
+              secondHighestQualityId: g,
+              adHighestQualityPityApplied: !1
+            };
+          }
+          return {
+            qualityId: null != (u = null == (a = C[C.length - 1]) ? void 0 : a.qualityId) ? u : 3,
+            secondHighestQualityId: g,
+            adHighestQualityPityApplied: !1
+          };
+        }, l.allocateAttributes = function (t, e) {
+          for (var i = $.map(function (t) {
+              var i;
+              return Math.max(0, null != (i = e[t]) ? i : 0);
+            }), n = i.reduce(function (t, e) {
+              return t + e;
+            }, 0) > 0 ? i : $.map(function () {
+              return 1;
+            }), o = n.reduce(function (t, e) {
+              return t + e;
+            }, 0), r = n.map(function (e) {
+              return t * e / o;
+            }), s = r.map(Math.floor), l = t - s.reduce(function (t, e) {
+              return t + e;
+            }, 0), u = r.map(function (t, e) {
+              return {
+                index: e,
+                fraction: t - Math.floor(t)
+              };
+            }).sort(function (t, e) {
+              return e.fraction - t.fraction;
+            }), a = 0; a < l; a += 1) s[u[a % u.length].index] += 1;
+          return {
+            scoring: s[0],
+            rebound: s[1],
+            assist: s[2],
+            steal: s[3],
+            block: s[4]
+          };
+        }, l.showRecruitmentResult = function () {
+          var t = s( /*#__PURE__*/_regeneratorRuntime().mark(function _callee58(t, e, i, n) {
+            var o, r, s, l, u, c, d, h, m, g, p, f, v, C, y, R, B, b, A, P, I, L, T, S;
+            return _regeneratorRuntime().wrap(function _callee58$(_context61) {
+              while (1) switch (_context61.prev = _context61.next) {
+                case 0:
+                  s = this;
+                  void 0 === n && (n = !0), this.resultPageClosing = !1, this.stopDismissHold(), this.suppressNextDismissClick = !1, n && (e = this.getCurrentRecruitmentDecision(), this.pendingDecision = e);
+                  _context61.next = 4;
+                  return Promise.all([mt(t), pt(t.qualityId), ft(t.qualityId), vt(t.qualityId), Ct(t.qualityId), yt(t.qualityId), Rt(t.qualityId), xt()["catch"](function (t) {
+                    return console.error("[RecruitmentController] Failed to load player profile.", t), null;
+                  })]);
+                case 4:
+                  l = _context61.sent;
+                  u = l[0];
+                  c = l[1];
+                  d = l[2];
+                  h = l[3];
+                  m = l[4];
+                  g = l[5];
+                  p = l[6];
+                  f = l[7];
+                  this.candidatePortrait.spriteFrame = u, c && this.recruitBackground && (this.recruitBackground.spriteFrame = c), d && this.wheatSprites.forEach(function (t) {
+                    t.spriteFrame = d;
+                  }), h && this.candidateFrame && (this.candidateFrame.spriteFrame = h), m && this.candidateNameplate && (this.candidateNameplate.spriteFrame = m), g && this.candidateQualityBadge && (this.candidateQualityBadge.spriteFrame = g), p && this.candidatePositionBadge && (this.candidatePositionBadge.spriteFrame = p), Mt(null != (o = null == (r = this.resultPage) ? void 0 : r.getChildByName("球员头像")) ? o : null, t.qualityId), St(this.candidateOverallLabel, t.qualityId), this.candidateNameLabel.string = t.displayName, this.candidateQualityLabel.string = t.qualityName, this.candidatePositionLabel.string = t.position;
+                  y = this.isConceptGod(t) ? this.selectConceptGodDefinition(t) : null;
+                  (this.candidateProfileTitleLabel && (this.candidateProfileTitleLabel.string = y ? "这无敌了吧" : "球员资料"), this.candidateProfileLabel) && (this.candidateProfileLabel.string = null != (v = null == y ? void 0 : y.lore) ? v : Ft(null == f || null == (C = f.players[t.sourcePlayerName]) ? void 0 : C.profile, 5));
+                  It(this.candidateOverallLabel, t.overall, function (t) {
+                    return w(Math.floor(t));
+                  }, {
+                    animateGrowth: !n,
+                    duration: .55,
+                    onComplete: n ? void 0 : function () {
+                      return Et(s.candidateOverallLabel, t.qualityId);
+                    }
+                  }), this.willpowerTextLabel && (this.willpowerTextLabel.string = "招募获得      斗志"), It(this.willpowerValueLabel, i, function (t) {
+                    return String(Math.floor(t));
+                  }, {
+                    animateGrowth: n,
+                    from: n ? 0 : void 0
+                  });
+                  R = this.resultPage.parent;
+                  R && this.resultPage.setSiblingIndex(R.children.length - 1);
+                  B = "replace" === e.mode && null !== e.targetIndex ? this.roster[e.targetIndex] : null;
+                  if (!(this.replacementPanel.active = Boolean(B), B)) {
+                    _context61.next = 31;
+                    break;
+                  }
+                  this.replacedNameLabel && (this.replacedNameLabel.string = B.displayName);
+                  b = this.roster.map(function (i, n) {
+                    return n === e.targetIndex ? t : i;
+                  }), A = ct(this.roster, this.managementEffects.headCoachBattleOvrBonus), P = ct(b, this.managementEffects.headCoachBattleOvrBonus) - A;
+                  if (this.overallIncreaseValueLabel) {
+                    L = P < 0 ? "-" : "+";
+                    It(this.overallIncreaseValueLabel, Math.abs(P), function (t) {
+                      return "" + L + w(Math.floor(t));
+                    }, {
+                      animateGrowth: n,
+                      from: n ? 0 : void 0
+                    }), this.overallIncreaseValueLabel.color = P < 0 ? Wt : null != (I = this.overallIncreaseValueDefaultColor) ? I : a.WHITE;
+                  }
+                  _context61.t0 = this.replacedSlot;
+                  _context61.t1 = B.overall;
+                  _context61.t2 = B.qualityId;
+                  _context61.next = 29;
+                  return mt(B);
+                case 29:
+                  _context61.t3 = _context61.sent;
+                  _context61.t0.setup.call(_context61.t0, _context61.t1, _context61.t2, _context61.t3);
+                case 31:
+                  T = "empty-slot" !== e.mode, S = "dismiss-only" !== e.mode;
+                  this.dismissButton.interactable = !1;
+                  this.replaceButton.interactable = !1;
+                  this.upgradeAdButton && (this.upgradeAdButton.interactable = !1);
+                  this.replaceButtonLabel.string = "empty-slot" === e.mode ? "上阵" : "替换上阵";
+                  this.refreshUpgradeAdButton(t, !0);
+                  _context61.t4 = n;
+                  if (!_context61.t4) {
+                    _context61.next = 43;
+                    break;
+                  }
+                  Tt.playVictory();
+                  _context61.next = 42;
+                  return bt(this.resultPage, {
+                    speedMultiplier: this.getResultPageSpeedMultiplier()
+                  });
+                case 42:
+                  Et(this.candidateOverallLabel, t.qualityId);
+                case 43:
+                  this.dismissButton.interactable = T && !this.upgradeAdProcessing;
+                  this.replaceButton.interactable = S && !this.upgradeAdProcessing;
+                  this.refreshUpgradeAdButton(t);
+                case 46:
+                case "end":
+                  return _context61.stop();
+              }
+            }, _callee58, this);
+          }));
+          return function (e, i, n, o) {
+            return t.apply(this, arguments);
+          };
+        }(), l.showRecruitingButtonVisual = function () {
+          this.recruitButton && this.recruitButtonTargetSprite && this.recruitingButtonSprite && (this.recruitButton.transition = c.Transition.NONE, this.recruitButtonTargetSprite.spriteFrame = this.recruitingButtonSprite);
+        }, l.restoreRecruitButtonVisual = function () {
+          this.recruitButton && this.recruitButtonTargetSprite && (this.recruitButtonNormalSprite && (this.recruitButtonTargetSprite.spriteFrame = this.recruitButtonNormalSprite), this.recruitButton.transition = this.recruitButtonTransition);
+        }, l.waitForSeconds = function (t) {
+          var e = this;
+          return new Promise(function (i) {
+            e.scheduleOnce(i, t);
+          });
+        }, l.closeResultPage = function (t) {
+          var e,
+            i,
+            n = this;
+          this.resultPageClosing || (this.resultPageClosing = !0, this.stopDismissHold(), this.dismissButton && (this.dismissButton.interactable = !1), this.replaceButton && (this.replaceButton.interactable = !1), this.upgradeAdButton && (this.upgradeAdButton.interactable = !1), "dissolve" === t && null != (e = this.resultPage) && e.active && this.dissolveEffectAsset ? this.dissolveResultPage() : null != (i = this.resultPage) && i.active ? Bt(this.resultPage, this.getResultPageSpeedMultiplier()).then(function () {
+            n.finishCloseResultPage();
+          }) : this.finishCloseResultPage());
+        }, l.finishCloseResultPage = function () {
+          var t = this;
+          if (this.resultPage.active = !1, this.upgradeAdButton && (this.upgradeAdButton.interactable = !1), this.pendingCard = null, this.pendingDecision = null, this.pendingWillpowerAdded = 0, this.upgradeAdProcessing = !1, this.pendingUpgradeAdUsed = !1, this.adTripleRecruitmentActive) return this.queuedAdRecruitments.length > 0 ? void this.scheduleOnce(function () {
+            t.showNextAdRecruitmentResult()["catch"](function (e) {
+              console.error("[RecruitmentController] Failed to show queued recruitment result.", e), t.finishAdTripleRecruitment();
+            });
+          }) : void this.finishAdTripleRecruitment();
+          if (this.continuousRecruitmentActive) {
+            if (this.queuedContinuousRecruitments.length > 0) return void this.scheduleOnce(function () {
+              t.showNextContinuousRecruitmentResult()["catch"](function (e) {
+                console.error("[RecruitmentController] Failed to show continuous recruitment result.", e), t.finishContinuousRecruitment();
+              });
+            });
+            this.finishContinuousRecruitment();
+          }
+          this.refreshBudgetView();
+        }, l.getResultPageSpeedMultiplier = function () {
+          return this.continuousRecruitmentActive ? this.continuousRecruitmentBatchCount > 30 ? 4 : 2 : 1;
+        }, l.prepareDissolveMaterial = function () {
+          if (!this.dissolveMaterial) {
+            var t = new y();
+            t.initialize({
+              effectAsset: this.dissolveEffectAsset,
+              defines: {
+                USE_TEXTURE: !0
+              }
+            }), t.setProperty("edgeColor", new a(255, 160, 30, 255)), this.dissolveMaterial = t;
+          }
+          return this.dissolveMaterial;
+        }, l.dissolveResultPage = function () {
+          var t = this,
+            e = this.prepareDissolveMaterial(),
+            i = [],
+            n = [],
+            o = [];
+          this.dissolveParams.x = 0, e.setProperty("dissolveParams", this.dissolveParams), this.collectSprites(this.resultPage, function (t) {
+            n.push(t.customMaterial), t.customMaterial = e, i.push(t);
+          }), this.collectLabels(this.resultPage, function (t) {
+            o.push({
+              label: t,
+              originalColor: t.color.clone(),
+              fadeColor: t.color.clone()
+            });
+          });
+          var r = .5 / this.getResultPageSpeedMultiplier(),
+            s = 0,
+            l = function l() {
+              t.unschedule(u), t.cancelDissolve = null, i.forEach(function (t, i) {
+                if (t.isValid && t.customMaterial === e) {
+                  var o = n[i];
+                  t.customMaterial = null != o && o.isValid ? o : null;
+                }
+              }), o.forEach(function (t) {
+                var e = t.label,
+                  i = t.originalColor;
+                e.isValid && (e.color = i);
+              });
+            },
+            u = function u(i) {
+              s += i;
+              var n = Math.min(s / r, 1);
+              t.dissolveParams.x = n, e.setProperty("dissolveParams", t.dissolveParams), o.forEach(function (t) {
+                var e = t.label,
+                  i = t.originalColor,
+                  o = t.fadeColor;
+                e.isValid && (o.a = Math.round(i.a * (1 - n)), e.color = o);
+              }), n >= 1 && (l(), t.finishCloseResultPage());
+            };
+          this.cancelDissolve = l, this.schedule(u);
+        }, l.collectLabels = function (t, e) {
+          if (t.activeInHierarchy) {
+            var i = t.getComponent(g);
+            null != i && i.enabled && i.string.trim() && e(i);
+            for (var n, o = r(t.children); !(n = o()).done;) {
+              var s = n.value;
+              this.collectLabels(s, e);
+            }
+          }
+        }, l.collectSprites = function (t, e) {
+          if (t.activeInHierarchy) {
+            var i = t.getComponent(m);
+            null != i && i.enabled && i.spriteFrame && e(i);
+            for (var n, o = r(t.children); !(n = o()).done;) {
+              var s = n.value;
+              this.collectSprites(s, e);
+            }
+          }
+        }, l.finishAdTripleRecruitment = function () {
+          this.queuedAdRecruitments = [], this.adTripleRecruitmentActive = !1, this.setAutoDismissBatchLocked(!1), this.processing = !1, this.restoreRecruitButtonVisual(), this.refreshBudgetView();
+        }, l.finishContinuousRecruitment = function () {
+          var t = this.continuousRecruitmentEventCheckCount;
+          this.continuousRecruitmentEventCheckCount = 0, this.queuedContinuousRecruitments = [], this.continuousRecruitmentActive = !1, this.continuousRecruitmentBatchCount = 0, this.setAutoDismissBatchLocked(!1), this.processing = !1, this.restoreRecruitButtonVisual(), this.resetContinuousRecruitLabel(), this.refreshBudgetView(), t > 0 && _(t);
+        }, l.refreshRosterSlots = function () {
+          var t = s( /*#__PURE__*/_regeneratorRuntime().mark(function _callee60() {
+            var t;
+            return _regeneratorRuntime().wrap(function _callee60$(_context63) {
+              while (1) switch (_context63.prev = _context63.next) {
+                case 0:
+                  t = this;
+                  _context63.next = 3;
+                  return Promise.all(this.rosterSlots.map(s( /*#__PURE__*/_regeneratorRuntime().mark(function _callee59(e, i) {
+                    var n, o;
+                    return _regeneratorRuntime().wrap(function _callee59$(_context62) {
+                      while (1) switch (_context62.prev = _context62.next) {
+                        case 0:
+                          o = null != (n = t.roster[i]) ? n : null;
+                          if (!o) {
+                            _context62.next = 11;
+                            break;
+                          }
+                          _context62.t0 = e;
+                          _context62.t1 = o.overall;
+                          _context62.t2 = o.qualityId;
+                          _context62.next = 7;
+                          return mt(o);
+                        case 7:
+                          _context62.t3 = _context62.sent;
+                          _context62.t0.setup.call(_context62.t0, _context62.t1, _context62.t2, _context62.t3);
+                          _context62.next = 12;
+                          break;
+                        case 11:
+                          e.clear();
+                        case 12:
+                        case "end":
+                          return _context62.stop();
+                      }
+                    }, _callee59);
+                  }))));
+                case 3:
+                case "end":
+                  return _context63.stop();
+              }
+            }, _callee60, this);
+          }));
+          return function () {
+            return t.apply(this, arguments);
+          };
+        }(), l.applyCardToSlot = function (t, e, i) {
+          void 0 === i && (i = !1), t.setup(e.overall, e.qualityId), mt(e).then(function (e) {
+            t.setPortrait(e), i && t.playNewPlayerHighlight();
+          });
+        }, l.refreshCourtSimulation = function () {
+          var t, e;
+          null == (t = this.courtSimulationController) || t.refreshRosterBindings(), null == (e = this.courtSimulationController) || e.restartSimulation();
+        }, l.refreshBudgetView = function () {
+          var t;
+          (It(this.budgetLabel, Math.floor(this.budget), function (t) {
+            return w(Math.floor(t)).replace(/\.00(?=[KMBTQ]$)/, "");
+          }), this.recruitButton) && (this.recruitButton.interactable = !this.autoDismissBatchLocked && (this.processing || this.ready && !(null != (t = this.resultPage) && t.active)));
+          this.recruitButtonTargetSprite && (this.recruitButtonTargetSprite.grayscale = !1), this.continuousRecruitHolding || this.refreshContinuousRecruitLabel();
+        }, l.getBudgetRecruitmentCount = function () {
+          var t = this.getRecruitmentCost();
+          return !Number.isFinite(t) || t <= 0 ? 0 : k() ? Number.MAX_SAFE_INTEGER : Math.max(0, Math.floor(this.budget / t));
+        }, l.getMaxContinuousRecruitmentCount = function () {
+          var t,
+            e,
+            i,
+            n = this.getBudgetRecruitmentCount(),
+            o = null == (t = this.teamLevelController) ? void 0 : t.getSnapshot();
+          if (o && (o.maxLevel || o.willpower >= o.currentRequirement)) return n;
+          var r = Math.max(1, null != (e = null == (i = this.teamLevelController) ? void 0 : i.getRecruitmentsUntilWillpowerFull()) ? e : Number.MAX_SAFE_INTEGER);
+          return Math.min(n, r);
+        }, l.refreshContinuousRecruitLabel = function () {
+          if (this.continuousRecruitLabel && this.continuousRecruitRichText) if (this.autoDismissEnabled && (this.continuousRecruitmentActive || this.adTripleRecruitmentActive)) this.setContinuousRecruitLabel("自动解雇X" + this.autoDismissCount, 50, [String(this.autoDismissCount)], []);else if (this.continuousRecruitLabelLocked) {
+            var t = this.getLowestQualityProtectionHint(),
+              e = this.getUpperQualityPityHint(),
+              i = this.combineRecruitmentHints(t, e);
+            this.setContinuousRecruitLabel("松开招募" + this.continuousRecruitLockedCount + "次" + i.text, 50, [String(this.continuousRecruitLockedCount)].concat(i.highlights), i.qualityHighlights);
+          } else {
+            var n = this.continuousRecruitReady ? this.getMaxContinuousRecruitmentCount() : this.getBudgetRecruitmentCount(),
+              o = Math.max(0, this.continuousRecruitCount),
+              r = this.continuousRecruitReady ? o : Math.min(5, Math.max(0, n)),
+              s = this.getLowestQualityProtectionHint(),
+              l = this.getUpperQualityPityHint(),
+              u = this.combineRecruitmentHints(s, l),
+              a = this.getRewardedRecruitmentCount(),
+              c = n < 1 ? Pt("看广告" + a + "连抽" + u.text) : r < 2 ? "点击进行" + r + "次招募" + u.text : this.continuousRecruitReady ? "松开招募" + r + "次" + u.text : "长按进行" + r + "连抽" + u.text,
+              d = Math.min(50, this.continuousRecruitLabelBaseFontSize || this.continuousRecruitLabel.fontSize),
+              h = this.continuousRecruitReady ? Math.min(1, o / Math.max(1, n)) : 0,
+              m = n < 1 ? 50 : Math.round(d + (50 - d) * h),
+              g = n < 1 ? [String(a)].concat(u.highlights) : [String(r)].concat(u.highlights);
+            this.setContinuousRecruitLabel(c, m, g, u.qualityHighlights);
+          }
+        }, l.lockContinuousRecruitLabel = function (t) {
+          this.continuousRecruitLabelLocked = !0, this.continuousRecruitLockedCount = t, this.refreshContinuousRecruitLabel();
+        }, l.resetContinuousRecruitLabel = function () {
+          this.continuousRecruitLabelLocked = !1, this.continuousRecruitLockedCount = 0, this.refreshContinuousRecruitLabel();
+        }, l.getLowestQualityProtectionHint = function () {
+          var t,
+            e,
+            i = q();
+          if (i <= 0 || !this.probabilityConfig) return {
+            text: "",
+            highlights: [],
+            qualityHighlights: []
+          };
+          var n = null != (t = null == (e = this.teamLevelController) ? void 0 : e.getSnapshot().marketValueLevel) ? t : D(),
+            o = dt(this.probabilityConfig, n, it()),
+            r = null == o ? void 0 : o.recruitableQualityNames[0],
+            s = null == o ? void 0 : o.recruitableQualityIds[0];
+          return r && void 0 !== s ? {
+            text: "，" + i + "抽必没有" + r,
+            highlights: [String(i), r],
+            qualityHighlights: [{
+              value: r,
+              color: this.getBrightQualityHintColor(s)
+            }]
+          } : {
+            text: "",
+            highlights: [],
+            qualityHighlights: []
+          };
+        }, l.getUpperQualityPityHint = function () {
+          var t, e, i, n;
+          if (rt() < st || !this.probabilityConfig) return {
+            text: "",
+            highlights: [],
+            qualityHighlights: []
+          };
+          var o = null != (t = null == (e = this.teamLevelController) ? void 0 : e.getSnapshot().marketValueLevel) ? t : D(),
+            r = dt(this.probabilityConfig, o, it()),
+            s = [].concat(null != (i = null == r ? void 0 : r.recruitableQualityIds) ? i : []).sort(function (t, e) {
+              return t - e;
+            }),
+            l = s[s.length - 2],
+            u = null == (n = this.probabilityConfig.qualities.find(function (t) {
+              return t.qualityId === l;
+            })) ? void 0 : n.qualityName;
+          return u && void 0 !== l ? {
+            text: "，下一次必是" + u,
+            highlights: [u],
+            qualityHighlights: [{
+              value: u,
+              color: this.getBrightQualityHintColor(l)
+            }]
+          } : {
+            text: "",
+            highlights: [],
+            qualityHighlights: []
+          };
+        }, l.combineRecruitmentHints = function () {
+          for (var t = arguments.length, e = new Array(t), i = 0; i < t; i++) e[i] = arguments[i];
+          return {
+            text: e.map(function (t) {
+              return t.text;
+            }).join(""),
+            highlights: e.flatMap(function (t) {
+              return t.highlights;
+            }),
+            qualityHighlights: e.flatMap(function (t) {
+              return t.qualityHighlights;
+            })
+          };
+        }, l.getBrightQualityHintColor = function (t) {
+          var e;
+          return null != (e = Kt[I(t)]) ? e : "#FFFFFF";
+        }, l.setContinuousRecruitLabel = function (t, e, i, n) {
+          if (this.continuousRecruitLabel && this.continuousRecruitRichText) {
+            var o = new Map();
+            i.forEach(function (t) {
+              var e = null == t ? "" : String(t);
+              e && o.set(e, "#FFD85A");
+            }), n.forEach(function (t) {
+              var e = t.value,
+                i = t.color,
+                n = null == e ? "" : String(e);
+              n && o.set(n, i);
+            });
+            var r = Array.from(o.keys()).sort(function (t, e) {
+                return e.length - t.length;
+              }).map(function (t) {
+                return t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+              }),
+              s = r.length > 0 ? t.replace(new RegExp("(" + r.join("|") + ")", "g"), function (t) {
+                return "<color=" + o.get(t) + "><b>" + t + "</b></color>";
+              }) : t;
+            this.continuousRecruitLabel.enabled = !1, this.continuousRecruitRichText.fontSize = e, this.continuousRecruitRichText.lineHeight = e, this.continuousRecruitRichText.string = s;
+          }
+        }, l.getRecruitmentCost = function () {
+          var t,
+            e,
+            i,
+            n = null == (t = this.economyConfig) ? void 0 : t.recruit.budgetCostFormula;
+          if (!n) return Number.POSITIVE_INFINITY;
+          var o = null != (e = null == (i = this.teamLevelController) ? void 0 : i.getSnapshot().teamLevel) ? e : L();
+          return Math.max(0, Math.floor(Math.max(0, o) * Math.max(0, n.teamLevelMultiplier) + Math.max(0, n.baseCost)));
+        }, l.lateUpdate = function () {
+          this.syncRecruitButtonEffect(), this.updateDismissHoldProgress();
+        }, l.onDestroy = function () {
+          var t, e, i, n;
+          null == (t = this.dissolveMaterial) || t.destroy(), this.dissolveMaterial = null, null == (e = this.recruitmentInputBlocker) || e.destroy(), this.recruitmentInputBlocker = null, null != (i = this.recruitButtonTargetSprite) && i.isValid && this.recruitButtonTargetSprite.customMaterial === this.recruitButtonEffectMaterial && (this.recruitButtonTargetSprite.customMaterial = this.recruitButtonOriginalMaterial), null == (n = this.recruitButtonEffectMaterial) || n.destroy(), this.recruitButtonEffectMaterial = null;
+        }, l.installRecruitButtonEffect = function (t) {
+          var e = this.recruitButtonTargetSprite,
+            i = null == e ? void 0 : e.node.getComponent(f);
+          if (e && i) {
+            var n = new y();
+            n.initialize({
+              effectAsset: t,
+              defines: {
+                IS_GRAY: !1,
+                USE_TEXTURE: !0
+              }
+            }), n.setProperty("sweepParams", new d(.14, 1.5, .16, .36)), n.setProperty("diffracParams", new d(.12, 1.6, 0, 0)), this.recruitButtonEffectMaterial = n, this.syncRecruitButtonEffect();
+          }
+        }, l.syncRecruitButtonEffect = function () {
+          var t = this.recruitButtonTargetSprite,
+            e = this.recruitButtonEffectMaterial;
+          if (t && e) {
+            var i = t.grayscale ? this.recruitButtonOriginalMaterial : e;
+            t.customMaterial !== i && (t.customMaterial = i);
+          }
+        }, l.loadRecruitButtonEffect = function () {
+          return new Promise(function (t) {
+            R.load("effects/recruit-button-sweep", B, function (e, i) {
+              if (e || !i) return console.warn("[RecruitmentController] Recruit button glow is unavailable.", e), void t(null);
+              t(i);
+            });
+          });
+        }, l.loadDissolveEffect = function () {
+          return new Promise(function (t) {
+            R.load("effects/dissolve", B, function (e, i) {
+              if (e || !i) return console.warn("[RecruitmentController] Dissolve effect unavailable.", e), void t(null);
+              t(i);
+            });
+          });
+        }, l.loadJson = function (t) {
+          return new Promise(function (e, i) {
+            R.load(t, b, function (n, o) {
+              !n && o ? e(o.json) : i(null != n ? n : new Error("Missing JSON asset: " + t));
+            });
+          });
+        }, l.findByPath = function (t, e) {
+          for (var i, n = t, o = r(e.split("/")); !(i = o()).done;) {
+            var s,
+              l,
+              u = i.value;
+            if (!(n = null != (s = null == (l = n) ? void 0 : l.getChildByName(u)) ? s : null)) return null;
+          }
+          return n;
+        }, l.getRosterSnapshot = function () {
+          return lt(this.roster);
+        }, l.onBudgetChanged = function (t) {
+          this.budget = t, this.refreshBudgetView();
+        }, l.rollOverall = function (t, e) {
+          var i = Math.ceil(Math.min(t, e)),
+            n = Math.floor(Math.max(t, e)),
+            o = Math.random();
+          return Math.min(n, i + Math.floor(o * (n - i + 1)));
+        }, e;
+      }(A)).prototype, "wechatRewardedAdUnitId", [Ut], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return "";
+        }
+      }), kt = e(Qt.prototype, "tapRewardedAdUnitId", [Gt], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return "";
+        }
+      }), Ot = Qt)) || Ot));
+      l._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/RecruitmentProbabilityController.ts", ["./rollupPluginModLoBabelHelpers.js", "cc", "./GameState.ts", "./FullScreenEntrance.ts", "./PlayerAssets.ts", "./RosterSlotView.ts", "./RecruitmentProgression.ts", "./RewardedAdService.ts", "./TeamLevelController.ts"], function (t) {
+  var e, i, n, o, r, l, a, s, u, c, h, f, d, b, g, y, p, v, B, m, C, P, E, T, I, A, N, L, _, w, R, V, S, M, G, H, Q, x, D;
+  return {
+    setters: [function (t) {
+      e = t.inheritsLoose, i = t.createForOfIteratorHelperLoose, n = t.asyncToGenerator;
+    }, function (t) {
+      o = t.cclegacy, r = t._decorator, l = t.Button, a = t.Sprite, s = t.Label, u = t.Color, c = t.Component;
+    }, function (t) {
+      h = t.gameStateEvents, f = t.GAME_STATE_EVENT_MANAGEMENT_CHANGED, d = t.GAME_STATE_EVENT_SEASON_CHANGED, b = t.GAME_STATE_EVENT_RECRUITMENT_PROTECTION_CHANGED, g = t.GAME_STATE_EVENT_RECRUITMENT_AD_PITY_CHANGED, y = t.GAME_STATE_EVENT_RECRUITMENT_AD_PROBABILITY_BOOST_CHANGED, p = t.getRecruitmentAdProbabilityBoostCount, v = t.loadJson, B = t.addLowestRecruitmentQualityProtection, m = t.addRecruitmentAdProbabilityBoost, C = t.getManagementEffects, P = t.loadSeasonState, E = t.getLowestRecruitmentQualityProtectionCount, T = t.loadManagementLevels, I = t.getRecruitmentAdHighestQualityPityCount, A = t.RECRUITMENT_AD_HIGHEST_QUALITY_PITY_LIMIT;
+    }, function (t) {
+      N = t.playFullScreenEntrance, L = t.playFullScreenExit;
+    }, function (t) {
+      _ = t.loadThinQualityFrame;
+    }, function (t) {
+      w = t.getQualityFrameIndex;
+    }, function (t) {
+      R = t.resolveRecruitmentQualityWeights, V = t.resolveRecruitmentWindow;
+    }, function (t) {
+      S = t.applyWechatShareCopy, M = t.showRewardedVideo, G = t.toRewardedActionCopy;
+    }, function (t) {
+      H = t.teamProgressionEvents, Q = t.TEAM_PROGRESSION_EVENT_MARKET_VALUE_CHANGED, x = t.TeamLevelController, D = t.getStoredMarketValueLevel;
+    }],
+    execute: function execute() {
+      var q;
+      o._RF.push({}, "948a1sYy2hEjKuNsJHSJ/w1", "RecruitmentProbabilityController", void 0);
+      var F = r.ccclass;
+      t("RecruitmentProbabilityController", F("RecruitmentProbabilityController")(q = function (t) {
+        function o() {
+          for (var e, i = arguments.length, n = new Array(i), o = 0; o < i; o++) n[o] = arguments[o];
+          return (e = t.call.apply(t, [this].concat(n)) || this).page = null, e.closeButton = null, e.upgradeButton = null, e.probabilityBoost10Button = null, e.probabilityBoost5Button = null, e.rows = [], e.configPromise = null, e.renderVersion = 0, e.upgradeAdProcessing = !1, e.probabilityBoostAdProcessing = !1, e.openPage = function () {
+            if (e.resolveHierarchy(), e.page) {
+              e.bringToFront(e.page);
+              var t = ++e.renderVersion;
+              e.refreshPage(t), N(e.page, {
+                backgroundNodes: e.namedChildren(e.page, ["遮罩", "bg"]),
+                moduleGroups: [{
+                  nodes: e.namedChildren(e.page, ["球队信息", "关闭"]),
+                  order: 0
+                }].concat(e.rows.map(function (t, e) {
+                  return {
+                    nodes: [t.root],
+                    order: e + 1
+                  };
+                }), [{
+                  nodes: e.namedChildren(e.page, ["球探加成"]),
+                  order: 6
+                }, {
+                  nodes: e.upgradeButton ? [e.upgradeButton.node] : [],
+                  order: 7
+                }])
+              });
+            }
+          }, e.closePage = function () {
+            e.renderVersion += 1, e.page && L(e.page).then(function () {
+              e.page.active = !1;
+            });
+          }, e.activateLowestQualityProtection = function () {
+            e.upgradeAdProcessing || (e.upgradeAdProcessing = !0, e.upgradeButton && (e.upgradeButton.interactable = !1), M().then(function (t) {
+              t && B();
+            })["catch"](function (t) {
+              console.error("[RecruitmentProbabilityController] 低档保护广告播放失败。", t);
+            })["finally"](function () {
+              e.upgradeAdProcessing = !1, e.refreshIfVisible();
+            }));
+          }, e.activateProbabilityBoost10 = function () {
+            e.activateProbabilityBoost(10);
+          }, e.activateProbabilityBoost5 = function () {
+            e.activateProbabilityBoost(5);
+          }, e.refreshIfVisible = function () {
+            var t;
+            null != (t = e.page) && t.active && e.refreshPage(++e.renderVersion);
+          }, e;
+        }
+        e(o, t);
+        var r = o.prototype;
+        return r.onLoad = function () {
+          this.resolveHierarchy(), this.page ? (S(this.page), this.page.active = !1) : console.error("[RecruitmentProbabilityController] 招募概率弹窗不存在。");
+        }, r.onEnable = function () {
+          var t, e, i, n;
+          this.resolveHierarchy(), null == (t = this.closeButton) || t.node.on(l.EventType.CLICK, this.closePage, this), null == (e = this.upgradeButton) || e.node.on(l.EventType.CLICK, this.activateLowestQualityProtection, this), null == (i = this.probabilityBoost10Button) || i.node.on(l.EventType.CLICK, this.activateProbabilityBoost10, this), null == (n = this.probabilityBoost5Button) || n.node.on(l.EventType.CLICK, this.activateProbabilityBoost5, this), h.on(f, this.refreshIfVisible, this), h.on(d, this.refreshIfVisible, this), h.on(b, this.refreshIfVisible, this), h.on(g, this.refreshIfVisible, this), h.on(y, this.refreshIfVisible, this), H.on(Q, this.refreshIfVisible, this);
+        }, r.onDisable = function () {
+          var t, e, i, n;
+          null == (t = this.closeButton) || t.node.off(l.EventType.CLICK, this.closePage, this), null == (e = this.upgradeButton) || e.node.off(l.EventType.CLICK, this.activateLowestQualityProtection, this), null == (i = this.probabilityBoost10Button) || i.node.off(l.EventType.CLICK, this.activateProbabilityBoost10, this), null == (n = this.probabilityBoost5Button) || n.node.off(l.EventType.CLICK, this.activateProbabilityBoost5, this), h.off(f, this.refreshIfVisible, this), h.off(d, this.refreshIfVisible, this), h.off(b, this.refreshIfVisible, this), h.off(g, this.refreshIfVisible, this), h.off(y, this.refreshIfVisible, this), H.off(Q, this.refreshIfVisible, this);
+        }, r.activateProbabilityBoost = function () {
+          var t = n( /*#__PURE__*/_regeneratorRuntime().mark(function _callee61(t) {
+            return _regeneratorRuntime().wrap(function _callee61$(_context64) {
+              while (1) switch (_context64.prev = _context64.next) {
+                case 0:
+                  if (this.probabilityBoostAdProcessing) {
+                    _context64.next = 16;
+                    break;
+                  }
+                  this.probabilityBoostAdProcessing = !0, this.refreshProbabilityBoostButtons();
+                  _context64.prev = 2;
+                  _context64.next = 5;
+                  return M();
+                case 5:
+                  _context64.t0 = _context64.sent;
+                  if (!_context64.t0) {
+                    _context64.next = 8;
+                    break;
+                  }
+                  m(t);
+                case 8:
+                  _context64.next = 13;
+                  break;
+                case 10:
+                  _context64.prev = 10;
+                  _context64.t1 = _context64["catch"](2);
+                  console.error("[RecruitmentProbabilityController] " + t + "%概率加成广告播放失败。", _context64.t1);
+                case 13:
+                  _context64.prev = 13;
+                  this.probabilityBoostAdProcessing = !1, this.refreshProbabilityBoostButtons(), this.refreshIfVisible();
+                  return _context64.finish(13);
+                case 16:
+                case "end":
+                  return _context64.stop();
+              }
+            }, _callee61, this, [[2, 10, 13, 16]]);
+          }));
+          return function (e) {
+            return t.apply(this, arguments);
+          };
+        }(), r.refreshPage = function () {
+          var t = n( /*#__PURE__*/_regeneratorRuntime().mark(function _callee63(t) {
+            var e, i, o, r, l, a, s, u, c, h, f, d, b, g, y, v, B;
+            return _regeneratorRuntime().wrap(function _callee63$(_context66) {
+              while (1) switch (_context66.prev = _context66.next) {
+                case 0:
+                  e = this;
+                  _context66.prev = 1;
+                  _context66.next = 4;
+                  return Promise.all([this.loadConfig(), C()]);
+                case 4:
+                  l = _context66.sent;
+                  a = l[0];
+                  s = l[1];
+                  if (!(t !== this.renderVersion || null == (i = this.page) || !i.active)) {
+                    _context66.next = 9;
+                    break;
+                  }
+                  return _context66.abrupt("return");
+                case 9:
+                  u = null != (o = null == (r = x.instance) || null == (r = r.getSnapshot()) ? void 0 : r.marketValueLevel) ? o : D(), c = V(a, u, P());
+                  if (c) {
+                    _context66.next = 12;
+                    break;
+                  }
+                  throw new Error("缺少球队等级 " + u + " 的招募配置。");
+                case 12:
+                  h = this.buildDisplayQualities(a, c, s.scoutingDirectorHighestQualityWeightBonus, E()), f = this.toPercentBasisPoints(h.map(function (t) {
+                    return t.finalWeight;
+                  })), d = T().scoutingDirector, b = h.reduce(function (t, e) {
+                    return t + e.baseWeight;
+                  }, 0), g = h.reduce(function (t, e) {
+                    return t + e.finalWeight;
+                  }, 0), y = h[h.length - 1], v = y && b > 0 ? y.baseWeight / b * 100 : 0, B = y && g > 0 ? y.finalWeight / g * 100 : 0;
+                  this.setLabel("球探加成/球探等级", "球探 Lv." + d);
+                  this.setLabel("球探加成/概率加成", "最高品质概率 +" + Math.max(0, B - v).toFixed(2) + "%");
+                  this.setLabel("五档品质概率/品质5/广告保底", G("广告保底 " + I() + "/" + A));
+                  this.setLabel("五档品质概率/品质3/广告加成10%", p(10) + "+10抽概率加10%");
+                  this.setLabel("五档品质概率/品质4/广告加成5%", p(5) + "+10抽概率加5%");
+                  this.refreshProbabilityBoostButtons();
+                  this.upgradeButton && (this.upgradeButton.interactable = !this.upgradeAdProcessing);
+                  _context66.next = 22;
+                  return Promise.all(this.rows.map(n( /*#__PURE__*/_regeneratorRuntime().mark(function _callee62(i, n) {
+                    var o, r, l, a, s;
+                    return _regeneratorRuntime().wrap(function _callee62$(_context65) {
+                      while (1) switch (_context65.prev = _context65.next) {
+                        case 0:
+                          r = h[n];
+                          if (!(i.root.active = Boolean(r), r)) {
+                            _context65.next = 8;
+                            break;
+                          }
+                          a = e.getQualityColor(r.qualityId);
+                          if (i.qualityLabel && (i.qualityLabel.string = r.qualityName, i.qualityLabel.color = a), i.probabilityLabel) i.probabilityLabel.string = ((null != (l = f[n]) ? l : 0) / 100).toFixed(2) + "%", i.probabilityLabel.color = a;
+                          _context65.next = 6;
+                          return _(r.qualityId);
+                        case 6:
+                          s = _context65.sent;
+                          t === e.renderVersion && null != (o = e.page) && o.active && s && i.frame && (i.frame.spriteFrame = s);
+                        case 8:
+                        case "end":
+                          return _context65.stop();
+                      }
+                    }, _callee62);
+                  }))));
+                case 22:
+                  _context66.next = 27;
+                  break;
+                case 24:
+                  _context66.prev = 24;
+                  _context66.t0 = _context66["catch"](1);
+                  console.error("[RecruitmentProbabilityController] 刷新招募概率失败。", _context66.t0);
+                case 27:
+                case "end":
+                  return _context66.stop();
+              }
+            }, _callee63, this, [[1, 24]]);
+          }));
+          return function (e) {
+            return t.apply(this, arguments);
+          };
+        }(), r.buildDisplayQualities = function (t, e, i, n) {
+          var o = R(t, e, i, n, p(10) > 0, p(5) > 0),
+            r = new Set(e.recruitableQualityIds);
+          return t.qualities.flatMap(function (t, i) {
+            var n,
+              l = Math.max(0, Number(e.baseWeights[i]) || 0);
+            return l <= 0 || r && !r.has(t.qualityId) ? [] : [{
+              qualityId: t.qualityId,
+              qualityName: t.qualityName,
+              baseWeight: l,
+              finalWeight: Math.max(0, null != (n = o[i]) ? n : 0)
+            }];
+          }).slice(0, 5);
+        }, r.toPercentBasisPoints = function (t) {
+          var e = t.reduce(function (t, e) {
+            return t + Math.max(0, e);
+          }, 0);
+          if (e <= 0) return t.map(function () {
+            return 0;
+          });
+          for (var i = t.map(function (t) {
+              return Math.max(0, t) / e * 1e4;
+            }), n = i.map(Math.floor), o = 1e4 - n.reduce(function (t, e) {
+              return t + e;
+            }, 0), r = i.map(function (t, e) {
+              return {
+                index: e,
+                fraction: t - Math.floor(t)
+              };
+            }).sort(function (t, e) {
+              return e.fraction - t.fraction || t.index - e.index;
+            }), l = 0; l < o; l += 1) n[r[l % r.length].index] += 1;
+          return n;
+        }, r.loadConfig = function () {
+          return null != this.configPromise || (this.configPromise = v("data/balance/recruitment_probability")), this.configPromise;
+        }, r.resolveHierarchy = function () {
+          var t,
+            e,
+            i,
+            n,
+            o,
+            r,
+            u,
+            c,
+            h,
+            f,
+            d,
+            b,
+            g,
+            y,
+            p,
+            v = this.node.parent;
+          this.page = null != (t = null != (e = null == v ? void 0 : v.getChildByName("招募概率弹窗")) ? e : null == v ? void 0 : v.getChildByName("招募概率")) ? t : null, this.closeButton = null != (i = null == (n = this.page) || null == (n = n.getChildByName("关闭")) ? void 0 : n.getComponent(l)) ? i : null;
+          var B = null != (o = null != (r = null == (u = this.page) ? void 0 : u.getChildByName("无最低品质")) ? r : null == (c = this.page) ? void 0 : c.getChildByName("立刻升级球探")) ? o : null;
+          this.upgradeButton = B ? null != (h = B.getComponent(l)) ? h : B.addComponent(l) : null;
+          var m = null != (f = null == (d = this.page) ? void 0 : d.getChildByName("五档品质概率")) ? f : null;
+          this.probabilityBoost10Button = null != (b = null == m || null == (g = m.getChildByName("品质3")) || null == (g = g.getChildByName("广告加成10%")) ? void 0 : g.getComponentInChildren(l)) ? b : null, this.probabilityBoost5Button = null != (y = null == m || null == (p = m.getChildByName("品质4")) || null == (p = p.getChildByName("广告加成5%")) ? void 0 : p.getComponentInChildren(l)) ? y : null, this.rows = Array.from({
+            length: 5
+          }, function (t, e) {
+            var i,
+              n,
+              o,
+              r,
+              l,
+              u,
+              c,
+              h = null != (i = null == m ? void 0 : m.getChildByName("品质" + (e + 1))) ? i : null;
+            return h ? {
+              root: h,
+              frame: null != (n = null == (o = h.getChildByName("细边框01")) ? void 0 : o.getComponent(a)) ? n : null,
+              qualityLabel: null != (r = null == (l = h.getChildByName("品质")) ? void 0 : l.getComponent(s)) ? r : null,
+              probabilityLabel: null != (u = null == (c = h.getChildByName("概率")) ? void 0 : c.getComponent(s)) ? u : null
+            } : null;
+          }).filter(function (t) {
+            return Boolean(t);
+          });
+        }, r.refreshProbabilityBoostButtons = function () {
+          var t = !this.probabilityBoostAdProcessing;
+          this.probabilityBoost10Button && (this.probabilityBoost10Button.interactable = t), this.probabilityBoost5Button && (this.probabilityBoost5Button.interactable = t);
+        }, r.getQualityColor = function (t) {
+          switch (w(t)) {
+            case 0:
+              return new u(218, 142, 82, 255);
+            case 1:
+              return new u(221, 234, 240, 255);
+            case 2:
+              return new u(255, 204, 32, 255);
+            case 3:
+              return new u(42, 226, 76, 255);
+            case 4:
+              return new u(40, 139, 255, 255);
+            case 5:
+              return new u(255, 42, 58, 255);
+            case 6:
+              return new u(180, 52, 255, 255);
+            case 7:
+              return new u(142, 216, 255, 255);
+            case 8:
+              return new u(255, 67, 159, 255);
+            case 9:
+              return new u(235, 224, 255, 255);
+            case 10:
+              return new u(42, 232, 244, 255);
+            case 11:
+              return new u(104, 202, 255, 255);
+            case 12:
+              return new u(255, 215, 64, 255);
+            default:
+              return new u(255, 255, 255, 255);
+          }
+        }, r.setLabel = function (t, e) {
+          var i,
+            n = null == (i = this.findByPath(this.page, t)) ? void 0 : i.getComponent(s);
+          n && (n.string = e);
+        }, r.bringToFront = function (t) {
+          t.parent && t.setSiblingIndex(t.parent.children.length - 1), t.active = !0;
+        }, r.namedChildren = function (t, e) {
+          return e.flatMap(function (e) {
+            var i = t.getChildByName(e);
+            return i ? [i] : [];
+          });
+        }, r.findByPath = function (t, e) {
+          for (var n, o = t, r = i(e.split("/")); !(n = r()).done;) {
+            var l,
+              a,
+              s = n.value;
+            if (!(o = null != (l = null == (a = o) ? void 0 : a.getChildByName(s)) ? l : null)) return null;
+          }
+          return o;
+        }, o;
+      }(c)) || q);
+      o._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/RecruitmentProgression.ts", ["cc"], function (t) {
+  var n;
+  return {
+    setters: [function (t) {
+      n = t.cclegacy;
+    }],
+    execute: function execute() {
+      t({
+        resolveOpponentQualityWeights: function resolveOpponentQualityWeights(t, n) {
+          var r = i(t, n);
+          if (!r) return null;
+          var l = t.qualityWindows.findIndex(function (t) {
+              return t.levelStart === r.qualityWindow.levelStart && t.levelEnd === r.qualityWindow.levelEnd;
+            }),
+            o = function (t, n, i) {
+              var e = 0 === i ? Math.max(1, t.levelStart) : t.levelStart,
+                a = Math.max(0, t.levelEnd - e);
+              if (a <= 0) return 0;
+              return Math.max(0, Math.min(1, (n - e) / a));
+            }(r.qualityWindow, n, l),
+            d = l > 0 ? t.qualityWindows[l - 1] : null,
+            c = a(r.qualityWindow.baseWeights, l),
+            h = d ? function (t, n, i) {
+              var e = t.qualityWindows[n],
+                u = t.qualities.filter(function (t) {
+                  return t.qualityId >= e.lowestQualityId && t.qualityId <= e.highestQualityId;
+                }).map(function (t) {
+                  return t.qualityId;
+                }),
+                r = a(e.baseWeights, n),
+                l = Array(i.length).fill(0);
+              return u.forEach(function (t, n) {
+                var e,
+                  a = i.indexOf(t);
+                a >= 0 && (l[a] += Math.max(0, null != (e = r[n]) ? e : 0));
+              }), l;
+            }(t, l - 1, r.recruitableQualityIds) : r.qualityWindow.baseWeights;
+          return {
+            opponentLevel: n,
+            qualityIds: [].concat(r.recruitableQualityIds),
+            qualityNames: [].concat(r.recruitableQualityNames),
+            weights: 0 === l ? u(c, o) : e(h, c, o)
+          };
+        },
+        resolveRecruitmentQualityWeights: function resolveRecruitmentQualityWeights(t, n, i, e, a, u) {
+          void 0 === a && (a = !1);
+          void 0 === u && (u = !1);
+          var l = n.baseWeights.map(function (t) {
+              return Math.max(0, t);
+            }),
+            o = t.qualities.findIndex(function (t) {
+              return t.qualityId === n.highestUnlockedQualityId;
+            });
+          o >= 0 && (l[o] += Math.max(0, i));
+          var d = t.qualities.map(function (t, n) {
+            return {
+              quality: t,
+              index: n
+            };
+          }).filter(function (t) {
+            var i = t.quality;
+            return n.recruitableQualityIds.includes(i.qualityId);
+          }).sort(function (t, n) {
+            return t.quality.qualityId - n.quality.qualityId;
+          }).map(function (t) {
+            return t.index;
+          });
+          if (e > 0) {
+            var c = d[0],
+              h = d[1];
+            void 0 !== c && void 0 !== h && (l[h] += l[c], l[c] = 0);
+          }
+          a && r(l, d, 2, 10);
+          u && r(l, d, 3, 5);
+          return l;
+        },
+        resolveRecruitmentWindow: i
+      }), n._RF.push({}, "55cbdL2slBBPq9WtitQjVlN", "RecruitmentProgression", void 0);
+      function i(t, n, i) {
+        var a, u;
+        void 0 === i && (i = null);
+        var r = null != (a = t.qualityWindows.find(function (t) {
+          return n >= t.levelStart && n <= t.levelEnd;
+        })) ? a : t.qualityWindows[t.qualityWindows.length - 1];
+        if (!r || 5 !== r.baseWeights.length) return null;
+        var l = t.qualities.filter(function (t) {
+          return t.qualityId >= r.lowestQualityId && t.qualityId <= r.highestQualityId;
+        });
+        if (5 !== l.length) return null;
+        var o = function (t, n) {
+            var i = Math.max(0, t.levelEnd - t.levelStart);
+            if (i <= 0) return 0;
+            return Math.max(0, Math.min(1, (n - t.levelStart) / i));
+          }(r, n),
+          d = e(r.baseWeights, t.withinWindowEndWeights, o),
+          c = Array(t.qualities.length).fill(0);
+        return l.forEach(function (n, i) {
+          var e = t.qualities.findIndex(function (t) {
+            return t.qualityId === n.qualityId;
+          });
+          e >= 0 && (c[e] = Math.max(0, d[i]));
+        }), null != (u = i) && u.infiniteMode && n >= t.endlessGoatProbability.appliesAtTeamLevel && function (t, n, i, e) {
+          var a,
+            u = n.length - 1,
+            r = Math.max(0, null != (a = t[u]) ? a : 0),
+            l = Math.min(100 * e.maximumProbability, r + Math.max(0, i) * e.bonusPerWin * 100),
+            o = t.reduce(function (t, n, i) {
+              return i === u ? t : t + Math.max(0, n);
+            }, 0);
+          if (o > 0) {
+            var d = Math.max(0, 100 - l) / o;
+            t.forEach(function (n, i) {
+              i !== u && (t[i] = Math.max(0, n) * d);
+            });
+          }
+          t[u] = l;
+        }(c, t.qualities, i.infiniteWins, t.endlessGoatProbability), {
+          level: n,
+          qualityWindow: r,
+          baseWeights: c,
+          recruitableQualityIds: l.map(function (t) {
+            return t.qualityId;
+          }),
+          recruitableQualityNames: l.map(function (t) {
+            return t.qualityName;
+          }),
+          highestUnlockedQualityId: l[l.length - 1].qualityId,
+          highestUnlockedQualityName: l[l.length - 1].qualityName
+        };
+      }
+      function e(t, n, i) {
+        return !n || n.length !== t.length || i <= 0 ? t.map(function (t) {
+          return Math.max(0, t);
+        }) : t.map(function (t, e) {
+          var a = Math.max(0, t);
+          return a + (Math.max(0, n[e]) - a) * i;
+        });
+      }
+      function a(t, n) {
+        var i = Array(t.length).fill(0),
+          e = t.reduce(function (t, n) {
+            return t + Math.max(0, n);
+          }, 0),
+          a = t.length - 1,
+          u = Math.max(0, a - 1),
+          r = function (t) {
+            if (t < 2) return 6;
+            if (t < 6) return 9;
+            return 11;
+          }(n) / 12;
+        return i[u] = e * (1 - r), i[a] += e * r, i;
+      }
+      function u(t, n) {
+        var i = t.reduce(function (t, n) {
+            return t + Math.max(0, n);
+          }, 0),
+          e = (i > 0 ? t.reduce(function (t, n, i) {
+            return t + Math.max(0, n) * i;
+          }, 0) / i : 0) * Math.max(0, Math.min(1, n)),
+          a = Math.floor(e),
+          u = Math.min(t.length - 1, a + 1),
+          r = Array(t.length).fill(0),
+          l = e - a;
+        return r[a] = i * (1 - l), r[u] += i * l, r;
+      }
+      function r(t, n, i, e) {
+        var a,
+          u = n[i],
+          r = n.find(function (n) {
+            var i;
+            return Math.max(0, null != (i = t[n]) ? i : 0) > 0;
+          });
+        if (void 0 !== u && void 0 !== r && u !== r) {
+          var l = t.reduce(function (t, n) {
+              return t + Math.max(0, n);
+            }, 0),
+            o = Math.min(Math.max(0, null != (a = t[r]) ? a : 0), l * Math.max(0, e) / 100);
+          t[r] -= o, t[u] += o;
+        }
+      }
+      n._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/RecruitmentRules.ts", ["cc"], function (e) {
+  var t;
+  return {
+    setters: [function (e) {
+      t = e.cclegacy;
+    }],
+    execute: function execute() {
+      e("evaluateRecruitmentResult", function (e) {
+        var t = e.findIndex(function (e) {
+          return null === e;
+        });
+        if (t >= 0) return {
+          mode: "empty-slot",
+          targetIndex: t
+        };
+        for (var n = -1, r = Number.POSITIVE_INFINITY, u = 0; u < e.length; u += 1) {
+          var c = e[u];
+          null !== c && c < r && (r = c, n = u);
+        }
+        if (n >= 0) return {
+          mode: "replace",
+          targetIndex: n
+        };
+        return {
+          mode: "dismiss-only",
+          targetIndex: null
+        };
+      }), t._RF.push({}, "521c56ZzN9J6aOCNRf0pr52", "RecruitmentRules", void 0), t._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/RewardedAdService.ts", ["./rollupPluginModLoBabelHelpers.js", "cc", "./GameAudio.ts", "./GameState.ts"], function (e) {
+  var n, r, o, a, t, l, i, d, u, c;
+  return {
+    setters: [function (e) {
+      n = e.asyncToGenerator;
+    }, function (e) {
+      r = e.cclegacy, o = e.Label, a = e.RichText, t = e.Button, l = e.Sprite;
+    }, function (e) {
+      i = e.gameAudio;
+    }, function (e) {
+      d = e.recordRewardedAdForRecruitmentPity, u = e.gameStateEvents, c = e.GAME_STATE_EVENT_REWARDED_AD_COMPLETED;
+    }],
+    execute: function execute() {
+      e({
+        applyWechatShareCopy: function applyWechatShareCopy(e) {
+          if (!e || !S()) return;
+          var n = [e];
+          for (; n.length > 0;) {
+            var r = n.pop(),
+              t = r.getComponent(o);
+            t && (t.string = y(t.string));
+            var l = r.getComponent(a);
+            l && (l.string = y(l.string)), C(r), n.push.apply(n, r.children);
+          }
+        },
+        configureRewardedAdUnitIds: function configureRewardedAdUnitIds(e) {
+          s.wechat = e.wechat.trim(), s.tapTap = e.tapTap.trim();
+        },
+        initializeWechatShareCapabilities: A,
+        isWechatSharePlatform: S,
+        showRewardedVideo: function showRewardedVideo(e) {
+          return R.apply(this, arguments);
+        },
+        toRewardedActionCopy: y
+      }), r._RF.push({}, "7be17VhhtdCzqhHHSILxWhy", "RewardedAdService", void 0);
+      var s = {
+          wechat: "",
+          tapTap: ""
+        },
+        f = null,
+        h = null,
+        p = !1,
+        v = "我正在打造自己的篮球王朝，快来一起组建梦之队！",
+        w = function w() {
+          return E("menu_share");
+        },
+        m = function m() {
+          return E("timeline_share");
+        },
+        g = function g() {
+          return {
+            query: "from=copy_link"
+          };
+        };
+      function S() {
+        var e = globalThis;
+        return !e.tap && Boolean(e.wx);
+      }
+      function A() {
+        var e, n, r;
+        if (S()) {
+          var o = globalThis.wx;
+          h !== o && (null == (e = h) || null == e.offShareAppMessage || e.offShareAppMessage(w), null == (n = h) || null == n.offShareTimeline || n.offShareTimeline(m), null == (r = h) || null == r.offCopyUrl || r.offCopyUrl(g), h = o, null == o.showShareMenu || o.showShareMenu({
+            menus: ["shareAppMessage", "shareTimeline"],
+            success: function success() {
+              return console.log("[RewardedAdService] WeChat share menu enabled.");
+            },
+            fail: function fail(e) {
+              return console.warn("[RewardedAdService] Failed to enable WeChat share menu.", e);
+            }
+          }), null == o.onShareAppMessage || o.onShareAppMessage(w), null == o.onShareTimeline || o.onShareTimeline(m), null == o.onCopyUrl || o.onCopyUrl(g));
+        }
+      }
+      function y(e) {
+        return S() ? e.replace(/观看广告/g, "分享").replace(/看广告/g, "分享").replace(/广告/g, "分享") : e;
+      }
+      function C(e) {
+        var n,
+          r,
+          a,
+          i,
+          d,
+          u,
+          c,
+          s = ("看广告" === e.name || "广告" === e.name) && !e.getComponent(t);
+        if (!s || "分享" !== (null == (n = e.getComponent(o)) ? void 0 : n.string)) {
+          var f = null != (r = e.getChildByName("看广告")) ? r : e.getChildByName("广告"),
+            h = f && !f.getComponent(t) ? f : null,
+            p = null != h ? h : s ? e : null;
+          if (p) {
+            var v = p.getComponent(l);
+            if (v) {
+              var w = h ? e : e.parent,
+                m = null != (a = null == w ? void 0 : w.children.map(function (e) {
+                  return e.getComponent(o);
+                }).find(function (e) {
+                  return Boolean(e) && !/数值|预算/.test(e.node.name);
+                })) ? a : null;
+              v.enabled = !1, p.active = !0;
+              var g = null != (i = p.getComponent(o)) ? i : p.addComponent(o);
+              g.string = "分享", g.font = null != (d = null == m ? void 0 : m.font) ? d : null, m && (g.color = m.color), g.fontSize = Math.min(null != (u = null == m ? void 0 : m.fontSize) ? u : 48, 48), g.lineHeight = Math.min(null != (c = null == m ? void 0 : m.lineHeight) ? c : 60, 60), g.horizontalAlign = o.HorizontalAlign.CENTER, g.verticalAlign = o.VerticalAlign.CENTER, g.overflow = o.Overflow.SHRINK;
+            }
+          }
+        }
+      }
+      function R() {
+        return (R = n( /*#__PURE__*/_regeneratorRuntime().mark(function _callee65(e) {
+          var r, o, a, t, l, i, d;
+          return _regeneratorRuntime().wrap(function _callee65$(_context68) {
+            while (1) switch (_context68.prev = _context68.next) {
+              case 0:
+                void 0 === e && (e = s);
+                o = globalThis;
+                if (!S()) {
+                  _context68.next = 14;
+                  break;
+                }
+                if (!p) {
+                  _context68.next = 5;
+                  break;
+                }
+                return _context68.abrupt("return", (console.warn("[RewardedAdService] A rewarded share is already active."), !1));
+              case 5:
+                p = !0;
+                _context68.prev = 6;
+                _context68.next = 9;
+                return T(o.wx);
+              case 9:
+                a = _context68.sent;
+                return _context68.abrupt("return", (a && b(), a));
+              case 11:
+                _context68.prev = 11;
+                p = !1;
+                return _context68.finish(11);
+              case 14:
+                l = null != (r = o.tap) && r.createRewardedVideoAd ? "tapTap" : null, i = "tapTap" === l ? o.tap : null, d = l ? e[l].trim() : "";
+                if (!(!l || !i || !d)) {
+                  _context68.next = 17;
+                  break;
+                }
+                return _context68.abrupt("return", (console.error("[RewardedAdService] Missing rewarded-video platform or ad unit ID."), !1));
+              case 17:
+                if (!p) {
+                  _context68.next = 19;
+                  break;
+                }
+                return _context68.abrupt("return", (console.warn("[RewardedAdService] A rewarded video is already showing."), !1));
+              case 19:
+                _context68.prev = 19;
+                t = M(l, i, d);
+                _context68.next = 26;
+                break;
+              case 23:
+                _context68.prev = 23;
+                _context68.t0 = _context68["catch"](19);
+                return _context68.abrupt("return", (console.error("[RewardedAdService] Failed to create rewarded video.", _context68.t0), !1));
+              case 26:
+                p = !0;
+                _context68.prev = 27;
+                _context68.next = 30;
+                return new Promise(function (e) {
+                  var r = !1,
+                    o = function o(n) {
+                      r || (r = !0, null == t.offClose || t.offClose(a), null == t.offError || t.offError(l), n && b(), e(n));
+                    },
+                    a = function a(e) {
+                      o(!0 === (null == e ? void 0 : e.isEnded));
+                    },
+                    l = function l(e) {
+                      console.error("[RewardedAdService] Rewarded video error.", e), o(!1);
+                    };
+                  t.onClose(a), null == t.onError || t.onError(l), Promise.resolve().then(function () {
+                    return t.show();
+                  })["catch"](n( /*#__PURE__*/_regeneratorRuntime().mark(function _callee64() {
+                    return _regeneratorRuntime().wrap(function _callee64$(_context67) {
+                      while (1) switch (_context67.prev = _context67.next) {
+                        case 0:
+                          if (r) {
+                            _context67.next = 13;
+                            break;
+                          }
+                          _context67.prev = 1;
+                          _context67.next = 4;
+                          return null == t.load ? void 0 : t.load();
+                        case 4:
+                          _context67.t0 = r;
+                          if (_context67.t0) {
+                            _context67.next = 8;
+                            break;
+                          }
+                          _context67.next = 8;
+                          return t.show();
+                        case 8:
+                          _context67.next = 13;
+                          break;
+                        case 10:
+                          _context67.prev = 10;
+                          _context67.t1 = _context67["catch"](1);
+                          console.error("[RewardedAdService] Failed to show rewarded video.", _context67.t1), o(!1);
+                        case 13:
+                        case "end":
+                          return _context67.stop();
+                      }
+                    }, _callee64, null, [[1, 10]]);
+                  })));
+                });
+              case 30:
+                return _context68.abrupt("return", _context68.sent);
+              case 31:
+                _context68.prev = 31;
+                p = !1;
+                return _context68.finish(31);
+              case 34:
+              case "end":
+                return _context68.stop();
+            }
+          }, _callee65, null, [[6,, 11, 14], [19, 23], [27,, 31, 34]]);
+        }))).apply(this, arguments);
+      }
+      function T(e) {
+        return A(), e.shareAppMessage && e.onHide && e.onShow ? new Promise(function (n) {
+          var r = null,
+            o = !1,
+            a = function a(r) {
+              o || (o = !0, null == e.offHide || e.offHide(t), null == e.offShow || e.offShow(l), n(r));
+            },
+            t = function t() {
+              r = Date.now();
+            },
+            l = function l() {
+              if (null !== r) {
+                var e = Date.now() - r,
+                  n = e >= 2e3;
+                console.log("[RewardedAdService] WeChat share returned after " + e + "ms: " + (n ? "completed" : "incomplete") + "."), a(n);
+              }
+            };
+          e.onHide(t), e.onShow(l);
+          try {
+            e.shareAppMessage({
+              title: v,
+              query: "from=reward_share"
+            });
+          } catch (e) {
+            console.error("[RewardedAdService] Failed to open WeChat share.", e), a(!1);
+          }
+        }) : (console.error("[RewardedAdService] WeChat share API is unavailable."), Promise.resolve(!1));
+      }
+      function E(e) {
+        return {
+          title: v,
+          query: "from=" + e
+        };
+      }
+      function M(e, n, r) {
+        var o, a;
+        if ((null == (o = f) ? void 0 : o.platform) === n && f.adUnitId === r) return f.ad;
+        null == (a = f) || null == a.ad.destroy || a.ad.destroy();
+        var t = {
+          adUnitId: r
+        };
+        "wechat" === e && (t.disableFallbackSharePage = !0);
+        var l = n.createRewardedVideoAd(t);
+        return f = {
+          platform: n,
+          adUnitId: r,
+          ad: l
+        }, l;
+      }
+      function b() {
+        d(), i.playAdSuccess(), u.emit(c);
+      }
+      r._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/RosterSlotView.ts", ["./rollupPluginModLoBabelHelpers.js", "cc", "./NumberGrowthAnimator.ts"], function (e) {
+  var t, n, i, r, l, o, a, s, u, c, h, v, w, d, p, y, m, g, f, P, I, b;
+  return {
+    setters: [function (e) {
+      t = e.applyDecoratedDescriptor, n = e.inheritsLoose, i = e.initializerDefineProperty, r = e.assertThisInitialized, l = e.createForOfIteratorHelperLoose;
+    }, function (e) {
+      o = e.cclegacy, a = e._decorator, s = e.Sprite, u = e.Label, c = e.Button, h = e.Vec3, v = e.Vec4, w = e.resources, d = e.SpriteFrame, p = e.EffectAsset, y = e.UITransform, m = e.Material, g = e.Color, f = e.tween, P = e.Component;
+    }, function (e) {
+      I = e.setGrowingNumber, b = e.forgetGrowingNumber;
+    }],
+    execute: function execute() {
+      var G, M, S, q, N, F, B, C, R, V, O, E, x, L, T;
+      e({
+        formatPlayerOverall: D,
+        getQualityFrameIndex: K,
+        parsePlayerOverall: Y
+      }), o._RF.push({}, "ebbccrCq6dGYarF+ncSCuhy", "RosterSlotView", void 0);
+      var z = a.ccclass,
+        k = a.property,
+        H = "effects/slot-new-player-sweep",
+        Q = 1.2,
+        U = [{
+          divisor: 1e3,
+          suffix: "K"
+        }, {
+          divisor: 1e6,
+          suffix: "M"
+        }, {
+          divisor: 1e9,
+          suffix: "B"
+        }, {
+          divisor: 1e12,
+          suffix: "T"
+        }, {
+          divisor: 1e15,
+          suffix: "Q"
+        }],
+        _ = {
+          K: 1e3,
+          M: 1e6,
+          B: 1e9,
+          T: 1e12,
+          Q: 1e15
+        },
+        A = {
+          3: 0,
+          4: 1,
+          5: 2,
+          6: 3,
+          7: 4,
+          8: 5,
+          9: 6,
+          10: 7,
+          11: 8,
+          12: 9,
+          13: 10,
+          14: 11,
+          15: 12,
+          16: 13
+        };
+      function D(e) {
+        var t = Math.max(0, Math.round(Number.isFinite(e) ? e : 0));
+        if (t < 1e4) return String(t);
+        for (var n = 0; n + 1 < U.length && t >= U[n + 1].divisor;) n += 1;
+        var i = U[n],
+          r = t / i.divisor;
+        return n + 1 < U.length && Number(r.toFixed(2)) >= 1e3 && (r = t / (i = U[n + 1]).divisor), "" + r.toFixed(2) + i.suffix;
+      }
+      function K(e) {
+        var t,
+          n = Math.floor(Number.isFinite(e) ? e : 0);
+        return null != (t = A[n]) ? t : 0;
+      }
+      function Y(e) {
+        var t = e.trim().toUpperCase().match(/^(\d+(?:\.\d+)?)\s*([KMBTQ]?)$/);
+        if (!t) return 0;
+        var n = Number(t[1]),
+          i = t[2] ? _[t[2]] : 1;
+        return Math.max(0, Math.round(n * i));
+      }
+      e("RosterSlotView", (G = z("RosterSlotView"), M = k(s), S = k(s), q = k(u), N = k(s), F = k(c), B = k(c), G((V = t((R = function (e) {
+        function t() {
+          for (var t, n = arguments.length, l = new Array(n), o = 0; o < n; o++) l[o] = arguments[o];
+          return t = e.call.apply(e, [this].concat(l)) || this, i(t, "qualityBackground", V, r(t)), i(t, "portrait", O, r(t)), i(t, "ovrLabel", E, r(t)), i(t, "qualityFrame", x, r(t)), i(t, "selectButton", L, r(t)), i(t, "eventButton", T, r(t)), t.qualityFrameRequestVersion = 0, t.newPlayerGlowRequestVersion = 0, t.newPlayerGlowBindings = [], t.newPlayerGlowSweepElapsed = 0, t.newPlayerGlowCompletedSweeps = 0, t.eventIconRequestVersion = 0, t.eventIcon = null, t.eventNode = null, t.eventIconOriginalMaterial = null, t.eventIconGlowMaterial = null, t.eventIconGlowElapsed = 0, t.eventIconOriginalScale = new h(1, 1, 1), t.eventIconPulseTween = null, t.currentOverall = 0, t;
+        }
+        n(t, e);
+        var o = t.prototype;
+        return o.onLoad = function () {
+          var e,
+            t,
+            n,
+            i,
+            r,
+            l,
+            o,
+            a,
+            h,
+            v,
+            w,
+            d,
+            p = null != (e = this.node.getChildByName("背景")) ? e : this.node.getChildByName("Background"),
+            y = null != (t = this.node.getChildByName("头像")) ? t : this.node.getChildByName("Portrait"),
+            m = null != (n = this.node.getChildByName("ovr")) ? n : this.node.getChildByName("OVR"),
+            g = null != (i = this.node.getChildByName("边框")) ? i : this.node.getChildByName("QualityFrame"),
+            f = this.node.getChildByName("事件");
+          null != this.qualityBackground || (this.qualityBackground = null != (r = null == p ? void 0 : p.getComponent(s)) ? r : null), null != this.portrait || (this.portrait = null != (l = null == y ? void 0 : y.getComponent(s)) ? l : null), null != this.ovrLabel || (this.ovrLabel = null != (o = null == m ? void 0 : m.getComponent(u)) ? o : null), null != this.qualityFrame || (this.qualityFrame = null != (a = null == g ? void 0 : g.getComponent(s)) ? a : this.node.getComponent(s)), null != this.selectButton || (this.selectButton = null != (h = null == g ? void 0 : g.getComponent(c)) ? h : this.node.getComponent(c)), this.eventNode = null != f ? f : null, this.eventIcon = null != (v = null == f ? void 0 : f.getComponent(s)) ? v : null, null != this.eventButton || (this.eventButton = null != (w = null != (d = null == f ? void 0 : f.getComponent(c)) ? d : null == f ? void 0 : f.addComponent(c)) ? w : null), this.eventNode && (this.eventNode.active = !1), this.currentOverall = this.ovrLabel ? Y(this.ovrLabel.string) : 0, this.qualityFrame || console.error("[RosterSlotView] Missing quality frame Sprite.", this.node.name);
+        }, o.onDestroy = function () {
+          this.qualityFrameRequestVersion += 1, this.newPlayerGlowRequestVersion += 1, this.eventIconRequestVersion += 1, this.clearNewPlayerHighlight(), this.clearEventIcon();
+        }, o.update = function (e) {
+          this.updateNewPlayerHighlight(e), this.eventIconGlowMaterial && (this.eventIconGlowElapsed += Math.max(0, e), this.eventIconGlowMaterial.setProperty("timingParams", new v(this.eventIconGlowElapsed, 0, 0, 0)));
+        }, o.updateNewPlayerHighlight = function (e) {
+          if (0 !== this.newPlayerGlowBindings.length) {
+            for (var t = Math.max(0, e); t > 0;) {
+              var n = .7 - this.newPlayerGlowSweepElapsed;
+              if (t < n) {
+                this.newPlayerGlowSweepElapsed += t;
+                break;
+              }
+              if (t -= n, this.newPlayerGlowSweepElapsed = 0, this.newPlayerGlowCompletedSweeps += 1, this.newPlayerGlowCompletedSweeps >= 3) return void this.clearNewPlayerHighlight();
+            }
+            for (var i, r = l(this.newPlayerGlowBindings); !(i = r()).done;) {
+              i.value.glowMaterial.setProperty("timingParams", new v(this.newPlayerGlowSweepElapsed, 0, 0, 0));
+            }
+          }
+        }, o.setup = function (e, t, n) {
+          void 0 === t && (t = 3), this.setOverall(e), this.setQuality(t), void 0 !== n && this.setPortrait(n);
+        }, o.setOverall = function (e) {
+          var t = this.currentOverall;
+          this.currentOverall = Math.max(0, Math.round(Number.isFinite(e) ? e : 0)), I(this.ovrLabel, this.currentOverall, function (e) {
+            return D(Math.floor(e)).replace(/\.\d+(?=[KBTQ]$)/, "");
+          }, {
+            animateGrowth: t > 0 && this.currentOverall > t,
+            from: t
+          });
+        }, o.getOverall = function () {
+          return this.currentOverall;
+        }, o.setPortrait = function (e) {
+          this.portrait && (this.portrait.spriteFrame = e);
+        }, o.setQuality = function (e) {
+          var t = this,
+            n = K(e),
+            i = String(n).padStart(2, "0"),
+            r = "images/UI/球员/头像框-方/头像框" + i + "-方/spriteFrame",
+            l = "images/UI/球员/招募背景/招募背景" + i + "/spriteFrame",
+            o = ++this.qualityFrameRequestVersion;
+          w.load(r, d, function (e, n) {
+            o === t.qualityFrameRequestVersion && t.qualityFrame && (!e && n ? t.qualityFrame.spriteFrame = n : console.error("[RosterSlotView] Failed to load quality frame: " + r, e));
+          }), w.load(l, d, function (e, n) {
+            o === t.qualityFrameRequestVersion && t.qualityBackground && (!e && n ? t.qualityBackground.spriteFrame = n : console.error("[RosterSlotView] Failed to load quality background: " + l, e));
+          });
+        }, o.playNewPlayerHighlight = function () {
+          var e = this,
+            t = ++this.newPlayerGlowRequestVersion;
+          this.clearNewPlayerHighlight(), w.load(H, p, function (n, i) {
+            if (t === e.newPlayerGlowRequestVersion && e.node.isValid) if (!n && i) {
+              for (var r, o = [], a = l(e.node.getComponentsInChildren(s)); !(r = a()).done;) {
+                var u = r.value,
+                  c = u.node.getComponent(y);
+                if (u.spriteFrame && c) {
+                  var h = new m();
+                  h.initialize({
+                    effectAsset: i,
+                    defines: {
+                      IS_GRAY: !1,
+                      USE_TEXTURE: !0
+                    }
+                  }), h.setProperty("spriteRect", new v(c.width, c.height, c.anchorPoint.x, c.anchorPoint.y)), h.setProperty("shineColor", new g(255, 255, 255, 255)), h.setProperty("sweepParams", new v(.28, .7, .32, 1)), h.setProperty("pulseParams", new v(.3, .5, 0, 0)), h.setProperty("timingParams", new v(0, 0, 0, 0)), o.push({
+                    sprite: u,
+                    originalMaterial: u.customMaterial,
+                    glowMaterial: h
+                  }), u.customMaterial = h;
+                }
+              }
+              e.newPlayerGlowBindings = o, e.newPlayerGlowSweepElapsed = 0, e.newPlayerGlowCompletedSweeps = 0;
+            } else console.warn("[RosterSlotView] New player glow is unavailable.", n);
+          });
+        }, o.setEventIcon = function (e) {
+          var t = this;
+          if (this.eventIconRequestVersion += 1, this.clearEventIcon(), e && this.eventNode && this.eventIcon) {
+            this.eventIcon.spriteFrame = e, this.eventNode.active = !0, this.eventIconOriginalScale.set(this.eventNode.scale.x, this.eventNode.scale.y, this.eventNode.scale.z), this.eventIconPulseTween = f(this.eventNode).to(.6, {
+              scale: new h(1.08 * this.eventIconOriginalScale.x, 1.08 * this.eventIconOriginalScale.y, this.eventIconOriginalScale.z)
+            }, {
+              easing: "sineInOut"
+            }).to(.6, {
+              scale: this.eventIconOriginalScale.clone()
+            }, {
+              easing: "sineInOut"
+            }).union().repeatForever().start();
+            var n = this.eventIconRequestVersion;
+            w.load(H, p, function (e, i) {
+              if (n === t.eventIconRequestVersion && t.eventIcon && t.eventIcon.node.isValid) if (!e && i) {
+                var r = t.eventIcon.node.getComponent(y);
+                if (r && t.eventIcon.spriteFrame) {
+                  var l = new m();
+                  l.initialize({
+                    effectAsset: i,
+                    defines: {
+                      IS_GRAY: !1,
+                      USE_TEXTURE: !0
+                    }
+                  }), l.setProperty("spriteRect", new v(r.width, r.height, r.anchorPoint.x, r.anchorPoint.y)), l.setProperty("shineColor", new g(168, 248, 255, 255)), l.setProperty("sweepParams", new v(.44, Q, .22, .76)), l.setProperty("pulseParams", new v(.62, Q, 0, 0)), l.setProperty("timingParams", new v(0, 0, 0, 0)), t.eventIconOriginalMaterial = t.eventIcon.customMaterial, t.eventIconGlowMaterial = l, t.eventIconGlowElapsed = 0, t.eventIcon.customMaterial = l;
+                }
+              } else console.warn("[RosterSlotView] Event icon glow is unavailable.", e);
+            });
+          }
+        }, o.clear = function () {
+          this.qualityFrameRequestVersion += 1, this.newPlayerGlowRequestVersion += 1, this.eventIconRequestVersion += 1, this.clearNewPlayerHighlight(), this.clearEventIcon(), this.currentOverall = 0, this.ovrLabel && (b(this.ovrLabel), this.ovrLabel.string = ""), this.setPortrait(null), this.setQuality(3);
+        }, o.clearNewPlayerHighlight = function () {
+          for (var e, t = l(this.newPlayerGlowBindings); !(e = t()).done;) {
+            var n = e.value;
+            n.sprite.isValid && n.sprite.customMaterial === n.glowMaterial && (n.sprite.customMaterial = n.originalMaterial), n.glowMaterial.destroy();
+          }
+          this.newPlayerGlowBindings = [], this.newPlayerGlowSweepElapsed = 0, this.newPlayerGlowCompletedSweeps = 0;
+        }, o.clearEventIcon = function () {
+          var e, t, n, i;
+          null == (e = this.eventIconPulseTween) || e.stop(), this.eventIconPulseTween = null, null != (t = this.eventNode) && t.isValid && (this.eventNode.setScale(this.eventIconOriginalScale), this.eventNode.active = !1), null != (n = this.eventIcon) && n.isValid && this.eventIconGlowMaterial && this.eventIcon.customMaterial === this.eventIconGlowMaterial && (this.eventIcon.customMaterial = this.eventIconOriginalMaterial), null == (i = this.eventIconGlowMaterial) || i.destroy(), this.eventIconGlowMaterial = null, this.eventIconOriginalMaterial = null, this.eventIconGlowElapsed = 0, this.eventIcon && (this.eventIcon.spriteFrame = null);
+        }, t;
+      }(P)).prototype, "qualityBackground", [M], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), O = t(R.prototype, "portrait", [S], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), E = t(R.prototype, "ovrLabel", [q], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), x = t(R.prototype, "qualityFrame", [N], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), L = t(R.prototype, "selectButton", [F], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), T = t(R.prototype, "eventButton", [B], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), C = R)) || C));
+      o._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/SeasonRoute.ts", ["cc"], function (e) {
+  var t;
+  return {
+    setters: [function (e) {
+      t = e.cclegacy;
+    }],
+    execute: function execute() {
+      e({
+        formatScheduleLabel: function formatScheduleLabel(e) {
+          var t = o(e);
+          return t.title + " 第" + t.phaseMatchNumber + "场";
+        },
+        getScheduleDescriptor: o
+      }), t._RF.push({}, "c24d6dCy1dHPp1NyQGgLVc3", "SeasonRoute", void 0);
+      e("STANDARD_MATCH_COUNT", 100), e("REGULAR_SEASON_MATCH_COUNT", 82);
+      var a = e("CUP_MATCH_NUMBER", 27),
+        n = e("ALL_STAR_MATCH_NUMBER", 43),
+        u = e("PLAYOFF_START_MATCH_NUMBER", 85),
+        r = e("PLAYOFF_WINS_PER_ROUND", 4);
+      function o(e) {
+        if (e.infiniteMode) return {
+          phase: "concept-endless",
+          title: "无限赛程",
+          phaseMatchNumber: e.infiniteMatchNumber,
+          playoffRound: 4,
+          playoffWinsInRound: 4
+        };
+        if (e.matchNumber === a) return {
+          phase: "cup",
+          title: "季中杯",
+          phaseMatchNumber: 1,
+          playoffRound: 0,
+          playoffWinsInRound: 0
+        };
+        if (e.matchNumber === n) return {
+          phase: "all-star",
+          title: "全明星赛",
+          phaseMatchNumber: 1,
+          playoffRound: 0,
+          playoffWinsInRound: 0
+        };
+        if (e.matchNumber < u) {
+          var t = (e.matchNumber > a ? 1 : 0) + (e.matchNumber > n ? 1 : 0);
+          return {
+            phase: "regular-season",
+            title: "常规赛",
+            phaseMatchNumber: e.matchNumber - t,
+            playoffRound: 0,
+            playoffWinsInRound: 0
+          };
+        }
+        var o = e.matchNumber - u,
+          f = Math.min(4, Math.floor(o / r) + 1);
+        return {
+          phase: "playoffs",
+          title: "季后赛" + ["首轮", "次轮", "分区决赛", "总决赛"][f - 1],
+          phaseMatchNumber: o % r + 1,
+          playoffRound: f,
+          playoffWinsInRound: o % r
+        };
+      }
+      t._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/StarfieldBg.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (t) {
+  var e, i, r, a, n, o, l, s, u, p, c, f, h, d, m;
+  return {
+    setters: [function (t) {
+      e = t.applyDecoratedDescriptor, i = t.inheritsLoose, r = t.initializerDefineProperty, a = t.assertThisInitialized, n = t.asyncToGenerator;
+    }, function (t) {
+      o = t.cclegacy, l = t._decorator, s = t.Color, u = t.Sprite, p = t.Vec4, c = t.Component, f = t.Material, h = t.UITransform, d = t.resources, m = t.EffectAsset;
+    }],
+    execute: function execute() {
+      var _, g, y, b, w, z, v, S, P, M, B, x, F, C, E, L, D, T, q, U, A, R, I;
+      o._RF.push({}, "f5b66iYNgFJo7QhzqXUWtNm", "StarfieldBg", void 0);
+      var N = l.ccclass,
+        V = l.property,
+        X = null,
+        j = null;
+      t("StarfieldBg", (_ = N("StarfieldBg"), g = V({
+        tooltip: "动画速度 -5~5",
+        slide: !0,
+        range: [-5, 5, .1]
+      }), y = V({
+        tooltip: "星星亮度 0~0.5",
+        slide: !0,
+        range: [0, .5, .01]
+      }), b = V({
+        tooltip: "星尘浓度 0~0.25",
+        slide: !0,
+        range: [0, .25, .01]
+      }), w = V({
+        tooltip: "深度衰减 0~1",
+        slide: !0,
+        range: [0, 1, .01]
+      }), z = V({
+        tooltip: "像素化 50~1000, 1000=关闭",
+        slide: !0,
+        range: [50, 1e3, 10]
+      }), v = V({
+        tooltip: "颜色量化 1~256, 256=关闭",
+        slide: !0,
+        range: [1, 256, 1]
+      }), S = V({
+        tooltip: "饱和度 0~1",
+        slide: !0,
+        range: [0, 1, .01]
+      }), P = V({
+        tooltip: "层数 1~9",
+        slide: !0,
+        range: [1, 9, 1]
+      }), M = V({
+        type: s,
+        tooltip: "星尘颜色"
+      }), B = V({
+        tooltip: "星空覆盖强度 0~1",
+        slide: !0,
+        range: [0, 1, .01]
+      }), _((C = e((F = function (t) {
+        function e() {
+          for (var e, i = arguments.length, n = new Array(i), o = 0; o < i; o++) n[o] = arguments[o];
+          return e = t.call.apply(t, [this].concat(n)) || this, r(e, "animSpeed", C, a(e)), r(e, "starBrightness", E, a(e)), r(e, "dust", L, a(e)), r(e, "distFade", D, a(e)), r(e, "pixelation", T, a(e)), r(e, "quantizationLevels", q, a(e)), r(e, "saturation", U, a(e)), r(e, "layers", A, a(e)), r(e, "dustColor", R, a(e)), r(e, "mixFactor", I, a(e)), e._material = null, e._sprite = null, e._destroyed = !1, e;
+        }
+        i(e, t);
+        var o = e.prototype;
+        return o.onLoad = function () {
+          this._sprite = this.node.getComponent(u), this._sprite || console.warn("[StarfieldBg] 未找到 Sprite 组件。");
+        }, o.start = function () {
+          var t = n( /*#__PURE__*/_regeneratorRuntime().mark(function _callee66() {
+            var t, e;
+            return _regeneratorRuntime().wrap(function _callee66$(_context69) {
+              while (1) switch (_context69.prev = _context69.next) {
+                case 0:
+                  if (!this._sprite) {
+                    _context69.next = 5;
+                    break;
+                  }
+                  _context69.next = 3;
+                  return X ? Promise.resolve(X) : j || (j = new Promise(function (t) {
+                    d.load("effects/starfield-2", m, function (e, i) {
+                      if (e || !i) return console.error("[StarfieldBg] Effect load failed.", e), void t(null);
+                      X = i, t(i);
+                    });
+                  }));
+                case 3:
+                  t = _context69.sent;
+                  if (!this._destroyed && t) {
+                    this.cleanupMaterial(), this._material = new f(), this._material.initialize({
+                      effectAsset: t,
+                      defines: {
+                        USE_TEXTURE: !0
+                      }
+                    }), this.syncParams();
+                    e = this.node.getComponent(h);
+                    e && this._material.setProperty("nodeSize", new p(Math.max(e.width, 1), Math.max(e.height, 1), this.mixFactor, 0)), this._sprite.customMaterial = this._material;
+                  }
+                case 5:
+                case "end":
+                  return _context69.stop();
+              }
+            }, _callee66, this);
+          }));
+          return function () {
+            return t.apply(this, arguments);
+          };
+        }(), o.onEnable = function () {
+          this._sprite && this._material && (this._sprite.customMaterial = this._material);
+        }, o.onDisable = function () {
+          this.cleanupMaterial();
+        }, o.onDestroy = function () {
+          this._destroyed = !0, this._material && (this._material.destroy(), this._material = null);
+        }, o.syncParams = function () {
+          if (this._material) {
+            var t = this.dustColor;
+            this._material.setProperty("starParams", new p(this.animSpeed, this.starBrightness, this.dust, this.distFade)), this._material.setProperty("retroParams", new p(this.pixelation, this.quantizationLevels, this.saturation, this.layers)), this._material.setProperty("dustColor", new p(t.r / 255, t.g / 255, t.b / 255, 1));
+          }
+        }, o.cleanupMaterial = function () {
+          this._sprite && this._material && this._sprite.isValid && this._sprite.customMaterial === this._material && (this._sprite.customMaterial = null), this._material && (this._material.destroy(), this._material = null);
+        }, e;
+      }(c)).prototype, "animSpeed", [g], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 0;
+        }
+      }), E = e(F.prototype, "starBrightness", [y], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return .05;
+        }
+      }), L = e(F.prototype, "dust", [b], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return .125;
+        }
+      }), D = e(F.prototype, "distFade", [w], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return .35;
+        }
+      }), T = e(F.prototype, "pixelation", [z], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 1e3;
+        }
+      }), q = e(F.prototype, "quantizationLevels", [v], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 256;
+        }
+      }), U = e(F.prototype, "saturation", [S], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 1;
+        }
+      }), A = e(F.prototype, "layers", [P], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 4;
+        }
+      }), R = e(F.prototype, "dustColor", [M], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return new s(0, 55, 75, 255);
+        }
+      }), I = e(F.prototype, "mixFactor", [B], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return .6;
+        }
+      }), x = F)) || x));
+      o._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/StarryNightBg.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (t) {
+  var e, r, i, a, n, o, l, s, u, c, p, h, g, f, y, m;
+  return {
+    setters: [function (t) {
+      e = t.applyDecoratedDescriptor, r = t.inheritsLoose, i = t.initializerDefineProperty, a = t.assertThisInitialized, n = t.asyncToGenerator;
+    }, function (t) {
+      o = t.cclegacy, l = t._decorator, s = t.Color, u = t.Texture2D, c = t.Sprite, p = t.Vec4, h = t.Component, g = t.Material, f = t.UITransform, y = t.resources, m = t.EffectAsset;
+    }],
+    execute: function execute() {
+      var b, d, _, S, w, z, B, v, M, P, q, A, F, k, D, E, I, N, T, x, C, L, R, U, H, V, j, G, J, O, X, K, Q;
+      o._RF.push({}, "805c0k+2OJL3qq5IUHwy5R2", "StarryNightBg", void 0);
+      var W = l.ccclass,
+        Y = l.property,
+        Z = null,
+        $ = null;
+      t("StarryNightBg", (b = W("StarryNightBg"), d = Y({
+        tooltip: "主星层数 1~10",
+        slide: !0,
+        range: [1, 10, 1]
+      }), _ = Y({
+        tooltip: "主星基准大小 10~200",
+        slide: !0,
+        range: [10, 200, 10]
+      }), S = Y({
+        tooltip: "主星密度 0~1, 越大越多",
+        slide: !0,
+        range: [0, 1, .01]
+      }), w = Y({
+        tooltip: "主星亮度 1~5",
+        slide: !0,
+        range: [1, 5, .1]
+      }), z = Y({
+        tooltip: "主星闪烁频率 1~20",
+        slide: !0,
+        range: [1, 20, .5]
+      }), B = Y({
+        tooltip: "主星透明度 0~1",
+        slide: !0,
+        range: [0, 1, .01]
+      }), v = Y({
+        tooltip: "水平漂移速度 -2~2",
+        slide: !0,
+        range: [-2, 2, .01]
+      }), M = Y({
+        tooltip: "垂直漂移速度 -2~2",
+        slide: !0,
+        range: [-2, 2, .01]
+      }), P = Y({
+        tooltip: "背景星密度 0.95~1, 越接近1越稀疏",
+        slide: !0,
+        range: [.95, 1, .001]
+      }), q = Y({
+        tooltip: "背景星闪烁频率 0~5",
+        slide: !0,
+        range: [0, 5, .1]
+      }), A = Y({
+        tooltip: "背景星透明度 0~1",
+        slide: !0,
+        range: [0, 1, .01]
+      }), F = Y({
+        type: s,
+        tooltip: "夜空底色 + 透明度控制星空浓度"
+      }), k = Y({
+        tooltip: "噪声种子 0~100",
+        slide: !0,
+        range: [0, 100, .1]
+      }), D = Y({
+        type: u,
+        tooltip: "主星渐变色贴图（可选，256×1 横向渐变）"
+      }), E = Y({
+        type: u,
+        tooltip: "背景星渐变色贴图（可选，256×1 横向渐变）"
+      }), b((T = e((N = function (t) {
+        function e() {
+          for (var e, r = arguments.length, n = new Array(r), o = 0; o < r; o++) n[o] = arguments[o];
+          return e = t.call.apply(t, [this].concat(n)) || this, i(e, "starIterations", T, a(e)), i(e, "sizeStar", x, a(e)), i(e, "frequencyStar", C, a(e)), i(e, "brightnessStar", L, a(e)), i(e, "shineFrequencyStar", R, a(e)), i(e, "transparencyStar", U, a(e)), i(e, "horizontalMovement", H, a(e)), i(e, "verticalMovement", V, a(e)), i(e, "frequencyBgStar", j, a(e)), i(e, "shineFreqBgStar", G, a(e)), i(e, "transparencyBgStar", J, a(e)), i(e, "colorBackground", O, a(e)), i(e, "seed", X, a(e)), i(e, "gradientA", K, a(e)), i(e, "gradientB", Q, a(e)), e._material = null, e._sprite = null, e._destroyed = !1, e;
+        }
+        r(e, t);
+        var o = e.prototype;
+        return o.onLoad = function () {
+          this._sprite = this.node.getComponent(c), this._sprite || console.warn("[StarryNightBg] 未找到 Sprite 组件。");
+        }, o.start = function () {
+          var t = n( /*#__PURE__*/_regeneratorRuntime().mark(function _callee67() {
+            var t, e;
+            return _regeneratorRuntime().wrap(function _callee67$(_context70) {
+              while (1) switch (_context70.prev = _context70.next) {
+                case 0:
+                  if (!this._sprite) {
+                    _context70.next = 5;
+                    break;
+                  }
+                  _context70.next = 3;
+                  return Z ? Promise.resolve(Z) : $ || ($ = new Promise(function (t) {
+                    y.load("effects/starry-night-bg", m, function (e, r) {
+                      if (e || !r) return console.error("[StarryNightBg] Effect load failed.", e), void t(null);
+                      Z = r, t(r);
+                    });
+                  }));
+                case 3:
+                  t = _context70.sent;
+                  if (!this._destroyed && t) {
+                    this.cleanupMaterial(), this._material = new g(), this._material.initialize({
+                      effectAsset: t,
+                      defines: {
+                        USE_TEXTURE: !0
+                      }
+                    }), this.gradientA && this._material.setProperty("gradientA", this.gradientA), this.gradientB && this._material.setProperty("gradientB", this.gradientB), this.syncParams();
+                    e = this.node.getComponent(f);
+                    e && this._material.setProperty("nodeSize", new p(Math.max(e.width, 1), Math.max(e.height, 1), 0, 0)), this._sprite.customMaterial = this._material;
+                  }
+                case 5:
+                case "end":
+                  return _context70.stop();
+              }
+            }, _callee67, this);
+          }));
+          return function () {
+            return t.apply(this, arguments);
+          };
+        }(), o.onEnable = function () {
+          this._sprite && this._material && (this._sprite.customMaterial = this._material);
+        }, o.onDisable = function () {
+          this.cleanupMaterial();
+        }, o.onDestroy = function () {
+          this._destroyed = !0, this._material && (this._material.destroy(), this._material = null);
+        }, o.syncParams = function () {
+          if (this._material) {
+            var t = this.colorBackground;
+            this._material.setProperty("starParams", new p(this.starIterations, this.sizeStar, this.frequencyStar, this.brightnessStar)), this._material.setProperty("shineParams", new p(this.shineFrequencyStar, this.transparencyStar, this.horizontalMovement, this.verticalMovement)), this._material.setProperty("bgStarParams", new p(this.frequencyBgStar, this.shineFreqBgStar, this.transparencyBgStar, this.seed)), this._material.setProperty("colorBackground", new p(t.r / 255, t.g / 255, t.b / 255, t.a / 255));
+          }
+        }, o.cleanupMaterial = function () {
+          this._sprite && this._material && this._sprite.isValid && this._sprite.customMaterial === this._material && (this._sprite.customMaterial = null), this._material && (this._material.destroy(), this._material = null);
+        }, e;
+      }(h)).prototype, "starIterations", [d], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 3;
+        }
+      }), x = e(N.prototype, "sizeStar", [_], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 100;
+        }
+      }), C = e(N.prototype, "frequencyStar", [S], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return .1;
+        }
+      }), L = e(N.prototype, "brightnessStar", [w], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 3;
+        }
+      }), R = e(N.prototype, "shineFrequencyStar", [z], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 8;
+        }
+      }), U = e(N.prototype, "transparencyStar", [B], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 0;
+        }
+      }), H = e(N.prototype, "horizontalMovement", [v], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return .1;
+        }
+      }), V = e(N.prototype, "verticalMovement", [M], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return .1;
+        }
+      }), j = e(N.prototype, "frequencyBgStar", [P], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return .996;
+        }
+      }), G = e(N.prototype, "shineFreqBgStar", [q], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 1;
+        }
+      }), J = e(N.prototype, "transparencyBgStar", [A], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 0;
+        }
+      }), O = e(N.prototype, "colorBackground", [F], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return new s(13, 10, 51, 255);
+        }
+      }), X = e(N.prototype, "seed", [k], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 0;
+        }
+      }), K = e(N.prototype, "gradientA", [D], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), Q = e(N.prototype, "gradientB", [E], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), I = N)) || I));
+      o._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/start-scene", ["./PrimaryButtonView.ts", "./ProgressBarView.ts", "./EdgeLuminescence.ts", "./FireOverlay.ts", "./FlameFrame.ts", "./FrameFlow.ts", "./MagicCrystalBg.ts", "./OverallNumberEdgeFlow.ts", "./OverallNumberShine.ts", "./PortraitUpgradeReveal.ts", "./QualityFrameShader.ts", "./RainbowLabelCycle.ts", "./StarfieldBg.ts", "./StarryNightBg.ts", "./UniverseWithin.ts", "./XrayAvatarScan.ts", "./BottomNavItemView.ts", "./CourtSimulationController.ts", "./FrameLightning.ts", "./FullScreenEntrance.ts", "./GameAudio.ts", "./GameState.ts", "./GoldAdButtonGlow.ts", "./HomeSceneController.ts", "./HomeUiController.ts", "./HomepageDebugManager.ts", "./HomepagePreloader.ts", "./IdleIncomeController.ts", "./ManagementController.ts", "./ManagerSlotView.ts", "./MatchCommentarySelector.ts", "./MatchController.ts", "./MatchCourtSimulation.ts", "./MatchPreloader.ts", "./MatchProgression.ts", "./MatchSession.ts", "./MobileSafeArea.ts", "./NumberGrowthAnimator.ts", "./PlayerAssets.ts", "./PlayerAvatarChip.ts", "./PlayerEventController.ts", "./PlayerKnowledge.ts", "./PlayerQualityVisuals.ts", "./PreMatchController.ts", "./PreMatchEntrance.ts", "./RecruitmentController.ts", "./RecruitmentProbabilityController.ts", "./RecruitmentProgression.ts", "./RecruitmentRules.ts", "./RewardedAdService.ts", "./RosterSlotView.ts", "./SeasonRoute.ts", "./TapCloudSaveService.ts", "./TeamLevelController.ts", "./TopTeamInfoController.ts", "./WechatContentSecurityService.ts", "./GameFont.ts", "./LoadingController.ts", "./StartupTiming.ts"], function () {
+  return {
+    setters: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+    execute: function execute() {}
+  };
+});
+System.register("chunks:///_virtual/StartupTiming.ts", ["cc"], function (t) {
+  var a;
+  return {
+    setters: [function (t) {
+      a = t.cclegacy;
+    }],
+    execute: function execute() {
+      var r;
+      t("markStartupStage", function (t) {
+        if (void 0 !== n.marks[t]) return;
+        var a = Math.max(0, Date.now() - n.startedAt);
+        n.marks[t] = a, console.info("[StartupTiming] " + t + " +" + a + "ms (from " + n.origin + ")");
+      }), a._RF.push({}, "29703XcYhNF35BBMi/FkCVt", "StartupTiming", void 0);
+      var i = globalThis,
+        n = null != (r = i.__basketballStartupTiming) ? r : i.__basketballStartupTiming = {
+          startedAt: Date.now(),
+          origin: "game-script",
+          marks: {}
+        };
+      a._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/TapCloudSaveService.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (e) {
+  var t, r, a, i, n, o, l, s, u;
+  return {
+    setters: [function (e) {
+      t = e.inheritsLoose, r = e.wrapNativeSuper, a = e["extends"], i = e.asyncToGenerator, n = e.createForOfIteratorHelperLoose;
+    }, function (e) {
+      o = e.cclegacy, l = e.sys, s = e.game, u = e.Game;
+    }],
+    execute: function execute() {
+      e("initializeTapCloudSave", function () {
+        if (T) return T;
+        var e = globalThis.tap;
+        if (null == e || !e.getCloudSaveManager || !e.getFileSystemManager) return Promise.resolve();
+        return T = Promise.resolve().then(function () {
+          return new A(e).initialize();
+        })["catch"](function (t) {
+          console.warn("[TapCloudSave] Initialization failed; cloud sync disabled for this session.", t), I(e, "云存档读取失败，本次使用本地存档");
+        });
+      }), o._RF.push({}, "7c6d6+wJL9HBa6zy9+7p/Gu", "TapCloudSaveService", void 0);
+      var c = "basketball_auto_save_v1",
+        d = 10485760,
+        v = "basketball.cloud.known-archive.v1",
+        h = "basketball.cloud.last-upload-at.v1",
+        f = new Set(["basketball.roster.v2", "basketball.management.v2", "basketball.player-history.v2", "basketball.settings.v1", "basketball.idle.v2", "basketball.season.v2", "basketball.team.progression.v2", "basketball.player-knowledge.v1"]),
+        b = function (e) {
+          function r() {
+            return e.apply(this, arguments) || this;
+          }
+          return t(r, e), r;
+        }(r(Error));
+      function g(e) {
+        return new Promise(function (t, r) {
+          var a = setTimeout(function () {
+              return r(new b("TapTap cloud request timed out"));
+            }, 1e4),
+            i = function i(e) {
+              clearTimeout(a), e();
+            };
+          try {
+            e({
+              success: function success(e) {
+                return i(function () {
+                  return t(e);
+                });
+              },
+              fail: function fail(e) {
+                return i(function () {
+                  return r(e);
+                });
+              }
+            });
+          } catch (e) {
+            i(function () {
+              return r(e);
+            });
+          }
+        });
+      }
+      function p(e) {
+        return e.startsWith("basketball.") && !e.startsWith("basketball.cloud.") && "basketball.local-preview-reset-revision" !== e;
+      }
+      function y() {
+        for (var e = [], t = 0; t < l.localStorage.length; t += 1) {
+          var r = l.localStorage.key(t);
+          r && p(r) && e.push(r);
+        }
+        return e;
+      }
+      function m() {
+        for (var e, t = {}, r = n(y()); !(e = r()).done;) {
+          var a = e.value,
+            i = l.localStorage.getItem(a);
+          null != i && "" !== String(i).trim() && (t[a] = String(i));
+        }
+        return {
+          game: "basketball",
+          version: 1,
+          savedAt: Date.now(),
+          data: t
+        };
+      }
+      function w(e) {
+        return JSON.stringify(Object.keys(e.data).sort().map(function (t) {
+          return [t, e.data[t]];
+        }));
+      }
+      function S(e) {
+        if ("string" != typeof e) throw new Error("Cloud save is not UTF-8 text");
+        !function (e) {
+          if (e.length > d) throw new Error("Cloud save exceeds 10 MB");
+          if (encodeURIComponent(e).replace(/%[\dA-F]{2}/g, "x").length > d) throw new Error("Cloud save exceeds 10 MB");
+        }(e);
+        var t = JSON.parse(e);
+        if (!t || "basketball" !== t.game || 1 !== t.version || !Number.isFinite(t.savedAt) || t.savedAt < 0 || !t.data || "object" != _typeof(t.data) || Array.isArray(t.data) || 0 === Object.keys(t.data).length) throw new Error("Invalid cloud save format/version");
+        for (var r = 0, a = Object.entries(t.data); r < a.length; r++) {
+          var i = a[r],
+            n = i[0],
+            o = i[1];
+          if (!p(n) || "string" != typeof o || "" === o.trim()) throw new Error("Invalid cloud save entry");
+          if (f.has(n)) {
+            var l = JSON.parse(o);
+            if (!l || "object" != _typeof(l) || Array.isArray(l) || "basketball.roster.v2" === n && !Array.isArray(l.cards)) throw new Error("Invalid structured save: " + n);
+          }
+        }
+        var s = t.data["basketball.economy.budget.v2"];
+        if (void 0 !== s && (!Number.isFinite(Number(s)) || Number(s) < 0)) throw new Error("Invalid cloud budget");
+        return t;
+      }
+      function k(e, t) {
+        return (null == e ? void 0 : e.uuid) === (null == t ? void 0 : t.uuid) && (null == e ? void 0 : e.fileId) === (null == t ? void 0 : t.fileId);
+      }
+      function I(e, t) {
+        try {
+          null == e.showToast || e.showToast({
+            title: t,
+            icon: "none",
+            duration: 3e3
+          });
+        } catch (e) {
+          console.warn("[TapCloudSave] Could not display status.", e);
+        }
+      }
+      var A = function () {
+          function e(e) {
+            var t, r;
+            this.cloud = void 0, this.files = void 0, this.basePath = void 0, this.archive = null, this.uploadedSignature = "", this.syncing = !1, this.paused = !1, this.platform = e, this.cloud = e.getCloudSaveManager(), this.files = e.getFileSystemManager(), this.basePath = null != (t = null == (r = e.env) ? void 0 : r.USER_DATA_PATH) ? t : "tapfile://usr";
+          }
+          var t = e.prototype;
+          return t.initialize = function () {
+            var e = i( /*#__PURE__*/_regeneratorRuntime().mark(function _callee68() {
+              var e, t, r, i, n, o, c, d;
+              return _regeneratorRuntime().wrap(function _callee68$(_context71) {
+                while (1) switch (_context71.prev = _context71.next) {
+                  case 0:
+                    e = this;
+                    _context71.next = 3;
+                    return this.findArchive();
+                  case 3:
+                    this.archive = _context71.sent;
+                    t = m(), r = Object.keys(t.data).length > 0, i = null;
+                    try {
+                      i = JSON.parse(l.localStorage.getItem(v) || "null");
+                    } catch (e) {}
+                    if (!(this.archive && (!r || !k(i, this.archive)))) {
+                      _context71.next = 32;
+                      break;
+                    }
+                    _context71.next = 9;
+                    return g(function (t) {
+                      return e.cloud.getArchiveData(a({
+                        archiveUUID: e.archive.uuid,
+                        archiveFileId: e.archive.fileId,
+                        targetFilePath: e.basePath + "/basketball_cloud_previous.json"
+                      }, t));
+                    });
+                  case 9:
+                    n = _context71.sent;
+                    _context71.t0 = S;
+                    _context71.next = 13;
+                    return g(function (t) {
+                      return e.files.readFile(a({
+                        filePath: n.filePath,
+                        encoding: "utf8"
+                      }, t));
+                    });
+                  case 13:
+                    _context71.t1 = _context71.sent.data;
+                    o = (0, _context71.t0)(_context71.t1);
+                    c = w(t) === w(o);
+                    _context71.t2 = !r;
+                    if (_context71.t2) {
+                      _context71.next = 24;
+                      break;
+                    }
+                    _context71.t3 = !c;
+                    if (!_context71.t3) {
+                      _context71.next = 23;
+                      break;
+                    }
+                    _context71.next = 22;
+                    return this.chooseCloud(t, o);
+                  case 22:
+                    _context71.t3 = _context71.sent;
+                  case 23:
+                    _context71.t2 = _context71.t3;
+                  case 24:
+                    if (!_context71.t2) {
+                      _context71.next = 31;
+                      break;
+                    }
+                    _context71.next = 27;
+                    return this.writeFile("basketball_before_cloud_restore.json", JSON.stringify(t));
+                  case 27:
+                    this.restore(o, t);
+                    this.uploadedSignature = w(o);
+                    _context71.next = 32;
+                    break;
+                  case 31:
+                    c && (this.uploadedSignature = w(o));
+                  case 32:
+                    this.rememberArchive(), setInterval(function () {
+                      e.flush();
+                    }, 65e3);
+                    d = function d() {
+                      Promise.resolve().then(function () {
+                        return e.flush();
+                      });
+                    };
+                    s.on(u.EVENT_HIDE, d), s.on(u.EVENT_SHOW, d), console.info("[TapCloudSave] Initialized; autosave interval is 65 seconds.");
+                  case 35:
+                  case "end":
+                    return _context71.stop();
+                }
+              }, _callee68, this);
+            }));
+            return function () {
+              return e.apply(this, arguments);
+            };
+          }(), t.findArchive = function () {
+            var e = i( /*#__PURE__*/_regeneratorRuntime().mark(function _callee69() {
+              var e, t, r, a, i, n;
+              return _regeneratorRuntime().wrap(function _callee69$(_context72) {
+                while (1) switch (_context72.prev = _context72.next) {
+                  case 0:
+                    r = this;
+                    _context72.next = 3;
+                    return g(function (e) {
+                      return r.cloud.getArchiveList(e);
+                    });
+                  case 3:
+                    a = _context72.sent;
+                    if (Array.isArray(null == a ? void 0 : a.saves)) {
+                      _context72.next = 6;
+                      break;
+                    }
+                    throw new Error("Invalid archive list");
+                  case 6:
+                    i = a.saves.filter(function (e) {
+                      return e.name === c;
+                    });
+                    if (!(i.length > 1)) {
+                      _context72.next = 9;
+                      break;
+                    }
+                    throw new Error("Multiple automatic cloud saves found; refusing to overwrite");
+                  case 9:
+                    n = null != (e = i[0]) ? e : null;
+                    if (!(n && (!n.uuid || !n.fileId || (null != (t = n.saveSize) ? t : 0) > d))) {
+                      _context72.next = 12;
+                      break;
+                    }
+                    throw new Error("Invalid or oversized cloud archive");
+                  case 12:
+                    return _context72.abrupt("return", n);
+                  case 13:
+                  case "end":
+                    return _context72.stop();
+                }
+              }, _callee69, this);
+            }));
+            return function () {
+              return e.apply(this, arguments);
+            };
+          }(), t.chooseCloud = function (e, t) {
+            var r = this;
+            if (!this.platform.showModal) throw new Error("Cannot safely resolve cloud save conflict without a dialog");
+            return new Promise(function (a, i) {
+              var n, o;
+              return r.platform.showModal({
+                title: "发现不同的存档",
+                content: "本地预算：" + (null != (n = e.data["basketball.economy.budget.v2"]) ? n : "未初始化") + "\n云端预算：" + (null != (o = t.data["basketball.economy.budget.v2"]) ? o : "未初始化") + "\n云端保存：" + new Date(t.savedAt).toLocaleString() + "\n选择后将整份存档同步，未选择的版本保留本地文件备份。",
+                confirmText: "使用云端",
+                cancelText: "保留本地",
+                success: function success(e) {
+                  e.confirm ? a(!0) : e.cancel ? a(!1) : i(new Error("Cloud save choice was dismissed"));
+                },
+                fail: i
+              });
+            });
+          }, t.restore = function (e, t) {
+            var r = function r(e) {
+              y().forEach(function (e) {
+                return l.localStorage.removeItem(e);
+              }), Object.entries(e.data).forEach(function (e) {
+                var t = e[0],
+                  r = e[1];
+                return l.localStorage.setItem(t, r);
+              });
+            };
+            try {
+              r(e);
+            } catch (e) {
+              throw r(t), e;
+            }
+          }, t.writeFile = function (e, t) {
+            var r = this;
+            return g(function (i) {
+              return r.files.writeFile(a({
+                filePath: r.basePath + "/" + e,
+                data: t,
+                encoding: "utf8"
+              }, i));
+            });
+          }, t.rememberArchive = function () {
+            l.localStorage.setItem(v, JSON.stringify(this.archive ? {
+              uuid: this.archive.uuid,
+              fileId: this.archive.fileId
+            } : null));
+          }, t.flush = function () {
+            var e = i( /*#__PURE__*/_regeneratorRuntime().mark(function _callee70() {
+              var e, t, r, i, n, o, s, u, d;
+              return _regeneratorRuntime().wrap(function _callee70$(_context73) {
+                while (1) switch (_context73.prev = _context73.next) {
+                  case 0:
+                    e = this;
+                    if (!(!this.paused && !this.syncing)) {
+                      _context73.next = 34;
+                      break;
+                    }
+                    this.syncing = !0;
+                    _context73.prev = 3;
+                    i = m(), n = w(i), o = Number(l.localStorage.getItem(h)) || 0;
+                    if (!(!Object.keys(i.data).length || n === this.uploadedSignature || Date.now() - o < 65e3)) {
+                      _context73.next = 7;
+                      break;
+                    }
+                    return _context73.abrupt("return");
+                  case 7:
+                    s = JSON.stringify(i);
+                    S(s);
+                    _context73.t0 = k;
+                    _context73.next = 12;
+                    return this.findArchive();
+                  case 12:
+                    _context73.t1 = _context73.sent;
+                    _context73.t2 = this.archive;
+                    if ((0, _context73.t0)(_context73.t1, _context73.t2)) {
+                      _context73.next = 16;
+                      break;
+                    }
+                    return _context73.abrupt("return", (this.paused = !0, I(this.platform, "云端存档已变化，请重启游戏选择存档"), void console.warn("[TapCloudSave] Remote revision changed; uploads paused.")));
+                  case 16:
+                    _context73.next = 18;
+                    return this.writeFile("basketball_auto_save.json", s);
+                  case 18:
+                    l.localStorage.setItem(h, String(Date.now()));
+                    _context73.next = 21;
+                    return g(function (t) {
+                      var r = a({
+                        archiveMetaData: {
+                          name: c,
+                          summary: "Basketball autosave " + new Date(i.savedAt).toISOString()
+                        },
+                        archiveFilePath: e.basePath + "/basketball_auto_save.json"
+                      }, t);
+                      e.archive ? e.cloud.updateArchive(a({
+                        archiveUUID: e.archive.uuid
+                      }, r)) : e.cloud.createArchive(r);
+                    });
+                  case 21:
+                    u = _context73.sent;
+                    d = null != (t = null == u ? void 0 : u.uuid) ? t : null == (r = this.archive) ? void 0 : r.uuid;
+                    if (!(!d || null == u || !u.fileId)) {
+                      _context73.next = 25;
+                      break;
+                    }
+                    throw new b("Upload result is ambiguous");
+                  case 25:
+                    this.archive = {
+                      uuid: d,
+                      fileId: u.fileId,
+                      name: c
+                    }, this.uploadedSignature = n, this.rememberArchive(), console.info("[TapCloudSave] Progress uploaded.");
+                    _context73.next = 31;
+                    break;
+                  case 28:
+                    _context73.prev = 28;
+                    _context73.t3 = _context73["catch"](3);
+                    _context73.t3 instanceof b && (this.paused = !0), console.warn("[TapCloudSave] Upload failed; local progress preserved.", _context73.t3), I(this.platform, this.paused ? "云同步超时，本地进度已保留，请重启重试" : "云同步失败，本地进度已保留");
+                  case 31:
+                    _context73.prev = 31;
+                    this.syncing = !1;
+                    return _context73.finish(31);
+                  case 34:
+                  case "end":
+                    return _context73.stop();
+                }
+              }, _callee70, this, [[3, 28, 31, 34]]);
+            }));
+            return function () {
+              return e.apply(this, arguments);
+            };
+          }(), e;
+        }(),
+        T = null;
+      o._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/TeamLevelController.ts", ["./rollupPluginModLoBabelHelpers.js", "cc", "./NumberGrowthAnimator.ts", "./GameAudio.ts", "./GameState.ts"], function (e) {
+  var t, i, r, n, a, l, o, s, u, h, m, p, c, g, v, d, f, w, L, b;
+  return {
+    setters: [function (e) {
+      t = e.applyDecoratedDescriptor, i = e.inheritsLoose, r = e.initializerDefineProperty, n = e.assertThisInitialized;
+    }, function (e) {
+      a = e.cclegacy, l = e._decorator, o = e.EventTarget, s = e.sys, u = e.Label, h = e.ProgressBar, m = e.Button, p = e.Vec3, c = e.resources, g = e.JsonAsset, v = e.Tween, d = e.tween, f = e.Component;
+    }, function (e) {
+      w = e.setGrowingNumber;
+    }, function (e) {
+      L = e.gameAudio;
+    }, function (e) {
+      b = e.loadSeasonState;
+    }],
+    execute: function execute() {
+      var R, S, M, y, B, C, E, A, _, T, N, P, F, W, x, q, U, D;
+      e({
+        getStoredMarketValueLevel: function getStoredMarketValueLevel(e) {
+          void 0 === e && (e = 0);
+          return j(e);
+        },
+        getStoredTeamLevel: j
+      }), a._RF.push({}, "bee7aWyMCJChpM8VgzbYcH0", "TeamLevelController", void 0);
+      var G = l.ccclass,
+        I = l.property,
+        V = e("TEAM_PROGRESSION_STORAGE_KEY", "basketball.team.progression.v2"),
+        O = 100,
+        z = e("TEAM_PROGRESSION_EVENT_WILLPOWER_CHANGED", "team-progression-willpower-changed"),
+        k = e("TEAM_PROGRESSION_EVENT_LEVEL_CHANGED", "team-progression-level-changed"),
+        H = e("TEAM_PROGRESSION_EVENT_MARKET_VALUE_CHANGED", "team-progression-market-value-changed"),
+        J = e("TEAM_PROGRESSION_EVENT_WIN_UPGRADE_REQUESTED", "team-progression-win-upgrade-requested"),
+        K = e("teamProgressionEvents", new o());
+      function j(e) {
+        void 0 === e && (e = 0);
+        var t = s.localStorage.getItem(V);
+        if (!t) return X(e);
+        try {
+          var i,
+            r = JSON.parse(t);
+          return 2 !== Y(r.version) ? X(e) : X(null != (i = r.teamLevel) ? i : e);
+        } catch (t) {
+          return X(e);
+        }
+      }
+      e("TeamLevelController", (R = G("TeamLevelController"), S = I(u), M = I(u), y = I(h), B = I(m), C = I(u), E = I({
+        displayName: "等级配置资源路径"
+      }), A = I({
+        min: .05,
+        max: 1,
+        step: .05,
+        displayName: "进度条动画时长"
+      }), R(((D = function (e) {
+        function t() {
+          for (var t, i = arguments.length, a = new Array(i), l = 0; l < i; l++) a[l] = arguments[l];
+          return t = e.call.apply(e, [this].concat(a)) || this, r(t, "teamLevelLabel", N, n(t)), r(t, "willpowerLabel", P, n(t)), r(t, "willpowerProgress", F, n(t)), r(t, "upgradeButton", W, n(t)), r(t, "upgradeButtonLabel", x, n(t)), r(t, "progressionResourcePath", q, n(t)), r(t, "progressAnimationDuration", U, n(t)), t.config = null, t.state = t.createDefaultState(), t.buttonBaseScale = new p(1, 1, 1), t.ready = !1, t;
+        }
+        i(t, e);
+        var a = t.prototype;
+        return a.onLoad = function () {
+          if (t.instance = this, this.resolveSceneReferences(), !this.hasRequiredReferences()) return console.error("[TeamLevelController] Missing team level UI references."), void (this.enabled = !1);
+          this.buttonBaseScale.set(this.upgradeButton.node.scale), this.showLoadingState(), this.loadProgressionConfig();
+        }, a.onEnable = function () {
+          var e;
+          null == (e = this.upgradeButton) || e.node.on(m.EventType.CLICK, this.onUpgradeButtonClicked, this);
+        }, a.onDisable = function () {
+          var e;
+          null == (e = this.upgradeButton) || e.node.off(m.EventType.CLICK, this.onUpgradeButtonClicked, this), this.stopButtonPulse();
+        }, a.onDestroy = function () {
+          t.instance === this && (t.instance = null);
+        }, a.addRecruitWillpower = function () {
+          var e, t;
+          return this.addWillpower(null != (e = null == (t = this.config) ? void 0 : t._meta.recruitWillpowerReward) ? e : 0);
+        }, a.getRecruitmentsUntilWillpowerFull = function () {
+          if (!this.ready || this.isAtMaximumLevel()) return Number.MAX_SAFE_INTEGER;
+          var e = this.config._meta.recruitWillpowerReward;
+          return Math.ceil(Math.max(0, this.getCurrentRequirement() - this.state.willpower) / e);
+        }, a.addWillpower = function (e) {
+          if (!this.ready || this.isAtMaximumLevel()) return 0;
+          var t = Math.max(0, Math.floor(Number.isFinite(e) ? e : 0)),
+            i = Math.min(t, Math.max(0, this.getCurrentRequirement() - this.state.willpower));
+          return i <= 0 ? 0 : (this.state.willpower += i, this.saveState(), this.refreshView(!0), K.emit(z, this.getSnapshot()), i);
+        }, a.canStartProgressionMatch = function () {
+          return this.ready;
+        }, a.getSnapshot = function () {
+          return this.ready ? {
+            teamLevel: this.state.teamLevel,
+            marketValueLevel: this.state.teamLevel,
+            marketLevelCap: this.getMaximumTeamLevel(),
+            willpower: this.state.willpower,
+            currentRequirement: this.getCurrentRequirement(),
+            cumulativeWins: this.getCumulativeWins(),
+            canUpgrade: this.isReadyForManualUpgrade(),
+            pendingChampionship: !1,
+            pendingWinUpgrade: this.hasEnoughCumulativeWins(),
+            maxLevel: this.isAtMaximumLevel()
+          } : null;
+        }, a.resolveSceneReferences = function () {
+          var e,
+            t,
+            i,
+            r,
+            n,
+            a,
+            l = this.node.getChildByName("球队等级数值"),
+            o = this.node.getChildByName("斗志数值"),
+            s = this.node.getChildByName("进度框"),
+            p = this.node.getChildByName("升级");
+          null != this.teamLevelLabel || (this.teamLevelLabel = null != (e = null == l ? void 0 : l.getComponent(u)) ? e : null), null != this.willpowerLabel || (this.willpowerLabel = null != (t = null == o ? void 0 : o.getComponent(u)) ? t : null), null != this.willpowerProgress || (this.willpowerProgress = null != (i = null == s ? void 0 : s.getComponent(h)) ? i : null), null != this.upgradeButton || (this.upgradeButton = null != (r = null == p ? void 0 : p.getComponent(m)) ? r : null), null != this.upgradeButtonLabel || (this.upgradeButtonLabel = null != (n = null == p || null == (a = p.getChildByName("Label")) ? void 0 : a.getComponent(u)) ? n : null);
+        }, a.hasRequiredReferences = function () {
+          return Boolean(this.teamLevelLabel && this.willpowerLabel && this.willpowerProgress && this.upgradeButton && this.upgradeButtonLabel);
+        }, a.showLoadingState = function () {
+          this.teamLevelLabel.string = "0", this.willpowerLabel.string = "-- / --", this.willpowerProgress.progress = 0, this.upgradeButton.interactable = !1, this.upgradeButtonLabel.string = "升级";
+        }, a.loadProgressionConfig = function () {
+          var e = this;
+          c.load(this.progressionResourcePath, g, function (t, i) {
+            if (!t && i) {
+              var r = i.json;
+              e.isValidConfig(r) ? (e.config = r, e.state = e.loadState(), e.ready = !0, e.saveState(), e.refreshView(!1)) : console.error("[TeamLevelController] Invalid progression config.");
+            } else console.error("[TeamLevelController] Failed to load progression config.", t);
+          });
+        }, a.isValidConfig = function (e) {
+          var t, i;
+          return Boolean((null == e ? void 0 : e._meta) && 0 === e._meta.teamLevelMin && e._meta.totalTeamLevels === O && Number.isFinite(e._meta.recruitWillpowerReward) && e._meta.recruitWillpowerReward > 0 && Number.isFinite(null == (t = e.willpowerRequirementFormula) ? void 0 : t.teamLevelMultiplier) && Number.isFinite(null == (i = e.willpowerRequirementFormula) ? void 0 : i.baseRequirement) && e.willpowerRequirementFormula.teamLevelMultiplier >= 0 && e.willpowerRequirementFormula.baseRequirement > 0);
+        }, a.loadState = function () {
+          var e = this.createDefaultState(),
+            t = s.localStorage.getItem(V);
+          if (!t) return e;
+          try {
+            var i,
+              r,
+              n = JSON.parse(t);
+            if (2 !== Y(n.version)) return e;
+            var a = X(null != (i = n.teamLevel) ? i : e.teamLevel),
+              l = this.getRequirementForLevel(a);
+            return {
+              version: 2,
+              teamLevel: a,
+              willpower: a >= O ? 0 : Math.min(l, Math.max(0, Math.floor(null != (r = n.willpower) ? r : 0)))
+            };
+          } catch (t) {
+            return e;
+          }
+        }, a.saveState = function () {
+          s.localStorage.setItem(V, JSON.stringify(this.state));
+        }, a.createDefaultState = function () {
+          return {
+            version: 2,
+            teamLevel: 0,
+            willpower: 0
+          };
+        }, a.refreshView = function (e) {
+          var t = this.isAtMaximumLevel(),
+            i = this.getCurrentRequirement(),
+            r = t ? 1 : this.state.willpower / i;
+          w(this.teamLevelLabel, this.state.teamLevel, function (e) {
+            return String(Math.floor(e));
+          }, {
+            animateGrowth: e
+          }), w(this.willpowerLabel, this.state.willpower, function (e) {
+            return t ? "MAX" : Math.floor(e) + " / " + i;
+          }, {
+            animateGrowth: e,
+            duration: this.progressAnimationDuration
+          }), v.stopAllByTarget(this.willpowerProgress), e ? d(this.willpowerProgress).to(this.progressAnimationDuration, {
+            progress: r
+          }).start() : this.willpowerProgress.progress = r;
+          var n = this.isReadyForManualUpgrade(),
+            a = this.isReadyForWinUpgrade();
+          this.upgradeButton.interactable = t || n || a, this.upgradeButtonLabel.string = t ? "无限赛程" : n ? "升级" : a ? "获胜升级" : "升级", n || a ? this.startButtonPulse() : this.stopButtonPulse();
+        }, a.onUpgradeButtonClicked = function () {
+          if (this.isAtMaximumLevel()) K.emit(J, this.getSnapshot());else if (this.isReadyForWinUpgrade()) K.emit(J, this.getSnapshot());else if (this.isReadyForManualUpgrade()) {
+            this.state = {
+              version: 2,
+              teamLevel: Math.min(O, this.state.teamLevel + 1),
+              willpower: 0
+            }, this.saveState(), this.refreshView(!0), this.playLevelUpAnimation();
+            var e = this.getSnapshot();
+            K.emit(z, e), K.emit(k, e), K.emit(H, e), L.playUpgradeSuccess();
+          }
+        }, a.isReadyForManualUpgrade = function () {
+          return !this.isAtMaximumLevel() && this.state.willpower >= this.getCurrentRequirement() && this.hasEnoughCumulativeWins();
+        }, a.isReadyForWinUpgrade = function () {
+          return !this.isAtMaximumLevel() && this.state.willpower >= this.getCurrentRequirement() && !this.hasEnoughCumulativeWins();
+        }, a.getCumulativeWins = function () {
+          return Math.max(0, b().officialWins);
+        }, a.hasEnoughCumulativeWins = function () {
+          return this.getCumulativeWins() > this.state.teamLevel;
+        }, a.isAtMaximumLevel = function () {
+          return this.state.teamLevel >= this.getMaximumTeamLevel();
+        }, a.getCurrentRequirement = function () {
+          return this.isAtMaximumLevel() ? 0 : this.getRequirementForLevel(this.state.teamLevel);
+        }, a.getRequirementForLevel = function (e) {
+          var t,
+            i = null == (t = this.config) ? void 0 : t.willpowerRequirementFormula;
+          return i ? Math.max(1, Math.floor(e) * Math.floor(i.teamLevelMultiplier) + Math.floor(i.baseRequirement)) : 100;
+        }, a.getMaximumTeamLevel = function () {
+          var e, t;
+          return null != (e = null == (t = this.config) ? void 0 : t._meta.totalTeamLevels) ? e : O;
+        }, a.playLevelUpAnimation = function () {
+          var e = this.teamLevelLabel.node,
+            t = e.scale.clone(),
+            i = new p(1.2 * t.x, 1.2 * t.y, t.z);
+          v.stopAllByTarget(e), d(e).to(.12, {
+            scale: i
+          }).to(.18, {
+            scale: t
+          }).start();
+        }, a.startButtonPulse = function () {
+          var e = this.upgradeButton.node,
+            t = new p(1.06 * this.buttonBaseScale.x, 1.06 * this.buttonBaseScale.y, this.buttonBaseScale.z);
+          v.stopAllByTarget(e), e.setScale(this.buttonBaseScale), d(e).to(.45, {
+            scale: t
+          }).to(.45, {
+            scale: this.buttonBaseScale
+          }).union().repeatForever().start();
+        }, a.stopButtonPulse = function () {
+          this.upgradeButton && (v.stopAllByTarget(this.upgradeButton.node), this.upgradeButton.node.setScale(this.buttonBaseScale));
+        }, t;
+      }(f)).instance = null, N = t((T = D).prototype, "teamLevelLabel", [S], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), P = t(T.prototype, "willpowerLabel", [M], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), F = t(T.prototype, "willpowerProgress", [y], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), W = t(T.prototype, "upgradeButton", [B], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), x = t(T.prototype, "upgradeButtonLabel", [C], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), q = t(T.prototype, "progressionResourcePath", [E], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return "data/balance/team_progression";
+        }
+      }), U = t(T.prototype, "progressAnimationDuration", [A], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return .25;
+        }
+      }), _ = T)) || _));
+      function X(e) {
+        return Math.max(0, Math.min(O, Math.floor(e)));
+      }
+      function Y(e) {
+        return Number.isFinite(e) ? Math.floor(Number(e)) : 0;
+      }
+      a._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/TopTeamInfoController.ts", ["./rollupPluginModLoBabelHelpers.js", "cc", "./GameState.ts"], function (e) {
+  var a, t, l, i, r, n, o, s, m, h, v, b, u, d, f, c, p, O, T, g, L, A;
+  return {
+    setters: [function (e) {
+      a = e.applyDecoratedDescriptor, t = e.inheritsLoose, l = e.initializerDefineProperty, i = e.assertThisInitialized, r = e.asyncToGenerator;
+    }, function (e) {
+      n = e.cclegacy, o = e._decorator, s = e.Label, m = e.Node, h = e.Color, v = e.sys, b = e.Component;
+    }, function (e) {
+      u = e.gameStateEvents, d = e.GAME_STATE_EVENT_ROSTER_CHANGED, f = e.GAME_STATE_EVENT_TEAM_IDENTITY_CHANGED, c = e.TEAM_NAME_STORAGE_KEY, p = e.getTeamAbbreviation, O = e.TEAM_ABBREVIATION_STORAGE_KEY, T = e.INT32_MAX, g = e.getManagementEffects, L = e.calculateTeamOverall, A = e.loadRoster;
+    }],
+    execute: function execute() {
+      var N, y, C, E, I, R, _, S, M, w, z, B, G;
+      n._RF.push({}, "24594tFIxpKlar/P77sRzJ4", "TopTeamInfoController", void 0);
+      var D = o.ccclass,
+        F = o.property;
+      e("TopTeamInfoController", (N = D("TopTeamInfoController"), y = F(s), C = F(s), E = F(s), I = F(m), N((S = a((_ = function (e) {
+        function a() {
+          for (var a, t = arguments.length, r = new Array(t), n = 0; n < t; n++) r[n] = arguments[n];
+          return a = e.call.apply(e, [this].concat(r)) || this, l(a, "teamNameLabel", S, i(a)), l(a, "teamAbbreviationLabel", M, i(a)), l(a, "teamOverallLabel", w, i(a)), l(a, "rosterContainer", z, i(a)), l(a, "defaultTeamName", B, i(a)), l(a, "defaultTeamAbbreviation", G, i(a)), a.displayedOverall = 0, a.animationStartOverall = 0, a.animationTargetOverall = 0, a.animationElapsed = 0, a.isOverallAnimating = !1, a.hasRenderedOverall = !1, a.overallNormalColor = new h(), a;
+        }
+        t(a, e);
+        var n = a.prototype;
+        return n.onLoad = function () {
+          var e, a, t, l, i, r;
+          if (null != this.teamNameLabel || (this.teamNameLabel = null != (e = null == (a = this.node.getChildByName("球队名称")) ? void 0 : a.getComponent(s)) ? e : null), null != this.teamAbbreviationLabel || (this.teamAbbreviationLabel = null != (t = null == (l = this.node.getChildByName("球队简称")) ? void 0 : l.getComponent(s)) ? t : null), null != this.teamOverallLabel || (this.teamOverallLabel = null != (i = null == (r = this.node.getChildByName("球队总评数值")) ? void 0 : r.getComponent(s)) ? i : null), !this.teamNameLabel || !this.teamAbbreviationLabel || !this.teamOverallLabel) return console.error("[TopTeamInfoController] Missing team name, abbreviation, or overall Label."), void (this.enabled = !1);
+          this.teamNameLabel.overflow = s.Overflow.SHRINK, this.teamNameLabel.enableWrapText = !1, this.overallNormalColor.set(this.teamOverallLabel.color), this.refreshTeamInfo(!1);
+        }, n.onEnable = function () {
+          this.teamNameLabel && this.teamAbbreviationLabel && this.teamOverallLabel && this.refreshTeamInfo(this.hasRenderedOverall), u.on(d, this.onRosterChanged, this), u.on(f, this.onTeamIdentityChanged, this);
+        }, n.onDisable = function () {
+          u.off(d, this.onRosterChanged, this), u.off(f, this.onTeamIdentityChanged, this);
+        }, n.update = function (e) {
+          if (this.isOverallAnimating && this.teamOverallLabel) {
+            this.animationElapsed += e;
+            var a = Math.min(1, this.animationElapsed / .45),
+              t = 1 - Math.pow(1 - a, 3);
+            this.displayedOverall = Math.round(this.animationStartOverall + (this.animationTargetOverall - this.animationStartOverall) * t), this.teamOverallLabel.string = this.formatOverall(this.displayedOverall), a >= 1 && (this.isOverallAnimating = !1, this.teamOverallLabel.color = this.overallNormalColor);
+          }
+        }, n.refreshTeamInfo = function (e) {
+          var a;
+          if (void 0 === e && (e = !0), this.teamNameLabel && this.teamAbbreviationLabel && this.teamOverallLabel) {
+            var t = (null == (a = v.localStorage.getItem(c)) ? void 0 : a.trim()) || this.defaultTeamName,
+              l = p(t, this.defaultTeamAbbreviation);
+            this.teamNameLabel.string = t, this.teamAbbreviationLabel.string = l, v.localStorage.setItem(O, l), this.refreshOverallFromRoster(e);
+          }
+        }, n.setTeamIdentity = function (e) {
+          var a = e.trim() || this.defaultTeamName,
+            t = p(a, this.defaultTeamAbbreviation);
+          v.localStorage.setItem(c, a), v.localStorage.setItem(O, t), u.emit(f, a, t), this.teamNameLabel && (this.teamNameLabel.string = a), this.teamAbbreviationLabel && (this.teamAbbreviationLabel.string = t);
+        }, n.refreshOverallFromRoster = function () {
+          var e = r( /*#__PURE__*/_regeneratorRuntime().mark(function _callee71(e) {
+            var a;
+            return _regeneratorRuntime().wrap(function _callee71$(_context74) {
+              while (1) switch (_context74.prev = _context74.next) {
+                case 0:
+                  void 0 === e && (e = !0);
+                  _context74.next = 3;
+                  return g();
+                case 3:
+                  a = _context74.sent;
+                  this.setLineupOverall(L(A(), a.headCoachBattleOvrBonus), e);
+                case 5:
+                case "end":
+                  return _context74.stop();
+              }
+            }, _callee71, this);
+          }));
+          return function (a) {
+            return e.apply(this, arguments);
+          };
+        }(), n.setLineupOverall = function (e, a) {
+          void 0 === a && (a = !0);
+          var t = Math.max(0, Math.round(Number.isFinite(e) ? e : 0));
+          if (this.teamOverallLabel) {
+            if (!a || !this.hasRenderedOverall || t === this.displayedOverall) return this.displayedOverall = t, this.animationTargetOverall = t, this.isOverallAnimating = !1, this.teamOverallLabel.string = this.formatOverall(t), this.teamOverallLabel.color = this.overallNormalColor, void (this.hasRenderedOverall = !0);
+            this.animationStartOverall = this.displayedOverall, this.animationTargetOverall = t, this.animationElapsed = 0, this.isOverallAnimating = !0, this.teamOverallLabel.color = t > this.displayedOverall ? new h(92, 210, 120, 255) : new h(235, 92, 92, 255);
+          }
+        }, n.formatOverall = function (e) {
+          return e >= T ? "MAX" : String(Math.round(e));
+        }, n.onRosterChanged = function () {
+          this.refreshOverallFromRoster(!0);
+        }, n.onTeamIdentityChanged = function () {
+          this.refreshTeamInfo(!1);
+        }, a;
+      }(b)).prototype, "teamNameLabel", [y], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), M = a(_.prototype, "teamAbbreviationLabel", [C], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), w = a(_.prototype, "teamOverallLabel", [E], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), z = a(_.prototype, "rosterContainer", [I], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), B = a(_.prototype, "defaultTeamName", [F], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return "我的球队";
+        }
+      }), G = a(_.prototype, "defaultTeamAbbreviation", [F], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return "我";
+        }
+      }), R = _)) || R));
+      n._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/UniverseWithin.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (t) {
+  var e, i, n, r, s, o, a, l, u, p, c, h, f, y, m, _;
+  return {
+    setters: [function (t) {
+      e = t.applyDecoratedDescriptor, i = t.inheritsLoose, n = t.initializerDefineProperty, r = t.assertThisInitialized, s = t.asyncToGenerator;
+    }, function (t) {
+      o = t.cclegacy, a = t._decorator, l = t.Color, u = t.Vec4, p = t.UITransform, c = t.Vec2, h = t.Component, f = t.Sprite, y = t.Material, m = t.resources, _ = t.EffectAsset;
+    }],
+    execute: function execute() {
+      var d, g, v, b, w, A, U, P, x, R, z, S, B, O, T, W, I, k, C, E, V;
+      o._RF.push({}, "812beCklo9L6bRYAg2reUB4", "UniverseWithin", void 0);
+      var D = a.ccclass,
+        L = a.property,
+        M = null,
+        F = null;
+      t("UniverseWithin", (d = D("UniverseWithin"), g = L({
+        tooltip: "是否自动从 UITransform 同步分辨率"
+      }), v = L({
+        tooltip: "手动分辨率 (autoResolution=false 时生效)"
+      }), b = L({
+        tooltip: "旋转速度 (0.02 ~ 0.5)",
+        slide: !0,
+        range: [.02, .5, .01]
+      }), w = L({
+        tooltip: "底部光晕强度 (0 ~ 5)",
+        slide: !0,
+        range: [0, 5, .1]
+      }), A = L({
+        tooltip: "宇宙叠加透明度 (0 ~ 1), 0=纯原图",
+        slide: !0,
+        range: [0, 1, .05]
+      }), U = L({
+        tooltip: "星光粒子亮度 (0 ~ 3)",
+        slide: !0,
+        range: [0, 3, .1]
+      }), P = L({
+        type: l,
+        tooltip: "品质背景的主色"
+      }), x = L({
+        type: l,
+        tooltip: "品质背景的高光色"
+      }), R = L({
+        tooltip: "彩色折射比例，仅欧泊与概念神使用",
+        slide: !0,
+        range: [0, 1, .05]
+      }), d((B = e((S = function (t) {
+        function e() {
+          for (var e, i = arguments.length, s = new Array(i), o = 0; o < i; o++) s[o] = arguments[o];
+          return e = t.call.apply(t, [this].concat(s)) || this, n(e, "autoResolution", B, r(e)), n(e, "manualResolution", O, r(e)), n(e, "rotationSpeed", T, r(e)), n(e, "glowIntensity", W, r(e)), n(e, "blendStrength", I, r(e)), n(e, "sparkleBoost", k, r(e)), n(e, "paletteBase", C, r(e)), n(e, "paletteAccent", E, r(e)), n(e, "palettePrism", V, r(e)), e._material = null, e._sprite = null, e._applied = !1, e._destroyed = !1, e._uvOriginAxis = new u(), e._uvUpAxis = new u(), e;
+        }
+        i(e, t);
+        var o = e.prototype;
+        return o.onLoad = function () {
+          var t = s( /*#__PURE__*/_regeneratorRuntime().mark(function _callee72() {
+            var t;
+            return _regeneratorRuntime().wrap(function _callee72$(_context75) {
+              while (1) switch (_context75.prev = _context75.next) {
+                case 0:
+                  if (!(this._sprite = this.node.getComponent(f), this._sprite)) {
+                    _context75.next = 7;
+                    break;
+                  }
+                  _context75.next = 3;
+                  return M ? Promise.resolve(M) : F || (F = new Promise(function (t) {
+                    m.load("effects/universe-within", _, function (e, i) {
+                      if (e || !i) return console.error("[UniverseWithin] load failed.", e), void t(null);
+                      M = i, t(i);
+                    });
+                  }));
+                case 3:
+                  t = _context75.sent;
+                  !this._destroyed && t ? (this._material = new y(), this._material.initialize({
+                    effectAsset: t,
+                    defines: {
+                      USE_TEXTURE: !0
+                    }
+                  }), this._sprite.customMaterial = this._material, this._applied = !0, this.syncResolution(), this.syncTune(), this.syncPalette(), this.syncSpriteUV()) : t || console.warn("[UniverseWithin] Effect not found.");
+                  _context75.next = 8;
+                  break;
+                case 7:
+                  console.warn("[UniverseWithin] No Sprite.");
+                case 8:
+                case "end":
+                  return _context75.stop();
+              }
+            }, _callee72, this);
+          }));
+          return function () {
+            return t.apply(this, arguments);
+          };
+        }(), o.lateUpdate = function () {
+          this.syncSpriteUV();
+        }, o.syncSpriteUV = function () {
+          var t,
+            e = null == (t = this._sprite) || null == (t = t.spriteFrame) ? void 0 : t.uv;
+          if (this._material && e) {
+            var i = e[2] - e[0],
+              n = e[3] - e[1],
+              r = e[4] - e[0],
+              s = e[5] - e[1];
+            this._uvOriginAxis.x === e[0] && this._uvOriginAxis.y === e[1] && this._uvOriginAxis.z === i && this._uvOriginAxis.w === n && this._uvUpAxis.x === r && this._uvUpAxis.y === s || (this._uvOriginAxis.set(e[0], e[1], i, n), this._uvUpAxis.set(r, s, 0, 0), this._material.setProperty("uvOriginAxis", this._uvOriginAxis), this._material.setProperty("uvUpAxis", this._uvUpAxis));
+          }
+        }, o.onDestroy = function () {
+          this._destroyed = !0, this._material && (this._material.destroy(), this._material = null), this._applied = !1;
+        }, o.syncResolution = function () {
+          if (this._material) {
+            var t = this.node.getComponent(p);
+            if (t) {
+              var e = this.autoResolution ? new c(t.contentSize.width, t.contentSize.height) : this.manualResolution;
+              this._material.setProperty("resolution", e);
+            }
+          }
+        }, o.setResolution = function (t, e) {
+          this.manualResolution = new c(t, e), this.syncResolution();
+        }, o.syncTune = function () {
+          this._material && this._material.setProperty("tune", new u(this.rotationSpeed, this.glowIntensity, this.blendStrength, this.sparkleBoost));
+        }, o.setPalette = function (t, e, i) {
+          this.paletteBase = t.clone(), this.paletteAccent = e.clone(), this.palettePrism = i, this.syncPalette();
+        }, o.syncPalette = function () {
+          this._material && (this._material.setProperty("paletteBase", new u(this.paletteBase.r / 255, this.paletteBase.g / 255, this.paletteBase.b / 255, this.paletteBase.a / 255)), this._material.setProperty("paletteAccent", new u(this.paletteAccent.r / 255, this.paletteAccent.g / 255, this.paletteAccent.b / 255, this.paletteAccent.a / 255)), this._material.setProperty("palettePrism", this.palettePrism));
+        }, o.getMaterial = function () {
+          return this._material;
+        }, e;
+      }(h)).prototype, "autoResolution", [g], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return !0;
+        }
+      }), O = e(S.prototype, "manualResolution", [v], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return new c(584, 571);
+        }
+      }), T = e(S.prototype, "rotationSpeed", [b], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return .1;
+        }
+      }), W = e(S.prototype, "glowIntensity", [w], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 2;
+        }
+      }), I = e(S.prototype, "blendStrength", [A], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return .6;
+        }
+      }), k = e(S.prototype, "sparkleBoost", [U], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 1;
+        }
+      }), C = e(S.prototype, "paletteBase", [P], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return new l(72, 144, 216, 255);
+        }
+      }), E = e(S.prototype, "paletteAccent", [x], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return new l(208, 240, 255, 255);
+        }
+      }), V = e(S.prototype, "palettePrism", [R], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 0;
+        }
+      }), z = S)) || z));
+      o._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/WechatContentSecurityService.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (t) {
+  var e, n;
+  return {
+    setters: [function (t) {
+      e = t.asyncToGenerator;
+    }, function (t) {
+      n = t.cclegacy;
+    }],
+    execute: function execute() {
+      t({
+        checkWechatGameText: function checkWechatGameText(t) {
+          return r.apply(this, arguments);
+        },
+        showWechatContentSecurityMessage: function showWechatContentSecurityMessage(t) {
+          var e,
+            n = globalThis;
+          null == (e = n.wx) || null == e.showToast || e.showToast({
+            title: t,
+            icon: "none",
+            duration: 3e3
+          });
+        },
+        submitWechatMediaCheck: function submitWechatMediaCheck(t, e) {
+          return c.apply(this, arguments);
+        }
+      }), n._RF.push({}, "4e55csGhaJAZ6bgRVX8yGeD", "WechatContentSecurityService", void 0);
+      var a = "contentSecurity",
+        u = null;
+      function r() {
+        return (r = e( /*#__PURE__*/_regeneratorRuntime().mark(function _callee73(t) {
+          var e, n;
+          return _regeneratorRuntime().wrap(function _callee73$(_context76) {
+            while (1) switch (_context76.prev = _context76.next) {
+              case 0:
+                if (l()) {
+                  _context76.next = 2;
+                  break;
+                }
+                return _context76.abrupt("return", {
+                  status: "pass"
+                });
+              case 2:
+                e = i();
+                if (e) {
+                  _context76.next = 5;
+                  break;
+                }
+                return _context76.abrupt("return", {
+                  status: "unavailable"
+                });
+              case 5:
+                _context76.next = 7;
+                return s(e, {
+                  action: "checkText",
+                  content: t,
+                  scene: 1
+                });
+              case 7:
+                n = _context76.sent;
+                return _context76.abrupt("return", null != n && n.ok ? {
+                  status: "pass" === n.suggest ? "pass" : "risky",
+                  label: n.label,
+                  traceId: n.traceId
+                } : {
+                  status: "unavailable"
+                });
+              case 9:
+              case "end":
+                return _context76.stop();
+            }
+          }, _callee73);
+        }))).apply(this, arguments);
+      }
+      function c() {
+        return (c = e( /*#__PURE__*/_regeneratorRuntime().mark(function _callee74(t, e) {
+          var n, a;
+          return _regeneratorRuntime().wrap(function _callee74$(_context77) {
+            while (1) switch (_context77.prev = _context77.next) {
+              case 0:
+                if (l()) {
+                  _context77.next = 2;
+                  break;
+                }
+                return _context77.abrupt("return", {
+                  status: "pass"
+                });
+              case 2:
+                n = i();
+                if (n) {
+                  _context77.next = 5;
+                  break;
+                }
+                return _context77.abrupt("return", {
+                  status: "unavailable"
+                });
+              case 5:
+                _context77.next = 7;
+                return s(n, {
+                  action: "checkMedia",
+                  mediaUrl: t,
+                  mediaType: e,
+                  scene: 1
+                });
+              case 7:
+                a = _context77.sent;
+                return _context77.abrupt("return", null != a && a.ok && "submitted" === a.suggest ? {
+                  status: "submitted",
+                  traceId: a.traceId
+                } : {
+                  status: "unavailable"
+                });
+              case 9:
+              case "end":
+                return _context77.stop();
+            }
+          }, _callee74);
+        }))).apply(this, arguments);
+      }
+      function i() {
+        var t, e;
+        return null != (t = null == (e = globalThis.wx) ? void 0 : e.cloud) ? t : null;
+      }
+      function l() {
+        var t = globalThis;
+        return !t.tap && Boolean(t.wx);
+      }
+      function s(t, e) {
+        return o.apply(this, arguments);
+      }
+      function o() {
+        return (o = e( /*#__PURE__*/_regeneratorRuntime().mark(function _callee75(t, e) {
+          var n;
+          return _regeneratorRuntime().wrap(function _callee75$(_context78) {
+            while (1) switch (_context78.prev = _context78.next) {
+              case 0:
+                _context78.prev = 0;
+                u !== t && (t.init({
+                  traceUser: !0
+                }), u = t);
+                _context78.next = 4;
+                return t.callFunction({
+                  name: a,
+                  data: e
+                });
+              case 4:
+                n = _context78.sent.result;
+                return _context78.abrupt("return", n && "object" == _typeof(n) ? n : null);
+              case 8:
+                _context78.prev = 8;
+                _context78.t0 = _context78["catch"](0);
+                return _context78.abrupt("return", (console.error("[WechatContentSecurity] Cloud content check failed.", _context78.t0), null));
+              case 11:
+              case "end":
+                return _context78.stop();
+            }
+          }, _callee75, null, [[0, 8]]);
+        }))).apply(this, arguments);
+      }
+      n._RF.pop();
+    }
+  };
+});
+System.register("chunks:///_virtual/XrayAvatarScan.ts", ["./rollupPluginModLoBabelHelpers.js", "cc"], function (t) {
+  var e, i, r, a, n, o, l, s, p, u, c, f, y;
+  return {
+    setters: [function (t) {
+      e = t.applyDecoratedDescriptor, i = t.inheritsLoose, r = t.initializerDefineProperty, a = t.assertThisInitialized;
+    }, function (t) {
+      n = t.cclegacy, o = t._decorator, l = t.Sprite, s = t.Material, p = t.Vec4, u = t.Component, c = t.Color, f = t.resources, y = t.EffectAsset;
+    }],
+    execute: function execute() {
+      var h, _, m, d, g, b, w, v, S, T, A, z, M, k, P, L, D, C, X, x, F, V, E, O, R;
+      n._RF.push({}, "76986S2gU5CeIlfKkyot83a", "XrayAvatarScan", void 0);
+      var U = o.ccclass,
+        W = o.property,
+        I = null,
+        j = null;
+      t("XrayAvatarScan", (h = U("XrayAvatarScan"), _ = W({
+        type: l,
+        tooltip: "目标 Sprite，留空则自动取本节点的 Sprite 组件"
+      }), m = W({
+        tooltip: "是否在 onLoad 时自动播放"
+      }), d = W({
+        tooltip: "是否循环扫描，单次模式走 holdAfter→cleanup"
+      }), g = W({
+        tooltip: "扫描持续时间（秒）",
+        slide: !0,
+        range: [.5, 5, .1]
+      }), b = W({
+        tooltip: "循环模式：每轮扫描结束后的停顿（秒）",
+        visible: !0
+      }), w = W({
+        tooltip: "单次模式：扫描完后保持材质的时间（秒）",
+        visible: !0
+      }), v = W({
+        tooltip: "扫描过渡带宽度 0.01~0.2",
+        slide: !0,
+        range: [.01, .2, .01]
+      }), S = W({
+        tooltip: "未扫描区域暗度 0=全亮 1=全黑",
+        slide: !0,
+        range: [0, 1, .01]
+      }), T = W({
+        tooltip: "扫描边缘光晕衰减 0.005~0.1",
+        slide: !0,
+        range: [.005, .1, .005]
+      }), A = W({
+        tooltip: "扫描边缘光晕颜色"
+      }), z = W({
+        tooltip: "未扫描区域 X光色调"
+      }), h((P = e((k = function (t) {
+        function e() {
+          for (var e, i = arguments.length, n = new Array(i), o = 0; o < i; o++) n[o] = arguments[o];
+          return e = t.call.apply(t, [this].concat(n)) || this, r(e, "targetSprite", P, a(e)), r(e, "playOnLoad", L, a(e)), r(e, "loop", D, a(e)), r(e, "duration", C, a(e)), r(e, "pauseDuration", X, a(e)), r(e, "holdAfter", x, a(e)), r(e, "sweepWidth", F, a(e)), r(e, "dimness", V, a(e)), r(e, "glowFalloff", E, a(e)), r(e, "glowColor", O, a(e)), r(e, "xrayTint", R, a(e)), e._material = null, e._sprite = null, e._playing = !1, e._destroyed = !1, e._playToken = 0, e;
+        }
+        i(e, t);
+        var n = e.prototype;
+        return n.onLoad = function () {
+          this._sprite = this.targetSprite || this.node.getComponent(l), this._sprite || console.warn("[XrayAvatarScan] 未找到 Sprite 组件，请挂载到有 Sprite 的节点上，或手动指定 targetSprite。");
+        }, n.start = function () {
+          this.playOnLoad && this._sprite && this.play();
+        }, n.onDestroy = function () {
+          this._destroyed = !0, this._playToken++, this._material && (this._material.destroy(), this._material = null);
+        }, n.play = function () {
+          var t = this;
+          if (this._playing) return !1;
+          if (!this._sprite) return !1;
+          this._playing = !0;
+          var e = ++this._playToken;
+          return (I ? Promise.resolve(I) : j || (j = new Promise(function (t) {
+            f.load("effects/xray-avatar-mask", y, function (e, i) {
+              if (e || !i) return console.error("[XrayAvatarScan] load failed.", e), void t(null);
+              I = i, t(i);
+            });
+          }))).then(function (i) {
+            !t._destroyed && i && t._playing && e === t._playToken && (t._material || (t._material = new s(), t._material.initialize({
+              effectAsset: i,
+              defines: {
+                USE_TEXTURE: !0
+              }
+            }), t.syncParams(0)), t._sprite && t._sprite.isValid && (t._sprite.customMaterial = t._material), t._startAnimLoop(e));
+          }), !0;
+        }, n.stop = function () {
+          this._playToken++, this._playing = !1, this.cleanupMaterial();
+        }, n._startAnimLoop = function (t) {
+          var e = this;
+          if (t === this._playToken) if (!this._destroyed && this._material && this._sprite && this._sprite.isValid) {
+            var i = Date.now(),
+              r = Math.max(this.duration, .1);
+            !function a() {
+              if (t === e._playToken) if (e._playing && !e._destroyed) {
+                if (e._material && e._sprite && e._sprite.isValid) {
+                  var n = (Date.now() - i) / 1e3,
+                    o = Math.min(n / r, 1);
+                  e.syncParams(o), o >= 1 ? e.loop ? setTimeout(function () {
+                    return e._startAnimLoop(t);
+                  }, 1e3 * e.pauseDuration) : setTimeout(function () {
+                    t === e._playToken && (e.cleanupMaterial(), e._playing = !1);
+                  }, 1e3 * e.holdAfter) : setTimeout(a, 16);
+                } else e.cleanupMaterial();
+              } else e.cleanupMaterial();
+            }();
+          } else this.cleanupMaterial();
+        }, n.syncParams = function (t) {
+          if (this._material) {
+            var e = this.glowColor,
+              i = this.xrayTint;
+            this._material.setProperty("sweepParams", new p(t, this.sweepWidth, this.dimness, this.glowFalloff)), this._material.setProperty("xrayTint", new p(i.r / 255, i.g / 255, i.b / 255, i.a / 255)), this._material.setProperty("glowColor", new p(e.r / 255, e.g / 255, e.b / 255, e.a / 255));
+          }
+        }, n.cleanupMaterial = function () {
+          this._sprite && this._material && this._sprite.isValid && this._sprite.customMaterial === this._material && (this._sprite.customMaterial = null), this._material && (this._material.destroy(), this._material = null);
+        }, e;
+      }(u)).prototype, "targetSprite", [_], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return null;
+        }
+      }), L = e(k.prototype, "playOnLoad", [m], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return !1;
+        }
+      }), D = e(k.prototype, "loop", [d], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return !0;
+        }
+      }), C = e(k.prototype, "duration", [g], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return 2;
+        }
+      }), X = e(k.prototype, "pauseDuration", [b], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return .3;
+        }
+      }), x = e(k.prototype, "holdAfter", [w], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return .5;
+        }
+      }), F = e(k.prototype, "sweepWidth", [v], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return .03;
+        }
+      }), V = e(k.prototype, "dimness", [S], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return .6;
+        }
+      }), E = e(k.prototype, "glowFalloff", [T], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return .02;
+        }
+      }), O = e(k.prototype, "glowColor", [A], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return new c(102, 204, 255, 255);
+        }
+      }), R = e(k.prototype, "xrayTint", [z], {
+        configurable: !0,
+        enumerable: !0,
+        writable: !0,
+        initializer: function initializer() {
+          return new c(13, 31, 102, 255);
+        }
+      }), M = k)) || M));
+      n._RF.pop();
+    }
+  };
+});
+(function (r) {
+  r('virtual:///prerequisite-imports/start-scene', 'chunks:///_virtual/start-scene');
+})(function (mid, cid) {
+  System.register(mid, [cid], function (_export, _context) {
+    return {
+      setters: [function (_m) {
+        var _exportObj = {};
+        for (var _key in _m) {
+          if (_key !== "default" && _key !== "__esModule") _exportObj[_key] = _m[_key];
+        }
+        _export(_exportObj);
+      }],
+      execute: function execute() {}
+    };
+  });
+});

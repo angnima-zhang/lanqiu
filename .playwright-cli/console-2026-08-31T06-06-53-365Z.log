@@ -1,0 +1,97 @@
+[    2912ms] [TIMEEND] Init Base: 0.607177734375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[    2972ms] [TIMEEND] Init Infrastructure: 60.164794921875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[    2987ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    3167ms] [TIMEEND] Init SubSystem: 159.951171875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[    3167ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    3307ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    3332ms] [TIMEEND] Init Project: 165.131103515625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[    8809ms] [TIMEEND] LoadScene Homepage: 170.35107421875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[    8860ms] [ERROR] [RecruitmentController] Missing recruitment UI references. @ http://localhost:7456/scripting/x/chunks/27/2774e2a32b7684b385510f13ac2783fe41b3ba13.js:857
+[   21573ms] [ERROR] getComponent: Type must be non-nil @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[   76275ms] [TIMEEND] LoadScene Match: 103.47998046875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[   77794ms] [ERROR] ErrorEvent @ http://localhost:7456/:282
+[   77800ms] TypeError: Cannot read properties of undefined (reading 'push')
+    at frame (eval at <anonymous> (eval at evaluate (:311:30)), <anonymous>:1:249)
+[   97111ms] [TIMEEND] LoadScene Homepage: 12.18212890625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[   97140ms] [ERROR] [RecruitmentController] Missing recruitment UI references. @ http://localhost:7456/scripting/x/chunks/27/2774e2a32b7684b385510f13ac2783fe41b3ba13.js:857
+[  176848ms] [TIMEEND] Init Base: 0.14404296875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[  176878ms] [TIMEEND] Init Infrastructure: 29.52197265625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[  176887ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  177028ms] [TIMEEND] Init SubSystem: 126.199951171875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[  177028ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  177109ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  177114ms] [TIMEEND] Init Project: 86.10498046875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[  182467ms] [TIMEEND] LoadScene Homepage: 154.830078125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  182506ms] [ERROR] [RecruitmentController] Missing recruitment UI references. @ http://localhost:7456/scripting/x/chunks/27/2774e2a32b7684b385510f13ac2783fe41b3ba13.js:857
+[  213561ms] [TIMEEND] LoadScene Match: 91.7890625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  214880ms] [TIMEEND] LoadScene Homepage: 16.704833984375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  214922ms] [ERROR] [RecruitmentController] Missing recruitment UI references. @ http://localhost:7456/scripting/x/chunks/27/2774e2a32b7684b385510f13ac2783fe41b3ba13.js:857
+[  266515ms] [TIMEEND] LoadScene Match: 16.149169921875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  267700ms] [TIMEEND] LoadScene Homepage: 18.174072265625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  267720ms] [ERROR] [RecruitmentController] Missing recruitment UI references. @ http://localhost:7456/scripting/x/chunks/27/2774e2a32b7684b385510f13ac2783fe41b3ba13.js:857
+[  535662ms] [TIMEEND] Init Base: 0.528076171875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[  535696ms] [TIMEEND] Init Infrastructure: 32.653076171875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[  535710ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  535848ms] [TIMEEND] Init SubSystem: 119.243896484375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[  535849ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  535934ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  535943ms] [TIMEEND] Init Project: 94.658935546875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[  541513ms] [TIMEEND] LoadScene Homepage: 159.287109375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  541549ms] [ERROR] [RecruitmentController] Missing recruitment UI references. @ http://localhost:7456/scripting/x/chunks/27/2774e2a32b7684b385510f13ac2783fe41b3ba13.js:857
+[  549617ms] [TIMEEND] Init Base: 0.14208984375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[  549642ms] [TIMEEND] Init Infrastructure: 24.0439453125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[  549649ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  549779ms] [TIMEEND] Init SubSystem: 116.87109375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[  549779ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  549858ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  549865ms] [TIMEEND] Init Project: 85.703125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[  555384ms] [TIMEEND] LoadScene Homepage: 149.093994140625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  555425ms] [ERROR] [RecruitmentController] Missing recruitment UI references. @ http://localhost:7456/scripting/x/chunks/27/2774e2a32b7684b385510f13ac2783fe41b3ba13.js:857
+[  575326ms] [TIMEEND] LoadScene Match: 16.617919921875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  576525ms] [TIMEEND] LoadScene Homepage: 9.464111328125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  576551ms] [ERROR] [RecruitmentController] Missing recruitment UI references. @ http://localhost:7456/scripting/x/chunks/27/2774e2a32b7684b385510f13ac2783fe41b3ba13.js:857
+[  592206ms] [TIMEEND] LoadScene Match: 15.402099609375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  593393ms] [TIMEEND] LoadScene Homepage: 7.0361328125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  593425ms] [ERROR] [RecruitmentController] Missing recruitment UI references. @ http://localhost:7456/scripting/x/chunks/27/2774e2a32b7684b385510f13ac2783fe41b3ba13.js:857
+[  613594ms] [TIMEEND] LoadScene Match: 14.625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  614762ms] [TIMEEND] LoadScene Homepage: 15.60986328125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  614785ms] [ERROR] [RecruitmentController] Missing recruitment UI references. @ http://localhost:7456/scripting/x/chunks/27/2774e2a32b7684b385510f13ac2783fe41b3ba13.js:857
+[  651365ms] [TIMEEND] LoadScene Match: 15.6640625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  657179ms] [TIMEEND] LoadScene Homepage: 3.141845703125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  657204ms] [ERROR] [RecruitmentController] Missing recruitment UI references. @ http://localhost:7456/scripting/x/chunks/27/2774e2a32b7684b385510f13ac2783fe41b3ba13.js:857
+[  759240ms] [TIMEEND] LoadScene Match: 49.0849609375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  760491ms] [TIMEEND] LoadScene Homepage: 3.573974609375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  760514ms] [ERROR] [RecruitmentController] Missing recruitment UI references. @ http://localhost:7456/scripting/x/chunks/27/2774e2a32b7684b385510f13ac2783fe41b3ba13.js:857
+[  761676ms] [TIMEEND] LoadScene Match: 15.927001953125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  762860ms] [TIMEEND] LoadScene Homepage: 8.341796875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  762887ms] [ERROR] [RecruitmentController] Missing recruitment UI references. @ http://localhost:7456/scripting/x/chunks/27/2774e2a32b7684b385510f13ac2783fe41b3ba13.js:857
+[  764061ms] [TIMEEND] LoadScene Match: 14.751953125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  765246ms] [TIMEEND] LoadScene Homepage: 16.802001953125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  765268ms] [ERROR] [RecruitmentController] Missing recruitment UI references. @ http://localhost:7456/scripting/x/chunks/27/2774e2a32b7684b385510f13ac2783fe41b3ba13.js:857
+[  795213ms] [TIMEEND] Init Base: 0.1669921875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[  795248ms] [TIMEEND] Init Infrastructure: 34.6630859375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[  795258ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  795408ms] [TIMEEND] Init SubSystem: 133.368896484375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[  795408ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  795500ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  795507ms] [TIMEEND] Init Project: 99.06298828125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[  800922ms] [TIMEEND] LoadScene Homepage: 159.001953125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  800954ms] [ERROR] [RecruitmentController] Missing recruitment UI references. @ http://localhost:7456/scripting/x/chunks/27/2774e2a32b7684b385510f13ac2783fe41b3ba13.js:857
+[  809218ms] [TIMEEND] Init Base: 0.159912109375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[  809238ms] [TIMEEND] Init Infrastructure: 20.23486328125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[  809246ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  809357ms] [TIMEEND] Init SubSystem: 96.030029296875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[  809357ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  809434ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  809439ms] [TIMEEND] Init Project: 82.261962890625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[  814902ms] [TIMEEND] LoadScene Homepage: 158.176025390625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  814933ms] [ERROR] [RecruitmentController] Missing recruitment UI references. @ http://localhost:7456/scripting/x/chunks/27/2774e2a32b7684b385510f13ac2783fe41b3ba13.js:857
+[  837103ms] [TIMEEND] LoadScene Match: 158.615966796875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  838853ms] [TIMEEND] LoadScene Homepage: 100.675048828125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  838967ms] [ERROR] [RecruitmentController] Missing recruitment UI references. @ http://localhost:7456/scripting/x/chunks/27/2774e2a32b7684b385510f13ac2783fe41b3ba13.js:857
+[  840291ms] [TIMEEND] LoadScene Match: 17.39697265625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  841558ms] [TIMEEND] LoadScene Homepage: 14.89501953125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  841584ms] [ERROR] [RecruitmentController] Missing recruitment UI references. @ http://localhost:7456/scripting/x/chunks/27/2774e2a32b7684b385510f13ac2783fe41b3ba13.js:857
+[  842657ms] [TIMEEND] LoadScene Match: 15.738037109375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  843842ms] [TIMEEND] LoadScene Homepage: 15.924072265625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  843867ms] [ERROR] [RecruitmentController] Missing recruitment UI references. @ http://localhost:7456/scripting/x/chunks/27/2774e2a32b7684b385510f13ac2783fe41b3ba13.js:857

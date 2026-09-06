@@ -1,0 +1,2106 @@
+{
+  "portrait_count": 150,
+  "all_uuid_fields_unchanged": true,
+  "records": [
+    {
+      "file": "JR史秘司_J.R. Smith.png",
+      "alpha_bbox": [
+        5,
+        11,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        242
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "佳巴尔_Kareem Abdul-Jabbar.png",
+      "alpha_bbox": [
+        5,
+        8,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        245
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "侃宁安_Cade Cunningham.png",
+      "alpha_bbox": [
+        6,
+        7,
+        250,
+        253
+      ],
+      "trim_size": [
+        244,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "侨丹_Michael Jordan.png",
+      "alpha_bbox": [
+        5,
+        14,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        239
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "侨治_Paul George.png",
+      "alpha_bbox": [
+        5,
+        22,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        231
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "假米森_Antawn Jamison.png",
+      "alpha_bbox": [
+        5,
+        21,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        232
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "傲尼尔_Shaquille O'Neal.png",
+      "alpha_bbox": [
+        5,
+        16,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        237
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "傲拉朱旺_Hakeem Olajuwon.png",
+      "alpha_bbox": [
+        5,
+        24,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        229
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "傲登_Greg Oden.png",
+      "alpha_bbox": [
+        5,
+        19,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        234
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "冬契奇_Luka Dončić.png",
+      "alpha_bbox": [
+        5,
+        17,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        236
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "卖迪_Tracy McGrady.png",
+      "alpha_bbox": [
+        5,
+        12,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        241
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "司塔德迈尔_Amar'e Stoudemire.png",
+      "alpha_bbox": [
+        5,
+        17,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        236
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "吉德_Jason Kidd.png",
+      "alpha_bbox": [
+        6,
+        8,
+        250,
+        252
+      ],
+      "trim_size": [
+        244,
+        244
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "哈灯_James Harden.png",
+      "alpha_bbox": [
+        5,
+        11,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        242
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "哈里搏顿_Tyrese Haliburton.png",
+      "alpha_bbox": [
+        6,
+        10,
+        250,
+        252
+      ],
+      "trim_size": [
+        244,
+        242
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "哈魄_Dylan Harper.png",
+      "alpha_bbox": [
+        5,
+        14,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        239
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "唐普森_Amen Thompson.png",
+      "alpha_bbox": [
+        6,
+        7,
+        249,
+        253
+      ],
+      "trim_size": [
+        243,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "唐普森_Klay Thompson.png",
+      "alpha_bbox": [
+        6,
+        7,
+        250,
+        253
+      ],
+      "trim_size": [
+        244,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "啦塞尔_Bill Russell.png",
+      "alpha_bbox": [
+        6,
+        7,
+        249,
+        253
+      ],
+      "trim_size": [
+        243,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "啦文_Zach LaVine.png",
+      "alpha_bbox": [
+        8,
+        7,
+        248,
+        253
+      ],
+      "trim_size": [
+        240,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "喀斯尔_Stephon Castle.png",
+      "alpha_bbox": [
+        8,
+        7,
+        248,
+        253
+      ],
+      "trim_size": [
+        240,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "喀特_Vince Carter.png",
+      "alpha_bbox": [
+        8,
+        7,
+        248,
+        253
+      ],
+      "trim_size": [
+        240,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "嘉内特_Kevin Garnett.png",
+      "alpha_bbox": [
+        9,
+        7,
+        247,
+        253
+      ],
+      "trim_size": [
+        238,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "嘉索尔_Marc Gasol.png",
+      "alpha_bbox": [
+        10,
+        7,
+        246,
+        253
+      ],
+      "trim_size": [
+        236,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "嘉索尔_Pau Gasol.png",
+      "alpha_bbox": [
+        7,
+        7,
+        249,
+        253
+      ],
+      "trim_size": [
+        242,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "埃奇酷姆_VJ Edgecombe.png",
+      "alpha_bbox": [
+        6,
+        7,
+        249,
+        253
+      ],
+      "trim_size": [
+        243,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "塘正东_Tang Zhengdong.png",
+      "alpha_bbox": [
+        5,
+        18,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        235
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "墨宁_Alonzo Mourning.png",
+      "alpha_bbox": [
+        6,
+        7,
+        249,
+        253
+      ],
+      "trim_size": [
+        243,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "墨布里_Evan Mobley.png",
+      "alpha_bbox": [
+        6,
+        7,
+        249,
+        253
+      ],
+      "trim_size": [
+        243,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "奕建联_Yi Jianlian.png",
+      "alpha_bbox": [
+        5,
+        15,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        238
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "娜什_Steve Nash.png",
+      "alpha_bbox": [
+        6,
+        16,
+        250,
+        256
+      ],
+      "trim_size": [
+        244,
+        240
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "季诺比利_Manu Ginóbili.png",
+      "alpha_bbox": [
+        6,
+        16,
+        250,
+        256
+      ],
+      "trim_size": [
+        244,
+        240
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "宝罗_Chris Paul.png",
+      "alpha_bbox": [
+        6,
+        17,
+        250,
+        256
+      ],
+      "trim_size": [
+        244,
+        239
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "尧明_Yao Ming.png",
+      "alpha_bbox": [
+        5,
+        18,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        235
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "崔勇熙_Cui Yongxi.png",
+      "alpha_bbox": [
+        6,
+        16,
+        250,
+        256
+      ],
+      "trim_size": [
+        244,
+        240
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "库颗奇_Toni Kukoč.png",
+      "alpha_bbox": [
+        6,
+        7,
+        249,
+        253
+      ],
+      "trim_size": [
+        243,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "弥切尔_Donovan Mitchell.png",
+      "alpha_bbox": [
+        7,
+        7,
+        249,
+        253
+      ],
+      "trim_size": [
+        242,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "得雷克斯勒_Clyde Drexler.png",
+      "alpha_bbox": [
+        7,
+        7,
+        248,
+        253
+      ],
+      "trim_size": [
+        241,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "忒里_Jason Terry.png",
+      "alpha_bbox": [
+        6,
+        7,
+        250,
+        253
+      ],
+      "trim_size": [
+        244,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "思托克顿_John Stockton.png",
+      "alpha_bbox": [
+        6,
+        7,
+        250,
+        253
+      ],
+      "trim_size": [
+        244,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "慕托姆博_Dikembe Mutombo.png",
+      "alpha_bbox": [
+        9,
+        7,
+        247,
+        253
+      ],
+      "trim_size": [
+        238,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "我尔_John Wall.png",
+      "alpha_bbox": [
+        6,
+        7,
+        250,
+        253
+      ],
+      "trim_size": [
+        244,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "戴维思_Anthony Davis.png",
+      "alpha_bbox": [
+        5,
+        7,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "拓马斯_Isiah Thomas.png",
+      "alpha_bbox": [
+        7,
+        7,
+        249,
+        253
+      ],
+      "trim_size": [
+        242,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "文般亚玛_Victor Wembanyama.png",
+      "alpha_bbox": [
+        8,
+        7,
+        248,
+        253
+      ],
+      "trim_size": [
+        240,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "望仕鹏_Wang Shipeng.png",
+      "alpha_bbox": [
+        5,
+        15,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        238
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "望哲林_Wang Zhelin.png",
+      "alpha_bbox": [
+        5,
+        14,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        239
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "望治郅_Wang Zhizhi.png",
+      "alpha_bbox": [
+        5,
+        20,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        233
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "木林_Chris Mullin.png",
+      "alpha_bbox": [
+        5,
+        7,
+        250,
+        253
+      ],
+      "trim_size": [
+        245,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "杜码斯_Joe Dumars.png",
+      "alpha_bbox": [
+        5,
+        9,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        244
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "林书皓_Jeremy Lin.png",
+      "alpha_bbox": [
+        5,
+        16,
+        251,
+        256
+      ],
+      "trim_size": [
+        246,
+        240
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "柏德_Larry Bird.png",
+      "alpha_bbox": [
+        5,
+        18,
+        251,
+        256
+      ],
+      "trim_size": [
+        246,
+        238
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "柳玉栋_Liu Yudong.png",
+      "alpha_bbox": [
+        5,
+        22,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        231
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "格雯_George Gervin.png",
+      "alpha_bbox": [
+        5,
+        22,
+        251,
+        256
+      ],
+      "trim_size": [
+        246,
+        234
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "桉东尼_Carmelo Anthony.png",
+      "alpha_bbox": [
+        5,
+        26,
+        251,
+        256
+      ],
+      "trim_size": [
+        246,
+        230
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "桦莱士_Ben Wallace.png",
+      "alpha_bbox": [
+        5,
+        16,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        237
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "梧前_Wu Qian.png",
+      "alpha_bbox": [
+        5,
+        13,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        240
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "榙图姆_Jayson Tatum.png",
+      "alpha_bbox": [
+        5,
+        17,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        236
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "步伦森_Jalen Brunson.png",
+      "alpha_bbox": [
+        5,
+        17,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        236
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "步克_Devin Booker.png",
+      "alpha_bbox": [
+        5,
+        16,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        237
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "步朗_Jaylen Brown.png",
+      "alpha_bbox": [
+        5,
+        19,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        234
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "殴文_Julius Erving.png",
+      "alpha_bbox": [
+        5,
+        20,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        233
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "殴文_Kyrie Irving.png",
+      "alpha_bbox": [
+        5,
+        20,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        233
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "比炉普斯_Chauncey Billups.png",
+      "alpha_bbox": [
+        5,
+        19,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        234
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "汞小彬_Gong Xiaobin.png",
+      "alpha_bbox": [
+        5,
+        20,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        233
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "沛蒂特_Bob Pettit.png",
+      "alpha_bbox": [
+        5,
+        20,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        233
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "沛顿_Gary Payton.png",
+      "alpha_bbox": [
+        5,
+        20,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        233
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "泊什_Chris Bosh.png",
+      "alpha_bbox": [
+        5,
+        20,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        233
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "洛伯特森_Oscar Robertson.png",
+      "alpha_bbox": [
+        5,
+        22,
+        251,
+        256
+      ],
+      "trim_size": [
+        246,
+        234
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "洛宾逊_David Robinson.png",
+      "alpha_bbox": [
+        5,
+        23,
+        251,
+        256
+      ],
+      "trim_size": [
+        246,
+        233
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "洛德曼_Dennis Rodman.png",
+      "alpha_bbox": [
+        5,
+        23,
+        251,
+        256
+      ],
+      "trim_size": [
+        246,
+        233
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "洛斯_Derrick Rose.png",
+      "alpha_bbox": [
+        5,
+        22,
+        251,
+        256
+      ],
+      "trim_size": [
+        246,
+        234
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "洲琦_Zhou Qi.png",
+      "alpha_bbox": [
+        5,
+        18,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        235
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "渡兰特_Kevin Durant.png",
+      "alpha_bbox": [
+        5,
+        7,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "渡锋_Du Feng.png",
+      "alpha_bbox": [
+        7,
+        7,
+        248,
+        253
+      ],
+      "trim_size": [
+        241,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "渥西_James Worthy.png",
+      "alpha_bbox": [
+        7,
+        7,
+        249,
+        253
+      ],
+      "trim_size": [
+        242,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "渥顿_Bill Walton.png",
+      "alpha_bbox": [
+        6,
+        7,
+        249,
+        253
+      ],
+      "trim_size": [
+        243,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "游因_Patrick Ewing.png",
+      "alpha_bbox": [
+        6,
+        7,
+        249,
+        253
+      ],
+      "trim_size": [
+        243,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "湖卫东_Hu Weidong.png",
+      "alpha_bbox": [
+        5,
+        15,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        238
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "湖金秋_Hu Jinqiu.png",
+      "alpha_bbox": [
+        5,
+        14,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        239
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "烤辛斯_DeMarcus Cousins.png",
+      "alpha_bbox": [
+        8,
+        7,
+        248,
+        253
+      ],
+      "trim_size": [
+        240,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "照继伟_Zhao Jiwei.png",
+      "alpha_bbox": [
+        5,
+        19,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        234
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "熙尔_Grant Hill.png",
+      "alpha_bbox": [
+        5,
+        7,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "熙蒙斯_Ben Simmons.png",
+      "alpha_bbox": [
+        6,
+        7,
+        249,
+        253
+      ],
+      "trim_size": [
+        243,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "爱弗森_Allen Iverson.png",
+      "alpha_bbox": [
+        5,
+        8,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        245
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "爱得划兹_Anthony Edwards.png",
+      "alpha_bbox": [
+        6,
+        7,
+        249,
+        253
+      ],
+      "trim_size": [
+        243,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "爱顿_Deandre Ayton.png",
+      "alpha_bbox": [
+        6,
+        7,
+        250,
+        253
+      ],
+      "trim_size": [
+        244,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "玎彦雨航_Ding Yanyuhang.png",
+      "alpha_bbox": [
+        5,
+        19,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        234
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "玛健_Ma Jian.png",
+      "alpha_bbox": [
+        6,
+        7,
+        250,
+        253
+      ],
+      "trim_size": [
+        244,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "玛龙_Karl Malone.png",
+      "alpha_bbox": [
+        5,
+        12,
+        251,
+        256
+      ],
+      "trim_size": [
+        246,
+        244
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "玛龙_Moses Malone.png",
+      "alpha_bbox": [
+        5,
+        8,
+        251,
+        256
+      ],
+      "trim_size": [
+        246,
+        248
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "珠芳雨_Zhu Fangyu.png",
+      "alpha_bbox": [
+        5,
+        17,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        236
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "班恺罗_Paolo Banchero.png",
+      "alpha_bbox": [
+        5,
+        10,
+        251,
+        256
+      ],
+      "trim_size": [
+        246,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "理凯尔_Kyle Anderson.png",
+      "alpha_bbox": [
+        5,
+        13,
+        251,
+        256
+      ],
+      "trim_size": [
+        246,
+        243
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "琵尔斯_Paul Pierce.png",
+      "alpha_bbox": [
+        6,
+        7,
+        250,
+        253
+      ],
+      "trim_size": [
+        244,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "琵蓬_Scottie Pippen.png",
+      "alpha_bbox": [
+        7,
+        7,
+        248,
+        253
+      ],
+      "trim_size": [
+        241,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "琶克_Tony Parker.png",
+      "alpha_bbox": [
+        7,
+        7,
+        249,
+        253
+      ],
+      "trim_size": [
+        242,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "琶里什_Robert Parish.png",
+      "alpha_bbox": [
+        7,
+        7,
+        248,
+        253
+      ],
+      "trim_size": [
+        241,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "璋伯伦_Wilt Chamberlain.png",
+      "alpha_bbox": [
+        8,
+        7,
+        248,
+        253
+      ],
+      "trim_size": [
+        240,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "璋卫平_Zhang Weiping.png",
+      "alpha_bbox": [
+        10,
+        7,
+        246,
+        253
+      ],
+      "trim_size": [
+        236,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "瓦阁纳_Franz Wagner.png",
+      "alpha_bbox": [
+        11,
+        7,
+        245,
+        253
+      ],
+      "trim_size": [
+        234,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "登肯_Tim Duncan.png",
+      "alpha_bbox": [
+        9,
+        7,
+        246,
+        253
+      ],
+      "trim_size": [
+        237,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "瞻姆斯_LeBron James.png",
+      "alpha_bbox": [
+        6,
+        7,
+        250,
+        253
+      ],
+      "trim_size": [
+        244,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "立拉德_Damian Lillard.png",
+      "alpha_bbox": [
+        9,
+        7,
+        247,
+        253
+      ],
+      "trim_size": [
+        238,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "米乐_Reggie Miller.png",
+      "alpha_bbox": [
+        8,
+        7,
+        247,
+        253
+      ],
+      "trim_size": [
+        239,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "糯维茨基_Dirk Nowitzki.png",
+      "alpha_bbox": [
+        7,
+        7,
+        249,
+        253
+      ],
+      "trim_size": [
+        242,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "约吉奇_Nikola Jokić.png",
+      "alpha_bbox": [
+        5,
+        47,
+        251,
+        256
+      ],
+      "trim_size": [
+        246,
+        209
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "纶纳德_Kawhi Leonard.png",
+      "alpha_bbox": [
+        5,
+        39,
+        251,
+        256
+      ],
+      "trim_size": [
+        246,
+        217
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "维伯_Chris Webber.png",
+      "alpha_bbox": [
+        5,
+        40,
+        251,
+        256
+      ],
+      "trim_size": [
+        246,
+        216
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "维司布鲁克_Russell Westbrook.png",
+      "alpha_bbox": [
+        5,
+        38,
+        251,
+        256
+      ],
+      "trim_size": [
+        246,
+        218
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "维尔金斯_Dominique Wilkins.png",
+      "alpha_bbox": [
+        8,
+        7,
+        248,
+        253
+      ],
+      "trim_size": [
+        240,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "维廉姆斯_Jalen Williams.png",
+      "alpha_bbox": [
+        8,
+        7,
+        247,
+        253
+      ],
+      "trim_size": [
+        239,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "维德_Dwyane Wade.png",
+      "alpha_bbox": [
+        8,
+        7,
+        247,
+        253
+      ],
+      "trim_size": [
+        239,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "维斯特_Jerry West.png",
+      "alpha_bbox": [
+        8,
+        7,
+        248,
+        253
+      ],
+      "trim_size": [
+        240,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "维津斯_Andrew Wiggins.png",
+      "alpha_bbox": [
+        8,
+        7,
+        247,
+        253
+      ],
+      "trim_size": [
+        239,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "胧多_Rajon Rondo.png",
+      "alpha_bbox": [
+        7,
+        7,
+        248,
+        253
+      ],
+      "trim_size": [
+        241,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "芙拉格_Cooper Flagg.png",
+      "alpha_bbox": [
+        8,
+        7,
+        247,
+        253
+      ],
+      "trim_size": [
+        239,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "芙雷泽_Walt Frazier.png",
+      "alpha_bbox": [
+        7,
+        7,
+        248,
+        253
+      ],
+      "trim_size": [
+        241,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "芭克利_Charles Barkley.png",
+      "alpha_bbox": [
+        6,
+        7,
+        249,
+        253
+      ],
+      "trim_size": [
+        243,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "芭恩斯_Scottie Barnes.png",
+      "alpha_bbox": [
+        5,
+        7,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "芭特勒_Jimmy Butler.png",
+      "alpha_bbox": [
+        5,
+        8,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        245
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "芭特尔_Mengke Bateer.png",
+      "alpha_bbox": [
+        5,
+        27,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        226
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "范芙利特_Fred VanVleet.png",
+      "alpha_bbox": [
+        5,
+        8,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        245
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "荪军_Sun Jun.png",
+      "alpha_bbox": [
+        5,
+        10,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        243
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "荪悦_Sun Yue.png",
+      "alpha_bbox": [
+        6,
+        14,
+        250,
+        256
+      ],
+      "trim_size": [
+        244,
+        242
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "蒽比德_Joel Embiid.png",
+      "alpha_bbox": [
+        6,
+        15,
+        250,
+        256
+      ],
+      "trim_size": [
+        244,
+        241
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "蓝姆_Jeremy Lamb.png",
+      "alpha_bbox": [
+        6,
+        17,
+        250,
+        256
+      ],
+      "trim_size": [
+        244,
+        239
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "豁华德_Dwight Howard.png",
+      "alpha_bbox": [
+        6,
+        17,
+        250,
+        256
+      ],
+      "trim_size": [
+        244,
+        239
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "豁姆格伦_Chet Holmgren.png",
+      "alpha_bbox": [
+        5,
+        18,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        235
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "越翰逊_Kevin Johnson.png",
+      "alpha_bbox": [
+        5,
+        16,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        237
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "迈克海尔_Kevin McHale.png",
+      "alpha_bbox": [
+        5,
+        11,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        242
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "迪瓦慈_Vlade Divac.png",
+      "alpha_bbox": [
+        5,
+        10,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        243
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "酷里_Stephen Curry.png",
+      "alpha_bbox": [
+        5,
+        16,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        237
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "锡暗_Zion Williamson.png",
+      "alpha_bbox": [
+        5,
+        13,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        240
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "阁林_Draymond Green.png",
+      "alpha_bbox": [
+        5,
+        13,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        240
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "阁林_Jalen Green.png",
+      "alpha_bbox": [
+        5,
+        15,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        238
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "阁里芬_Blake Griffin.png",
+      "alpha_bbox": [
+        5,
+        21,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        232
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "阳_Nick Young.png",
+      "alpha_bbox": [
+        5,
+        17,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        236
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "阳_Trae Young.png",
+      "alpha_bbox": [
+        5,
+        15,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        238
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "阳瀚森_Yang Hansen.png",
+      "alpha_bbox": [
+        5,
+        10,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        243
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "阿尔德里齐_LaMarcus Aldridge.png",
+      "alpha_bbox": [
+        5,
+        17,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        236
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "雅不都沙拉木_Abudushalamu Abudurexiti.png",
+      "alpha_bbox": [
+        5,
+        11,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        242
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "雅伦_Ray Allen.png",
+      "alpha_bbox": [
+        5,
+        16,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        237
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "雅德托昆博_Giannis Antetokounmpo.png",
+      "alpha_bbox": [
+        5,
+        11,
+        251,
+        253
+      ],
+      "trim_size": [
+        246,
+        242
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "颗比_Kobe Bryant.png",
+      "alpha_bbox": [
+        17,
+        7,
+        238,
+        253
+      ],
+      "trim_size": [
+        221,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "飒博尼斯_Arvydas Sabonis.png",
+      "alpha_bbox": [
+        17,
+        7,
+        238,
+        253
+      ],
+      "trim_size": [
+        221,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "魔术师_Magic Johnson.png",
+      "alpha_bbox": [
+        17,
+        7,
+        238,
+        253
+      ],
+      "trim_size": [
+        221,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "鸭梨山大_Shai Gilgeous-Alexander.png",
+      "alpha_bbox": [
+        19,
+        7,
+        237,
+        253
+      ],
+      "trim_size": [
+        218,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "鹤希宁_He Xining.png",
+      "alpha_bbox": [
+        20,
+        7,
+        235,
+        253
+      ],
+      "trim_size": [
+        215,
+        246
+      ],
+      "uuid_unchanged": true
+    },
+    {
+      "file": "麦垦_George Mikan.png",
+      "alpha_bbox": [
+        20,
+        7,
+        235,
+        253
+      ],
+      "trim_size": [
+        215,
+        246
+      ],
+      "uuid_unchanged": true
+    }
+  ]
+}

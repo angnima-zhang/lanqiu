@@ -1,0 +1,11 @@
+{
+  "browser": {
+    "launchOptions": {
+      "headless": true,
+      "executablePath": "C:/Users/ctwl/AppData/Local/ms-playwright/chromium_headless_shell-1234/chrome-headless-shell-win64/chrome-headless-shell.exe"
+    },
+    "contextOptions": {
+      "viewport": { "width": 480, "height": 900 }
+    }
+  }
+}

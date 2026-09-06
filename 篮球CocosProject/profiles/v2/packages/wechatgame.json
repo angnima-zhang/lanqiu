@@ -1,0 +1,45 @@
+{
+  "__version__": "1.0.4",
+  "builder": {
+    "common": {
+      "binGroupConfig": {
+        "threshold": 16,
+        "enable": false
+      },
+      "buildPath": "project://build",
+      "outputName": "wechatgame",
+      "mainBundleCompressionType": "merge_dep",
+      "platform": "wechatgame",
+      "startSceneAssetBundle": true,
+      "startScene": "a0a358c7-ff82-4472-8f0a-2071acb3cae6",
+      "bundleConfigs": [],
+      "overwriteProjectSettings": {
+        "includeModules": {
+          "gfx-webgl2": "on"
+        }
+      }
+    },
+    "options": {
+      "wechatgame": {
+        "orientation": "portrait",
+        "appid": "wxa4508bb75a0e6f55",
+        "buildOpenDataContextTemplate": "",
+        "separateEngine": false,
+        "highPerformanceMode": false,
+        "__version__": "1.0.4"
+      }
+    },
+    "taskOptionsMap": {
+      "1785660539875": {
+        "orientation": "portrait",
+        "appid": "wxa4508bb75a0e6f55",
+        "buildOpenDataContextTemplate": "",
+        "separateEngine": false,
+        "highPerformanceMode": false,
+        "startSceneAssetBundle": true,
+        "__version__": "1.0.4"
+      }
+    },
+    "__version__": "1.3.9"
+  }
+}

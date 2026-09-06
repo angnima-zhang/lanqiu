@@ -1,0 +1,31 @@
+[     870ms] [TIMEEND] Init Base: 0.484130859375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[     897ms] [TIMEEND] Init Infrastructure: 27.005126953125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[     909ms] [WARNING] [.WebGL-0x1b1c001ad600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels @ http://localhost:7456/:0
+[     913ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1069ms] [TIMEEND] Init SubSystem: 139.114013671875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[    1069ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1191ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1219ms] [TIMEEND] Init Project: 149.844970703125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[    1264ms] [WARNING] [.WebGL-0x1b1c001ad600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels @ http://localhost:7456/:0
+[    1268ms] [WARNING] [.WebGL-0x1b1c001ad600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels @ http://localhost:7456/:0
+[    1502ms] [WARNING] [.WebGL-0x1b1c001ad600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat) @ http://localhost:7456/:0
+[    7859ms] [TIMEEND] LoadScene Homepage: 156.511962890625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[    7888ms] [INFO] [HomepageDebugManager] 启动时已清除 3 项存档。 @ http://localhost:7456/scripting/x/chunks/6f/6f34f2fb3a1536473b013f9cb57d4caac4be034e.js:65
+[  135831ms] [TIMEEND] Init Base: 0.16796875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[  135848ms] [TIMEEND] Init Infrastructure: 17.158203125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[  135857ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  135980ms] [TIMEEND] Init SubSystem: 111.947021484375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[  135980ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  136069ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  136073ms] [TIMEEND] Init Project: 93.156982421875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[  139870ms] [TIMEEND] Init Base: 0.106201171875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[  139889ms] [TIMEEND] Init Infrastructure: 18.5810546875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[  139900ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  140030ms] [TIMEEND] Init SubSystem: 117.76806640625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[  140030ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  140123ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  140128ms] [TIMEEND] Init Project: 98.35791015625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[  147409ms] [TIMEEND] LoadScene Homepage: 146.451171875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  147429ms] [INFO] [HomepageDebugManager] 启动时已清除 3 项存档。 @ http://localhost:7456/scripting/x/chunks/6f/6f34f2fb3a1536473b013f9cb57d4caac4be034e.js:65
+[  336071ms] [TIMEEND] LoadScene Match: 300 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  351659ms] [TIMEEND] LoadScene Homepage: 41.34814453125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086

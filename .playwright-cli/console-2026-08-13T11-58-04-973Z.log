@@ -1,0 +1,12 @@
+[     912ms] [TIMEEND] Init Base: 0.698974609375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[     945ms] [TIMEEND] Init Infrastructure: 31.8251953125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[     956ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1120ms] [TIMEEND] Init SubSystem: 149.254150390625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[    1120ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1228ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1241ms] [TIMEEND] Init Project: 120.739990234375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[    7580ms] [TIMEEND] LoadScene Homepage: 191.84619140625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[    7637ms] [LOG] SLOT_ACTIVE:{"found":true,"node":"捡球球员1","active":true} @ :0
+[    8442ms] [LOG] SLOT_SWEEP_0P8S:{"bindings":8,"completed":0,"elapsed":0,"effect":"../resources/effects/slot-new-player-sweep"} @ :0
+[    9243ms] [LOG] SLOT_SWEEP_1P6S:{"bindings":8,"completed":0,"elapsed":0,"effect":"../resources/effects/slot-new-player-sweep"} @ :0
+[   10141ms] [LOG] SLOT_SWEEP_2P5S:{"bindings":8,"completed":0,"elapsed":0,"effect":"../resources/effects/slot-new-player-sweep"} @ :0

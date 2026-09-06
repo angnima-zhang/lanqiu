@@ -1,0 +1,12 @@
+[     991ms] [TIMEEND] Init Base: 0.343017578125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[    1025ms] [TIMEEND] Init Infrastructure: 33.150146484375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[    1040ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1197ms] [TIMEEND] Init SubSystem: 142.6689453125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[    1197ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1329ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1342ms] [TIMEEND] Init Project: 144.215087890625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[    7421ms] [TIMEEND] LoadScene Homepage: 167.18017578125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[   32195ms] [TIMEEND] LoadScene Match: 65.152099609375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  406696ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:7456/socket.io/?EIO=3&transport=polling&t=Q1MijCo:0
+[  410424ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:7456/socket.io/?EIO=3&transport=polling&t=Q1Mik7P:0
+[  417763ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:7456/socket.io/?EIO=3&transport=polling&t=Q1MilwK:0

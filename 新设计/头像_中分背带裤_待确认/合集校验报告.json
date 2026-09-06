@@ -1,0 +1,105 @@
+{
+  "sheets": [
+    {
+      "file": "CBA_16人_4x4_样张_v1.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "occupied_cells": 16,
+      "corners_pure_magenta": true
+    },
+    {
+      "file": "球员合集_02_16人.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "occupied_cells": 16,
+      "corners_pure_magenta": true
+    },
+    {
+      "file": "球员合集_03_16人.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "occupied_cells": 16,
+      "corners_pure_magenta": true
+    },
+    {
+      "file": "球员合集_04_16人.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "occupied_cells": 16,
+      "corners_pure_magenta": true
+    },
+    {
+      "file": "球员合集_05_16人.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "occupied_cells": 16,
+      "corners_pure_magenta": true
+    },
+    {
+      "file": "球员合集_06_16人.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "occupied_cells": 16,
+      "corners_pure_magenta": true
+    },
+    {
+      "file": "球员合集_07_16人.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "occupied_cells": 16,
+      "corners_pure_magenta": true
+    },
+    {
+      "file": "球员合集_08_16人.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "occupied_cells": 16,
+      "corners_pure_magenta": true
+    },
+    {
+      "file": "球员合集_09_16人.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "occupied_cells": 16,
+      "corners_pure_magenta": true
+    },
+    {
+      "file": "球员合集_10_6人.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "occupied_cells": 6,
+      "corners_pure_magenta": true
+    }
+  ],
+  "total_occupied_cells": 150
+}

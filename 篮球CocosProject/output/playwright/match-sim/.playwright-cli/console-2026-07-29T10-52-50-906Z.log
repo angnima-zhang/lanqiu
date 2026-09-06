@@ -1,0 +1,147 @@
+[    3115ms] [TIMEEND] Init Base: 1.327880859375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[    3163ms] [TIMEEND] Init Infrastructure: 47.048095703125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[    3182ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    3233ms] [LOG] [PHYSICS2D]: register box2d. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    3396ms] [TIMEEND] Init SubSystem: 148.385986328125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[    3396ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    3514ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    3544ms] [TIMEEND] Init Project: 147.98193359375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[   33216ms] [TIMEEND] Init Base: 0.880859375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[   33266ms] [TIMEEND] Init Infrastructure: 48.826904296875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[   33285ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[   33293ms] [LOG] [PHYSICS2D]: register box2d. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[   33735ms] [TIMEEND] Init SubSystem: 425.004150390625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[   33735ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[   34407ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[   34497ms] [TIMEEND] Init Project: 761.523193359375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[   36057ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  139378ms] [TIMEEND] Init Base: 0.587890625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[  139426ms] [TIMEEND] Init Infrastructure: 46.680908203125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[  139448ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  139461ms] [LOG] [PHYSICS2D]: register box2d. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  139615ms] [TIMEEND] Init SubSystem: 129.93896484375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[  139615ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  139697ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  139720ms] [TIMEEND] Init Project: 105.150146484375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[  158111ms] [TIMEEND] Init Base: 0.51513671875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[  158175ms] [TIMEEND] Init Infrastructure: 62.8271484375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[  158177ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158181ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158184ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158201ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  158213ms] [LOG] [PHYSICS2D]: register box2d. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  158214ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158220ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158235ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158252ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158279ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158287ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158303ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158325ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158338ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158380ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158380ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158383ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158400ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158417ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158437ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158455ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158455ms] [TIMEEND] Init SubSystem: 227.280029296875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[  158455ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  158467ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158485ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158502ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158518ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158528ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  158537ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158542ms] [TIMEEND] Init Project: 87.275146484375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[  158550ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158576ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158583ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158612ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158617ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158633ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158650ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158671ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158687ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158700ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158717ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158736ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158750ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158767ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158784ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158801ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158817ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158834ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158860ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158867ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158884ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158902ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158917ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158935ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158951ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158968ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  158984ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  159004ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  159021ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  159037ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  159054ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  159067ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  159086ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  159102ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  159126ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  159143ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  159151ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  159193ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  159304ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  159318ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  159446ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  159481ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  159484ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  159524ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  159537ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  159584ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  159590ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  159601ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  159985ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  160523ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  160537ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  160556ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  160569ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  160599ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  160786ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  160802ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  160819ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  160836ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  160869ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  160886ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  160902ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  160919ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  160936ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  160952ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  161003ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  161043ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  161044ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  161198ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  161426ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  161436ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  161453ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  161470ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  161486ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  161503ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  161520ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  161537ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  161554ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  161571ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  161586ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  161603ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  161620ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  161666ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  162017ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  162035ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  162083ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  162086ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  162087ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  162109ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  162120ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274
+[  162137ms] [WARNING] Can not get current scene. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240274

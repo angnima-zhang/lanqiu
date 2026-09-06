@@ -1,0 +1,20 @@
+{
+  "date": "2026-08-31",
+  "environment": "Cocos Creator 3.8.7 browser preview, isolated Playwright session",
+  "sourceRefreshVerified": true,
+  "finished": true,
+  "plannedActions": 59,
+  "completedActions": 59,
+  "offensiveReboundContinuations": 19,
+  "possessionMismatches": 0,
+  "idleSamplesAt16ms": 0,
+  "maxCompletionToNextPlayStartMs": 1,
+  "speedsTested": [1, 2, 3],
+  "actualQuarterScores": [[8, 7, 7, 7], [6, 7, 6, 7]],
+  "expectedQuarterScores": [[8, 7, 7, 7], [6, 7, 6, 7]],
+  "regressionTestsPassed": 44,
+  "matchRegressionTestsPassed": 15,
+  "matchTypeScriptDiagnostics": 0,
+  "fullProjectTypeCheck": "Existing unrelated diagnostics remain; not a clean project-wide type check",
+  "verificationBoundary": "One full browser-preview match plus automated regressions; no TapTap or WeChat device build was run"
+}

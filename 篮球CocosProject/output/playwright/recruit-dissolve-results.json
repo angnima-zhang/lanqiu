@@ -1,0 +1,31 @@
+{
+  "date": "2026-08-31",
+  "environment": "Cocos Creator 3.8.7 browser preview, isolated Playwright session",
+  "sourceAndShaderRefreshVerified": true,
+  "resultPageSprites": 25,
+  "visibleTexturedSprites": 18,
+  "singleCloseBefore": {
+    "materialInitializations": 24,
+    "dissolveParameterUpdates": 672,
+    "colorClones": 476
+  },
+  "singleCloseAfter": {
+    "materialInitializations": 0,
+    "dissolveParameterUpdates": 30,
+    "colorClones": 24,
+    "sharedDissolveMaterials": 1
+  },
+  "repeatedCloses": {
+    "speedMultipliers": [1, 2, 4, 1, 2],
+    "validOriginalMaterialRestoreMismatches": 0,
+    "remainingDissolveBindings": 0,
+    "sameMaterialReused": true,
+    "completionCallbackCleared": true
+  },
+  "restoreNote": "The ad-button glow is intentionally destroyed by its own component when the button is disabled; an invalid original is not restored.",
+  "testsPassed": 54,
+  "dissolveTestsPassed": 10,
+  "changedScriptTypeDiagnostics": 0,
+  "fullProjectTypeCheck": "Existing unrelated diagnostics remain",
+  "verificationBoundary": "Operation counts vary with frames. These are desktop-preview measurements, not mobile FPS or GPU timings. No device build or Git push was performed."
+}

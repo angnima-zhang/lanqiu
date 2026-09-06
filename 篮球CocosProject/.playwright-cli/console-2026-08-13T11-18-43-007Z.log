@@ -1,0 +1,30 @@
+[     975ms] [TIMEEND] Init Base: 0.344970703125 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[    1005ms] [TIMEEND] Init Infrastructure: 29.739990234375 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[    1015ms] [LOG] meshopt wasm decoder initialized @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1167ms] [TIMEEND] Init SubSystem: 138.151123046875 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[    1167ms] [LOG] Cocos Creator v3.8.7 @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1298ms] [LOG] Using custom pipeline: Builtin @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1311ms] [TIMEEND] Init Project: 143.451904296875 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[    7809ms] [TIMEEND] LoadScene Homepage: 218.258056640625 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[   59427ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/UI/球员/头像框-方/头像框12-方/spriteFrame Error: Bundle resources doesn't contain images/UI/球员/头像框-方/头像框12-方/spriteFrame
+    at _loop2 (http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://127.0.0.1:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:56:17 @ http://127.0.0.1:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:57
+[   59781ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/UI/球员/头像框-方/头像框12-方/spriteFrame Error: Bundle resources doesn't contain images/UI/球员/头像框-方/头像框12-方/spriteFrame
+    at _loop2 (http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://127.0.0.1:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:56:17 @ http://127.0.0.1:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:57

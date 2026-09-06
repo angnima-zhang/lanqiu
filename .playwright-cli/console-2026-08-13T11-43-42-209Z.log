@@ -1,0 +1,12 @@
+[     970ms] [TIMEEND] Init Base: 0.325927734375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[    1001ms] [TIMEEND] Init Infrastructure: 30.845947265625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[    1012ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1166ms] [TIMEEND] Init SubSystem: 139.444091796875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[    1166ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1290ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1303ms] [TIMEEND] Init Project: 136.83203125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[    8007ms] [TIMEEND] LoadScene Homepage: 201.80712890625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[   27688ms] [LOG] OVR_LABEL_ACTIVATED:true @ :0
+[   31970ms] [LOG] OVR_BEVEL_VERIFY:{"bevel":true,"effect":"../resources/effects/overall-number-bevel","hasAnimation":true} @ :0
+[   63064ms] [LOG] OVR_IMPACT_ACTIVE:{"effect":"../resources/effects/overall-number-shine","progress":0.34763313609467456} @ :0
+[   63406ms] [LOG] OVR_IMPACT_RESTORED:{"effect":"../resources/effects/overall-number-bevel","impactMaterial":true} @ :0

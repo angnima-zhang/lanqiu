@@ -1,0 +1,12 @@
+[     927ms] [TIMEEND] Init Base: 0.369873046875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[     966ms] [TIMEEND] Init Infrastructure: 39.507080078125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[     979ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1175ms] [TIMEEND] Init SubSystem: 174.593017578125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[    1175ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1301ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1316ms] [TIMEEND] Init Project: 140.4248046875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[    7829ms] [TIMEEND] LoadScene Homepage: 180.263916015625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[    7892ms] [LOG] INACTIVE_SLOT:{"found":true,"node":"被替换球员"} @ :0
+[    8086ms] [LOG] CYCLE_1:{"bindings":4,"completed":1,"elapsed":0} @ :0
+[    8087ms] [LOG] CYCLE_2:{"bindings":4,"completed":2,"elapsed":0} @ :0
+[    8087ms] [LOG] CYCLE_3:{"bindings":0,"completed":0,"elapsed":0} @ :0

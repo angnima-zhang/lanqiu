@@ -1,0 +1,12 @@
+[     863ms] [TIMEEND] Init Base: 0.326904296875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[     895ms] [TIMEEND] Init Infrastructure: 31.501953125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[     906ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1071ms] [TIMEEND] Init SubSystem: 144.698974609375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[    1071ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1191ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1204ms] [TIMEEND] Init Project: 132.904052734375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[    7679ms] [TIMEEND] LoadScene Homepage: 185.006103515625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[    7745ms] [LOG] ROSTER_SLOT_ACTIVE:{"found":true,"node":"球员-阵容槽位-000","active":true} @ :0
+[    8549ms] [LOG] ROSTER_SWEEP_0P8S:{"bindings":4,"completed":0,"elapsed":0.651,"effect":"../resources/effects/slot-new-player-sweep"} @ :0
+[    9350ms] [LOG] ROSTER_SWEEP_1P6S:{"bindings":0,"completed":0,"elapsed":0} @ :0
+[   10250ms] [LOG] ROSTER_SWEEP_2P5S:{"bindings":0,"completed":0,"elapsed":0} @ :0

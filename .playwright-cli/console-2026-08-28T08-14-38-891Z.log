@@ -1,0 +1,50 @@
+[    1273ms] [TIMEEND] Init Base: 0.3349609375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[    1304ms] [TIMEEND] Init Infrastructure: 30.767822265625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[    1316ms] [WARNING] [.WebGL-0x4fc4001b5600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels @ http://localhost:7456/:0
+[    1325ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1470ms] [TIMEEND] Init SubSystem: 126.64599609375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[    1470ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1592ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1621ms] [TIMEEND] Init Project: 150.65185546875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[    1665ms] [WARNING] [.WebGL-0x4fc4001b5600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels @ http://localhost:7456/:0
+[    1669ms] [WARNING] [.WebGL-0x4fc4001b5600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels @ http://localhost:7456/:0
+[    1910ms] [WARNING] [.WebGL-0x4fc4001b5600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat) @ http://localhost:7456/:0
+[    3076ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7456/assets/main/import/48/48c8a662-5284-4901-9921-c6ef69241a37@f9941.json:0
+[    4244ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7456/assets/main/import/6a/6ac05ca8-4889-41db-bbff-012be4ebcb55@f9941.json:0
+[    8346ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7456/assets/main/import/48/48c8a662-5284-4901-9921-c6ef69241a37@f9941.json:0
+[    8347ms] [ERROR] The asset 48c8a662-5284-4901-9921-c6ef69241a37@f9941 is missing! @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[    8349ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7456/assets/main/import/6a/6ac05ca8-4889-41db-bbff-012be4ebcb55@f9941.json:0
+[    8349ms] [ERROR] The asset 6ac05ca8-4889-41db-bbff-012be4ebcb55@f9941 is missing! @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[    8354ms] [TIMEEND] LoadScene Homepage: 164.467041015625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[    8427ms] [ERROR] The asset D:\篮球\篮球CocosProject\assets\resources\images\UI\事件\招募.png used by 球员详情页面{cc.Prefab(bf70ae4d-020f-47a8-9dc2-f0b25c3037cd)} is missing! 
+asset D:\篮球\篮球CocosProject\assets\resources\images\UI\事件\招募.png(48c8a662-5284-4901-9921-c6ef69241a37@f9941) has been deleted at 2026/8/28 16:02:31. 
+Node path: 球员详情页面/球员头像/事件
+PropName: _spriteFrame @ http://localhost:7456/preview-app/main.js:4
+[    8427ms] [ERROR] The asset D:\篮球\篮球CocosProject\assets\resources\images\UI\事件\玩梗.png used by 球员-阵容槽位{cc.Prefab(c057f441-fb1b-48a8-a2c5-8156fdbda5a1)} is missing! 
+asset D:\篮球\篮球CocosProject\assets\resources\images\UI\事件\玩梗.png(6ac05ca8-4889-41db-bbff-012be4ebcb55@f9941) has been deleted at 2026/8/28 16:02:31. 
+Node path: 球员-阵容槽位/事件
+PropName: _spriteFrame @ http://localhost:7456/preview-app/main.js:4
+[  198408ms] [TIMEEND] Init Base: 0.156005859375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[  198426ms] [TIMEEND] Init Infrastructure: 18.36279296875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[  198436ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  198546ms] [TIMEEND] Init SubSystem: 97.41015625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[  198546ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  198634ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  198640ms] [TIMEEND] Init Project: 93.817138671875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[  199337ms] [TIMEEND] Init Base: 0.158935546875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[  199355ms] [TIMEEND] Init Infrastructure: 17.77099609375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[  199367ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  199512ms] [TIMEEND] Init SubSystem: 133.951904296875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[  199512ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  199595ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  199600ms] [TIMEEND] Init Project: 87.7431640625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[  206191ms] [TIMEEND] LoadScene Homepage: 130.056884765625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  400031ms] [ERROR] [RecruitmentController] Empty player pool or missing OVR range. 4 @ http://localhost:7456/scripting/x/chunks/27/2774e2a32b7684b385510f13ac2783fe41b3ba13.js:1992
+[  498691ms] [TIMEEND] Init Base: 0.135986328125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[  498709ms] [TIMEEND] Init Infrastructure: 17.85595703125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[  498720ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  498850ms] [TIMEEND] Init SubSystem: 114.659912109375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[  498850ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  498927ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  498933ms] [TIMEEND] Init Project: 82.969970703125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[  505741ms] [TIMEEND] LoadScene Homepage: 141.262939453125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086

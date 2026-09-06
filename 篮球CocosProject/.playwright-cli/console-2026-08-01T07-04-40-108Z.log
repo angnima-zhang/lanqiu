@@ -1,0 +1,8 @@
+[    1938ms] [TIMEEND] Init Base: 0.3408203125 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[    1973ms] [TIMEEND] Init Infrastructure: 34.259033203125 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[    1989ms] [LOG] meshopt wasm decoder initialized @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    2062ms] [LOG] [PHYSICS2D]: register box2d. @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    2202ms] [TIMEEND] Init SubSystem: 125.66796875 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[    2202ms] [LOG] Cocos Creator v3.8.7 @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    2560ms] [LOG] Using custom pipeline: Builtin @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    2578ms] [TIMEEND] Init Project: 375.77001953125 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164

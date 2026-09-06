@@ -1,0 +1,11 @@
+[     892ms] [TIMEEND] Init Base: 0.321044921875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[     922ms] [TIMEEND] Init Infrastructure: 29.738037109375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[     935ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1116ms] [TIMEEND] Init SubSystem: 161.844970703125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[    1117ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1246ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1261ms] [TIMEEND] Init Project: 143.85205078125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[    7821ms] [TIMEEND] LoadScene Homepage: 181.900146484375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[   21488ms] [LOG] SLOT_SWEEP_0P8S:{"bindings":4,"completed":0,"elapsed":0,"effect":"../resources/effects/slot-new-player-sweep"} @ :0
+[   22287ms] [LOG] SLOT_SWEEP_1P6S:{"bindings":4,"completed":0,"elapsed":0,"effect":"../resources/effects/slot-new-player-sweep"} @ :0
+[   23189ms] [LOG] SLOT_SWEEP_2P5S:{"bindings":4,"completed":0,"elapsed":0,"effect":"../resources/effects/slot-new-player-sweep"} @ :0

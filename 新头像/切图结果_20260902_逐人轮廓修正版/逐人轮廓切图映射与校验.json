@@ -1,0 +1,4062 @@
+{
+  "portrait_count": 150,
+  "method": "per-person alpha connected component; preserve aspect ratio; center; bottom align",
+  "output_size": [
+    256,
+    256
+  ],
+  "output_mode": "RGBA",
+  "meta_unchanged": true,
+  "records": [
+    {
+      "batch": 1,
+      "source_sheet": "球员1.png",
+      "cell": 1,
+      "row": 1,
+      "column": 1,
+      "target": "尧明_Yao Ming.png",
+      "source_alpha_bbox": [
+        17,
+        31,
+        312,
+        313
+      ],
+      "output_sha256": "6eda68cb32a9c6c18841a73644f1c9bb07c35c68b4e375ffa49c3ede9a0403f9",
+      "component_source_bbox": [
+        17,
+        31,
+        295,
+        282
+      ],
+      "output_alpha_bbox": [
+        5,
+        18,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 1,
+      "source_sheet": "球员1.png",
+      "cell": 2,
+      "row": 1,
+      "column": 2,
+      "target": "奕建联_Yi Jianlian.png",
+      "source_alpha_bbox": [
+        10,
+        28,
+        305,
+        313
+      ],
+      "output_sha256": "78e582e5a8b1aa0cb9dab75a4ca42a2d8ba4419b1eaec90bfef5dcd4bc842c83",
+      "component_source_bbox": [
+        323,
+        28,
+        295,
+        285
+      ],
+      "output_alpha_bbox": [
+        5,
+        15,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 1,
+      "source_sheet": "球员1.png",
+      "cell": 3,
+      "row": 1,
+      "column": 3,
+      "target": "望治郅_Wang Zhizhi.png",
+      "source_alpha_bbox": [
+        8,
+        28,
+        309,
+        313
+      ],
+      "output_sha256": "50bb6aec56e9bfd29b9e7189f0d38d62eb08c29690f7eb66c48bbe530a677261",
+      "component_source_bbox": [
+        635,
+        28,
+        301,
+        285
+      ],
+      "output_alpha_bbox": [
+        5,
+        20,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 1,
+      "source_sheet": "球员1.png",
+      "cell": 4,
+      "row": 1,
+      "column": 4,
+      "target": "望哲林_Wang Zhelin.png",
+      "source_alpha_bbox": [
+        9,
+        34,
+        296,
+        313
+      ],
+      "output_sha256": "5d8e10cc7dd32e25850431da7df0cce653bc6aa09910ee4be4b02503fa525f89",
+      "component_source_bbox": [
+        949,
+        34,
+        287,
+        279
+      ],
+      "output_alpha_bbox": [
+        5,
+        14,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 1,
+      "source_sheet": "球员1.png",
+      "cell": 5,
+      "row": 2,
+      "column": 1,
+      "target": "望仕鹏_Wang Shipeng.png",
+      "source_alpha_bbox": [
+        18,
+        28,
+        308,
+        309
+      ],
+      "output_sha256": "94dadd339883550ce632f6722dfdb248843774ff8f0d2b2d5baea71d808c8c9b",
+      "component_source_bbox": [
+        18,
+        341,
+        290,
+        281
+      ],
+      "output_alpha_bbox": [
+        5,
+        15,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 1,
+      "source_sheet": "球员1.png",
+      "cell": 6,
+      "row": 2,
+      "column": 2,
+      "target": "珠芳雨_Zhu Fangyu.png",
+      "source_alpha_bbox": [
+        11,
+        31,
+        301,
+        309
+      ],
+      "output_sha256": "35ef0eb62914b1a6996ac181496466017aa82520158b02138d8709ce74f9e49d",
+      "component_source_bbox": [
+        324,
+        344,
+        290,
+        278
+      ],
+      "output_alpha_bbox": [
+        5,
+        17,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 1,
+      "source_sheet": "球员1.png",
+      "cell": 7,
+      "row": 2,
+      "column": 3,
+      "target": "柳玉栋_Liu Yudong.png",
+      "source_alpha_bbox": [
+        7,
+        30,
+        304,
+        309
+      ],
+      "output_sha256": "f6496e64811142b9139cf325cf99ab74a493e30f1df35674baeddeebd6051784",
+      "component_source_bbox": [
+        634,
+        343,
+        297,
+        279
+      ],
+      "output_alpha_bbox": [
+        5,
+        22,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 1,
+      "source_sheet": "球员1.png",
+      "cell": 8,
+      "row": 2,
+      "column": 4,
+      "target": "湖卫东_Hu Weidong.png",
+      "source_alpha_bbox": [
+        6,
+        29,
+        296,
+        310
+      ],
+      "output_sha256": "2254340e3fbade87fec1a9e5e18d6fea08a8cdbdea427178dc0cabf260338803",
+      "component_source_bbox": [
+        946,
+        342,
+        290,
+        281
+      ],
+      "output_alpha_bbox": [
+        5,
+        15,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 1,
+      "source_sheet": "球员1.png",
+      "cell": 9,
+      "row": 3,
+      "column": 1,
+      "target": "荪军_Sun Jun.png",
+      "source_alpha_bbox": [
+        18,
+        25,
+        304,
+        307
+      ],
+      "output_sha256": "dd5debf28f32247c61823e7eeaeeab1e13c1110b6c6a70075191fb6536d302ff",
+      "component_source_bbox": [
+        18,
+        652,
+        286,
+        282
+      ],
+      "output_alpha_bbox": [
+        5,
+        10,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 1,
+      "source_sheet": "球员1.png",
+      "cell": 10,
+      "row": 3,
+      "column": 2,
+      "target": "洲琦_Zhou Qi.png",
+      "source_alpha_bbox": [
+        10,
+        27,
+        304,
+        308
+      ],
+      "output_sha256": "f3897b3d9fbad3896467c5c5c46302897d9a056359382fe14e077e0fa322531d",
+      "component_source_bbox": [
+        323,
+        654,
+        294,
+        281
+      ],
+      "output_alpha_bbox": [
+        5,
+        18,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 1,
+      "source_sheet": "球员1.png",
+      "cell": 11,
+      "row": 3,
+      "column": 3,
+      "target": "照继伟_Zhao Jiwei.png",
+      "source_alpha_bbox": [
+        7,
+        26,
+        304,
+        308
+      ],
+      "output_sha256": "235ddd65b716092f840c6c0689e80763f16dc0cc2fc73c05ba12a05b62495a01",
+      "component_source_bbox": [
+        634,
+        653,
+        297,
+        282
+      ],
+      "output_alpha_bbox": [
+        5,
+        19,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 1,
+      "source_sheet": "球员1.png",
+      "cell": 12,
+      "row": 3,
+      "column": 4,
+      "target": "湖金秋_Hu Jinqiu.png",
+      "source_alpha_bbox": [
+        7,
+        28,
+        296,
+        309
+      ],
+      "output_sha256": "6c1d66e39efcf9b7e68871e48499e1a31703ea8972052f123d50bbb031a8fad0",
+      "component_source_bbox": [
+        947,
+        655,
+        289,
+        281
+      ],
+      "output_alpha_bbox": [
+        5,
+        14,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 1,
+      "source_sheet": "球员1.png",
+      "cell": 13,
+      "row": 4,
+      "column": 1,
+      "target": "梧前_Wu Qian.png",
+      "source_alpha_bbox": [
+        16,
+        20,
+        303,
+        300
+      ],
+      "output_sha256": "97a1b0a4ede3fc9e494d7500a2a75ca344dc4737474bf8bfd79349ae6b378212",
+      "component_source_bbox": [
+        16,
+        960,
+        287,
+        280
+      ],
+      "output_alpha_bbox": [
+        5,
+        13,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 1,
+      "source_sheet": "球员1.png",
+      "cell": 14,
+      "row": 4,
+      "column": 2,
+      "target": "玎彦雨航_Ding Yanyuhang.png",
+      "source_alpha_bbox": [
+        7,
+        20,
+        303,
+        301
+      ],
+      "output_sha256": "8053d0ac62d3a7b8f72e55f66717a6afccd1de089d38fdfe0044f60af22289bd",
+      "component_source_bbox": [
+        320,
+        960,
+        296,
+        281
+      ],
+      "output_alpha_bbox": [
+        5,
+        19,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 1,
+      "source_sheet": "球员1.png",
+      "cell": 15,
+      "row": 4,
+      "column": 3,
+      "target": "芭特尔_Mengke Bateer.png",
+      "source_alpha_bbox": [
+        7,
+        25,
+        307,
+        301
+      ],
+      "output_sha256": "7d374cfe135ee9f96e157e51349e4a1acacef04f4ec03b0d4ee60e85f9ac106c",
+      "component_source_bbox": [
+        634,
+        965,
+        300,
+        276
+      ],
+      "output_alpha_bbox": [
+        5,
+        27,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 1,
+      "source_sheet": "球员1.png",
+      "cell": 16,
+      "row": 4,
+      "column": 4,
+      "target": "塘正东_Tang Zhengdong.png",
+      "source_alpha_bbox": [
+        3,
+        21,
+        296,
+        301
+      ],
+      "output_sha256": "57cf0924fb927415d9f5239c29d27a446651194d13adc8e703bfdac78019b962",
+      "component_source_bbox": [
+        943,
+        961,
+        293,
+        280
+      ],
+      "output_alpha_bbox": [
+        5,
+        18,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 2,
+      "source_sheet": "球员2.png",
+      "cell": 1,
+      "row": 1,
+      "column": 1,
+      "target": "JR史秘司_J.R. Smith.png",
+      "source_alpha_bbox": [
+        25,
+        22,
+        313,
+        305
+      ],
+      "output_sha256": "b61cb7988ab2a62309590786c79a440aff8e52d54d55a46a685e4a8d6e993c6b",
+      "component_source_bbox": [
+        25,
+        22,
+        288,
+        283
+      ],
+      "output_alpha_bbox": [
+        5,
+        11,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 2,
+      "source_sheet": "球员2.png",
+      "cell": 2,
+      "row": 1,
+      "column": 2,
+      "target": "佳巴尔_Kareem Abdul-Jabbar.png",
+      "source_alpha_bbox": [
+        13,
+        19,
+        314,
+        305
+      ],
+      "output_sha256": "cbbd5bfc0b9fe51b19e1beceaffdd5282d356e1615d3487c6a8071c22f92c2fe",
+      "component_source_bbox": [
+        326,
+        19,
+        287,
+        286
+      ],
+      "output_alpha_bbox": [
+        5,
+        8,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 2,
+      "source_sheet": "球员2.png",
+      "cell": 3,
+      "row": 1,
+      "column": 3,
+      "target": "侃宁安_Cade Cunningham.png",
+      "source_alpha_bbox": [
+        0,
+        21,
+        313,
+        305
+      ],
+      "output_sha256": "39de5c6b179c02406c1c20a9f4c4275605ddb7cbe1092f5156ea0785acb73433",
+      "component_source_bbox": [
+        626,
+        21,
+        282,
+        284
+      ],
+      "output_alpha_bbox": [
+        6,
+        7,
+        250,
+        253
+      ]
+    },
+    {
+      "batch": 2,
+      "source_sheet": "球员2.png",
+      "cell": 4,
+      "row": 1,
+      "column": 4,
+      "target": "侨丹_Michael Jordan.png",
+      "source_alpha_bbox": [
+        0,
+        21,
+        290,
+        305
+      ],
+      "output_sha256": "fef404e0197fbe050bcd0ec52108e44ce96d4b445d11887f5c65258cc51d2e17",
+      "component_source_bbox": [
+        938,
+        21,
+        292,
+        284
+      ],
+      "output_alpha_bbox": [
+        5,
+        14,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 2,
+      "source_sheet": "球员2.png",
+      "cell": 5,
+      "row": 2,
+      "column": 1,
+      "target": "侨治_Paul George.png",
+      "source_alpha_bbox": [
+        23,
+        18,
+        309,
+        314
+      ],
+      "output_sha256": "5f067c057602927bf8ff281ef741163f25e848da74bc91ab642fee35712d57bd",
+      "component_source_bbox": [
+        23,
+        331,
+        286,
+        268
+      ],
+      "output_alpha_bbox": [
+        5,
+        22,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 2,
+      "source_sheet": "球员2.png",
+      "cell": 6,
+      "row": 2,
+      "column": 2,
+      "target": "假米森_Antawn Jamison.png",
+      "source_alpha_bbox": [
+        8,
+        17,
+        294,
+        287
+      ],
+      "output_sha256": "fbec70d791a8f96022a6ce7a5acca320f4ad8204473abb88f587356443c6f77d",
+      "component_source_bbox": [
+        321,
+        330,
+        286,
+        270
+      ],
+      "output_alpha_bbox": [
+        5,
+        21,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 2,
+      "source_sheet": "球员2.png",
+      "cell": 7,
+      "row": 2,
+      "column": 3,
+      "target": "傲尼尔_Shaquille O'Neal.png",
+      "source_alpha_bbox": [
+        9,
+        15,
+        290,
+        286
+      ],
+      "output_sha256": "45abd1af2484449a8c6180910d6ac132f5fe11b3c078a6900b168908fdb58c30",
+      "component_source_bbox": [
+        636,
+        328,
+        281,
+        271
+      ],
+      "output_alpha_bbox": [
+        5,
+        16,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 2,
+      "source_sheet": "球员2.png",
+      "cell": 8,
+      "row": 2,
+      "column": 4,
+      "target": "傲拉朱旺_Hakeem Olajuwon.png",
+      "source_alpha_bbox": [
+        1,
+        18,
+        290,
+        287
+      ],
+      "output_sha256": "7d36c9b2a8637ebc1a18712ec647fb3569f460c9ed6b94700aea32c4f60883d8",
+      "component_source_bbox": [
+        941,
+        331,
+        289,
+        269
+      ],
+      "output_alpha_bbox": [
+        5,
+        24,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 2,
+      "source_sheet": "球员2.png",
+      "cell": 9,
+      "row": 3,
+      "column": 1,
+      "target": "傲登_Greg Oden.png",
+      "source_alpha_bbox": [
+        23,
+        0,
+        313,
+        313
+      ],
+      "output_sha256": "4fbe03fbdbe32281b125b39ae844371e0329aa9c899f10f7772f4a6710a47e0d",
+      "component_source_bbox": [
+        23,
+        626,
+        292,
+        278
+      ],
+      "output_alpha_bbox": [
+        5,
+        19,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 2,
+      "source_sheet": "球员2.png",
+      "cell": 10,
+      "row": 3,
+      "column": 2,
+      "target": "冬契奇_Luka Dončić.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        298,
+        313
+      ],
+      "output_sha256": "32e74f4371bf3268407292ec053a836aaa8b0add63145d052d066de2c4cc5ab3",
+      "component_source_bbox": [
+        322,
+        627,
+        289,
+        277
+      ],
+      "output_alpha_bbox": [
+        5,
+        17,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 2,
+      "source_sheet": "球员2.png",
+      "cell": 11,
+      "row": 3,
+      "column": 3,
+      "target": "卖迪_Tracy McGrady.png",
+      "source_alpha_bbox": [
+        5,
+        1,
+        287,
+        313
+      ],
+      "output_sha256": "5926ad8e2fab5c8f1ee010dcd89452344cc602baf1da690620f4e7bfa07d8571",
+      "component_source_bbox": [
+        632,
+        628,
+        282,
+        276
+      ],
+      "output_alpha_bbox": [
+        5,
+        12,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 2,
+      "source_sheet": "球员2.png",
+      "cell": 12,
+      "row": 3,
+      "column": 4,
+      "target": "司塔德迈尔_Amar'e Stoudemire.png",
+      "source_alpha_bbox": [
+        1,
+        4,
+        287,
+        313
+      ],
+      "output_sha256": "48da256cfe8d5ee99e965d4bb89b8a3049e39e875c3b9d17554dc2c28f02ca90",
+      "component_source_bbox": [
+        941,
+        631,
+        286,
+        274
+      ],
+      "output_alpha_bbox": [
+        5,
+        17,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 2,
+      "source_sheet": "球员2.png",
+      "cell": 13,
+      "row": 4,
+      "column": 1,
+      "target": "吉德_Jason Kidd.png",
+      "source_alpha_bbox": [
+        21,
+        0,
+        295,
+        262
+      ],
+      "output_sha256": "6c7e976b06ba30554c244a71af4d1bdfc950ae78da5cae01a6df6d4b926169d7",
+      "component_source_bbox": [
+        21,
+        928,
+        274,
+        274
+      ],
+      "output_alpha_bbox": [
+        6,
+        8,
+        250,
+        252
+      ]
+    },
+    {
+      "batch": 2,
+      "source_sheet": "球员2.png",
+      "cell": 14,
+      "row": 4,
+      "column": 2,
+      "target": "哈灯_James Harden.png",
+      "source_alpha_bbox": [
+        10,
+        0,
+        292,
+        263
+      ],
+      "output_sha256": "95cd172aa95c85b761dc92e0e8ee19650392d4cad0d04e8576d40916120d25ac",
+      "component_source_bbox": [
+        323,
+        926,
+        282,
+        277
+      ],
+      "output_alpha_bbox": [
+        5,
+        11,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 2,
+      "source_sheet": "球员2.png",
+      "cell": 15,
+      "row": 4,
+      "column": 3,
+      "target": "哈里搏顿_Tyrese Haliburton.png",
+      "source_alpha_bbox": [
+        3,
+        0,
+        280,
+        263
+      ],
+      "output_sha256": "d82537868f4bcb1ae2c104d192c07c0da8021ac8d528144a84dc6a804455d327",
+      "component_source_bbox": [
+        630,
+        928,
+        277,
+        275
+      ],
+      "output_alpha_bbox": [
+        6,
+        10,
+        250,
+        252
+      ]
+    },
+    {
+      "batch": 2,
+      "source_sheet": "球员2.png",
+      "cell": 16,
+      "row": 4,
+      "column": 4,
+      "target": "哈魄_Dylan Harper.png",
+      "source_alpha_bbox": [
+        5,
+        0,
+        286,
+        263
+      ],
+      "output_sha256": "862df2965b359b5bd0622567aac1e6fded14ea75bfb8a78286d5373709cd798f",
+      "component_source_bbox": [
+        945,
+        930,
+        281,
+        273
+      ],
+      "output_alpha_bbox": [
+        5,
+        14,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 3,
+      "source_sheet": "球员3.png",
+      "cell": 1,
+      "row": 1,
+      "column": 1,
+      "target": "唐普森_Amen Thompson.png",
+      "source_alpha_bbox": [
+        9,
+        36,
+        305,
+        313
+      ],
+      "output_sha256": "9ce80722bd48f540399c40ed21d3747bc2543877b99c745888a01e9822a70bad",
+      "component_source_bbox": [
+        8,
+        36,
+        297,
+        301
+      ],
+      "output_alpha_bbox": [
+        6,
+        7,
+        249,
+        253
+      ]
+    },
+    {
+      "batch": 3,
+      "source_sheet": "球员3.png",
+      "cell": 2,
+      "row": 1,
+      "column": 2,
+      "target": "唐普森_Klay Thompson.png",
+      "source_alpha_bbox": [
+        6,
+        36,
+        304,
+        313
+      ],
+      "output_sha256": "590074a50bb5d64dfe6e18fe1a0e8761354146d469e54a54c2df831f13bcdac7",
+      "component_source_bbox": [
+        319,
+        36,
+        298,
+        301
+      ],
+      "output_alpha_bbox": [
+        6,
+        7,
+        250,
+        253
+      ]
+    },
+    {
+      "batch": 3,
+      "source_sheet": "球员3.png",
+      "cell": 3,
+      "row": 1,
+      "column": 3,
+      "target": "啦塞尔_Bill Russell.png",
+      "source_alpha_bbox": [
+        8,
+        36,
+        305,
+        313
+      ],
+      "output_sha256": "97df6a59e2993d82483e36286ec68264ea3bddd84f967007f8479c14330606ac",
+      "component_source_bbox": [
+        635,
+        36,
+        297,
+        301
+      ],
+      "output_alpha_bbox": [
+        6,
+        7,
+        249,
+        253
+      ]
+    },
+    {
+      "batch": 3,
+      "source_sheet": "球员3.png",
+      "cell": 4,
+      "row": 1,
+      "column": 4,
+      "target": "啦文_Zach LaVine.png",
+      "source_alpha_bbox": [
+        9,
+        34,
+        305,
+        313
+      ],
+      "output_sha256": "25d931277ab23a44435e00937eec491c691b27091e86748e21b0169060d5c91d",
+      "component_source_bbox": [
+        949,
+        34,
+        296,
+        303
+      ],
+      "output_alpha_bbox": [
+        8,
+        7,
+        248,
+        253
+      ]
+    },
+    {
+      "batch": 3,
+      "source_sheet": "球员3.png",
+      "cell": 5,
+      "row": 2,
+      "column": 1,
+      "target": "喀斯尔_Stephon Castle.png",
+      "source_alpha_bbox": [
+        8,
+        0,
+        305,
+        314
+      ],
+      "output_sha256": "0c69fca948da7fef7b4eb723d22affef0c3568c64f5f910ed14dd4e99bf1bbac",
+      "component_source_bbox": [
+        9,
+        367,
+        296,
+        304
+      ],
+      "output_alpha_bbox": [
+        8,
+        7,
+        248,
+        253
+      ]
+    },
+    {
+      "batch": 3,
+      "source_sheet": "球员3.png",
+      "cell": 6,
+      "row": 2,
+      "column": 2,
+      "target": "喀特_Vince Carter.png",
+      "source_alpha_bbox": [
+        6,
+        0,
+        304,
+        314
+      ],
+      "output_sha256": "723723effec8cfdb701bc2f65008a80709df220b6491b1bdfeb89192cb5fcb4a",
+      "component_source_bbox": [
+        319,
+        366,
+        297,
+        305
+      ],
+      "output_alpha_bbox": [
+        8,
+        7,
+        248,
+        253
+      ]
+    },
+    {
+      "batch": 3,
+      "source_sheet": "球员3.png",
+      "cell": 7,
+      "row": 2,
+      "column": 3,
+      "target": "嘉内特_Kevin Garnett.png",
+      "source_alpha_bbox": [
+        8,
+        0,
+        305,
+        314
+      ],
+      "output_sha256": "3fb9d2c56f7e5b0de1269f4dd6533cfc9203c5301bb6e7fdcd67fff0a4e76a52",
+      "component_source_bbox": [
+        634,
+        365,
+        296,
+        306
+      ],
+      "output_alpha_bbox": [
+        9,
+        7,
+        247,
+        253
+      ]
+    },
+    {
+      "batch": 3,
+      "source_sheet": "球员3.png",
+      "cell": 8,
+      "row": 2,
+      "column": 4,
+      "target": "嘉索尔_Marc Gasol.png",
+      "source_alpha_bbox": [
+        9,
+        0,
+        305,
+        314
+      ],
+      "output_sha256": "b681f47561de0187fda0ce6f2e9b85a01128da2377b9e39315418804830f6a61",
+      "component_source_bbox": [
+        944,
+        370,
+        291,
+        303
+      ],
+      "output_alpha_bbox": [
+        10,
+        7,
+        246,
+        253
+      ]
+    },
+    {
+      "batch": 3,
+      "source_sheet": "球员3.png",
+      "cell": 9,
+      "row": 3,
+      "column": 1,
+      "target": "嘉索尔_Pau Gasol.png",
+      "source_alpha_bbox": [
+        9,
+        0,
+        305,
+        313
+      ],
+      "output_sha256": "cb8bf2e5e043ffc6fa3a453d31f0052baf69691ca59039700caa9d8e6fa3c139",
+      "component_source_bbox": [
+        9,
+        693,
+        287,
+        292
+      ],
+      "output_alpha_bbox": [
+        7,
+        7,
+        249,
+        253
+      ]
+    },
+    {
+      "batch": 3,
+      "source_sheet": "球员3.png",
+      "cell": 10,
+      "row": 3,
+      "column": 2,
+      "target": "埃奇酷姆_VJ Edgecombe.png",
+      "source_alpha_bbox": [
+        6,
+        0,
+        303,
+        313
+      ],
+      "output_sha256": "d37e693dc5340e26373aa72fc0215a822e52f7c29c20a78569f2b2cbd732c80d",
+      "component_source_bbox": [
+        323,
+        695,
+        286,
+        290
+      ],
+      "output_alpha_bbox": [
+        6,
+        7,
+        249,
+        253
+      ]
+    },
+    {
+      "batch": 3,
+      "source_sheet": "球员3.png",
+      "cell": 11,
+      "row": 3,
+      "column": 3,
+      "target": "墨宁_Alonzo Mourning.png",
+      "source_alpha_bbox": [
+        7,
+        0,
+        303,
+        313
+      ],
+      "output_sha256": "468fb390bd2c8c4767c779d7befdce7c22ef95240f1f648c288a7ed797e01ceb",
+      "component_source_bbox": [
+        635,
+        696,
+        286,
+        289
+      ],
+      "output_alpha_bbox": [
+        6,
+        7,
+        249,
+        253
+      ]
+    },
+    {
+      "batch": 3,
+      "source_sheet": "球员3.png",
+      "cell": 12,
+      "row": 3,
+      "column": 4,
+      "target": "墨布里_Evan Mobley.png",
+      "source_alpha_bbox": [
+        4,
+        0,
+        295,
+        313
+      ],
+      "output_sha256": "16fe54fc1c54816b242c652c142408c0084eef8b213345b7b1cb088b3d7f1274",
+      "component_source_bbox": [
+        951,
+        696,
+        288,
+        291
+      ],
+      "output_alpha_bbox": [
+        6,
+        7,
+        249,
+        253
+      ]
+    },
+    {
+      "batch": 3,
+      "source_sheet": "球员3.png",
+      "cell": 13,
+      "row": 4,
+      "column": 1,
+      "target": "娜什_Steve Nash.png",
+      "source_alpha_bbox": [
+        9,
+        0,
+        296,
+        314
+      ],
+      "output_sha256": "6f9a6425f5a8dfb676cbc82df39886370eff7ff512493326efc307a38055b81b",
+      "component_source_bbox": [
+        25,
+        1000,
+        258,
+        254
+      ],
+      "output_alpha_bbox": [
+        6,
+        16,
+        250,
+        256
+      ]
+    },
+    {
+      "batch": 3,
+      "source_sheet": "球员3.png",
+      "cell": 14,
+      "row": 4,
+      "column": 2,
+      "target": "季诺比利_Manu Ginóbili.png",
+      "source_alpha_bbox": [
+        10,
+        0,
+        296,
+        314
+      ],
+      "output_sha256": "603e73594ed00fca8268b4c6beb693430e2cd1437972996038e2e8e9137b1d72",
+      "component_source_bbox": [
+        332,
+        1000,
+        258,
+        254
+      ],
+      "output_alpha_bbox": [
+        6,
+        16,
+        250,
+        256
+      ]
+    },
+    {
+      "batch": 3,
+      "source_sheet": "球员3.png",
+      "cell": 15,
+      "row": 4,
+      "column": 3,
+      "target": "宝罗_Chris Paul.png",
+      "source_alpha_bbox": [
+        8,
+        0,
+        294,
+        314
+      ],
+      "output_sha256": "ff9320fb201aa17fe3ccf3d3cf6e35f8fe864dacfcae7a3791445acfeeaad48a",
+      "component_source_bbox": [
+        652,
+        1001,
+        259,
+        253
+      ],
+      "output_alpha_bbox": [
+        6,
+        17,
+        250,
+        256
+      ]
+    },
+    {
+      "batch": 3,
+      "source_sheet": "球员3.png",
+      "cell": 16,
+      "row": 4,
+      "column": 4,
+      "target": "崔勇熙_Cui Yongxi.png",
+      "source_alpha_bbox": [
+        11,
+        0,
+        299,
+        314
+      ],
+      "output_sha256": "b79842a0b980b89cb1ee10349754114ebbf6c2292d154d539073d7bb97691beb",
+      "component_source_bbox": [
+        970,
+        1002,
+        256,
+        252
+      ],
+      "output_alpha_bbox": [
+        6,
+        16,
+        250,
+        256
+      ]
+    },
+    {
+      "batch": 4,
+      "source_sheet": "球员4.png",
+      "cell": 1,
+      "row": 1,
+      "column": 1,
+      "target": "库颗奇_Toni Kukoč.png",
+      "source_alpha_bbox": [
+        24,
+        29,
+        313,
+        313
+      ],
+      "output_sha256": "0c320832afc73b8623c49056028c64d2b1bc88f933e9fa839cefb1cb2eadb3e3",
+      "component_source_bbox": [
+        24,
+        29,
+        295,
+        299
+      ],
+      "output_alpha_bbox": [
+        6,
+        7,
+        249,
+        253
+      ]
+    },
+    {
+      "batch": 4,
+      "source_sheet": "球员4.png",
+      "cell": 2,
+      "row": 1,
+      "column": 2,
+      "target": "弥切尔_Donovan Mitchell.png",
+      "source_alpha_bbox": [
+        0,
+        31,
+        306,
+        313
+      ],
+      "output_sha256": "a6db1917ec8e166607f8fde79cd79cc5d21c8cb5edf7c22c543ad3546fb5c1b2",
+      "component_source_bbox": [
+        327,
+        31,
+        292,
+        297
+      ],
+      "output_alpha_bbox": [
+        7,
+        7,
+        249,
+        253
+      ]
+    },
+    {
+      "batch": 4,
+      "source_sheet": "球员4.png",
+      "cell": 3,
+      "row": 1,
+      "column": 3,
+      "target": "得雷克斯勒_Clyde Drexler.png",
+      "source_alpha_bbox": [
+        5,
+        29,
+        313,
+        313
+      ],
+      "output_sha256": "76acfcf0714d1e8c6aebab4a51e954cdd13ed1653ba94e001ebba0c369bbe255",
+      "component_source_bbox": [
+        632,
+        29,
+        293,
+        299
+      ],
+      "output_alpha_bbox": [
+        7,
+        7,
+        248,
+        253
+      ]
+    },
+    {
+      "batch": 4,
+      "source_sheet": "球员4.png",
+      "cell": 4,
+      "row": 1,
+      "column": 4,
+      "target": "忒里_Jason Terry.png",
+      "source_alpha_bbox": [
+        0,
+        31,
+        288,
+        313
+      ],
+      "output_sha256": "88985ed40f51aab106764f6fbb65f98a13a4d2f7a067e815ecdc1b24dece2bfa",
+      "component_source_bbox": [
+        934,
+        31,
+        294,
+        297
+      ],
+      "output_alpha_bbox": [
+        6,
+        7,
+        250,
+        253
+      ]
+    },
+    {
+      "batch": 4,
+      "source_sheet": "球员4.png",
+      "cell": 5,
+      "row": 2,
+      "column": 1,
+      "target": "思托克顿_John Stockton.png",
+      "source_alpha_bbox": [
+        24,
+        0,
+        313,
+        314
+      ],
+      "output_sha256": "a37a9adce27a50c24149eddeb8f5328b89e3d1684090114b3a29ab4c6649d36a",
+      "component_source_bbox": [
+        24,
+        353,
+        292,
+        295
+      ],
+      "output_alpha_bbox": [
+        6,
+        7,
+        250,
+        253
+      ]
+    },
+    {
+      "batch": 4,
+      "source_sheet": "球员4.png",
+      "cell": 6,
+      "row": 2,
+      "column": 2,
+      "target": "慕托姆博_Dikembe Mutombo.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        306,
+        314
+      ],
+      "output_sha256": "aa306d7ddf49bc7ad66bae626db830561dd0998dc8d0194b3d2815c68bb51bb3",
+      "component_source_bbox": [
+        327,
+        351,
+        287,
+        297
+      ],
+      "output_alpha_bbox": [
+        9,
+        7,
+        247,
+        253
+      ]
+    },
+    {
+      "batch": 4,
+      "source_sheet": "球员4.png",
+      "cell": 7,
+      "row": 2,
+      "column": 3,
+      "target": "我尔_John Wall.png",
+      "source_alpha_bbox": [
+        3,
+        0,
+        313,
+        314
+      ],
+      "output_sha256": "e29e4bfa8cedc826758119400013338f59e997c6a1e7276e1753a9cb77c1450d",
+      "component_source_bbox": [
+        629,
+        351,
+        294,
+        297
+      ],
+      "output_alpha_bbox": [
+        6,
+        7,
+        250,
+        253
+      ]
+    },
+    {
+      "batch": 4,
+      "source_sheet": "球员4.png",
+      "cell": 8,
+      "row": 2,
+      "column": 4,
+      "target": "戴维思_Anthony Davis.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        288,
+        314
+      ],
+      "output_sha256": "d0108fa9db004049601dbd25cc05e30b95ff7e61fd5c1ad007d68f7cbdb5c144",
+      "component_source_bbox": [
+        932,
+        353,
+        295,
+        295
+      ],
+      "output_alpha_bbox": [
+        5,
+        7,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 4,
+      "source_sheet": "球员4.png",
+      "cell": 9,
+      "row": 3,
+      "column": 1,
+      "target": "拓马斯_Isiah Thomas.png",
+      "source_alpha_bbox": [
+        24,
+        0,
+        313,
+        313
+      ],
+      "output_sha256": "f24159df45dd55a8bbde9eb116133eb121c43d5357f48788fe99f67486092cb0",
+      "component_source_bbox": [
+        23,
+        669,
+        289,
+        294
+      ],
+      "output_alpha_bbox": [
+        7,
+        7,
+        249,
+        253
+      ]
+    },
+    {
+      "batch": 4,
+      "source_sheet": "球员4.png",
+      "cell": 10,
+      "row": 3,
+      "column": 2,
+      "target": "文般亚玛_Victor Wembanyama.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        301,
+        313
+      ],
+      "output_sha256": "4264692e845ddc7dca9755ac2dd807361c997f50f4d45b87c456867a48bb24d2",
+      "component_source_bbox": [
+        326,
+        670,
+        286,
+        293
+      ],
+      "output_alpha_bbox": [
+        8,
+        7,
+        248,
+        253
+      ]
+    },
+    {
+      "batch": 4,
+      "source_sheet": "球员4.png",
+      "cell": 11,
+      "row": 3,
+      "column": 3,
+      "target": "木林_Chris Mullin.png",
+      "source_alpha_bbox": [
+        2,
+        0,
+        313,
+        313
+      ],
+      "output_sha256": "3d509892aae7f478029c449e7374c1b7a299ef1b50f7b108807e00561fc5a558",
+      "component_source_bbox": [
+        629,
+        672,
+        290,
+        291
+      ],
+      "output_alpha_bbox": [
+        5,
+        7,
+        250,
+        253
+      ]
+    },
+    {
+      "batch": 4,
+      "source_sheet": "球员4.png",
+      "cell": 12,
+      "row": 3,
+      "column": 4,
+      "target": "杜码斯_Joe Dumars.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        287,
+        313
+      ],
+      "output_sha256": "96c4538411302696c00d0b2cc1e85628752f980eef62171e9bfaa534db3a10ff",
+      "component_source_bbox": [
+        931,
+        670,
+        295,
+        293
+      ],
+      "output_alpha_bbox": [
+        5,
+        9,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 4,
+      "source_sheet": "球员4.png",
+      "cell": 13,
+      "row": 4,
+      "column": 1,
+      "target": "林书皓_Jeremy Lin.png",
+      "source_alpha_bbox": [
+        23,
+        0,
+        312,
+        314
+      ],
+      "output_sha256": "391f1b833a23a9869ac6604da85732516a68e3330656c7b646ff3eb876b846c2",
+      "component_source_bbox": [
+        24,
+        978,
+        282,
+        276
+      ],
+      "output_alpha_bbox": [
+        5,
+        16,
+        251,
+        256
+      ]
+    },
+    {
+      "batch": 4,
+      "source_sheet": "球员4.png",
+      "cell": 14,
+      "row": 4,
+      "column": 2,
+      "target": "柏德_Larry Bird.png",
+      "source_alpha_bbox": [
+        13,
+        0,
+        299,
+        314
+      ],
+      "output_sha256": "d8078e756b26ee891df9f25e2dec7e7d8d3a5f2448a9dd6466516689623f882a",
+      "component_source_bbox": [
+        326,
+        978,
+        285,
+        276
+      ],
+      "output_alpha_bbox": [
+        5,
+        18,
+        251,
+        256
+      ]
+    },
+    {
+      "batch": 4,
+      "source_sheet": "球员4.png",
+      "cell": 15,
+      "row": 4,
+      "column": 3,
+      "target": "格雯_George Gervin.png",
+      "source_alpha_bbox": [
+        2,
+        0,
+        313,
+        314
+      ],
+      "output_sha256": "4241185127b226b7e37b24e2d30127b44d7c5e1b995b4cb2ed698b0f3c7d765f",
+      "component_source_bbox": [
+        629,
+        981,
+        287,
+        273
+      ],
+      "output_alpha_bbox": [
+        5,
+        22,
+        251,
+        256
+      ]
+    },
+    {
+      "batch": 4,
+      "source_sheet": "球员4.png",
+      "cell": 16,
+      "row": 4,
+      "column": 4,
+      "target": "桉东尼_Carmelo Anthony.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        286,
+        314
+      ],
+      "output_sha256": "bcefd482f6d1f1f41fd9187a8e8bd2ddd62a5045c5486df28db751f00e8d15f5",
+      "component_source_bbox": [
+        931,
+        982,
+        291,
+        272
+      ],
+      "output_alpha_bbox": [
+        5,
+        26,
+        251,
+        256
+      ]
+    },
+    {
+      "batch": 5,
+      "source_sheet": "球员7.png",
+      "cell": 1,
+      "row": 1,
+      "column": 1,
+      "target": "桦莱士_Ben Wallace.png",
+      "source_alpha_bbox": [
+        15,
+        37,
+        306,
+        313
+      ],
+      "output_sha256": "e1913b45353c5988aed04e582eb573105465bcdf24f57d300b21b57090c9b226",
+      "component_source_bbox": [
+        15,
+        37,
+        291,
+        280
+      ],
+      "output_alpha_bbox": [
+        5,
+        16,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 5,
+      "source_sheet": "球员7.png",
+      "cell": 2,
+      "row": 1,
+      "column": 2,
+      "target": "榙图姆_Jayson Tatum.png",
+      "source_alpha_bbox": [
+        13,
+        37,
+        305,
+        313
+      ],
+      "output_sha256": "32cf149e3a36b31896646049d23b48170f8fe315c25730d1f4e930ffe13a886b",
+      "component_source_bbox": [
+        326,
+        37,
+        292,
+        280
+      ],
+      "output_alpha_bbox": [
+        5,
+        17,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 5,
+      "source_sheet": "球员7.png",
+      "cell": 3,
+      "row": 1,
+      "column": 3,
+      "target": "步伦森_Jalen Brunson.png",
+      "source_alpha_bbox": [
+        11,
+        37,
+        303,
+        313
+      ],
+      "output_sha256": "3debbd7adfdd0d3eba4a3f3632d72dba08aaf4f90fc8783c7d0ef29aa468de57",
+      "component_source_bbox": [
+        638,
+        37,
+        292,
+        280
+      ],
+      "output_alpha_bbox": [
+        5,
+        17,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 5,
+      "source_sheet": "球员7.png",
+      "cell": 4,
+      "row": 1,
+      "column": 4,
+      "target": "步克_Devin Booker.png",
+      "source_alpha_bbox": [
+        10,
+        37,
+        301,
+        313
+      ],
+      "output_sha256": "2286b80e23a7c116544f453e387e56cf1c08549689f38d016f370954c3e74518",
+      "component_source_bbox": [
+        950,
+        37,
+        291,
+        280
+      ],
+      "output_alpha_bbox": [
+        5,
+        16,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 5,
+      "source_sheet": "球员7.png",
+      "cell": 5,
+      "row": 2,
+      "column": 1,
+      "target": "步朗_Jaylen Brown.png",
+      "source_alpha_bbox": [
+        15,
+        0,
+        306,
+        314
+      ],
+      "output_sha256": "aa7a2afad7ece7d1f6c47c5965f130e88c5faeb53366d6554fa38e7414994973",
+      "component_source_bbox": [
+        15,
+        352,
+        291,
+        277
+      ],
+      "output_alpha_bbox": [
+        5,
+        19,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 5,
+      "source_sheet": "球员7.png",
+      "cell": 6,
+      "row": 2,
+      "column": 2,
+      "target": "殴文_Julius Erving.png",
+      "source_alpha_bbox": [
+        13,
+        0,
+        305,
+        314
+      ],
+      "output_sha256": "50b915bfb8a1e26b506ca1f4989becec0e5db6374b3ad9f388c93d8db63f2e2b",
+      "component_source_bbox": [
+        326,
+        352,
+        292,
+        277
+      ],
+      "output_alpha_bbox": [
+        5,
+        20,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 5,
+      "source_sheet": "球员7.png",
+      "cell": 7,
+      "row": 2,
+      "column": 3,
+      "target": "殴文_Kyrie Irving.png",
+      "source_alpha_bbox": [
+        11,
+        0,
+        303,
+        314
+      ],
+      "output_sha256": "17527b3be0ea8871b782fd6d7c6e8f9dba017fafe792eec5ea8251fa5517ac1e",
+      "component_source_bbox": [
+        638,
+        352,
+        292,
+        277
+      ],
+      "output_alpha_bbox": [
+        5,
+        20,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 5,
+      "source_sheet": "球员7.png",
+      "cell": 8,
+      "row": 2,
+      "column": 4,
+      "target": "比炉普斯_Chauncey Billups.png",
+      "source_alpha_bbox": [
+        10,
+        0,
+        301,
+        314
+      ],
+      "output_sha256": "3b786b457981fb1827840db98ffb079282bcc80f65c265402d528a0e4e2f374a",
+      "component_source_bbox": [
+        950,
+        352,
+        291,
+        277
+      ],
+      "output_alpha_bbox": [
+        5,
+        19,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 5,
+      "source_sheet": "球员7.png",
+      "cell": 9,
+      "row": 3,
+      "column": 1,
+      "target": "汞小彬_Gong Xiaobin.png",
+      "source_alpha_bbox": [
+        15,
+        0,
+        306,
+        313
+      ],
+      "output_sha256": "17f0a389785c6d13dc0b0fb0ed52483845730c16dcb36da68f72b9ebbb7fbcfe",
+      "component_source_bbox": [
+        15,
+        666,
+        291,
+        276
+      ],
+      "output_alpha_bbox": [
+        5,
+        20,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 5,
+      "source_sheet": "球员7.png",
+      "cell": 10,
+      "row": 3,
+      "column": 2,
+      "target": "沛蒂特_Bob Pettit.png",
+      "source_alpha_bbox": [
+        13,
+        0,
+        305,
+        313
+      ],
+      "output_sha256": "53926b0e500c1e52f7a2c2b368266064d8732945f497bedaa42f148ada172e17",
+      "component_source_bbox": [
+        326,
+        666,
+        291,
+        276
+      ],
+      "output_alpha_bbox": [
+        5,
+        20,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 5,
+      "source_sheet": "球员7.png",
+      "cell": 11,
+      "row": 3,
+      "column": 3,
+      "target": "沛顿_Gary Payton.png",
+      "source_alpha_bbox": [
+        11,
+        0,
+        303,
+        313
+      ],
+      "output_sha256": "07d6e666aa8dc9d3c14d3f046094a11fb0cad9388d0d82da0754aa119d3aa71b",
+      "component_source_bbox": [
+        638,
+        666,
+        292,
+        276
+      ],
+      "output_alpha_bbox": [
+        5,
+        20,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 5,
+      "source_sheet": "球员7.png",
+      "cell": 12,
+      "row": 3,
+      "column": 4,
+      "target": "泊什_Chris Bosh.png",
+      "source_alpha_bbox": [
+        10,
+        0,
+        301,
+        313
+      ],
+      "output_sha256": "16d9b0cd6cdd21e674317eda85a8d2e9ff917a147f504865b4d711063875e0d2",
+      "component_source_bbox": [
+        950,
+        666,
+        291,
+        276
+      ],
+      "output_alpha_bbox": [
+        5,
+        20,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 5,
+      "source_sheet": "球员7.png",
+      "cell": 13,
+      "row": 4,
+      "column": 1,
+      "target": "洛伯特森_Oscar Robertson.png",
+      "source_alpha_bbox": [
+        15,
+        0,
+        306,
+        314
+      ],
+      "output_sha256": "c6adc2d232e688e352e072421cbc92aec857512b64585ec91d2a72d0de0cae97",
+      "component_source_bbox": [
+        15,
+        978,
+        290,
+        276
+      ],
+      "output_alpha_bbox": [
+        5,
+        22,
+        251,
+        256
+      ]
+    },
+    {
+      "batch": 5,
+      "source_sheet": "球员7.png",
+      "cell": 14,
+      "row": 4,
+      "column": 2,
+      "target": "洛宾逊_David Robinson.png",
+      "source_alpha_bbox": [
+        12,
+        0,
+        304,
+        314
+      ],
+      "output_sha256": "06c9e93debc97472f9d3df7ae3843479b3c4d0d333cc674054a6c519419e28db",
+      "component_source_bbox": [
+        325,
+        978,
+        291,
+        276
+      ],
+      "output_alpha_bbox": [
+        5,
+        23,
+        251,
+        256
+      ]
+    },
+    {
+      "batch": 5,
+      "source_sheet": "球员7.png",
+      "cell": 15,
+      "row": 4,
+      "column": 3,
+      "target": "洛德曼_Dennis Rodman.png",
+      "source_alpha_bbox": [
+        11,
+        0,
+        303,
+        314
+      ],
+      "output_sha256": "ed8fe5d0e08916f04f5857d7e25bda764264af109a7b944e6693a01559b8aa4b",
+      "component_source_bbox": [
+        639,
+        978,
+        291,
+        276
+      ],
+      "output_alpha_bbox": [
+        5,
+        23,
+        251,
+        256
+      ]
+    },
+    {
+      "batch": 5,
+      "source_sheet": "球员7.png",
+      "cell": 16,
+      "row": 4,
+      "column": 4,
+      "target": "洛斯_Derrick Rose.png",
+      "source_alpha_bbox": [
+        10,
+        0,
+        301,
+        314
+      ],
+      "output_sha256": "be57bdc2498db10334418a8b28a85275f87bcacb2dd40193a0dd7f775eb0f980",
+      "component_source_bbox": [
+        950,
+        978,
+        290,
+        276
+      ],
+      "output_alpha_bbox": [
+        5,
+        22,
+        251,
+        256
+      ]
+    },
+    {
+      "batch": 6,
+      "source_sheet": "球员6.png",
+      "cell": 1,
+      "row": 1,
+      "column": 1,
+      "target": "渡兰特_Kevin Durant.png",
+      "source_alpha_bbox": [
+        21,
+        21,
+        312,
+        312
+      ],
+      "output_sha256": "d6328577db4d366d4b5d358011b31a4b7fab085728f6d7f4fca6fa429b519c4c",
+      "component_source_bbox": [
+        21,
+        21,
+        291,
+        291
+      ],
+      "output_alpha_bbox": [
+        5,
+        7,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 6,
+      "source_sheet": "球员6.png",
+      "cell": 2,
+      "row": 1,
+      "column": 2,
+      "target": "渡锋_Du Feng.png",
+      "source_alpha_bbox": [
+        13,
+        20,
+        299,
+        312
+      ],
+      "output_sha256": "3f6ec26c566de76d477140b18dfb27ac329847f85d2d51ba92a018ccdd680699",
+      "component_source_bbox": [
+        326,
+        20,
+        286,
+        292
+      ],
+      "output_alpha_bbox": [
+        7,
+        7,
+        248,
+        253
+      ]
+    },
+    {
+      "batch": 6,
+      "source_sheet": "球员6.png",
+      "cell": 3,
+      "row": 1,
+      "column": 3,
+      "target": "渥西_James Worthy.png",
+      "source_alpha_bbox": [
+        1,
+        17,
+        313,
+        312
+      ],
+      "output_sha256": "771c04b6a153cf40096aa9d7356205cf2f5e3171319a03b869c2ffda4305e024",
+      "component_source_bbox": [
+        628,
+        17,
+        290,
+        295
+      ],
+      "output_alpha_bbox": [
+        7,
+        7,
+        249,
+        253
+      ]
+    },
+    {
+      "batch": 6,
+      "source_sheet": "球员6.png",
+      "cell": 4,
+      "row": 1,
+      "column": 4,
+      "target": "渥顿_Bill Walton.png",
+      "source_alpha_bbox": [
+        0,
+        20,
+        283,
+        312
+      ],
+      "output_sha256": "f852f777316a74fbb652554a16bbc0419a960870bb163cce280f761deed703f3",
+      "component_source_bbox": [
+        935,
+        20,
+        288,
+        292
+      ],
+      "output_alpha_bbox": [
+        6,
+        7,
+        249,
+        253
+      ]
+    },
+    {
+      "batch": 6,
+      "source_sheet": "球员6.png",
+      "cell": 5,
+      "row": 2,
+      "column": 1,
+      "target": "游因_Patrick Ewing.png",
+      "source_alpha_bbox": [
+        21,
+        22,
+        312,
+        314
+      ],
+      "output_sha256": "ce9499565ce5f238ef4f43d267f2fee29a7afef5e08b1fc29d5568545f030b29",
+      "component_source_bbox": [
+        21,
+        335,
+        291,
+        294
+      ],
+      "output_alpha_bbox": [
+        6,
+        7,
+        249,
+        253
+      ]
+    },
+    {
+      "batch": 6,
+      "source_sheet": "球员6.png",
+      "cell": 6,
+      "row": 2,
+      "column": 2,
+      "target": "烤辛斯_DeMarcus Cousins.png",
+      "source_alpha_bbox": [
+        15,
+        23,
+        301,
+        314
+      ],
+      "output_sha256": "0975ab9803ceab6671ed8425094bd6519cb9d79e5d4196ca1e5f0be244f3a69a",
+      "component_source_bbox": [
+        328,
+        336,
+        286,
+        293
+      ],
+      "output_alpha_bbox": [
+        8,
+        7,
+        248,
+        253
+      ]
+    },
+    {
+      "batch": 6,
+      "source_sheet": "球员6.png",
+      "cell": 7,
+      "row": 2,
+      "column": 3,
+      "target": "熙尔_Grant Hill.png",
+      "source_alpha_bbox": [
+        1,
+        27,
+        313,
+        314
+      ],
+      "output_sha256": "826ed3ab6dd780f757f6aaf83e4ec327e7333062d9a04b937d2e11dc2cdb3627",
+      "component_source_bbox": [
+        628,
+        340,
+        289,
+        289
+      ],
+      "output_alpha_bbox": [
+        5,
+        7,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 6,
+      "source_sheet": "球员6.png",
+      "cell": 8,
+      "row": 2,
+      "column": 4,
+      "target": "熙蒙斯_Ben Simmons.png",
+      "source_alpha_bbox": [
+        0,
+        25,
+        283,
+        314
+      ],
+      "output_sha256": "f2d2fcd37271262bbb577bd22d2ffccce2bd43e8db84233212e94aff99358eb2",
+      "component_source_bbox": [
+        935,
+        338,
+        288,
+        291
+      ],
+      "output_alpha_bbox": [
+        6,
+        7,
+        249,
+        253
+      ]
+    },
+    {
+      "batch": 6,
+      "source_sheet": "球员6.png",
+      "cell": 9,
+      "row": 3,
+      "column": 1,
+      "target": "爱弗森_Allen Iverson.png",
+      "source_alpha_bbox": [
+        20,
+        0,
+        311,
+        313
+      ],
+      "output_sha256": "ce4f92d6a219e8bb95d0b21c7943e6bd938355635311f7f4a677e8e7c35c7ef5",
+      "component_source_bbox": [
+        20,
+        655,
+        291,
+        290
+      ],
+      "output_alpha_bbox": [
+        5,
+        8,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 6,
+      "source_sheet": "球员6.png",
+      "cell": 10,
+      "row": 3,
+      "column": 2,
+      "target": "爱得划兹_Anthony Edwards.png",
+      "source_alpha_bbox": [
+        13,
+        0,
+        301,
+        313
+      ],
+      "output_sha256": "f4276dfbd44af0fb6984e29dafed9fac2f58f0277de82b361dcc72a68e5ac8cc",
+      "component_source_bbox": [
+        326,
+        655,
+        286,
+        290
+      ],
+      "output_alpha_bbox": [
+        6,
+        7,
+        249,
+        253
+      ]
+    },
+    {
+      "batch": 6,
+      "source_sheet": "球员6.png",
+      "cell": 11,
+      "row": 3,
+      "column": 3,
+      "target": "爱顿_Deandre Ayton.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        313,
+        313
+      ],
+      "output_sha256": "aa4483e84606c5f98f5d75d1ecc041ca5d1c296ba44a2a49042e250164f9fa0b",
+      "component_source_bbox": [
+        627,
+        654,
+        289,
+        291
+      ],
+      "output_alpha_bbox": [
+        6,
+        7,
+        250,
+        253
+      ]
+    },
+    {
+      "batch": 6,
+      "source_sheet": "球员6.png",
+      "cell": 12,
+      "row": 3,
+      "column": 4,
+      "target": "玛健_Ma Jian.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        283,
+        313
+      ],
+      "output_sha256": "08bab3d506635449f6f59c601d15f89083fe7983c47bf8c5e614696f81cb1263",
+      "component_source_bbox": [
+        933,
+        655,
+        288,
+        290
+      ],
+      "output_alpha_bbox": [
+        6,
+        7,
+        250,
+        253
+      ]
+    },
+    {
+      "batch": 6,
+      "source_sheet": "球员6.png",
+      "cell": 13,
+      "row": 4,
+      "column": 1,
+      "target": "玛龙_Karl Malone.png",
+      "source_alpha_bbox": [
+        20,
+        0,
+        311,
+        314
+      ],
+      "output_sha256": "401bc73c2f3f1af8fe2f84ba7fd63dcb77af2017be572a421ac125e4c665ea2a",
+      "component_source_bbox": [
+        21,
+        966,
+        290,
+        288
+      ],
+      "output_alpha_bbox": [
+        5,
+        12,
+        251,
+        256
+      ]
+    },
+    {
+      "batch": 6,
+      "source_sheet": "球员6.png",
+      "cell": 14,
+      "row": 4,
+      "column": 2,
+      "target": "玛龙_Moses Malone.png",
+      "source_alpha_bbox": [
+        13,
+        0,
+        299,
+        314
+      ],
+      "output_sha256": "9b740fe4016c3eb2428a0934a69e72af8be67dfbe253ac56d6d5359fd59aa55f",
+      "component_source_bbox": [
+        328,
+        970,
+        281,
+        284
+      ],
+      "output_alpha_bbox": [
+        5,
+        8,
+        251,
+        256
+      ]
+    },
+    {
+      "batch": 6,
+      "source_sheet": "球员6.png",
+      "cell": 15,
+      "row": 4,
+      "column": 3,
+      "target": "班恺罗_Paolo Banchero.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        313,
+        314
+      ],
+      "output_sha256": "8c685c8a9f041e8094e98df2527669a26be924079dde7d387b9d3c671eae7631",
+      "component_source_bbox": [
+        628,
+        966,
+        288,
+        288
+      ],
+      "output_alpha_bbox": [
+        5,
+        10,
+        251,
+        256
+      ]
+    },
+    {
+      "batch": 6,
+      "source_sheet": "球员6.png",
+      "cell": 16,
+      "row": 4,
+      "column": 4,
+      "target": "理凯尔_Kyle Anderson.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        281,
+        314
+      ],
+      "output_sha256": "2a859b25c145d5e4e518d517f132d8eea9e7502e0d546493fb140b6a5e45867c",
+      "component_source_bbox": [
+        934,
+        970,
+        287,
+        284
+      ],
+      "output_alpha_bbox": [
+        5,
+        13,
+        251,
+        256
+      ]
+    },
+    {
+      "batch": 7,
+      "source_sheet": "球员5.png",
+      "cell": 1,
+      "row": 1,
+      "column": 1,
+      "target": "琵尔斯_Paul Pierce.png",
+      "source_alpha_bbox": [
+        21,
+        39,
+        313,
+        313
+      ],
+      "output_sha256": "794b16507b013dea55518230fb80954644f9ed4d9fe00fcb81de288bbe9e74d9",
+      "component_source_bbox": [
+        21,
+        39,
+        299,
+        301
+      ],
+      "output_alpha_bbox": [
+        6,
+        7,
+        250,
+        253
+      ]
+    },
+    {
+      "batch": 7,
+      "source_sheet": "球员5.png",
+      "cell": 2,
+      "row": 1,
+      "column": 2,
+      "target": "琵蓬_Scottie Pippen.png",
+      "source_alpha_bbox": [
+        0,
+        39,
+        313,
+        313
+      ],
+      "output_sha256": "d0f0529f1c84a17f7ab12587c79e1a149da13b394338804af252e398bd7e8970",
+      "component_source_bbox": [
+        332,
+        39,
+        295,
+        301
+      ],
+      "output_alpha_bbox": [
+        7,
+        7,
+        248,
+        253
+      ]
+    },
+    {
+      "batch": 7,
+      "source_sheet": "球员5.png",
+      "cell": 3,
+      "row": 1,
+      "column": 3,
+      "target": "琶克_Tony Parker.png",
+      "source_alpha_bbox": [
+        8,
+        39,
+        303,
+        313
+      ],
+      "output_sha256": "65c01e2521f792ee14f07b5a259aeb6725af189b73a1d4a04d6eaf8aed16dac5",
+      "component_source_bbox": [
+        634,
+        39,
+        296,
+        301
+      ],
+      "output_alpha_bbox": [
+        7,
+        7,
+        249,
+        253
+      ]
+    },
+    {
+      "batch": 7,
+      "source_sheet": "球员5.png",
+      "cell": 4,
+      "row": 1,
+      "column": 4,
+      "target": "琶里什_Robert Parish.png",
+      "source_alpha_bbox": [
+        0,
+        39,
+        295,
+        313
+      ],
+      "output_sha256": "856af24d2bffce623d87db5fe7f6af2d7bde862f27a451952854f2fe0e8fb839",
+      "component_source_bbox": [
+        940,
+        39,
+        295,
+        301
+      ],
+      "output_alpha_bbox": [
+        7,
+        7,
+        248,
+        253
+      ]
+    },
+    {
+      "batch": 7,
+      "source_sheet": "球员5.png",
+      "cell": 5,
+      "row": 2,
+      "column": 1,
+      "target": "璋伯伦_Wilt Chamberlain.png",
+      "source_alpha_bbox": [
+        21,
+        0,
+        313,
+        314
+      ],
+      "output_sha256": "fa3cfaedfe0c845db36ec976430923d1d011f75c908a95e4eab351230bad9585",
+      "component_source_bbox": [
+        23,
+        361,
+        296,
+        303
+      ],
+      "output_alpha_bbox": [
+        8,
+        7,
+        248,
+        253
+      ]
+    },
+    {
+      "batch": 7,
+      "source_sheet": "球员5.png",
+      "cell": 6,
+      "row": 2,
+      "column": 2,
+      "target": "璋卫平_Zhang Weiping.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        314,
+        314
+      ],
+      "output_sha256": "9babacd7cd54adc239ce7c23d01e4b4a2b8788616b16c3f51cb6af47e1e12e12",
+      "component_source_bbox": [
+        330,
+        361,
+        291,
+        303
+      ],
+      "output_alpha_bbox": [
+        10,
+        7,
+        246,
+        253
+      ]
+    },
+    {
+      "batch": 7,
+      "source_sheet": "球员5.png",
+      "cell": 7,
+      "row": 2,
+      "column": 3,
+      "target": "瓦阁纳_Franz Wagner.png",
+      "source_alpha_bbox": [
+        7,
+        0,
+        303,
+        314
+      ],
+      "output_sha256": "f455397ba1d2bc2edadc2aadd61830f5ca4882dee2373a67976b297c3410415b",
+      "component_source_bbox": [
+        634,
+        358,
+        291,
+        306
+      ],
+      "output_alpha_bbox": [
+        11,
+        7,
+        245,
+        253
+      ]
+    },
+    {
+      "batch": 7,
+      "source_sheet": "球员5.png",
+      "cell": 8,
+      "row": 2,
+      "column": 4,
+      "target": "登肯_Tim Duncan.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        295,
+        314
+      ],
+      "output_sha256": "7b9fce618ad3e34ec827ac869696cec2a60dcd480e9095a8dd5cb2c19c300f1b",
+      "component_source_bbox": [
+        940,
+        359,
+        294,
+        305
+      ],
+      "output_alpha_bbox": [
+        9,
+        7,
+        246,
+        253
+      ]
+    },
+    {
+      "batch": 7,
+      "source_sheet": "球员5.png",
+      "cell": 9,
+      "row": 3,
+      "column": 1,
+      "target": "瞻姆斯_LeBron James.png",
+      "source_alpha_bbox": [
+        23,
+        0,
+        313,
+        313
+      ],
+      "output_sha256": "426d04b7786f64db7edd72ec498f3b9622afc1aca5b90af44fbcdbf43c43de76",
+      "component_source_bbox": [
+        21,
+        682,
+        297,
+        299
+      ],
+      "output_alpha_bbox": [
+        6,
+        7,
+        250,
+        253
+      ]
+    },
+    {
+      "batch": 7,
+      "source_sheet": "球员5.png",
+      "cell": 10,
+      "row": 3,
+      "column": 2,
+      "target": "立拉德_Damian Lillard.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        308,
+        313
+      ],
+      "output_sha256": "627bdb08d35653a9206636d6bd71ce7372bc01be0eb933903e8c3a02c2a23a39",
+      "component_source_bbox": [
+        330,
+        682,
+        289,
+        299
+      ],
+      "output_alpha_bbox": [
+        9,
+        7,
+        247,
+        253
+      ]
+    },
+    {
+      "batch": 7,
+      "source_sheet": "球员5.png",
+      "cell": 11,
+      "row": 3,
+      "column": 3,
+      "target": "米乐_Reggie Miller.png",
+      "source_alpha_bbox": [
+        7,
+        0,
+        298,
+        313
+      ],
+      "output_sha256": "c42d9cd743f2734a64f5c43b9548a58ccaa80ed1dc8afb9643bbbe395352340d",
+      "component_source_bbox": [
+        634,
+        682,
+        291,
+        299
+      ],
+      "output_alpha_bbox": [
+        8,
+        7,
+        247,
+        253
+      ]
+    },
+    {
+      "batch": 7,
+      "source_sheet": "球员5.png",
+      "cell": 12,
+      "row": 3,
+      "column": 4,
+      "target": "糯维茨基_Dirk Nowitzki.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        294,
+        313
+      ],
+      "output_sha256": "2d64cdc4fe608daf47687bf828a7198b6674e1c6155e4a9d98870ea7cc40f762",
+      "component_source_bbox": [
+        940,
+        682,
+        294,
+        299
+      ],
+      "output_alpha_bbox": [
+        7,
+        7,
+        249,
+        253
+      ]
+    },
+    {
+      "batch": 7,
+      "source_sheet": "球员5.png",
+      "cell": 13,
+      "row": 4,
+      "column": 1,
+      "target": "约吉奇_Nikola Jokić.png",
+      "source_alpha_bbox": [
+        19,
+        0,
+        313,
+        314
+      ],
+      "output_sha256": "a098a1eb6e8d55683d04b5ca8060b3a22bd3ab5074798859a09031b949f1ad4e",
+      "component_source_bbox": [
+        19,
+        997,
+        302,
+        257
+      ],
+      "output_alpha_bbox": [
+        5,
+        47,
+        251,
+        256
+      ]
+    },
+    {
+      "batch": 7,
+      "source_sheet": "球员5.png",
+      "cell": 14,
+      "row": 4,
+      "column": 2,
+      "target": "纶纳德_Kawhi Leonard.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        306,
+        314
+      ],
+      "output_sha256": "338d5b50e8b40fa8e1c0909fafba387ccaea4900a5e9a5bed8ed08e3b35ff61a",
+      "component_source_bbox": [
+        325,
+        997,
+        291,
+        257
+      ],
+      "output_alpha_bbox": [
+        5,
+        39,
+        251,
+        256
+      ]
+    },
+    {
+      "batch": 7,
+      "source_sheet": "球员5.png",
+      "cell": 15,
+      "row": 4,
+      "column": 3,
+      "target": "维伯_Chris Webber.png",
+      "source_alpha_bbox": [
+        5,
+        0,
+        313,
+        314
+      ],
+      "output_sha256": "b1d1343d6a159ac640c27055273360b3dc8dd6412eca61a2bcc3c34a27953d53",
+      "component_source_bbox": [
+        632,
+        997,
+        293,
+        257
+      ],
+      "output_alpha_bbox": [
+        5,
+        40,
+        251,
+        256
+      ]
+    },
+    {
+      "batch": 7,
+      "source_sheet": "球员5.png",
+      "cell": 16,
+      "row": 4,
+      "column": 4,
+      "target": "维司布鲁克_Russell Westbrook.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        294,
+        314
+      ],
+      "output_sha256": "f48afde7b54edf08a30f49778f8adfa888dbefcd938defb4f1926d501f5185a4",
+      "component_source_bbox": [
+        938,
+        999,
+        287,
+        255
+      ],
+      "output_alpha_bbox": [
+        5,
+        38,
+        251,
+        256
+      ]
+    },
+    {
+      "batch": 8,
+      "source_sheet": "球员10.png",
+      "cell": 1,
+      "row": 1,
+      "column": 1,
+      "target": "维尔金斯_Dominique Wilkins.png",
+      "source_alpha_bbox": [
+        31,
+        45,
+        313,
+        313
+      ],
+      "output_sha256": "fad5929d693da022764e840a04da062966f7ec8d464f85798c0132849db9e895",
+      "component_source_bbox": [
+        27,
+        45,
+        290,
+        297
+      ],
+      "output_alpha_bbox": [
+        8,
+        7,
+        248,
+        253
+      ]
+    },
+    {
+      "batch": 8,
+      "source_sheet": "球员10.png",
+      "cell": 2,
+      "row": 1,
+      "column": 2,
+      "target": "维廉姆斯_Jalen Williams.png",
+      "source_alpha_bbox": [
+        0,
+        46,
+        302,
+        313
+      ],
+      "output_sha256": "67dbaf4d28b9813291d87161a99b8af676dca491627c676b1ec49024648e2a59",
+      "component_source_bbox": [
+        330,
+        46,
+        288,
+        296
+      ],
+      "output_alpha_bbox": [
+        8,
+        7,
+        247,
+        253
+      ]
+    },
+    {
+      "batch": 8,
+      "source_sheet": "球员10.png",
+      "cell": 3,
+      "row": 1,
+      "column": 3,
+      "target": "维德_Dwyane Wade.png",
+      "source_alpha_bbox": [
+        13,
+        46,
+        294,
+        313
+      ],
+      "output_sha256": "b4f1477098a80b960b2445d026c4898c2b38767d5bbb4e76866ff5964103e272",
+      "component_source_bbox": [
+        636,
+        46,
+        288,
+        296
+      ],
+      "output_alpha_bbox": [
+        8,
+        7,
+        247,
+        253
+      ]
+    },
+    {
+      "batch": 8,
+      "source_sheet": "球员10.png",
+      "cell": 4,
+      "row": 1,
+      "column": 4,
+      "target": "维斯特_Jerry West.png",
+      "source_alpha_bbox": [
+        1,
+        46,
+        283,
+        313
+      ],
+      "output_sha256": "4a16a37018032cfc896da86975f56412d6b98c13d7e3678ad7136c2a8f113ed6",
+      "component_source_bbox": [
+        937,
+        46,
+        289,
+        296
+      ],
+      "output_alpha_bbox": [
+        8,
+        7,
+        248,
+        253
+      ]
+    },
+    {
+      "batch": 8,
+      "source_sheet": "球员10.png",
+      "cell": 5,
+      "row": 2,
+      "column": 1,
+      "target": "维津斯_Andrew Wiggins.png",
+      "source_alpha_bbox": [
+        27,
+        0,
+        313,
+        314
+      ],
+      "output_sha256": "de332b8d415d4de3f9b095b5c973435eb32acbbb8ee21f2f4325a75e330b9528",
+      "component_source_bbox": [
+        27,
+        369,
+        287,
+        296
+      ],
+      "output_alpha_bbox": [
+        8,
+        7,
+        247,
+        253
+      ]
+    },
+    {
+      "batch": 8,
+      "source_sheet": "球员10.png",
+      "cell": 6,
+      "row": 2,
+      "column": 2,
+      "target": "胧多_Rajon Rondo.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        305,
+        314
+      ],
+      "output_sha256": "f53f2ae376cd60c0a29f33fd9b4042ff7a2db70f288b727b01c1ed41df673fc5",
+      "component_source_bbox": [
+        330,
+        371,
+        288,
+        294
+      ],
+      "output_alpha_bbox": [
+        7,
+        7,
+        248,
+        253
+      ]
+    },
+    {
+      "batch": 8,
+      "source_sheet": "球员10.png",
+      "cell": 7,
+      "row": 2,
+      "column": 3,
+      "target": "芙拉格_Cooper Flagg.png",
+      "source_alpha_bbox": [
+        9,
+        0,
+        313,
+        314
+      ],
+      "output_sha256": "a3334db109766be6380a1b9c125e77b9aef1dc79044aba410603ab099f6de5a7",
+      "component_source_bbox": [
+        635,
+        370,
+        287,
+        295
+      ],
+      "output_alpha_bbox": [
+        8,
+        7,
+        247,
+        253
+      ]
+    },
+    {
+      "batch": 8,
+      "source_sheet": "球员10.png",
+      "cell": 8,
+      "row": 2,
+      "column": 4,
+      "target": "芙雷泽_Walt Frazier.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        286,
+        314
+      ],
+      "output_sha256": "67ac411ecb8cceb8812ecebcc2fe29b0d3534d3321a43729cc91039e584da9df",
+      "component_source_bbox": [
+        934,
+        372,
+        287,
+        293
+      ],
+      "output_alpha_bbox": [
+        7,
+        7,
+        248,
+        253
+      ]
+    },
+    {
+      "batch": 8,
+      "source_sheet": "球员10.png",
+      "cell": 9,
+      "row": 3,
+      "column": 1,
+      "target": "芭克利_Charles Barkley.png",
+      "source_alpha_bbox": [
+        27,
+        0,
+        313,
+        313
+      ],
+      "output_sha256": "30a9bc8f0c60ae9f5f215cce09d83f24ca73efea3c046d0b6305fb4f1a0c9ddc",
+      "component_source_bbox": [
+        26,
+        690,
+        284,
+        288
+      ],
+      "output_alpha_bbox": [
+        6,
+        7,
+        249,
+        253
+      ]
+    },
+    {
+      "batch": 8,
+      "source_sheet": "球员10.png",
+      "cell": 10,
+      "row": 3,
+      "column": 2,
+      "target": "芭恩斯_Scottie Barnes.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        305,
+        313
+      ],
+      "output_sha256": "7e6bb13e27a52fe62507b7d015effa5ee49c61fa2899b69bd0578906585152b0",
+      "component_source_bbox": [
+        327,
+        694,
+        284,
+        284
+      ],
+      "output_alpha_bbox": [
+        5,
+        7,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 8,
+      "source_sheet": "球员10.png",
+      "cell": 11,
+      "row": 3,
+      "column": 3,
+      "target": "芭特勒_Jimmy Butler.png",
+      "source_alpha_bbox": [
+        8,
+        0,
+        313,
+        313
+      ],
+      "output_sha256": "c24ffaeb860ca1d60fdf15a061a927462aaa30afacf8d440c2620ec8bafa1dfe",
+      "component_source_bbox": [
+        634,
+        694,
+        285,
+        284
+      ],
+      "output_alpha_bbox": [
+        5,
+        8,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 8,
+      "source_sheet": "球员10.png",
+      "cell": 12,
+      "row": 3,
+      "column": 4,
+      "target": "范芙利特_Fred VanVleet.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        281,
+        313
+      ],
+      "output_sha256": "38d953a393b6be3314d251dd1bc2a7b84bda86069460e975c500acfcf1831a4d",
+      "component_source_bbox": [
+        933,
+        694,
+        285,
+        284
+      ],
+      "output_alpha_bbox": [
+        5,
+        8,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 8,
+      "source_sheet": "球员10.png",
+      "cell": 13,
+      "row": 4,
+      "column": 1,
+      "target": "荪悦_Sun Yue.png",
+      "source_alpha_bbox": [
+        26,
+        0,
+        310,
+        314
+      ],
+      "output_sha256": "7429ef86e1ad28645a7f33af1e2b61480f89d05b52a3269382ae195d4ef1d879",
+      "component_source_bbox": [
+        29,
+        991,
+        265,
+        263
+      ],
+      "output_alpha_bbox": [
+        6,
+        14,
+        250,
+        256
+      ]
+    },
+    {
+      "batch": 8,
+      "source_sheet": "球员10.png",
+      "cell": 14,
+      "row": 4,
+      "column": 2,
+      "target": "蒽比德_Joel Embiid.png",
+      "source_alpha_bbox": [
+        14,
+        0,
+        298,
+        314
+      ],
+      "output_sha256": "75adc93fd933f98c0c1d9782a6d8247581af6cae9360c036cbfd86070b84348e",
+      "component_source_bbox": [
+        336,
+        991,
+        267,
+        263
+      ],
+      "output_alpha_bbox": [
+        6,
+        15,
+        250,
+        256
+      ]
+    },
+    {
+      "batch": 8,
+      "source_sheet": "球员10.png",
+      "cell": 15,
+      "row": 4,
+      "column": 3,
+      "target": "蓝姆_Jeremy Lamb.png",
+      "source_alpha_bbox": [
+        7,
+        0,
+        313,
+        314
+      ],
+      "output_sha256": "ef3bde5bd9985d25b1514dc56d2eb3eca8a42078c7eb26fa780f3be96339556e",
+      "component_source_bbox": [
+        645,
+        994,
+        266,
+        260
+      ],
+      "output_alpha_bbox": [
+        6,
+        17,
+        250,
+        256
+      ]
+    },
+    {
+      "batch": 8,
+      "source_sheet": "球员10.png",
+      "cell": 16,
+      "row": 4,
+      "column": 4,
+      "target": "豁华德_Dwight Howard.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        278,
+        314
+      ],
+      "output_sha256": "d0ebfdba44fb825086fcc553fc1d553c7a5f6b57562feb99421fe69b498126bf",
+      "component_source_bbox": [
+        947,
+        994,
+        266,
+        260
+      ],
+      "output_alpha_bbox": [
+        6,
+        17,
+        250,
+        256
+      ]
+    },
+    {
+      "batch": 9,
+      "source_sheet": "球员9.png",
+      "cell": 1,
+      "row": 1,
+      "column": 1,
+      "target": "豁姆格伦_Chet Holmgren.png",
+      "source_alpha_bbox": [
+        25,
+        29,
+        313,
+        313
+      ],
+      "output_sha256": "ca1da0435d24822d9b463130f8477e7fa9f5176c49a3a39ce6adbbd6628a1a3b",
+      "component_source_bbox": [
+        25,
+        29,
+        300,
+        286
+      ],
+      "output_alpha_bbox": [
+        5,
+        18,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 9,
+      "source_sheet": "球员9.png",
+      "cell": 2,
+      "row": 1,
+      "column": 2,
+      "target": "越翰逊_Kevin Johnson.png",
+      "source_alpha_bbox": [
+        0,
+        28,
+        314,
+        313
+      ],
+      "output_sha256": "6f6c25f8eb77ae03f44b7fd18385009ba98e2ab446a2c1dd2afd202f6c8fbda4",
+      "component_source_bbox": [
+        336,
+        28,
+        298,
+        287
+      ],
+      "output_alpha_bbox": [
+        5,
+        16,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 9,
+      "source_sheet": "球员9.png",
+      "cell": 3,
+      "row": 1,
+      "column": 3,
+      "target": "迈克海尔_Kevin McHale.png",
+      "source_alpha_bbox": [
+        0,
+        28,
+        308,
+        313
+      ],
+      "output_sha256": "57ade12b8c3a8bc6868e328d8fa0ef07495fc1f2980de516f52802603304a3a2",
+      "component_source_bbox": [
+        643,
+        28,
+        292,
+        287
+      ],
+      "output_alpha_bbox": [
+        5,
+        11,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 9,
+      "source_sheet": "球员9.png",
+      "cell": 4,
+      "row": 1,
+      "column": 4,
+      "target": "迪瓦慈_Vlade Divac.png",
+      "source_alpha_bbox": [
+        9,
+        28,
+        301,
+        313
+      ],
+      "output_sha256": "1654cdaeed25aa0f3571c22aa33e61f7d1cf056c3b0a9be87821700ab35da2d2",
+      "component_source_bbox": [
+        949,
+        28,
+        292,
+        288
+      ],
+      "output_alpha_bbox": [
+        5,
+        10,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 9,
+      "source_sheet": "球员9.png",
+      "cell": 5,
+      "row": 2,
+      "column": 1,
+      "target": "酷里_Stephen Curry.png",
+      "source_alpha_bbox": [
+        22,
+        0,
+        313,
+        314
+      ],
+      "output_sha256": "a409725f67917bd5d8b3e6d31e360c34f66e61462118128a45ad46326aa7de98",
+      "component_source_bbox": [
+        22,
+        344,
+        298,
+        287
+      ],
+      "output_alpha_bbox": [
+        5,
+        16,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 9,
+      "source_sheet": "球员9.png",
+      "cell": 6,
+      "row": 2,
+      "column": 2,
+      "target": "锡暗_Zion Williamson.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        314,
+        314
+      ],
+      "output_sha256": "791422273498f522a7c96e263935513917601e4fe96cb22bd94823486b340912",
+      "component_source_bbox": [
+        334,
+        344,
+        294,
+        287
+      ],
+      "output_alpha_bbox": [
+        5,
+        13,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 9,
+      "source_sheet": "球员9.png",
+      "cell": 7,
+      "row": 2,
+      "column": 3,
+      "target": "阁林_Draymond Green.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        308,
+        314
+      ],
+      "output_sha256": "33ead88f712cabf4f02e96a193985de7de9212b4ee3ff307b9c1f5ac77914548",
+      "component_source_bbox": [
+        639,
+        346,
+        292,
+        285
+      ],
+      "output_alpha_bbox": [
+        5,
+        13,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 9,
+      "source_sheet": "球员9.png",
+      "cell": 8,
+      "row": 2,
+      "column": 4,
+      "target": "阁林_Jalen Green.png",
+      "source_alpha_bbox": [
+        7,
+        0,
+        301,
+        314
+      ],
+      "output_sha256": "6f510ad7ae1b71154f1abaf4b324a165b7c0366a43c351368872d70dcde182ba",
+      "component_source_bbox": [
+        947,
+        346,
+        294,
+        285
+      ],
+      "output_alpha_bbox": [
+        5,
+        15,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 9,
+      "source_sheet": "球员9.png",
+      "cell": 9,
+      "row": 3,
+      "column": 1,
+      "target": "阁里芬_Blake Griffin.png",
+      "source_alpha_bbox": [
+        20,
+        0,
+        313,
+        312
+      ],
+      "output_sha256": "a1fec29dd792085ab350c4dafe591ed957c19e8b62994b21dedc8d490fc2a5f3",
+      "component_source_bbox": [
+        20,
+        656,
+        300,
+        283
+      ],
+      "output_alpha_bbox": [
+        5,
+        21,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 9,
+      "source_sheet": "球员9.png",
+      "cell": 10,
+      "row": 3,
+      "column": 2,
+      "target": "阳_Nick Young.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        314,
+        312
+      ],
+      "output_sha256": "f50d2f04d16b369237fbb7611afbe018e95f84c76304ce45310ebbf3c946509e",
+      "component_source_bbox": [
+        334,
+        658,
+        293,
+        281
+      ],
+      "output_alpha_bbox": [
+        5,
+        17,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 9,
+      "source_sheet": "球员9.png",
+      "cell": 11,
+      "row": 3,
+      "column": 3,
+      "target": "阳_Trae Young.png",
+      "source_alpha_bbox": [
+        0,
+        0,
+        304,
+        312
+      ],
+      "output_sha256": "58d0471f00b0b39a80819d576588679e1a08c6c7ab76b12d0d2336a83da7291d",
+      "component_source_bbox": [
+        642,
+        659,
+        289,
+        280
+      ],
+      "output_alpha_bbox": [
+        5,
+        15,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 9,
+      "source_sheet": "球员9.png",
+      "cell": 12,
+      "row": 3,
+      "column": 4,
+      "target": "阳瀚森_Yang Hansen.png",
+      "source_alpha_bbox": [
+        7,
+        0,
+        301,
+        312
+      ],
+      "output_sha256": "ae91f27ba9fe32da42120fdcdf286ee3308e387e1e14a9f20d73425aff7d80c2",
+      "component_source_bbox": [
+        948,
+        658,
+        285,
+        281
+      ],
+      "output_alpha_bbox": [
+        5,
+        10,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 9,
+      "source_sheet": "球员9.png",
+      "cell": 13,
+      "row": 4,
+      "column": 1,
+      "target": "阿尔德里齐_LaMarcus Aldridge.png",
+      "source_alpha_bbox": [
+        22,
+        23,
+        313,
+        303
+      ],
+      "output_sha256": "4dbde3c15dce7ff426989189da6bb91df79ab3ef6a3e9c29ff717cbd90237100",
+      "component_source_bbox": [
+        22,
+        963,
+        292,
+        280
+      ],
+      "output_alpha_bbox": [
+        5,
+        17,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 9,
+      "source_sheet": "球员9.png",
+      "cell": 14,
+      "row": 4,
+      "column": 2,
+      "target": "雅不都沙拉木_Abudushalamu Abudurexiti.png",
+      "source_alpha_bbox": [
+        0,
+        21,
+        308,
+        303
+      ],
+      "output_sha256": "a5a9ea0f0c4289804f14ef8bee2ebf6982dd9ff82f28ee40d3511258e1243529",
+      "component_source_bbox": [
+        334,
+        961,
+        287,
+        282
+      ],
+      "output_alpha_bbox": [
+        5,
+        11,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 9,
+      "source_sheet": "球员9.png",
+      "cell": 15,
+      "row": 4,
+      "column": 3,
+      "target": "雅伦_Ray Allen.png",
+      "source_alpha_bbox": [
+        17,
+        24,
+        307,
+        303
+      ],
+      "output_sha256": "dc305e02e2df39b193e9d32eb53ed82e42519ba04e1b9e0aff0c8bfd8216a01a",
+      "component_source_bbox": [
+        644,
+        964,
+        290,
+        279
+      ],
+      "output_alpha_bbox": [
+        5,
+        16,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 9,
+      "source_sheet": "球员9.png",
+      "cell": 16,
+      "row": 4,
+      "column": 4,
+      "target": "雅德托昆博_Giannis Antetokounmpo.png",
+      "source_alpha_bbox": [
+        10,
+        21,
+        297,
+        303
+      ],
+      "output_sha256": "e841968c26aec8c1a6cc1f1d53e0963b70764c2d213a1f924f10e000014be4a4",
+      "component_source_bbox": [
+        950,
+        961,
+        287,
+        282
+      ],
+      "output_alpha_bbox": [
+        5,
+        11,
+        251,
+        253
+      ]
+    },
+    {
+      "batch": 10,
+      "source_sheet": "球员8.png",
+      "cell": 1,
+      "row": 1,
+      "column": 1,
+      "target": "颗比_Kobe Bryant.png",
+      "source_alpha_bbox": [
+        33,
+        55,
+        297,
+        313
+      ],
+      "output_sha256": "76a49613363c4e7923a4a712161ad2ddb418f10cbb97bcb2a04369e3b65b939b",
+      "component_source_bbox": [
+        27,
+        55,
+        277,
+        309
+      ],
+      "output_alpha_bbox": [
+        17,
+        7,
+        238,
+        253
+      ]
+    },
+    {
+      "batch": 10,
+      "source_sheet": "球员8.png",
+      "cell": 2,
+      "row": 1,
+      "column": 2,
+      "target": "飒博尼斯_Arvydas Sabonis.png",
+      "source_alpha_bbox": [
+        30,
+        53,
+        295,
+        313
+      ],
+      "output_sha256": "d2d60e47004172087749205667f8022a4d28083fe036a8a20bba57be7e719fd8",
+      "component_source_bbox": [
+        336,
+        53,
+        279,
+        311
+      ],
+      "output_alpha_bbox": [
+        17,
+        7,
+        238,
+        253
+      ]
+    },
+    {
+      "batch": 10,
+      "source_sheet": "球员8.png",
+      "cell": 3,
+      "row": 1,
+      "column": 3,
+      "target": "魔术师_Magic Johnson.png",
+      "source_alpha_bbox": [
+        20,
+        51,
+        286,
+        313
+      ],
+      "output_sha256": "fabb65651e844d49d845f26f52c5a16f08fd35c53530da34606d1769ac97772a",
+      "component_source_bbox": [
+        640,
+        51,
+        280,
+        312
+      ],
+      "output_alpha_bbox": [
+        17,
+        7,
+        238,
+        253
+      ]
+    },
+    {
+      "batch": 10,
+      "source_sheet": "球员8.png",
+      "cell": 4,
+      "row": 1,
+      "column": 4,
+      "target": "鸭梨山大_Shai Gilgeous-Alexander.png",
+      "source_alpha_bbox": [
+        5,
+        52,
+        268,
+        313
+      ],
+      "output_sha256": "d2e5f1185388afa81befa2baeb82ad10ad4209e887bc21a475ab91b0279f46a9",
+      "component_source_bbox": [
+        939,
+        52,
+        276,
+        312
+      ],
+      "output_alpha_bbox": [
+        19,
+        7,
+        237,
+        253
+      ]
+    },
+    {
+      "batch": 10,
+      "source_sheet": "球员8.png",
+      "cell": 5,
+      "row": 2,
+      "column": 1,
+      "target": "鹤希宁_He Xining.png",
+      "source_alpha_bbox": [
+        27,
+        0,
+        304,
+        314
+      ],
+      "output_sha256": "09c5439e523f2cf61124e8e6f4a1c22419d7a29bad7c51fd0f6250598192489e",
+      "component_source_bbox": [
+        23,
+        430,
+        275,
+        314
+      ],
+      "output_alpha_bbox": [
+        20,
+        7,
+        235,
+        253
+      ]
+    },
+    {
+      "batch": 10,
+      "source_sheet": "球员8.png",
+      "cell": 6,
+      "row": 2,
+      "column": 2,
+      "target": "麦垦_George Mikan.png",
+      "source_alpha_bbox": [
+        23,
+        0,
+        302,
+        314
+      ],
+      "output_sha256": "492733be0601adea4ad20469e204ddf764e438d7614e20d4269d46ee5dfdab9c",
+      "component_source_bbox": [
+        330,
+        431,
+        275,
+        314
+      ],
+      "output_alpha_bbox": [
+        20,
+        7,
+        235,
+        253
+      ]
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "__version__": "1.0.0",
+  "asset-uuid": "dabb9394-f78d-4f19-9bce-320bf13f157d",
+  "shader-graph": {
+    "graph-configs": {
+      "3b92b587-3704-4081-96a4-895753cfc9ed": {
+        "offset": {
+          "x": 0,
+          "y": 0
+        },
+        "scale": 0.87,
+        "floatWindows": {
+          "graph-property": {
+            "show": false,
+            "width": "300px",
+            "height": "240px"
+          },
+          "preview": {
+            "position": {
+              "right": "28px",
+              "bottom": "0px"
+            },
+            "show": false,
+            "width": "223px",
+            "height": "228px"
+          },
+          "custom-nodes": {
+            "show": false,
+            "width": "",
+            "height": ""
+          }
+        }
+      },
+      "dabb9394-f78d-4f19-9bce-320bf13f157d": {
+        "offset": {
+          "x": 4,
+          "y": 1
+        },
+        "scale": 0.84,
+        "floatWindows": {
+          "graph-property": {
+            "show": false,
+            "width": "300px",
+            "height": "240px",
+            "position": {
+              "right": "28px",
+              "top": "28px"
+            }
+          },
+          "preview": {
+            "position": {
+              "right": "28px",
+              "bottom": "0px"
+            },
+            "show": false,
+            "width": "223px",
+            "height": "228px"
+          },
+          "custom-nodes": {
+            "show": false,
+            "width": "",
+            "height": ""
+          }
+        }
+      }
+    }
+  }
+}

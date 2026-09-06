@@ -1,0 +1,17 @@
+{
+  "deviceOrientation": "portrait",
+  "networkTimeout": {
+    "request": 5000,
+    "connectSocket": 5000,
+    "uploadFile": 5000,
+    "downloadFile": 500000
+  },
+  "productVersion": "0.1.0",
+  "convertScriptVersion": "2.0.8-ts",
+  "subPackages": [
+    {
+      "name": "resources",
+      "root": "subpackages/resources/"
+    }
+  ]
+}

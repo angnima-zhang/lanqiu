@@ -1,0 +1,9 @@
+[     773ms] [TIMEEND] Init Base: 0.615966796875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[     805ms] [TIMEEND] Init Infrastructure: 31.8310546875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[     819ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[     956ms] [TIMEEND] Init SubSystem: 119.906982421875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[     956ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1062ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1075ms] [TIMEEND] Init Project: 118.93505859375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[    7404ms] [TIMEEND] LoadScene Homepage: 175.51708984375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[   20087ms] [LOG] RECRUIT_SWEEP_VERIFY:{"controller":true,"effect":"../resources/effects/recruit-button-sweep","sweep":{"x":0.14,"y":1.5,"z":0.16,"w":0.36}} @ :0

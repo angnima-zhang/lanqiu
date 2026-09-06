@@ -1,0 +1,324 @@
+[    2766ms] [TIMEEND] Init Base: 1.169921875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[    2812ms] [TIMEEND] Init Infrastructure: 44.408935546875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[    2828ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    2853ms] [LOG] [PHYSICS2D]: register box2d. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    2997ms] [TIMEEND] Init SubSystem: 126.60302734375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[    2997ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    3067ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    3087ms] [TIMEEND] Init Project: 90.22705078125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[    3753ms] [INFO] Slow network is detected. See https://www.chromestatus.com/feature/5636954674692096 for more details. Fallback font will be used while loading: http://localhost:7456/assets/resources/native/e6/e6426d6f-f81f-4e6e-90de-7c041cb0c92a/zpix.ttf @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:110200
+[   73102ms] [TIMEEND] Init Base: 0.35791015625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[   73137ms] [TIMEEND] Init Infrastructure: 34.512939453125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[   73151ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[   73159ms] [LOG] [PHYSICS2D]: register box2d. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[   73297ms] [TIMEEND] Init SubSystem: 123.01708984375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[   73297ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[   73356ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[   73365ms] [TIMEEND] Init Project: 67.59619140625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[   92565ms] [TIMEEND] Init Base: 0.380859375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[   92591ms] [TIMEEND] Init Infrastructure: 25.81298828125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[   92602ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[   92608ms] [LOG] [PHYSICS2D]: register box2d. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[   92736ms] [TIMEEND] Init SubSystem: 114.64697265625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[   92736ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[   92785ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[   92792ms] [TIMEEND] Init Project: 55.974853515625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[  119960ms] [TIMEEND] Init Base: 0.178955078125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[  119984ms] [TIMEEND] Init Infrastructure: 24.47607421875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[  119998ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  120002ms] [LOG] [PHYSICS2D]: register box2d. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  120114ms] [TIMEEND] Init SubSystem: 99.66796875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[  120114ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  120167ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  120175ms] [TIMEEND] Init Project: 60.36083984375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[  121410ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/头像/哈灯_哈灯_James Harden/spriteFrame Error: Bundle resources doesn't contain images/头像/哈灯_哈灯_James Harden/spriteFrame
+    at _loop2 (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:29:17 @ http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:30
+[  121413ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/头像/吉德_吉德_Jason Kidd/spriteFrame Error: Bundle resources doesn't contain images/头像/吉德_吉德_Jason Kidd/spriteFrame
+    at _loop2 (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:29:17 @ http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:30
+[  121413ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/头像/JR史秘司_JR史秘司_J.R. Smith/spriteFrame Error: Bundle resources doesn't contain images/头像/JR史秘司_JR史秘司_J.R. Smith/spriteFrame
+    at _loop2 (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:29:17 @ http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:30
+[  121413ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/头像/侨丹_侨丹_Michael Jordan/spriteFrame Error: Bundle resources doesn't contain images/头像/侨丹_侨丹_Michael Jordan/spriteFrame
+    at _loop2 (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:29:17 @ http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:30
+[  121413ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/头像/侨治_侨治_Paul George/spriteFrame Error: Bundle resources doesn't contain images/头像/侨治_侨治_Paul George/spriteFrame
+    at _loop2 (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:29:17 @ http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:30
+[  121414ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/头像/傲登_傲登_Greg Oden/spriteFrame Error: Bundle resources doesn't contain images/头像/傲登_傲登_Greg Oden/spriteFrame
+    at _loop2 (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:29:17 @ http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:30
+[  121414ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/头像/冬契奇_冬契奇_Luka Dončić/spriteFrame Error: Bundle resources doesn't contain images/头像/冬契奇_冬契奇_Luka Dončić/spriteFrame
+    at _loop2 (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:29:17 @ http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:30
+[  121414ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/头像/佳巴尔_佳巴尔_Kareem Abdul-Jabbar/spriteFrame Error: Bundle resources doesn't contain images/头像/佳巴尔_佳巴尔_Kareem Abdul-Jabbar/spriteFrame
+    at _loop2 (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:29:17 @ http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:30
+[  121414ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/头像/侃宁安_侃宁安_Cade Cunningham/spriteFrame Error: Bundle resources doesn't contain images/头像/侃宁安_侃宁安_Cade Cunningham/spriteFrame
+    at _loop2 (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:29:17 @ http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:30
+[  121414ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/头像/假米森_假米森_Antawn Jamison/spriteFrame Error: Bundle resources doesn't contain images/头像/假米森_假米森_Antawn Jamison/spriteFrame
+    at _loop2 (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:29:17 @ http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:30
+[  121414ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/头像/傲拉朱旺_傲拉朱旺_Hakeem Olajuwon/spriteFrame Error: Bundle resources doesn't contain images/头像/傲拉朱旺_傲拉朱旺_Hakeem Olajuwon/spriteFrame
+    at _loop2 (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:29:17 @ http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:30
+[  121415ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/头像/卖迪_卖迪_Tracy McGrady/spriteFrame Error: Bundle resources doesn't contain images/头像/卖迪_卖迪_Tracy McGrady/spriteFrame
+    at _loop2 (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:29:17 @ http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:30
+[  121646ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/头像/JR史秘司_JR史秘司_J.R. Smith/spriteFrame Error: Bundle resources doesn't contain images/头像/JR史秘司_JR史秘司_J.R. Smith/spriteFrame
+    at _loop2 (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:29:17 @ http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:30
+[  121647ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/头像/佳巴尔_佳巴尔_Kareem Abdul-Jabbar/spriteFrame Error: Bundle resources doesn't contain images/头像/佳巴尔_佳巴尔_Kareem Abdul-Jabbar/spriteFrame
+    at _loop2 (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:29:17 @ http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:30
+[  121647ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/头像/侃宁安_侃宁安_Cade Cunningham/spriteFrame Error: Bundle resources doesn't contain images/头像/侃宁安_侃宁安_Cade Cunningham/spriteFrame
+    at _loop2 (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:29:17 @ http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:30
+[  121647ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/头像/侨丹_侨丹_Michael Jordan/spriteFrame Error: Bundle resources doesn't contain images/头像/侨丹_侨丹_Michael Jordan/spriteFrame
+    at _loop2 (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:29:17 @ http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:30
+[  121648ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/头像/侨治_侨治_Paul George/spriteFrame Error: Bundle resources doesn't contain images/头像/侨治_侨治_Paul George/spriteFrame
+    at _loop2 (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:29:17 @ http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:30
+[  121648ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/头像/假米森_假米森_Antawn Jamison/spriteFrame Error: Bundle resources doesn't contain images/头像/假米森_假米森_Antawn Jamison/spriteFrame
+    at _loop2 (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:29:17 @ http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:30
+[  121648ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/头像/傲拉朱旺_傲拉朱旺_Hakeem Olajuwon/spriteFrame Error: Bundle resources doesn't contain images/头像/傲拉朱旺_傲拉朱旺_Hakeem Olajuwon/spriteFrame
+    at _loop2 (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:29:17 @ http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:30
+[  121648ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/头像/傲登_傲登_Greg Oden/spriteFrame Error: Bundle resources doesn't contain images/头像/傲登_傲登_Greg Oden/spriteFrame
+    at _loop2 (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:29:17 @ http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:30
+[  121649ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/头像/冬契奇_冬契奇_Luka Dončić/spriteFrame Error: Bundle resources doesn't contain images/头像/冬契奇_冬契奇_Luka Dončić/spriteFrame
+    at _loop2 (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:29:17 @ http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:30
+[  121649ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/头像/卖迪_卖迪_Tracy McGrady/spriteFrame Error: Bundle resources doesn't contain images/头像/卖迪_卖迪_Tracy McGrady/spriteFrame
+    at _loop2 (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:29:17 @ http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:30
+[  121649ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/头像/吉德_吉德_Jason Kidd/spriteFrame Error: Bundle resources doesn't contain images/头像/吉德_吉德_Jason Kidd/spriteFrame
+    at _loop2 (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:29:17 @ http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:30
+[  121649ms] [ERROR] [PlayerAssets] Failed to load SpriteFrame: images/头像/哈灯_哈灯_James Harden/spriteFrame Error: Bundle resources doesn't contain images/头像/哈灯_哈灯_James Harden/spriteFrame
+    at _loop2 (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256699:25)
+    at _loop (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256750:15)
+    at parse (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:256762:11)
+    at Pipeline.sync (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255505:26)
+    at preprocess (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255621:53)
+    at Pipeline._flow (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255550:11)
+    at Pipeline.async (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:255545:16)
+    at AssetManager.loadAny (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:248962:20)
+    at Bundle.load (http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:250520:33)
+    at http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:29:17 @ http://localhost:7456/scripting/x/chunks/9b/9bf8d841aa6431ea45b48c43d1e5487a293e1d50.js:30
+[  186617ms] [TIMEEND] Init Base: 0.201171875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[  186655ms] [TIMEEND] Init Infrastructure: 37.868896484375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[  186669ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  186674ms] [LOG] [PHYSICS2D]: register box2d. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  187132ms] [TIMEEND] Init SubSystem: 444.10302734375 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[  187132ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  187676ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  187686ms] [TIMEEND] Init Project: 553.671142578125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[  386000ms] [TIMEEND] LoadScene Match: 119.674072265625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  453360ms] [TIMEEND] Init Base: 0.135986328125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[  453392ms] [TIMEEND] Init Infrastructure: 31.680908203125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[  453411ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  453418ms] [LOG] [PHYSICS2D]: register box2d. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  453529ms] [TIMEEND] Init SubSystem: 98.199951171875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[  453529ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  453605ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  453614ms] [TIMEEND] Init Project: 84.43408203125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[  465626ms] [TIMEEND] Init Base: 0.1689453125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[  465661ms] [TIMEEND] Init Infrastructure: 33.804931640625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[  465670ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  465675ms] [LOG] [PHYSICS2D]: register box2d. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  465791ms] [TIMEEND] Init SubSystem: 103.406982421875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[  465792ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  465846ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  465853ms] [TIMEEND] Init Project: 61.85205078125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[  533662ms] [TIMEEND] LoadScene Match: 122.806884765625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  593800ms] [ERROR] getComponent: Type must be non-nil @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287

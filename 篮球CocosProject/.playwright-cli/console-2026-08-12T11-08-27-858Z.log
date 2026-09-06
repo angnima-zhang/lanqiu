@@ -1,0 +1,259 @@
+[    3736ms] [TIMEEND] Init Base: 0.43896484375 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[    3775ms] [TIMEEND] Init Infrastructure: 38.754150390625 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[    3790ms] [LOG] meshopt wasm decoder initialized @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    3973ms] [TIMEEND] Init SubSystem: 164.205078125 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[    3973ms] [LOG] Cocos Creator v3.8.7 @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    4425ms] [LOG] Using custom pipeline: Builtin @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    4437ms] [TIMEEND] Init Project: 463.446044921875 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[    4981ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/f3/f30597aa-7af9-4370-a00a-d06396c627c0@f9941.json:0
+[    5431ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/0d/0dc8670f-38ad-4701-a657-aed52f836c18@f9941.json:0
+[    5614ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/c1/c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941.json:0
+[    7517ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/dd/dd5791e8-c745-4c1b-909f-e53eff2cca33@f9941.json:0
+[   11403ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/f3/f30597aa-7af9-4370-a00a-d06396c627c0@f9941.json:0
+[   11403ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/c1/c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941.json:0
+[   11404ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[   11405ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[   11406ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[   11406ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[   11406ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[   11407ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/0d/0dc8670f-38ad-4701-a657-aed52f836c18@f9941.json:0
+[   11407ms] [ERROR] The asset 0dc8670f-38ad-4701-a657-aed52f836c18@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[   11410ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/dd/dd5791e8-c745-4c1b-909f-e53eff2cca33@f9941.json:0
+[   11410ms] [ERROR] The asset dd5791e8-c745-4c1b-909f-e53eff2cca33@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[   11414ms] [ERROR] The asset f30597aa-7af9-4370-a00a-d06396c627c0@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[   11421ms] [TIMEEND] LoadScene Homepage: 190.524169921875 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[   11474ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质1/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[   11474ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质2/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[   11475ms] [ERROR] The asset 0dc8670f-38ad-4701-a657-aed52f836c18@f9941 used by 备赛页面{cc.Prefab(67a1f5ec-b001-4b7a-9215-e89bb1b9adf0)} is missing! 
+Node path: 备赛页面/备赛
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[   11481ms] [ERROR] The asset dd5791e8-c745-4c1b-909f-e53eff2cca33@f9941 used by 球员-主页球场模拟{cc.Prefab(654e0c33-e3ba-4e86-903d-dfced99ea5d3)} is missing! 
+Node path: 球员-主页球场模拟/边框
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[   11482ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质3/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[   11483ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质4/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[   11483ms] [ERROR] The asset f30597aa-7af9-4370-a00a-d06396c627c0@f9941 used by Homepage{cc.SceneAsset(902a6c7c-3881-42ec-b859-19e8df1082a1)} is missing! 
+PropName: value @ http://127.0.0.1:7456/preview-app/main.js:4
+[   11483ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质5/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[  643522ms] [TIMEEND] Init Base: 0.599853515625 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[  643566ms] [TIMEEND] Init Infrastructure: 42.864013671875 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[  643584ms] [LOG] meshopt wasm decoder initialized @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  643796ms] [TIMEEND] Init SubSystem: 184.14208984375 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[  643797ms] [LOG] Cocos Creator v3.8.7 @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  643935ms] [LOG] Using custom pipeline: Builtin @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  643948ms] [TIMEEND] Init Project: 151.219970703125 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[  644404ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/f3/f30597aa-7af9-4370-a00a-d06396c627c0@f9941.json:0
+[  644906ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/0d/0dc8670f-38ad-4701-a657-aed52f836c18@f9941.json:0
+[  645053ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/c1/c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941.json:0
+[  646789ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/dd/dd5791e8-c745-4c1b-909f-e53eff2cca33@f9941.json:0
+[  650579ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/f3/f30597aa-7af9-4370-a00a-d06396c627c0@f9941.json:0
+[  650580ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/c1/c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941.json:0
+[  650580ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[  650582ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[  650583ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[  650584ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[  650584ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[  650585ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/0d/0dc8670f-38ad-4701-a657-aed52f836c18@f9941.json:0
+[  650585ms] [ERROR] The asset 0dc8670f-38ad-4701-a657-aed52f836c18@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[  650590ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/dd/dd5791e8-c745-4c1b-909f-e53eff2cca33@f9941.json:0
+[  650591ms] [ERROR] The asset dd5791e8-c745-4c1b-909f-e53eff2cca33@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[  650596ms] [ERROR] The asset f30597aa-7af9-4370-a00a-d06396c627c0@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[  650600ms] [TIMEEND] LoadScene Homepage: 245.93603515625 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  650678ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质1/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[  650679ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质2/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[  650680ms] [ERROR] The asset 0dc8670f-38ad-4701-a657-aed52f836c18@f9941 used by 备赛页面{cc.Prefab(67a1f5ec-b001-4b7a-9215-e89bb1b9adf0)} is missing! 
+Node path: 备赛页面/备赛
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[  650680ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质3/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[  650681ms] [ERROR] The asset dd5791e8-c745-4c1b-909f-e53eff2cca33@f9941 used by 球员-主页球场模拟{cc.Prefab(654e0c33-e3ba-4e86-903d-dfced99ea5d3)} is missing! 
+Node path: 球员-主页球场模拟/边框
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[  650681ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质4/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[  650682ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质5/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[  650683ms] [ERROR] The asset f30597aa-7af9-4370-a00a-d06396c627c0@f9941 used by Homepage{cc.SceneAsset(902a6c7c-3881-42ec-b859-19e8df1082a1)} is missing! 
+PropName: value @ http://127.0.0.1:7456/preview-app/main.js:4
+[  850478ms] [TIMEEND] Init Base: 0.14501953125 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[  850515ms] [TIMEEND] Init Infrastructure: 37.31396484375 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[  850529ms] [LOG] meshopt wasm decoder initialized @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  850687ms] [TIMEEND] Init SubSystem: 135.43212890625 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[  850687ms] [LOG] Cocos Creator v3.8.7 @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  850813ms] [LOG] Using custom pipeline: Builtin @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  850822ms] [TIMEEND] Init Project: 134.72900390625 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[  851228ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/f3/f30597aa-7af9-4370-a00a-d06396c627c0@f9941.json:0
+[  851696ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/0d/0dc8670f-38ad-4701-a657-aed52f836c18@f9941.json:0
+[  851878ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/c1/c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941.json:0
+[  853581ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/dd/dd5791e8-c745-4c1b-909f-e53eff2cca33@f9941.json:0
+[  857242ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/f3/f30597aa-7af9-4370-a00a-d06396c627c0@f9941.json:0
+[  857242ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/c1/c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941.json:0
+[  857243ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[  857244ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[  857245ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[  857245ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[  857246ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[  857246ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/0d/0dc8670f-38ad-4701-a657-aed52f836c18@f9941.json:0
+[  857247ms] [ERROR] The asset 0dc8670f-38ad-4701-a657-aed52f836c18@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[  857250ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/dd/dd5791e8-c745-4c1b-909f-e53eff2cca33@f9941.json:0
+[  857251ms] [ERROR] The asset dd5791e8-c745-4c1b-909f-e53eff2cca33@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[  857255ms] [ERROR] The asset f30597aa-7af9-4370-a00a-d06396c627c0@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[  857259ms] [TIMEEND] LoadScene Homepage: 248.81103515625 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  857323ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质1/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[  857324ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质2/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[  857324ms] [ERROR] The asset 0dc8670f-38ad-4701-a657-aed52f836c18@f9941 used by 备赛页面{cc.Prefab(67a1f5ec-b001-4b7a-9215-e89bb1b9adf0)} is missing! 
+Node path: 备赛页面/备赛
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[  857325ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质3/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[  857325ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质4/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[  857326ms] [ERROR] The asset dd5791e8-c745-4c1b-909f-e53eff2cca33@f9941 used by 球员-主页球场模拟{cc.Prefab(654e0c33-e3ba-4e86-903d-dfced99ea5d3)} is missing! 
+Node path: 球员-主页球场模拟/边框
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[  857326ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质5/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[  857327ms] [ERROR] The asset f30597aa-7af9-4370-a00a-d06396c627c0@f9941 used by Homepage{cc.SceneAsset(902a6c7c-3881-42ec-b859-19e8df1082a1)} is missing! 
+PropName: value @ http://127.0.0.1:7456/preview-app/main.js:4
+[  872177ms] [TIMEEND] Init Base: 0.260009765625 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[  872208ms] [TIMEEND] Init Infrastructure: 31.532958984375 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[  872220ms] [LOG] meshopt wasm decoder initialized @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  872375ms] [TIMEEND] Init SubSystem: 136.93701171875 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[  872375ms] [LOG] Cocos Creator v3.8.7 @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  872479ms] [LOG] Using custom pipeline: Builtin @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[  872487ms] [TIMEEND] Init Project: 111.68408203125 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[  872847ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/f3/f30597aa-7af9-4370-a00a-d06396c627c0@f9941.json:0
+[  873299ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/0d/0dc8670f-38ad-4701-a657-aed52f836c18@f9941.json:0
+[  873466ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/c1/c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941.json:0
+[  875285ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/dd/dd5791e8-c745-4c1b-909f-e53eff2cca33@f9941.json:0
+[  878877ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/f3/f30597aa-7af9-4370-a00a-d06396c627c0@f9941.json:0
+[  878878ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/c1/c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941.json:0
+[  878878ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[  878879ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[  878880ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[  878880ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[  878881ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[  878882ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/0d/0dc8670f-38ad-4701-a657-aed52f836c18@f9941.json:0
+[  878883ms] [ERROR] The asset 0dc8670f-38ad-4701-a657-aed52f836c18@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[  878887ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/dd/dd5791e8-c745-4c1b-909f-e53eff2cca33@f9941.json:0
+[  878887ms] [ERROR] The asset dd5791e8-c745-4c1b-909f-e53eff2cca33@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[  878894ms] [ERROR] The asset f30597aa-7af9-4370-a00a-d06396c627c0@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[  878897ms] [TIMEEND] LoadScene Homepage: 232.041015625 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[  878955ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质1/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[  878956ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质2/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[  878956ms] [ERROR] The asset 0dc8670f-38ad-4701-a657-aed52f836c18@f9941 used by 备赛页面{cc.Prefab(67a1f5ec-b001-4b7a-9215-e89bb1b9adf0)} is missing! 
+Node path: 备赛页面/备赛
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[  878957ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质3/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[  878957ms] [ERROR] The asset dd5791e8-c745-4c1b-909f-e53eff2cca33@f9941 used by 球员-主页球场模拟{cc.Prefab(654e0c33-e3ba-4e86-903d-dfced99ea5d3)} is missing! 
+Node path: 球员-主页球场模拟/边框
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[  878958ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质4/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[  878958ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质5/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[  878959ms] [ERROR] The asset f30597aa-7af9-4370-a00a-d06396c627c0@f9941 used by Homepage{cc.SceneAsset(902a6c7c-3881-42ec-b859-19e8df1082a1)} is missing! 
+PropName: value @ http://127.0.0.1:7456/preview-app/main.js:4
+[ 1008474ms] [TIMEEND] Init Base: 0.296142578125 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[ 1008504ms] [TIMEEND] Init Infrastructure: 30.2099609375 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[ 1008516ms] [LOG] meshopt wasm decoder initialized @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[ 1008695ms] [TIMEEND] Init SubSystem: 154.60400390625 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[ 1008695ms] [LOG] Cocos Creator v3.8.7 @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[ 1008797ms] [LOG] Using custom pipeline: Builtin @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[ 1008809ms] [TIMEEND] Init Project: 113.468017578125 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[ 1009170ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/f3/f30597aa-7af9-4370-a00a-d06396c627c0@f9941.json:0
+[ 1009569ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/0d/0dc8670f-38ad-4701-a657-aed52f836c18@f9941.json:0
+[ 1009736ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/c1/c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941.json:0
+[ 1011422ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/dd/dd5791e8-c745-4c1b-909f-e53eff2cca33@f9941.json:0
+[ 1015032ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/f3/f30597aa-7af9-4370-a00a-d06396c627c0@f9941.json:0
+[ 1015033ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/c1/c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941.json:0
+[ 1015034ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[ 1015035ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[ 1015037ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[ 1015038ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[ 1015039ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[ 1015039ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/0d/0dc8670f-38ad-4701-a657-aed52f836c18@f9941.json:0
+[ 1015040ms] [ERROR] The asset 0dc8670f-38ad-4701-a657-aed52f836c18@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[ 1015043ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:7456/assets/main/import/dd/dd5791e8-c745-4c1b-909f-e53eff2cca33@f9941.json:0
+[ 1015044ms] [ERROR] The asset dd5791e8-c745-4c1b-909f-e53eff2cca33@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[ 1015050ms] [ERROR] The asset f30597aa-7af9-4370-a00a-d06396c627c0@f9941 is missing! @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240287
+[ 1015054ms] [TIMEEND] LoadScene Homepage: 236.416015625 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[ 1015127ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质1/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[ 1015128ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质2/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[ 1015128ms] [ERROR] The asset 0dc8670f-38ad-4701-a657-aed52f836c18@f9941 used by 备赛页面{cc.Prefab(67a1f5ec-b001-4b7a-9215-e89bb1b9adf0)} is missing! 
+Node path: 备赛页面/备赛
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[ 1015129ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质3/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[ 1015129ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质4/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[ 1015130ms] [ERROR] The asset dd5791e8-c745-4c1b-909f-e53eff2cca33@f9941 used by 球员-主页球场模拟{cc.Prefab(654e0c33-e3ba-4e86-903d-dfced99ea5d3)} is missing! 
+Node path: 球员-主页球场模拟/边框
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[ 1015130ms] [ERROR] The asset c1b029d3-ed0e-4e66-be21-e3e8e9dd90dc@f9941 used by 招募概率弹窗{cc.Prefab(934dae13-507f-462e-bda7-912218a57bfe)} is missing! 
+Node path: 招募概率弹窗/五档品质概率/品质5/细边框01
+PropName: _spriteFrame @ http://127.0.0.1:7456/preview-app/main.js:4
+[ 1015131ms] [ERROR] The asset f30597aa-7af9-4370-a00a-d06396c627c0@f9941 used by Homepage{cc.SceneAsset(902a6c7c-3881-42ec-b859-19e8df1082a1)} is missing! 
+PropName: value @ http://127.0.0.1:7456/preview-app/main.js:4
+[ 1763859ms] [TIMEEND] Init Base: 0.59912109375 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[ 1763890ms] [TIMEEND] Init Infrastructure: 31.162109375 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[ 1763905ms] [LOG] meshopt wasm decoder initialized @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[ 1764069ms] [TIMEEND] Init SubSystem: 139.906982421875 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[ 1764070ms] [LOG] Cocos Creator v3.8.7 @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[ 1764191ms] [LOG] Using custom pipeline: Builtin @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[ 1764202ms] [TIMEEND] Init Project: 131.908203125 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[ 1770782ms] [TIMEEND] LoadScene Homepage: 273.613037109375 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[ 1835815ms] [TIMEEND] Init Base: 0.349853515625 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[ 1835846ms] [TIMEEND] Init Infrastructure: 30.572021484375 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[ 1835858ms] [LOG] meshopt wasm decoder initialized @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[ 1836040ms] [TIMEEND] Init SubSystem: 158.84716796875 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[ 1836040ms] [LOG] Cocos Creator v3.8.7 @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[ 1836138ms] [LOG] Using custom pipeline: Builtin @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[ 1836146ms] [TIMEEND] Init Project: 105.73291015625 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[ 1842762ms] [TIMEEND] LoadScene Homepage: 265.491943359375 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[ 1843621ms] [TIMEEND] Init Base: 0.31494140625 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[ 1843651ms] [TIMEEND] Init Infrastructure: 29.925048828125 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[ 1843660ms] [LOG] meshopt wasm decoder initialized @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[ 1843814ms] [TIMEEND] Init SubSystem: 135.172119140625 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[ 1843814ms] [LOG] Cocos Creator v3.8.7 @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[ 1843898ms] [LOG] Using custom pipeline: Builtin @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[ 1843906ms] [TIMEEND] Init Project: 91.89208984375 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[ 1850478ms] [TIMEEND] LoadScene Homepage: 257.4970703125 ms @ http://127.0.0.1:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086

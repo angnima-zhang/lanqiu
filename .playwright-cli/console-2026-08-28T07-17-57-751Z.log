@@ -1,0 +1,13 @@
+[     890ms] [TIMEEND] Init Base: 0.3291015625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19022
+[     917ms] [TIMEEND] Init Infrastructure: 26.5361328125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19071
+[     928ms] [WARNING] [.WebGL-0x66ec001ad600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels @ http://localhost:7456/:0
+[     932ms] [LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1063ms] [TIMEEND] Init SubSystem: 114.18701171875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19118
+[    1063ms] [LOG] Cocos Creator v3.8.7 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1185ms] [LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:240261
+[    1198ms] [TIMEEND] Init Project: 134.65087890625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:19164
+[    1224ms] [WARNING] [.WebGL-0x66ec001ad600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels @ http://localhost:7456/:0
+[    1229ms] [WARNING] [.WebGL-0x66ec001ad600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels @ http://localhost:7456/:0
+[    1249ms] [WARNING] [.WebGL-0x66ec001ad600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat) @ http://localhost:7456/:0
+[    7736ms] [TIMEEND] LoadScene Homepage: 173.93994140625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:18086
+[    7764ms] [INFO] [HomepageDebugManager] 启动时已清除 3 项存档。 @ http://localhost:7456/scripting/x/chunks/6f/6f34f2fb3a1536473b013f9cb57d4caac4be034e.js:65
